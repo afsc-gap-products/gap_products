@@ -26,8 +26,8 @@ a <- c(
   # Age comps
   "HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM",
   "HAEHNR.AGECOMP_NBS_STRATUM", 
-  "AI.AGECOMP_STRATUM", 
-  "GOA.AGECOMP_STRATUM",
+  "AI.AGECOMP_TOTAL", 
+  "GOA.AGECOMP_TOTAL",
   # We currently do not know where BSS age comp data are/were ever made?
   
   # size comp - the extrapolated size distributions of each fish
@@ -64,7 +64,7 @@ cpue_data <- dplyr::bind_rows(
   crab_gap_ebs_nbs_crab_cpue0 %>% 
     dplyr::rename(year = survey_year) %>% 
     dplyr::mutate(cpue_kgha = cpuewgt_total, 
-                  cpue_noha = cpuenum_total) %>%
+                  cpue_noha = cpuenum_total), 
   # NBS data
   nbsshelf_nbs_cpue0 %>% 
     dplyr::mutate(SRVY = "NBS", 
@@ -262,5 +262,83 @@ comp_data <- dplyr::bind_rows(
   dplyr::mutate(stratum = ifelse(stratum %in% c(999), 999999, stratum))
 
 # Check work -------------------------------------------------------------------
+
+# Load to Oracle ---------------------------------------------------------------
+
+# This has a specific username and password because I DONT want people to have access to this!
+# source("C:/Users/emily.markowitz/Work/Projects/ConnectToOracle.R")
+# source("C:/Users/emily.markowitz/Documents/Projects/ConnectToOracle.R")
+source("Z:/Projects/ConnectToOracle.R")
+
+# I set up a ConnectToOracle.R that looks like this: 
+#   
+#   PKG <- c("RODBC")
+# for (p in PKG) {
+#   if(!require(p,character.only = TRUE)) {  
+#     install.packages(p)
+#     require(p,character.only = TRUE)}
+# }
+# 
+# channel<-odbcConnect(dsn = "AFSC",
+#                      uid = "USERNAME", # change
+#                      pwd = "PASSWORD", #change
+#                      believeNRows = FALSE)
+# 
+# odbcGetInfo(channel)
+
+all_schemas <- RODBC::sqlQuery(channel = channel,
+                               query = paste0('SELECT * FROM all_users;'))
+
+## BIOMASS_ABUNDANCE -----------------------------------------------------------
+
+BIOMASS_ABUNDANCE <- bio_abund_data
+names(BIOMASS_ABUNDANCE) <- toupper(names(BIOMASS_ABUNDANCE))
+
+RODBC::sqlDrop(channel = channel, 
+               sqtable = "BIOMASS_ABUNDANCE")
+
+RODBC::sqlSave(channel = channel, 
+               dat = BIOMASS_ABUNDANCE)
+
+for (i in 1:length(sort(all_schemas$USERNAME))) {
+  RODBC::sqlQuery(channel = channel,
+                  query = paste0('grant select on MARKOWITZE.BIOMASS_ABUNDANCE to ',
+                                 all_schemas$USERNAME[i],';'))
+}
+
+## CPUE --------------------------------------------------------------
+
+CPUE <- cpue_data
+names(CPUE) <- toupper(names(CPUE))
+
+RODBC::sqlDrop(channel = channel, 
+               sqtable = "CPUE")
+
+RODBC::sqlSave(channel = channel, 
+               dat = CPUE)
+
+for (i in 1:length(sort(all_schemas$USERNAME))) {
+  RODBC::sqlQuery(channel = channel,
+                  query = paste0('grant select on MARKOWITZE.CPUE to ',
+                                 all_schemas$USERNAME[i],';'))
+}
+
+
+## COMP_AGE_SIZE --------------------------------------------------------------
+
+COMP_AGE_SIZE <- comp_data
+names(COMP_AGE_SIZE) <- toupper(names(COMP_AGE_SIZE))
+
+RODBC::sqlDrop(channel = channel, 
+               sqtable = "COMP_AGE_SIZE")
+
+RODBC::sqlSave(channel = channel, 
+               dat = COMP_AGE_SIZE)
+
+for (i in 1:length(sort(all_schemas$USERNAME))) {
+  RODBC::sqlQuery(channel = channel,
+                  query = paste0('grant select on MARKOWITZE.COMP_AGE_SIZE to ',
+                                 all_schemas$USERNAME[i],';'))
+}
 
 
