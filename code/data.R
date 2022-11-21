@@ -7,13 +7,14 @@
 
 # Load Data --------------------------------------------------------------------
 
-## Oracle Data -----------------------------------------------------------------
-a <- list.files(path = here::here("data", "oracle"))
-a <- a[!grepl(pattern = "cpue_", x = a)]
-a <- a[!grepl(pattern = "empty", x = a)]
+## LOAD Data -----------------------------------------------------------------
+a <- c(list.files(path = dir_data, pattern = "racebase."), 
+       list.files(path = dir_data, pattern = "race_data."), 
+       "spp_info.csv", 
+       "taxon_confidence.csv")
 for (i in 1:length(a)){
   print(a[i])
-  b <- readr::read_csv(file = paste0(here::here("data", "oracle", a[i]))) %>% 
+  b <- readr::read_csv(file = paste0(dir_data, a[i])) %>% 
     janitor::clean_names(.)
   if (names(b)[1] %in% "x1"){
     b$x1<-NULL
@@ -22,117 +23,120 @@ for (i in 1:length(a)){
 }
 
 ## Taxonomic confidence data ---------------------------------------------------
-if (taxize0) {
-df.ls <- list()
-a <- list.files(path = here::here("data", "taxon_confidence"))
-a <- a[a != "taxon_confidence.csv"]
-for (i in 1:length(a)){
-  print(a[i])
-  b <- readxl::read_xlsx(path = paste0(here::here("data", "taxon_confidence", a[i])), 
-                         skip = 1, col_names = TRUE) %>% 
-    dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
-    janitor::clean_names() %>% 
-    dplyr::rename(species_code = code)
-  if (sum(names(b) %in% "quality_codes")>0) {
-    b$quality_codes<-NULL
-  }
-  b <- b %>% 
-    tidyr::pivot_longer(cols = starts_with("x"), 
-                        names_to = "year", 
-                        values_to = "tax_conf") %>% 
-    dplyr::mutate(year = 
-                    as.numeric(gsub(pattern = "[a-z]", 
-                                    replacement = "", 
-                                    x = year))) %>% 
-    dplyr::distinct()
-  
-  cc <- strsplit(x = gsub(x = gsub(x = a[i], 
-                                   pattern = "Taxon_confidence_", replacement = ""), 
-                          pattern = ".xlsx", 
-                          replacement = ""), 
-                 split = "_")[[1]]
-  
-  if (length(cc) == 1) {
-    b$SRVY <- cc
-  } else {
-    bb <- data.frame()
-    for (ii in 1:length(cc)){
-      bbb <- b
-      bbb$SRVY <- cc[ii]
-      bb <- rbind.data.frame(bb, bbb)
+
+tax_conf <- taxon_confidence0%>% 
+  dplyr::rename(SRVY = srvy)
+if (FALSE) {
+    df.ls <- list()
+    a <- list.files(path = here::here("data", "taxon_confidence"))
+    a <- a[a != "taxon_confidence.csv"]
+    for (i in 1:length(a)){
+      print(a[i])
+      b <- readxl::read_xlsx(path = paste0(here::here("data", "taxon_confidence", a[i])), 
+                             skip = 1, col_names = TRUE) %>% 
+        dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
+        janitor::clean_names() %>% 
+        dplyr::rename(species_code = code)
+      if (sum(names(b) %in% "quality_codes")>0) {
+        b$quality_codes<-NULL
+      }
+      b <- b %>% 
+        tidyr::pivot_longer(cols = starts_with("x"), 
+                            names_to = "year", 
+                            values_to = "tax_conf") %>% 
+        dplyr::mutate(year = 
+                        as.numeric(gsub(pattern = "[a-z]", 
+                                        replacement = "", 
+                                        x = year))) %>% 
+        dplyr::distinct()
+      
+      cc <- strsplit(x = gsub(x = gsub(x = a[i], 
+                                       pattern = "Taxon_confidence_", replacement = ""), 
+                              pattern = ".xlsx", 
+                              replacement = ""), 
+                     split = "_")[[1]]
+      
+      if (length(cc) == 1) {
+        b$SRVY <- cc
+      } else {
+        bb <- data.frame()
+        for (ii in 1:length(cc)){
+          bbb <- b
+          bbb$SRVY <- cc[ii]
+          bb <- rbind.data.frame(bb, bbb)
+        }
+        b<-bb
+      }
+      df.ls[[i]]<-b
+      names(df.ls)[i]<-a[i]
     }
-    b<-bb
+    
+    # any duplicates in any taxon confidence tables?
+    # SameColNames(df.ls) %>%
+    #        dplyr::group_by(srvy) %>%
+    #        dplyr::filter(year == min(year)) %>%
+    #        dplyr::ungroup() %>%
+    #        dplyr::select(species_code, srvy) %>%
+    #        table() %>% # sets up frequency table
+    #        data.frame() %>%
+    #        dplyr::filter(Freq > 1)
+    
+    # Quality Codes
+    # 1 – High confidence and consistency.  Taxonomy is stable and reliable at this 
+    #     level, and field identification characteristics are well known and reliable.
+    # 2 – Moderate confidence.  Taxonomy may be questionable at this level, or field  
+    #     identification characteristics may be variable and difficult to assess consistently.
+    # 3 – Low confidence.  Taxonomy is incompletely known, or reliable field  
+    #     identification characteristics are unknown.
+    
+    tax_conf <- SameColNames(df.ls) %>% 
+      dplyr::rename(SRVY = srvy) %>%
+      dplyr::mutate(tax_conf0 = tax_conf, 
+                    tax_conf = dplyr::case_when(
+                      tax_conf == 1 ~ "High",
+                      tax_conf == 2 ~ "Moderate",
+                      tax_conf == 3 ~ "Low", 
+                      TRUE ~ "Unassessed"))
+    
+    readr::write_csv(x = tax_conf, 
+                     file = paste0(getwd(), "/data/taxon_confidence.csv"))
+    
+    save(tax_conf, file = paste0(getwd(), "/data/taxon_confidence.rdata"))
+    
   }
-  df.ls[[i]]<-b
-  names(df.ls)[i]<-a[i]
-}
-
-# any duplicates in any taxon confidence tables?
-# SameColNames(df.ls) %>%
-#        dplyr::group_by(srvy) %>%
-#        dplyr::filter(year == min(year)) %>%
-#        dplyr::ungroup() %>%
-#        dplyr::select(species_code, srvy) %>%
-#        table() %>% # sets up frequency table
-#        data.frame() %>%
-#        dplyr::filter(Freq > 1)
-
-# Quality Codes
-# 1 – High confidence and consistency.  Taxonomy is stable and reliable at this 
-#     level, and field identification characteristics are well known and reliable.
-# 2 – Moderate confidence.  Taxonomy may be questionable at this level, or field  
-#     identification characteristics may be variable and difficult to assess consistently.
-# 3 – Low confidence.  Taxonomy is incompletely known, or reliable field  
-#     identification characteristics are unknown.
-
-tax_conf <- SameColNames(df.ls) %>% 
-  dplyr::rename(SRVY = srvy) %>%
-  dplyr::mutate(tax_conf0 = tax_conf, 
-                tax_conf = dplyr::case_when(
-    tax_conf == 1 ~ "High",
-    tax_conf == 2 ~ "Moderate",
-    tax_conf == 3 ~ "Low", 
-    TRUE ~ "Unassessed"))
-
-readr::write_csv(x = tax_conf, 
-                 file = paste0(getwd(), "/data/taxon_confidence.csv"))
-
-save(tax_conf, file = paste0(getwd(), "/data/taxon_confidence.rdata"))
-
-}
-# Wrangle Data -----------------------------------------------------------------
-
-## Species info ----------------------------------------------------------------
-if (taxize0){
-  spp_info <-
-    # dplyr::left_join(
+  # Wrangle Data -----------------------------------------------------------------
+  
+  ## Species info ----------------------------------------------------------------
+  if (taxize0){
+    spp_info <-
+      # dplyr::left_join(
       # x =
-    species0 %>%
-        dplyr::select(species_code, common_name, species_name) %>% # ,
+      racebase_species0 %>%
+      dplyr::select(species_code, common_name, species_name) %>% # ,
       # y = species_taxonomics0 %>%
-        # dplyr::select(),
+      # dplyr::select(),
       # by = c("")) %>%
-    dplyr::rename(scientific_name = species_name) %>%
-    dplyr::mutate( # fix rouge spaces in species names
-      common_name = ifelse(is.na(common_name), "", common_name),
-      common_name = gsub(pattern = "  ", replacement = " ",
-                         x = trimws(common_name), fixed = TRUE),
-      scientific_name = ifelse(is.na(scientific_name), "", scientific_name),
-      scientific_name = gsub(pattern = "  ", replacement = " ",
-                             x = trimws(scientific_name), fixed = TRUE), 
-      itis = NA, 
-      worms = NA) # made if taxize0 == TRUE
-} else {
-load(file = "./data/spp_info.rdata")
-spp_info <- spp_info %>% 
-  dplyr::select(-notes_itis, -notes_worms)
-}
+      dplyr::rename(scientific_name = species_name) %>%
+      dplyr::mutate( # fix rouge spaces in species names
+        common_name = ifelse(is.na(common_name), "", common_name),
+        common_name = gsub(pattern = "  ", replacement = " ",
+                           x = trimws(common_name), fixed = TRUE),
+        scientific_name = ifelse(is.na(scientific_name), "", scientific_name),
+        scientific_name = gsub(pattern = "  ", replacement = " ",
+                               x = trimws(scientific_name), fixed = TRUE), 
+        itis = NA, 
+        worms = NA) # made if taxize0 == TRUE
+  } else {
+    load(file = "./data/spp_info.rdata")
+    spp_info <- spp_info %>% 
+      dplyr::select(-notes_itis, -notes_worms)
+  }
 
 ## cruises ---------------------------------------------------------------------
 cruises <-  
   dplyr::left_join(
     x = surveys, # a data frame of all surveys and survey_definition_ids we want included in the public data, created in the run.R script
-    y = v_cruises0, 
+    y = race_data_v_cruises0, 
     by  = c("survey_definition_id")) %>% 
   dplyr::select(SRVY, SRVY_long, region, cruise_id,  year, survey_name, 
                 vessel_id, cruise, survey_definition_id, 
@@ -159,43 +163,13 @@ cruises <-
 
 ## haul ------------------------------------------------------------------------
 
-# If you group the data by with `srvy`, `cruise`, `stratum`, `station`, and `vessel_id` (NOT `hauljoin` or `haul`, as done below) you find that there were several stratum-stations appear to be sampled right after the initial haul. This is because the stations in the GOA/AI surveys were regridded. These stations are in fact legit and will be kept in the data. 
-# 
-# # don't include haul/hauljoin
-# haul0 %>% 
-#   dplyr::filter(abundance_haul == "Y" & 
-#                   haul_type == 3 & 
-#                   performance >= 0) %>% 
-#   dplyr::mutate(id = paste0(region,"_",cruise,"_",stratum,"_",stationid,"_",vessel)) %>%
-#   dplyr::select(id) %>%
-#   table() %>% 
-#   data.frame() %>% 
-#   dplyr::filter(Freq > 1) 
-# 
-# # include haul/hauljoin
-# haul0 %>% 
-#   dplyr::filter(abundance_haul == "Y" & 
-#                   haul_type == 3 & 
-#                   performance >= 0) %>% 
-#   dplyr::mutate(id = paste0(region,"_",cruise,"_",stratum,"_",stationid,"_",vessel,"_",haul)) %>%
-#   dplyr::select(id) %>%
-#   table() %>% 
-#   data.frame() %>% 
-#   dplyr::filter(Freq > 1) 
-
-haul <- haul0 %>%
+haul <- racebase_haul0 %>%
   dplyr::filter(
     abundance_haul == "Y" & # defined historically as being good tows for abundance estimates
       haul_type == 3 & # standard non-retow or special proj tows
       performance >= 0 # &
-    # curious, but not removing, keeping in line with where abundance_haul = Y
-    # !(is.null(stationid)) & 
-    # !(is.na(stationid)) 
   ) %>% 
   dplyr::select(-auditjoin, -net_measured) # not valuable to us, here
-
-# > dim(haul) # 2021
-# [1] 34231    29
 
 ## catch -----------------------------------------------------------------------
 
@@ -213,7 +187,7 @@ haul <- haul0 %>%
 #   dplyr::rename("id" = ".") %>%
 #   dplyr::filter(Freq > 1)
 
-catch <- catch0 %>% 
+catch <- racebase_catch0 %>% 
   dplyr::group_by(region, cruisejoin, hauljoin, vessel, haul, species_code) %>% 
   dplyr::summarise(weight = sum(weight, na.rm = TRUE), 
                    number_fish = sum(number_fish, na.rm = TRUE))
@@ -222,7 +196,6 @@ catch <- catch0 %>%
 # [1] 1613670       8
 
 ## catch_haul_cruises ----------------------------------------------------------
-
 
 catch_haul_cruises <-
   dplyr::inner_join(
@@ -285,7 +258,7 @@ catch_haul_cruises <- catch_haul_cruises %>%
                    by = c("species_code", "SRVY", "year")) else .}  %>%
   dplyr::left_join(
     x = .,
-    y = vessels0 %>%
+    y = race_data_vessels0 %>%
       dplyr::select(vessel_id, name) %>%
       dplyr::rename(vessel_name = name) %>% 
       dplyr::mutate(vessel_name = stringr::str_to_title(vessel_name)), 

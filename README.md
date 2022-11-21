@@ -25,22 +25,68 @@ Seattle, WA 98195
 
 <!-- Use .bib file to cite reports in subsection titles -->
 
-**Documentation** **(Other documentation coming soon!)** (Markowitz et
-al., In review)
+**Documentation** **(Other documentation coming soon!)**
 
-<div id="refs" class="references csl-bib-body hanging-indent"
-line-spacing="2">
-
-<div id="ref-2022NEBS2022" class="csl-entry">
-
-Markowitz, E. H., Dawson, E. J., Charriere, N., Prohaska, B., Rohan, S.,
-Stevenson, D. E., and Britt, L. L. (In review). *Results of the 2022
-eastern and northern Bering Sea continental shelf bottom trawl survey of
-groundfish and invertebrate fauna* \[NOAA Tech. Memo.\].
+<div id="refs">
 
 </div>
 
-</div>
+# Access data via Oracle (AFSC-only)
+
+If you have access to the AFSC Oracle data base, you can pull the data
+directly from the Oracle schema these data are pulled from for FOSS.
+
+You will need to install the `RODBC` R package and have OFIS (IT)
+connect R to Oracle. Once connected, you can use the following code in R
+to connect to Oracle.
+
+``` r
+library("RODBC")
+
+channel<-odbcConnect(dsn = "AFSC",
+                     uid = "USERS_USERNAME", # change
+                     pwd = "USERS_PASSWORD", # change
+                     believeNRows = FALSE)
+
+odbcGetInfo(channel)
+```
+
+Then, you can pull and save (if you need) the table into your R
+environment.
+
+``` r
+# pull table from oracle into R environment
+a <- RODBC::sqlQuery(channel, "SELECT * FROM FAP_PRODUCTS.FOSS_CPUE_ZEROFILLED")
+# Save table to local directory
+write.csv(x = a, 
+          file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED.csv")
+```
+
+This is presence and absence data. This is a huge file and has all of
+the bells and whistles. For reference:
+
+    ## RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED: 
+    ##   rows: 36440900
+    ##   cols: 37
+    ##   4.513 GB
+
+If you only want to pull a small subset of the data (especially since
+files like `RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED` are so big), you can use
+a variation of the following code. Here, we are pulling EBS Pacific cod
+from 2010 - 2021:
+
+``` r
+# Pull data
+a <- RODBC::sqlQuery(channel, "SELECT * FROM RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED 
+WHERE SRVY = 'EBS' 
+AND COMMON_NAME = 'Pacific cod' 
+AND YEAR >= 2010 
+AND YEAR < 2021")
+
+# Save table to local directory
+write.csv(x = a, 
+          file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv")
+```
 
 ## Suggestions and Comments
 
@@ -58,36 +104,32 @@ repository](https://github.com/EmilyMarkowitz-NOAA/gap_bs_data_report/issues).
 sessionInfo()
 ```
 
-    ## R version 4.2.0 (2022-04-22 ucrt)
+    ## R version 4.2.1 (2022-06-23 ucrt)
     ## Platform: x86_64-w64-mingw32/x64 (64-bit)
     ## Running under: Windows 10 x64 (build 19044)
     ## 
     ## Matrix products: default
     ## 
     ## locale:
-    ## [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8    LC_MONETARY=English_United States.utf8 LC_NUMERIC=C                           LC_TIME=English_United States.utf8    
+    ## [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8    LC_MONETARY=English_United States.utf8
+    ## [4] LC_NUMERIC=C                           LC_TIME=English_United States.utf8    
     ## 
     ## attached base packages:
-    ## [1] grid      stats     graphics  grDevices utils     datasets  methods   base     
+    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] flextable_0.8.2        officer_0.4.4          reshape_0.8.9          labeling_0.4.2         callr_3.7.2            backports_1.4.1        ps_1.7.2               ggsn_0.5.0             digest_0.6.30         
-    ## [10] rosm_0.2.6             rgdal_1.5-32           prettymapr_0.2.4       jsonlite_1.8.3         rlist_0.4.6.2          akgfmaps_2.2.1         stars_0.5-6            abind_1.4-5            shadowtext_0.1.2      
-    ## [19] sf_1.0-8               raster_3.6-3           sp_1.5-0               gstat_2.1-0            ggspatial_1.1.6        classInt_0.4-8         readtext_0.81          stringr_1.4.1          tidyr_1.2.1           
-    ## [28] readr_2.1.3            magrittr_2.0.3         googledrive_2.0.0      dplyr_1.0.10           plyr_1.8.7             viridis_0.6.2          viridisLite_0.4.1      nmfspalette_0.0.0.9000 png_0.1-7             
-    ## [37] ggplot2_3.3.6          devtools_2.4.5         usethis_2.1.6          rmarkdown_2.17         knitr_1.40             RODBC_1.3-19          
+    ## [1] RODBC_1.3-19   stringr_1.4.1  tidyr_1.2.1    readr_2.1.2    magrittr_2.0.3 dplyr_1.0.10   plyr_1.8.7     devtools_2.4.4 usethis_2.1.6 
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] colorspace_2.0-3    rjson_0.2.21        ellipsis_0.3.2      class_7.3-20        ggridges_0.5.4      snakecase_0.11.0    base64enc_0.1-3     fs_1.5.2            rstudioapi_0.14     proxy_0.4-27       
-    ## [11] remotes_2.4.2       bit64_4.0.5         fansi_1.0.3         lubridate_1.8.0     xml2_1.3.3          codetools_0.2-18    cachem_1.0.6        pkgload_1.3.1       NMFSReports_0.0.1.3 shiny_1.7.3        
-    ## [21] compiler_4.2.0      httr_1.4.4          assertthat_0.2.1    fastmap_1.1.0       gargle_1.2.1        cli_3.4.1           later_1.3.0         htmltools_0.5.3     prettyunits_1.1.1   tools_4.2.0        
-    ## [31] ggmap_3.0.0         gtable_0.3.1        glue_1.6.2          Rcpp_1.0.9          vctrs_0.5.0         lwgeom_0.2-9        xfun_0.34           mime_0.12           miniUI_0.1.1.1      lifecycle_1.0.3    
-    ## [41] terra_1.6-17        zoo_1.8-11          scales_1.2.1        vroom_1.6.0         hms_1.1.2           promises_1.2.0.1    parallel_4.2.0      yaml_2.3.6          memoise_2.0.1       gridExtra_2.3      
-    ## [51] gdtools_0.2.4       stringi_1.7.8       maptools_1.1-5      e1071_1.7-12        pkgbuild_1.3.1      zip_2.2.2           systemfonts_1.0.4   intervals_0.15.2    RgoogleMaps_1.4.5.3 rlang_1.0.6        
-    ## [61] pkgconfig_2.0.3     bitops_1.0-7        evaluate_0.17       lattice_0.20-45     purrr_0.3.5         htmlwidgets_1.5.4   bit_4.0.4           tidyselect_1.2.0    processx_3.8.0      R6_2.5.1           
-    ## [71] generics_0.1.3      profvis_0.3.7       DBI_1.1.3           pillar_1.8.1        foreign_0.8-83      withr_2.5.0         xts_0.12.2          units_0.8-0         spacetime_1.2-8     tibble_3.1.8       
-    ## [81] janitor_2.1.0       crayon_1.5.2        uuid_1.1-0          KernSmooth_2.23-20  utf8_1.2.2          tzdb_0.3.0          urlchecker_1.0.1    jpeg_0.1-9          data.table_1.14.4   FNN_1.1.3.1        
-    ## [91] xtable_1.8-4        httpuv_1.6.6        munsell_0.5.0       sessioninfo_1.2.2
+    ##  [1] Rcpp_1.0.9        lubridate_1.8.0   here_1.0.1        prettyunits_1.1.1 ps_1.7.1          assertthat_0.2.1  rprojroot_2.0.3   digest_0.6.29    
+    ##  [9] utf8_1.2.2        mime_0.12         cellranger_1.1.0  R6_2.5.1          evaluate_0.16     pillar_1.8.1      rlang_1.0.6       readxl_1.4.1     
+    ## [17] rstudioapi_0.14   miniUI_0.1.1.1    callr_3.7.2       urlchecker_1.0.1  rmarkdown_2.16    htmlwidgets_1.5.4 bit_4.0.4         shiny_1.7.2      
+    ## [25] compiler_4.2.1    httpuv_1.6.6      janitor_2.1.0     xfun_0.33         pkgconfig_2.0.3   pkgbuild_1.3.1    htmltools_0.5.3   tidyselect_1.1.2 
+    ## [33] tibble_3.1.8      fansi_1.0.3       withr_2.5.0       crayon_1.5.1      tzdb_0.3.0        later_1.3.0       xtable_1.8-4      lifecycle_1.0.2  
+    ## [41] DBI_1.1.3         cli_3.4.1         stringi_1.7.8     vroom_1.5.7       cachem_1.0.6      fs_1.5.2          promises_1.2.0.1  remotes_2.4.2    
+    ## [49] snakecase_0.11.0  ellipsis_0.3.2    generics_0.1.3    vctrs_0.4.1       tools_4.2.1       bit64_4.0.5       glue_1.6.2        purrr_0.3.4      
+    ## [57] hms_1.1.2         processx_3.7.0    pkgload_1.3.0     parallel_4.2.1    fastmap_1.1.0     yaml_2.3.5        sessioninfo_1.2.2 memoise_2.0.1    
+    ## [65] knitr_1.40        profvis_0.3.7
 
 ## NOAA README
 
