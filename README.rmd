@@ -35,9 +35,68 @@ Seattle, WA 98195
 
 <!-- Use .bib file to cite reports in subsection titles -->
 
-**Documentation** **(Other documentation coming soon!)** [@2022NEBS2022]
+**Documentation** **(Other documentation coming soon!)** 
 
 <div id="refs"></div>
+
+
+# Access data via Oracle (AFSC-only)
+
+If you have access to the AFSC Oracle data base, you can pull the data directly from the Oracle schema these data are pulled from for FOSS. 
+
+You will need to install the `RODBC` R package and have OFIS (IT) connect R to Oracle. Once connected, you can use the following code in R to connect to Oracle. 
+
+```{r, echo = TRUE, eval = FALSE}
+library("RODBC")
+
+channel<-odbcConnect(dsn = "AFSC",
+                     uid = "USERS_USERNAME", # change
+                     pwd = "USERS_PASSWORD", # change
+                     believeNRows = FALSE)
+
+odbcGetInfo(channel)
+```
+
+Then, you can pull and save (if you need) the table into your R environment. 
+
+```{r, echo = TRUE, eval = FALSE}
+
+# pull table from oracle into R environment
+a <- RODBC::sqlQuery(channel, "SELECT * FROM FAP_PRODUCTS.FOSS_CPUE_ZEROFILLED")
+# Save table to local directory
+write.csv(x = a, 
+          file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED.csv")
+```
+
+This is presence and absence data. This is a huge file and has all of the bells and whistles. For reference: 
+
+```{r, echo = FALSE}
+
+str0 <- paste0(
+  "RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED: ", "
+  rows: ", nrow(cpue_station_0filled), "
+  cols: ", ncol(cpue_station_0filled), "
+  ", round(file.size(paste0(dir_out, "cpue_station_0filled.csv"))/1e+9, 3), " GB") 
+
+cat(str0)
+
+```
+
+If you only want to pull a small subset of the data (especially since files like `RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED` are so big), you can use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021: 
+
+```{r, echo = TRUE, eval = FALSE}
+# Pull data
+a <- RODBC::sqlQuery(channel, "SELECT * FROM RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED 
+WHERE SRVY = 'EBS' 
+AND COMMON_NAME = 'Pacific cod' 
+AND YEAR >= 2010 
+AND YEAR < 2021")
+
+# Save table to local directory
+write.csv(x = a, 
+          file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv")
+```
+
 
 ## Suggestions and Comments
 
