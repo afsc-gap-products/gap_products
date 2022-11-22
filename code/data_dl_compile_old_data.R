@@ -69,7 +69,11 @@ locations <- c( # data pulled from Oracle for these figures:
   "AI.SIZECOMP_TOTAL", 
   "GOA.SIZECOMP_STRATUM",
   "GOA.SIZECOMP_TOTAL",
-  "HOFFJ.SIZECOMP_EBSSLOPE" # needs to be peer reviewed
+  "HOFFJ.SIZECOMP_EBSSLOPE", # needs to be peer reviewed
+  
+  "AI.AIGRID_GIS", 
+  "GOA.GOAGRID_GIS", 
+  "RACEBASE.STRATUM"
 )
 
 # sinks the data into connection as text file

@@ -6,12 +6,20 @@
 #' -----------------------------------------------------------------------------
 
 # *** Calculate Biomass and CPUE -----------------------------------------------------------
-cpue_biomass_station <- tidyr::crossing(
-  haul_cruises_vess, #  %>%
-    # dplyr::filter(SRVY %in% c("NBS", "EBS")),
+cpue_biomass_station <- data.frame()
+
+for (i in 1:length(surveys$SRVY)) {
+  # need to use a loop here and split up the effort because the 
+  # dplyr::crossing() can otherwise overwhelm the computer computing power  
+  
+  print(surveys$SRVY[i])
+
+cpue_biomass_station0 <- tidyr::crossing(
+  haul_cruises_vess %>% 
+    dplyr::filter(SRVY == surveys$SRVY[i]) ,
   dplyr::distinct(
-    catch_haul_cruises %>%
-      # dplyr::filter(SRVY %in% c("NBS", "EBS"))  %>%
+    catch_haul_cruises %>% 
+      dplyr::filter(SRVY == surveys$SRVY[i]) %>%
       dplyr::left_join(
         x = .,
         y = spp_info %>% 
@@ -21,14 +29,15 @@ cpue_biomass_station <- tidyr::crossing(
     species_code)) %>%
   dplyr::left_join(
     x = .,
-    y = catch_haul_cruises %>%
+    y = catch_haul_cruises %>% 
+      dplyr::filter(SRVY == surveys$SRVY[i]) %>%
       dplyr::select("cruisejoin", "hauljoin", "cruisejoin", "species_code",
                     "weight", "number_fish", "SRVY"),
     by = c("species_code", "hauljoin", "cruisejoin", "SRVY")) %>%
   #### a check for species with weights greater then 0
   ## sum catch weight (by groups) by station and join to haul table (again) to add on relevent haul data
-  dplyr::group_by(year, stationid, SRVY, species_name, species_name1, print_name, taxon, #species_code,
-                  group, hauljoin, stratum, distance_fished, net_width) %>%
+  dplyr::group_by(year, stationid, SRVY, species_code,
+                  hauljoin, stratum, distance_fished, net_width) %>%
   dplyr::summarise(wt_kg_summed_by_station = sum(weight, na.rm = TRUE), # overwrite NAs in assign_group_zeros where data exists
                    num_summed_by_station = sum(number_fish, na.rm = TRUE)) %>% # overwrite NAs in
   
@@ -51,7 +60,9 @@ cpue_biomass_station <- tidyr::crossing(
                    by = c("stationid", "SRVY", "stratum")) %>% 
   dplyr::rename(latitude = start_latitude, 
                 longitude = start_longitude) %>% 
-  dplyr::filter(!is.na(stationid))
+  dplyr::filter(!is.na(stationid)) %>%
+  
+  dplyr::bind_rows(cpue_biomass_station, .)
 #   # total biomass excluding empty shells and debris for each year
 #   dplyr::filter(group != 'empty shells and debris')  %>%
 #   dplyr::mutate(type = ifelse(
@@ -71,6 +82,9 @@ cpue_biomass_station <- tidyr::crossing(
 #     dplyr::filter(species_code %in% c(69323, 69322, 68580, 68560))
 # )
 
+gc()
+
+}
 
 # Include crab data
 cpue_biomass_station <- dplyr::bind_rows(

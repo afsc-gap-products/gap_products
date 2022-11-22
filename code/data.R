@@ -301,3 +301,94 @@ temp <- function(cruises_, haul_){
 
 haul_cruises_vess <- temp(cruises, haul) 
 
+## stratum ---------------------------------------------------------------------
+
+# temp <- function(strat_yr) {#yr) {
+  
+  # # unique  and sort are not necessary, just easier for troubleshooting
+  # if (sum(yr<unique(stratum0$year)) == 0) {
+  # # if (sum((yr - stratum0$year)<0 %in% TRUE) == 0) {
+  #   # if there are no stratum years greater than yr, use the most recent stratum year
+  # strat_yr <- max(stratum0$year)
+  # } else {
+  #   # if the yr is less than the max stratum year, use the stratum yr next less
+  #   temp <- sort(unique(stratum0$year))
+  #   strat_yr <- temp[which((yr - temp)>-1)[length(which((yr - temp)>-1))]]
+  #   # strat_yr <- sort(unique(stratum0$year))[which.min((yr - sort(unique(stratum0$year)))[(yr - sort(unique(stratum0$year)))>=0])]
+  # }
+  # 
+
+
+
+
+for (i in 1:nrow(survey)) {
+
+  strat_yr <- max(racebase_stratum0$year)
+  
+  stratum_info <- racebase_stratum0 %>% 
+    dplyr::filter(
+      # stratum %in% reg_dat$survey.strata$Stratum &
+        year == strat_yr) %>%
+    dplyr::mutate(depth = gsub(pattern = "> 1", 
+                               replacement = ">1", 
+                               x = description), 
+                  depth =
+                    gsub(pattern = "[a-zA-Z]+",
+                         replacement = "",
+                         x = sapply(X = strsplit(
+                           x = depth,
+                           split = " ",
+                           fixed = TRUE),
+                           function(x) x[1])
+                    )) %>% 
+    dplyr::select(-auditjoin, -portion) %>%
+    dplyr::mutate(SRVY = dplyr::case_when(
+      stratum %in% as.numeric(report_types$EBS$reg_dat$survey.strata$Stratum) ~ "EBS", 
+      stratum %in% as.numeric(report_types$NBS$reg_dat$survey.strata$Stratum) ~ "NBS" 
+    )) %>% 
+    dplyr::filter(SRVY %in% SRVY1) %>% 
+    dplyr::mutate(type = dplyr::case_when( 
+      SRVY == "NBS" ~ "Shelf",
+      depth %in% "<50" ~ "Inner Shelf", 
+      depth %in% c("50-100", ">50") ~ "Middle Shelf", 
+      depth %in% c("100-200", ">100") ~ "Outer Shelf"
+    )) %>% 
+    dplyr::mutate(area_km2 = area, 
+                  area_ha = area/divkm2forha, 
+                  area_nmi2 = area/divkm2fornmi2)
+  
+  # return(stratum_info)
+  
+}
+
+stratum_info <- temp()#yr = strat_yr)
+
+stratum_info <- 
+  dplyr::left_join(
+    x = stratum_info, 
+    y = haul_maxyr %>% 
+      dplyr::distinct(stratum, stationid, stationid) %>% 
+      dplyr::select(stratum, stationid) %>% 
+      dplyr::group_by(stratum) %>% 
+      dplyr::summarise(stations_completed = length(unique(stationid))) %>% 
+      dplyr::select(stratum, stations_completed), 
+    by = "stratum") %>% 
+  dplyr::left_join(
+    x = ., 
+    y = station_info %>% 
+      dplyr::select(stratum, stationid) %>% 
+      dplyr::group_by(stratum) %>% 
+      dplyr::summarise(stations_avail = length(unique(stationid))) %>% 
+      dplyr::select(stratum, stations_avail), 
+    by = "stratum") %>% 
+  dplyr::left_join(
+    x = ., 
+    y = haul_maxyr %>% 
+      dplyr::select(stratum, stationid, bottom_depth) %>% 
+      dplyr::group_by(stratum) %>% 
+      dplyr::summarise(depth_mean = mean(bottom_depth, na.rm = TRUE), 
+                       depth_min = min(bottom_depth, na.rm = TRUE), 
+                       depth_max = max(bottom_depth, na.rm = TRUE)), 
+    by = "stratum") 
+
+

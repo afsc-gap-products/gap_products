@@ -39,7 +39,12 @@ a <- c(
   "AI.SIZECOMP_TOTAL", 
   "GOA.SIZECOMP_STRATUM",
   "GOA.SIZECOMP_TOTAL",
-  "HOFFJ.SIZECOMP_EBSSLOPE" # needs to be peer reviewed
+  "HOFFJ.SIZECOMP_EBSSLOPE", # needs to be peer reviewed
+  
+  # Stratum info
+  "AI.AIGRID_GIS", 
+  "GOA.GOAGRID_GIS", 
+  "RACEBASE.STRATUM"
 )
 
 a <- tolower(gsub(pattern = ".", replacement = "_", x = a, fixed = TRUE))
@@ -261,6 +266,11 @@ comp_data <- dplyr::bind_rows(
                 sex_code = as.numeric(sex)) %>% 
   dplyr::arrange(sex) %>% 
   dplyr::mutate(stratum = ifelse(stratum %in% c(999), 999999, stratum))
+
+## Stratum data ----------------------------------------------------------------
+
+
+
 
 # Check work -------------------------------------------------------------------
 
