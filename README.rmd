@@ -17,6 +17,28 @@ link_repo <- "https://github.com/EmilyMarkowitz-NOAA/gap_bs_data_report"
 
 The scripts therein reproducibly produce our typical data products.  
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r echo=FALSE, results="hide", message=FALSE, include=FALSE, echo = FALSE}
+PKG <- c("badger", #"flextable"
+         "knitr")
+PKG <- unique(PKG)
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+# library("badger", quietly = TRUE)
+```
+
+```{r, echo = FALSE, results='asis', message=FALSE}
+cat(
+  # badge_devel("afsc-gap-products/gap_public_data", "blue"),
+  # badge_lifecycle("maturing", "blue"),
+  badge_last_commit("afsc-gap-products/gap_public_data")
+)
+```
+
 ## This code is primarally maintained by:
 
 **Emily Markowitz** (Emily.Markowitz AT noaa.gov; [\@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA))
@@ -39,6 +61,110 @@ Seattle, WA 98195
 
 <div id="refs"></div>
 
+## This code is primarily maintained by:
+
+**Emily Markowitz** (Emily.Markowitz AT noaa.gov; [\@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA))  
+Research Fisheries Biologist  
+Bering Sea Survey Team
+Alaska Fisheries Science Center,  
+National Marine Fisheries Service,  
+National Oceanic and Atmospheric Administration,  
+Seattle, WA 98195
+
+# Cite this Data
+
+**NOAA Fisheries Alaska Fisheries Science Center. RACE Division Bottom Trawl Survey Data, Accessed mm/dd/yyyy**
+
+*These data were last ran and pushed to the AFSC oracle on `r gsub("(\\D)0", "\\1", format(file.info(paste0(dir_out, "cpue_station.csv"))$mtime, "%B %d, %Y"))`*. This is not the date that these data were pulled into FOSS and the FOSS dataset may be behind. 
+
+# Metadata
+
+## Data Description
+
+The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
+
+There are no legal restrictions on access to the data. They reside in the public domain and can be freely distributed. Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
+
+The data calculated in this repo include: 
+
+1) all (presence and absence; a.k.a. "zero-filled") observations from surveys conducted on fishing vessels. These surveys monitor trends in distribution and abundance of groundfish, crab, and bottom-dwelling species in Alaska’s marine ecosystems. These data include estimates of catch-per-unit-effort (CPUE) for most identified species at a standard set of stations. 
+
+2) Stratum- and total-level biomass and abundance estimates. [**More description coming soon**]
+
+3) Stratum- and total-level length and age comp estimates. [**More description coming soon**]: using length and otoliths (fish ear bones to learn about age). 
+
+## Bottom Trawl Surveys and Regions
+
+<img src="img/_grid_bs.png" alt="Eastern and Northern Bering Sea Shelf" align="right" width="250"/> <img src="img/_grid_ai.png" alt="Aleutian Islands" align="right" width="300"/>
+
+-   **Eastern Bering Sea Shelf (EBS)**
+-   Annual
+-   Fixed stations at center of 20 x 20 nm grid
+-   **Northern Bering Sea (NBS)**
+-   Biennial/Annual
+-   Fixed stations at center of 20 x 20 nm grid
+-   **Eastern Bering Sea Slope (BSS)**
+-   Intermittent (funding dependent)
+-   Modified Index-Stratified Random of Successful Stations Survey Design
+-   **Aleutian Islands (AI)**
+-   Triennial (1990s)/Biennial since 2000 in even years
+-   Modified Index-Stratified Random of Successful Stations Survey Design
+-   **Gulf of Alaska (GOA)**
+-   Triennial (1990s)/Biennial since 2001 in odd years
+-   Stratified Random Survey Design
+
+## User Resources:
+
+-   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division).
+-   For more information about codes used in the tables, please refer to the [survey code books](`r link_code_books `).
+-   Find [past reports](http://apps-afsc.fisheries.noaa.gov/RACE/surveys/cruise_results.htm) about these surveys.
+-   [GitHub repository](`r link_repo`).
+-   Fisheries One Stop Shop (FOSS): `r link_foss`
+-   Learn more about other [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys).
+
+## Access Constraints:
+
+There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
+
+**User Constraints:** Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
+
+**Address:** 
+Alaska Fisheries Science Center (AFSC)
+National Oceanic and Atmospheric Administration (NOAA)  
+Resource Assessment and Conservation Engineering Division (RACE)  
+Groundfish Assessment Program (GAP) 7600 Sand Point Way, N.E. bldg. 4  
+Seattle, WA 98115 USA
+
+**General questions and more specific data requests** can be sent to [afsc.gap.metadata\@noaa.gov](mailto:afsc.gap.metadata@noaa.gov) or submitted as an [issue on our GitHub Organization](https://github.com/afsc-gap-products/data-requests). The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson ([Duane.Stevenson\@noaa.gov](mailto:Duane.Stevenson@noaa.gov)). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman ([Ned.Laman\@noaa.gov](mailto:Ned.Laman@noaa.gov)). For questions specifically about crab data in any region, contact Mike Litzow ([Mike.Litzow\@noaa.gov](mailto:Mike.Litzow@noaa.gov)), the Shellfish Assessment Program lead.
+
+For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](`r link_foss `) platform, please contact us using the Comments page on the [FOSS](`r link_foss `) webpage.
+
+## Table short metadata
+
+### Station-level CPUE data (zero filled)
+
+```{r, echo = FALSE}
+a <- list.files(path = "./output/", pattern = "table_metadata")
+table_metadata <- ""
+for (i in 1:length(a)) {
+  table_metadata <- paste0(table_metadata, "
+
+", 
+readLines(paste0(dir_out, a[i])))
+}
+
+# cat(table_metadata)
+```
+
+`r table_metadata `
+
+## Column-level metadata
+
+```{r, echo = FALSE}
+column_metadata0 <- read.csv(file = paste0(dir_out, "column_metadata.csv"))
+names(column_metadata0) <- c("Column name from data", "Descriptive Column Name", "Units", "Description")
+knitr::kable(column_metadata0, row.names = FALSE) 
+```
 
 # Access data via Oracle (AFSC-only)
 

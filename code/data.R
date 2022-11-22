@@ -258,7 +258,7 @@ catch_haul_cruises <- catch_haul_cruises %>%
                    by = c("species_code", "SRVY", "year")) else .}  %>%
   dplyr::left_join(
     x = .,
-    y = race_data_vessels0 %>%
+    y = race_data_race_data_vessels0 %>%
       dplyr::select(vessel_id, name) %>%
       dplyr::rename(vessel_name = name) %>% 
       dplyr::mutate(vessel_name = stringr::str_to_title(vessel_name)), 
@@ -271,3 +271,33 @@ catch_haul_cruises <- catch_haul_cruises %>%
 
 # dim(catch_haul_cruises) # 2021
 # [1] 831342     33 
+
+
+# *** haul_cruises_vess_ + _maxyr + _compareyr -------------------------------------
+
+temp <- function(cruises_, haul_){
+  haul_cruises_vess_ <- 
+    dplyr::left_join(x = cruises_ ,
+                     y = haul_ %>% 
+                       dplyr::select(cruisejoin, hauljoin, stationid, stratum, haul, 
+                                     gear_depth, duration, distance_fished, net_width, net_height,
+                                     start_time) %>% 
+                       dplyr::group_by(cruisejoin, hauljoin, stationid, stratum, haul, 
+                                       gear_depth, duration, distance_fished, net_width, net_height) %>% 
+                       dplyr::summarise(start_date_haul = min(start_time),
+                                        end_date_haul = max(start_time), 
+                                        stations_completed = length(unique(stationid))),
+                     by = c("cruisejoin")) %>% 
+    dplyr::left_join(x = . , 
+                     y = race_data_vessels0 %>%
+                       dplyr::rename(vessel = vessel_id) %>%
+                       dplyr::select(vessel, length, tonnage), 
+                     by = "vessel") %>% 
+    dplyr::rename(length_ft = length) %>% 
+    dplyr::mutate(length_m = round(length_ft/3.28084, 
+                                   digits = 1)) %>% 
+    dplyr::ungroup()
+}
+
+haul_cruises_vess <- temp(cruises, haul) 
+

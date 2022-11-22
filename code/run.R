@@ -40,6 +40,9 @@ dir_out <- "./output/"
 
 # Run new compiled data sets ---------------------------------------------------
 
+# This lists and itemizes the summary column data. 
+source("./code/metadata_column.R")
+
 # Find the species ID codes for AFSC species codes in ITIS and WoRMS
 taxize0 <- FALSE# incorporate species codes from databases
 if (taxize0) { # only if you need to rerun {taxize} stuff - very time intensive!
@@ -59,7 +62,7 @@ source('./code/data_biomass_abundance_stratum_total.R')
 
 # Calculate the stratum- and total-level Length and Age Comp estimates
 # NOTES: EHM 2022-11-21: does not have any code for these calculations, so it is currently a blank file
-source('./code/data_length_age_comps_stratum_total.R')
+source('./code/data_comps_length_age_stratum_total.R.R')
 
 # source("./code/load_oracle.R") # Share table to oracle
 

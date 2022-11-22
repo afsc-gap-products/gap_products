@@ -7,18 +7,18 @@
 
 # *** Calculate Biomass and CPUE -----------------------------------------------------------
 cpue_biomass_station <- tidyr::crossing(
-  haul_cruises_vess %>%
-    dplyr::filter(SRVY %in% c("NBS", "EBS")),
+  haul_cruises_vess, #  %>%
+    # dplyr::filter(SRVY %in% c("NBS", "EBS")),
   dplyr::distinct(
     catch_haul_cruises %>%
-      dplyr::filter(SRVY %in% c("NBS", "EBS"))  %>%
+      # dplyr::filter(SRVY %in% c("NBS", "EBS"))  %>%
       dplyr::left_join(
         x = .,
         y = spp_info %>% 
           # dplyr::mutate(group = species_name) %>% 
-          dplyr::select(species_code, group, species_name, species_name1, print_name, taxon),
+          dplyr::select(species_code, common_name),
         by = "species_code"),
-    species_code, species_name, species_name1, group, print_name, taxon)) %>%
+    species_code)) %>%
   dplyr::left_join(
     x = .,
     y = catch_haul_cruises %>%
