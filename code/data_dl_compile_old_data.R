@@ -27,6 +27,17 @@ source("Z:/Projects/ConnectToOracle.R")
 #                      believeNRows = FALSE)
 # 
 # odbcGetInfo(channel)
+# 
+# ## OR PROMPT CODE TO ASK FOR CONNECTION INFO
+# 
+# # Define RODBC connection to ORACLE
+# get.connected <- function(schema='AFSC'){(echo=FALSE)
+#   username <- getPass(msg = "Enter your ORACLE Username: ")
+#   password <- getPass(msg = "Enter your ORACLE Password: ")
+#   channel  <- RODBC::odbcConnect(paste(schema),paste(username),paste(password), believeNRows=FALSE)
+# }
+# # Execute the connection
+# channel <- get.connected()
 
 
 # DOWNLOAD CURRENT ESTIMATE DATASETS -------------------------------------------

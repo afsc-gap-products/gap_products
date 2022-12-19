@@ -318,14 +318,13 @@ haul_cruises_vess <- temp(cruises, haul)
   # }
   # 
 
+library(akgfmaps)
 
+akgfmaps::get_base_layers(
+  select.region = "bs.south")$Stratum
 
-
-for (i in 1:nrow(survey)) {
-
-  strat_yr <- max(racebase_stratum0$year)
-  
-  stratum_info <- racebase_stratum0 %>% 
+stratum_info <- dplyr::bind_rows(
+  racebase_stratum0 %>% 
     dplyr::filter(
       # stratum %in% reg_dat$survey.strata$Stratum &
         year == strat_yr) %>%
@@ -356,6 +355,17 @@ for (i in 1:nrow(survey)) {
     dplyr::mutate(area_km2 = area, 
                   area_ha = area/divkm2forha, 
                   area_nmi2 = area/divkm2fornmi2)
+)
+
+for (i in 1:nrow(survey)) {
+
+  
+  
+  
+  
+  strat_yr <- max(racebase_stratum0[racebase_stratum0$, "year"])
+  
+  stratum_info <- 
   
   # return(stratum_info)
   

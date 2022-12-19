@@ -3,7 +3,7 @@
 
 # from code/data_dl_compile_old_data.R
 a <- c( 
-  # CPUE
+  # CPUE Haul by Haul for all species zero filled
   "EBSSHELF.EBSSHELF_CPUE", # "HAEHNR.CPUE_EBS_PLUSNW", 
   "NBSSHELF.NBS_CPUE", # "HAEHNR.CPUE_NBS", 
   # "HAEHNR.cpue_nbs",
@@ -297,9 +297,6 @@ source("Z:/Projects/ConnectToOracle.R")
 # 
 # odbcGetInfo(channel)
 
-all_schemas <- RODBC::sqlQuery(channel = channel_products,
-                               query = paste0('SELECT * FROM all_users;'))
-
 ## BIOMASS_ABUNDANCE -----------------------------------------------------------
 BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD <- bio_abund_data
 names(BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD) <- tolower(names(BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD))
@@ -312,12 +309,6 @@ names(BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD) <- toupper(names(BIOMASS_ABUNDANCE_CPU
 
 RODBC::sqlSave(channel = channel_products, 
                dat = BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD)
-
-for (i in 1:length(sort(all_schemas$USERNAME))) {
-  RODBC::sqlQuery(channel = channel_products,
-                  query = paste0('grant select on GAP_PRODUCTS.BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD to ',
-                                 all_schemas$USERNAME[i],';'))
-}
 
 ## CPUE --------------------------------------------------------------
 CPUE_STATION_OLD <- cpue_data
@@ -332,13 +323,6 @@ names(CPUE_STATION_OLD) <- toupper(names(CPUE_STATION_OLD))
 RODBC::sqlSave(channel = channel_products, 
                dat = CPUE_STATION_OLD)
 
-for (i in 1:length(sort(all_schemas$USERNAME))) {
-  RODBC::sqlQuery(channel = channel_products,
-                  query = paste0('grant select on GAP_PRODUCTS.CPUE_STATION_OLD to ',
-                                 all_schemas$USERNAME[i],';'))
-}
-
-
 ## COMP_AGE_SIZE_STRATUM_OLD --------------------------------------------------------------
 COMP_AGE_SIZE_STRATUM_OLD <- comp_data
 names(COMP_AGE_SIZE_STRATUM_OLD) <- tolower(names(COMP_AGE_SIZE_STRATUM_OLD))
@@ -351,21 +335,14 @@ names(COMP_AGE_SIZE_STRATUM_OLD) <- toupper(names(COMP_AGE_SIZE_STRATUM_OLD))
 
 RODBC::sqlSave(channel = channel_products, 
                dat = COMP_AGE_SIZE_STRATUM_OLD)
-
-for (i in 1:length(sort(all_schemas$USERNAME))) {
-  RODBC::sqlQuery(channel = channel_products,
-                  query = paste0('grant select on GAP_PRODUCTS.COMP_AGE_SIZE_STRATUM_OLD to ',
-                                 all_schemas$USERNAME[i],';'))
-}
-
 # Grant access to data to all schemas ------------------------------------------
 
 locations <- c("COMP_AGE_SIZE_STRATUM_OLD", "CPUE_STATION_OLD", "BIOMASS_ABUNDANCE_CPUE_STRATUM_OLD")
 all_schemas <- RODBC::sqlQuery(channel = channel_products,
                                query = paste0('SELECT * FROM all_users;'))
 for (i in 1:length(sort(all_schemas$USERNAME))) {
-  for (i in 1:length(locations)){
-    RODBC::sqlQuery(channel = channel_foss,
-                    query = paste0('grant select on GAP_PRODUCTS.',locations[i],' to ',all_schemas$USERNAME[i],';'))
+  for (ii in 1:length(locations)){
+    RODBC::sqlQuery(channel = channel_products,
+                    query = paste0('grant select on GAP_PRODUCTS.',locations[ii],' to ',all_schemas$USERNAME[i],';'))
   }
 }
