@@ -84,11 +84,43 @@ locations <- c( # data pulled from Oracle for these figures:
   
   "AI.AIGRID_GIS", 
   "GOA.GOAGRID_GIS", 
-  "RACEBASE.STRATUM"
+  "RACEBASE.STRATUM", 
+  
+  
+  "AI.BIOMASS_AREA", 
+  "AI.BIOMASS_AREA_DEPTH", 
+  "AI.BIOMASS_BY_LENGTH", 
+  "AI.BIOMASS_DEPTH", 
+  "AI.BIOMASS_INPFC", 
+  "AI.BIOMASS_INPFC_DEPTH", 
+  "AI.SIZECOMP_AREA", 
+  "AI.SIZECOMP_AREA_DEPTH",
+  "AI.SIZECOMP_DEPTH",
+  "AI.SIZECOMP_INPFC", 
+  "AI.SIZECOMP_INPFC_DEPTH", 
+  "AI.STATION_ALLOCATION", 
+  "AI.STATIONS_3NM", 
+  
+  "GOA.BIOMASS_AREA",
+  # "GOA.BIOMASS_AREA_DEPTH", 
+  "GOA.BIOMASS_BY_LENGTH",
+  "GOA.BIOMASS_DEPTH",
+  "GOA.BIOMASS_INPFC",
+  "GOA.BIOMASS_INPFC_DEPTH",
+  "GOA.SIZECOMP_AREA",
+  "GOA.SIZECOMP_DEPTH",
+  # "GOA.SIZECOMP_AREA_DEPTH",
+  "GOA.SIZECOMP_DEPTH",
+  "GOA.SIZECOMP_INPFC",
+  "GOA.SIZECOMP_INPFC_DEPTH",
+  "GOA.STATION_ALLOCATION",
+  "GOA.STATIONS_3NM", 
+  "GOA.GOA_GRID"
 )
 
 # sinks the data into connection as text file
 
+error_loading <- c()
 for (i in 1:length(locations)){
   print(locations[i])
   if (locations[i] == "RACEBASE.HAUL") { # that way I can also extract TIME
@@ -111,10 +143,14 @@ for (i in 1:length(locations)){
                            replacement = "_", 
                            fixed = TRUE))
   
-  write.csv(x=a, 
+  # if (length(a)>0) {
+    # error_loading <- c(error_loading, locations[i])
+  # } else { 
+    write.csv(x=a, 
             paste0("./data/",
                    filename,
                    ".csv"))
   remove(a)
+  # }
 }
-
+error_loading
