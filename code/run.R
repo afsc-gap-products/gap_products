@@ -46,8 +46,7 @@ source("./code/metadata_column.R")
 # Find the species ID codes for AFSC species codes in ITIS and WoRMS
 taxize0 <- FALSE# incorporate species codes from databases
 if (taxize0) { # only if you need to rerun {taxize} stuff - very time intensive!
-  # NOTES: EHM 2022-11-21: borrowed from https://github.com/afsc-gap-products/gap_public_data/blob/main/code/find_taxize_species_codes.R
-  source('./code/find_taxize_species_codes.R') 
+  source("https://raw.githubusercontent.com/afsc-gap-products/gap_public_data/main/code/find_taxize_species_codes.R") 
 } 
 taxize0 <- TRUE
 
