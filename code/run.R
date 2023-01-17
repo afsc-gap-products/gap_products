@@ -11,16 +11,6 @@
 
 # *** Resource Links -----------------------------------------------------------
 
-a <- readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/gap_public_data/main/CITATION.bib", 
-               warn = FALSE)
-link_foss <- a[grep(pattern = "howpublished = {", x = a, fixed = TRUE)]
-link_foss <- gsub(pattern = "howpublished = {", replacement = "", x = link_foss, fixed = TRUE)
-link_foss <- gsub(pattern = "},", replacement = "", x = link_foss, fixed = TRUE)
-link_foss <- trimws(link_foss)
-
-link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
-link_repo <- "https://github.com/afsc-gap-products/gap_products"
-
 
 # The surveys we will cover in this data are: 
 surveys <- 
@@ -46,9 +36,6 @@ source('./code/functions.R')
 source("./code/data.R") # Wrangle data
 
 # Run new compiled data sets ---------------------------------------------------
-
-# This lists and itemizes the summary column data. 
-source("./code/metadata_column.R")
 
 # Calculate the station level num and wgt CPUE and summarized weight and count catches for each species
 # zero-filled (presence and absense) CPUE

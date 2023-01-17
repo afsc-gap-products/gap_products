@@ -136,10 +136,9 @@ locations <- c( # data pulled from Oracle for these figures:
   "NBSSHELF.NBS_BIOMASS", 
   "NBSSHELF.NBS_CPUE", 
   "NBSSHELF.NBS_SIZECOMP",
-  "NBSSHELF.NBS_STRATA"
-)
-
-
+  "NBSSHELF.NBS_STRATA", 
+  
+  "AI.AIGRID_GIS", "GOA.GOAFRID", "GOA.GOAGRID_GIS", "GOA.GOA_SURVEY_GRIDPONTS")
 
 if (FALSE) {
   error_loading <- c()
@@ -226,13 +225,15 @@ OLD_SPECIAL_PROJECTS <- dplyr::left_join(
   by = "year")
 
 OLD_AFFILIATIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_special_projects.xlsx"), 
-                                      sheet = "affiliations", skip = 1)
+                                      sheet = "affiliations", skip = 1) %>% 
+  dplyr::rename("agency0" = "agency")
 
 OLD_OTHER_FIELD_COLLECTIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_other_field_collections.xlsx"), 
                                                  sheet = "Sheet1", skip = 1)
 
 OLD_COLLECTION_SCHEME <- readxl::read_xlsx(path = paste0(dir_data, "0_collection_scheme.xlsx"), 
-                                           sheet = "Sheet1", skip = 1)
+                                           sheet = "Sheet1", skip = 1) %>% 
+  dplyr::filter(YEAR > 2017)
 
 # Wrangle data ----------------------------------------------------------------
 
@@ -578,7 +579,7 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
 
 print("Total Biomass")
 
-calc_cpue_bio <- function(catch_haul_cruises0){
+# calc_cpue_bio <- function(catch_haul_cruises0){
   
   # for tech memo table: calculate biomass for fish and invert taxa in table 7
   # Created by: Rebecca Haehn
@@ -587,13 +588,13 @@ calc_cpue_bio <- function(catch_haul_cruises0){
   # script modifed from biomass script for stock assessments
   # Modified: 
   
-  # *** *** fiter to EBS only data by innerjoin (catch and haul) --------------------
+  ### fiter to EBS only data by innerjoin (catch and haul) --------------------
   
   ## to test this I filtered for YEAR = 2017 in the haul data, row count matches prebiocatch table in Oracle (after running legacy ebs_plusnw script) **do not run with filter to get match
   ## 
   ## the filter removes empty banacles, empty bivalve/gastropod shell, invert egg unid, unsorted catch and debris, Polychaete tubes, and unsorted shab 
   
-  # *** *** create zeros table for CPUE calculation ---------------------------------
+  ### create zeros table for CPUE calculation ---------------------------------
   # zeros table so every haul/vessel/year combination includes a row for every species caught (combine)
   
   temp1 <- catch_haul_cruises0 #%>% 
@@ -630,7 +631,7 @@ calc_cpue_bio <- function(catch_haul_cruises0){
     dplyr::rename(weight_kg = weight.x, number_fish = number_fish.x) %>%
     tidyr::replace_na(list(weight_kg = 0, number_fish = 0))
   
-  # *** *** calculate CPUE (mean CPUE by strata) ----------------------------------------------------------
+  ### calculate CPUE (mean CPUE by strata) ----------------------------------------------------------
   
   # num <- temp1 %>%
   #   dplyr::distinct(SRVY, year, hauljoin, species_code) %>%
@@ -660,7 +661,7 @@ calc_cpue_bio <- function(catch_haul_cruises0){
       (stratum == 61 | stratum == 62) ~ 60, 
       TRUE ~ as.numeric(stratum)))
   
-  
+  # 
 #   
 #   # ## CANNOT use biomass_*** tables bc they don't contain the info for all species (ie: no poachers, blennies, lumpsuckers, eelpouts, etc.)
 #   
@@ -1014,30 +1015,116 @@ OLD_STRATUM <- dplyr::bind_rows(
     auditjoin, area_depth)
 
 
+##  Station Allocation (GOA/AI) ------------------------------------------------
+
+OLD_STATION_ALLOCATION <- dplyr::bind_rows(
+  ai_station_allocation0 %>% 
+    dplyr::filter(file = "ai.station_allocation"), 
+  goa_station_allocation0 %>% 
+    dplyr::filter(file = "goa.station_allocation")) %>%
+  dplyr::rename(SRVY = survey)
+
 ## Station data ----------------------------------------------------------------
 
 lookup <- c(
   year = "survey_year", 
-  station = "stationid"
+  station = "stationid", 
+  grid_number = "aigrid_number", 
+  grid_id = "aigrid_id", 
+  grid = "aigrid"
 )
 
 # station	station_id	stratum_id			station_type	details	station_desc		year_implimented	area	perimeter
+# "AI.AIGRID_GIS", "GOA.GOAFRID", "GOA.GOAGRID_GIS", "GOA.GOA_SURVEY_GRIDPONTS"
+temp <- dplyr::bind_rows(
+  # AI data
+  dplyr::full_join(
+    x = ai_aigrid_gis0 %>% 
+      dplyr::mutate(file = "ai.aigrid_gis", 
+                    SRVY = "AI"), 
+    y = ai_stations_3nm0 %>% 
+      dplyr::select(-area, -perimeter) %>% # TOLEDO! Why are there aigrid aigrid_id in this table? 
+      dplyr::mutate(file_3nm0 = "ai_stations_3nm0", 
+                    mi3 = TRUE), 
+    by = c("stratum", "stationid", "aigrid_id")) %>% 
+    dplyr::rename(grid_id = aigrid_id) , 
+    # GOA data
+    dplyr::left_join(
+      x = goa_goagrid_gis0 %>% 
+        dplyr::rename(grid_id = goagrid_id) %>%
+        dplyr::mutate(file = "goa.goagrid_gis", 
+                      SRVY = "GOA"), 
+      y = goa_stations_3nm0 %>% 
+        dplyr::rename(grid_id = aigrid_id) %>%
+        dplyr::select(-area, -perimeter, -aigrid) %>% # TOLEDO! Why are there aigrid aigrid_id in this table? 
+        dplyr::mutate(file_3nm0 = "goa_stations_3nm0", 
+                      mi3 = TRUE), 
+      by = c("stratum", "stationid", "grid_id")) 
+) %>% 
+  dplyr::rename(dplyr::any_of(lookup))
 
 OLD_STATION <- 
   racebase_haul0 %>% 
   dplyr::rename(dplyr::any_of(lookup)) %>%
-  dplyr::mutate(SRVY = dplyr::case_when(
-    region == "BS" & stratum %in% c(70, 71, 81) ~ "NBS", 
-    region == "BS" & stratum %in% c(50, 32, 31, 42, 10, 20, 43, 62, 41, 61, 90, 82, 81, 70, 71) ~ "EBS", 
-    TRUE ~ region)) %>% 
+  dplyr::filter(abundance_haul == "Y", 
+                haul_type == 3) %>% 
   dplyr::filter(!is.na(stratum)) %>%
   dplyr::filter(!is.na(station)) %>% 
+  dplyr::mutate(
+    SRVY = dplyr::case_when(
+      region == "BS" & stratum %in% c(70, 71, 81) ~ "NBS", 
+      region == "BS" & stratum %in% c(50, 32, 31, 42, 10, 20, 43, 62, 41, 61, 90, 82, 81, 70, 71) ~ "EBS", 
+      TRUE ~ region)) %>% 
   dplyr::select(stratum, station, SRVY) %>% 
-  dplyr::distinct() %>% 
-  dplyr::mutate(station_join = cur_group_id(), 
-                station_description = NA,
-                area = NA, 
-                perimeter = NA) 
+  dplyr::distinct() %>%
+  dplyr::left_join(x = ., 
+                   y = temp, 
+                   by = c("stratum", "station", "SRVY")) %>%
+  dplyr::mutate(
+    station_join = cur_group_id(), 
+    mi3 = ifelse((station %in% c("HG2221", "HG2120", "F-20", "H-16") & 
+                    SRVY %in% c("NBS", "EBS")), 
+                 TRUE, FALSE), 
+    file_3nm0 = ifelse((station %in% c("HG2221", "HG2120", "F-20", "H-16") & 
+                          SRVY %in% c("NBS", "EBS")), 
+                       "user_added", NA), 
+    year = 1982, 
+    trawlable = ifelse(trawlable == "Y", TRUE, FALSE))  
+  
+  
+
+
+
+
+    # %>%
+  
+  # EBS data
+  
+  # NBS data
+  
+  # BSS data
+
+
+# OLD_STATION <- 
+#   racebase_haul0 %>% 
+#   dplyr::rename(dplyr::any_of(lookup)) %>%
+#   dplyr::mutate(SRVY = dplyr::case_when(
+#     region == "BS" & stratum %in% c(70, 71, 81) ~ "NBS", 
+#     region == "BS" & stratum %in% c(50, 32, 31, 42, 10, 20, 43, 62, 41, 61, 90, 82, 81, 70, 71) ~ "EBS", 
+#     TRUE ~ region)) %>% 
+#   dplyr::filter(!is.na(stratum)) %>%
+#   dplyr::filter(!is.na(station)) %>% 
+#   dplyr::select(stratum, station, SRVY) %>% 
+#   dplyr::distinct() %>%
+#   dplyr::mutate(station_join = cur_group_id(),
+#                 station_description = NA,
+#                 area = NA,
+#                 perimeter = NA) # %>%
+  # dplyr::left_join(
+  #   x = ., 
+  #   y = goa_stations_3nm0 %>% 
+  #     , 
+  #   by = c("SRVY"))
 
 ## Length ----------------------------------------------------------------------
 
@@ -1055,12 +1142,13 @@ OLD_LENGTH <-
       dplyr::mutate(file = "CRAB.EBSCRAB_NBS", 
                     SRVY = "NBS") ) %>% 
   # dplyr::rename(dplyr::any_of(lookup))  %>% 
-  dplyr::mutate(sex_code = sex, 
-                sex = dplyr::case_when(
-                  sex == 1 ~ "males",
-                  sex == 0 ~ "unsexed",
-                  (clutch_size == 0 & sex == 2) ~ "immature females", 
-                  (clutch_size >= 1 & sex == 2) ~ "mature females"), 
+  dplyr::mutate(
+    # sex_code = sex, 
+    #             sex = dplyr::case_when(
+    #               sex == 1 ~ "males",
+    #               sex == 0 ~ "unsexed",
+    #               (clutch_size == 0 & sex == 2) ~ "immature females", 
+    #               (clutch_size >= 1 & sex == 2) ~ "mature females"), 
                 length_type = dplyr::case_when( # what are other crabs?
                   species_code %in% c(68580, 68590, 68560) ~ 8,  # 8 - Width of carapace 
                   TRUE ~ 7),  # 7 - Length of carapace from back of right eye socket to end of carapace # species_code %in% c(69322, 69323, 69400, 69401) ~ 7, 
@@ -1078,13 +1166,41 @@ OLD_LENGTH <-
   dplyr::bind_rows(
     ., 
     race_data_v_extract_final_lengths0 %>%
-      dplyr::mutate(file = "RACE_DATA.V_EXTRACT_FINAL_LENGTHS", 
-                    sex_code = sex, 
-                    sex = dplyr::case_when(
-                      sex_code == 1 ~ "Males", 
-                      sex_code == 2 ~ "Females", 
-                      sex_code == 3 ~ "Unsexed")) ) %>% 
+      dplyr::mutate(file = "RACE_DATA.V_EXTRACT_FINAL_LENGTHS"#, 
+                    # sex_code = sex, 
+                    # sex = dplyr::case_when(
+                    #   sex_code == 1 ~ "Males", 
+                    #   sex_code == 2 ~ "Females", 
+                    #   sex_code == 3 ~ "Unsexed")
+                    ) ) %>% 
   dplyr::select(hauljoin, species_code, sex, sex_code, length, frequency, length_type, file)
+
+
+## Taxonomics ------------------------------------------------------------------
+
+OLD_TAXONOMICS <- data.frame(
+  species_join = 1, 
+  species_code = "Will be added by S. Friedman.", 
+           itis = NA, 
+           worms = NA, 
+           type_code = NA, 
+           genus = NA, 
+           species = NA, 
+           year_retired = NA, 
+           current_species = NA, 
+           comment = "typo/superseded/synonymized") 
+
+OLD_TAXONOMICS_TYPECODE <- data.frame(
+  market_code = c(1:10), 
+  market = c("egg", 
+             "juvenile", 
+             "adult", 
+             "egg case", 
+             "immature", 
+             "mature", 
+             "larvae", 
+             NA, NA, NA)
+)
 
 # Check work -------------------------------------------------------------------
 
@@ -1115,6 +1231,7 @@ upload_to_oracle <- function(
     file_paths, 
     column_metadata, 
     channel, 
+    channel_name,
     update_table = TRUE, 
     update_metadata = TRUE) {
   
@@ -1168,7 +1285,7 @@ upload_to_oracle <- function(
                                 x = column_metadata0$colname[i], fixed = TRUE)
           
           RODBC::sqlQuery(channel = channel,
-                          query = paste0('comment on column RACEBASE_FOSS.',file_name,'.',
+                          query = paste0('comment on column ',channel_name,'.',file_name,'.',
                                          short_colname,' is \'',
                                          desc, ". ", # remove markdown/html code
                                          gsub(pattern = "'", replacement ='\"',
@@ -1178,14 +1295,14 @@ upload_to_oracle <- function(
       }
       ## Add table metadata ---------------------------------------------------------
       RODBC::sqlQuery(channel = channel,
-                      query = paste0('comment on table RACEBASE_FOSS.',file_name,
+                      query = paste0('comment on table ',channel_name,'.',file_name,
                                      ' is \'',
                                      file_paths$table_metadata[ii],'\';'))
     }
     ## grant access to all schemes ------------------------------------------------
     for (iii in 1:length(sort(all_schemas$USERNAME))) {
       RODBC::sqlQuery(channel = channel,
-                      query = paste0('grant select on RACEBASE_FOSS.',file_name,
+                      query = paste0('grant select on ',channel_name,'.',file_name,
                                      ' to ', all_schemas$USERNAME[iii],';'))
     }
     
@@ -1194,18 +1311,21 @@ upload_to_oracle <- function(
 
 # Upload data to oracle! -------------------------------------------------------
 
-column_metadata <- readr::read_csv(file = paste0(dir_out, "column_metadata.csv"))
-
+# Production tables
 write.csv(x = OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM, file = paste0(dir_out, "OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM.csv"))
 write.csv(x = OLD_CPUE_STATION, file = paste0(dir_out, "OLD_CPUE_STATION.csv"))
 write.csv(x = OLD_COMP_AGE_SIZE_STRATUM, file = paste0(dir_out, "OLD_COMP_AGE_SIZE_STRATUM.csv"))
 write.csv(x = OLD_SPECIAL_PROJECTS, file = paste0(dir_out, "OLD_SPECIAL_PROJECTS.csv"))
-write.csv(x = OLD_AFFILIATIONS, file = paste0(dir_out, "OLD_AFFILIATIONS.csv"))
 write.csv(x = OLD_OTHER_FIELD_COLLECTIONS, file = paste0(dir_out, "OLD_OTHER_FIELD_COLLECTIONS.csv"))
-write.csv(x = OLD_COLLECTION_SCHEME, file = paste0(dir_out, "OLD_COLLECTION_SCHEME.csv"))
 write.csv(x = OLD_LENGTH, file = paste0(dir_out, "OLD_LENGTH.csv"))
+
+# Reference tables
+write.csv(x = OLD_AFFILIATIONS, file = paste0(dir_out, "OLD_AFFILIATIONS.csv"))
+write.csv(x = OLD_COLLECTION_SCHEME, file = paste0(dir_out, "OLD_COLLECTION_SCHEME.csv"))
 write.csv(x = OLD_STATION, file = paste0(dir_out, "OLD_STATION.csv"))
 write.csv(x = OLD_STRATUM, file = paste0(dir_out, "OLD_STRATUM.csv"))
+write.csv(x = OLD_TAXONOMICS, file = paste0(dir_out, "OLD_TAXONOMICS.csv"))
+write.csv(x = OLD_TAXONOMICS, file = paste0(dir_out, "OLD_TAXONOMICS_TYPECODE.csv"))
 
 file_paths <- data.frame(
   file_path = 
@@ -1214,26 +1334,40 @@ file_paths <- data.frame(
     #            paste0("AFSC_ITIS_WORMS", option)), 
     #          ".csv"), 
     paste0(dir_out, 
-           c("OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM", 
-             "OLD_CPUE_STATION",
-             "OLD_COMP_AGE_SIZE_STRATUM", 
+           c("OLD_TAXONOMICS",
+             "OLD_TAXONOMICS_TYPECODE",
+             "OLD_STATION", 
+             "OLD_STRATUM",
              "OLD_SPECIAL_PROJECTS", 
              "OLD_AFFILIATIONS", 
              "OLD_OTHER_FIELD_COLLECTIONS", 
              "OLD_COLLECTION_SCHEME", 
-             "OLD_LENGTH",
-             "OLD_STATION", 
-             "OLD_STRATUM"), 
+             "OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM", 
+             "OLD_CPUE_STATION",
+             "OLD_COMP_AGE_SIZE_STRATUM",
+             "OLD_LENGTH"), 
            ".csv"), 
   "table_metadata" = c(Sys.Date()) 
 )
 
 # file_paths <- file_paths[-1,]
 
+dir_out <- paste0("./output/", Sys.Date())
+source("https://raw.githubusercontent.com/afsc-gap-products/gap_public_data/main/code/metadata.r")
+
+# column_metadata <- data.frame(matrix(
+#   ncol = 4, byrow = TRUE, 
+#   data = c(
+#     "dummy", "Dummy", "dummy units", "dummy description."
+#   )))
+# 
+# names(column_metadata) <- c("colname", "colname_desc", "units", "desc")
+
+
 upload_to_oracle(
-  # update_metadata = FALSE, 
-  # update_table = TRUE,
   file_paths = file_paths, 
   column_metadata = column_metadata, 
-  channel = channel_products)
+  channel = channel_products, 
+  channel_name = "GAP_PRODUCTS")
 
+#
