@@ -24,8 +24,9 @@ surveys <-
 
 source('./code/functions.R')
 source("https://raw.githubusercontent.com/afsc-gap-products/metadata/main/code/functions_oracle.R")
-dir_data <- "./data/"
-dir_out <- paste0("./output/", Sys.Date())
+dir_data <- paste0(getwd(), "/data/")
+dir_out <- paste0(getwd(), "/output/", Sys.Date(), "/")
+dir.create(dir_out)
 
 # This has a specific username and password because I DONT want people to have access to this!
 # source("C:/Users/emily.markowitz/Work/Projects/ConnectToOracle.R")
@@ -63,6 +64,8 @@ source("Z:/Projects/ConnectToOracle.R")
 
 # The current state of affairs
 locations <- c( # data pulled from Oracle for these figures:
+  "RACEBASE.HAUL",
+  "RACE_DATA.V_CRUISES", 
   
   # metadata
   "GAP_PRODUCTS.METADATA_COLUMN", 
@@ -156,7 +159,6 @@ locations <- c( # data pulled from Oracle for these figures:
   # "EBSSLOPE.STRATLIST" # don't have access to yet
   
   # Station
-  "RACEBASE.HAUL", 
   "AI.AIGRID_GIS",
   "GOA.GOAFRID", 
   "GOA.GOAGRID_GIS", 
@@ -368,8 +370,7 @@ lookup <- c(
   
   value = "length", 
   area = "regulatory_area_name", 
-  year = "survey_year", 
-  
+
   length_mean = "meanlen", 
   length_mean = "mean_length", 
   
@@ -463,18 +464,7 @@ OLD_CPUE_STATION <- dplyr::bind_rows(
   dplyr::select(#SRVY, year, 
     species_code, hauljoin, 
     cpue_kgkm2, cpue_nokm2, weight_kg, count, 
-    file)  #%>%
-# # define 'standard' tows
-# dplyr::left_join(
-#   x = .,
-#   y = haul0,
-#   by = "hauljoin") %>%
-# dplyr::filter(abundance_haul == "Y" &
-#                 performance >= 0 &
-#                 !(is.null(stationid))) %>%
-# dplyr::select(SRVY, year, species_code, cpue_kgha, number_fish, stationid, start_latitude, start_longitude)
-
-
+    file) 
 
 ## Biomass and Abundance data --------------------------------------------------
 
@@ -509,14 +499,14 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   by = c("SRVY", "species_code", "year")), 
   
   # NBS data
-  nbsshelf_nbs_biomass0 %>% 
+  nbsshelf_nbs_biomass0  %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>%
     dplyr::mutate(
       area_type = "index",
       area = "index", 
       SRVY = "NBS", 
-      file = "nbsshelf.nbs_biomass") %>%
-    dplyr::rename(dplyr::any_of(lookup)),     
+      file = "nbsshelf.nbs_biomass"),     
   # haehnr_biomass_nbs_safe0 %>% 
   #   dplyr::mutate(
   #     area_type = "index",
@@ -531,17 +521,21 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
     dplyr::mutate(
       area_type = "standard",
       area = "index",
-      SRVY = "EBS",
+      # SRVY = "EBS",
       file = "ebsshelf.ebsshelf_agecomp_standard") %>%
-    dplyr::rename(dplyr::any_of(lookup)),
+    dplyr::rename(dplyr::any_of(lookup)) %>%
+    dplyr::mutate(
+      SRVY = "EBS"),
   ebsshelf_ebsshelf_biomass_plusnw0  %>% 
     dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>%
     dplyr::mutate(
       area_type = "index",
       area = "index",
-      SRVY = "EBS",
+      # SRVY = "EBS",
       file = "ebsshelf.ebsshelf_biomass_plusnw") %>%
-    dplyr::rename(dplyr::any_of(lookup)),
+    dplyr::rename(dplyr::any_of(lookup)) %>%
+    dplyr::mutate(
+      SRVY = "EBS"),
   # haehnr_biomass_ebs_plusnw_grouped0 %>% 
   #   dplyr::mutate(
   #     area_type = "index",
@@ -560,11 +554,13 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   # BSS
   ebsslope_biomass_ebsslope0  %>%
     dplyr::mutate(
+      # SRVY = "BSS", 
       area_type = "index",
       area = "index", 
-      SRVY = "BSS", 
       file = "ebsslope.biomass_ebsslope") %>%
-    dplyr::rename(dplyr::any_of(lookup)),
+    dplyr::rename(dplyr::any_of(lookup)) %>%
+    dplyr::mutate(
+      SRVY = "BSS"),
   # ebsslope_cpue_all0
   
   # GOA data
@@ -572,46 +568,46 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
     dplyr::mutate(
       area_type = "index",
       area = "index", 
-      SRVY = "GOA", 
+      # SRVY = "GOA", 
       file = "goa.biomass_total") %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_stratum0 %>%
     dplyr::mutate(
       area_type = "index",
       area = "index", 
-      SRVY = "GOA",
+      # SRVY = "GOA",
       file = "goa.biomass_stratum") %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_area0 %>%
     dplyr::mutate(
-      SRVY = "GOA", 
+      # SRVY = "GOA", 
       file = "goa.biomass_area", 
       area_type = "regulatory") %>% 
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_by_length0 %>%
     dplyr::mutate(
-      SRVY = "GOA", 
+      # SRVY = "GOA", 
       area_type = "index", # is this right?
       area = "length", 
       file = "goa.biomass_by_length") %>% 
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_depth0 %>%
     dplyr::mutate(
-      SRVY = "GOA", 
+      # SRVY = "GOA", 
       area_type = "index", # is this right?
       area = "depth",
       file = "goa.biomass_depth") %>% 
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_inpfc0 %>%
     dplyr::mutate(
-      SRVY = "GOA", 
+      # SRVY = "GOA", 
       file = "goa.biomass_inpfc", 
       area_type = "inpfc", 
       summary_area = as.character(summary_area)) %>% # is this right?/make sense
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_inpfc_depth0 %>%
     dplyr::mutate(
-      SRVY = "GOA", 
+      # SRVY = "GOA", 
       file = "goa.biomass_inpfc_depth", 
       area_type = "inpfc") %>% 
     dplyr::rename(dplyr::any_of(lookup)),
@@ -621,202 +617,62 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
     dplyr::mutate(
       area_type = "index",
       area = "index", 
-      SRVY = "AI", 
+      # SRVY = "AI", 
       file = "ai.biomass_total") %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_biomass_stratum0 %>%
     dplyr::mutate(
       area_type = "index",
       area = "index", 
-      SRVY = "AI", 
+      # SRVY = "AI", 
       file = "ai.biomass_stratum")  %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_biomass_area0 %>%
     dplyr::mutate(
-      SRVY = "AI", 
+      # SRVY = "AI", 
       file = "ai.biomass_area", 
       area_type = "regulatory")  %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_biomass_area_depth0 %>%
     dplyr::mutate(
-      SRVY = "AI", 
+      # SRVY = "AI", 
       file = "ai.biomass_area_depth", 
       area_type = "regulatory") %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_biomass_by_length0 %>%
     dplyr::mutate(
-      SRVY = "AI", 
+      # SRVY = "AI", 
       area_type = "index", # is this right?
       area = "length", 
       file = "ai.biomass_by_length")  %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_biomass_depth0 %>%
     dplyr::mutate(
-      SRVY = "AI", 
+      # SRVY = "AI", 
       area_type = "index", # is this right?
       area = "depth", 
       file = "ai.biomass_depth")  %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_biomass_inpfc_depth0 %>% # are there inpfc regions?
     dplyr::mutate(
-      SRVY = "AI", 
+      # SRVY = "AI", 
       file = "ai.biomass_inpfc_depth", 
       area_type = "inpfc") %>% 
     dplyr::rename(dplyr::any_of(lookup))
 )  %>% 
   dplyr::select(sort(tidyselect::peek_vars())) %>%
-  dplyr::select(-common_name, -species_name, -region, -survey)
-
-# print("Total Biomass")
-# 
-# # calc_cpue_bio <- function(catch_haul_cruises0){
-#   
-#   # for tech memo table: calculate biomass for fish and invert taxa in table 7
-#   # Created by: Rebecca Haehn
-#   # Contact: rebecca.haehn@noaa.gov
-#   # Created: 13 January 2022
-#   # script modifed from biomass script for stock assessments
-#   # Modified: 
-#   
-#   ### fiter to EBS only data by innerjoin (catch and haul) --------------------
-#   
-#   ## to test this I filtered for YEAR = 2017 in the haul data, row count matches prebiocatch table in Oracle (after running legacy ebs_plusnw script) **do not run with filter to get match
-#   ## 
-#   ## the filter removes empty banacles, empty bivalve/gastropod shell, invert egg unid, unsorted catch and debris, Polychaete tubes, and unsorted shab 
-#   
-#   ### create zeros table for CPUE calculation ---------------------------------
-#   # zeros table so every haul/vessel/year combination includes a row for every species caught (combine)
-#   
-#   temp1 <- catch_haul_cruises0 #%>% 
-#   # dplyr::group_by(year, SRVY, cruisejoin, hauljoin, stationid, stratum, haul, cruise, 
-#   #                 species_code, distance_fished, net_width) %>% 
-#   # dplyr::summarise(weight = sum(weight, na.rm = TRUE), 
-#   #                  number_fish = sum(number_fish, na.rm = TRUE))
-#   
-#   if (is.numeric(catch_haul_cruises0$species_code)) {
-#     temp1 <- temp1 %>%
-#       dplyr::filter(species_code < 99991)
-#   }
-#   
-#   z <-  temp1 %>% 
-#     tidyr::complete(species_code, 
-#                     nesting(SRVY, cruise, haul, #vessel, 
-#                             year, hauljoin, stratum, stationid, 
-#                             distance_fished, net_width)) %>%
-#     dplyr::select(SRVY, cruise, hauljoin, haul, #vessel, 
-#                   year, species_code, weight, number_fish, stratum, 
-#                   stationid, distance_fished, net_width) %>%
-#     tidyr::replace_na(list(weight = 0, number_fish = 0))
-#   
-#   
-#   catch_with_zeros <- 
-#     dplyr::full_join(x = temp1, 
-#                      y = z, 
-#                      by = c("SRVY", "cruise", "hauljoin", "haul", 
-#                             "year", "species_code", "stratum", "stationid", 
-#                             "distance_fished", "net_width")) %>%
-#     dplyr::select(-weight.y, -number_fish.y, -gear_depth, 
-#                   -duration, -net_height) %>%
-#     dplyr::arrange(year, haul, species_code) %>%
-#     dplyr::rename(weight_kg = weight.x, number_fish = number_fish.x) %>%
-#     tidyr::replace_na(list(weight_kg = 0, number_fish = 0))
-#   
-#   ### calculate CPUE (mean CPUE by strata) ----------------------------------------------------------
-#   
-#   # num <- temp1 %>%
-#   #   dplyr::distinct(SRVY, year, hauljoin, species_code) %>%
-#   #   dplyr::group_by(SRVY, year, species_code) %>%
-#   #   dplyr::summarize(num = n())
-#   
-#   cpue_by_stratum <- catch_with_zeros %>%
-#     dplyr::select(SRVY, species_code, year, stratum, stationid,
-#                   distance_fished, net_width, weight_kg) %>%
-#     dplyr::mutate(
-#       effort = distance_fished * net_width/10,
-#       cpue_kgha = weight_kg/effort) %>% 
-#     dplyr::left_join(x = .,
-#                      y = stratum_info %>%
-#                        dplyr::select(stratum, area, SRVY),
-#                      by = c("SRVY", "stratum")) %>%
-#     dplyr::arrange(stratum, species_code) %>%
-#     dplyr::group_by(SRVY, species_code, year, stratum, area) %>%
-#     dplyr::summarise( 
-#       cpue_kgha_strat = mean(cpue_kgha, na.rm = TRUE), #weight_kg/effort, 
-#       cpue_kgha_var = ifelse(n() <= 1, 0, var(cpue_kgha)/n()),
-#       num_hauls = n(),     # num_hauls = ifelse(num == 1, 1, (num-1)),
-#       total_area = sum(unique(area))) %>%
-#     dplyr::mutate(strata = dplyr::case_when(
-#       (stratum == 31 | stratum == 32) ~ 30,
-#       (stratum == 41 | stratum == 42) | stratum == 43 ~ 40,
-#       (stratum == 61 | stratum == 62) ~ 60, 
-#       TRUE ~ as.numeric(stratum)))
-#   
-#   # 
-# #   
-# #   # ## CANNOT use biomass_*** tables bc they don't contain the info for all species (ie: no poachers, blennies, lumpsuckers, eelpouts, etc.)
-# #   
-# #   biomass_by_stratum <- biomass_cpue_by_stratum <- cpue_by_stratum %>%
-# #     dplyr::mutate(
-# #       biomass_mt = cpue_kgha_strat * (area * 0.1), 
-# #       bio_var = (area^2 * cpue_kgha_var/100), 
-# #       fi = area * (area - num_hauls)/num_hauls,
-# #       ci = qt(p = 0.025, df = num_hauls - 1, lower.tail = F) * sqrt(bio_var), 
-# #       up_ci_bio = biomass_mt + ci,
-# #       low_ci_bio = ifelse(biomass_mt - ci <0, 0, biomass_mt - ci) )
-# #   
-# #   
-# #   total_biomass <- biomass_by_stratum %>%
-# #     dplyr::filter((species_code >= 40000 &
-# #                      species_code < 99991) |
-# #                     (species_code > 1 & 
-# #                        species_code < 35000)) %>% 
-# #     ungroup() %>%
-# #     dplyr::group_by(SRVY, year) %>% 
-# #     dplyr::summarise(total = sum(biomass_mt, na.rm = TRUE))
-# #   
-# #   return(list("biomass_cpue_by_stratum" = biomass_cpue_by_stratum, 
-# #               "total_biomass" = total_biomass))
-# #   
-# # }
-# # 
-# # a <- calc_cpue_bio(catch_haul_cruises0 = catch_haul_cruises_maxyr)
-# # b <- calc_cpue_bio(catch_haul_cruises0 = catch_haul_cruises_compareyr)
-# # 
-# # biomass_cpue_by_stratum <- cpue_by_stratum <- biomass_by_stratum <- 
-# #   a$biomass_cpue_by_stratum %>%  # remove crab totals, as they use different stratum
-# #   dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560)))
-# # 
-# # # subtract our-calculated crab totals so we can add the right total from SAP
-# # cc <- dplyr::bind_rows(a$biomass_cpue_by_stratum, 
-# #                        b$biomass_cpue_by_stratum) %>% 
-# #   dplyr::filter((species_code %in% c(69323, 69322, 68580, 68560))) %>%
-# #   ungroup() %>%
-# #   dplyr::group_by(SRVY, year) %>%
-# #   dplyr::summarise(total_crab_wrong = sum(biomass_mt, na.rm = TRUE))
-# # 
-# # total_biomass <- 
-# #   dplyr::left_join(x = dplyr::bind_rows(a$total_biomass, 
-# #                                         b$total_biomass), 
-# #                    y = cc) %>% 
-# #   dplyr::left_join(x = ., 
-# #                    y = biomass_tot_crab %>% 
-# #                      dplyr::filter(stratum == 999) %>%
-# #                      ungroup() %>%
-# #                      dplyr::group_by(SRVY, year) %>% 
-# #                      dplyr::summarise(total_crab_correct = sum(biomass, na.rm = TRUE))) %>% 
-# #   dplyr::mutate(total = total - total_crab_wrong + total_crab_correct) %>% 
-# #   dplyr::select(-total_crab_wrong, -total_crab_correct)
+  dplyr::select(-common_name, -species_name, -region, -SRVY)
 
 ## Comp data -------------------------------------------------------------------
 
 # length comps
 size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
   # NBS data
-  nbsshelf_nbs_sizecomp0 %>% 
+  nbsshelf_nbs_sizecomp0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "NBS", 
                   area_type = "index", 
-                  file = "nbsshelf.nbs_sizecomp") %>% 
-    dplyr::rename(dplyr::any_of(lookup)) , 
+                  file = "nbsshelf.nbs_sizecomp") , 
   # haehnr_sizecomp_nbs_stratum0 %>% 
   #   dplyr::mutate(SRVY = "NBS", 
   #                 area_type = "index", 
@@ -834,8 +690,7 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "EBS",
                   area_type = "standard", # or should this be index? and area = "standard?
-                  file = "ebsshelf.ebsshelf_sizecomp_standard") %>%
-    dplyr::rename(dplyr::any_of(lookup)),
+                  file = "ebsshelf.ebsshelf_sizecomp_standard"),
   # haehnr_sizecomp_ebs_plusnw_stratum0 %>% 
   #   dplyr::mutate(SRVY = "EBS", 
   #                 file = "haehnr.sizecomp_ebs_plusnw_stratum") %>% 
@@ -847,10 +702,10 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
   #   dplyr::rename(dplyr::any_of(lookup)),
   # BSS data
   ebsslope_sizecomp_ebsslope0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "BSS", 
                   area_type = "index",
-                  file = "ebsslope.sizeecomp_ebsslope") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
+                  file = "ebsslope.sizeecomp_ebsslope"), 
   
   # hoffj_sizecomp_ebsslope0 %>% 
   #   dplyr::mutate(SRVY = "BSS", 
@@ -859,75 +714,75 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
   #   dplyr::rename(dplyr::any_of(lookup)),   
   # GOA data
   goa_sizecomp_stratum0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "GOA",
                   area_type = "index", 
-                  file = "goa.sizecomp_stratum") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
-  goa_sizecomp_total0 %>%
+                  file = "goa.sizecomp_stratum"), 
+  goa_sizecomp_total0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>%
     dplyr::mutate(SRVY = "GOA", 
                   area_type = "index",
                   file = "goa.sizecomp_total") %>% 
-    dplyr::rename(stratum = summary_area) %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
+    dplyr::rename(stratum = area), 
   # goa_sizecomp_area_depth0
-  goa_sizecomp_area0 %>% 
+  goa_sizecomp_area0  %>% 
+    dplyr::rename(dplyr::any_of(lookup))%>% 
     dplyr::mutate(SRVY = "GOA", 
                   area_type = "regulatory", 
-                  file = "goa.sizecomp_area") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
-  goa_sizecomp_depth0 %>% 
+                  file = "goa.sizecomp_area"), 
+  goa_sizecomp_depth0  %>% 
+    dplyr::rename(dplyr::any_of(lookup))%>% 
     dplyr::mutate(SRVY = "GOA", 
-                  file = "goa.sizecomp_depth") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
-  goa_sizecomp_inpfc0 %>% 
+                  file = "goa.sizecomp_depth"), 
+  goa_sizecomp_inpfc0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "GOA", 
                   area_type = "inpfc", 
                   file = "goa.sizecomp_inpfc", 
-                  summary_area = as.character(summary_area)) %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
-  goa_sizecomp_inpfc_depth0 %>% 
+                  area = as.character(area)), 
+  goa_sizecomp_inpfc_depth0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "GOA", 
                   area_type = "inpfc", 
-                  file = "goa.sizecomp_inpfc_depth") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
+                  file = "goa.sizecomp_inpfc_depth"), 
   # AI data
-  ai_sizecomp_stratum0 %>% 
+  ai_sizecomp_stratum0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "AI",
                   area_type = "index", 
-                  file = "ai.sizecomp_stratum") %>% 
-    dplyr::rename(dplyr::any_of(lookup)),
-  ai_sizecomp_total0  %>%
+                  file = "ai.sizecomp_stratum"),
+  ai_sizecomp_total0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>%
     dplyr::mutate(SRVY = "AI", 
                   area_type = "index",
                   file = "ai.sizecomp_total") %>% 
-    dplyr::rename(stratum = summary_area) %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
+    dplyr::rename(stratum = area), 
   ai_sizecomp_area0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "AI", 
                   area_type = "regulatory", 
-                  file = "ai.sizecomp_area") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
+                  file = "ai.sizecomp_area"), 
   ai_sizecomp_area_depth0 %>% 
-    dplyr::mutate(SRVY = "AI", 
+    dplyr::mutate(#SRVY = "AI", 
                   area_type = "regulatory", 
                   file = "ai.sizecomp_area_depth") %>% 
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_sizecomp_depth0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "AI", 
                   area_type = "index", # is this right?
-                  file = "ai.sizecomp_depth") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
-  ai_sizecomp_inpfc_depth0 %>% 
+                  file = "ai.sizecomp_depth"), 
+  ai_sizecomp_inpfc_depth0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "AI", 
                   area_type = "inpfc", 
-                  file = "ai.sizecomp_inpfc_depth") %>% 
-    dplyr::rename(dplyr::any_of(lookup)), 
-  ai_sizecomp_inpfc0 %>% 
+                  file = "ai.sizecomp_inpfc_depth"), 
+  ai_sizecomp_inpfc0  %>% 
+    dplyr::rename(dplyr::any_of(lookup))%>% 
     dplyr::mutate(SRVY = "AI", 
                   area_type = "inpfc", 
-                  summary_area = as.character(summary_area), 
-                  file = "ai.sizecomp_inpfc") %>% 
-    dplyr::rename(dplyr::any_of(lookup))
+                  area = as.character(area), 
+                  file = "ai.sizecomp_inpfc")
 ) %>% 
   # dplyr::select(SRVY, year, stratum, species_code, area, area_type, depth, length, 
   #               males, females, unsexed, file) %>%
@@ -1010,6 +865,13 @@ OLD_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(size_COMP_AGE_SIZE_STRATUM,
   dplyr::select(-survey)
 
 ## Stratum data ----------------------------------------------------------------
+
+lookup <- c(SRVY = "survey", 
+            station = "stationid", 
+            area_km2 = "area", 
+            perimeter_km = "perimeter", 
+            depth_m_min = "min_depth", 
+            depth_m_max = "max_depth")
 
 # stratum_id	Survey	stratum	stratum_type	details	stratum_desc	stratum_names	year_implimented	area	perimeter
 
@@ -1331,16 +1193,17 @@ for (i in 1:length(a)){
 #     identification characteristics are unknown.
 
 OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>% 
-  dplyr::mutate(OLD_TAXON_CONFIDENCE0 = OLD_TAXON_CONFIDENCE, 
-                OLD_TAXON_CONFIDENCE = dplyr::case_when(
-                  OLD_TAXON_CONFIDENCE == 1 ~ "High",
-                  OLD_TAXON_CONFIDENCE == 2 ~ "Moderate",
-                  OLD_TAXON_CONFIDENCE == 3 ~ "Low", 
-                  TRUE ~ "Unassessed"))
+  dplyr::mutate(taxon_confidence0 = OLD_TAXON_CONFIDENCE, 
+                taxon_confidence = dplyr::case_when(
+                  taxon_confidence0 == 1 ~ "High",
+                  taxon_confidence0 == 2 ~ "Moderate",
+                  taxon_confidence0 == 3 ~ "Low", 
+                  TRUE ~ "Unassessed")) %>% 
+  dplyr::select(-OLD_TAXON_CONFIDENCE)
 
 # fill in OLD_TAXON_CONFIDENCE with, if missing, the values from the year before
 
-cruises <- read.csv("./data/race_data_v_cruises.csv") %>% 
+cruises <- race_data_v_cruises0 %>% #read.csv("./data/race_data_v_cruises.csv") %>% 
   janitor::clean_names() %>% 
   dplyr::left_join(
     x = surveys, # a data frame of all surveys and survey_definition_ids we want included in the public data, created in the run.R script
@@ -1359,9 +1222,9 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
     dplyr::filter(
       SRVY %in% sapply(comb,"[[",1) &
         year == 2021) %>% 
-    dplyr::mutate(year = 2022)) %>% 
-  dplyr::rename(OLD_TAXON_CONFIDENCE = OLD_TAXON_CONFIDENCE, 
-                OLD_TAXON_CONFIDENCE0 = OLD_TAXON_CONFIDENCE0)
+    dplyr::mutate(year = 2022)) #%>% 
+  # dplyr::rename(taxon_confidence = taxon_confidence, 
+  #               taxon_confidence0 = taxon_confidence0)
 
 OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
   "The quality and specificity of field identifications for many taxa have 
@@ -1383,7 +1246,8 @@ OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
 
 # Upload data to oracle! -------------------------------------------------------
 
-a <- apropos("OLD_")
+a <- apropos("OLD_") 
+a <- a[!grepl(pattern = "_table_metadata", x = a)]
 file_paths <- data.frame(file_path = NA, table_metadata = NA)
 
 for (i in 1:length(a)) {
@@ -1403,9 +1267,15 @@ for (i in 1:length(a)) {
                                table_metadata = table_metadata)
 }
 
+file_paths <- file_paths[-1,]
+
+metadata_column <- gap_products_metadata_column0
+# names(metadata_column) <- gsub(pattern = "metadata_colname_", replacement = "", x = names(metadata_column))
+
 oracle_upload(
   file_paths = file_paths, 
-  metadata_column = gap_products_metadata_column0, 
+  metadata_column = metadata_column, 
   channel = channel_products, 
-  channel_name = "GAP_PRODUCTS")
+  schema = "GAP_PRODUCTS")
+
 
