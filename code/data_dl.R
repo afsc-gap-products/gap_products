@@ -39,34 +39,12 @@ locations<-c(
   "RACEBASE.STRATUM", 
   "RACEBASE.SPECIES", 
   "RACE_DATA.SPECIES_TAXONOMICS", 
-  "RACE_DATA.VESSELS"
+  "RACE_DATA.VESSELS", 
+  "GAP_PRODUCTS.METADATA_TABLE", 
+  "GAP_PRODUCTS.METADATA_COLUMN"
 )
 
-for (i in 1:length(locations)){
-  print(locations[i])
-  if (locations[i] == "RACEBASE.HAUL") { # that way I can also extract TIME
-    
-    a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
-    
-    a <- RODBC::sqlQuery(channel, 
-                       paste0("SELECT ",
-                              paste0(names(a)[names(a) != "START_TIME"], 
-                                     sep = ",", collapse = " "),
-                              " TO_CHAR(START_TIME,'MM/DD/YYYY HH24:MI:SS') START_TIME  FROM ", 
-                              locations[i]))
-  } else {
-    a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
-  }
-  
-
-    filename <- tolower(gsub(x = locations[i], 
-                             pattern = ".", 
-                             replacement = "_", 
-                             fixed = TRUE))
-  
-  write.csv(x=a, 
-            paste0("./data/",
-                   filename,
-                   ".csv"))
-  remove(a)
-}
+oracle_dl(
+  locations = locations, 
+  channel = channel, 
+  dir_out = "./data/")

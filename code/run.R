@@ -29,6 +29,7 @@ dir_out <- "./output/"
 # Support scripts --------------------------------------------------------------
 
 source('./code/functions.R')
+source("https://raw.githubusercontent.com/afsc-gap-products/metadata/main/code/functions_oracle.R")
 
 # Notes: There are oracle files that are sourced from RACE_DATA - we should only be sourcing from RACEBASE
 # source('./code/data_dl.R') # run annually -- files from RACEBASE and RACE_DATA you will need to prepare the following files
@@ -41,14 +42,6 @@ source("./code/data.R") # Wrangle data
 # zero-filled (presence and absense) CPUE
 # NOTES: EHM 2022-11-21: borrowed from https://github.com/afsc-gap-products/gap_public_data/blob/main/code/analysis.R
 source('./code/data_cpue_station.R') 
-
-# Calculate the stratum- and total-level Biomass and Abundance estimates
-# NOTES: EHM 2022-11-21: does not have any code for these calculations, so it is currently a blank file
-source('./code/data_biomass_abundance_stratum_total.R')
-
-# Calculate the stratum- and total-level Length and Age Comp estimates
-# NOTES: EHM 2022-11-21: does not have any code for these calculations, so it is currently a blank file
-source('./code/data_comps_length_age_stratum_total.R')
 
 # source("./code/load_oracle.R") # Share table to oracle
 
