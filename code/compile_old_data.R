@@ -1193,11 +1193,11 @@ for (i in 1:length(a)){
 #     identification characteristics are unknown.
 
 OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>% 
-  dplyr::mutate(taxon_confidence0 = OLD_TAXON_CONFIDENCE, 
+  dplyr::mutate(taxon_confidence_code = OLD_TAXON_CONFIDENCE, 
                 taxon_confidence = dplyr::case_when(
-                  taxon_confidence0 == 1 ~ "High",
-                  taxon_confidence0 == 2 ~ "Moderate",
-                  taxon_confidence0 == 3 ~ "Low", 
+                  taxon_confidence_code == 1 ~ "High",
+                  taxon_confidence_code == 2 ~ "Moderate",
+                  taxon_confidence_code == 3 ~ "Low", 
                   TRUE ~ "Unassessed")) %>% 
   dplyr::select(-OLD_TAXON_CONFIDENCE)
 
@@ -1222,9 +1222,10 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
     dplyr::filter(
       SRVY %in% sapply(comb,"[[",1) &
         year == 2021) %>% 
-    dplyr::mutate(year = 2022)) #%>% 
+    dplyr::mutate(year = 2022)) %>% 
+  dplyr::select(-common_name, -scientific_name)
   # dplyr::rename(taxon_confidence = taxon_confidence, 
-  #               taxon_confidence0 = taxon_confidence0)
+  #               taxon_confidence_code = taxon_confidence_code)
 
 OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
   "The quality and specificity of field identifications for many taxa have 
@@ -1240,12 +1241,9 @@ OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
   metadata_sentence_codebook, 
   metadata_sentence_last_updated)
 
-# Check work -------------------------------------------------------------------
-
-# Load to Oracle ---------------------------------------------------------------
-
 # Upload data to oracle! -------------------------------------------------------
 
+# Final all objects with "OLD_" prefix, save them and their table metadata, and add them to the que to save to oracle
 a <- apropos("OLD_") 
 a <- a[!grepl(pattern = "_table_metadata", x = a)]
 file_paths <- data.frame(file_path = NA, table_metadata = NA)
@@ -1254,6 +1252,7 @@ for (i in 1:length(a)) {
   
   write.csv(x = get(a[i]), file = paste0(dir_out, a[i], ".csv"))
   
+  # find or create table metadat for table
   table_metadata <- ifelse(exists(paste0(a[i], "_table_metadata", collapse="\n")), 
                                 get(paste0(a[i], "_table_metadata", collapse="\n")), 
                                 paste0(metadata_sentence_github, 
@@ -1266,16 +1265,11 @@ for (i in 1:length(a)) {
                                file_path = paste0(dir_out, a[i], ".csv"),
                                table_metadata = table_metadata)
 }
-
 file_paths <- file_paths[-1,]
 
-metadata_column <- gap_products_metadata_column0
-# names(metadata_column) <- gsub(pattern = "metadata_colname_", replacement = "", x = names(metadata_column))
-
+# Save old tables to Oracle
 oracle_upload(
   file_paths = file_paths, 
-  metadata_column = metadata_column, 
+  metadata_column = gap_products_metadata_column0, 
   channel = channel_products, 
   schema = "GAP_PRODUCTS")
-
-
