@@ -126,7 +126,7 @@ locations <- c( # data pulled from Oracle for these figures:
   "EBSSHELF.EBSSHELF_SIZECOMP_PLUSNW",   # "HAEHNR.sizecomp_ebs_plusnw_stratum", 
   "EBSSHELF.EBSSHELF_SIZECOMP_STANDARD", 
   "NBSSHELF.NBS_SIZECOMP",  # "HAEHNR.sizecomp_nbs_stratum",
-
+  
   # "HAEHNR.sizecomp_ebs_plusnw_stratum_grouped",
   "AI.SIZECOMP_STRATUM", 
   "AI.SIZECOMP_TOTAL", 
@@ -370,7 +370,7 @@ lookup <- c(
   
   value = "length", 
   area = "regulatory_area_name", 
-
+  
   length_mean = "meanlen", 
   length_mean = "mean_length", 
   
@@ -471,32 +471,32 @@ OLD_CPUE_STATION <- dplyr::bind_rows(
 OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   # crab EBS + NBS data
   dplyr::left_join(
-  x = crab_gap_ebs_nbs_abundance_biomass0 %>% 
-    dplyr::mutate(
-      area_type = "index",
-      area = "index", 
-      file = "crab.gap_ebs_nbs_abundance_biomass", 
-      stratum = 999) %>%
-    dplyr::rename(dplyr::any_of(lookup)), 
-  y = dplyr::bind_rows(
-    crab_ebscrab0 %>%
-      dplyr::filter(!(cruise %in% unique(crab_ebscrab_nbs0$cruise))) %>% # there may be some nbs data in the ebs (201002)%>% 
-      dplyr::mutate(file = "CRAB.EBSCRAB", 
-                    SRVY = "EBS") , 
-    crab_ebscrab_nbs0 %>% 
-      dplyr::mutate(file = "CRAB.EBSCRAB_NBS", 
-                    SRVY = "NBS")) %>% 
-    dplyr::filter(!is.na(length) & length != 999 & !is.na(cruise)) %>% 
-    dplyr::mutate(
-      year = as.numeric(substr(cruise, start = 1, stop = 4)), 
-      length = dplyr::case_when(
-                    species_code %in% c(68580, 68590, 68560) ~ width,  # "snow crab"
-                    TRUE ~ length),
-                  frequency = 1)  %>%
-    dplyr::group_by(SRVY, species_code, year) %>%
-    dplyr::summarise(count_length = n()) %>% 
-    dplyr::ungroup(), 
-  by = c("SRVY", "species_code", "year")), 
+    x = crab_gap_ebs_nbs_abundance_biomass0 %>% 
+      dplyr::mutate(
+        area_type = "index",
+        area = "index", 
+        file = "crab.gap_ebs_nbs_abundance_biomass", 
+        stratum = 999) %>%
+      dplyr::rename(dplyr::any_of(lookup)), 
+    y = dplyr::bind_rows(
+      crab_ebscrab0 %>%
+        dplyr::filter(!(cruise %in% unique(crab_ebscrab_nbs0$cruise))) %>% # there may be some nbs data in the ebs (201002)%>% 
+        dplyr::mutate(file = "CRAB.EBSCRAB", 
+                      SRVY = "EBS") , 
+      crab_ebscrab_nbs0 %>% 
+        dplyr::mutate(file = "CRAB.EBSCRAB_NBS", 
+                      SRVY = "NBS")) %>% 
+      dplyr::filter(!is.na(length) & length != 999 & !is.na(cruise)) %>% 
+      dplyr::mutate(
+        year = as.numeric(substr(cruise, start = 1, stop = 4)), 
+        length = dplyr::case_when(
+          species_code %in% c(68580, 68590, 68560) ~ width,  # "snow crab"
+          TRUE ~ length),
+        frequency = 1)  %>%
+      dplyr::group_by(SRVY, species_code, year) %>%
+      dplyr::summarise(count_length = n()) %>% 
+      dplyr::ungroup(), 
+    by = c("SRVY", "species_code", "year")), 
   
   # NBS data
   nbsshelf_nbs_biomass0  %>%
@@ -764,8 +764,8 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
                   file = "ai.sizecomp_area"), 
   ai_sizecomp_area_depth0 %>% 
     dplyr::mutate(#SRVY = "AI", 
-                  area_type = "regulatory", 
-                  file = "ai.sizecomp_area_depth") %>% 
+      area_type = "regulatory", 
+      file = "ai.sizecomp_area_depth") %>% 
     dplyr::rename(dplyr::any_of(lookup)), 
   ai_sizecomp_depth0 %>% 
     dplyr::rename(dplyr::any_of(lookup)) %>% 
@@ -859,7 +859,7 @@ OLD_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(size_COMP_AGE_SIZE_STRATUM,
                              labels = c("Males", "Females", "Unsexed", "Immature females", "Mature females"),
                              ordered = TRUE)#, 
                 # sex_code = as.numeric(sex)
-                ) %>% 
+  ) %>% 
   dplyr::arrange(sex) %>% 
   dplyr::mutate(stratum = ifelse(stratum %in% c(999), 999999, stratum)) %>% 
   dplyr::select(-survey)
@@ -872,6 +872,12 @@ lookup <- c(SRVY = "survey",
             perimeter_km = "perimeter", 
             depth_m_min = "min_depth", 
             depth_m_max = "max_depth")
+
+
+# 	Add GOA/AI _strata not _grid files - 3rd historic survey “Winter”
+# 	Add GOA/AI Biomass by X (IMPFC, area, depth)
+# •	Remove GOA/AI data from RACEBASE.STRATUM
+
 
 # stratum_id	Survey	stratum	stratum_type	details	stratum_desc	stratum_names	year_implimented	area	perimeter
 
@@ -985,18 +991,18 @@ temp <- dplyr::bind_rows(
                     mi3 = TRUE), 
     by = c("stratum", "stationid", "aigrid_id")) %>% 
     dplyr::rename(grid_id = aigrid_id) , 
-    # GOA data
-    dplyr::left_join(
-      x = goa_goagrid_gis0 %>% 
-        dplyr::rename(grid_id = goagrid_id) %>%
-        dplyr::mutate(file = "goa.goagrid_gis", 
-                      SRVY = "GOA"), 
-      y = goa_stations_3nm0 %>% 
-        dplyr::rename(grid_id = aigrid_id) %>%
-        dplyr::select(-area, -perimeter, -aigrid) %>% # TOLEDO! Why are there aigrid aigrid_id in this table? 
-        dplyr::mutate(file_3nm0 = "goa_stations_3nm0", 
-                      mi3 = TRUE), 
-      by = c("stratum", "stationid", "grid_id")) 
+  # GOA data
+  dplyr::left_join(
+    x = goa_goagrid_gis0 %>% 
+      dplyr::rename(grid_id = goagrid_id) %>%
+      dplyr::mutate(file = "goa.goagrid_gis", 
+                    SRVY = "GOA"), 
+    y = goa_stations_3nm0 %>% 
+      dplyr::rename(grid_id = aigrid_id) %>%
+      dplyr::select(-area, -perimeter, -aigrid) %>% # TOLEDO! Why are there aigrid aigrid_id in this table? 
+      dplyr::mutate(file_3nm0 = "goa_stations_3nm0", 
+                    mi3 = TRUE), 
+    by = c("stratum", "stationid", "grid_id")) 
 ) %>% 
   dplyr::rename(dplyr::any_of(lookup))
 
@@ -1027,19 +1033,19 @@ OLD_STATION <-
                        "user_added", NA), 
     year = 1982, 
     trawlable = ifelse(trawlable == "Y", TRUE, FALSE))  
-  
-  
 
 
 
 
-    # %>%
-  
-  # EBS data
-  
-  # NBS data
-  
-  # BSS data
+
+
+# %>%
+
+# EBS data
+
+# NBS data
+
+# BSS data
 
 
 # OLD_STATION <- 
@@ -1057,11 +1063,11 @@ OLD_STATION <-
 #                 station_description = NA,
 #                 area = NA,
 #                 perimeter = NA) # %>%
-  # dplyr::left_join(
-  #   x = ., 
-  #   y = goa_stations_3nm0 %>% 
-  #     , 
-  #   by = c("SRVY"))
+# dplyr::left_join(
+#   x = ., 
+#   y = goa_stations_3nm0 %>% 
+#     , 
+#   by = c("SRVY"))
 
 ## Length ----------------------------------------------------------------------
 
@@ -1083,13 +1089,13 @@ OLD_LENGTH <-
     #               sex == 0 ~ "unsexed",
     #               (clutch_size == 0 & sex == 2) ~ "immature females", 
     #               (clutch_size >= 1 & sex == 2) ~ "mature females"), 
-                length_type = dplyr::case_when( # what are other crabs?
-                  species_code %in% c(68580, 68590, 68560) ~ 8,  # 8 - Width of carapace 
-                  TRUE ~ 7),  # 7 - Length of carapace from back of right eye socket to end of carapace # species_code %in% c(69322, 69323, 69400, 69401) ~ 7, 
-                length = dplyr::case_when(
-                  species_code %in% c(68580, 68590, 68560) ~ width,  # "snow crab"
-                  TRUE ~ length),
-                frequency = 1)  %>%
+    length_type = dplyr::case_when( # what are other crabs?
+      species_code %in% c(68580, 68590, 68560) ~ 8,  # 8 - Width of carapace 
+      TRUE ~ 7),  # 7 - Length of carapace from back of right eye socket to end of carapace # species_code %in% c(69322, 69323, 69400, 69401) ~ 7, 
+    length = dplyr::case_when(
+      species_code %in% c(68580, 68590, 68560) ~ width,  # "snow crab"
+      TRUE ~ length),
+    frequency = 1)  %>%
   dplyr::select(-width) %>% 
   dplyr::filter(!is.na(length) & length != 999 & !is.na(cruise)) %>% 
   dplyr::group_by(hauljoin, species_code, sex, length) %>% # sex_code, 
@@ -1106,8 +1112,8 @@ OLD_LENGTH <-
                     #   sex_code == 1 ~ "Males", 
                     #   sex_code == 2 ~ "Females", 
                     #   sex_code == 3 ~ "Unsexed")
-                    ) ) #%>% 
-  # dplyr::select(hauljoin, species_code, sex, length, frequency, length_type, file) # sex_code, 
+      ) ) #%>% 
+# dplyr::select(hauljoin, species_code, sex, length, frequency, length_type, file) # sex_code, 
 
 
 ## Taxonomics ------------------------------------------------------------------
@@ -1224,8 +1230,8 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
         year == 2021) %>% 
     dplyr::mutate(year = 2022)) %>% 
   dplyr::select(-common_name, -scientific_name)
-  # dplyr::rename(taxon_confidence = taxon_confidence, 
-  #               taxon_confidence_code = taxon_confidence_code)
+# dplyr::rename(taxon_confidence = taxon_confidence, 
+#               taxon_confidence_code = taxon_confidence_code)
 
 OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
   "The quality and specificity of field identifications for many taxa have 
@@ -1254,9 +1260,9 @@ for (i in 1:length(a)) {
   
   # find or create table metadat for table
   table_metadata <- ifelse(exists(paste0(a[i], "_table_metadata", collapse="\n")), 
-                                get(paste0(a[i], "_table_metadata", collapse="\n")), 
-                                paste0(metadata_sentence_github, 
-                                       metadata_sentence_last_updated))
+                           get(paste0(a[i], "_table_metadata", collapse="\n")), 
+                           paste0(metadata_sentence_github, 
+                                  metadata_sentence_last_updated))
   
   readr::write_lines(x = table_metadata, 
                      file = paste0(dir_out, a[i], "_table_metadata.txt", collapse="\n"))
@@ -1269,7 +1275,8 @@ file_paths <- file_paths[-1,]
 
 # Save old tables to Oracle
 oracle_upload(
-  file_paths = file_paths, 
+  file_paths = file_paths[3:nrow(file_paths),], 
   metadata_column = gap_products_metadata_column0, 
   channel = channel_products, 
   schema = "GAP_PRODUCTS")
+
