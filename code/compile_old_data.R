@@ -234,18 +234,37 @@ OLD_SPECIAL_PROJECTS <- dplyr::left_join(
                         sheet = "projects", skip = 1), 
   y = readxl::read_xlsx(path = paste0(dir_data, "0_special_projects.xlsx"), 
                         sheet = "solicitation_date", skip = 1), 
-  by = "year")
+  by = "year") %>% 
+  janitor::clean_names() %>% 
+  dplyr::select(-in_report)
+
+# affiliations -----------------------------------------------------------------
 
 OLD_AFFILIATIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_special_projects.xlsx"), 
                                       sheet = "affiliations", skip = 1) %>% 
-  dplyr::rename("agency0" = "agency")
+  janitor::clean_names() %>% 
+  dplyr::rename("agency_short" = "agency_2", 
+                "agency_abrv" = "agency")  %>%
+  dplyr::select(-combined) %>% 
+  dplyr::mutate(agency_join = 1:nrow(.))
+
+# , 
+# "project" = "projecttitle", 
+# "project_short" = "nickname", 
+# "pricipal_investigator" = "pricipalinvestigator"
 
 OLD_OTHER_FIELD_COLLECTIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_other_field_collections.xlsx"), 
-                                                 sheet = "Sheet1", skip = 1)
+                                                 sheet = "Sheet1", skip = 1)  %>% 
+  janitor::clean_names() %>% 
+  dplyr::filter(year > 2017) %>% 
+  dplyr::select(-print_name, -notes)
 
 OLD_COLLECTION_SCHEME <- readxl::read_xlsx(path = paste0(dir_data, "0_collection_scheme.xlsx"), 
                                            sheet = "Sheet1", skip = 1) %>% 
-  dplyr::filter(year > 2017)
+  dplyr::filter(year > 2017) %>% 
+  janitor::clean_names() %>% 
+  dplyr::filter(species_codes = species_code) %>%
+  dplyr::select(-print_name, -x12, -notes)
 
 # Wrangle data -----------------------------------------------------------------
 
@@ -371,11 +390,11 @@ lookup <- c(
   value = "length", 
   area = "regulatory_area_name", 
   
-  length_mean = "meanlen", 
-  length_mean = "mean_length", 
+  longitude_dd = "longitude", 
+  latitiude_dd = "latitiude", 
   
-  length_sd = "sdev", 
-  length_sd = "standard_deviation")
+  vessel_id = "vessel"
+  )
 
 ## Haul data -------------------------------------------------------------------
 
@@ -395,7 +414,7 @@ OLD_HAUL <- racebase_haul0 %>% ## Haul events
     TRUE ~ region)) %>%
   dplyr::filter(!is.na(stratum)) %>%
   dplyr::filter(!is.na(station)) %>%
-  dplyr::select(hauljoin, stratum, station, SRVY, cruise) %>%
+  # dplyr::select(hauljoin, stratum, station, SRVY, cruise) %>%
   dplyr::distinct()
 
 ## CPUE by station data --------------------------------------------------------
@@ -665,6 +684,15 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
 
 ## Comp data -------------------------------------------------------------------
 
+
+# regarding age table: 
+lookup <- c(lookup,
+  mean = "meanlen",
+length_mean = "mean_length",
+
+length_sd = "sdev",
+length_sd = "standard_deviation")
+
 # length comps
 size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
   # NBS data
@@ -782,8 +810,7 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
     dplyr::mutate(SRVY = "AI", 
                   area_type = "inpfc", 
                   area = as.character(area), 
-                  file = "ai.sizecomp_inpfc")
-) %>% 
+                  file = "ai.sizecomp_inpfc") ) %>% 
   # dplyr::select(SRVY, year, stratum, species_code, area, area_type, depth, length, 
   #               males, females, unsexed, file) %>%
   dplyr::mutate(comp = "length") %>% 
@@ -802,6 +829,7 @@ age_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
     #     SRVY = "EBS", 
     #     file = "haehnr.agecomp_ebs_plusnw_stratum"), 
     ebsshelf_ebsshelf_agecomp_plusnw0 %>% 
+      dplyr::rename(dplyr::any_of(lookup)) %>%
       dplyr::mutate(
         SRVY = "EBS", 
         area_type = "index", # plusnw
@@ -862,7 +890,7 @@ OLD_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(size_COMP_AGE_SIZE_STRATUM,
   ) %>% 
   dplyr::arrange(sex) %>% 
   dplyr::mutate(stratum = ifelse(stratum %in% c(999), 999999, stratum)) %>% 
-  dplyr::select(-survey)
+  dplyr::select(-common_name, -species_name, -total)
 
 ## Stratum data ----------------------------------------------------------------
 
@@ -963,7 +991,8 @@ OLD_STRATUM <- dplyr::bind_rows(
   dplyr::select(
     SRVY, year, stratum, description, area_type, area, 
     stratum_type, area_km2, perimeter_km, depth_m_min, depth_m_max, 
-    auditjoin, area_depth)
+    # auditjoin, 
+    area_depth)
 
 
 ##  Station Allocation (GOA/AI) ------------------------------------------------
@@ -973,7 +1002,10 @@ OLD_STATION_ALLOCATION <- dplyr::bind_rows(
     dplyr::mutate(file = "ai.station_allocation"), 
   goa_station_allocation0 %>% 
     dplyr::mutate(file = "goa.station_allocation")) %>%
-  dplyr::rename(SRVY = survey)
+  # dplyr::rename(SRVY = survey) %>% 
+  dplyr::rename(grid_id = aigrid_id)
+
+# do we need the cost or area or lat/lon columns here? 
 
 ## Station data ----------------------------------------------------------------
 
@@ -1160,7 +1192,7 @@ for (i in 1:length(a)){
   b <- b %>% 
     tidyr::pivot_longer(cols = starts_with("x"), 
                         names_to = "year", 
-                        values_to = "OLD_TAXON_CONFIDENCE") %>% 
+                        values_to = "taxon_confidence") %>% 
     dplyr::mutate(year = gsub(pattern = "[a-z]", 
                               replacement = "", 
                               x = year), 
@@ -1170,7 +1202,7 @@ for (i in 1:length(a)){
     dplyr::distinct()
   
   cc <- strsplit(x = gsub(x = gsub(x = a[i], 
-                                   pattern = "OLD_TAXON_CONFIDENCE_", replacement = ""), 
+                                   pattern = "Taxon_confidence_", replacement = ""), 
                           pattern = ".xlsx", 
                           replacement = ""), 
                  split = "_")[[1]]
@@ -1199,13 +1231,12 @@ for (i in 1:length(a)){
 #     identification characteristics are unknown.
 
 OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>% 
-  dplyr::mutate(taxon_confidence_code = OLD_TAXON_CONFIDENCE, 
+  dplyr::mutate(taxon_confidence_code = taxon_confidence, 
                 taxon_confidence = dplyr::case_when(
                   taxon_confidence_code == 1 ~ "High",
                   taxon_confidence_code == 2 ~ "Moderate",
                   taxon_confidence_code == 3 ~ "Low", 
-                  TRUE ~ "Unassessed")) %>% 
-  dplyr::select(-OLD_TAXON_CONFIDENCE)
+                  TRUE ~ "Unassessed")) 
 
 # fill in OLD_TAXON_CONFIDENCE with, if missing, the values from the year before
 
@@ -1275,7 +1306,7 @@ file_paths <- file_paths[-1,]
 
 # Save old tables to Oracle
 oracle_upload(
-  file_paths = file_paths[3:nrow(file_paths),], 
+  file_paths = file_paths, 
   metadata_column = gap_products_metadata_column0, 
   channel = channel_products, 
   schema = "GAP_PRODUCTS")
