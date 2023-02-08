@@ -156,7 +156,7 @@ locations <- c( # data pulled from Oracle for these figures:
   "GOA.GOA_STRATA",
   "EBSSHELF.EBSSHELF_STRATA", 
   "NBSSHELF.NBS_STRATA",  
-  # "EBSSLOPE.STRATLIST" # don't have access to yet
+  # "EBSSLOPE.STRATLIST", # this... is a lie
   
   # Station
   "AI.AIGRID_GIS",
@@ -263,17 +263,17 @@ OLD_COLLECTION_SCHEME <- readxl::read_xlsx(path = paste0(dir_data, "0_collection
                                            sheet = "Sheet1", skip = 1) %>% 
   dplyr::filter(year > 2017) %>% 
   janitor::clean_names() %>% 
-  dplyr::filter(species_codes = species_code) %>%
+  dplyr::rename(species_codes = species_code) %>%
   dplyr::select(-print_name, -x12, -notes)
 
 # Wrangle data -----------------------------------------------------------------
 
-## Table metdata ---------------------------------------------------------------
+## Table metadata ---------------------------------------------------------------
 
 link_repo <- "https://github.com/afsc-gap-products/gap_products"
 
 for (i in 1:nrow(gap_products_metadata_table0)){
-  assign(x = paste0("metadata_sentence_", gap_products_metadata_table0$metadata_sentence_type[i]), 
+  assign(x = paste0("metadata_sentence_", gap_products_metadata_table0$metadata_sentence_name[i]), 
          value = gap_products_metadata_table0$metadata_sentence[i])
 }
 
@@ -680,7 +680,7 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
     dplyr::rename(dplyr::any_of(lookup))
 )  %>% 
   dplyr::select(sort(tidyselect::peek_vars())) %>%
-  dplyr::select(-common_name, -species_name, -region, -SRVY)
+  dplyr::select(-common_name, -species_name, -region)
 
 ## Comp data -------------------------------------------------------------------
 
@@ -899,8 +899,8 @@ lookup <- c(SRVY = "survey",
             area_km2 = "area", 
             perimeter_km = "perimeter", 
             depth_m_min = "min_depth", 
-            depth_m_max = "max_depth")
-
+            depth_m_max = "max_depth", 
+            vessel_id = "vessel")
 
 # 	Add GOA/AI _strata not _grid files - 3rd historic survey “Winter”
 # 	Add GOA/AI Biomass by X (IMPFC, area, depth)
@@ -1002,8 +1002,7 @@ OLD_STATION_ALLOCATION <- dplyr::bind_rows(
     dplyr::mutate(file = "ai.station_allocation"), 
   goa_station_allocation0 %>% 
     dplyr::mutate(file = "goa.station_allocation")) %>%
-  # dplyr::rename(SRVY = survey) %>% 
-  dplyr::rename(grid_id = aigrid_id)
+  dplyr::rename(dplyr::any_of(lookup))
 
 # do we need the cost or area or lat/lon columns here? 
 
@@ -1264,7 +1263,7 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
 # dplyr::rename(taxon_confidence = taxon_confidence, 
 #               taxon_confidence_code = taxon_confidence_code)
 
-OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
+OLD_TAXON_CONFIDENCE_metadata_table <- paste0(
   "The quality and specificity of field identifications for many taxa have 
     fluctuated over the history of the surveys due to changing priorities and resources. 
     The matrix lists a confidence level for each taxon for each survey year 
@@ -1282,25 +1281,25 @@ OLD_TAXON_CONFIDENCE_table_metadata <- paste0(
 
 # Final all objects with "OLD_" prefix, save them and their table metadata, and add them to the que to save to oracle
 a <- apropos("OLD_") 
-a <- a[!grepl(pattern = "_table_metadata", x = a)]
-file_paths <- data.frame(file_path = NA, table_metadata = NA)
+a <- a[!grepl(pattern = "_metadata_table", x = a)]
+file_paths <- data.frame(file_path = NA, metadata_table = NA)
 
 for (i in 1:length(a)) {
   
   write.csv(x = get(a[i]), file = paste0(dir_out, a[i], ".csv"))
   
   # find or create table metadat for table
-  table_metadata <- ifelse(exists(paste0(a[i], "_table_metadata", collapse="\n")), 
-                           get(paste0(a[i], "_table_metadata", collapse="\n")), 
+  metadata_table <- ifelse(exists(paste0(a[i], "_metadata_table", collapse="\n")), 
+                           get(paste0(a[i], "_metadata_table", collapse="\n")), 
                            paste0(metadata_sentence_github, 
                                   metadata_sentence_last_updated))
   
-  readr::write_lines(x = table_metadata, 
-                     file = paste0(dir_out, a[i], "_table_metadata.txt", collapse="\n"))
+  readr::write_lines(x = metadata_table, 
+                     file = paste0(dir_out, a[i], "_metadata_table.txt", collapse="\n"))
   
   file_paths <- dplyr::add_row(.data = file_paths, 
                                file_path = paste0(dir_out, a[i], ".csv"),
-                               table_metadata = table_metadata)
+                               metadata_table = metadata_table)
 }
 file_paths <- file_paths[-1,]
 
@@ -1311,3 +1310,114 @@ oracle_upload(
   channel = channel_products, 
   schema = "GAP_PRODUCTS")
 
+# oracle_upload <- function(
+#     file_paths, 
+#     metadata_column, 
+#     channel, 
+#     schema, 
+#     # col_types = list(DUMMY = "VARCHAR2(225 BYTE)"),
+#     update_table = TRUE, 
+#     update_metadata = TRUE,
+#     share_with_all_users = TRUE) {
+#   
+#   metadata_column$metadata_colname <- toupper(metadata_column$metadata_colname)
+#   
+#   all_schemas <- RODBC::sqlQuery(channel = channel,
+#                                  query = paste0('SELECT * FROM all_users;'))
+#   
+#   # Loop through each table to add to oracle -------------------------------------
+#   
+#   for (ii in 1:nrow(file_paths)) {
+#     
+#     print(file_paths$file_path[ii])
+#     file_name <- trimws(toupper(file_paths$file_path[ii]))
+#     file_name <- strsplit(x = file_name, split = "/", fixed = TRUE)[[1]]
+#     file_name <- strsplit(x = file_name[length(file_name)], split = ".", fixed = TRUE)
+#     file_name <- file_name[[1]][1]
+#     
+#     a <- read.csv(file_paths$file_path[ii])
+#     names(a) <- toupper(names(a))
+#     
+#     if (names(a)[1] %in% "X") {
+#       a$X<-NULL
+#     }
+#     
+#     rownames(a) <- NULL
+#     names(a) <- toupper(names(a))
+#     
+#     assign(x = file_name, value = a)
+#     
+#     if (update_table) {
+#       
+#       ## Drop old table from oracle -------------------------------------------------
+#       # if the table is currently in the schema, drop the table before re-uploading
+#       
+#       if (file_name %in% 
+#           unlist(RODBC::sqlQuery(channel = channel, 
+#                                  query = "SELECT table_name FROM user_tables;"))) {
+#         
+#         RODBC::sqlDrop(channel = channel,
+#                        sqtable = file_name)
+#       }
+#       
+#       ## Add the table to the schema ------------------------------------------------
+#       
+#       # find columns that need special data type help
+#       metadata_column0 <- metadata_column[which(metadata_column$metadata_colname %in% names(a)),] %>% 
+#         dplyr::filter(!is.na(metadata_units))
+#       
+#       cc <- c()
+#       if (nrow(metadata_column0)>0) {
+#         # cc <- col_types[(names(col_types) %in% names(a))]
+#         eval( parse(text = 
+#                       paste0("cc <- list(", 
+#                              paste0("'", metadata_column0$metadata_colname, "' = '", 
+#                                     metadata_column0$metadata_datatype, "'", 
+#                                     collapse = ",\n"), 
+#                              ")") ))
+#       }
+#       
+#       eval( parse(text = 
+#                     paste0("RODBC::sqlSave(channel = channel, dat = ",
+#                            file_name, 
+#                            ifelse(length(cc)==0, 
+#                                   ")", 
+#                                   paste0(", varTypes = cc)") )) ) ) 
+#     }
+#     
+#     if (update_metadata) {
+#       ## Add column metadata --------------------------------------------------------
+#       metadata_column0 <- metadata_column[which(metadata_column$metadata_colname %in% names(a)),]
+#       if (nrow(metadata_column0)>0) {
+#         for (i in 1:nrow(metadata_column0)) {
+#           
+#           desc <- gsub(pattern = "<sup>2</sup>",
+#                        replacement = "2",
+#                        x = metadata_column0$metadata_colname_long[i], fixed = TRUE)
+#           short_colname <- gsub(pattern = "<sup>2</sup>", replacement = "2",
+#                                 x = metadata_column0$metadata_colname[i], fixed = TRUE)
+#           
+#           RODBC::sqlQuery(channel = channel,
+#                           query = paste0('comment on column ',schema,'.',file_name,'.',
+#                                          short_colname,' is \'',
+#                                          desc, ". ", # remove markdown/html code
+#                                          gsub(pattern = "'", replacement ='\"',
+#                                               x = metadata_column0$metadata_colname_desc[i]),'\';'))
+#           
+#         }
+#       }
+#       ## Add table metadata ---------------------------------------------------------
+#       RODBC::sqlQuery(channel = channel,
+#                       query = paste0('comment on table ',schema,'.', file_name,
+#                                      ' is \'',
+#                                      file_paths$table_metadata[ii],'\';'))
+#     }
+#     ## grant access to all schemes ------------------------------------------------
+#     for (iii in 1:length(sort(all_schemas$USERNAME))) {
+#       RODBC::sqlQuery(channel = channel,
+#                       query = paste0('grant select on ',schema,'.',file_name,
+#                                      ' to ', all_schemas$USERNAME[iii],';'))
+#     }
+#     
+#   }
+# }
