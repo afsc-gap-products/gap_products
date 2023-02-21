@@ -293,6 +293,7 @@ lookup <- c(
   
   SRVY = "survey", 
   SRVY = "survey_region", 
+  SRVY = "region",
   
   year = "survey_year", 
   
@@ -315,14 +316,14 @@ lookup <- c(
   cpue_nokm2 = "numcpue", 
   
   weight_kg = "weight", 
-  count = "number_fish", 
+  count_taxon = "number_fish", 
   
-  area = "regulatory_area_name", 
-  area = "summary_area", # may be an stratum ID, not an actual depth
-  area_depth = "summary_area_depth", # may be an stratum ID, not an actual depth
-  area_depth = "summary_depth", 
+  stratum = "regulatory_area_name", 
+  stratum = "summary_area", # may be an stratum ID, not an actual depth
+  stratum = "summary_area_depth", # may be an stratum ID, not an actual depth
+  stratum = "summary_depth", 
+  stratum = "regulatory_area_name", 
   
-  count_number = "number_count",  # what is this?
   
   count_length = "lencount", 
   count_length = "len_count",
@@ -332,6 +333,8 @@ lookup <- c(
   count_catch = "catch_count", 
   count_catch = "count_catch", 
   # count_catch = "number_count",
+  
+  count_number = "number_count",  # what is this?
   
   count_haul = "haulcount", 
   count_haul = "haul_count",
@@ -358,14 +361,6 @@ lookup <- c(
   biomass_var = "varbio", 
   biomass_var = "bio_var", 
   
-  abundance = "area_pop", 
-  abundance = "stratum_pop", 
-  abundance = "total_pop", 
-  abundance = "population", 
-  
-  abundance_var = "varpop", 
-  abundance_var = "pop_var", 
-  
   biomass_ci_lower = "min_biomass", # Is this right?
   biomass_ci_lower = "biomass_lower_ci", 
   
@@ -374,21 +369,30 @@ lookup <- c(
   
   biomass_df = "degreef_biomass",
   
-  abundance_ci_lower = "min_pop", # Is this right?
-  abundance_ci_lower = "abundance_lower_ci", 
+  population = "abundance", 
+  population = "area_pop", 
+  population = "stratum_pop", 
+  population = "total_pop", 
+
+  population_var = "varpop", 
+  population_var = "pop_var", 
+  population_var = "abundance_var", 
   
-  abundance_ci_upper = "max_pop", 
-  abundance_ci_upper = "abundance_upper_ci", 
+  population_ci_lower = "min_pop", # Is this right?
+  population_ci_lower = "abundance_lower_ci", 
+  population_ci_lower = "abundance_ci_lower", 
   
-  abundance_df = "degreef_pop", 
+  population_ci_upper = "abundance_ci_upper", 
+  population_ci_upper = "max_pop", 
+  population_ci_upper = "abundance_upper_ci", 
+  
+  population_df = "abundance_df",
+  population_df = "degreef_pop", 
   
   area_depth = "summary_area_depth", 
   area_depth = "summary_depth", 
   
-  area = "summary_area", 
-  
   value = "length", 
-  area = "regulatory_area_name", 
   
   longitude_dd = "longitude", 
   latitiude_dd = "latitiude", 
@@ -485,15 +489,15 @@ OLD_CPUE_STATION <- dplyr::bind_rows(
     cpue_kgkm2, cpue_nokm2, weight_kg, count, 
     file) 
 
-## Biomass and Abundance data --------------------------------------------------
+## pt1: Biomass and Abundance data --------------------------------------------------
 
 OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   # crab EBS + NBS data
   dplyr::left_join(
     x = crab_gap_ebs_nbs_abundance_biomass0 %>% 
       dplyr::mutate(
-        area_type = "index",
-        area = "index", 
+        analysis_type = "index",
+        analysis = "index", 
         file = "crab.gap_ebs_nbs_abundance_biomass", 
         stratum = 999) %>%
       dplyr::rename(dplyr::any_of(lookup)), 
@@ -522,8 +526,8 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>%
     dplyr::mutate(
-      area_type = "index",
-      area = "index", 
+      analysis_type = "index",
+      analysis = "index", 
       SRVY = "NBS", 
       file = "nbsshelf.nbs_biomass"),     
   # haehnr_biomass_nbs_safe0 %>% 
@@ -538,8 +542,8 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   ebsshelf_ebsshelf_biomass_standard0  %>% 
     dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>%
     dplyr::mutate(
-      area_type = "standard",
-      area = "index",
+      analysis_type = "standard",
+      analysis = "index",
       # SRVY = "EBS",
       file = "ebsshelf.ebsshelf_agecomp_standard") %>%
     dplyr::rename(dplyr::any_of(lookup)) %>%
@@ -548,8 +552,8 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   ebsshelf_ebsshelf_biomass_plusnw0  %>% 
     dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>%
     dplyr::mutate(
-      area_type = "index",
-      area = "index",
+      analysis_type = "index",
+      analysis = "index",
       # SRVY = "EBS",
       file = "ebsshelf.ebsshelf_biomass_plusnw") %>%
     dplyr::rename(dplyr::any_of(lookup)) %>%
@@ -574,8 +578,8 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   ebsslope_biomass_ebsslope0  %>%
     dplyr::mutate(
       # SRVY = "BSS", 
-      area_type = "index",
-      area = "index", 
+      analysis_type = "index",
+      analysis = "index", 
       file = "ebsslope.biomass_ebsslope") %>%
     dplyr::rename(dplyr::any_of(lookup)) %>%
     dplyr::mutate(
@@ -585,15 +589,15 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   # GOA data
   goa_biomass_total0 %>%
     dplyr::mutate(
-      area_type = "index",
-      area = "index", 
+      analysis_type = "index",
+      analysis = "index", 
       # SRVY = "GOA", 
       file = "goa.biomass_total") %>%
     dplyr::rename(dplyr::any_of(lookup)), 
   goa_biomass_stratum0 %>%
     dplyr::mutate(
-      area_type = "index",
-      area = "index", 
+      analysis_type = "index",
+      analysis = "index", 
       # SRVY = "GOA",
       file = "goa.biomass_stratum") %>%
     dplyr::rename(dplyr::any_of(lookup)), 
@@ -606,7 +610,7 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   goa_biomass_by_length0 %>%
     dplyr::mutate(
       # SRVY = "GOA", 
-      area_type = "index", # is this right?
+      analysis_type = "index", # is this right?
       area = "length", 
       file = "goa.biomass_by_length") %>% 
     dplyr::rename(dplyr::any_of(lookup)), 
@@ -682,16 +686,257 @@ OLD_BIOMASS_ABUNDANCE_CPUE_STRATUM <- dplyr::bind_rows(
   dplyr::select(sort(tidyselect::peek_vars())) %>%
   dplyr::select(-common_name, -species_name, -region)
 
-## Comp data -------------------------------------------------------------------
 
+
+## pt 2: Biomass and Abundance data --------------------------------------------------
+
+# "SRVY": 
+# "stratum": 
+# "year" 
+# "species_code": 
+# "analysis_type": index/regulatory/inpfc/
+# "analysis_subtype": replacing plusnw/standard/index (basically if otherwise standard) / summary_area_depth / summary_area / regulatory_area_name
+# "analysis_subtype_value": used in the case of length_class and when there are both summary_area_depth / summary_area and regulatory_area_name
+# "biomass_ci_lower": 
+# "biomass_ci_upper": 
+# "biomass_df": 
+# "biomass_mt": 
+# "biomass_var": 
+# "count_catch": 
+# "count_haul": 
+# "count_length": 
+# "count_number": 
+# "cpue_kgkm2_mean": 
+# "cpue_kgkm2_var": 
+# "cpue_nokm2_mean": 
+# "cpue_nokm2_var": 
+# "file": The file that the data came from, named schema.table_name
+# "length_class": 
+# "population": 
+# "population_ci_lower": 
+# "population_ci_upper": 
+# "population_df": 
+# "population_var": 
+
+
+OLD_BIOPOPCPUE <- dplyr::bind_rows(
+  # crab EBS + NBS data
+  dplyr::left_join(
+    x = crab_gap_ebs_nbs_abundance_biomass0 %>% 
+      dplyr::mutate(
+        analysis_type = "index",
+        analysis_subtype = "index", 
+        file = "crab.gap_ebs_nbs_abundance_biomass", 
+        stratum = 999) %>%
+      dplyr::rename(dplyr::any_of(lookup)), 
+    y = dplyr::bind_rows(
+      crab_ebscrab0 %>%
+        dplyr::filter(!(cruise %in% unique(crab_ebscrab_nbs0$cruise))) %>% # there may be some nbs data in the ebs (201002)%>% 
+        dplyr::mutate(file = "CRAB.EBSCRAB", 
+                      SRVY = "EBS") , 
+      crab_ebscrab_nbs0 %>% 
+        dplyr::mutate(file = "CRAB.EBSCRAB_NBS", 
+                      SRVY = "NBS")) %>% 
+      dplyr::filter(!is.na(length) & length != 999 & !is.na(cruise)) %>% 
+      dplyr::mutate(
+        year = as.numeric(substr(cruise, start = 1, stop = 4)), 
+        length = dplyr::case_when(
+          species_code %in% c(68580, 68590, 68560) ~ width,  # "snow crab"
+          TRUE ~ length),
+        frequency = 1)  %>%
+      dplyr::group_by(SRVY, species_code, year) %>%
+      dplyr::summarise(count_length = n()) %>% 
+      dplyr::ungroup(), 
+    by = c("SRVY", "species_code", "year")) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  
+  # NBS data
+  nbsshelf_nbs_biomass0  %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>%
+    dplyr::mutate(
+      analysis_type = "index",
+      analysis_subtype = "index", 
+      SRVY = "NBS", 
+      file = "nbsshelf.nbs_biomass") %>% 
+    dplyr::mutate(stratum = as.character(stratum)),     
+  
+  # EBS data
+  ebsshelf_ebsshelf_biomass_standard0 %>% 
+    dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>% # remove crab data
+    dplyr::select(-survey) %>%
+    dplyr::mutate(
+      analysis_subtype = "standard",
+      analysis_type = "index",
+      SRVY = "EBS",
+      file = "ebsshelf_ebsshelf_biomass_standard0") %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)),
+  ebsshelf_ebsshelf_biomass_plusnw0  %>% 
+    dplyr::select(-survey) %>%
+    dplyr::filter(!(species_code %in% c(69323, 69322, 68580, 68560))) %>% # remove crab data
+    dplyr::mutate(
+      analysis_subtype = "plusnw",
+      analysis_type = "index",
+      SRVY = "EBS",
+      file = "ebsshelf.ebsshelf_biomass_plusnw") %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)),
+  
+  # BSS
+  ebsslope_biomass_ebsslope0  %>%
+    dplyr::mutate(
+      SRVY = "BSS",
+      analysis_type = "index",
+      analysis_subtype = "index", 
+      file = "ebsslope.biomass_ebsslope") %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)),
+  # ebsslope_cpue_all0
+  
+  # GOA data
+  goa_biomass_total0 %>%
+    dplyr::mutate(
+      analysis_type = "index",
+      analysis_subtype = "index",
+      stratum = 999, 
+      # SRVY = "GOA", # already in dataset
+      file = "goa.biomass_total") %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  goa_biomass_stratum0 %>%
+    dplyr::mutate(
+      analysis_type = "index",
+      analysis_subtype = "index", 
+      # SRVY = "GOA",
+      file = "goa.biomass_stratum") %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  goa_biomass_area0 %>%
+    dplyr::mutate(
+      # SRVY = "GOA",
+      file = "goa.biomass_area", 
+      analysis_type = "regulatory", 
+      analysis_subtype = "area") %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  goa_biomass_by_length0 %>%
+    dplyr::rename(analysis_subtype_value = length_class) %>%
+    dplyr::mutate(
+      # SRVY = "GOA", # already in dataset
+      analysis_type = "index", # is this right?
+      analysis_subtype = "length_class", 
+      file = "goa.biomass_by_length") %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  goa_biomass_depth0 %>%
+    dplyr::rename(stratum = summary_depth) %>%
+    dplyr::mutate(
+      analysis_type = "index", # is this right?
+      analysis_subtype = "depth",
+      file = "goa.biomass_depth") %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  goa_biomass_inpfc0 %>%
+    dplyr::mutate(
+      # SRVY = "GOA",
+      file = "goa.biomass_inpfc", 
+      analysis_type = "inpfc", 
+      stratum = as.character(summary_area)) %>% # is this right?/make sense
+    dplyr::select(-summary_area) %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  goa_biomass_inpfc_depth0 %>%
+    dplyr::rename(stratum = summary_area_depth) %>%
+    dplyr::mutate(
+      # SRVY = "GOA",
+      file = "goa.biomass_inpfc_depth", 
+      analysis_type = "inpfc", 
+      analysis_subtype = "area_depth") %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)),
+  
+  # AI data
+  ai_biomass_total0 %>%
+    dplyr::mutate(
+      analysis_type = "index",
+      analysis_subtype = "index", 
+      stratum = 999, 
+      # SRVY = "AI", # already in dataset
+      file = "ai.biomass_total") %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_stratum0 %>%
+    dplyr::mutate(
+      analysis_type = "index",
+      analysis_subtype = "index", 
+      # SRVY = "AI", # already in dataset
+      file = "ai.biomass_stratum")  %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_area0 %>%
+    dplyr::mutate(
+      # SRVY = "AI", # already in dataset
+      file = "ai.biomass_area", 
+      analysis_type = "regulatory", 
+      analysis_subtype = "area")  %>%
+    dplyr::rename(stratum = regulatory_area_name, 
+                  dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_area_depth0 %>%
+    dplyr::mutate(
+      # SRVY = "AI", # already in dataset
+      file = "ai.biomass_area_depth", 
+      analysis_type = "regulatory", 
+      analysis_subtype = "area_depth") %>%
+    dplyr::rename(analysis_subtype_value = summary_depth, 
+                  stratum = regulatory_area_name) %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_by_length0 %>%
+    dplyr::rename(analysis_subtype_value = length_class) %>%
+    dplyr::mutate(
+      # SRVY = "AI",
+      analysis_type = "index", # is this right?
+      analysis_subtype = "length", 
+      file = "ai.biomass_by_length")  %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_depth0 %>%
+    dplyr::rename(stratum = summary_depth) %>%
+    dplyr::mutate(
+      # SRVY = "AI",
+      analysis_type = "index", # is this right?
+      analysis_subtype = "depth", 
+      file = "ai.biomass_depth")  %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_inpfc_depth0 %>% # are there inpfc regions?
+    dplyr::rename(stratum = summary_area_depth) %>%
+    dplyr::mutate(
+      # SRVY = "AI", # already in dataset
+      file = "ai.biomass_inpfc_depth", 
+      analysis_type = "inpfc", 
+      analysis_subtype = "depth") %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum))
+)  %>% 
+  dplyr::select(sort(tidyselect::peek_vars())) %>%
+  dplyr::select(-common_name, -species_name)  %>%
+  dplyr::relocate(SRVY, year, stratum, species_code, file, analysis_type) %>% 
+  dplyr::mutate(stratum = ifelse(stratum == 999999, 999, stratum))
+
+# summary(OLD_BIOPOPCPUE %>% dplyr::mutate(SRVY = as.factor(SRVY), file = as.factor(file), stratum = as.factor(stratum), analysis_type = as.factor(analysis_type), analysis_subtype = as.factor(analysis_subtype)))
+
+## pt1: Comp data -------------------------------------------------------------------
 
 # regarding age table: 
 lookup <- c(lookup,
-  mean = "meanlen",
-length_mean = "mean_length",
-
-length_sd = "sdev",
-length_sd = "standard_deviation")
+            mean = "meanlen",
+            length_mean = "mean_length",
+            
+            length_sd = "sdev",
+            length_sd = "standard_deviation")
 
 # length comps
 size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
@@ -893,7 +1138,264 @@ OLD_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(size_COMP_AGE_SIZE_STRATUM,
   dplyr::select(-common_name, -species_name, -total) %>% 
   dplyr::rename(abundance = pop)
 
-## Stratum data ----------------------------------------------------------------
+
+## pt2: Comp data -------------------------------------------------------------------
+
+# regarding age table: 
+lookup <- c(lookup,
+  mean = "meanlen",
+length_mean = "mean_length",
+stratum = "summary_area", 
+length_sd = "sdev",
+length_sd = "standard_deviation")
+
+# length comps
+size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
+  # NBS data
+  nbsshelf_nbs_sizecomp0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "NBS", 
+                  analysis_type = "index", 
+                  file = "nbsshelf.nbs_sizecomp", 
+                  stratum = as.character(stratum)), 
+  # haehnr_sizecomp_nbs_stratum0 %>% 
+  #   dplyr::mutate(SRVY = "NBS", 
+  #                 area_type = "index", 
+  #                 file = "haehnr.sizecomp_nbs_stratum") %>% 
+  #   dplyr::rename(dplyr::any_of(lookup)) , 
+  
+  # EBS data
+  ebsshelf_ebsshelf_sizecomp_plusnw0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "EBS",
+                  analysis_type = "index", # plusnw
+                  file = "ebsshelf.ebsshelf_sizecomp_plusnw", 
+                  stratum = as.character(stratum)),
+  ebsshelf_ebsshelf_sizecomp_standard0 %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "EBS",
+                  analysis_type = "standard", # or should this be index? and area = "standard?
+                  file = "ebsshelf.ebsshelf_sizecomp_standard", 
+                  stratum = as.character(stratum)),
+  # haehnr_sizecomp_ebs_plusnw_stratum0 %>% 
+  #   dplyr::mutate(SRVY = "EBS", 
+  #                 file = "haehnr.sizecomp_ebs_plusnw_stratum") %>% 
+  #   dplyr::rename(dplyr::any_of(lookup)), 
+  # haehnr_sizecomp_ebs_plusnw_stratum_grouped0 %>% 
+  #   dplyr::mutate(SRVY = "EBS", 
+  #                 area_type = "index",
+  #                 file = "haehnr.sizecomp_ebs_plusnw_stratum_grouped") %>% 
+  #   dplyr::rename(dplyr::any_of(lookup)),
+  # BSS data
+  ebsslope_sizecomp_ebsslope0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "BSS", 
+                  analysis_type = "index",
+                  file = "ebsslope.sizeecomp_ebsslope", 
+                  stratum = as.character(stratum)), 
+  
+  # hoffj_sizecomp_ebsslope0 %>% 
+  #   dplyr::mutate(SRVY = "BSS", 
+  #                 area_type = "index",
+  #                 file = "hoffj.sizecomp_ebsslope") %>% 
+  #   dplyr::rename(dplyr::any_of(lookup)),   
+  # GOA data
+  goa_sizecomp_stratum0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(#SRVY = "GOA",
+                  analysis_type = "index", 
+                  analysis_subtype = "index",
+                  file = "goa.sizecomp_stratum", 
+                  stratum = as.character(stratum)), 
+  goa_sizecomp_total0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>%
+    dplyr::mutate(SRVY = "GOA", 
+                  analysis_type = "index",
+                  analysis_subtype = "index",
+                  file = "goa.sizecomp_total", 
+                  stratum = as.character(stratum)), 
+  # goa_sizecomp_area_depth0
+  goa_sizecomp_area0  %>% 
+    dplyr::rename(dplyr::any_of(lookup))%>% 
+    dplyr::mutate(#SRVY = "GOA", # already in dataset
+      analysis_type = "regulatory", 
+      analysis_subtype = "regulatory", 
+                  file = "goa.sizecomp_area", 
+      stratum = as.character(stratum)), 
+  goa_sizecomp_depth0  %>% 
+    dplyr::rename(dplyr::any_of(lookup))%>% 
+    dplyr::mutate(
+      analysis_type = "index",  # ???
+      analysis_subtype = "depth", 
+      #SRVY = "GOA", # aready in dataset
+                  file = "goa.sizecomp_depth", 
+      stratum = as.character(stratum)), 
+  goa_sizecomp_inpfc0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "GOA", 
+                  analysis_type = "inpfc", 
+                  analysis_subtype = "inpfc", 
+                  file = "goa.sizecomp_inpfc", 
+                  stratum = as.character(stratum)), 
+  goa_sizecomp_inpfc_depth0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "GOA", 
+                  analysis_type = "inpfc", 
+                  analysis_subtype = "depth", 
+                  file = "goa.sizecomp_inpfc_depth", 
+                  stratum = as.character(stratum)), 
+  # AI data
+  ai_sizecomp_stratum0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(
+      # SRVY = "AI",
+                  analysis_type = "index", 
+                  analysis_subtype = "index", 
+                  file = "ai.sizecomp_stratum", 
+                  stratum = as.character(stratum)),
+  ai_sizecomp_total0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>%
+    dplyr::mutate(
+      # SRVY = "AI", 
+                  analysis_type = "index",
+                  analysis_subtype = "index",
+                  file = "ai.sizecomp_total", 
+                  stratum = as.character(stratum)), 
+  ai_sizecomp_area0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(#SRVY = "AI", 
+                  analysis_type = "regulatory", 
+                  analysis_subtype = "regulatory", 
+                  file = "ai.sizecomp_area", 
+                  stratum = as.character(stratum)), 
+  ai_sizecomp_area_depth0 %>% 
+    dplyr::rename(analysis_subtype_value = summary_depth) %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(#SRVY = "AI", 
+      analysis_type = "regulatory", 
+      analysis_subtype = "depth", 
+      file = "ai.sizecomp_area_depth", 
+      stratum = as.character(stratum)), 
+  ai_sizecomp_depth0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(
+      # SRVY = "AI", 
+                  analysis_type = "index", # is this right?
+                  analysis_subtype = "depth", 
+                  file = "ai.sizecomp_depth", 
+                  stratum = as.character(stratum)), 
+  ai_sizecomp_inpfc_depth0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(
+      #SRVY = "AI", 
+                  analysis_type = "inpfc", 
+                  analysis_subtype = "depth", 
+                  file = "ai.sizecomp_inpfc_depth", 
+                  stratum = as.character(stratum)), 
+  ai_sizecomp_inpfc0  %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(SRVY = "AI", 
+                  analysis_type = "inpfc", 
+                  analysis_subtype = "inpfc", 
+                  file = "ai.sizecomp_inpfc", 
+                  stratum = as.character(stratum)) ) %>% 
+  # dplyr::select(SRVY, year, stratum, species_code, area, area_type, depth, length, 
+  #               males, females, unsexed, file) %>%
+  dplyr::mutate(comp = "length") %>% 
+  tidyr::pivot_longer( # rearrange data
+    data = ., 
+    cols = c("males", "females", "unsexed"), 
+    names_to = "sex", 
+    values_to = "population") 
+
+# age comps
+age_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
+  dplyr::bind_rows(
+    # EBS data
+    # haehnr_agecomp_ebs_plusnw_stratum0 %>%
+    #   dplyr::mutate(
+    #     SRVY = "EBS", 
+    #     file = "haehnr.agecomp_ebs_plusnw_stratum"), 
+    ebsshelf_ebsshelf_agecomp_plusnw0 %>% 
+      dplyr::rename(dplyr::any_of(lookup)) %>%
+      dplyr::mutate(
+        SRVY = "EBS", 
+        analysis_type = "index", 
+        analysis_subtype = "plusnw", 
+        file = "ebsshelf.ebsshelf_agecomp_plusnw"), 
+    ebsshelf_ebsshelf_agecomp_standard0  %>% 
+      dplyr::rename(dplyr::any_of(lookup)) %>%
+      dplyr::mutate(
+        SRVY = "EBS", 
+        analysis_type = "index", 
+        analysis_subtype = "standard", 
+        file = "ebsshelf.ebsshelf_agecomp_standard"),
+    # NBS data
+    # haehnr_agecomp_nbs_stratum0 %>% 
+    #   dplyr::mutate(
+    #     SRVY = "NBS", 
+    #     file = "haehnr.agecomp_nbs_stratum"), 
+    nbsshelf_nbs_agecomp0  %>% 
+      dplyr::rename(dplyr::any_of(lookup)) %>% 
+      dplyr::mutate(
+        # SRVY = "NBS", 
+        analysis_type = "index", 
+        analysis_subtype = "index", 
+        file = "nbsshelf.nbs_agecomp"), 
+    # No BSS data
+    # AI data
+    ai_agecomp_total0  %>%  # only totals because sample size is too small
+      dplyr::rename(dplyr::any_of(lookup)) %>%
+      dplyr::mutate(
+        # SRVY = "AI", 
+        stratum = 999,
+        analysis_type = "index", 
+        analysis_subtype = "index", 
+        file = "ai.agecomp_total"), 
+    # GOA data
+    goa_agecomp_total0  %>% # only totals because sample size is too small
+      dplyr::rename(dplyr::any_of(lookup)) %>% 
+      dplyr::mutate(
+        # SRVY = "GOA", 
+        stratum = 999,
+        analysis_type = "index", 
+        analysis_subtype = "index", 
+        file = "goa.agecomp_total")) %>%
+    
+    dplyr::rename(value = age, 
+                  population = agepop ) %>% 
+    # dplyr::select(SRVY, species_code, year, value, sex, pop, file) %>% 
+    dplyr::mutate(comp = "age", 
+                  sex = dplyr::case_when(
+                    sex == 1 ~ "males", 
+                    sex == 2 ~ "females", 
+                    sex == 3 ~ "unsexed"), 
+  stratum = as.character(stratum)))
+
+# comp data
+OLD_COMP_AGE_SIZE2 <- dplyr::bind_rows(size_COMP_AGE_SIZE_STRATUM, 
+                                              age_COMP_AGE_SIZE_STRATUM) %>%
+  dplyr::filter(population > 0 &
+                  value >= 0) %>% 
+  dplyr::mutate(sex = str_to_sentence(sex), # this will assure the order of appearance in the plot
+                sex = factor(sex, 
+                             levels = c("Males", "Females", "Unsexed", "Immature females", "Mature females"), 
+                             labels = c("Males", "Females", "Unsexed", "Immature females", "Mature females"),
+                             ordered = TRUE)#, 
+                # sex_code = as.numeric(sex)
+  ) %>% 
+  dplyr::arrange(sex) %>% 
+  dplyr::mutate(stratum = ifelse(stratum %in% c(999), 999999, stratum)) %>% 
+  dplyr::select(-common_name, -species_name, -total) %>% 
+  dplyr::select(sort(tidyselect::peek_vars())) %>%
+  dplyr::relocate(SRVY, year, stratum, species_code, file, 
+                  analysis_type, analysis_subtype, analysis_subtype_value, 
+                  comp, sex, value) 
+  
+# summary(OLD_COMP_AGE_SIZE_STRATUM %>% dplyr::mutate(SRVY = as.factor(SRVY), file = as.factor(file), stratum = as.factor(stratum), analysis_type = as.factor(analysis_type), analysis_subtype = as.factor(analysis_subtype)))
+
+
+## pt1: Stratum data ----------------------------------------------------------------
 
 lookup <- c(SRVY = "survey", 
             station = "stationid", 
@@ -994,6 +1496,137 @@ OLD_STRATUM <- dplyr::bind_rows(
     stratum_type, area_km2, perimeter_km, depth_m_min, depth_m_max, 
     # auditjoin, 
     area_depth)
+
+## pt2: Stratum data ----------------------------------------------------------------
+
+lookup <- c(SRVY = "survey", 
+            station = "stationid", 
+            area_km2 = "area", 
+            perimeter_km = "perimeter", 
+            depth_m_min = "min_depth", 
+            depth_m_max = "max_depth", 
+            vessel_id = "vessel")
+
+# 	Add GOA/AI _strata not _grid files - 3rd historic survey “Winter”
+# 	Add GOA/AI Biomass by X (IMPFC, area, depth)
+# •	Remove GOA/AI data from RACEBASE.STRATUM
+
+
+# stratum_id	Survey	stratum	stratum_type	details	stratum_desc	stratum_names	year_implimented	area	perimeter
+
+OLD_STRATUM2 <- dplyr::bind_rows(
+  # NBS data
+  nbsshelf_nbs_strata0  %>% 
+    dplyr::rename(dplyr::any_of(lookup))   %>% 
+    dplyr::mutate(
+      SRVY = "NBS", 
+      file = "nbsshelf.nbs_strata", 
+      analysis_type = "index", 
+      analysis_subtype = "index", 
+      stratum = as.character(stratum),
+      stratum_type = "SHELF",
+      depth_m_min = dplyr::case_when(
+        stratum %in% c(70, 71) ~ 1, 
+        stratum %in% c(81) ~ 50), 
+      depth_m_max = dplyr::case_when(
+        stratum %in% c(70, 71) ~ 50, 
+        stratum %in% c(81) ~ 200)), 
+  
+  # EBS data
+  ebsshelf_ebsshelf_strata0 %>% 
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(
+      SRVY = "EBS", 
+      file = "ebsshelf.ebsshelf_strata", 
+      analysis_type = "index", 
+      analysis_subtype = "index", 
+      stratum_type = "SHELF", 
+      stratum = as.character(stratum),
+      depth_m_min = dplyr::case_when(
+        stratum %in% c(10, 20, 999) ~ 1, 
+        stratum %in% c(31, 32, 41, 42, 43, 82) ~ 50, 
+        stratum %in% c(50, 61, 62, 90) ~ 100), 
+      depth_m_max = dplyr::case_when(
+        stratum %in% c(10, 20) ~ 50, 
+        stratum %in% c(31, 32, 41, 42, 43, 82) ~ 100, 
+        stratum %in% c(50, 61, 62, 90, 999) ~ 200)), 
+  
+  # BSS data
+  
+  # AI and GOA data
+  # goa_goa_strata0 %>% 
+  #   dplyr::rename(dplyr::any_of(lookup)) %>% 
+  #   dplyr::mutate(
+  #     year = 2022, 
+  #     file = "goa.goa_strata", 
+  #     analysis_type = "index", 
+  #     analysis_subtype = "index") %>% 
+  #   # dplyr::select(
+  #   #   SRVY, stratum, area_km2, perimeter, depth_m_min, depth_m_max, description, stratum_type, 
+  #   #   summary_depth) %>% 
+  #   dplyr::rename(area_depth = summary_depth), 
+  # 
+  # goa_goa_strata0 %>% # is this nescesary, or redundant? can we just use the index areas?
+  #   dplyr::rename(dplyr::any_of(lookup)) %>% 
+  #   dplyr::mutate(
+  #     year = 2022, 
+  #     file = "goa.goa_strata", 
+  #     analysis_type = "inpfc", 
+  #     summary_area = as.numeric(summary_area)) %>% 
+  #   # dplyr::select(
+  #   #   SRVY, stratum, area_km2, perimeter, depth_m_min, depth_m_max, description, stratum_type, 
+  #   #   inpfc_area, summary_area_depth, summary_depth) %>% 
+  #   # dplyr::rename(
+  #   #   area_depth = summary_area_depth, 
+  #   #   area = inpfc_area), # summary_area), 
+  
+  goa_goa_strata0 %>% # is this nescesary, or redundant? can we just use the index areas?
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(
+      year = 2022, 
+      file = "goa.goa_strata", 
+      # analysis_type = "regulatory" ,
+      stratum = as.character(stratum),
+      summary_area_depth = as.character(summary_area_depth),
+      summary_area = as.character(summary_area),
+      summary_depth = as.character(summary_depth),
+      inpfc_area = as.character(inpfc_area)
+      ) %>% 
+    tidyr::pivot_longer(data = ., 
+                        cols = c("stratum", "inpfc_area", "summary_area_depth", 
+                                 "summary_area", "summary_depth", "regulatory_area_name"), 
+                        names_to = "analysis_subtype", 
+                        values_to = c("stratum")) %>% 
+    dplyr::mutate(
+      analysis_type = dplyr::case_when(
+      analysis_subtype == "stratum" ~ "index", 
+      analysis_subtype == "inpfc_area" ~ "inpfc", 
+      analysis_subtype == "summary_area_depth" ~ "index", 
+      analysis_subtype == "summary_depth" ~ "index", 
+      analysis_subtype == "summary_area" ~ "regulatory", 
+      analysis_subtype == "regulatory_area_name" ~ "regulatory"
+    ), analysis_subtype = dplyr::case_when(
+      analysis_subtype == "stratum" ~ "index", 
+      analysis_subtype == "inpfc_area" ~ "inpfc", 
+      analysis_subtype == "summary_area_depth" ~ "depth", 
+      analysis_subtype == "summary_depth" ~ "depth", 
+      analysis_subtype == "summary_area" ~ "regulatory", 
+      analysis_subtype == "regulatory_area_name" ~ "regulatory"
+    ))) %>%
+    # dplyr::select(
+    #   SRVY, stratum, area_km2, perimeter, depth_m_min, depth_m_max, description, stratum_type, 
+    #   summary_area, summary_area_depth, regulatory_area_name) %>% 
+    # dplyr::rename(
+    #   area_depth = summary_area_depth, 
+    #   area = regulatory_area_name) 
+  
+  # dplyr::mutate(stratum_join = cur_group_id()) %>% 
+  dplyr::select(sort(tidyselect::peek_vars())) %>%
+  dplyr::select(-region, -auditjoin) %>%
+  dplyr::relocate(SRVY, year, stratum, file, 
+                  analysis_type, analysis_subtype) 
+
+# summary(OLD_STRATUM %>% dplyr::mutate(SRVY = as.factor(SRVY), file = as.factor(file), stratum = as.factor(stratum), analysis_type = as.factor(analysis_type), analysis_subtype = as.factor(analysis_subtype)))
 
 
 ##  Station Allocation (GOA/AI) ------------------------------------------------
@@ -1313,11 +1946,12 @@ for (i in 1:length(a)) {
                                file_path = paste0(dir_out, a[i], ".csv"),
                                metadata_table = metadata_table)
 }
+
 file_paths <- file_paths[-1,]
 
 # Save old tables to Oracle
 oracle_upload(
-  file_paths = file_paths, 
+  file_paths = file_paths[c(2, 4, 7),], 
   metadata_column = gap_products_metadata_column0, 
   channel = channel_products, 
   schema = "GAP_PRODUCTS")
