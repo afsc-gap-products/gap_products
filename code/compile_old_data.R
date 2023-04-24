@@ -842,6 +842,7 @@ OLD_BIOPOPCPUE <- dplyr::bind_rows(
       # SRVY = "GOA",
       file = "goa.biomass_inpfc", 
       analysis_type = "inpfc", 
+      analysis_subtype = "inpfc", 
       stratum = as.character(summary_area)) %>% # is this right?/make sense
     dplyr::select(-summary_area) %>%
     dplyr::rename(dplyr::any_of(lookup)) %>% 
@@ -911,6 +912,16 @@ OLD_BIOPOPCPUE <- dplyr::bind_rows(
       file = "ai.biomass_depth")  %>%
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(stratum = as.character(stratum)), 
+  ai_biomass_inpfc0 %>%
+    dplyr::mutate(
+      # SRVY = "GOA",
+      file = "ai.biomass_inpfc", 
+      analysis_type = "inpfc", 
+      analysis_subtype = "inpfc", 
+      stratum = as.character(summary_area)) %>% # is this right?/make sense
+    dplyr::select(-summary_area) %>%
+    dplyr::rename(dplyr::any_of(lookup)) %>% 
+    dplyr::mutate(stratum = as.character(stratum)),
   ai_biomass_inpfc_depth0 %>% # are there inpfc regions?
     dplyr::rename(stratum = summary_area_depth) %>%
     dplyr::mutate(
@@ -1156,6 +1167,7 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "NBS", 
                   analysis_type = "index", 
+                  analysis_subtype = "index",
                   file = "nbsshelf.nbs_sizecomp", 
                   stratum = as.character(stratum)), 
   # haehnr_sizecomp_nbs_stratum0 %>% 
@@ -1169,12 +1181,14 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "EBS",
                   analysis_type = "index", # plusnw
+                  analysis_subtype = "plusnw",
                   file = "ebsshelf.ebsshelf_sizecomp_plusnw", 
                   stratum = as.character(stratum)),
   ebsshelf_ebsshelf_sizecomp_standard0 %>%
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "EBS",
-                  analysis_type = "standard", # or should this be index? and area = "standard?
+                  analysis_type = "index", 
+                  analysis_subtype = "standard",
                   file = "ebsshelf.ebsshelf_sizecomp_standard", 
                   stratum = as.character(stratum)),
   # haehnr_sizecomp_ebs_plusnw_stratum0 %>% 
@@ -1191,6 +1205,7 @@ size_COMP_AGE_SIZE_STRATUM <- dplyr::bind_rows(
     dplyr::rename(dplyr::any_of(lookup)) %>% 
     dplyr::mutate(SRVY = "BSS", 
                   analysis_type = "index",
+                  analysis_subtype = "index",
                   file = "ebsslope.sizeecomp_ebsslope", 
                   stratum = as.character(stratum)), 
   
@@ -1950,8 +1965,11 @@ for (i in 1:length(a)) {
 file_paths <- file_paths[-1,]
 
 # Save old tables to Oracle
+for (i in 1:nrow(file_paths)) {
 oracle_upload(
-  file_paths = file_paths[c(2, 4, 7),], 
+  file_path = file_paths$file_path[i], 
+  metadata_table = file_paths$metadata_table[i], 
   metadata_column = gap_products_metadata_column0, 
   channel = channel_products, 
   schema = "GAP_PRODUCTS")
+}
