@@ -1,0 +1,171 @@
+---
+title: "Intro to querying with new Oracle Tables"
+subtitle: "`r paste0(format(Sys.time(), '%B %d, %Y'))`"
+# output: 
+#   pdf_document
+#   word_document
+format: 
+  html: default
+  pdf: 
+    geometry:
+      - top=0.75in
+      - right=0.75in
+      - bottom=0.75in
+      - left=0.75in
+      - heightrounded
+    number-sections: true
+    toc: false
+  # docx:
+  #   reference-doc: "../testing/styles_reference.docx"
+execute:
+  warning: false
+  echo: false
+  message: false
+  error: false
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
+bibliography: "https://raw.githubusercontent.com/EmilyMarkowitz-NOAA/gap_bs_data_report/main/cite/bibliography.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, error = FALSE, message = FALSE, warning = FALSE, comment = FALSE)
+```
+
+```{r load_libraries}
+PKG <- c(
+  "tidyr",
+  "dplyr",
+  "magrittr",
+  "ggplot2",
+  "akgfmaps",
+  "readr",
+  "flextable",
+  "janitor")
+
+PKG <- unique(PKG)
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+```
+
+```{r load_functions}
+source("https://raw.githubusercontent.com/afsc-gap-products/metadata/main/code/functions_oracle.R")
+source("Z:/Projects/ConnectToOracle.R")
+```
+
+# Query and plot Biomass
+
+## Query Biomass of POP totals for GOA from 1984-2021 from `GAP_PRODUCTS.BIOMASS`
+
+```{r query-biomass}
+a <- RODBC::sqlQuery(channel, 
+"SELECT * FROM GAP_PRODUCTS.BIOMASS
+WHERE SPECIES_CODE = 30060 
+AND SURVEY_DEFINITION_ID = 47 
+AND AREA_ID = 99903 
+AND YEAR BETWEEN 1984 AND 2021;") %>% 
+  janitor::clean_names()
+
+dim(a)
+flextable::flextable(a)
+```
+
+```{r r-plot-biomass}
+  a_mean <- a %>% 
+    dplyr::group_by(survey_definition_id) %>% 
+    dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
+                     minyr = min(year, na.rm = TRUE), 
+                     maxyr = max(year, na.rm = TRUE)) 
+
+  figure <-
+    ggplot(data = a, 
+           mapping = aes(x = year, 
+                         y = biomass_mt)) +
+    geom_point(size = 1.5) + 
+    ggplot2::scale_x_continuous(labels = scales::label_number(
+      accuracy = 1, big.mark = ""))   +
+      geom_segment(data = a_mean,
+                   mapping = aes(x = minyr, 
+                                 xend = maxyr, 
+                                 y = biomass_mt, 
+                                 yend = biomass_mt),
+                   linetype = "dashed", size = 1) +
+    ggplot2::ggtitle(label = "GOA Pacific Ocean Perch Biomass 1984-2021", 
+                     subtitle = paste0("Mean = ", 
+                                       formatC(x = a_mean$biomass_mt, digits = 2, big.mark = ",", format = "f"), " mt")) +
+    ggplot2::xlab(label = "Year") +
+    ggplot2::ylab(label = "Biomass (mt)") +
+    ggplot2::theme_bw()
+
+```
+
+## Query Biomass of POP by GOA regulatory area from 1984-2021 from `GAP_PRODUCTS.BIOMASS`
+
+```{r r-q-biomass-area}
+a <- RODBC::sqlQuery(channel, 
+"SELECT * FROM GAP_PRODUCTS.BIOMASS
+INNER JOIN GAP_PRODUCTS.STRA
+WHERE SPECIES_CODE = 30060 
+AND SURVEY_DEFINITION_ID = 47 
+AND AREA_ID = 99903 
+AND YEAR BETWEEN 1984 AND 2021;") %>% 
+  janitor::clean_names()
+
+dim(a)
+flextable::flextable(a)
+```
+
+```{r r-plot-biomass-area}
+
+```
+
+# Query and plot CPUE
+
+Query CPUE of Walleye Pollock in EBS 1984-2021 from `GAP_PRODUCTS.CPUE`
+
+```{sql sql-q-cpue}
+
+```
+
+```{r r-q-cpue}
+
+```
+
+```{r r-plot-cpue}
+
+```
+
+
+Use {akgfmaps} R package to plot CPUE 
+
+```{sql}
+
+```
+
+```{r}
+
+```
+
+Query Biomass of POP by regulatory area from 1984-2021 from GAP_PRODUCTS.BIOMASS
+
+```{sql}
+
+```
+
+```{r}
+
+```
+
+Query Biomass of POP by regulatory area from 1984-2021 from GAP_PRODUCTS.BIOMASS
+
+```{sql}
+
+```
+
+```{r}
+
+```
+
+
+
