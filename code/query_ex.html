@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Intro to querying with new Oracle Tables</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="query_ex_files/libs/clipboard/clipboard.min.js"></script>
+<script src="query_ex_files/libs/quarto-html/quarto.js"></script>
+<script src="query_ex_files/libs/quarto-html/popper.min.js"></script>
+<script src="query_ex_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="query_ex_files/libs/quarto-html/anchor.min.js"></script>
+<link href="query_ex_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="query_ex_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="query_ex_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="query_ex_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="query_ex_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="query_ex_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="query_ex_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Intro to querying with new Oracle Tables</h1>
+<p class="subtitle lead">May 07, 2023</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>PKG <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyr"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"magrittr"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"akgfmaps"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readr"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"flextable"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"janitor"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>PKG <span class="ot">&lt;-</span> <span class="fu">unique</span>(PKG)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (p <span class="cf">in</span> PKG) {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(p,<span class="at">character.only =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(p)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">require</span>(p,<span class="at">character.only =</span> <span class="cn">TRUE</span>)}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<section id="connect-to-oracle-from-r" class="level1">
+<h1>Connect to Oracle from R</h1>
+<section id="access-data-via-oracle" class="level2">
+<h2 class="anchored" data-anchor-id="access-data-via-oracle">Access data via Oracle</h2>
+<p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the GAP Products data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
+<section id="connect-to-oracle-from-r-1" class="level3">
+<h3 class="anchored" data-anchor-id="connect-to-oracle-from-r-1">Connect to Oracle from R</h3>
+<p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
+<p>Here, the user can write in their username and password directly into the <code>RODBC</code> connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Define RODBC connection to ORACLE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param schema default = 'AFSC'. </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return oracle channel connection</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @examples</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' # Not run</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' # channel &lt;- oracle_connect()</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>oracle_connect <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">schema=</span><span class="st">'AFSC'</span>, </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">username =</span> <span class="cn">NULL</span>, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">passowrd =</span> <span class="cn">NULL</span>){(<span class="at">echo=</span><span class="cn">FALSE</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(<span class="st">"RODBC"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(<span class="st">"getPass"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(username)) {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    username <span class="ot">&lt;-</span> <span class="fu">getPass</span>(<span class="at">msg =</span> <span class="st">"Enter your ORACLE Username: "</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(password)) {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    password <span class="ot">&lt;-</span> <span class="fu">getPass</span>(<span class="at">msg =</span> <span class="st">"Enter your ORACLE Password: "</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  channel  <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">odbcConnect</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(schema),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(username),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(password), </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">believeNRows=</span><span class="cn">FALSE</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(channel)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>channel <span class="ot">&lt;-</span> <span class="fu">oracle_connect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="select-all-data" class="level3">
+<h3 class="anchored" data-anchor-id="select-all-data">Select all data</h3>
+<p>Once connected, pull and save the tables of interest into the <code>R</code> environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull table from oracle into R environment</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cpue <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(channel, <span class="st">"SELECT * FROM GAP_PRODUCTS.CPUE"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save table to local directory</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> cpue, <span class="at">file =</span> <span class="st">"GAP_PRODUCTS-CPUE.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These are all of the new tables for you to look through:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># "GAP_PRODUCTS.CPUE",</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="co"># "GAP_PRODUCTS.BIOMASS",</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   <span class="co"># "GAP_PRODUCTS.AGECOMP",</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># "GAP_PRODUCTS.SIZECOMP",</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>   <span class="st">"GAP_PRODUCTS.STRATUM_GROUPS"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   <span class="st">"GAP_PRODUCTS.AREA_ID"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.METADATA_COLUMN"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.DESIGN_TABLE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For ease in this script, we are downloading all of the tables and saving them to our ‘data’ folder</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(locations)) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(locations[i])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(channel, <span class="fu">paste0</span>(<span class="st">"SELECT * FROM "</span>, locations[i]))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="at">x =</span> a, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste0</span>(locations[i], <span class="st">".csv"</span>)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And here is a quick glance at all of the new tables:</p>
+<div class="cell" data-tbl-cap="View new tables.">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find all descriptions of all tables in the GAP_PRODUCTS schema</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">query =</span> <span class="fu">paste0</span>(<span class="st">"SELECT table_name, comments FROM all_tab_comments WHERE owner = 'GAP_PRODUCTS' ORDER BY table_name"</span>)) </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect all column metadata for all tables</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>metadata_column <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"GAP_PRODUCTS.METADATA_COLUMN.csv"</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(locations)) {</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  metadata_table <span class="ot">&lt;-</span> b<span class="sc">$</span>COMMENTS[b<span class="sc">$</span>TABLE_NAME <span class="sc">==</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">strsplit</span>(<span class="at">x =</span> locations[i], <span class="at">split =</span> <span class="st">"."</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  metadata_table <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(metadata_table), <span class="st">"[There is currently no description for this table.]"</span>, metadata_table)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste0</span>(locations[i], <span class="st">".csv"</span>)))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  str0 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"----"</span>, locations[i], <span class="st">"----</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">Description: "</span>, metadata_table, <span class="st">"</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">rows: "</span>, <span class="fu">nrow</span>(a), <span class="st">"</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">cols: "</span>, <span class="fu">ncol</span>(a), <span class="st">"</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="fu">formatC</span>(<span class="at">x =</span> <span class="fu">file.size</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste0</span>(locations[i], <span class="st">".csv"</span>)))<span class="sc">/</span><span class="fl">1e+9</span>, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">digits =</span> <span class="dv">9</span>, <span class="at">format =</span> <span class="st">"f"</span>, <span class="at">big.mark =</span> <span class="st">","</span>), </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">" GB</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(str0)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># what are the metadata for each column of this table</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>(metadata_column[metadata_column<span class="sc">$</span>METADATA_COLNAME <span class="sc">%in%</span> <span class="fu">names</span>(a),])</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print few first lines of this table for show</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(a, <span class="dv">3</span>))</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>FALSE [1] "----GAP_PRODUCTS.STRATUM_GROUPS----\nDescription: \nrows: 2\ncols: 2\n0.000000176 GB\n\n"
+FALSE [1] "----GAP_PRODUCTS.AREA_ID----\nDescription: \nrows: 2\ncols: 2\n0.000000169 GB\n\n"
+FALSE [1] "----GAP_PRODUCTS.METADATA_COLUMN----\nDescription: [There is currently no description for this table.]\nrows: 127\ncols: 6\n0.000025758 GB\n\n"
+FALSE [1] "----GAP_PRODUCTS.DESIGN_TABLE----\nDescription: This is a table\nrows: 118\ncols: 5\n0.000003040 GB\n\n"</code></pre>
+</div>
+</div>
+</section>
+<section id="subset-data" class="level3">
+<h3 class="anchored" data-anchor-id="subset-data">Subset data</h3>
+<p>To pull a small subset of the data (especially since files can be big and take a long time to download), use a variation of the following code. Here, we query POP biomass totals for GOA between 1984-2021 from <code>GAP_PRODUCTS.BIOMASS</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(channel, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"SELECT * FROM GAP_PRODUCTS.BIOMASS</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SPECIES_CODE = 30060 </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">AND SURVEY_DEFINITION_ID = 47 </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">AND AREA_ID = 99903 </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR BETWEEN 1984 AND 2021;"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>FALSE [1] 17 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-1795fa5e{}.cl-178a7396{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-178ec4be{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-178eddaa{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-178eddb4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-178eddb5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-1795fa5e"><caption>View new POP biomass totals for GOA between 1984-2021 from GAP_PRODUCTS.BIOMASS.</caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">survey_definition_id</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">area_id</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">species_code</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">year</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">cpue_kgkm2_mean</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">cpue_kgkm2_var</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">cpue_nokm2_mean</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">cpue_nokm2_var</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">biomass_mt</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">biomass_var</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">population_count</span></p></th><th class="cl-178eddaa"><p class="cl-178ec4be"><span class="cl-178a7396">population_var</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,984</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">707.4710</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">32,313.43</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,508.999</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">154,622.30</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">220,910.5</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,150,637,461</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">471,190,743</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">15,076,050,023,809,224</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,987</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">761.8447</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">29,953.00</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,522.397</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">90,335.89</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">241,117.6</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,008,289,814</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">482,052,473</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">9,072,763,715,614,044</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,990</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">535.6307</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">25,756.31</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,079.908</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">66,730.42</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">157,295.1</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,221,176,968</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">317,129,408</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">5,754,710,450,191,490</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,993</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,646.8603</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">136,869.59</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,839.653</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">331,921.42</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">481,539.2</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">11,803,384,787</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">830,725,634</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">28,624,299,644,758,900</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,996</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,569.5797</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">459,736.51</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">4,172.472</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,017,793.17</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">770,550.3</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">41,434,152,202</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,251,462,658</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">91,729,492,316,265,488</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,999</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,272.0275</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,474,389.13</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,787.533</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,493,899.20</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">727,063.5</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">150,983,542,178</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,212,034,913</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">357,789,721,023,028,864</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,001</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,051.9027</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,013,045.42</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">5,392.282</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,505,337.50</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">673,155.1</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">49,285,342,922</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,189,370,120</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">170,537,033,536,697,184</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,003</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,483.1315</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">54,521.67</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,532.404</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">136,239.63</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">457,421.6</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">5,186,126,529</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">781,034,228</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">12,959,177,539,783,536</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,005</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,390.2687</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">209,950.58</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">4,198.466</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">532,406.35</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">764,901.4</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">21,499,807,010</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,343,536,275</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">54,520,610,685,780,088</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,007</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,150.5183</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">127,292.55</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,499.016</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">310,757.23</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">688,179.8</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">13,035,283,275</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,119,707,655</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">31,822,825,144,086,444</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,009</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,029.4877</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">135,419.98</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,672.153</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">376,362.99</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">649,384.9</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">13,867,565,649</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,175,039,165</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">38,541,126,276,754,016</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,011</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,524.7363</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">193,038.03</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">4,470.349</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">583,183.06</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">776,114.4</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">18,361,868,610</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,374,932,552</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">55,472,648,147,121,232</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,013</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">4,210.0383</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">479,277.44</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">6,666.861</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,060,642.44</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,298,443.5</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">45,589,096,874</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,056,167,153</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">100,888,810,226,461,280</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,015</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,563.6991</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">305,285.48</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">5,528.622</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">669,840.30</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,140,406.7</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">31,262,494,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,769,194,601</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">68,594,415,724,887,104</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,017</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">5,091.6897</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,289,383.57</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">7,172.199</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,041,831.11</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,570,358.9</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">122,646,774,539</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,212,021,441</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">194,219,939,014,273,312</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,019</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">3,930.2255</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">282,986.08</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">6,706.923</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">771,466.37</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">1,210,580.7</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">26,917,769,804</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">2,066,342,159</span></p></td><td class="cl-178eddb4"><p class="cl-178ec4be"><span class="cl-178a7396">73,382,245,693,575,424</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">47</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">99,903</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">30,060</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">2,021</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">4,795.2746</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">975,693.76</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">7,312.096</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">2,292,649.42</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">1,478,896.3</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">92,808,451,559</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">2,255,120,752</span></p></td><td class="cl-178eddb5"><p class="cl-178ec4be"><span class="cl-178a7396">218,077,895,324,402,688</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a_mean <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(survey_definition_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">biomass_mt =</span> <span class="fu">mean</span>(biomass_mt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">minyr =</span> <span class="fu">min</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxyr =</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> a, </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> biomass_mt)) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">big.mark =</span> <span class="st">""</span>))   <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> a_mean,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> minyr, </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                             <span class="at">xend =</span> maxyr, </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                             <span class="at">y =</span> biomass_mt, </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                             <span class="at">yend =</span> biomass_mt),</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggtitle</span>(<span class="at">label =</span> <span class="st">"GOA Pacific Ocean Perch Biomass 1984-2021"</span>, </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Mean = "</span>, </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">formatC</span>(<span class="at">x =</span> a_mean<span class="sc">$</span>biomass_mt, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">big.mark =</span> <span class="st">","</span>, <span class="at">format =</span> <span class="st">"f"</span>), <span class="st">" mt"</span>)) <span class="sc">+</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">xlab</span>(<span class="at">label =</span> <span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">"Biomass (mt)"</span>) <span class="sc">+</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="join-tables" class="level2">
+<h2 class="anchored" data-anchor-id="join-tables">Join tables</h2>
+</section>
+<section id="query-biomass-of-pop-by-goa-regulatory-area-from-1984-2021-from-gap_products.biomass" class="level2">
+<h2 class="anchored" data-anchor-id="query-biomass-of-pop-by-goa-regulatory-area-from-1984-2021-from-gap_products.biomass">Query Biomass of POP by GOA regulatory area from 1984-2021 from <code>GAP_PRODUCTS.BIOMASS</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a &lt;- RODBC::sqlQuery(channel, </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                      "SELECT * FROM GAP_PRODUCTS.BIOMASS</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># INNER JOIN GAP_PRODUCTS.STRATUM_GROUPINGS</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># WHERE SPECIES_CODE = 30060 </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># AND SURVEY_DEFINITION_ID = 47 </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># AND AREA_ID = 99903 </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># AND YEAR BETWEEN 1984 AND 2021;") %&gt;% </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   janitor::clean_names()</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dim(a)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># flextable::flextable(a)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+</section>
+</section>
+<section id="query-and-plot-cpue" class="level1">
+<h1>Query and plot CPUE</h1>
+<p>Query CPUE of Walleye Pollock in EBS 1984-2021 from <code>GAP_PRODUCTS.CPUE</code></p>
+<p>[coming soon]</p>
+<p>Use {akgfmaps} R package to plot CPUE</p>
+<p>[coming soon]</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
