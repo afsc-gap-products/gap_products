@@ -1,5 +1,5 @@
 #' -----------------------------------------------------------------------------
-#' title: Create public data 
+#' title: Create GAP_PRODUCT data 
 #' author: EH Markowitz (emily.markowitz AT noaa.gov)
 #' start date: 2022-011-21
 #' last modified: 2022-011-21
@@ -9,8 +9,16 @@
 # source("./code/run.R")
 # 1
 
-# *** Resource Links -----------------------------------------------------------
+# sign into google drive -------------------------------------------------------
 
+# googledrive::drive_deauth()
+googledrive::drive_auth()
+2
+
+## Resources -------------------------------------------------------------------
+
+link_repo <- "https://github.com/afsc-gap-products/gap_products/"
+link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
 
 # The surveys we will cover in this data are: 
 surveys <- 
@@ -22,46 +30,42 @@ surveys <-
                            "Aleutian Islands", 
                            "Bering Sea Slope") )
 
-dir_data <- "./data/"
-dir_out <- "./output/"
-
+dir_data <- paste0(here::here("data"), "/")
+dir_out <- paste0(here::here("output"), "/")
 
 # Support scripts --------------------------------------------------------------
 
+source('./code/functions_oracle.R') # source("https://raw.githubusercontent.com/afsc-gap-products/metadata/main/code/functions_oracle.R")
 source('./code/functions.R')
-source("https://raw.githubusercontent.com/afsc-gap-products/metadata/main/code/functions_oracle.R")
-
-# Notes: There are oracle files that are sourced from RACE_DATA - we should only be sourcing from RACEBASE
+# source("./code/data.R") # Wrangle data
 # source('./code/data_dl.R') # run annually -- files from RACEBASE and RACE_DATA you will need to prepare the following files
 
-source("./code/data.R") # Wrangle data
+# Create tables ----------------------------------------------------------------
 
-# Run new compiled data sets ---------------------------------------------------
+## Calculate Production Tables -------------------------------------------------
 
-# Calculate the station level num and wgt CPUE and summarized weight and count catches for each species
-# zero-filled (presence and absense) CPUE
-# NOTES: EHM 2022-11-21: borrowed from https://github.com/afsc-gap-products/gap_public_data/blob/main/code/analysis.R
-source('./code/data_cpue_station.R') 
+# [Zack you'll add these? https://github.com/afsc-gap-products/gapindex/tree/development/old_scripts]
+# [check scripts]
 
-# source("./code/load_oracle.R") # Share table to oracle
 
-# Compile old datasets (for future comparison0 ---------------------------------
+## Metadata --------------------------------------------------------------------
 
-source("./code/data_dl_compile_old_data.R")
-source('./code/compile_old_data.R')
+dir_out <- paste0(getwd(), "/metadata/", Sys.Date(), "/")
+dir.create(dir_out)
 
-# Check work -------------------------------------------------------------------
+source("./code/metadata.R") 
+# source("./code/metadata_current.R") 
 
-# source('./code/data_dl_check.R')
+## AKFIN Tables ----------------------------------------------------------------
 
-dir.create(path = paste0(dir_out, "/check/"))
-rmarkdown::render(paste0("./code/check.Rmd"),
-                  output_dir = dir_out,
-                  output_file = paste0("./check/check.docx"))
+source('./code/peripherals.R') 
+
+# Upload tables to GAP_PRODUCTS -----------------------------------------------
+
+source("./code/load_oracle.R") 
 
 # Save README ------------------------------------------------------------------
 
-rmarkdown::render(paste0("./README.Rmd"),
+rmarkdown::render(input = here::here("code", "README.Rmd"),
                   output_dir = "./",
                   output_file = paste0("README.md"))
-

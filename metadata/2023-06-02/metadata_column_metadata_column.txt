@@ -1,0 +1,1 @@
+These tables provide the column metadata for all GAP oracle tables. The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products/. These reference tables were last updated on June 02, 2023'. 
