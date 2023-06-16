@@ -1835,6 +1835,8 @@ OLD_TAXONOMICS_TYPECODE <- data.frame(
 
 ## Taxon Confidence -------------------------------------------------------------
 
+## Taxon Confidence -------------------------------------------------------------
+
 df.ls <- list()
 a <- list.files(path = paste0("./data/TAXON_CONFIDENCE/"))
 # a <- a[a != "OLD_TAXON_CONFIDENCE.csv"]
@@ -1895,7 +1897,9 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>%
                   taxon_confidence_code == 1 ~ "High",
                   taxon_confidence_code == 2 ~ "Moderate",
                   taxon_confidence_code == 3 ~ "Low", 
-                  TRUE ~ "Unassessed")) 
+                  TRUE ~ "Unassessed")) %>%
+  dplyr::left_join(y = surveys, 
+                   by = "SRVY") 
 
 # fill in OLD_TAXON_CONFIDENCE with, if missing, the values from the year before
 
@@ -1919,7 +1923,7 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
       SRVY %in% sapply(comb,"[[",1) &
         year == 2021) %>% 
     dplyr::mutate(year = 2022)) %>% 
-  dplyr::select(-common_name, -scientific_name)
+  dplyr::select(-common_name, -scientific_name) 
 # dplyr::rename(taxon_confidence = taxon_confidence, 
 #               taxon_confidence_code = taxon_confidence_code)
 
@@ -1933,9 +1937,12 @@ OLD_TAXON_CONFIDENCE_metadata_table <- paste0(
     for all fishes and invertebrates identified ", 
   metadata_sentence_survey_institution, 
   metadata_sentence_legal_restrict,  
-  metadata_sentence_github, 
+  # metadata_sentence_github, 
   metadata_sentence_codebook, 
   metadata_sentence_last_updated)
+
+OLD_TAXON_CONFIDENCE <- OLD_TAXON_CONFIDENCE %>% 
+  dplyr::select(-SRVY_long, -SRVY)
 
 # Upload data to oracle! -------------------------------------------------------
 

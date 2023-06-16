@@ -24,79 +24,114 @@ for (i in 1:length(a)){
 
 ## Taxonomic confidence data ---------------------------------------------------
 
-# tax_conf <- taxon_confidence0%>% 
-#   dplyr::rename(SRVY = srvy)
-# if (FALSE) {
-#     df.ls <- list()
-#     a <- list.files(path = here::here("data", "taxon_confidence"))
-#     a <- a[a != "taxon_confidence.csv"]
-#     for (i in 1:length(a)){
-#       print(a[i])
-#       b <- readxl::read_xlsx(path = paste0(here::here("data", "taxon_confidence", a[i])), 
-#                              skip = 1, col_names = TRUE) %>% 
-#         dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
-#         janitor::clean_names() %>% 
-#         dplyr::rename(species_code = code)
-#       if (sum(names(b) %in% "quality_codes")>0) {
-#         b$quality_codes<-NULL
-#       }
-#       b <- b %>% 
-#         tidyr::pivot_longer(cols = starts_with("x"), 
-#                             names_to = "year", 
-#                             values_to = "tax_conf") %>% 
-#         dplyr::mutate(year = 
-#                         as.numeric(gsub(pattern = "[a-z]", 
-#                                         replacement = "", 
-#                                         x = year))) %>% 
-#         dplyr::distinct()
-#       
-#       cc <- strsplit(x = gsub(x = gsub(x = a[i], 
-#                                        pattern = "Taxon_confidence_", replacement = ""), 
-#                               pattern = ".xlsx", 
-#                               replacement = ""), 
-#                      split = "_")[[1]]
-#       
-#       if (length(cc) == 1) {
-#         b$SRVY <- cc
-#       } else {
-#         bb <- data.frame()
-#         for (ii in 1:length(cc)){
-#           bbb <- b
-#           bbb$SRVY <- cc[ii]
-#           bb <- rbind.data.frame(bb, bbb)
-#         }
-#         b<-bb
-#       }
-#       df.ls[[i]]<-b
-#       names(df.ls)[i]<-a[i]
-#     }
-#     
-#     # any duplicates in any taxon confidence tables?
-#     # SameColNames(df.ls) %>%
-#     #        dplyr::group_by(srvy) %>%
-#     #        dplyr::filter(year == min(year)) %>%
-#     #        dplyr::ungroup() %>%
-#     #        dplyr::select(species_code, srvy) %>%
-#     #        table() %>% # sets up frequency table
-#     #        data.frame() %>%
-#     #        dplyr::filter(Freq > 1)
-#     
-#     # Quality Codes
-#     # 1 – High confidence and consistency.  Taxonomy is stable and reliable at this 
-#     #     level, and field identification characteristics are well known and reliable.
-#     # 2 – Moderate confidence.  Taxonomy may be questionable at this level, or field  
-#     #     identification characteristics may be variable and difficult to assess consistently.
-#     # 3 – Low confidence.  Taxonomy is incompletely known, or reliable field  
-#     #     identification characteristics are unknown.
-#     
-#     tax_conf <- SameColNames(df.ls) %>% 
-#       dplyr::rename(SRVY = srvy) %>%
-#       dplyr::mutate(tax_conf0 = tax_conf, 
-#                     tax_conf = dplyr::case_when(
-#                       tax_conf == 1 ~ "High",
-#                       tax_conf == 2 ~ "Moderate",
-#                       tax_conf == 3 ~ "Low", 
-#                       TRUE ~ "Unassessed"))
+## Taxon Confidence -------------------------------------------------------------
+
+df.ls <- list()
+a <- list.files(path = paste0("./data/TAXON_CONFIDENCE/"))
+# a <- a[a != "OLD_TAXON_CONFIDENCE.csv"]
+for (i in 1:length(a)){
+  print(a[i])
+  b <- readxl::read_xlsx(path = paste0("./data/TAXON_CONFIDENCE/", a[i]), 
+                         skip = 1, col_names = TRUE) %>% 
+    dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
+    janitor::clean_names() %>% 
+    dplyr::rename(species_code = code)
+  if (sum(names(b) %in% "quality_codes")>0) {
+    b$quality_codes<-NULL
+  }
+  b <- b %>% 
+    tidyr::pivot_longer(cols = starts_with("x"), 
+                        names_to = "year", 
+                        values_to = "taxon_confidence") %>% 
+    dplyr::mutate(year = gsub(pattern = "[a-z]", 
+                              replacement = "", 
+                              x = year), 
+                  year = gsub(pattern = "_0", replacement = "", 
+                              x = year), 
+                  year = as.numeric(year)) %>% 
+    dplyr::distinct()
+  
+  cc <- strsplit(x = gsub(x = gsub(x = a[i], 
+                                   pattern = "Taxon_confidence_", replacement = ""), 
+                          pattern = ".xlsx", 
+                          replacement = ""), 
+                 split = "_")[[1]]
+  
+  if (length(cc) == 1) {
+    b$SRVY <- cc
+  } else {
+    bb <- data.frame()
+    for (ii in 1:length(cc)){
+      bbb <- b
+      bbb$SRVY <- cc[ii]
+      bb <- rbind.data.frame(bb, bbb)
+    }
+    b<-bb
+  }
+  df.ls[[i]]<-b
+  names(df.ls)[i]<-a[i]
+}
+
+# Quality Codes
+# 1 – High confidence and consistency.  Taxonomy is stable and reliable at this 
+#     level, and field identification characteristics are well known and reliable.
+# 2 – Moderate confidence.  Taxonomy may be questionable at this level, or field  
+#     identification characteristics may be variable and difficult to assess consistently.
+# 3 – Low confidence.  Taxonomy is incompletely known, or reliable field  
+#     identification characteristics are unknown.
+
+OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>% 
+  dplyr::mutate(taxon_confidence_code = taxon_confidence, 
+                taxon_confidence = dplyr::case_when(
+                  taxon_confidence_code == 1 ~ "High",
+                  taxon_confidence_code == 2 ~ "Moderate",
+                  taxon_confidence_code == 3 ~ "Low", 
+                  TRUE ~ "Unassessed")) %>%
+  dplyr::left_join(y = surveys, 
+                   by = "SRVY") 
+
+# fill in OLD_TAXON_CONFIDENCE with, if missing, the values from the year before
+
+cruises <- race_data_v_cruises0 %>% #read.csv("./data/race_data_v_cruises.csv") %>% 
+  janitor::clean_names() %>% 
+  dplyr::left_join(
+    x = surveys, # a data frame of all surveys and survey_definition_ids we want included in the public data, created in the run.R script
+    y = ., 
+    by  = c("survey_definition_id"))
+comb1 <- unique(cruises[, c("SRVY", "year")] )
+comb2 <- unique(OLD_TAXON_CONFIDENCE[, c("SRVY", "year")])
+# names(comb2) <- names(comb1) <- c("SRVY", "year")
+comb1$comb <- paste0(comb1$SRVY, "_", comb1$year)
+comb2$comb <- paste0(comb2$SRVY, "_", comb2$year)
+comb <- strsplit(x = setdiff(comb1$comb, comb2$comb), split = "_")
+
+OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
+  OLD_TAXON_CONFIDENCE, 
+  OLD_TAXON_CONFIDENCE %>% 
+    dplyr::filter(
+      SRVY %in% sapply(comb,"[[",1) &
+        year == 2021) %>% 
+    dplyr::mutate(year = 2022)) %>% 
+  dplyr::select(-common_name, -scientific_name) 
+# dplyr::rename(taxon_confidence = taxon_confidence, 
+#               taxon_confidence_code = taxon_confidence_code)
+
+OLD_TAXON_CONFIDENCE_metadata_table <- paste0(
+  "The quality and specificity of field identifications for many taxa have 
+    fluctuated over the history of the surveys due to changing priorities and resources. 
+    The matrix lists a confidence level for each taxon for each survey year 
+    and is intended to serve as a general guideline for data users interested in 
+    assessing the relative reliability of historical species identifications 
+    on these surveys. This dataset includes an identification confidence matrix 
+    for all fishes and invertebrates identified ", 
+  metadata_sentence_survey_institution, 
+  metadata_sentence_legal_restrict,  
+  # metadata_sentence_github, 
+  metadata_sentence_codebook, 
+  metadata_sentence_last_updated)
+
+OLD_TAXON_CONFIDENCE <- OLD_TAXON_CONFIDENCE %>% 
+  dplyr::select(-SRVY_long, -SRVY)
 #     
 #     readr::write_csv(x = tax_conf, 
 #                      file = paste0(getwd(), "/data/taxon_confidence.csv"))
