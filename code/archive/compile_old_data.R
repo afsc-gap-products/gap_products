@@ -1835,8 +1835,6 @@ OLD_TAXONOMICS_TYPECODE <- data.frame(
 
 ## Taxon Confidence -------------------------------------------------------------
 
-## Taxon Confidence -------------------------------------------------------------
-
 df.ls <- list()
 a <- list.files(path = paste0("./data/TAXON_CONFIDENCE/"))
 # a <- a[a != "OLD_TAXON_CONFIDENCE.csv"]
