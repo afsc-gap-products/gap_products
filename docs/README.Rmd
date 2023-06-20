@@ -1,0 +1,272 @@
+---
+title: '`r ifelse(tocTF, "data", "AFSC RACE Groundfish and Shellfish Survey Public Data")`'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+  md_document: 
+    variant: gfm
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
+bibliography: "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+```
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r packages, echo=FALSE, results="hide", message=FALSE, include=FALSE, echo = FALSE}
+PKG <- c("badger", 
+         "knitr")
+PKG <- unique(PKG)
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+```
+
+
+`r ifelse(tocTF, paste0('# [AFSC RACE Groundfish Design-Based Data Products](', link_repo,') <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;v=4" alt="Logo." align="right" width="139" height="139"/>'), '')`
+
+```{r bagdes-2, echo = FALSE, results='asis', message=FALSE}
+cat(
+  # badge_devel("afsc-gap-products/gap_public_data", "blue"),
+  # badge_lifecycle("maturing", "blue"),
+  badge_last_commit("afsc-gap-products/gap_public_data")
+)
+```
+
+## This code is primarally maintained by:
+
+**Zack Oyafuso** (Zack.Oyafuso AT noaa.gov; [\@zoyafuso-NOAA](https://github.com/zoyafuso-NOAA))
+
+**Emily Markowitz** (Emily.Markowitz AT noaa.gov; [\@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA))
+
+Alaska Fisheries Science Center (AFSC)
+National Oceanic and Atmospheric Administration (NOAA)  
+Resource Assessment and Conservation Engineering Division (RACE)  
+Groundfish Assessment Program (GAP) 7600 Sand Point Way, N.E. bldg. 4  
+Seattle, WA 98115 USA
+
+> The code in this repository is regularly being updated and improved. Please refer to [releases](`r paste0(link_repo, '/releases')`) for finalized products and project milestones.  
+
+`r ifelse(tocTF, "## Table of contents", "")`
+
+```{r toc, echo = FALSE, eval = tocTF}
+toc <- strsplit(x = readtext::readtext(file = "./README.rmd")[[2]], split = "\n")
+toc <- toc[[1]][substr(x = toc[[1]], start = 1, stop = 1) == "#"]
+toc <- toc[-c(1)]
+toc_list <- toc
+toc_list <- gsub(pattern = "#### ", replacement = ">        - [*", x = toc_list, fixed = TRUE)
+toc_list <- gsub(pattern = "### ", replacement = ">      - [*", x = toc_list, fixed = TRUE)
+toc_list <- gsub(pattern = "## ", replacement = ">    - [*", x = toc_list, fixed = TRUE)
+toc_list <- gsub(pattern = "# ", replacement = ">  - [*", x = toc_list, fixed = TRUE)
+toc_link <- tolower(gsub(pattern = " ", replacement = "-", 
+                         x = gsub(pattern = "#", replacement = "", 
+                                  x = gsub(pattern = "# ", replacement = "", 
+                                           x = toc, fixed = TRUE), fixed = TRUE)))
+toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
+```
+
+`r ifelse(tocTF, toc, "")`
+
+# Access the data
+
+Here are a few resources made by our scientists in house and keen contributors:
+
+ - [General information](`r paste0(link_repo, "/index.html")`)
+ - [Access public data via the AFSC Oracle Database (AFSC only) using SQL and R](`r paste0(link_repo, "/access-afsc-oracle-sql-r.html")`)
+ - Access data via the [Interactive FOSS Platform](https://afsc-gap-products.github.io/gap_public_data/access-foss.html) and [documentation](https://afsc-gap-products.github.io/gap_public_data/)
+
+
+## Bottom trawl surveys and regions
+
+```{r survey-map, echo=FALSE, results='asis'}
+
+library(ggplot2)
+library(viridis)
+library(akgfmaps)
+library(sf)
+
+shp_ebs <- akgfmaps::get_base_layers(select.region = "bs.south", set.crs = "auto")
+shp_nbs <- akgfmaps::get_base_layers(select.region = "bs.north", set.crs = "auto")
+shp_ai <- akgfmaps::get_base_layers(select.region = "ai", set.crs = "auto")
+shp_goa <- akgfmaps::get_base_layers(select.region = "goa", set.crs = "auto")
+shp_bss <- akgfmaps::get_base_layers(select.region = "ebs.slope", set.crs = "auto")
+
+shp <- dplyr::bind_rows(list(
+  shp_ebs$survey.area %>% 
+    sf::st_transform(crs = "EPSG:3338") %>% 
+    dplyr::mutate(SURVEY = "EBS"), 
+  shp_nbs$survey.area  %>% 
+    sf::st_transform(crs = "EPSG:3338") %>% 
+    dplyr::mutate(SURVEY = "NBS"), 
+  shp_ai$survey.area %>% 
+    sf::st_transform(crs = "EPSG:3338") %>% 
+    dplyr::mutate(SURVEY = "AI"), 
+  shp_goa$survey.area %>% 
+    sf::st_transform(crs = "EPSG:3338") %>% 
+    dplyr::mutate(SURVEY = "GOA"), 
+  shp_bss$survey.area %>% 
+    sf::st_transform(crs = "EPSG:3338") %>% 
+    dplyr::mutate(SURVEY = "BSS"))) %>% 
+  dplyr::select(Survey = SURVEY, geometry)
+
+gg <- ggplot() +
+  ggplot2::geom_sf(data = shp_bss$akland, 
+                   fill = "dark grey", 
+                   color = "transparent") + 
+  ggplot2::geom_sf(data = shp_nbs$graticule,
+                   color = "grey90", 
+                   size = 0.5, 
+                   alpha = 0.5) +
+  ggplot2::geom_sf(data = shp_ai$graticule,
+                   color = "grey90",
+                   size = 0.5, 
+                   alpha = 0.5) +
+  ggplot2::geom_sf(data = shp_goa$graticule,
+                   color = "grey90",
+                   size = 0.5, 
+                   alpha = 0.5) +
+  ggplot2::scale_x_continuous(name = "Longitude",
+                              breaks = c(-180, -170, -160, -150, -140)) + # shp_bss$lon.breaks) +
+  # ggplot2::scale_y_continuous(name = "Latitude", breaks = shp_bss$lat.breaks) +
+  ggplot2::ggtitle(label = "Bottom Trawl Survey Regions",
+                   subtitle = "AFSC RACE Groundfish and Shellfish Public Data Coverage") +
+  ggplot2::theme_classic() + 
+  ggplot2::theme(
+    panel.background = element_rect(fill = "transparent"), #grey95
+    plot.title = element_text(size = 20, face = "bold"), 
+    plot.subtitle = element_text(size=14), 
+    legend.text=element_text(size=8), 
+    legend.position="right",
+    legend.direction="vertical",
+    legend.justification="left",
+    legend.background = element_blank(),
+    legend.title=element_text(size=14),
+    axis.text = element_text(size=10), 
+    legend.box.background = element_blank(),
+    legend.key = element_blank(), 
+    legend.key.size=(unit(.3,"cm")), 
+    axis.title=element_text(size=14) ) +
+  ggplot2::geom_sf(data = shp, 
+                   mapping = aes(fill = Survey),
+                   color = "grey20", 
+                   show.legend = TRUE) +
+  ggplot2::scale_fill_viridis_d(option = "G", end = 0.9, begin = 0.1) +
+  ggplot2::coord_sf(xlim = c(-1394658,  2566293), # range(shp_ai$plot.boundary$x, shp_bs$plot.boundary$x, shp_goa$plot.boundary$x, shp_bss$plot.boundary$x),
+                    ylim = c(-1028565.1,  1125549.7)) # range(shp_ai$plot.boundary$y, shp_bs$plot.boundary$y, shp_goa$plot.boundary$y, shp_bss$plot.boundary$y))
+
+ggsave(filename = "survey_plot.png", 
+       plot = gg,
+       path = here::here("img"), 
+       width = 7, 
+       height = 3)
+```
+
+![](`r here::here("img", "survey_plot.png")`)
+
+```{r source-current-tm, echo=FALSE}
+source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r")
+```
+
+- **Aleutian Islands (AI)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
+  - Triennial (1990s)/Biennial since 2000 in even years
+  - Modified Index-Stratified Random of Successful Stations Survey Design
+- **Eastern Bering Sea Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
+  - Intermittent (funding dependent)
+  - Modified Index-Stratified Random of Successful Stations Survey Design
+- **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
+  - Annual
+  - Fixed stations at center of 20 x 20 nm grid
+- **Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
+  - Triennial (1990s)/Biennial since 2001 in odd years
+  - Stratified Random Survey Design
+- **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
+  - Biennial/Annual
+  - Fixed stations at center of 20 x 20 nm grid
+
+# Metadata
+
+<div id="refs"></div>
+
+## Data Description
+
+The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
+
+Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
+
+The data calculated in this repo include: 
+
+## Catch-per-unit-effort
+
+Zero-filled haul-level catch per unit effort (units in kg/km2). 
+
+## Biomass
+
+Stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), total biomass (with variance), total abundance (with variance). The “AREA_ID” field replaces the “STRATUM” field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
+
+Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. The associated variance of estimates will suffice as the metric of variability to use.
+
+## Size Composition
+
+Stratum/subarea/management area/region-level abundance by sex/length bin. Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in historical versions of this table, are melted into a single column (called “SEX”) similar to the AGECOMP tables with values 1/2/3 for M/F/U. The “AREA_ID” field replaces the “STRATUM” field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
+
+## Age Composition
+
+Region-level abundance by sex/age.
+
+## Column Metadata
+
+`r readtext::readtext(file = here::here("metadata","metadata_column_metadata_column.txt"))$text` Find these tables [here](https://github.com/afsc-gap-products/gap_products/tree/main/metadata). 
+
+Here are stock metadata that users can use to document their table columns. Find the `GAP_PRODUCTS.METADATA_COLUMN` and `GAP_PRODUCTS.METADATA_TABLE` in oracle for the tables above. 
+
+```{r metadata-column, echo = FALSE, eval = FALSE}
+metadata_column0 <- read.csv(file = here::here("metadata", "metadata_column.csv")) %>% 
+  dplyr::select(
+    "Column name from data" = metadata_colname, 
+    "Descriptive column Name" = metadata_colname_long, 
+    "Units" = metadata_units, 
+    "Units" = metadata_units, 
+    "Oracle data type" = metadata_datatype, 
+    "Column description" = metadata_colname_desc)
+knitr::kable(metadata_column0, row.names = FALSE) 
+```
+
+## User Resources:
+
+-   [Groundfish Assessment Program Bottom Trawl Surveys
+](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
+-   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division).
+-   For more information about codes used in the tables, please refer to the [survey code books](`r link_code_books `).
+-   Find [past reports](http://apps-afsc.fisheries.noaa.gov/RACE/surveys/cruise_results.htm) about these surveys.
+-   [GitHub repository](`r link_repo`).
+-   Fisheries One Stop Shop (FOSS): `r link_foss`
+-   Learn more about other [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys).
+
+## Access Constraints:
+
+There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
+
+**User Constraints:** Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
+
+**General questions and more specific data requests** can be sent to [afsc.gap.metadata\@noaa.gov](mailto:afsc.gap.metadata@noaa.gov) or submitted as an [issue on our GitHub Organization](https://github.com/afsc-gap-products/data-requests). The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson ([Duane.Stevenson\@noaa.gov](mailto:Duane.Stevenson@noaa.gov)). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman ([Ned.Laman\@noaa.gov](mailto:Ned.Laman@noaa.gov)). For questions specifically about crab data in any region, contact Mike Litzow ([Mike.Litzow\@noaa.gov](mailto:Mike.Litzow@noaa.gov)), the Shellfish Assessment Program lead.
+
+For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](`r link_foss `) platform, please contact us using the Comments page on the [FOSS](`r link_foss `) webpage.
+
+# Suggestions and comments
+
+If the data or metadata can be improved, please create a pull request, [submit an issue to the GitHub organization](`r "https://github.com/afsc-gap-products/data-requests/issues"`) or [submit an issue to the code's repository](`r paste0(link_repo, "/issues")`).
+
+# R Version Metadata
+
+```{r}
+sessionInfo()
+```
+
+```{r child-footer, child=here::here("docs","footer.Rmd")}
+```
