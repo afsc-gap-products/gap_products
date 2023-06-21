@@ -73,6 +73,14 @@ toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
 
 `r ifelse(tocTF, toc, "")`
 
+# Cite this data
+
+Use the below bibtext [citation](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data from this data portal [@GAPProducts]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed.  
+
+```{r load_citation, echo = FALSE}
+cat(readLines(con = here::here("CITATION.bib")), sep = "\n") 
+```
+
 # Access the data
 
 Here are a few resources made by our scientists in house and keen contributors:
@@ -199,25 +207,78 @@ The Resource Assessment and Conservation Engineering Division (RACE) Groundfish 
 
 Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
 
-The data calculated in this repo include: 
+## Data created in this repo
 
-## Catch-per-unit-effort
+```{r oracle-connect-1, echo = FALSE, eval = TRUE}
+if (file.exists("Z:/Projects/ConnectToOracle.R")) {
+    source("Z:/Projects/ConnectToOracle.R")
+    channel <- channel_products
+} else {
+  gapindex::get_connected()
+}
+```
 
-Zero-filled haul-level catch per unit effort (units in kg/km2). 
+```{r table-locations, eval = TRUE}
+ # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
 
-## Biomass
+locations <- c(
+  "GAP_PRODUCTS.CPUE",
+  "GAP_PRODUCTS.BIOMASS",
+  "GAP_PRODUCTS.AGECOMP",
+  "GAP_PRODUCTS.SIZECOMP",
+  "GAP_PRODUCTS.STRATUM_GROUPS",
+  "GAP_PRODUCTS.AREA_ID",
+  "GAP_PRODUCTS.DESIGN_TABLE",
+  "GAP_PRODUCTS.METADATA_COLUMN")
+```
 
-Stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), total biomass (with variance), total abundance (with variance). The “AREA_ID” field replaces the “STRATUM” field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
+```{r table-dl, eval = FALSE}
+for (i in 1:length(locations)) {
+  print(locations[i])
+  a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
+  write.csv(x = a, file = here::here("data", paste0(locations[i], ".csv")))
+}
+```
 
-Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. The associated variance of estimates will suffice as the metric of variability to use.
+```{r table-load, eval = TRUE}
 
-## Size Composition
+ # Find all descriptions of all tables in the GAP_PRODUCTS schema
+b <- RODBC::sqlQuery(channel = channel, 
+                     query = "SELECT table_name, comments 
+FROM all_tab_comments 
+WHERE owner = 'GAP_PRODUCTS' 
+ORDER BY table_name")
 
-Stratum/subarea/management area/region-level abundance by sex/length bin. Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in historical versions of this table, are melted into a single column (called “SEX”) similar to the AGECOMP tables with values 1/2/3 for M/F/U. The “AREA_ID” field replaces the “STRATUM” field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
+ # Collect all column metadata for all tables
+# metadata_column <- readr::read_csv(here::here("data", "GAP_PRODUCTS.METADATA_COLUMN.csv"))
 
-## Age Composition
+for (i in 1:length(locations)) {
+  metadata_table <- b$COMMENTS[b$TABLE_NAME == 
+                                 strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]][2]]
+  metadata_table <- ifelse(is.na(metadata_table), 
+                           "[There is currently no description for this table.]", 
+                           metadata_table)
+  a <- readr::read_csv(here::here("data", paste0(locations[i], ".csv")))
+  
+  str0 <- paste0("----", locations[i], "----
 
-Region-level abundance by sex/age.
+Description: ", metadata_table, "
+rows: ", nrow(a), "
+cols: ", ncol(a), "
+", formatC(x = file.size(here::here("data", paste0(locations[i], ".csv")))/1e+9, 
+           digits = 9, format = "f", big.mark = ","), 
+" GB
+
+")
+  
+  
+  cat(str0)
+  # what are the metadata for each column of this table
+  flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
+  # print few first lines of this table for show
+  flextable::flextable(head(a, 3))
+}
+```
 
 ## Column Metadata
 

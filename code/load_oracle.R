@@ -1,49 +1,35 @@
 
-# Connect to Oracle ------------------------------------------------------------
-
-# This has a specific username and password because I DONT want people to have access to this!
-# This has a specific username and password because I DONT want people to have access to this!
-locations <- c("Z:/Projects/ConnectToOracle.R")
-for (i in 1:length(locations)){
-  if (file.exists(locations[i])) {source(locations[i])}
-}
-
-# I set up a ConnectToOracle.R that looks like this: 
-#   
-#   PKG <- c("RODBC")
-# for (p in PKG) {
-#   if(!require(p,character.only = TRUE)) {  
-#     install.packages(p)
-#     require(p,character.only = TRUE)}
-# }
-# 
-# channel<-odbcConnect(dsn = "AFSC",
-#                      uid = "USERNAME", # change
-#                      pwd = "PASSWORD", #change
-#                      believeNRows = FALSE)
-# 
-# odbcGetInfo(channel)
-
 # Upload data to oracle! -------------------------------------------------------
 
-a <- list.files(path = dir_out, full.names = TRUE, pattern = "metadata_")
+# Final all objects with "NEW_" prefix, save them and their table metadata, and add them to the que to save to oracle
+a <- apropos("NEW_", ignore.case = FALSE) 
+a <- a[!grepl(pattern = "_metadata_table", x = a)]
+file_paths <- data.frame(file_path = NA, metadata_table = NA)
+
 for (i in 1:length(a)) {
-file.copy(from = a, 
-          to = gsub(pattern = dir_out, replacement = paste0(getwd(), "/metadata/"), x = a), 
-          overwrite = TRUE)
+  
+  write.csv(x = get(a[i]), file = paste0(dir_out, a[i], ".csv"))
+  
+  # find or create table metadat for table
+  metadata_table <- ifelse(exists(paste0(a[i], "_metadata_table", collapse="\n")), 
+                           get(paste0(a[i], "_metadata_table", collapse="\n")), 
+                           paste0(metadata_sentence_github, 
+                                  metadata_sentence_last_updated))
+  
+  readr::write_lines(x = metadata_table, 
+                     file = paste0(dir_out, a[i], "_metadata_table.txt", collapse="\n"))
+  
+  file_paths <- dplyr::add_row(.data = file_paths, 
+                               file_path = paste0(dir_out, a[i], ".csv"),
+                               metadata_table = metadata_table)
 }
 
-file_paths <- data.frame(
-  file_path = c(paste0(dir_out, "/METADATA_COLUMN.csv"), 
-                paste0(dir_out, "/METADATA_TABLE.csv")), 
-  metadata_table = c(
-    paste(readLines(con = paste0(dir_out, "metadata_column_metadata_column.txt")), collapse="\n"), 
-    paste(readLines(con = paste0(dir_out, "metadata_table_metadata_table.txt")), collapse="\n"))
-)
+file_paths <- file_paths[-1,]
 
-for (i in 1:length(file_paths)) {
-oracle_upload(
-    file_path = file_paths$file_path[i],
+# Save old tables to Oracle
+for (i in 1:nrow(file_paths)) {
+  oracle_upload(
+    file_path = file_paths$file_path[i], 
     metadata_table = file_paths$metadata_table[i], 
     metadata_column = metadata_column, 
     channel = channel_products, 
