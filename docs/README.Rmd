@@ -172,7 +172,8 @@ gg <- ggplot() +
     legend.box.background = element_blank(),
     legend.key = element_blank(), 
     legend.key.size=(unit(.3,"cm")), 
-    axis.title=element_text(size=14) ) +
+    axis.title=element_text(size=14), 
+    plot.margin = margin(0,0,0,0,unit = "cm")) +
   ggplot2::geom_sf(data = shp, 
                    mapping = aes(fill = Survey),
                    color = "grey20", 
@@ -188,7 +189,7 @@ ggsave(filename = "survey_plot.png",
        height = 3)
 ```
 
-![](`r here::here("docs", "survey_plot.png")`)
+![Bottom trawl surveys and regions. ](../docs/survey_plot.png)
 
 ```{r source-current-tm, echo=FALSE}
 source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r")
@@ -238,11 +239,11 @@ locations <- c(
   "GAP_PRODUCTS.AGECOMP",
   "GAP_PRODUCTS.SIZECOMP",
   "GAP_PRODUCTS.STRATUM_GROUPS",
-  "GAP_PRODUCTS.AREA_ID",
-  "GAP_PRODUCTS.DESIGN_TABLE",
+  "GAP_PRODUCTS.AREA",
+  "GAP_PRODUCTS.SURVEY_DESIGN",
   "GAP_PRODUCTS.TAXONOMICS_WORMS", 
   "GAP_PRODUCTS.TAXONOMICS_ITIS", 
-  "GAP_PRODUCTS.TAXONOMIC_CONFIDENCE", 
+  "GAP_PRODUCTS.TAXON_CONFIDENCE", 
   "GAP_PRODUCTS.METADATA_COLUMN" 
   )
 ```
@@ -289,9 +290,9 @@ for (i in 1:length(locations)) {
                  "\n\n**Description**: ", 
                  metadata_table, "\n\n",
 "rows: ", temp_rows, " | cols: ", temp_cols, " | ", 
-formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
-           digits = 3, format = "f", big.mark = ","), 
-" ", ifelse(temp>1e+7, "GB", "B"), "
+formatC(x = temp/ifelse(temp>1e+6, 1e+9, 1), 
+           digits = 1, format = "f", big.mark = ","), 
+" ", ifelse(temp>1e+6, "GB", "B"), "
 
 \n\n\n")
   

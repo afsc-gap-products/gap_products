@@ -121,6 +121,8 @@ dat0 <- dat %>%
   dplyr::mutate(
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
 
+# install.packages("scales")
+library(scales)
 figure <- ggplot2::ggplot(
   dat = dat0, 
   mapping = aes(x = year, y = val, color = type)) +
@@ -329,8 +331,6 @@ a_mean <- dat %>%
   dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
                    minyr = min(year, na.rm = TRUE), 
                    maxyr = max(year, na.rm = TRUE)) 
-
-library(scales)
 
 figure <-
   ggplot(data = dat, 

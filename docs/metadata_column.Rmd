@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 
 ## Column Metadata
 
-Here are stock metadata that users can use to document their table columns. `r readtext::readtext(file = here::here(dir_out,"metadata_column_metadata_table.txt"))$text`.
+Here are stock metadata that users can use to document their table columns. `r readtext::readtext(file = here::here(dir_out,"metadata_column_comment.txt"))$text`.
 
 ```{r metadata-column, echo = FALSE, eval = TRUE}
 metadata_column0 <- read.csv(file = paste0(dir_out, "metadata_column.csv"))  %>% 

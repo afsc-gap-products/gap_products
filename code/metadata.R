@@ -38,7 +38,7 @@ temp <- paste0(
   metadata_table$metadata_sentence[metadata_table$metadata_sentence_name == "legal_restrict_none"], " ", 
   metadata_table$metadata_sentence[metadata_table$metadata_sentence_name == "codebook"], " ")
 
-NEW_metadata_table_metadata_table <- paste0("These column provide the column metadata for all GAP oracle tables. ", temp)
+NEW_metadata_table_comment <- paste0("These column provide the column metadata for all GAP oracle tables. ", temp)
 
 ## Column ----------------------------------------------------------------------
 
@@ -56,4 +56,4 @@ NEW_metadata_column <- readxl::read_xlsx(
     metadata_colname_desc = gsub(pattern = "  ", replacement = " ", x = metadata_colname_desc, fixed = TRUE), 
     metadata_colname_desc = gsub(pattern = "..", replacement = ".", x = metadata_colname_desc, fixed = TRUE))
 
-NEW_metadata_column_metadata_table <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)
+NEW_metadata_column_comment <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)

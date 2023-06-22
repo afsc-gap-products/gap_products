@@ -100,7 +100,7 @@ NEW_taxon_confidence <- dplyr::bind_rows(
         year == 2021) %>% 
     dplyr::mutate(year = 2022))  
 
-NEW_taxon_confidence_metadata_table <- paste0(
+NEW_taxon_confidence_comment <- paste0(
   "The quality and specificity of field identifications for many taxa have 
     fluctuated over the history of the surveys due to changing priorities and resources. 
     The matrix lists a confidence level for each taxon for each survey year 
@@ -114,9 +114,9 @@ NEW_taxon_confidence_metadata_table <- paste0(
   "2: Moderate confidence. Taxonomy may be questionable at this level, or field identification characteristics may be variable and difficult to assess consistently. ", 
   "3: Low confidence. Taxonomy is incompletely known, or reliable field identification characteristics are unknown. ", 
   "NA: Unassessed. Taxonomy quality has not been assessed. ", 
-  metadata_sentence_legal_restrict,  
-  metadata_sentence_github,
-  metadata_sentence_codebook, 
+  metadata_sentence_legal_restrict, " ",  
+  metadata_sentence_github, " ", 
+  metadata_sentence_codebook, " ", 
   metadata_sentence_last_updated)
 
 # Taxonomics - WORMS -----------------------------------------------------------
@@ -131,13 +131,13 @@ NEW_TAXONOMICS_WORMS <- readr::read_csv(file = here::here("data", "/taxonomy_wor
                 database = ifelse(database == "ITIS", NA, database), 
                 database = ifelse(is.na(database_id), NA, database))
 
-NEW_TAXONOMICS_WORMS_metadata_table <- paste0(
+NEW_TAXONOMICS_WORMS_comment <- paste0(
   "This dataset includes an identification catalog for all species caught in GAP surveys. ", 
   "These taxonomic tables are cross-referenced with the World Register of Marine Species (https://www.marinespecies.org) and compiled by ", 
-  metadata_sentence_survey_institution, 
-  metadata_sentence_legal_restrict,  
-  metadata_sentence_github,
-  metadata_sentence_codebook, 
+  metadata_sentence_survey_institution, " ", 
+  metadata_sentence_legal_restrict,  " ", 
+  metadata_sentence_github, " ", 
+  metadata_sentence_codebook, " ", 
   metadata_sentence_last_updated)
 
 # Taxonomics - ITIS -----------------------------------------------------------
@@ -147,13 +147,13 @@ NEW_TAXONOMICS_ITIS <- readr::read_csv(file = here::here("data", "/2023_taxonomy
                 database = ifelse(database == "WORMS", NA, database), 
                 database = ifelse(is.na(database_id), NA, database))
 
-NEW_TAXONOMICS_ITIS_metadata_table <- paste0(
+NEW_TAXONOMICS_ITIS_comment <- paste0(
   "This dataset includes an identification catalog for all species caught in GAP surveys. ", 
   "These taxonomic tables are cross-referenced with the Integrated Taxonomic Information System (https://www.itis.gov/) and compiled by ", 
-  metadata_sentence_survey_institution, 
-  metadata_sentence_legal_restrict,  
-  metadata_sentence_github,
-  metadata_sentence_codebook, 
+  metadata_sentence_survey_institution, " ",  
+  metadata_sentence_legal_restrict,  " ", 
+  metadata_sentence_github," ", 
+  metadata_sentence_codebook, " ", 
   metadata_sentence_last_updated)
 
 # OLD_V_TAXONOMICS <- dplyr::full_join(

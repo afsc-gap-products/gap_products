@@ -156,7 +156,7 @@ Commer. <https://doi.org/10.25923/qe5v-fz70>
 
 ## Bottom trawl surveys and regions
 
-![](C:/Users/emily.markowitz/Work/projects/gap_products/docs/survey_plot.png)
+![Bottom trawl surveys and regions.](../docs/survey_plot.png)
 
 - **Aleutian Islands (AI)** (Von Szalay and Raring, 2020)
   - Triennial (1990s)/Biennial since 2000 in even years
@@ -208,7 +208,7 @@ collections.
 **Description**: This is a test table. Zero-filled haul-level catch per
 unit effort (units in kg/km2).
 
-rows: 42200740 \| cols: 8 \| 1.760 GB
+rows: 42200740 \| cols: 8 \| 1.8 GB
 
 ### GAP_PRODUCTS.BIOMASS
 
@@ -223,14 +223,14 @@ currently not supported in the GAP_PRODUCTS version of the
 biomass/abundance tables. The associated variance of estimates will
 suffice as the metric of variability to use.
 
-rows: 5343337 \| cols: 17 \| 0.324 GB
+rows: 5343337 \| cols: 17 \| 0.3 GB
 
 ### GAP_PRODUCTS.AGECOMP
 
 **Description**: This is a test table. Region-level abundance by
 sex/age.
 
-rows: 719695 \| cols: 10 \| 0.035 GB
+rows: 719695 \| cols: 10 \| 0.0 GB
 
 ### GAP_PRODUCTS.SIZECOMP
 
@@ -244,158 +244,111 @@ include different types of areas (strata, subareas, regulatory areas,
 regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of
 AREA_ID for your particular region.
 
-rows: 3439200 \| cols: 8 \| 0.141 GB
+rows: 3439200 \| cols: 8 \| 0.1 GB
 
 ### GAP_PRODUCTS.STRATUM_GROUPS
 
 **Description**: This is a table
 
-rows: 744 \| cols: 5 \| 17,212.000 B
+rows: 744 \| cols: 5 \| 17,212.0 B
 
-### GAP_PRODUCTS.AREA_ID
-
-**Description**:
-
-rows: 42S02 942 \[Oracle\]\[ODBC\]\[Ora\]ORA-00942: table or view does
-not exist \| cols: 2 \| 169.000 B
-
-### GAP_PRODUCTS.DESIGN_TABLE
-
-**Description**:
-
-rows: 42S02 942 \[Oracle\]\[ODBC\]\[Ora\]ORA-00942: table or view does
-not exist \| cols: 2 \| 174.000 B
-
-### GAP_PRODUCTS.TAXONOMICS_WORMS
-
-**Description**: The GitHub repository for the scripts that created this
-code can be found at
-<https://github.com/afsc-gap-products/gap_products/.These> data were
-last updated June 21, 2023.
-
-rows: 2762 \| cols: 23 \| 636,249.000 B
-
-### GAP_PRODUCTS.TAXONOMICS_ITIS
-
-**Description**: The GitHub repository for the scripts that created this
-code can be found at
-<https://github.com/afsc-gap-products/gap_products/.These> data were
-last updated June 21, 2023.
-
-rows: 2762 \| cols: 23 \| 627,123.000 B
-
-### GAP_PRODUCTS.TAXONOMIC_CONFIDENCE
-
-**Description**:
-
-rows: 42S02 942 \[Oracle\]\[ODBC\]\[Ora\]ORA-00942: table or view does
-not exist \| cols: 2 \| 182.000 B
-
-### GAP_PRODUCTS.METADATA_COLUMN
-
-**Description**: The GitHub repository for the scripts that created this
-code can be found at
-<https://github.com/afsc-gap-products/gap_products/.These> data were
-last updated June 21, 2023.
-
-rows: 133 \| cols: 7 \| 24,348.000 B
-
-, \### GAP_PRODUCTS.CPUE
-
-**Description**: This is a test table. Zero-filled haul-level catch per
-unit effort (units in kg/km2).
-
-rows: 42200740 \| cols: 8 \| 1.760 GB
-
-### GAP_PRODUCTS.BIOMASS
-
-**Description**: This is a test table. Stratum/subarea/management
-area/region-level mean/variance CPUE (weight and numbers), total biomass
-(with variance), total abundance (with variance). The ‘AREA_ID’ field
-replaces the ‘STRATUM’ field name to generalize the description to
-include different types of areas (strata, subareas, regulatory areas,
-regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of
-AREA_ID for your particular region. Note confidence intervals are
-currently not supported in the GAP_PRODUCTS version of the
-biomass/abundance tables. The associated variance of estimates will
-suffice as the metric of variability to use.
-
-rows: 5343337 \| cols: 17 \| 0.324 GB
-
-### GAP_PRODUCTS.AGECOMP
-
-**Description**: This is a test table. Region-level abundance by
-sex/age.
-
-rows: 719695 \| cols: 10 \| 0.035 GB
-
-### GAP_PRODUCTS.SIZECOMP
-
-**Description**: This is a test table. Stratum/subarea/management
-area/region-level abundance by sex/length bin. Sex-specific columns
-(i.e., MALES, FEMALES, UNSEXED), previously formatted in historical
-versions of this table, are melted into a single column (called ‘SEX’)
-similar to the AGECOMP tables with values 1/2/3 for M/F/U. The ‘AREA_ID’
-field replaces the ‘STRATUM’ field name to generalize the description to
-include different types of areas (strata, subareas, regulatory areas,
-regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of
-AREA_ID for your particular region.
-
-rows: 3439200 \| cols: 8 \| 0.141 GB
-
-### GAP_PRODUCTS.STRATUM_GROUPS
+### GAP_PRODUCTS.AREA
 
 **Description**: This is a table
 
-rows: 744 \| cols: 5 \| 17,212.000 B
+rows: 473 \| cols: 11 \| 47,398.0 B
 
-### GAP_PRODUCTS.AREA_ID
+### GAP_PRODUCTS.SURVEY_DESIGN
 
-**Description**:
+**Description**: This is a table
 
-rows: \[RODBC\] ERROR: Could not SQLExecDirect ’SELECT COUNT(\*) FROM
-GAP_PRODUCTS.AREA_ID;’ \| cols: 2 \| 169.000 B
-
-### GAP_PRODUCTS.DESIGN_TABLE
-
-**Description**:
-
-rows: \[RODBC\] ERROR: Could not SQLExecDirect ’SELECT COUNT(\*) FROM
-GAP_PRODUCTS.DESIGN_TABLE;’ \| cols: 2 \| 174.000 B
+rows: 126 \| cols: 5 \| 3,283.0 B
 
 ### GAP_PRODUCTS.TAXONOMICS_WORMS
 
-**Description**: The GitHub repository for the scripts that created this
-code can be found at
-<https://github.com/afsc-gap-products/gap_products/.These> data were
-last updated June 21, 2023.
+**Description**: This dataset includes an identification catalog for all
+species caught in GAP surveys. These taxonomic tables are
+cross-referenced with the World Register of Marine Species
+(<https://www.marinespecies.org>) and compiled by by the Resource
+Assessment and Conservation Engineering Division (RACE) Groundfish
+Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC).
+There are legal restrictions on access to the data. These data are not
+intended for public dissemination and should not be shared without the
+explicit written consent of the data managers and owners (NOAA
+Fisheries). The GitHub repository for the scripts that created this code
+can be found at <https://github.com/afsc-gap-products/gap_products/>.
+For more information about codes used in the tables, please refer to the
+survey code books
+(<https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual>).
+These data were last updated June 22, 2023.
 
-rows: 2762 \| cols: 23 \| 636,249.000 B
+rows: 2762 \| cols: 23 \| 636,249.0 B
 
 ### GAP_PRODUCTS.TAXONOMICS_ITIS
 
-**Description**: The GitHub repository for the scripts that created this
-code can be found at
-<https://github.com/afsc-gap-products/gap_products/.These> data were
-last updated June 21, 2023.
+**Description**: This dataset includes an identification catalog for all
+species caught in GAP surveys. These taxonomic tables are
+cross-referenced with the Integrated Taxonomic Information System
+(<https://www.itis.gov/>) and compiled by by the Resource Assessment and
+Conservation Engineering Division (RACE) Groundfish Assessment Program
+(GAP) of the Alaska Fisheries Science Center (AFSC). There are legal
+restrictions on access to the data. These data are not intended for
+public dissemination and should not be shared without the explicit
+written consent of the data managers and owners (NOAA Fisheries). The
+GitHub repository for the scripts that created this code can be found at
+<https://github.com/afsc-gap-products/gap_products/>. For more
+information about codes used in the tables, please refer to the survey
+code books
+(<https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual>).
+These data were last updated June 22, 2023.
 
-rows: 2762 \| cols: 23 \| 627,123.000 B
+rows: 2762 \| cols: 23 \| 627,123.0 B
 
-### GAP_PRODUCTS.TAXONOMIC_CONFIDENCE
+### GAP_PRODUCTS.TAXON_CONFIDENCE
 
-**Description**:
+**Description**: The quality and specificity of field identifications
+for many taxa have fluctuated over the history of the surveys due to
+changing priorities and resources. The matrix lists a confidence level
+for each taxon for each survey year and is intended to serve as a
+general guideline for data users interested in assessing the relative
+reliability of historical species identifications on these surveys. This
+dataset includes an identification confidence matrix for all fishes and
+invertebrates identified by the Resource Assessment and Conservation
+Engineering Division (RACE) Groundfish Assessment Program (GAP) of the
+Alaska Fisheries Science Center (AFSC).Quality Codes: 1: High confidence
+and consistency. Taxonomy is stable and reliable at this level, and
+field identification characteristics are well known and reliable. 2:
+Moderate confidence. Taxonomy may be questionable at this level, or
+field identification characteristics may be variable and difficult to
+assess consistently. 3: Low confidence. Taxonomy is incompletely known,
+or reliable field identification characteristics are unknown. NA:
+Unassessed. Taxonomy quality has not been assessed. There are legal
+restrictions on access to the data. These data are not intended for
+public dissemination and should not be shared without the explicit
+written consent of the data managers and owners (NOAA Fisheries). The
+GitHub repository for the scripts that created this code can be found at
+<https://github.com/afsc-gap-products/gap_products/>. For more
+information about codes used in the tables, please refer to the survey
+code books
+(<https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual>).
+These data were last updated June 22, 2023.
 
-rows: \[RODBC\] ERROR: Could not SQLExecDirect ’SELECT COUNT(\*) FROM
-GAP_PRODUCTS.TAXONOMIC_CONFIDENCE;’ \| cols: 2 \| 182.000 B
+rows: 117852 \| cols: 7 \| 346,187.0 B
 
 ### GAP_PRODUCTS.METADATA_COLUMN
 
-**Description**: The GitHub repository for the scripts that created this
-code can be found at
-<https://github.com/afsc-gap-products/gap_products/.These> data were
-last updated June 21, 2023.
+**Description**: These tables provide the column metadata for all GAP
+oracle tables. These tables are created by the Resource Assessment and
+Conservation Engineering Division (RACE) Groundfish Assessment Program
+(GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub
+repository for the scripts that created this code can be found at
+<https://github.com/afsc-gap-products/gap_products/>. These data were
+last updated June 22, 2023. There are no legal restrictions on access to
+the data. For more information about codes used in the tables, please
+refer to the survey code books
+(<https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual>).
 
-rows: 133 \| cols: 7 \| 24,348.000 B
+rows: 133 \| cols: 7 \| 24,348.0 B
 
 ## Access Constraints
 
@@ -456,46 +409,45 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] knitr_1.42          badger_0.2.3        viridis_0.6.3       viridisLite_0.4.2   ggridges_0.5.4     
-    ##  [6] scales_1.2.1        akgfmaps_3.0.0      terra_1.7-29        stars_0.6-1         abind_1.4-5        
-    ## [11] sf_1.0-12           gstat_2.1-1         classInt_0.4-9      ggplot2_3.4.2       RODBC_1.3-20       
-    ## [16] stringr_1.5.0       here_1.0.1          janitor_2.2.0       readxl_1.4.2        tidyr_1.3.0        
-    ## [21] readr_2.1.4         magrittr_2.0.3      googledrive_2.1.0   dplyr_1.1.2         gapindex_0.0.0.9000
-    ## [26] devtools_2.4.5      usethis_2.1.6      
+    ##  [1] viridis_0.6.3       viridisLite_0.4.2   badger_0.2.3        akgfmaps_3.0.0      terra_1.7-29       
+    ##  [6] stars_0.6-1         abind_1.4-5         sf_1.0-12           gstat_2.1-1         classInt_0.4-9     
+    ## [11] ggridges_0.5.4      scales_1.2.1        ggplot2_3.4.2       RODBC_1.3-20        stringr_1.5.0      
+    ## [16] here_1.0.1          janitor_2.2.0       readxl_1.4.2        tidyr_1.3.0         readr_2.1.4        
+    ## [21] magrittr_2.0.3      googledrive_2.1.1   dplyr_1.1.2         gapindex_0.0.0.9000 devtools_2.4.5     
+    ## [26] usethis_2.1.6      
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] RColorBrewer_1.1-3      sys_3.4.1               dlstats_0.1.6           rstudioapi_0.14        
-    ##   [5] jsonlite_1.8.4          farver_2.1.1            rmarkdown_2.21          fs_1.6.2               
+    ##   [1] RColorBrewer_1.1-3      sys_3.4.2               dlstats_0.1.6           rstudioapi_0.14        
+    ##   [5] jsonlite_1.8.4          farver_2.1.1            rmarkdown_2.22          fs_1.6.2               
     ##   [9] ragg_1.2.5              vctrs_0.6.2             memoise_2.0.1           askpass_1.1            
     ##  [13] gh_1.4.0                htmltools_0.5.5         curl_5.0.0              cellranger_1.1.0       
-    ##  [17] sass_0.4.6              bslib_0.4.2             KernSmooth_2.23-21      desc_1.4.2             
-    ##  [21] htmlwidgets_1.6.2       httr2_0.2.2             plyr_1.8.8              zoo_1.8-12             
-    ##  [25] lubridate_1.9.2         cachem_1.0.8            uuid_1.1-0              mime_0.12              
-    ##  [29] lifecycle_1.0.3         pkgconfig_2.0.3         R6_2.5.1                fastmap_1.1.1          
-    ##  [33] shiny_1.7.4             snakecase_0.11.0        digest_0.6.31           colorspace_2.1-0       
-    ##  [37] ps_1.7.5                rprojroot_2.0.3         pkgload_1.3.2           textshaping_0.3.6      
-    ##  [41] labeling_0.4.2          lwgeom_0.2-11           fansi_1.0.4             timechange_0.2.0       
-    ##  [45] httr_1.4.5              compiler_4.3.0          gargle_1.4.0            proxy_0.4-27           
-    ##  [49] intervals_0.15.3        remotes_2.4.2           bit64_4.0.5             fontquiver_0.2.1       
-    ##  [53] withr_2.5.0             DBI_1.1.3               highr_0.10              rgdal_1.6-6            
-    ##  [57] pkgbuild_1.4.0          openssl_2.0.6           rappdirs_0.3.3          sessioninfo_1.2.2      
-    ##  [61] gfonts_0.2.0            tools_4.3.0             units_0.8-2             zip_2.3.0              
-    ##  [65] httpuv_1.6.9            glue_1.6.2              callr_3.7.3             promises_1.2.0.1       
-    ##  [69] grid_4.3.0              generics_0.1.3          gtable_0.3.3            tzdb_0.3.0             
-    ##  [73] class_7.3-22            data.table_1.14.8       hms_1.1.3               sp_1.6-0               
-    ##  [77] xml2_1.3.4              utf8_1.2.3              pillar_1.9.0            yulab.utils_0.0.6      
-    ##  [81] vroom_1.6.3             later_1.3.1             lattice_0.21-8          FNN_1.1.3.2            
-    ##  [85] bit_4.0.5               tidyselect_1.2.0        rvcheck_0.2.1           fontLiberation_0.1.0   
-    ##  [89] miniUI_0.1.1.1          gitcreds_0.1.2          gridExtra_2.3           fontBitstreamVera_0.1.1
-    ##  [93] crul_1.3                xfun_0.39               credentials_1.3.2       stringi_1.7.12         
-    ##  [97] yaml_2.3.7              codetools_0.2-19        evaluate_0.20           httpcode_0.3.0         
-    ## [101] officer_0.6.2           gdtools_0.3.3           tibble_3.2.1            BiocManager_1.30.20    
-    ## [105] cli_3.6.1               xtable_1.8-4            systemfonts_1.0.4       jquerylib_0.1.4        
-    ## [109] munsell_0.5.0           processx_3.8.1          spacetime_1.3-0         gert_1.9.2             
-    ## [113] Rcpp_1.0.10             readtext_0.82           parallel_4.3.0          ellipsis_0.3.2         
-    ## [117] prettyunits_1.1.1       profvis_0.3.8           urlchecker_1.0.1        xts_0.13.1             
-    ## [121] e1071_1.7-13            purrr_1.0.1             crayon_1.5.2            flextable_0.9.1        
-    ## [125] rlang_1.1.1
+    ##  [17] sass_0.4.6              KernSmooth_2.23-21      bslib_0.5.0             htmlwidgets_1.6.2      
+    ##  [21] httr2_0.2.2             zoo_1.8-12              lubridate_1.9.2         cachem_1.0.8           
+    ##  [25] uuid_1.1-0              mime_0.12               lifecycle_1.0.3         pkgconfig_2.0.3        
+    ##  [29] R6_2.5.1                fastmap_1.1.1           shiny_1.7.4             snakecase_0.11.0       
+    ##  [33] digest_0.6.31           colorspace_2.1-0        ps_1.7.5                rprojroot_2.0.3        
+    ##  [37] pkgload_1.3.2           textshaping_0.3.6       lwgeom_0.2-11           labeling_0.4.2         
+    ##  [41] fansi_1.0.4             timechange_0.2.0        httr_1.4.6              compiler_4.3.0         
+    ##  [45] gargle_1.5.1            proxy_0.4-27            intervals_0.15.3        remotes_2.4.2          
+    ##  [49] bit64_4.0.5             fontquiver_0.2.1        withr_2.5.0             DBI_1.1.3              
+    ##  [53] rgdal_1.6-6             pkgbuild_1.4.0          highr_0.10              openssl_2.0.6          
+    ##  [57] rappdirs_0.3.3          sessioninfo_1.2.2       gfonts_0.2.0            units_0.8-2            
+    ##  [61] tools_4.3.0             zip_2.3.0               httpuv_1.6.9            glue_1.6.2             
+    ##  [65] callr_3.7.3             promises_1.2.0.1        grid_4.3.0              generics_0.1.3         
+    ##  [69] gtable_0.3.3            tzdb_0.3.0              class_7.3-22            data.table_1.14.8      
+    ##  [73] hms_1.1.3               sp_1.6-0                xml2_1.3.4              utf8_1.2.3             
+    ##  [77] pillar_1.9.0            yulab.utils_0.0.6       vroom_1.6.3             later_1.3.1            
+    ##  [81] lattice_0.21-8          FNN_1.1.3.2             bit_4.0.5               tidyselect_1.2.0       
+    ##  [85] rvcheck_0.2.1           fontLiberation_0.1.0    miniUI_0.1.1.1          knitr_1.43             
+    ##  [89] gridExtra_2.3           gitcreds_0.1.2          fontBitstreamVera_0.1.1 crul_1.4.0             
+    ##  [93] xfun_0.39               credentials_1.3.2       stringi_1.7.12          yaml_2.3.7             
+    ##  [97] codetools_0.2-19        evaluate_0.21           httpcode_0.3.0          officer_0.6.2          
+    ## [101] gdtools_0.3.3           tibble_3.2.1            BiocManager_1.30.20     cli_3.6.1              
+    ## [105] xtable_1.8-4            systemfonts_1.0.4       munsell_0.5.0           processx_3.8.1         
+    ## [109] jquerylib_0.1.4         spacetime_1.3-0         gert_1.9.2              Rcpp_1.0.10            
+    ## [113] readtext_0.82           parallel_4.3.0          ellipsis_0.3.2          prettyunits_1.1.1      
+    ## [117] profvis_0.3.8           urlchecker_1.0.1        xts_0.13.1              e1071_1.7-13           
+    ## [121] purrr_1.0.1             crayon_1.5.2            flextable_0.9.1         rlang_1.1.1
 
 ## NOAA README
 
