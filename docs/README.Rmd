@@ -189,7 +189,7 @@ ggsave(filename = "survey_plot.png",
        height = 3)
 ```
 
-![Bottom trawl surveys and regions. ](../docs/survey_plot.png)
+![Bottom trawl surveys and regions. ](./docs/survey_plot.png)
 
 ```{r source-current-tm, echo=FALSE}
 source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r")
@@ -280,19 +280,18 @@ for (i in 1:length(locations)) {
   temp_rows <- RODBC::sqlQuery(channel = channel, 
                      query = paste0("SELECT COUNT(*) FROM " ,locations[i], ";"))
     temp_cols <- ncol(a)
-#       RODBC::sqlQuery(channel = channel, 
-#                      query = paste0("SELECT COUNT(COLUMN_NAME)
-# FROM INFORMATION_SCHEMA.COLUMNS
-# WHERE TABLE_SCHEMA = 'GAP_PRODUCTS'
-# AND table_name = '" ,gsub(pattern = "GAP_PRODUCTS.", replace = "", x = locations[i]), "';"))
+ #       RODBC::sqlQuery(channel = channel, 
+ #                      query = paste0("SELECT COUNT(COLUMN_NAME)
+ # FROM INFORMATION_SCHEMA.COLUMNS
+ # WHERE TABLE_SCHEMA = 'GAP_PRODUCTS'
+ # AND table_name = '" ,gsub(pattern = "GAP_PRODUCTS.", replace = "", x = locations[i]), "';"))
   
-  str0 <- paste0("### ", locations[i], 
-                 "\n\n**Description**: ", 
+  str0 <- paste0("### ", locations[i], "\n\n", 
                  metadata_table, "\n\n",
 "rows: ", temp_rows, " | cols: ", temp_cols, " | ", 
-formatC(x = temp/ifelse(temp>1e+6, 1e+9, 1), 
+formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
            digits = 1, format = "f", big.mark = ","), 
-" ", ifelse(temp>1e+6, "GB", "B"), "
+" ", ifelse(temp>1e+7, "GB", "B"), "
 
 \n\n\n")
   
