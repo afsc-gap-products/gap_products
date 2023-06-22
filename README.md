@@ -50,6 +50,7 @@ Seattle, WA 98115 USA
 
 # Documentation
 
+- [Repo](https://github.com/afsc-gap-products/gap_products/)
 - [General
   information](https://afsc-gap-products.github.io/gap_products/)
 - [Access production data via the AFSC Oracle Database (AFSC only) using

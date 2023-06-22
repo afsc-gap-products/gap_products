@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 library(ggplot2)
 ```
 
+- [Repo](`r link_repo`)
 - [General information](https://afsc-gap-products.github.io/gap_products/)
 - [General column metadata](https://afsc-gap-products.github.io/gap_products/metadata_column.html)
 

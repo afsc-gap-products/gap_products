@@ -74,6 +74,7 @@ toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
 
 # Documentation
 
+- [Repo](`r link_repo`)
 - [General information](https://afsc-gap-products.github.io/gap_products/)
 - [Access production data via the AFSC Oracle Database (AFSC only) using SQL and R](https://afsc-gap-products.github.io/gap_products//access-afsc-oracle-sql-r.html)
 - [General column metadata](https://afsc-gap-products.github.io/gap_products/metadata_column.html)

@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+- [Repo](`r link_repo`)
 - [General information](https://afsc-gap-products.github.io/gap_products/)
 - [Access production data via the AFSC Oracle Database (AFSC only) using SQL and R](https://afsc-gap-products.github.io/gap_products//access-afsc-oracle-sql-r.html)
 
