@@ -28,14 +28,13 @@ for (p in PKG) {
 }
 ```
 
-
 `r ifelse(tocTF, paste0('# [AFSC RACE Groundfish Design-Based Data Products](', link_repo,') <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;v=4" alt="Logo." align="right" width="139" height="139"/>'), '')`
 
 ```{r bagdes-2, echo = FALSE, results='asis', message=FALSE}
 cat(
-  # badge_devel("afsc-gap-products/gap_public_data", "blue"),
+  # badge_devel("afsc-gap-products/gap_products", "blue"),
   # badge_lifecycle("maturing", "blue"),
-  badge_last_commit("afsc-gap-products/gap_public_data")
+  badge_last_commit("afsc-gap-products/gap_products")
 )
 ```
 
@@ -81,14 +80,23 @@ Use the below bibtext [citation](`r paste0(link_repo, "/blob/main/CITATION.bib")
 cat(readLines(con = here::here("CITATION.bib")), sep = "\n") 
 ```
 
-# Access the data
+# Documentation:
 
-Here are a few resources made by our scientists in house and keen contributors:
+- [General information](https://afsc-gap-products.github.io/gap_products/)
+- [Access production data via the AFSC Oracle Database (AFSC only) using SQL and R](https://afsc-gap-products.github.io/gap_products//access-afsc-oracle-sql-r.html)
+- [General column metadata](https://afsc-gap-products.github.io/gap_products/metadata_column.html)
 
- - [General information](`r paste0(link_repo, "/index.html")`)
- - [Access public data via the AFSC Oracle Database (AFSC only) using SQL and R](`r paste0(link_repo, "/access-afsc-oracle-sql-r.html")`)
- - Access data via the [Interactive FOSS Platform](https://afsc-gap-products.github.io/gap_public_data/access-foss.html) and [documentation](https://afsc-gap-products.github.io/gap_public_data/)
+## User Resources
 
+-   [Groundfish Assessment Program Bottom Trawl Surveys
+](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
+-   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division).
+-   For more information about codes used in the tables, please refer to the [survey code books](`r link_code_books `).
+-   Find [past reports](http://apps-afsc.fisheries.noaa.gov/RACE/surveys/cruise_results.htm) about these surveys.
+-   [GitHub repository](`r link_repo`).
+-   [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss/)
+-   Learn more about other [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys).
+-   Access data via the [Interactive FOSS Platform](https://afsc-gap-products.github.io/gap_public_data/access-foss.html) and [documentation](https://afsc-gap-products.github.io/gap_public_data/)
 
 ## Bottom trawl surveys and regions
 
@@ -170,12 +178,12 @@ gg <- ggplot() +
 
 ggsave(filename = "survey_plot.png", 
        plot = gg,
-       path = here::here("img"), 
+       path = here::here("docs"), 
        width = 7, 
        height = 3)
 ```
 
-![](`r here::here("img", "survey_plot.png")`)
+![](`r here::here("docs", "survey_plot.png")`)
 
 ```{r source-current-tm, echo=FALSE}
 source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r")
@@ -218,7 +226,7 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
 }
 ```
 
-```{r table-locations, eval = TRUE}
+```{r table-locations, eval = TRUE, echo = FALSE}
  # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
 
 locations <- c(
@@ -229,10 +237,14 @@ locations <- c(
   "GAP_PRODUCTS.STRATUM_GROUPS",
   "GAP_PRODUCTS.AREA_ID",
   "GAP_PRODUCTS.DESIGN_TABLE",
-  "GAP_PRODUCTS.METADATA_COLUMN")
+  "GAP_PRODUCTS.TAXONOMICS_WORMS", 
+  "GAP_PRODUCTS.TAXONOMICS_ITIS", 
+  "GAP_PRODUCTS.TAXONOMIC_CONFIDENCE", 
+  "GAP_PRODUCTS.METADATA_COLUMN" 
+  )
 ```
 
-```{r table-dl, eval = FALSE}
+```{r table-dl, eval = FALSE, echo = FALSE}
 for (i in 1:length(locations)) {
   print(locations[i])
   a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
@@ -240,7 +252,7 @@ for (i in 1:length(locations)) {
 }
 ```
 
-```{r table-load, eval = TRUE}
+```{r table-load, eval = TRUE, echo = FALSE}
 
  # Find all descriptions of all tables in the GAP_PRODUCTS schema
 b <- RODBC::sqlQuery(channel = channel, 
@@ -250,64 +262,46 @@ WHERE owner = 'GAP_PRODUCTS'
 ORDER BY table_name")
 
  # Collect all column metadata for all tables
-# metadata_column <- readr::read_csv(here::here("data", "GAP_PRODUCTS.METADATA_COLUMN.csv"))
-
+str00 <- c()
 for (i in 1:length(locations)) {
   metadata_table <- b$COMMENTS[b$TABLE_NAME == 
                                  strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]][2]]
   metadata_table <- ifelse(is.na(metadata_table), 
                            "[There is currently no description for this table.]", 
                            metadata_table)
+  
   a <- readr::read_csv(here::here("data", paste0(locations[i], ".csv")))
   
-  str0 <- paste0("----", locations[i], "----
-
-Description: ", metadata_table, "
-rows: ", nrow(a), "
-cols: ", ncol(a), "
-", formatC(x = file.size(here::here("data", paste0(locations[i], ".csv")))/1e+9, 
-           digits = 9, format = "f", big.mark = ","), 
-" GB
-
-")
+  temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
+  temp_rows <- RODBC::sqlQuery(channel = channel, 
+                     query = paste0("SELECT COUNT(*) FROM " ,locations[i], ";"))
+    temp_cols <- ncol(a)
+#       RODBC::sqlQuery(channel = channel, 
+#                      query = paste0("SELECT COUNT(COLUMN_NAME)
+# FROM INFORMATION_SCHEMA.COLUMNS
+# WHERE TABLE_SCHEMA = 'GAP_PRODUCTS'
+# AND table_name = '" ,gsub(pattern = "GAP_PRODUCTS.", replace = "", x = locations[i]), "';"))
   
+  str0 <- paste0("### ", locations[i], 
+                 "\n\n**Description**: ", 
+                 metadata_table, "\n\n",
+"rows: ", temp_rows, " | cols: ", temp_cols, " | ", 
+formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
+           digits = 3, format = "f", big.mark = ","), 
+" ", ifelse(temp>1e+7, "GB", "B"), "
+
+\n\n\n")
   
-  cat(str0)
-  # what are the metadata for each column of this table
-  flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
-  # print few first lines of this table for show
-  flextable::flextable(head(a, 3))
+  str00 <- paste0(str00, str0)
+  # cat(str0)
+  # # what are the metadata for each column of this table
+  # flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
+  # # print few first lines of this table for show
+  # flextable::flextable(head(a, 3))
 }
 ```
 
-## Column Metadata
-
-`r readtext::readtext(file = here::here("metadata","metadata_column_metadata_column.txt"))$text` Find these tables [here](https://github.com/afsc-gap-products/gap_products/tree/main/metadata). 
-
-Here are stock metadata that users can use to document their table columns. Find the `GAP_PRODUCTS.METADATA_COLUMN` and `GAP_PRODUCTS.METADATA_TABLE` in oracle for the tables above. 
-
-```{r metadata-column, echo = FALSE, eval = FALSE}
-metadata_column0 <- read.csv(file = here::here("metadata", "metadata_column.csv")) %>% 
-  dplyr::select(
-    "Column name from data" = metadata_colname, 
-    "Descriptive column Name" = metadata_colname_long, 
-    "Units" = metadata_units, 
-    "Units" = metadata_units, 
-    "Oracle data type" = metadata_datatype, 
-    "Column description" = metadata_colname_desc)
-knitr::kable(metadata_column0, row.names = FALSE) 
-```
-
-## User Resources:
-
--   [Groundfish Assessment Program Bottom Trawl Surveys
-](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
--   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division).
--   For more information about codes used in the tables, please refer to the [survey code books](`r link_code_books `).
--   Find [past reports](http://apps-afsc.fisheries.noaa.gov/RACE/surveys/cruise_results.htm) about these surveys.
--   [GitHub repository](`r link_repo`).
--   Fisheries One Stop Shop (FOSS): `r link_foss`
--   Learn more about other [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys).
+`r str00`
 
 ## Access Constraints:
 
@@ -317,7 +311,7 @@ There are no legal restrictions on access to the data. They reside in public dom
 
 **General questions and more specific data requests** can be sent to [afsc.gap.metadata\@noaa.gov](mailto:afsc.gap.metadata@noaa.gov) or submitted as an [issue on our GitHub Organization](https://github.com/afsc-gap-products/data-requests). The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson ([Duane.Stevenson\@noaa.gov](mailto:Duane.Stevenson@noaa.gov)). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman ([Ned.Laman\@noaa.gov](mailto:Ned.Laman@noaa.gov)). For questions specifically about crab data in any region, contact Mike Litzow ([Mike.Litzow\@noaa.gov](mailto:Mike.Litzow@noaa.gov)), the Shellfish Assessment Program lead.
 
-For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](`r link_foss `) platform, please contact us using the Comments page on the [FOSS](`r link_foss `) webpage.
+For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss/) platform, please contact us using the Comments page on the [FOSS](https://www.fisheries.noaa.gov/foss/) webpage.
 
 # Suggestions and comments
 

@@ -26,7 +26,7 @@ NEW_metadata_table <- metadata_table <- readxl::read_xlsx(
   janitor::clean_names() %>% 
   dplyr::select(-dplyr::starts_with("x"), -dplyr::starts_with("na")) %>% 
   dplyr::filter(!is.na(metadata_sentence_name)) %>% 
-  dplyr::mutate(metadata_sentence = gsub(replacement = link_code_book, pattern = "INSERT_CODE_BOOK", x = metadata_sentence))
+  dplyr::mutate(metadata_sentence = gsub(replacement = link_code_books, pattern = "INSERT_CODE_BOOK", x = metadata_sentence))
 
 temp <- paste0(
   "These tables are created ", 
@@ -52,8 +52,8 @@ NEW_metadata_column <- readxl::read_xlsx(
   dplyr::filter(!is.null(metadata_colname)) %>% 
   dplyr::filter(!(metadata_colname %in% c("", "NA"))) %>% 
   dplyr::mutate(
-    metadata_colname_desc = gsub(pattern = "INSERT_CODE_BOOK", replacement = link_code_book, x = metadata_colname_desc), 
+    metadata_colname_desc = gsub(pattern = "INSERT_CODE_BOOK", replacement = link_code_books, x = metadata_colname_desc), 
     metadata_colname_desc = gsub(pattern = "  ", replacement = " ", x = metadata_colname_desc, fixed = TRUE), 
     metadata_colname_desc = gsub(pattern = "..", replacement = ".", x = metadata_colname_desc, fixed = TRUE))
 
-NEW_metadata_column_metadata_column <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)
+NEW_metadata_column_metadata_table <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)
