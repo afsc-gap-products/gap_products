@@ -72,15 +72,7 @@ toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
 
 `r ifelse(tocTF, toc, "")`
 
-# Cite this data
-
-Use the below bibtext [citation](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data from this data portal [@GAPProducts]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed.  
-
-```{r load_citation, echo = FALSE}
-cat(readLines(con = here::here("CITATION.bib")), sep = "\n") 
-```
-
-# Documentation:
+# Documentation
 
 - [General information](https://afsc-gap-products.github.io/gap_products/)
 - [Access production data via the AFSC Oracle Database (AFSC only) using SQL and R](https://afsc-gap-products.github.io/gap_products//access-afsc-oracle-sql-r.html)
@@ -97,6 +89,18 @@ cat(readLines(con = here::here("CITATION.bib")), sep = "\n")
 -   [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss/)
 -   Learn more about other [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys).
 -   Access data via the [Interactive FOSS Platform](https://afsc-gap-products.github.io/gap_public_data/access-foss.html) and [documentation](https://afsc-gap-products.github.io/gap_public_data/)
+
+# Cite this data
+
+Use the below bibtext [citation](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data from this data portal [@GAPProducts]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed.  
+
+```{r load_citation, echo = FALSE}
+cat(readLines(con = here::here("CITATION.bib")), sep = "\n") 
+```
+
+Or cite our latest data reports for survey-specific data and other findings:
+
+<div id="refs"></div>
 
 ## Bottom trawl surveys and regions
 
@@ -207,8 +211,6 @@ source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/
 
 # Metadata
 
-<div id="refs"></div>
-
 ## Data Description
 
 The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
@@ -303,7 +305,7 @@ formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1),
 
 `r str00`
 
-## Access Constraints:
+## Access Constraints
 
 There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
 

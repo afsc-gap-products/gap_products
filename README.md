@@ -25,38 +25,30 @@ Seattle, WA 98115 USA
 
 ## Table of contents
 
-> - [*Cite this data*](#cite-this-data)
-> - [*Documentation:*](#documentation:)
+> - [*Documentation*](#documentation)
 >   - [*User Resources*](#user-resources)
+> - [*Cite this data*](#cite-this-data)
 >   - [*Bottom trawl surveys and
 >     regions*](#bottom-trawl-surveys-and-regions)
 > - [*Metadata*](#metadata)
 >   - [*Data Description*](#data-description)
 >   - [*Data created in this repo*](#data-created-in-this-repo)
->   - [*Access Constraints:*](#access-constraints:)
+> - \[\* RODBC::sqlQuery(channel = channel,
+>   \*\](#——rodbc::sqlquery(channel-=-channel,-)
+> - \[\* query = paste0(“SELECT
+>   COUNT(COLUMN_NAME)\*\](#———————query-=-paste0(“select-count(column_name))
+> - [*FROM
+>   INFORMATION_SCHEMA.COLUMNS*](#from-information_schema.columns)
+> - [*WHERE TABLE_SCHEMA =
+>   ‘GAP_PRODUCTS’*](#where-table_schema-=-'gap_products')
+> - [*AND table_name = ‘” ,gsub(pattern = “GAP_PRODUCTS.”, replace = ““,
+>   x =
+>   locations\[i\]),”’;“))*](#and-table_name-=-'%22-,gsub(pattern-=-%22gap_products.%22,-replace-=-%22%22,-x-=-locations%5Bi%5D),-%22';%22)))
+>   - [*Access Constraints*](#access-constraints)
 > - [*Suggestions and comments*](#suggestions-and-comments)
 > - [*R Version Metadata*](#r-version-metadata)
 
-# Cite this data
-
-Use the below bibtext
-[citation](https://github.com/afsc-gap-products/gap_products//blob/main/CITATION.bib),
-as cited in our group’s [citation
-repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib)
-for citing the data from this data portal (NOAA Fisheries Alaska
-Fisheries Science Center, Goundfish Assessment Program, 2023). Add “note
-= {Accessed: mm/dd/yyyy}” to append the day this data was accessed.
-
-    ## @misc{GAPProducts,
-    ##   author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},
-    ##   year = {2023}, 
-    ##   title = {AFSC Goundfish Assessment Program Design-Based Production Data},
-    ##   howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},
-    ##   publisher = {{U.S. Dep. Commer.}},
-    ##   copyright = {Public Domain} 
-    ## }
-
-# Documentation:
+# Documentation
 
 - [General
   information](https://afsc-gap-products.github.io/gap_products/)
@@ -88,29 +80,27 @@ Fisheries Science Center, Goundfish Assessment Program, 2023). Add “note
   and
   [documentation](https://afsc-gap-products.github.io/gap_public_data/)
 
-## Bottom trawl surveys and regions
+# Cite this data
 
-![](C:/Users/emily.markowitz/Work/projects/gap_products/docs/survey_plot.png)
+Use the below bibtext
+[citation](https://github.com/afsc-gap-products/gap_products//blob/main/CITATION.bib),
+as cited in our group’s [citation
+repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib)
+for citing the data from this data portal (NOAA Fisheries Alaska
+Fisheries Science Center, Goundfish Assessment Program, 2023). Add “note
+= {Accessed: mm/dd/yyyy}” to append the day this data was accessed.
 
-- **Aleutian Islands (AI)** (Von Szalay and Raring, 2020)
-  - Triennial (1990s)/Biennial since 2000 in even years
-  - Modified Index-Stratified Random of Successful Stations Survey
-    Design
-- **Eastern Bering Sea Slope (BSS)** (Hoff, 2016)
-  - Intermittent (funding dependent)
-  - Modified Index-Stratified Random of Successful Stations Survey
-    Design
-- **Eastern Bering Sea Shelf (EBS)** (Markowitz et al., 2023)
-  - Annual
-  - Fixed stations at center of 20 x 20 nm grid
-- **Gulf of Alaska (GOA)** (Von Szalay and Raring, 2018)
-  - Triennial (1990s)/Biennial since 2001 in odd years
-  - Stratified Random Survey Design
-- **Northern Bering Sea (NBS)** (Markowitz et al., 2023)
-  - Biennial/Annual
-  - Fixed stations at center of 20 x 20 nm grid
+    ## @misc{GAPProducts,
+    ##   author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},
+    ##   year = {2023}, 
+    ##   title = {AFSC Goundfish Assessment Program Design-Based Production Data},
+    ##   howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},
+    ##   publisher = {{U.S. Dep. Commer.}},
+    ##   copyright = {Public Domain} 
+    ## }
 
-# Metadata
+Or cite our latest data reports for survey-specific data and other
+findings:
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 line-spacing="2">
@@ -162,6 +152,30 @@ Commer. <https://doi.org/10.25923/qe5v-fz70>
 </div>
 
 </div>
+
+## Bottom trawl surveys and regions
+
+![](C:/Users/emily.markowitz/Work/projects/gap_products/docs/survey_plot.png)
+
+- **Aleutian Islands (AI)** (Von Szalay and Raring, 2020)
+  - Triennial (1990s)/Biennial since 2000 in even years
+  - Modified Index-Stratified Random of Successful Stations Survey
+    Design
+- **Eastern Bering Sea Slope (BSS)** (Hoff, 2016)
+  - Intermittent (funding dependent)
+  - Modified Index-Stratified Random of Successful Stations Survey
+    Design
+- **Eastern Bering Sea Shelf (EBS)** (Markowitz et al., 2023)
+  - Annual
+  - Fixed stations at center of 20 x 20 nm grid
+- **Gulf of Alaska (GOA)** (Von Szalay and Raring, 2018)
+  - Triennial (1990s)/Biennial since 2001 in odd years
+  - Stratified Random Survey Design
+- **Northern Bering Sea (NBS)** (Markowitz et al., 2023)
+  - Biennial/Annual
+  - Fixed stations at center of 20 x 20 nm grid
+
+# Metadata
 
 ## Data Description
 
@@ -241,13 +255,15 @@ rows: 744 \| cols: 5 \| 17,212.000 B
 
 **Description**:
 
-rows: 2 \| cols: 2 \| 169.000 B
+rows: 42S02 942 \[Oracle\]\[ODBC\]\[Ora\]ORA-00942: table or view does
+not exist \| cols: 2 \| 169.000 B
 
 ### GAP_PRODUCTS.DESIGN_TABLE
 
 **Description**:
 
-rows: 2 \| cols: 2 \| 174.000 B
+rows: 42S02 942 \[Oracle\]\[ODBC\]\[Ora\]ORA-00942: table or view does
+not exist \| cols: 2 \| 174.000 B
 
 ### GAP_PRODUCTS.TAXONOMICS_WORMS
 
@@ -271,7 +287,8 @@ rows: 2762 \| cols: 23 \| 627,123.000 B
 
 **Description**:
 
-rows: 2 \| cols: 2 \| 182.000 B
+rows: 42S02 942 \[Oracle\]\[ODBC\]\[Ora\]ORA-00942: table or view does
+not exist \| cols: 2 \| 182.000 B
 
 ### GAP_PRODUCTS.METADATA_COLUMN
 
@@ -282,7 +299,104 @@ last updated June 21, 2023.
 
 rows: 133 \| cols: 7 \| 24,348.000 B
 
-## Access Constraints:
+, \### GAP_PRODUCTS.CPUE
+
+**Description**: This is a test table. Zero-filled haul-level catch per
+unit effort (units in kg/km2).
+
+rows: 42200740 \| cols: 8 \| 1.760 GB
+
+### GAP_PRODUCTS.BIOMASS
+
+**Description**: This is a test table. Stratum/subarea/management
+area/region-level mean/variance CPUE (weight and numbers), total biomass
+(with variance), total abundance (with variance). The ‘AREA_ID’ field
+replaces the ‘STRATUM’ field name to generalize the description to
+include different types of areas (strata, subareas, regulatory areas,
+regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of
+AREA_ID for your particular region. Note confidence intervals are
+currently not supported in the GAP_PRODUCTS version of the
+biomass/abundance tables. The associated variance of estimates will
+suffice as the metric of variability to use.
+
+rows: 5343337 \| cols: 17 \| 0.324 GB
+
+### GAP_PRODUCTS.AGECOMP
+
+**Description**: This is a test table. Region-level abundance by
+sex/age.
+
+rows: 719695 \| cols: 10 \| 0.035 GB
+
+### GAP_PRODUCTS.SIZECOMP
+
+**Description**: This is a test table. Stratum/subarea/management
+area/region-level abundance by sex/length bin. Sex-specific columns
+(i.e., MALES, FEMALES, UNSEXED), previously formatted in historical
+versions of this table, are melted into a single column (called ‘SEX’)
+similar to the AGECOMP tables with values 1/2/3 for M/F/U. The ‘AREA_ID’
+field replaces the ‘STRATUM’ field name to generalize the description to
+include different types of areas (strata, subareas, regulatory areas,
+regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of
+AREA_ID for your particular region.
+
+rows: 3439200 \| cols: 8 \| 0.141 GB
+
+### GAP_PRODUCTS.STRATUM_GROUPS
+
+**Description**: This is a table
+
+rows: 744 \| cols: 5 \| 17,212.000 B
+
+### GAP_PRODUCTS.AREA_ID
+
+**Description**:
+
+rows: \[RODBC\] ERROR: Could not SQLExecDirect ’SELECT COUNT(\*) FROM
+GAP_PRODUCTS.AREA_ID;’ \| cols: 2 \| 169.000 B
+
+### GAP_PRODUCTS.DESIGN_TABLE
+
+**Description**:
+
+rows: \[RODBC\] ERROR: Could not SQLExecDirect ’SELECT COUNT(\*) FROM
+GAP_PRODUCTS.DESIGN_TABLE;’ \| cols: 2 \| 174.000 B
+
+### GAP_PRODUCTS.TAXONOMICS_WORMS
+
+**Description**: The GitHub repository for the scripts that created this
+code can be found at
+<https://github.com/afsc-gap-products/gap_products/.These> data were
+last updated June 21, 2023.
+
+rows: 2762 \| cols: 23 \| 636,249.000 B
+
+### GAP_PRODUCTS.TAXONOMICS_ITIS
+
+**Description**: The GitHub repository for the scripts that created this
+code can be found at
+<https://github.com/afsc-gap-products/gap_products/.These> data were
+last updated June 21, 2023.
+
+rows: 2762 \| cols: 23 \| 627,123.000 B
+
+### GAP_PRODUCTS.TAXONOMIC_CONFIDENCE
+
+**Description**:
+
+rows: \[RODBC\] ERROR: Could not SQLExecDirect ’SELECT COUNT(\*) FROM
+GAP_PRODUCTS.TAXONOMIC_CONFIDENCE;’ \| cols: 2 \| 182.000 B
+
+### GAP_PRODUCTS.METADATA_COLUMN
+
+**Description**: The GitHub repository for the scripts that created this
+code can be found at
+<https://github.com/afsc-gap-products/gap_products/.These> data were
+last updated June 21, 2023.
+
+rows: 133 \| cols: 7 \| 24,348.000 B
+
+## Access Constraints
 
 There are no legal restrictions on access to the data. They reside in
 public domain and can be freely distributed.
