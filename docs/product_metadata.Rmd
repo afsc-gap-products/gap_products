@@ -1,0 +1,44 @@
+---
+title: 'GAP Production Data Column Metadata'
+description: 'GAP Production Data Column Metadata'
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+```
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+- [GitHub repository](`r link_repo`).
+- [General information](https://afsc-gap-products.github.io/gap_products/)
+- [Access production data via the AFSC Oracle Database (AFSC only) using SQL and R](https://afsc-gap-products.github.io/gap_products//access-afsc-oracle-sql-r.html)
+
+# Metadata
+
+## Data Description
+
+The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
+
+Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
+
+## Column Metadata
+
+Here are stock metadata that users can use to document their table columns. `r readtext::readtext(file = here::here(dir_out,"metadata_column_comment.txt"))$text`.
+
+```{r metadata-column, echo = FALSE, eval = TRUE}
+metadata_column0 <- read.csv(file = paste0(dir_out, "metadata_column.csv"))  %>% 
+  dplyr::arrange(metadata_colname) %>% 
+  dplyr::select(
+    "Column name from data" = metadata_colname, 
+    "Descriptive column Name" = metadata_colname_long, 
+    "Units" = metadata_units, 
+    "Units" = metadata_units, 
+    "Oracle data type" = metadata_datatype, 
+    "Column description" = metadata_colname_desc)
+knitr::kable(metadata_column0, row.names = FALSE)
+# flextable::flextable(metadata_column0)
+```
+
+```{r child-footer, child=here::here("docs","footer.Rmd")}
+```

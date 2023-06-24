@@ -1,10 +1,6 @@
 ---
-title: '`r ifelse(tocTF, "data", "AFSC RACE Groundfish and Shellfish Survey Public Data")`'
+title: '`r ifelse(tocTF, "", "AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data")`'
 output: 
-  html_document:
-    toc: true
-    toc_depth: 3
-    toc_float: true
   md_document: 
     variant: gfm
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
@@ -28,7 +24,7 @@ for (p in PKG) {
 }
 ```
 
-`r ifelse(tocTF, paste0('# [AFSC RACE Groundfish Design-Based Data Products](', link_repo,') <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;v=4" alt="Logo." align="right" width="139" height="139"/>'), '')`
+`r ifelse(tocTF, paste0('# [AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data](', link_repo,') <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;v=4" alt="Logo." align="right" width="139" height="139"/>'), '')`
 
 ```{r bagdes-2, echo = FALSE, results='asis', message=FALSE}
 cat(
@@ -47,7 +43,8 @@ cat(
 Alaska Fisheries Science Center (AFSC)
 National Oceanic and Atmospheric Administration (NOAA)  
 Resource Assessment and Conservation Engineering Division (RACE)  
-Groundfish Assessment Program (GAP) 7600 Sand Point Way, N.E. bldg. 4  
+Groundfish Assessment Program (GAP) 
+7600 Sand Point Way, N.E. bldg. 4  
 Seattle, WA 98115 USA
 
 > The code in this repository is regularly being updated and improved. Please refer to [releases](`r paste0(link_repo, '/releases')`) for finalized products and project milestones.  
@@ -72,28 +69,24 @@ toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
 
 `r ifelse(tocTF, toc, "")`
 
-# Documentation
-
-- [Repo](`r link_repo`)
-- [General information](https://afsc-gap-products.github.io/gap_products/)
-- [Access production data via the AFSC Oracle Database (AFSC only) using SQL and R](https://afsc-gap-products.github.io/gap_products//access-afsc-oracle-sql-r.html)
-- [General column metadata](https://afsc-gap-products.github.io/gap_products/metadata_column.html)
-
 ## User Resources
 
--   [Groundfish Assessment Program Bottom Trawl Surveys
-](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
--   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division).
--   For more information about codes used in the tables, please refer to the [survey code books](`r link_code_books `).
--   Find [past reports](http://apps-afsc.fisheries.noaa.gov/RACE/surveys/cruise_results.htm) about these surveys.
 -   [GitHub repository](`r link_repo`).
--   [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss/)
--   Learn more about other [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys).
--   Access data via the [Interactive FOSS Platform](https://afsc-gap-products.github.io/gap_public_data/access-foss.html) and [documentation](https://afsc-gap-products.github.io/gap_public_data/)
+-   [Access Tips and Documentation for All Production Data](`r link_repo_web `)
+-   [Fisheries One Stop Shop (FOSS)](`r link_foss`)
+
+-   [Groundfish Assessment Program Bottom Trawl Surveys](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
+-   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division)
+-   [Survey code books](`r link_code_books `)
+-   [Publications and Data Reports](https://repository.library.noaa.gov/)
+-   [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys)
 
 # Cite this data
 
-Use the below bibtext [citation](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data from this data portal [@GAPProducts]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed.  
+Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program's: 
+ 
+ - Design-Based Production Data [@GAPProducts].  
+ - Public Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform [@FOSSAFSCData]. 
 
 ```{r load_citation, echo = FALSE}
 cat(readLines(con = here::here("CITATION.bib")), sep = "\n") 
@@ -184,12 +177,12 @@ gg <- ggplot() +
 
 ggsave(filename = "survey_plot.png", 
        plot = gg,
-       path = here::here("docs"), 
+       path = here::here("img"), 
        width = 7, 
        height = 3)
-```
 
-![Bottom trawl surveys and regions. ](./docs/survey_plot.png)
+knitr::include_graphics(path = here::here("img", "survey_plot.png"))
+```
 
 ```{r source-current-tm, echo=FALSE}
 source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r")
@@ -211,101 +204,6 @@ source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/
   - Biennial/Annual
   - Fixed stations at center of 20 x 20 nm grid
 
-# Metadata
-
-## Data Description
-
-The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
-
-Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
-
-## Data created in this repo
-
-```{r oracle-connect-1, echo = FALSE, eval = TRUE}
-if (file.exists("Z:/Projects/ConnectToOracle.R")) {
-    source("Z:/Projects/ConnectToOracle.R")
-    channel <- channel_products
-} else {
-  gapindex::get_connected()
-}
-```
-
-```{r table-locations, eval = TRUE, echo = FALSE}
- # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
-
-locations <- c(
-  "GAP_PRODUCTS.CPUE",
-  "GAP_PRODUCTS.BIOMASS",
-  "GAP_PRODUCTS.AGECOMP",
-  "GAP_PRODUCTS.SIZECOMP",
-  "GAP_PRODUCTS.STRATUM_GROUPS",
-  "GAP_PRODUCTS.AREA",
-  "GAP_PRODUCTS.SURVEY_DESIGN",
-  "GAP_PRODUCTS.TAXONOMICS_WORMS", 
-  "GAP_PRODUCTS.TAXONOMICS_ITIS", 
-  "GAP_PRODUCTS.TAXON_CONFIDENCE", 
-  "GAP_PRODUCTS.METADATA_COLUMN" 
-  )
-```
-
-```{r table-dl, eval = FALSE, echo = FALSE}
-for (i in 1:length(locations)) {
-  print(locations[i])
-  a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
-  write.csv(x = a, file = here::here("data", paste0(locations[i], ".csv")))
-}
-```
-
-```{r table-load, eval = TRUE, echo = FALSE}
-
- # Find all descriptions of all tables in the GAP_PRODUCTS schema
-b <- RODBC::sqlQuery(channel = channel, 
-                     query = "SELECT table_name, comments 
-FROM all_tab_comments 
-WHERE owner = 'GAP_PRODUCTS' 
-ORDER BY table_name")
-
- # Collect all column metadata for all tables
-str00 <- c()
-for (i in 1:length(locations)) {
-  metadata_table <- b$COMMENTS[b$TABLE_NAME == 
-                                 strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]][2]]
-  metadata_table <- ifelse(is.na(metadata_table), 
-                           "[There is currently no description for this table.]", 
-                           metadata_table)
-  
-  a <- readr::read_csv(here::here("data", paste0(locations[i], ".csv")))
-  
-  temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
-  temp_rows <- RODBC::sqlQuery(channel = channel, 
-                     query = paste0("SELECT COUNT(*) FROM " ,locations[i], ";"))
-    temp_cols <- ncol(a)
- #       RODBC::sqlQuery(channel = channel, 
- #                      query = paste0("SELECT COUNT(COLUMN_NAME)
- # FROM INFORMATION_SCHEMA.COLUMNS
- # WHERE TABLE_SCHEMA = 'GAP_PRODUCTS'
- # AND table_name = '" ,gsub(pattern = "GAP_PRODUCTS.", replace = "", x = locations[i]), "';"))
-  
-  str0 <- paste0("### ", locations[i], "\n\n", 
-                 metadata_table, "\n\n",
-"rows: ", temp_rows, " | cols: ", temp_cols, " | ", 
-formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
-           digits = 1, format = "f", big.mark = ","), 
-" ", ifelse(temp>1e+7, "GB", "B"), "
-
-\n\n\n")
-  
-  str00 <- paste0(str00, str0)
-  # cat(str0)
-  # # what are the metadata for each column of this table
-  # flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
-  # # print few first lines of this table for show
-  # flextable::flextable(head(a, 3))
-}
-```
-
-`r str00`
-
 ## Access Constraints
 
 There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
@@ -314,7 +212,7 @@ There are no legal restrictions on access to the data. They reside in public dom
 
 **General questions and more specific data requests** can be sent to [afsc.gap.metadata\@noaa.gov](mailto:afsc.gap.metadata@noaa.gov) or submitted as an [issue on our GitHub Organization](https://github.com/afsc-gap-products/data-requests). The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson ([Duane.Stevenson\@noaa.gov](mailto:Duane.Stevenson@noaa.gov)). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman ([Ned.Laman\@noaa.gov](mailto:Ned.Laman@noaa.gov)). For questions specifically about crab data in any region, contact Mike Litzow ([Mike.Litzow\@noaa.gov](mailto:Mike.Litzow@noaa.gov)), the Shellfish Assessment Program lead.
 
-For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss/) platform, please contact us using the Comments page on the [FOSS](https://www.fisheries.noaa.gov/foss/) webpage.
+For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](`r link_foss`) platform, please contact us using the Comments page on the [FOSS](`r link_foss`) webpage.
 
 # Suggestions and comments
 
@@ -326,5 +224,16 @@ If the data or metadata can be improved, please create a pull request, [submit a
 sessionInfo()
 ```
 
-```{r child-footer, child=here::here("docs","footer.Rmd")}
+## NOAA README
+
+This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
+
+## NOAA License
+
+Software code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.
+
+<img src="https://raw.githubusercontent.com/nmfs-general-modeling-tools/nmfspalette/main/man/figures/noaa-fisheries-rgb-2line-horizontal-small.png" alt="NOAA Fisheries" height="75"/>
+
+```{r child-footer, child=here::here("docs","footer.Rmd"), echo=tocTF, eval=tocTF}
 ```
+

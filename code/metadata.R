@@ -57,3 +57,20 @@ NEW_metadata_column <- readxl::read_xlsx(
     metadata_colname_desc = gsub(pattern = "..", replacement = ".", x = metadata_colname_desc, fixed = TRUE))
 
 NEW_metadata_column_comment <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)
+
+# Make metadata sentences for this repo ----------------------------------------
+
+for (i in 1:nrow(NEW_metadata_table)){
+  assign(x = paste0("metadata_sentence_", NEW_metadata_table$metadata_sentence_name[i]), 
+         value = NEW_metadata_table$metadata_sentence[i])
+}
+
+metadata_sentence_github <- gsub(
+  x = metadata_sentence_github, 
+  pattern = "INSERT_REPO", 
+  replacement = link_repo)
+
+metadata_sentence_last_updated <- gsub(
+  x = metadata_sentence_last_updated, 
+  pattern = "INSERT_DATE", 
+  replacement = pretty_date)

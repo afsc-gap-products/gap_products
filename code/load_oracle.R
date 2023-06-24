@@ -34,7 +34,9 @@ for (i in 1:length(a)) {
   
   a_name <- gsub(pattern = "NEW_", replacement = "", x = a[i])
   
-  write.csv(x = get(a[i]), file = paste0(dir_out, a_name, ".csv"))
+  a0 <- a[i]
+  names(a0) <- toupper(names(a0))
+  write.csv(x = get(a0), file = paste0(dir_out, a_name, ".csv"), row.names = FALSE)
   
   # find or create table metadat for table
   metadata_table <- fix_metadata_table(

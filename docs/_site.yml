@@ -1,0 +1,50 @@
+name: "GAP Production Data Documentation"
+output_dir: "docs"
+navbar:
+  title: "GAP Production Data Documentation"
+  logo:
+    image: Fish Icon PacCod_alpha background3.png
+    href: index.html
+  search: true
+  repository_url: https://github.com/afsc-gap-products/gap_products
+  source_url: true
+  right:
+    - text: "GAP_PRODUCTS Vignettes"
+      menu: 
+       - text: "General information"
+         href: product_intro.html
+       - text: "Metadata"
+         href: product_metadata.html
+       - text: "Use AFSC Oracle with SQL and R"
+         href: product-oracle-sql-r.html
+    - text: "FOSS Vignettes"
+      menu: 
+       - text: "General information"
+         href: foss_intro.html
+       - text: "Metadata"
+         href: foss-metadata.html
+       - text: "FOSS Interactive Platform - Quick Start Guide"
+         href: foss-platform.html
+       - text: "Use API with R"
+         href: foss-api-r.html
+       - text: "Use API with Python {afscgap} library"
+         href: foss-api-py.html
+       - text: "Use AFSC Oracle"
+         href: foss-oracle-r.html
+    - icon: fab fa-github
+      href: https://github.com/afsc-gap-products/gap_products
+favicon: Fish Icon PacCod_alpha background3.png
+base_url: https://afsc-gap-products.github.io/gap_products
+output:
+  distill::distill_article:
+    # css: styles.css
+    toc: true
+    toc_float: true
+    includes:
+      after_body:
+      - footer.html
+editor_options:
+  chunk_output_type: console
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
+bibliography: "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"
+

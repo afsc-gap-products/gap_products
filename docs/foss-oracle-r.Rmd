@@ -1,0 +1,137 @@
+---
+title: 'Access public data using R in Oracle'
+description: |
+ Access public data using R in Oracle (AFSC only)
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+```
+
+## Access data via Oracle
+
+If the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the FOSS public data directly from the `RACEBASE_FOSS` `Oracle` schema. 
+
+### Connect to Oracle from R
+
+Many users will want to access the data from `Oracle` using `R`. The user will need to install the `RODBC` `R` package and ask OFIS (IT) connect `R` to `Oracle`. Then, use the following code in `R` to establish a connection from `R` to `Oracle`: 
+
+Here, the user can write in their username and password directly into the `RODBC` connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
+
+```{r oracle-connect-2, echo = TRUE, eval = FALSE}
+ #' Define RODBC connection to ORACLE
+ #'
+ #' @param schema default = 'AFSC'. 
+ #'
+ #' @return oracle channel connection
+ #' @export
+ #'
+ #' @examples
+ #' # Not run
+ #' # channel <- oracle_connect()
+oracle_connect <- function(
+    schema='AFSC', 
+    username = NULL, 
+    passowrd = NULL){(echo=FALSE)
+  
+  library("RODBC")
+  library("getPass")
+  if (is.null(username)) {
+    username <- getPass(msg = "Enter your ORACLE Username: ")
+  }
+  if (is.null(password)) {
+    password <- getPass(msg = "Enter your ORACLE Password: ")
+  }
+  channel  <- RODBC::odbcConnect(
+    paste(schema),
+    paste(username),
+    paste(password), 
+    believeNRows=FALSE)
+  return(channel)
+}
+
+channel <- oracle_connect()
+```
+
+### Ex. 1: Select all data
+
+Once connected, pull and save (if needed) the table into the `R` environment. 
+
+```{r oracle-data-pull, echo = TRUE, eval = FALSE}
+# Pull table from oracle into R environment
+a <- RODBC::sqlQuery(channel, "SELECT * FROM RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED")
+# Save table to local directory
+write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED.csv")
+```
+
+### Ex. 2: Subset data
+
+To pull a small subset of the data (especially since files like `RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED` are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021: 
+
+```{r oracle-data-pull-subset, echo = TRUE, eval = FALSE}
+ # Pull data
+a <- RODBC::sqlQuery(channel, "SELECT * FROM RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED 
+WHERE SRVY = 'EBS' 
+AND COMMON_NAME = 'Pacific cod' 
+AND YEAR >= 2010 
+AND YEAR < 2021")
+ # Save table to local directory
+write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv")
+```
+
+
+### Join catch and haul data
+
+If this file is too large, you can join catch and haul data. Pull the `RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH` and  `RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL` tables, which are much smaller, and combine the table locally yourself. 
+
+`r paste(readLines(con = paste0(dir_out, "JOIN_FOSS_CPUE_metadata_table.txt")), collapse="\n") `
+
+```{r oracle-data-size-join-catch, echo = FALSE}
+str0 <- paste0(
+  "RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH: ", "
+  rows: ", nrow(JOIN_FOSS_CPUE_CATCH), "
+  cols: ", ncol(JOIN_FOSS_CPUE_CATCH), "
+  ", round(file.size(paste0(dir_out, "JOIN_FOSS_CPUE_CATCH.csv"))/1e+9, 3), " GB") 
+cat(str0)
+```
+
+```{r oracle-data-size-join-haul, echo = FALSE}
+str0 <- paste0(
+  "RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL: ", "
+  rows: ", nrow(JOIN_FOSS_CPUE_HAUL), "
+  cols: ", ncol(JOIN_FOSS_CPUE_HAUL), "
+  ", round(file.size(paste0(dir_out, "JOIN_FOSS_CPUE_HAUL.csv"))/1e+9, 3), " GB") 
+cat(str0)
+```
+
+To join these tables in Oracle, you may use a variant of the following code: 
+
+```{sql, eval = FALSE}
+SELECT * FROM RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL
+FULL JOIN RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH
+ON RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL.HAULJOIN = RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH.HAULJOIN;
+```
+
+
+```{=html}
+<script>
+function myFunction() {
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("myInput");
+filter = input.value.toUpperCase();
+table = document.getElementById("myTable");
+tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) {
+td = tr[i].getElementsByTagName("td")[1];
+if (td) {
+txtValue = td.textContent || td.innerText;
+if (txtValue.toUpperCase().indexOf(filter) > -1) {
+tr[i].style.display = "";
+} else {
+tr[i].style.display = "none";
+}
+}       
+}
+}
+</script>
+```

@@ -1,0 +1,47 @@
+---
+title: 'GAP FOSS Column Metadata'
+description: |
+ GAP FOSS Column Metadata
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+library(dplyr)
+library(magrittr)
+```
+
+# Metadata
+
+## Data description (short)
+
+`r readLines(con = paste0(dir_out, "FOSS_CPUE_ZEROFILLED_metadata_table.txt")) `
+
+## Data description (long)
+
+The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
+
+There are no legal restrictions on access to the data. They reside in the public domain and can be freely distributed. Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published.
+
+These data are zero-filled (presence and absence) observations from surveys conducted on fishing vessels. These surveys monitor trends in distribution and abundance of groundfish, crab, and bottom-dwelling species in Alaska’s marine ecosystems. These data include estimates of catch-per-unit-effort (CPUE) for all identified species for index stations. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
+
+Though not included in the public data, these surveys also collect oceanographic and environmental data, and biological data such as length, weight, stomach contents (to learn more about diet), otoliths (fish ear bones to learn about age), and tissue samples for genetic analysis, all of which can be shared upon special request. Also not included in the public data are estimated biomass (average total weight of all fish and crabs sampled) of crabs and groundfish that support the creation of annual stock assessments.
+
+## Column-level metadata for our public-facing data
+
+```{r column-metadata, echo = FALSE}
+metadata_column %>% 
+  janitor::clean_names() %>%
+  dplyr::mutate(metadata_colname = tolower(metadata_colname)) %>% 
+  dplyr::filter(metadata_colname %in% tolower(names(FOSS_CPUE_PRESONLY))) %>% 
+  dplyr::arrange(match(metadata_colname, tolower(names(FOSS_CPUE_PRESONLY)))) %>% 
+  dplyr::select(
+    "Column name" = metadata_colname, 
+    "Column name (long) " = metadata_colname_long, 
+    "Units" = metadata_units, 
+    # "Oracle data type" = metadata_datatype, 
+    "Description" = metadata_colname_desc) %>%
+  knitr::kable(x = ., row.names = FALSE) 
+```
+
+```{r child-footer, child=here::here("docs","footer.Rmd")}
+```
