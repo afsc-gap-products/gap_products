@@ -25,5 +25,8 @@
   },
   "content/references.qmd": {
     "references.html": "980f73d0"
+  },
+  "content/product_intro.qmd": {
+    "product_intro.html": "ce82bfc8"
   }
 }

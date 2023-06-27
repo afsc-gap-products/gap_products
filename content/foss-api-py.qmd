@@ -1,12 +1,12 @@
 ---
-title: 'Access public data using the API and Python'
-description: |
- Access public data using the API and Python
+title: Access public data using the API and Python
 author: Sam Pottinger (sam.pottinger@berkeley.edu; GitHub::sampottinger)
 date: May 13, 2023
 ---
 
 ```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = FALSE)
 library(reticulate)
 ```

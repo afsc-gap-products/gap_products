@@ -3,19 +3,12 @@ title: AFSC RACE Groundfish Data for AKFIN
 ---
 
 ```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
 ## Data created in this repo
-
-```{r oracle-connect-1, echo = FALSE, eval = TRUE}
-if (file.exists("Z:/Projects/ConnectToOracle.R")) {
-    source("Z:/Projects/ConnectToOracle.R")
-    channel <- channel_products
-} else {
-  gapindex::get_connected()
-}
-```
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
  # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:

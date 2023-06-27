@@ -22,6 +22,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -31,7 +50,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./content/setup.html" rel="next">
+<link href="./content/product_intro.html" rel="next">
 <link href="./favicon.ico/favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -89,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://nmfs-opensci.github.io" title="NMFS Open Science" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://nmfs-opensci.github.io" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
     <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
@@ -123,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./content/setup.html" class="sidebar-item-text sidebar-link">Set-up</a>
+            <a href="./content/product_intro.html" class="sidebar-item-text sidebar-link">AFSC RACE Groundfish Survey Production Data</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -131,34 +150,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./content/add-content.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Customize</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./content/customizing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Customization</span></a>
+  <a href="./content/product_metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">GAP Production Data Metadata</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./content/rendering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Rendering</span></a>
+  <a href="./content/code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Rendering with Code</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./content/rmarkdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Markdown</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./content/code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Rendering with Code</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./content/adding-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./content/adding-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -175,7 +179,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a>
+  <ul class="collapse">
+  <li><a href="#user-resources" id="toc-user-resources" class="nav-link" data-scroll-target="#user-resources">User Resources</a></li>
+  </ul></li>
+  <li><a href="#cite-this-data" id="toc-cite-this-data" class="nav-link" data-scroll-target="#cite-this-data">Cite this data</a>
+  <ul class="collapse">
+  <li><a href="#bottom-trawl-surveys-and-regions" id="toc-bottom-trawl-surveys-and-regions" class="nav-link" data-scroll-target="#bottom-trawl-surveys-and-regions">Bottom trawl surveys and regions</a></li>
+  <li><a href="#access-constraints" id="toc-access-constraints" class="nav-link" data-scroll-target="#access-constraints">Access Constraints</a></li>
+  </ul></li>
+  <li><a href="#suggestions-and-comments" id="toc-suggestions-and-comments" class="nav-link" data-scroll-target="#suggestions-and-comments">Suggestions and comments</a></li>
+  <li><a href="#r-version-metadata" id="toc-r-version-metadata" class="nav-link" data-scroll-target="#r-version-metadata">R Version Metadata</a>
+  <ul class="collapse">
+  <li><a href="#noaa-readme" id="toc-noaa-readme" class="nav-link" data-scroll-target="#noaa-readme">NOAA README</a></li>
+  <li><a href="#noaa-license" id="toc-noaa-license" class="nav-link" data-scroll-target="#noaa-license">NOAA License</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -222,9 +240,202 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="executive-summary" class="level1 unnumbered">
 <h1 class="unnumbered">Executive Summary</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer commodo gravida justo consectetur condimentum. Proin eget felis non nunc tristique malesuada vel ut tortor. Vivamus lacinia aliquet lorem in congue. In hac habitasse platea dictumst. Etiam non felis iaculis, efficitur libero in, porta nunc. Sed sit amet nisi non justo scelerisque feugiat. Pellentesque porta consectetur sapien, porttitor iaculis ligula fermentum ac. Pellentesque fermentum elementum lacus non tempus. Aenean eu leo lobortis, vulputate mi at, varius sapien. In congue consectetur ultricies. Maecenas volutpat facilisis arcu, eget sodales tellus consequat nec. Integer ullamcorper ex nec leo aliquam tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc dui massa, facilisis at aliquet eu, malesuada vel neque. Donec fermentum elit eu tortor euismod, sed mollis lacus blandit.</p>
+<div class="cell">
+
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://github.com/afsc-gap-products/gap_products/commits/main"><img src="https://img.shields.io/github/last-commit/afsc-gap-products/gap_products.svg" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p>The code in this repository is regularly being updated and improved. Please refer to <a href="https://github.com/afsc-gap-products/gap_products/releases">releases</a> for finalized products and project milestones.</p>
+</blockquote>
+<div class="cell">
+
+</div>
+<section id="user-resources" class="level2">
+<h2 class="anchored" data-anchor-id="user-resources">User Resources</h2>
+<ul>
+<li><p><a href="https://github.com/afsc-gap-products/gap_products">GitHub repository</a>.</p></li>
+<li><p><a href="https://afsc-gap-products.github.io/gap_products/">Access Tips and Documentation for All Production Data</a></p></li>
+<li><p><a href="https://www.fisheries.noaa.gov/foss">Fisheries One Stop Shop (FOSS)</a></p></li>
+<li><p><a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys">Groundfish Assessment Program Bottom Trawl Surveys</a></p></li>
+<li><p><a href="https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division">AFSC’s Resource Assessment and Conservation Engineering Division</a></p></li>
+<li><p><a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">Survey code books</a></p></li>
+<li><p><a href="https://repository.library.noaa.gov/">Publications and Data Reports</a></p></li>
+<li><p><a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys">Research Surveys conducted at AFSC</a></p></li>
+</ul>
+</section>
+</section>
+<section id="cite-this-data" class="level1">
+<h1>Cite this data</h1>
+<p>Use the below <a href="https://github.com/afsc-gap-products/gap_products/blob/main/CITATION.bib">bibtext citations</a>, as cited in our group’s <a href="https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib">citation repository</a> for citing the data created and maintained in this repo. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program’s:</p>
+<ul>
+<li>Design-Based Production Data <span class="citation" data-cites="GAPProducts">[@GAPProducts]</span>.<br>
+</li>
+<li>Public Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform <span class="citation" data-cites="FOSSAFSCData">[@FOSSAFSCData]</span>.</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+@misc{GAPProducts,
+  author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},
+  year = {2023}, 
+  title = {AFSC Goundfish Assessment Program Design-Based Production Data},
+  howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},
+  publisher = {{U.S. Dep. Commer.}},
+  copyright = {Public Domain} 
+}
+
+@misc{FOSSAFSCData,
+  author = {{NOAA Fisheries Alaska Fisheries Science Center}},
+  year = {2023}, 
+  title = {Fisheries One Stop Shop Public Data: RACE Division Bottom Trawl Survey Data Query},
+  howpublished = {https://www.fisheries.noaa.gov/foss},
+  publisher = {{U.S. Dep. Commer.}},
+  copyright = {Public Domain} 
+}</code></pre>
+</div>
+</div>
+<p>Or cite our latest data reports for survey-specific data and other findings:</p>
+<div id="refs" role="doc-bibliography">
+
+</div>
+<section id="bottom-trawl-surveys-and-regions" class="level2">
+<h2 class="anchored" data-anchor-id="bottom-trawl-surveys-and-regions">Bottom trawl surveys and regions</h2>
+<div class="cell-output-display">
+<p><img src="img/survey_plot.png" class="img-fluid" width="1050"></p>
+</div>
+<div class="cell">
+
+</div>
+<ul>
+<li><strong>Aleutian Islands (AI)</strong> <span class="citation" data-cites="AI2018">[@AI2018]</span>
+<ul>
+<li>Triennial (1990s)/Biennial since 2000 in even years</li>
+<li>Modified Index-Stratified Random of Successful Stations Survey Design</li>
+</ul></li>
+<li><strong>Eastern Bering Sea Slope (BSS)</strong> <span class="citation" data-cites="RN979">[@RN979]</span>
+<ul>
+<li>Intermittent (funding dependent)</li>
+<li>Modified Index-Stratified Random of Successful Stations Survey Design</li>
+</ul></li>
+<li><strong>Eastern Bering Sea Shelf (EBS)</strong> <span class="citation" data-cites="2022NEBS2023">[@2022NEBS2023]</span>
+<ul>
+<li>Annual</li>
+<li>Fixed stations at center of 20 x 20 nm grid</li>
+</ul></li>
+<li><strong>Gulf of Alaska (GOA)</strong> <span class="citation" data-cites="GOA2018">[@GOA2018]</span>
+<ul>
+<li>Triennial (1990s)/Biennial since 2001 in odd years</li>
+<li>Stratified Random Survey Design</li>
+</ul></li>
+<li><strong>Northern Bering Sea (NBS)</strong> <span class="citation" data-cites="2022NEBS2023">[@2022NEBS2023]</span>
+<ul>
+<li>Biennial/Annual</li>
+<li>Fixed stations at center of 20 x 20 nm grid</li>
+</ul></li>
+</ul>
+</section>
+<section id="access-constraints" class="level2">
+<h2 class="anchored" data-anchor-id="access-constraints">Access Constraints</h2>
+<p>There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.</p>
+<p><strong>User Constraints:</strong> Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.</p>
+<p><strong>General questions and more specific data requests</strong> can be sent to <a href="mailto:afsc.gap.metadata@noaa.gov">afsc.gap.metadata@noaa.gov</a> or submitted as an <a href="https://github.com/afsc-gap-products/data-requests">issue on our GitHub Organization</a>. The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson (<a href="mailto:Duane.Stevenson@noaa.gov">Duane.Stevenson@noaa.gov</a>). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman (<a href="mailto:Ned.Laman@noaa.gov">Ned.Laman@noaa.gov</a>). For questions specifically about crab data in any region, contact Mike Litzow (<a href="mailto:Mike.Litzow@noaa.gov">Mike.Litzow@noaa.gov</a>), the Shellfish Assessment Program lead.</p>
+<p>For questions, comments, and concerns specifically about the <a href="https://www.fisheries.noaa.gov/foss">Fisheries One Stop Shop (FOSS)</a> platform, please contact us using the Comments page on the <a href="https://www.fisheries.noaa.gov/foss">FOSS</a> webpage.</p>
+<p>Alaska Fisheries Science Center (AFSC) National Oceanic and Atmospheric Administration (NOAA)<br>
+Resource Assessment and Conservation Engineering Division (RACE)<br>
+Groundfish Assessment Program (GAP) 7600 Sand Point Way, N.E. bldg. 4<br>
+Seattle, WA 98115 USA</p>
+</section>
+</section>
+<section id="suggestions-and-comments" class="level1">
+<h1>Suggestions and comments</h1>
+<p>If the data or metadata can be improved, please create a pull request, <a href="https://github.com/afsc-gap-products/data-requests/issues">submit an issue to the GitHub organization</a> or <a href="https://github.com/afsc-gap-products/gap_products/issues">submit an issue to the code’s repository</a>.</p>
+</section>
+<section id="r-version-metadata" class="level1">
+<h1>R Version Metadata</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.0 (2023-04-21 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
 
 
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Los_Angeles
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] RODBC_1.3-20          badger_0.2.3          stringr_1.5.0        
+ [4] here_1.0.1            kableExtra_1.3.4.9000 janitor_2.2.0        
+ [7] readxl_1.4.2          tidyr_1.3.0           readr_2.1.4          
+[10] magrittr_2.0.3        googledrive_2.1.1     akgfmaps_3.0.0       
+[13] terra_1.7-29          stars_0.6-1           abind_1.4-5          
+[16] sf_1.0-12             gstat_2.1-1           ggplot2_3.4.2        
+[19] dplyr_1.1.2           classInt_0.4-9        gapindex_0.0.0.9000  
+[22] distill_1.5           devtools_2.4.5        usethis_2.1.6        
+
+loaded via a namespace (and not attached):
+  [1] RColorBrewer_1.1-3  sys_3.4.2           rstudioapi_0.14    
+  [4] dlstats_0.1.6       jsonlite_1.8.4      rmarkdown_2.22     
+  [7] fs_1.6.2            vctrs_0.6.2         memoise_2.0.1      
+ [10] askpass_1.1         gh_1.4.0            webshot_0.5.4      
+ [13] htmltools_0.5.5     curl_5.0.0          cellranger_1.1.0   
+ [16] KernSmooth_2.23-21  htmlwidgets_1.6.2   httr2_0.2.2        
+ [19] zoo_1.8-12          lubridate_1.9.2     cachem_1.0.8       
+ [22] mime_0.12           lifecycle_1.0.3     pkgconfig_2.0.3    
+ [25] R6_2.5.1            fastmap_1.1.1       shiny_1.7.4        
+ [28] snakecase_0.11.0    digest_0.6.31       colorspace_2.1-0   
+ [31] ps_1.7.5            rprojroot_2.0.3     pkgload_1.3.2      
+ [34] lwgeom_0.2-11       fansi_1.0.4         timechange_0.2.0   
+ [37] httr_1.4.6          compiler_4.3.0      gargle_1.5.1       
+ [40] proxy_0.4-27        intervals_0.15.3    remotes_2.4.2      
+ [43] withr_2.5.0         DBI_1.1.3           pkgbuild_1.4.0     
+ [46] openssl_2.0.6       rappdirs_0.3.3      sessioninfo_1.2.2  
+ [49] tools_4.3.0         units_0.8-2         httpuv_1.6.9       
+ [52] glue_1.6.2          callr_3.7.3         promises_1.2.0.1   
+ [55] grid_4.3.0          generics_0.1.3      gtable_0.3.3       
+ [58] tzdb_0.3.0          class_7.3-22        hms_1.1.3          
+ [61] sp_1.6-0            xml2_1.3.4          utf8_1.2.3         
+ [64] pillar_1.9.0        yulab.utils_0.0.6   later_1.3.1        
+ [67] lattice_0.21-8      FNN_1.1.3.2         tidyselect_1.2.0   
+ [70] rvcheck_0.2.1       miniUI_0.1.1.1      downlit_0.4.2      
+ [73] knitr_1.43          gitcreds_0.1.2      svglite_2.1.1      
+ [76] xfun_0.39           credentials_1.3.2   stringi_1.7.12     
+ [79] yaml_2.3.7          evaluate_0.21       codetools_0.2-19   
+ [82] tibble_3.2.1        BiocManager_1.30.20 cli_3.6.1          
+ [85] xtable_1.8-4        systemfonts_1.0.4   munsell_0.5.0      
+ [88] processx_3.8.1      spacetime_1.3-0     Rcpp_1.0.10        
+ [91] gert_1.9.2          png_0.1-8           parallel_4.3.0     
+ [94] ellipsis_0.3.2      prettyunits_1.1.1   profvis_0.3.8      
+ [97] urlchecker_1.0.1    viridisLite_0.4.2   scales_1.2.1       
+[100] xts_0.13.1          e1071_1.7-13        purrr_1.0.1        
+[103] crayon_1.5.2        rlang_1.1.1         rvest_1.0.3        </code></pre>
+</div>
+</div>
+<section id="noaa-readme" class="level3">
+<h3 class="anchored" data-anchor-id="noaa-readme">NOAA README</h3>
+<p>This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.</p>
+</section>
+<section id="noaa-license" class="level3">
+<h3 class="anchored" data-anchor-id="noaa-license">NOAA License</h3>
+<p>Software code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.</p>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -365,8 +576,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./content/setup.html" class="pagination-link">
-        <span class="nav-page-text">Set-up</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./content/product_intro.html" class="pagination-link">
+        <span class="nav-page-text">AFSC RACE Groundfish Survey Production Data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -374,7 +585,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">© CC-1.0</div>   
-    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
   </div>
 </footer>
 

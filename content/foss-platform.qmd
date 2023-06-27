@@ -1,16 +1,19 @@
 ---
-title: 'Access public data using the FOSS Interactive Platform'
-description: |
- Access public data using the FOSS Interactive Platform
+title: Access public data using the FOSS Interactive Platform
 ---
 
 ```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-# Access AFSC data interactively through the FOSS platform
+# Quick Start Guide: Access AFSC data interactively through the FOSS platform
 
-```{r foss-img-interface, echo=FALSE, fig.cap="AFSC Groundfish and Crab Assessment Program Bottom Trawl Survey data interface on the Fisheries One Stop Shop platform. "}
+```{r foss-1-interface, echo=FALSE}
+#| label: foss-1-interface
+#| fig-cap: "AFSC Groundfish and Crab Assessment Program Bottom Trawl Survey data interface on the Fisheries One Stop Shop platform. "
+
 knitr::include_graphics(path = here::here("img", "foss_1_interface.png"))
 ```
 
@@ -26,7 +29,10 @@ To find a specific species or group more quickly you can use the `Search Species
 
 Use the `Reset All Parameters` button to reset all parameters for entire form. 
 
-```{r foss-img-select, echo=FALSE, fig.cap="Diagram of selection and search tools available on the FOSS platofrom. "}
+```{r foss-2-select, echo=FALSE}
+#| label: foss-2-select
+#| fig-cap: "Diagram of selection and search tools available on the FOSS platofrom. "
+
 knitr::include_graphics(path = here::here("img", "foss_2_select.png"))
 ```
 
@@ -38,7 +44,10 @@ Filter options:
 
 > In this example, we'll select for 2022 eastern Bering Sea Pacific cod data. Here, we used the `Search Species` box to search for species with the term "cod" in their common names and selected "Pacific cod" from that shortened list. 
 
-```{r foss-img-selected, echo=FALSE, fig.cap="Diagram of selection and search tools available on the FOSS platofrom. "}
+```{r foss-3-selected, echo=FALSE}
+#| label: foss-3-selected
+#| fig-cap: "Diagram of selection and search tools available on the FOSS platofrom. "
+
 knitr::include_graphics(path = here::here("img", "foss_3_selected.png"))
 ```
 
@@ -54,7 +63,10 @@ Select from the below radio list of pre-designed output tables. Once you run the
 
 > In this example, we'll select `All Data Fields: Presence and Absence (zero-filled).`
 
-```{r foss-img-data-format, echo=FALSE, fig.cap="Diagram of the pre-set data format options. "}
+```{r foss-4-data-format, echo=FALSE}
+#| label: foss-4-data-format
+#| fig-cap: "Diagram of the pre-set data format options. "
+
 knitr::include_graphics(path = here::here("img", "foss_4_data_format.png"))
 ```
 
@@ -62,7 +74,10 @@ knitr::include_graphics(path = here::here("img", "foss_4_data_format.png"))
 
 Click the `RUN REPORT` button. Below the select and filter area, the results of your query will appear below the page in the format you selected. To change the format, make a different selection and run the report again. Further modifications to your results can be made by clicking on the `Actions` button above your data. Here you can `download` your data, `select columns` included in your results, and apply a variety of `filters` and mathematical tools. 
 
-```{r foss-img-run-report, echo=FALSE, fig.cap="Example data returned from running the report. "}
+```{r foss-5-run-report, echo=FALSE}
+#| label: foss-5-run-report
+#| fig-cap: "Example data returned from running the report. "
+
 knitr::include_graphics(path = here::here("img", "foss_5_run_report.png"))
 ```
 

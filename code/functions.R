@@ -5,6 +5,7 @@ PKG <- c(
   "devtools", # Package development tools for R; used here for downloading packages from GitHub
   "distill",
   "gapindex", # devtools::install_github("afsc-gap-products/gapindex")
+  "akgfmaps", # devtools::install_github("afsc-gap-products/akgfmaps")
   "dplyr",
   "googledrive",
   "magrittr",
@@ -14,7 +15,8 @@ PKG <- c(
   "janitor",
   "kableExtra", 
   "here",
-  "stringr")
+  "stringr",
+  "badger")
 
 PKG <- unique(PKG)
 for (p in PKG) {
@@ -22,6 +24,21 @@ for (p in PKG) {
     install.packages(p)
     require(p,character.only = TRUE)}
 }
+
+# knowns -----------------------------------------------------------------------
+
+if (file.exists("Z:/Projects/ConnectToOracle.R")) {
+  source("Z:/Projects/ConnectToOracle.R")
+  channel <- channel_products
+} else {
+  gapindex::get_connected()
+}
+
+link_foss <- "https://www.fisheries.noaa.gov/foss"  
+link_repo <- "https://github.com/afsc-gap-products/gap_products" # paste0(shell("git config --get remote.origin.url")) 
+link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
+link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
+pretty_date <- format(Sys.Date(), "%B %d, %Y")
 
 # Set output directory ---------------------------------------------------------
 
@@ -141,13 +158,13 @@ ORDER BY table_name")
                              "[There is currently no description for this table.]", 
                              metadata_table)
     
-    temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
+    # temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
     temp_rows <- RODBC::sqlQuery(channel = channel, 
                                  query = paste0("SELECT COUNT(*) FROM " , locations[i], ";"))
     
     temp_data <- RODBC::sqlQuery(channel = channel, 
                                  query = paste0("SELECT *
-    FROM GAP_PRODUCTS.", locations[i], "
+    FROM ", locations[i], "
     FETCH FIRST 3 ROWS ONLY;"))
     
     temp_cols <- temp_data %>% 

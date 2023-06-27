@@ -3,8 +3,9 @@ title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R'
 ---
 
 ```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
-library(ggplot2)
 ```
 
 ## Access data via Oracle (AFSC only)

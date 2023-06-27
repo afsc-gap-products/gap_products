@@ -8,7 +8,7 @@
 
 # Support scripts --------------------------------------------------------------
 
-source('./code/functions.R')
+source(here::here('code","functions.R'))
 
 ## sign into google drive ------------------------------------------------------
 
@@ -31,10 +31,6 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
 # Create Citation File and find citation links ---------------------------------
 
 source(here::here("code", "citation.R"))
-link_repo <- "https://github.com/afsc-gap-products/gap_products" # paste0(shell("git config --get remote.origin.url")) 
-link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
-link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
-pretty_date <- format(Sys.Date(), "%B %d, %Y")
 
 # Create tables ----------------------------------------------------------------
 

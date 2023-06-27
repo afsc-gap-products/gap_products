@@ -27,17 +27,18 @@ book:
     - part: content/product_intro.qmd
       chapters: 
         - content/product_metadata.qmd
-    - part: content/akfin_intro.qmd
-      chapters: 
-        - content/akfin_metadata.qmd
-        - content/akfin-oracle-sql-r.qmd
-    - part: content/foss_intro.qmd
-      chapters: 
-        - content/foss_metadata.qmd
-        - content/foss-platform.qmd
-        - content/foss-api-r.qmd
-        - content/foss-api-py.qmd
-        - content/foss-oracle-r.qmd
+        - content/product_metadata_column.qmd
+    # - part: content/akfin_intro.qmd
+    #   chapters: 
+    #     - content/akfin_metadata.qmd
+    #     - content/akfin-oracle-sql-r.qmd
+    # - part: content/foss_intro.qmd
+    #   chapters: 
+    #     - content/foss_metadata.qmd
+    #     - content/foss-platform.qmd
+    #     - content/foss-api-r.qmd
+    #     - content/foss-api-py.qmd
+    #     - content/foss-oracle-r.qmd
     - content/code.qmd
     - content/adding-refs.qmd
     - content/references.qmd
@@ -52,7 +53,8 @@ book:
        #   href: foss-oracle-r.html
 
   page-footer:
-    right: "This page is built with [Quarto](https://quarto.org/)."
+    right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 
+    #     "This page is built with [Quarto](https://quarto.org/)."
     left: "&copy; CC-1.0"
   
   sidebar:
@@ -64,7 +66,7 @@ book:
     tools: 
       - icon: globe
         href: https://nmfs-opensci.github.io
-        text: "NMFS Open Science"
+        text: "AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"
     style: "docked"
     search: true
     collapse-level: 1

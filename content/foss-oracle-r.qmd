@@ -1,14 +1,14 @@
 ---
-title: 'Access public data using R in Oracle'
-description: |
- Access public data using R in Oracle (AFSC only)
+title: Access public data using R in Oracle
 ---
 
 ```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-## Access data via Oracle
+## Access data via Oracle (AFSC only)
 
 If the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the FOSS public data directly from the `RACEBASE_FOSS` `Oracle` schema. 
 
@@ -53,24 +53,31 @@ oracle_connect <- function(
 channel <- oracle_connect()
 ```
 
-### Ex. 1: Select all data
 
-Once connected, pull and save (if needed) the table into the `R` environment. 
+### Ex. 1: Join data
 
-```{r oracle-data-pull, echo = TRUE, eval = FALSE}
-# Pull table from oracle into R environment
-a <- RODBC::sqlQuery(channel, "SELECT * FROM RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED")
-# Save table to local directory
-write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED.csv")
+To join these tables in Oracle, you may use a variant of the following code: 
+
+```{sql, eval = FALSE}
+SELECT * FROM RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL
+FULL JOIN RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH
+ON RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL.HAULJOIN = RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH.HAULJOIN;
 ```
 
 ### Ex. 2: Subset data
+
+Once connected, pull and save (if needed) the tables into the `R` environment. 
 
 To pull a small subset of the data (especially since files like `RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED` are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021: 
 
 ```{r oracle-data-pull-subset, echo = TRUE, eval = FALSE}
  # Pull data
-a <- RODBC::sqlQuery(channel, "SELECT * FROM RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED 
+a <- RODBC::sqlQuery(
+channel = channel, 
+query = 
+"SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc
+JOIN GAP_PRODUCTS.FOSS_HAUL hh
+ON cc.HAULJOIN = hh.HAULJOIN
 WHERE SRVY = 'EBS' 
 AND COMMON_NAME = 'Pacific cod' 
 AND YEAR >= 2010 
@@ -80,35 +87,4 @@ write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.c
 ```
 
 
-### Join catch and haul data
-
-If this file is too large, you can join catch and haul data. Pull the `RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH` and  `RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL` tables, which are much smaller, and combine the table locally yourself. 
-
-`r paste(readLines(con = paste0(dir_out, "JOIN_FOSS_CPUE_metadata_table.txt")), collapse="\n") `
-
-```{r oracle-data-size-join-catch, echo = FALSE, eval = FALSE}
-str0 <- paste0(
-  "RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH: ", "
-  rows: ", nrow(JOIN_FOSS_CPUE_CATCH), "
-  cols: ", ncol(JOIN_FOSS_CPUE_CATCH), "
-  ", round(file.size(paste0(dir_out, "JOIN_FOSS_CPUE_CATCH.csv"))/1e+9, 3), " GB") 
-cat(str0)
-```
-
-```{r oracle-data-size-join-haul, echo = FALSE, eval = FALSE}
-str0 <- paste0(
-  "RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL: ", "
-  rows: ", nrow(JOIN_FOSS_CPUE_HAUL), "
-  cols: ", ncol(JOIN_FOSS_CPUE_HAUL), "
-  ", round(file.size(paste0(dir_out, "JOIN_FOSS_CPUE_HAUL.csv"))/1e+9, 3), " GB") 
-cat(str0)
-```
-
-To join these tables in Oracle, you may use a variant of the following code: 
-
-```{sql, eval = FALSE}
-SELECT * FROM RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL
-FULL JOIN RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH
-ON RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL.HAULJOIN = RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH.HAULJOIN;
-```
 

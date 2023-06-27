@@ -4,6 +4,8 @@ description: '`r ifelse(tocTF, "data", "AFSC RACE Groundfish and Shellfish Surve
 ---
 
 ```{r setup, include=FALSE}
+#| file: ./code/functions.R
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
