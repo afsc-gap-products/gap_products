@@ -28,5 +28,14 @@
   },
   "content/product_intro.qmd": {
     "product_intro.html": "ce82bfc8"
+  },
+  "content/product_metadata.qmd": {
+    "product_metadata.html": "e26e5b9f"
+  },
+  "content/product_metadata_column.qmd": {
+    "product_metadata_column.html": "cb45c8bd"
+  },
+  "content/akfin_intro.qmd": {
+    "akfin_intro.html": "0cf26a48"
   }
 }

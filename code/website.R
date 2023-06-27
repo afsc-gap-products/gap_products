@@ -1,32 +1,4 @@
-source('./code/functions.R')
 
-# load(paste0(dir_out, "FOSS_CPUE_PRESONLY.RData"))
-# load(paste0(dir_out, "FOSS_CPUE_JOIN.RData"))
-# load(paste0(dir_out, "FOSS_CPUE_ZEROFILLED.RData"))
-
-# locations <- c(
-# "GAP_PRODUCTS.FOSS_CPUE_HAUL",
-# "GAP_PRODUCTS.FOSS_CPUE_CATCH"#,
-# "GAP_PRODUCTS.AKFIN_HAUL", 
-# "GAP_PRODUCTS.AKFIN_CRUISES"
-#   "GAP_PRODUCTS.CPUE",
-#   "GAP_PRODUCTS.BIOMASS",
-#   "GAP_PRODUCTS.AGECOMP",
-#   "GAP_PRODUCTS.SIZECOMP",
-#   "GAP_PRODUCTS.STRATUM_GROUPS",
-#   "GAP_PRODUCTS.AREA",
-#   "GAP_PRODUCTS.SURVEY_DESIGN",
-#   "GAP_PRODUCTS.TAXONOMICS_WORMS", 
-#   "GAP_PRODUCTS.TAXONOMICS_ITIS", 
-#   "GAP_PRODUCTS.TAXON_CONFIDENCE", 
-#   "GAP_PRODUCTS.METADATA_COLUMN" 
-# )
-# 
-# for (i in 1:length(locations)) {
-#   print(locations[i])
-#   a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
-#   write.csv(x = a, file = here::here("data", paste0(locations[i], ".csv")))
-# }
 
 library(ggplot2)
 library(viridis)

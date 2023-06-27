@@ -22,26 +22,6 @@ cat(
 
 > The code in this repository is regularly being updated and improved. Please refer to [releases](`r paste0(link_repo, '/releases')`) for finalized products and project milestones.  
 
-`r ifelse(tocTF, "## Table of contents", "")`
-
-```{r toc, echo = FALSE, eval = tocTF}
-toc <- strsplit(x = readtext::readtext(file = "./README.rmd")[[2]], split = "\n")
-toc <- toc[[1]][substr(x = toc[[1]], start = 1, stop = 1) == "#"]
-toc <- toc[-c(1)]
-toc_list <- toc
-toc_list <- gsub(pattern = "#### ", replacement = ">        - [*", x = toc_list, fixed = TRUE)
-toc_list <- gsub(pattern = "### ", replacement = ">      - [*", x = toc_list, fixed = TRUE)
-toc_list <- gsub(pattern = "## ", replacement = ">    - [*", x = toc_list, fixed = TRUE)
-toc_list <- gsub(pattern = "# ", replacement = ">  - [*", x = toc_list, fixed = TRUE)
-toc_link <- tolower(gsub(pattern = " ", replacement = "-", 
-                         x = gsub(pattern = "#", replacement = "", 
-                                  x = gsub(pattern = "# ", replacement = "", 
-                                           x = toc, fixed = TRUE), fixed = TRUE)))
-toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
-```
-
-`r ifelse(tocTF, toc, "")`
-
 ## User Resources
 
 -   [GitHub repository](`r link_repo`).
@@ -115,18 +95,4 @@ Seattle, WA 98115 USA
 # Suggestions and comments
 
 If the data or metadata can be improved, please create a pull request, [submit an issue to the GitHub organization](`r "https://github.com/afsc-gap-products/data-requests/issues"`) or [submit an issue to the code's repository](`r paste0(link_repo, "/issues")`).
-
-# R Version Metadata
-
-```{r}
-sessionInfo()
-```
-
-### NOAA README
-
-This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
-
-### NOAA License
-
-Software code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.
 

@@ -14,6 +14,14 @@ The Resource Assessment and Conservation Engineering Division (RACE) Groundfish 
 
 Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
 
+## Cite this data
+
+Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/CITATION_GAPProducts.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPProducts]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+
+```{r load_citation, echo = FALSE}
+cat(readLines(con = here::here("CITATION_GAPProducts.bib")), sep = "\n") 
+```
+
 ## Data Creation
 
 These data are created using the [gapindex R package](https://github.com/afsc-gap-products/gapindex). 

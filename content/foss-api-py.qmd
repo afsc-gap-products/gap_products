@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 library(reticulate)
 ```
 
-### Installation
+### {afscgap} Library Installation
 
 The third-party `afscgap` Python package interfaces with FOSS to access AFSC GAP data. It can be installed via pip:
 

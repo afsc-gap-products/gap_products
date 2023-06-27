@@ -153,16 +153,19 @@ div.csl-indent {
   <a href="./content/product_metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">GAP Production Data Metadata</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/product_metadata_column.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></a>
+  </div>
+</li>
       </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">AFSC RACE Groundfish Data for AKFIN</span>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./content/code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Rendering with Code</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./content/adding-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./content/run-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Production Run Notes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -189,11 +192,6 @@ div.csl-indent {
   <li><a href="#access-constraints" id="toc-access-constraints" class="nav-link" data-scroll-target="#access-constraints">Access Constraints</a></li>
   </ul></li>
   <li><a href="#suggestions-and-comments" id="toc-suggestions-and-comments" class="nav-link" data-scroll-target="#suggestions-and-comments">Suggestions and comments</a></li>
-  <li><a href="#r-version-metadata" id="toc-r-version-metadata" class="nav-link" data-scroll-target="#r-version-metadata">R Version Metadata</a>
-  <ul class="collapse">
-  <li><a href="#noaa-readme" id="toc-noaa-readme" class="nav-link" data-scroll-target="#noaa-readme">NOAA README</a></li>
-  <li><a href="#noaa-license" id="toc-noaa-license" class="nav-link" data-scroll-target="#noaa-license">NOAA License</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -353,89 +351,8 @@ Seattle, WA 98115 USA</p>
 <section id="suggestions-and-comments" class="level1">
 <h1>Suggestions and comments</h1>
 <p>If the data or metadata can be improved, please create a pull request, <a href="https://github.com/afsc-gap-products/data-requests/issues">submit an issue to the GitHub organization</a> or <a href="https://github.com/afsc-gap-products/gap_products/issues">submit an issue to the code’s repository</a>.</p>
-</section>
-<section id="r-version-metadata" class="level1">
-<h1>R Version Metadata</h1>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>R version 4.3.0 (2023-04-21 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19045)
-
-Matrix products: default
 
 
-locale:
-[1] LC_COLLATE=English_United States.utf8 
-[2] LC_CTYPE=English_United States.utf8   
-[3] LC_MONETARY=English_United States.utf8
-[4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.utf8    
-
-time zone: America/Los_Angeles
-tzcode source: internal
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
- [1] RODBC_1.3-20          badger_0.2.3          stringr_1.5.0        
- [4] here_1.0.1            kableExtra_1.3.4.9000 janitor_2.2.0        
- [7] readxl_1.4.2          tidyr_1.3.0           readr_2.1.4          
-[10] magrittr_2.0.3        googledrive_2.1.1     akgfmaps_3.0.0       
-[13] terra_1.7-29          stars_0.6-1           abind_1.4-5          
-[16] sf_1.0-12             gstat_2.1-1           ggplot2_3.4.2        
-[19] dplyr_1.1.2           classInt_0.4-9        gapindex_0.0.0.9000  
-[22] distill_1.5           devtools_2.4.5        usethis_2.1.6        
-
-loaded via a namespace (and not attached):
-  [1] RColorBrewer_1.1-3  sys_3.4.2           rstudioapi_0.14    
-  [4] dlstats_0.1.6       jsonlite_1.8.4      rmarkdown_2.22     
-  [7] fs_1.6.2            vctrs_0.6.2         memoise_2.0.1      
- [10] askpass_1.1         gh_1.4.0            webshot_0.5.4      
- [13] htmltools_0.5.5     curl_5.0.0          cellranger_1.1.0   
- [16] KernSmooth_2.23-21  htmlwidgets_1.6.2   httr2_0.2.2        
- [19] zoo_1.8-12          lubridate_1.9.2     cachem_1.0.8       
- [22] mime_0.12           lifecycle_1.0.3     pkgconfig_2.0.3    
- [25] R6_2.5.1            fastmap_1.1.1       shiny_1.7.4        
- [28] snakecase_0.11.0    digest_0.6.31       colorspace_2.1-0   
- [31] ps_1.7.5            rprojroot_2.0.3     pkgload_1.3.2      
- [34] lwgeom_0.2-11       fansi_1.0.4         timechange_0.2.0   
- [37] httr_1.4.6          compiler_4.3.0      gargle_1.5.1       
- [40] proxy_0.4-27        intervals_0.15.3    remotes_2.4.2      
- [43] withr_2.5.0         DBI_1.1.3           pkgbuild_1.4.0     
- [46] openssl_2.0.6       rappdirs_0.3.3      sessioninfo_1.2.2  
- [49] tools_4.3.0         units_0.8-2         httpuv_1.6.9       
- [52] glue_1.6.2          callr_3.7.3         promises_1.2.0.1   
- [55] grid_4.3.0          generics_0.1.3      gtable_0.3.3       
- [58] tzdb_0.3.0          class_7.3-22        hms_1.1.3          
- [61] sp_1.6-0            xml2_1.3.4          utf8_1.2.3         
- [64] pillar_1.9.0        yulab.utils_0.0.6   later_1.3.1        
- [67] lattice_0.21-8      FNN_1.1.3.2         tidyselect_1.2.0   
- [70] rvcheck_0.2.1       miniUI_0.1.1.1      downlit_0.4.2      
- [73] knitr_1.43          gitcreds_0.1.2      svglite_2.1.1      
- [76] xfun_0.39           credentials_1.3.2   stringi_1.7.12     
- [79] yaml_2.3.7          evaluate_0.21       codetools_0.2-19   
- [82] tibble_3.2.1        BiocManager_1.30.20 cli_3.6.1          
- [85] xtable_1.8-4        systemfonts_1.0.4   munsell_0.5.0      
- [88] processx_3.8.1      spacetime_1.3-0     Rcpp_1.0.10        
- [91] gert_1.9.2          png_0.1-8           parallel_4.3.0     
- [94] ellipsis_0.3.2      prettyunits_1.1.1   profvis_0.3.8      
- [97] urlchecker_1.0.1    viridisLite_0.4.2   scales_1.2.1       
-[100] xts_0.13.1          e1071_1.7-13        purrr_1.0.1        
-[103] crayon_1.5.2        rlang_1.1.1         rvest_1.0.3        </code></pre>
-</div>
-</div>
-<section id="noaa-readme" class="level3">
-<h3 class="anchored" data-anchor-id="noaa-readme">NOAA README</h3>
-<p>This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.</p>
-</section>
-<section id="noaa-license" class="level3">
-<h3 class="anchored" data-anchor-id="noaa-license">NOAA License</h3>
-<p>Software code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.</p>
-
-
-</section>
 </section>
 
 </main> <!-- /main -->

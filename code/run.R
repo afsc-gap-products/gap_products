@@ -70,4 +70,4 @@ source(here::here("code","load_oracle.R"))
 
 dir_out <- paste0(getwd(), "/output/2023-06-26/") # Don't forget to change as needed!
 source(here::here("code", "website.R"))
-
+## Type `quarto render` in the terminal 

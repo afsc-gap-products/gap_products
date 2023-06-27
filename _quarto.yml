@@ -28,7 +28,7 @@ book:
       chapters: 
         - content/product_metadata.qmd
         - content/product_metadata_column.qmd
-    # - part: content/akfin_intro.qmd
+    - part: content/akfin_intro.qmd
     #   chapters: 
     #     - content/akfin_metadata.qmd
     #     - content/akfin-oracle-sql-r.qmd
@@ -39,8 +39,7 @@ book:
     #     - content/foss-api-r.qmd
     #     - content/foss-api-py.qmd
     #     - content/foss-oracle-r.qmd
-    - content/code.qmd
-    - content/adding-refs.qmd
+    - content/run-notes.qmd
     - content/references.qmd
     
        # - text: "FOSS Interactive Platform - Quick Start Guide"

@@ -8,22 +8,9 @@ title: Universal Column Metadata
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-# Metadata
-  
-## Column Metadata
-  
-```{r}
-# str0 <- readtext::readtext(file = here::here(dir_out,"metadata_column_comment.txt"))$text
-b <- RODBC::sqlQuery(channel = channel, 
-                     query = "SELECT table_name, comments 
-FROM all_tab_comments 
-WHERE owner = 'GAP_PRODUCTS' 
-ORDER BY table_name")
-b <- b$COMMENTS[b$TABLE_NAME == strsplit(x = "GAP_PRODUCTS.METADATA_COLUMN", split = ".", fixed = TRUE)[[1]][2]]
-str0 <- b$COMMENTS
-```
+# Universal Column Metadata
 
-Here are stock metadata that users can use to document their table columns. `r str0`
+Here are stock metadata that users can use to document their table columns. 
 
 ```{r metadata-column, echo = FALSE, eval = TRUE}
 
@@ -40,6 +27,5 @@ metadata_column0 <- RODBC::sqlQuery(
     "Oracle data type" = metadata_datatype,
     "Column description" = metadata_colname_desc)
 knitr::kable(metadata_column0, row.names = FALSE)
-# flextable::flextable(metadata_column0)
 ```
 
