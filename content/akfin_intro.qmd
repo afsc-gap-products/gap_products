@@ -1,0 +1,49 @@
+---
+title: AFSC RACE Groundfish Data for AKFIN
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+```
+
+## Data created in this repo
+
+```{r oracle-connect-1, echo = FALSE, eval = TRUE}
+if (file.exists("Z:/Projects/ConnectToOracle.R")) {
+    source("Z:/Projects/ConnectToOracle.R")
+    channel <- channel_products
+} else {
+  gapindex::get_connected()
+}
+```
+
+```{r table-locations, eval = TRUE, echo = FALSE}
+ # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
+
+akfin_views <- RODBC::sqlQuery(
+  channel = channel,
+  query = "SELECT 'Table' AS object_type, table_name
+FROM user_tables
+UNION ALL
+SELECT 'View', view_name
+FROM user_views;") %>% 
+  dplyr::filter(grepl(x = TABLE_NAME, pattern = "AKFIN_"))
+
+locations <- akfin_views$TABLE_NAME
+
+```
+
+```{r table-dl, eval = FALSE, echo = FALSE}
+for (i in 1:length(locations)) {
+  print(locations[i])
+  a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
+  write.csv(x = a, file = here::here("data", paste0(locations[i], ".csv")))
+}
+```
+
+```{r table-load, eval = TRUE, echo = FALSE}
+str00 <- print_table_metadata(channel, locations)
+```
+
+`r str00`
+

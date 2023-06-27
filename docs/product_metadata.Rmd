@@ -40,5 +40,3 @@ knitr::kable(metadata_column0, row.names = FALSE)
 # flextable::flextable(metadata_column0)
 ```
 
-```{r child-footer, child=here::here("docs","footer.Rmd")}
-```

@@ -1,0 +1,29 @@
+{
+  "index.qmd": {
+    "index.html": "14aca4aa"
+  },
+  "content/setup.qmd": {
+    "setup.html": "2457a603"
+  },
+  "content/add-content.qmd": {
+    "add-content.html": "70cce4c2"
+  },
+  "content/customizing.qmd": {
+    "customizing.html": "2ec2b28a"
+  },
+  "content/rendering.qmd": {
+    "rendering.html": "7815b55e"
+  },
+  "content/rmarkdown.Rmd": {
+    "rmarkdown.html": "89fce102"
+  },
+  "content/code.qmd": {
+    "code.html": "d640163c"
+  },
+  "content/adding-refs.qmd": {
+    "adding-refs.html": "a913d515"
+  },
+  "content/references.qmd": {
+    "references.html": "980f73d0"
+  }
+}

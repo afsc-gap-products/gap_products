@@ -84,9 +84,11 @@ write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.c
 
 If this file is too large, you can join catch and haul data. Pull the `RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH` and  `RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL` tables, which are much smaller, and combine the table locally yourself. 
 
-`r paste(readLines(con = paste0(dir_out, "JOIN_FOSS_CPUE_metadata_table.txt")), collapse="\n") `
 
-```{r oracle-data-size-join-catch, echo = FALSE}
+```{r oracle-data-size-join-catch, echo = FALSE, eval = FALSE}
+
+# <!-- `r paste(readLines(con = paste0(dir_out, "JOIN_FOSS_CPUE_metadata_table.txt")), collapse="\n") ` -->
+
 str0 <- paste0(
   "RACEBASE_FOSS.JOIN_FOSS_CPUE_CATCH: ", "
   rows: ", nrow(JOIN_FOSS_CPUE_CATCH), "
@@ -95,7 +97,7 @@ str0 <- paste0(
 cat(str0)
 ```
 
-```{r oracle-data-size-join-haul, echo = FALSE}
+```{r oracle-data-size-join-haul, echo = FALSE, eval = FALSE}
 str0 <- paste0(
   "RACEBASE_FOSS.JOIN_FOSS_CPUE_HAUL: ", "
   rows: ", nrow(JOIN_FOSS_CPUE_HAUL), "
@@ -135,3 +137,4 @@ tr[i].style.display = "none";
 }
 </script>
 ```
+

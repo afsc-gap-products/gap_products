@@ -1,8 +1,8 @@
 source('./code/functions.R')
 
-load(paste0(dir_out, "FOSS_CPUE_PRESONLY.RData"))
-load(paste0(dir_out, "FOSS_CPUE_JOIN.RData"))
-load(paste0(dir_out, "FOSS_CPUE_ZEROFILLED.RData"))
+# load(paste0(dir_out, "FOSS_CPUE_PRESONLY.RData"))
+# load(paste0(dir_out, "FOSS_CPUE_JOIN.RData"))
+# load(paste0(dir_out, "FOSS_CPUE_ZEROFILLED.RData"))
 
 # locations <- c(
 # "GAP_PRODUCTS.FOSS_CPUE_HAUL",

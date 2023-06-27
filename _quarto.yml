@@ -1,0 +1,103 @@
+project: 
+  type: book
+
+book: 
+  page-navigation: true
+  title: "GAP Production Data Documentation" 
+  site-url: "https://afsc-gap-products.github.io/gap_products" 
+  repo-url: "https://github.com/afsc-gap-products/gap_products"
+  repo-actions: [edit, source, issue]
+  favicon: favicon.ico/favicon.png
+  downloads: [pdf, docx]
+  search: true
+  author:
+    - name: Emily Markowitz
+      orcid: 0000-0001-5757-4230
+      email: emily.markowitz@noaa.gov    
+      affiliations:
+        - name: NOAA Fisheres Alaska Fisheries Science Center
+          department: Groundfish Assessment Program, Bering Sea Survey Team
+    - name: Zack Oyafuso
+      email: zack.oyafuso@noaa.gov    
+      affiliations:
+        - name: NOAA Fisheries Alaska Fisheries Science Center
+          department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
+  chapters:
+    - index.qmd
+    - part: content/product_intro.qmd
+      chapters: 
+        - content/product_metadata.qmd
+    - part: content/akfin_intro.qmd
+      chapters: 
+        - content/akfin_metadata.qmd
+        - content/akfin-oracle-sql-r.qmd
+    - part: content/foss_intro.qmd
+      chapters: 
+        - content/foss_metadata.qmd
+        - content/foss-platform.qmd
+        - content/foss-api-r.qmd
+        - content/foss-api-py.qmd
+        - content/foss-oracle-r.qmd
+    - content/code.qmd
+    - content/adding-refs.qmd
+    - content/references.qmd
+    
+       # - text: "FOSS Interactive Platform - Quick Start Guide"
+       #   href: foss-platform.html
+       # - text: "Use API with R"
+       #   href: foss-api-r.html
+       # - text: "Use API with Python {afscgap} library"
+       #   href: foss-api-py.html
+       # - text: "Use AFSC Oracle"
+       #   href: foss-oracle-r.html
+
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; CC-1.0"
+  
+  sidebar:
+    background: "#D9E3E4"
+    logo: "https://avatars.githubusercontent.com/u/91760178?s=96&amp;v=4"
+    favicon: img/favicon.ico
+    pinned: true
+    align: center
+    tools: 
+      - icon: globe
+        href: https://nmfs-opensci.github.io
+        text: "NMFS Open Science"
+    style: "docked"
+    search: true
+    collapse-level: 1
+
+# bibliography: [content/references.bib]
+# bibliography: https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib
+# csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl
+
+execute:
+  echo: false
+  code-overflow: wrap
+
+format:
+  titlepage-pdf:
+    documentclass: scrbook
+    classoption: ["oneside", "open=any"]
+    titlepage: "plain"
+    keep-tex: true
+  docx:
+    toc: true
+    toc-depth: 2
+    reference-doc: template.docx
+    always_allow_html: true
+  html:
+    theme: [cosmo, assets/theme.scss] 
+    toc: true
+    toc-depth: 3
+
+filters:
+  - assets/include-files.lua
+  - quarto
+
+# Comment next 2 lines if the PDF is having trouble
+metadata-files:
+  - _frontmatter.yml
+ 

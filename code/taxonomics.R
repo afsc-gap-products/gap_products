@@ -17,7 +17,7 @@
 
 ### Load taxon confidence data -------------------------------------------------
 
-taxon_confidence <- data.frame()
+TAXON_CONFIDENCE <- data.frame()
 a <- list.files(path = paste0("./data/TAXON_CONFIDENCE/"))
 for (i in 1:length(a)){
   print(a[i])
@@ -32,7 +32,7 @@ for (i in 1:length(a)){
   b <- b %>% 
     tidyr::pivot_longer(cols = starts_with("x"), 
                         names_to = "year", 
-                        values_to = "taxon_confidence") %>% 
+                        values_to = "TAXON_CONFIDENCE") %>% 
     dplyr::mutate(year = gsub(pattern = "[a-z]", 
                               replacement = "", 
                               x = year), 
@@ -42,7 +42,7 @@ for (i in 1:length(a)){
     dplyr::distinct()
   
   cc <- strsplit(x = gsub(x = gsub(x = a[i], 
-                                   pattern = "Taxon_confidence_", replacement = ""), 
+                                   pattern = "TAXON_CONFIDENCE_", replacement = ""), 
                           pattern = ".xlsx", 
                           replacement = ""), 
                  split = "_")[[1]]
@@ -58,16 +58,16 @@ for (i in 1:length(a)){
     }
     b<-bb
   }
-  taxon_confidence <- taxon_confidence %>% 
+  TAXON_CONFIDENCE <- TAXON_CONFIDENCE %>% 
     dplyr::bind_rows(b)
 }
 
-taxon_confidence <- taxon_confidence %>% 
-  dplyr::mutate(taxon_confidence_code = taxon_confidence#, 
-                # taxon_confidence = dplyr::case_when(
-                #   taxon_confidence_code == 1 ~ "High",
-                #   taxon_confidence_code == 2 ~ "Moderate",
-                #   taxon_confidence_code == 3 ~ "Low", 
+TAXON_CONFIDENCE <- TAXON_CONFIDENCE %>% 
+  dplyr::mutate(TAXON_CONFIDENCE_code = TAXON_CONFIDENCE#, 
+                #TAXON_CONFIDENCE = dplyr::case_when(
+                #   TAXON_CONFIDENCE_code == 1 ~ "High",
+                #   TAXON_CONFIDENCE_code == 2 ~ "Moderate",
+                #   TAXON_CONFIDENCE_code == 3 ~ "Low", 
                 #   TRUE ~ "Unassessed")
   ) %>%
   dplyr::left_join(y = 
@@ -76,9 +76,8 @@ taxon_confidence <- taxon_confidence %>%
                    by = "SRVY") %>% 
   dplyr::select(-scientific_name, -common_name, -SRVY)
 
-### fill in taxon_confidence with, if missing, the values from the year before ----
+### fill in TAXON_CONFIDENCE with, if missing, the values from the year before
 
-source("Z:/Projects/ConnectToOracle.R")
 cruises <- RODBC::sqlQuery(channel = channel_products, "SELECT * FROM RACE_DATA.V_CRUISES") %>% 
   janitor::clean_names() %>% 
   dplyr::filter(survey_definition_id %in% c(143, 98, 47, 52, 78) & 
@@ -87,20 +86,20 @@ cruises <- RODBC::sqlQuery(channel = channel_products, "SELECT * FROM RACE_DATA.
 # write.csv(x = cruises, file = "RACE_DATA.V_CRUISES.csv")
 
 comb1 <- unique(cruises[, c("survey_definition_id", "year")] )
-comb2 <- unique(taxon_confidence[, c("survey_definition_id", "year")])
+comb2 <- unique(TAXON_CONFIDENCE[, c("survey_definition_id", "year")])
 comb1$comb <- paste0(comb1$survey_definition_id, "_", comb1$year)
 comb2$comb <- paste0(comb2$survey_definition_id, "_", comb2$year)
 comb <- strsplit(x = setdiff(comb1$comb, comb2$comb), split = "_")
 
-NEW_taxon_confidence <- dplyr::bind_rows(
-  taxon_confidence, 
-  taxon_confidence %>% 
+NEW_TAXON_CONFIDENCE <- dplyr::bind_rows(
+  TAXON_CONFIDENCE, 
+  TAXON_CONFIDENCE %>% 
     dplyr::filter(
       survey_definition_id %in% sapply(comb,"[[",1) &
         year == 2021) %>% 
     dplyr::mutate(year = 2022))  
 
-NEW_taxon_confidence_comment <- paste0(
+NEW_TAXON_CONFIDENCE_COMMENT <- paste0(
   "The quality and specificity of field identifications for many taxa have 
     fluctuated over the history of the surveys due to changing priorities and resources. 
     The matrix lists a confidence level for each taxon for each survey year 
@@ -131,7 +130,7 @@ NEW_TAXONOMICS_WORMS <- readr::read_csv(file = here::here("data", "/taxonomy_wor
                 database = ifelse(database == "ITIS", NA, database), 
                 database = ifelse(is.na(database_id), NA, database))
 
-NEW_TAXONOMICS_WORMS_comment <- paste0(
+NEW_TAXONOMICS_WORMS_COMMENT <- paste0(
   "This dataset includes an identification catalog for all species caught in GAP surveys. ", 
   "These taxonomic tables are cross-referenced with the World Register of Marine Species (https://www.marinespecies.org) and compiled by ", 
   metadata_sentence_survey_institution, " ", 
@@ -147,7 +146,7 @@ NEW_TAXONOMICS_ITIS <- readr::read_csv(file = here::here("data", "/2023_taxonomy
                 database = ifelse(database == "WORMS", NA, database), 
                 database = ifelse(is.na(database_id), NA, database))
 
-NEW_TAXONOMICS_ITIS_comment <- paste0(
+NEW_TAXONOMICS_ITIS_COMMENT <- paste0(
   "This dataset includes an identification catalog for all species caught in GAP surveys. ", 
   "These taxonomic tables are cross-referenced with the Integrated Taxonomic Information System (https://www.itis.gov/) and compiled by ", 
   metadata_sentence_survey_institution, " ",  

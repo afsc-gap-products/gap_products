@@ -20,7 +20,7 @@ googledrive::drive_download(
 
 ## Table -----------------------------------------------------------------------
 
-NEW_metadata_table <- metadata_table <- readxl::read_xlsx(
+NEW_METADATA_TABLE <- metadata_table <- readxl::read_xlsx(
   path = here::here("data", "future_oracle.xlsx"), 
   sheet = "METADATA_TABLE") %>%
   janitor::clean_names() %>% 
@@ -38,11 +38,11 @@ temp <- paste0(
   metadata_table$metadata_sentence[metadata_table$metadata_sentence_name == "legal_restrict_none"], " ", 
   metadata_table$metadata_sentence[metadata_table$metadata_sentence_name == "codebook"], " ")
 
-NEW_metadata_table_comment <- paste0("These column provide the column metadata for all GAP oracle tables. ", temp)
+NEW_METADATA_TABLE_COMMENT <- paste0("These column provide the column metadata for all GAP oracle tables. ", temp)
 
 ## Column ----------------------------------------------------------------------
 
-NEW_metadata_column <- readxl::read_xlsx(
+NEW_METADATA_COLUMN <- readxl::read_xlsx(
   path = here::here("data", "future_oracle.xlsx"), 
   sheet = "METADATA_COLUMN", 
   skip = 1) %>%
@@ -56,13 +56,13 @@ NEW_metadata_column <- readxl::read_xlsx(
     metadata_colname_desc = gsub(pattern = "  ", replacement = " ", x = metadata_colname_desc, fixed = TRUE), 
     metadata_colname_desc = gsub(pattern = "..", replacement = ".", x = metadata_colname_desc, fixed = TRUE))
 
-NEW_metadata_column_comment <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)
+NEW_METADATA_COLUMN_COMMENT <- paste0("These tables provide the column metadata for all GAP oracle tables. ", temp)
 
 # Make metadata sentences for this repo ----------------------------------------
 
-for (i in 1:nrow(NEW_metadata_table)){
-  assign(x = paste0("metadata_sentence_", NEW_metadata_table$metadata_sentence_name[i]), 
-         value = NEW_metadata_table$metadata_sentence[i])
+for (i in 1:nrow(NEW_METADATA_TABLE)){
+  assign(x = paste0("metadata_sentence_", NEW_METADATA_TABLE$metadata_sentence_name[i]), 
+         value = NEW_METADATA_TABLE$metadata_sentence[i])
 }
 
 metadata_sentence_github <- gsub(
@@ -74,3 +74,7 @@ metadata_sentence_last_updated <- gsub(
   x = metadata_sentence_last_updated, 
   pattern = "INSERT_DATE", 
   replacement = pretty_date)
+
+
+metadata_column <- NEW_METADATA_COLUMN
+names(metadata_column) <- gsub(pattern = "metadata_", replacement = "", x = names(metadata_column))

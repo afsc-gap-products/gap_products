@@ -9,7 +9,7 @@ navbar:
   repository_url: https://github.com/afsc-gap-products/gap_products
   source_url: true
   right:
-    - text: "GAP_PRODUCTS Vignettes"
+    - text: "GAP_PRODUCTS"
       menu: 
        - text: "General information"
          href: product_intro.html
@@ -17,7 +17,15 @@ navbar:
          href: product_metadata.html
        - text: "Use AFSC Oracle with SQL and R"
          href: product-oracle-sql-r.html
-    - text: "FOSS Vignettes"
+    - text: "AKFIN"
+      menu: 
+       - text: "General information"
+         href: akfin_intro.html
+       - text: "Metadata"
+         href: akfin_metadata.html
+       - text: "Use AFSC Oracle with SQL and R"
+         href: akfin-oracle-sql-r.html
+    - text: "FOSS"
       menu: 
        - text: "General information"
          href: foss_intro.html

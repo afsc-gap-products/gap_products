@@ -43,10 +43,6 @@ pretty_date <- format(Sys.Date(), "%B %d, %Y")
 source(here::here("code","metadata.R")) 
 # source(here::here("code","metadata_current.R")) 
 
-## FOSS Tables -----------------------------------------------------------------
-
-source(here::here("code", "foss.R"))
-
 ## Taxonomic Tables -----------------------------------------------------------
 
 # Check with Sarah - maybe we should post this, or maybe she wants to be responsible for this?
@@ -56,10 +52,19 @@ source(here::here("code", "taxonomics.R"))
 
 # @Zack, reformat: 
 # How do we want to deal with stratum/stratum_groupings/area tables/survey_design?
+# should we remove crab data? Question for Alix? 
 if (FALSE) {
- source("https://github.com/afsc-gap-products/gapindex/blob/master/code_testing/production.R")
- source(here::here("code", "production.R")) # some suggested fixes in here
+  source("https://github.com/afsc-gap-products/gapindex/blob/master/code_testing/production.R")
+  source(here::here("code", "production.R")) # some suggested fixes in here
 }
+
+## FOSS Tables -----------------------------------------------------------------
+
+source(here::here("code", "foss.R"))
+
+## AKFIN Tables -----------------------------------------------------------------
+
+source(here::here("code", "akfin.R"))
 
 # Upload tables to GAP_PRODUCTS -----------------------------------------------
 
@@ -67,6 +72,6 @@ source(here::here("code","load_oracle.R"))
 
 # Save README and other documentation ------------------------------------------
 
-dir_out <- paste0(getwd(), "/output/2023-06-23/") # Don't forget to change as needed!
+dir_out <- paste0(getwd(), "/output/2023-06-26/") # Don't forget to change as needed!
 source(here::here("code", "website.R"))
 

@@ -1,0 +1,22 @@
+---
+title: AFSC RACE Groundfish Data for AKFIN Metadata
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+library(dplyr)
+library(magrittr)
+```
+
+# Metadata
+
+## Data description (short)
+
+*In development*
+
+## Data description (long)
+
+*In development*
+
+
+
