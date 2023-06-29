@@ -105,7 +105,7 @@ akfin_views$metadata_table[akfin_views$TABLE_NAME == "AKFIN_SURVEY_DESIGN"] <-
 
 for (ii in 1:nrow(akfin_views)) {
   metadata_table <- fix_metadata_table(
-    metadata_table0 = akfin_views$metadata_table,
+    metadata_table0 = akfin_views$metadata_table[[i]],
     name0 = akfin_views$TABLE_NAME[ii],
     dir_out = dir_out)
   

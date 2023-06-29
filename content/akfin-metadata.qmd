@@ -5,18 +5,36 @@ title: AFSC RACE Groundfish Data for AKFIN Metadata
 ```{r setup, include=FALSE}
 #| file: ../code/functions.R
 
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Metadata
 
-## Data description (short)
-
-*In development*
-
-## Data description (long)
+## Data description
 
 *In development*
 
 
+## Data created in this repo
 
+```{r table-locations, eval = TRUE, echo = FALSE}
+ # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
+akfin_views <- RODBC::sqlQuery(
+  channel = channel,
+  query = "SELECT 'Table' AS object_type, table_name
+FROM user_tables
+UNION ALL
+SELECT 'View', view_name
+FROM user_views;") %>% 
+  dplyr::filter(grepl(x = TABLE_NAME, pattern = "AKFIN_"))
+
+locations <- akfin_views$TABLE_NAME
+
+# str00 <- print_table_metadata(channel, locations)
+# <!-- `r str00` -->
+```
+
+
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```

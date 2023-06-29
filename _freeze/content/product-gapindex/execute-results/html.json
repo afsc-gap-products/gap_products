@@ -1,0 +1,14 @@
+{
+  "hash": "7f4446142c5cb6a0556648fc2f252002",
+  "result": {
+    "markdown": "---\ntitle: GAP Production Data - Created using {gapindex}\n---\n\n\n\n\n# Our production data is created using the {gapindex} R package. \n\n\n::: {.cell}\n\n:::\n\n\n[Insert info and examples from {gapindex}]\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

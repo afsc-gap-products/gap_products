@@ -4,8 +4,6 @@ title: Access public data using R in Oracle
 
 ```{r setup, include=FALSE}
 #| file: ../code/functions.R
-
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
 ## Access data via Oracle (AFSC only)
@@ -86,5 +84,7 @@ AND YEAR < 2021")
 write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv")
 ```
 
-
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```
 

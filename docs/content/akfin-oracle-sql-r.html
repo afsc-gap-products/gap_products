@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>GAP Production Data Documentation - 7&nbsp; AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/foss-intro.html" rel="next">
+<link href="../content/akfin-metadata.html" rel="prev">
+<link href="../favicon.ico/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AFSC RACE Groundfish Data for AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-oracle-sql-r.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R'</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">GAP Production Data Documentation</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.docx">
+              <i class="bi bi-bi-file-word pe-1"></i>
+            Download Docx
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/contact-us.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Contact-us</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish Survey Production Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">GAP Production Data Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-gapindex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">GAP Production Data - Created using {gapindex}</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/akfin-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish Data for AKFIN</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/foss-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish and Shellfish Survey Public Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GAP FOSS Column Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Access public data using the FOSS Interactive Platform</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Access public data using the API and R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data using the API and Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access public data using R in Oracle</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/run-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#access-data-via-oracle-afsc-only" id="toc-access-data-via-oracle-afsc-only" class="nav-link active" data-scroll-target="#access-data-via-oracle-afsc-only"><span class="header-section-number">7.1</span> Access data via Oracle (AFSC only)</a>
+  <ul class="collapse">
+  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">7.1.1</span> Connect to Oracle from R</a></li>
+  </ul></li>
+  <li><a href="#connect-to-oracle-from-r-1" id="toc-connect-to-oracle-from-r-1" class="nav-link" data-scroll-target="#connect-to-oracle-from-r-1"><span class="header-section-number">8</span> Connect to Oracle from R</a>
+  <ul class="collapse">
+  <li><a href="#access-data-via-oracle" id="toc-access-data-via-oracle" class="nav-link" data-scroll-target="#access-data-via-oracle"><span class="header-section-number">8.1</span> Access data via Oracle</a>
+  <ul class="collapse">
+  <li><a href="#connect-to-oracle-from-r-2" id="toc-connect-to-oracle-from-r-2" class="nav-link" data-scroll-target="#connect-to-oracle-from-r-2"><span class="header-section-number">8.1.1</span> Connect to Oracle from R</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-sql-query-examples" id="toc-data-sql-query-examples" class="nav-link" data-scroll-target="#data-sql-query-examples"><span class="header-section-number">9</span> Data SQL Query Examples:</a>
+  <ul class="collapse">
+  <li><a href="#ex.-0-select-all-data-from-a-table" id="toc-ex.-0-select-all-data-from-a-table" class="nav-link" data-scroll-target="#ex.-0-select-all-data-from-a-table"><span class="header-section-number">9.0.1</span> Ex. 0: Select all data from a table</a></li>
+  <li><a href="#ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" id="toc-ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" class="nav-link" data-scroll-target="#ex.-1-goa-pacific-ocean-perch-biomass-and-abundance"><span class="header-section-number">9.0.2</span> Ex. 1: GOA Pacific Ocean perch biomass and abundance</a></li>
+  <li><a href="#ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" id="toc-ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" class="nav-link" data-scroll-target="#ex.-2-ai-rock-sole-size-compositions-and-ridge-plot"><span class="header-section-number">9.0.3</span> Ex. 2: AI Rock sole size compositions and ridge plot</a></li>
+  <li><a href="#ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" id="toc-ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" class="nav-link" data-scroll-target="#ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid"><span class="header-section-number">9.0.4</span> Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid</a></li>
+  <li><a href="#ex.-4-nbs-pacific-cod-biomass-and-abundance" id="toc-ex.-4-nbs-pacific-cod-biomass-and-abundance" class="nav-link" data-scroll-target="#ex.-4-nbs-pacific-cod-biomass-and-abundance"><span class="header-section-number">9.0.5</span> Ex. 4: NBS Pacific cod biomass and abundance</a></li>
+  <li><a href="#ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" id="toc-ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" class="nav-link" data-scroll-target="#ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot"><span class="header-section-number">9.0.6</span> Ex. 5: GOA Pacific Ocean perch biomass and line plot</a></li>
+  <li><a href="#ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" id="toc-ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" class="nav-link" data-scroll-target="#ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map"><span class="header-section-number">9.0.7</span> Ex. 6: EBS Pacific Ocean perch CPUE and <code>akgfmaps</code> map</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/akfin-oracle-sql-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/akfin-oracle-sql-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="access-data-via-oracle-afsc-only" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="access-data-via-oracle-afsc-only"><span class="header-section-number">7.1</span> Access data via Oracle (AFSC only)</h2>
+<p>AFSC <code>Oracle</code> users can access the database via <code>SQL developer</code> to view and pull the production data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
+<section id="connect-to-oracle-from-r" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">7.1.1</span> Connect to Oracle from R</h3>
+<p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
+<p>Here, the user can write in their username and password directly into the <code>RODBC</code> connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
+</section>
+</section>
+<section id="connect-to-oracle-from-r-1" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Connect to Oracle from R</h1>
+<section id="access-data-via-oracle" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="access-data-via-oracle"><span class="header-section-number">8.1</span> Access data via Oracle</h2>
+<p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the GAP Products data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
+<section id="connect-to-oracle-from-r-2" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="connect-to-oracle-from-r-2"><span class="header-section-number">8.1.1</span> Connect to Oracle from R</h3>
+<p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
+<p>Here, the user can establish the oracle connection by entering their username and password in the <code>channel &lt;- gapindex::oracle_connect()</code> function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
+</section>
+</section>
+</section>
+<section id="data-sql-query-examples" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Data SQL Query Examples:</h1>
+<section id="ex.-0-select-all-data-from-a-table" class="level3" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="ex.-0-select-all-data-from-a-table"><span class="header-section-number">9.0.1</span> Ex. 0: Select all data from a table</h3>
+<p>You can download all of the tables locally using a variation of the code below. Once connected, pull and save the tables of interest into the <code>R</code> environment.</p>
+</section>
+<section id="ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" class="level3" data-number="9.0.2">
+<h3 data-number="9.0.2" class="anchored" data-anchor-id="ex.-1-goa-pacific-ocean-perch-biomass-and-abundance"><span class="header-section-number">9.0.2</span> Ex. 1: GOA Pacific Ocean perch biomass and abundance</h3>
+<p>Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western/central/eastern GOA management areas as well as for the entire region.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-3caf3544{}.cl-3ca25478{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3ca795dc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3ca795e6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3ca7b6d4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6de{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6df{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6e8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6e9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6ea{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-3caf3544"><caption><p>Ex. 1: GOA Pacific Ocean perch biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-3ca7b6d4"><p class="cl-3ca795dc"><span class="cl-3ca25478">BIOMASS_MT</span></p></th><th class="cl-3ca7b6d4"><p class="cl-3ca795dc"><span class="cl-3ca25478">POPULATION_COUNT</span></p></th><th class="cl-3ca7b6d4"><p class="cl-3ca795dc"><span class="cl-3ca25478">YEAR</span></p></th><th class="cl-3ca7b6de"><p class="cl-3ca795e6"><span class="cl-3ca25478">DESCRIPTION</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">220,910.5</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">471,190,743</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,984</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">241,438.2</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">482,466,826</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,987</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">157,295.1</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">317,129,408</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,990</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">483,622.6</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">833,902,161</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,993</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">771,412.8</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,252,616,603</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,996</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6e9"><p class="cl-3ca795dc"><span class="cl-3ca25478">727,063.5</span></p></td><td class="cl-3ca7b6e9"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,212,034,913</span></p></td><td class="cl-3ca7b6e9"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,999</span></p></td><td class="cl-3ca7b6ea"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'scales'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:readr':
+
+    col_factor</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:terra':
+
+    rescale</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="akfin-oracle-sql-r_files/figure-html/test-1-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Ex. 1: GOA Pacific Ocean perch biomass and abundance.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" class="level3" data-number="9.0.3">
+<h3 data-number="9.0.3" class="anchored" data-anchor-id="ex.-2-ai-rock-sole-size-compositions-and-ridge-plot"><span class="header-section-number">9.0.3</span> Ex. 2: AI Rock sole size compositions and ridge plot</h3>
+<p>Northern and Southern rock sole size composition data from 1991 – 2022 for the Aleutian Islands, with Ridge plot from <a href="https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html"><code>ggridges</code></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-3f6a7974{}.cl-3f57fd3a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3f5f986a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3f5fcd62{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3f5fcd6c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3f5fcd76{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-3f6a7974"><caption><p>Ex. 2: AI Rock sole size compositions and ridge plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-3f5fcd62"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">LENGTH_MM</span></p></th><th class="cl-3f5fcd62"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">YEAR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">110</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">130</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">140</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">150</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">160</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd76"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">170</span></p></td><td class="cl-3f5fcd76"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `stat(x)` was deprecated in ggplot2 3.4.0.
+ℹ Please use `after_stat(x)` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Picking joint bandwidth of 3.65</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="akfin-oracle-sql-r_files/figure-html/test-2-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Ex. 2: AI Rock sole size compositions and ridge plot.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" class="level3" data-number="9.0.4">
+<h3 data-number="9.0.4" class="anchored" data-anchor-id="ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid"><span class="header-section-number">9.0.4</span> Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid</h3>
+<p>Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and the EBS + NW Area from 1987 – 2022, with age pyramid plot.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-41435a04{}.cl-41242440{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4130b2dc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4130eae0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4130eaf4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4130eafe{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-41435a04"><caption><p>Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-4130eae0"><p class="cl-4130b2dc"><span class="cl-41242440">AGE</span></p></th><th class="cl-4130eae0"><p class="cl-4130b2dc"><span class="cl-41242440">POPULATION_COUNT</span></p></th><th class="cl-4130eae0"><p class="cl-4130b2dc"><span class="cl-41242440">SEX</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">137,398,782</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">2</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1,040,787,296</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">3</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1,183,060,368</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">4</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1,661,729,359</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">5</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">507,355,476</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eafe"><p class="cl-4130b2dc"><span class="cl-41242440">6</span></p></td><td class="cl-4130eafe"><p class="cl-4130b2dc"><span class="cl-41242440">70,450,613</span></p></td><td class="cl-4130eafe"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="akfin-oracle-sql-r_files/figure-html/test-3-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ex.-4-nbs-pacific-cod-biomass-and-abundance" class="level3" data-number="9.0.5">
+<h3 data-number="9.0.5" class="anchored" data-anchor-id="ex.-4-nbs-pacific-cod-biomass-and-abundance"><span class="header-section-number">9.0.5</span> Ex. 4: NBS Pacific cod biomass and abundance</h3>
+<p>Pacific cod biomass and abundance data for the NBS by stratum.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-42edfae4{}.cl-42d349f6{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-42de4216{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-42de422a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-42de671e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de6728{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de6732{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de6733{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de673c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de673d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-42edfae4"><caption><p>Ex. 4: NBS Pacific cod biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-42de671e"><p class="cl-42de4216"><span class="cl-42d349f6">BIOMASS_MT</span></p></th><th class="cl-42de671e"><p class="cl-42de4216"><span class="cl-42d349f6">POPULATION_COUNT</span></p></th><th class="cl-42de671e"><p class="cl-42de4216"><span class="cl-42d349f6">YEAR</span></p></th><th class="cl-42de6728"><p class="cl-42de422a"><span class="cl-42d349f6">AREA_NAME</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">7,462.559</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">4,724,153</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,010</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">132,490.152</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">66,187,245</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,017</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">107,096.730</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">102,734,142</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,019</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">95,849.983</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">68,767,498</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,021</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">96,500.697</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">60,433,135</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,022</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de673c"><p class="cl-42de4216"><span class="cl-42d349f6">20,983.376</span></p></td><td class="cl-42de673c"><p class="cl-42de4216"><span class="cl-42d349f6">3,928,600</span></p></td><td class="cl-42de673c"><p class="cl-42de4216"><span class="cl-42d349f6">2,010</span></p></td><td class="cl-42de673d"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="akfin-oracle-sql-r_files/figure-html/test-4-fig-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Ex. 4: NBS Pacific cod biomass and abundance.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" class="level3" data-number="9.0.6">
+<h3 data-number="9.0.6" class="anchored" data-anchor-id="ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot"><span class="header-section-number">9.0.6</span> Ex. 5: GOA Pacific Ocean perch biomass and line plot</h3>
+<p>Pacific Ocean perch biomass totals for GOA between 1984-2021 from <code>GAP_PRODUCTS.AKFIN_BIOMASS</code></p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-4421a5d2{}.cl-43fe8bba{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-440c1a32{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-440c8580{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-440c859e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-440c859f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-4421a5d2"><caption><p>Ex. 5: GOA Pacific Ocean perch biomass and line plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-440c8580"><p class="cl-440c1a32"><span class="cl-43fe8bba">survey_definition_id</span></p></th><th class="cl-440c8580"><p class="cl-440c1a32"><span class="cl-43fe8bba">biomass_mt</span></p></th><th class="cl-440c8580"><p class="cl-440c1a32"><span class="cl-43fe8bba">year</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">220.9105</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,984</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">241.4382</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,987</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">157.2951</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,990</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">483.6226</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,993</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">771.4128</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,996</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859f"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859f"><p class="cl-440c1a32"><span class="cl-43fe8bba">727.0635</span></p></td><td class="cl-440c859f"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,999</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="akfin-oracle-sql-r_files/figure-html/test-5-fig-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Ex. 5: GOA Pacific Ocean perch biomass and line plot.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" class="level3" data-number="9.0.7">
+<h3 data-number="9.0.7" class="anchored" data-anchor-id="ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map"><span class="header-section-number">9.0.7</span> Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a> map</h3>
+<p>Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from <code>GAP_PRODUCTS.AKFIN_CPUE</code> and map constructed using <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>. Here, we’ll use AKFIN HAUL and CRUISES data also included in this repo, for convenience, though they are very similar to their <code>RACEBASE</code> analogs.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-4d7cdeda{}.cl-4d6a9c16{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4d7145b6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4d716da2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4d716dac{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4d716db6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-4d7cdeda"><caption><p>Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>
+map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-4d716da2"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">CPUE_KGHA</span></p></th><th class="cl-4d716da2"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">LATITUDE</span></p></th><th class="cl-4d716da2"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">LONGITUDE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">56.66721</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.7800</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">56.98080</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.6926</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">56.97832</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.1519</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">57.31992</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.0614</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">57.32157</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-158.3811</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716db6"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716db6"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">57.65189</span></p></td><td class="cl-4d716db6"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-158.3673</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
+all geometries</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[inverse distance weighted interpolation]
+[inverse distance weighted interpolation]</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1406 rows containing missing values (`geom_raster()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="akfin-oracle-sql-r_files/figure-html/test-6-fig-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a> map.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/akfin-metadata.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN Metadata</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../content/foss-intro.html" class="pagination-link">
+        <span class="nav-page-text">AFSC RACE Groundfish and Shellfish Survey Public Data</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-1.0</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>

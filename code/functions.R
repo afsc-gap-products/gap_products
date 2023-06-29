@@ -40,30 +40,6 @@ link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
 link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
 pretty_date <- format(Sys.Date(), "%B %d, %Y")
 
-# Set output directory ---------------------------------------------------------
-
-dir_out <- paste0(getwd(), "/output/", Sys.Date(),"/")
-dir.create(dir_out)
-dir_data <- paste0(getwd(), "/data/")
-
-# Save scripts from each run to output -----------------------------------------
-# Just for safe keeping
-
-dir.create(paste0(dir_out, "/code/"))
-listfiles<-list.files(path = paste0("./code/"))
-listfiles0<-c(listfiles[grepl(pattern = "\\.r",
-                              x = listfiles, ignore.case = T)],
-              listfiles[grepl(pattern = "\\.rmd",
-                              x = listfiles, ignore.case = T)])
-listfiles0<-listfiles0[!(grepl(pattern = "~",ignore.case = T, x = listfiles0))]
-
-for (i in 1:length(listfiles0)){
-  file.copy(from = paste0("./code/", listfiles0[i]),
-            to = paste0(dir_out, "/code/", listfiles0[i]),
-            overwrite = T)
-}
-
-
 # Functions --------------------------------------------------------------------
 
 fix_metadata_table <- function(metadata_table0, name0, dir_out) {
@@ -91,8 +67,10 @@ update_metadata <- function(
     share_with_all_users = TRUE) {
   
   cat("Updating Metadata ...\n")
+  
   ## Add column metadata 
   if (nrow(x = metadata_column) > 0) {
+    
     for (i in 1:nrow(x = metadata_column)) {
       
       desc <- gsub(pattern = "<sup>2</sup>",

@@ -5,7 +5,7 @@ title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R'
 ```{r setup, include=FALSE}
 #| file: ../code/functions.R
 
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
 ## Access data via Oracle (AFSC only)
@@ -36,7 +36,10 @@ Here, the user can establish the oracle connection by entering their username an
 
 You can download all of the tables locally using a variation of the code below. Once connected, pull and save the tables of interest into the `R` environment. 
 
-```{r sql-0, eval = FALSE}
+```{r}
+#| label: test-0
+#| eval: false
+
 locations <- c(
   "GAP_PRODUCTS.AKFIN_AGECOMP", 
   "GAP_PRODUCTS.AKFIN_AREA", 
@@ -65,26 +68,31 @@ for (i in 1:length(locations)) {
 
 Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western/central/eastern GOA management areas as well as for the entire region. 
 
-```{r sql-1}
+```{r}
+#| label: test-1
+
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
 "WITH FILTERED_STRATA AS (
-SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AKFIN_AKFIN_AREA
-WHERE TYPE in ('REGULATORY AREA', 'REGION') 
+SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AKFIN_AREA
+WHERE TYPE in ('REGULATORY_AREA', 'REGION') 
 AND SURVEY_DEFINITION_ID = 47)
 SELECT 
 BIOMASS_MT,
 POPULATION_COUNT, 
 YEAR, 
 DESCRIPTION
-FROM GAP_PRODUCTS.AKFIN_AKFIN_BIOMASS BIOMASS
+FROM GAP_PRODUCTS.AKFIN_BIOMASS BIOMASS
 JOIN FILTERED_STRATA STRATA 
 ON STRATA.AREA_ID = BIOMASS.AREA_ID
 WHERE BIOMASS.SURVEY_DEFINITION_ID IN 47 
 AND BIOMASS.SPECIES_CODE = 30060")
 ```
 
-```{r sql-1-plot}
+```{r}
+#| label: test-1-tbl
+#| tbl-cap: "Ex. 1: GOA Pacific Ocean perch biomass and abundance. "
+
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
   dplyr::select(biomass_mt, population_count, year, area = description) %>%
@@ -100,6 +108,13 @@ dat0 <- dat %>%
   dplyr::arrange(type) %>% 
   dplyr::mutate(
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
+
+flextable::flextable(head(dat))
+```
+
+```{r}
+#| label: test-1-plot
+#| fig-cap: "Ex. 1: GOA Pacific Ocean perch biomass and abundance. "
 
 # install.packages("scales")
 library(scales)
@@ -117,7 +132,6 @@ figure <- ggplot2::ggplot(
   ggplot2::theme(legend.direction = "horizontal", 
                  legend.position = "bottom")
 
-flextable::flextable(head(dat))
 figure
 ```
 
@@ -125,7 +139,9 @@ figure
 
 Northern and Southern rock sole size composition data from 1991 – 2022 for the Aleutian Islands, with Ridge plot from [`ggridges`](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html).
 
-```{r sql-2}
+```{r}
+#| label: test-2
+
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
 "WITH FILTERED_STRATA AS (
@@ -145,10 +161,21 @@ WHERE SIZECOMP.SURVEY_DEFINITION_ID IN 52
 AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
 ```
 
-```{r sql-2-plot}
+```{r}
+#| label: test-2-tbl
+#| tbl-cap: "Ex. 2: AI Rock sole size compositions and ridge plot. "
+
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
   dplyr::mutate(length_cm = length_mm/10)
+flextable::flextable(head(dat))
+
+```
+
+
+```{r}
+#| label: test-2-plot
+#| fig-cap: "Ex. 2: AI Rock sole size compositions and ridge plot. "
 
 # install.packages("ggridges")
 library(ggridges)
@@ -163,7 +190,6 @@ figure <-
   # ggplot2::scale_fill_grey() +
   ggplot2::labs(title = 'AI Rock sole Size Compositions 1991 – 2022') 
 
-flextable::flextable(head(dat))
 figure
 ```
 
@@ -171,7 +197,9 @@ figure
 
 Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and the EBS + NW Area from 1987 – 2022, with age pyramid plot. 
 
-```{r sql-3}
+```{r}
+#| label: test-3
+
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
 "WITH FILTERED_STRATA AS (
@@ -193,7 +221,10 @@ AND SPECIES_CODE = 21740
 AND AGE >= 0")
 ```
 
-```{r sql-3-plot}
+```{r}
+#| label: test-3-tbl
+#| tbl-cap: "Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid. "
+
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
   dplyr::filter(sex %in% c(1,2)) %>%
@@ -201,6 +232,14 @@ dat0 <- dat %>%
     sex = ifelse(sex == 1, "M", "F"),
     population_count = # change male population to negative
       ifelse(sex=="M", population_count*(-1), population_count*1)/1e9) 
+
+flextable::flextable(head(dat))
+```
+
+
+```{r}
+#| label: test-3-plot
+#| fig-cap: "Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid. "
 
 figure <- ggplot2::ggplot(
   data = dat0, 
@@ -217,7 +256,6 @@ figure <- ggplot2::ggplot(
   ggplot2::guides(fill = guide_legend(title = "Sex"))+
   ggplot2::theme_bw()
 
-flextable::flextable(head(dat))
 figure
 ```
 
@@ -225,7 +263,9 @@ figure
 
 Pacific cod biomass and abundance data for the NBS by stratum. 
 
-```{r sql-4}
+```{r}
+#| label: test-4
+
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
 "WITH FILTERED_STRATA AS (
@@ -248,7 +288,10 @@ WHERE BIOMASS.SURVEY_DEFINITION_ID IN 143
 AND BIOMASS.SPECIES_CODE = 21720")
 ```
 
-```{r sql-4-plot}
+```{r}
+#| label: test-4-tbl
+#| tbl-cap: "Ex. 4: NBS Pacific cod biomass and abundance. "
+
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
   dplyr::select(biomass_mt, population_count, year, area = area_name) %>%
@@ -259,6 +302,12 @@ dat0 <- dat %>%
     val = ifelse(var == "biomass_mt", val/1e6, val/1e9), 
     var = ifelse(var == "biomass_mt", "Biomass (Mmt)", "Population (B)"), 
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
+flextable::flextable(head(dat))
+```
+
+```{r}
+#| label: test-4-fig
+#| fig-cap: "Ex. 4: NBS Pacific cod biomass and abundance. "
 
 figure <- ggplot2::ggplot(
   dat = dat0, 
@@ -274,7 +323,6 @@ figure <- ggplot2::ggplot(
   ggplot2::theme(legend.direction = "horizontal", 
                  legend.position = "bottom")
 
-flextable::flextable(head(dat))
 figure
 ```
 
@@ -282,7 +330,9 @@ figure
 
 Pacific Ocean perch biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.AKFIN_BIOMASS`
 
-```{r sql-5}
+```{r}
+#| label: test-5
+
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
 "SELECT 
@@ -298,14 +348,21 @@ AND YEAR BETWEEN 1984 AND 2021;") %>%
   dplyr::mutate(biomass_mt = biomass_mt/1000)
 ```
 
-```{r sql-5-plot}
-#| fig-cap: Plot of POP biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.AKFIN_BIOMASS`. 
+```{r}
+#| label: test-5-tbl
+#| tbl-cap: "Ex. 5: GOA Pacific Ocean perch biomass and line plot. "
 
 a_mean <- dat %>% 
   dplyr::group_by(survey_definition_id) %>% 
   dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
                    minyr = min(year, na.rm = TRUE), 
                    maxyr = max(year, na.rm = TRUE)) 
+flextable::flextable(head(dat))
+```
+
+```{r}
+#| label: test-5-fig
+#| fig-cap: "Ex. 5: GOA Pacific Ocean perch biomass and line plot. "
 
 figure <-
   ggplot(data = dat, 
@@ -338,7 +395,6 @@ figure <-
                       " Kmt")) +
   ggplot2::theme_bw()
 
-flextable::flextable(head(dat))
 figure
 ```
 
@@ -346,7 +402,9 @@ figure
 
 Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from `GAP_PRODUCTS.AKFIN_CPUE` and map constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). Here, we'll use AKFIN HAUL and CRUISES data also included in this repo, for convenience, though they are very similar to their `RACEBASE` analogs. 
 
-```{r sql-6}
+```{r}
+#| label: test-6
+
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
 "SELECT 
@@ -357,11 +415,11 @@ hh.LONGITUDE_DD_START LONGITUDE
 FROM GAP_PRODUCTS.AKFIN_CPUE cp
 
 -- Use HAUL data to obtain LATITUDE & LONGITUDE and connect to cruisejoin
-LEFT JOIN GAP_PRODUCTS.AKFIN_AKFIN_HAUL hh
+LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
 ON cp.HAULJOIN = hh.HAULJOIN
 
 -- Use CRUISES data to obtain YEAR and SURVEY_DEFINITION_ID
-LEFT JOIN GAP_PRODUCTS.AKFIN_AKFIN_CRUISES cc
+LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISES cc
 ON hh.CRUISEJOIN = cc.CRUISEJOIN
 
 WHERE cp.SPECIES_CODE = 30060 
@@ -369,7 +427,20 @@ AND cc.SURVEY_DEFINITION_ID = 98
 AND cc.YEAR = 2021;")
 ```
 
-```{r sql-6-plot, message = FALSE}
+```{r}
+#| label: test-6-tbl
+#| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| message: false
+
+flextable::flextable(head(dat))
+```
+
+
+```{r}
+#| label: test-6-fig
+#| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| message: false
+
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
 library(akgfmaps)
 
@@ -382,9 +453,11 @@ figure <- akgfmaps::make_idw_map(
   grid.cell = c(20000, 20000), # 20x20km grid
   key.title = "Pacific Ocean perch") # Include in the legend title
 
-flextable::flextable(head(dat))
 figure$plot + 
   ggplot2::guides(fill=guide_legend(title = "Pacific Ocean perch\nCPUE (kg/km2)"))  |>   
   change_fill_color(new.scheme = "grey", show.plot = FALSE)
 ```
 
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```

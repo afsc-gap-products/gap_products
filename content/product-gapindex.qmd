@@ -1,0 +1,20 @@
+---
+title: GAP Production Data - Created using {gapindex}
+---
+
+```{r setup, include=FALSE}
+#| file: ../code/functions.R
+RODBC::odbcCloseAll()
+```
+
+# Our production data is created using the {gapindex} R package. 
+
+```{r table-locations, eval = TRUE, echo = FALSE}
+ # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
+
+library(gapindex)
+# citation(gapindex) # doesn't exist yet
+```
+
+[Insert info and examples from {gapindex}]
+

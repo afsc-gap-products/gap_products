@@ -12,17 +12,17 @@ temp <- paste0(metadata_sentence_survey_institution, " ",
 NEW_AGECOMP_COMMENT <- paste0(
   "Stratum/subarea/management area/region-level abundance by sex/length bin. 
     Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in 
-    historical versions of this table, are melted into a single column (called 'SEX') 
-    similar to the AGECOMP tables with values 1/2/3 for M/F/U. The 'AREA_ID' 
-    field replaces the 'STRATUM' field name to generalize the description to 
+    historical versions of this table, are melted into a single column (called SEX) 
+    similar to the AGECOMP tables with values 1/2/3 for M/F/U. The AREA_ID 
+    field replaces the STRATUM field name to generalize the description to 
     include different types of areas (strata, subareas, regulatory areas, regions, etc.). 
     Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. ",
   temp)
 
 NEW_BIOMASS_COMMENT <- paste0(
   "Stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), 
-  total biomass (with variance), total abundance (with variance). The 'AREA_ID' 
-  field replaces the 'STRATUM' field name to generalize the description to include 
+  total biomass (with variance), total abundance (with variance). The AREA_ID 
+  field replaces the STRATUM field name to generalize the description to include 
   different types of areas (strata, subareas, regulatory areas, regions, etc.). 
   Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
   Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. 
@@ -74,7 +74,7 @@ NEW_AREA_COMMENT <- paste0(
 #   dplyr::select(-SURVEY)
 
 NEW_SURVEY_DESIGN_COMMENT <- paste0(
-  "This reference table identifies which past year's (DESIGN_YEAR) 
+  "This reference table identifies which past year (DESIGN_YEAR) 
   area (km2) estimates should be used to back-calculate production data estimates 
   for a given survey (SURVEY_DEFINIITION_ID) year (YEAR). 
   While the survey areas are generally static in design, there are improvements 
@@ -103,17 +103,19 @@ NEW_STRATUM_GROUPS_COMMENT <- paste0(
 
 prod_tables <- data.frame(
   TABLE_NAME = c("AGECOMP", "AREA", 
-                 "BIOMASS", 'CPUE', 
+                 "BIOMASS", "CPUE", 
                  "DESIGN_SURVEY", "METADATA_TABLE", 
                  "STRATUM_GROUPS", "SIZECOMP"), 
   metadata_table = c(NEW_AGECOMP_COMMENT, NEW_AREA_COMMENT, 
                      NEW_BIOMASS_COMMENT, NEW_CPUE_COMMENT, 
-                     NEW_DESIGN_SURVEY_COMMENT, NEW_METADATA_TABLE_COMMENT, 
+                     NEW_SURVEY_DESIGN_COMMENT, NEW_METADATA_TABLE_COMMENT, 
                      NEW_STRATUM_GROUPS_COMMENT, NEW_SIZECOMP_COMMENT))
 
 for (ii in 1:nrow(prod_tables)) {
-  metadata_table <- fix_metadata_table(
-    metadata_table0 = prod_tables$metadata_table,
+  print(paste0("\n\n", prod_tables$TABLE_NAME[ii]))
+  
+  temp <- fix_metadata_table(
+    metadata_table0 = prod_tables$metadata_table[ii],
     name0 = prod_tables$TABLE_NAME[ii],
     dir_out = dir_out)
   
@@ -122,6 +124,6 @@ for (ii in 1:nrow(prod_tables)) {
     table_name = prod_tables$TABLE_NAME[ii],
     channel = channel,
     metadata_column = metadata_column,
-    table_metadata = metadata_table)
+    table_metadata = temp)
 }
 

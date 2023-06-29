@@ -45,3 +45,9 @@ metadata/*/
 
 
 /.quarto/
+
+.DS_Store
+/.quarto/
+/_site/
+/_book/
+/docs1/

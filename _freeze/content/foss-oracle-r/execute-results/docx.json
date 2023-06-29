@@ -1,0 +1,20 @@
+{
+  "hash": "f17435ac11d387f1acb55408b3619008",
+  "result": {
+    "markdown": "---\ntitle: Access public data using R in Oracle\n---\n\n\n\n\n\n\n## Access data via Oracle (AFSC only)\n\nIf the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the FOSS public data directly from the `RACEBASE_FOSS` `Oracle` schema. \n\n### Connect to Oracle from R\n\nMany users will want to access the data from `Oracle` using `R`. The user will need to install the `RODBC` `R` package and ask OFIS (IT) connect `R` to `Oracle`. Then, use the following code in `R` to establish a connection from `R` to `Oracle`: \n\nHere, the user can write in their username and password directly into the `RODBC` connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. \n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n #' Define RODBC connection to ORACLE\n #'\n #' @param schema default = 'AFSC'. \n #'\n #' @return oracle channel connection\n #' @export\n #'\n #' @examples\n #' # Not run\n #' # channel <- oracle_connect()\noracle_connect <- function(\n    schema='AFSC', \n    username = NULL, \n    passowrd = NULL){(echo=FALSE)\n  \n  library(\"RODBC\")\n  library(\"getPass\")\n  if (is.null(username)) {\n    username <- getPass(msg = \"Enter your ORACLE Username: \")\n  }\n  if (is.null(password)) {\n    password <- getPass(msg = \"Enter your ORACLE Password: \")\n  }\n  channel  <- RODBC::odbcConnect(\n    paste(schema),\n    paste(username),\n    paste(password), \n    believeNRows=FALSE)\n  return(channel)\n}\n\nchannel <- oracle_connect()\n```\n:::\n\n\n\n\n\n### Ex. 1: Join data\n\nTo join these tables in Oracle, you may use a variant of the following code: \n\n\n\n\n::: {.cell}\n\n:::\n\n\n\n\n### Ex. 2: Subset data\n\nOnce connected, pull and save (if needed) the tables into the `R` environment. \n\nTo pull a small subset of the data (especially since files like `RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED` are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021: \n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n # Pull data\na <- RODBC::sqlQuery(\nchannel = channel, \nquery = \n\"SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc\nJOIN GAP_PRODUCTS.FOSS_HAUL hh\nON cc.HAULJOIN = hh.HAULJOIN\nWHERE SRVY = 'EBS' \nAND COMMON_NAME = 'Pacific cod' \nAND YEAR >= 2010 \nAND YEAR < 2021\")\n # Save table to local directory\nwrite.csv(x = a, file = \"RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv\")\n```\n:::\n\n::: {.cell}\n\n:::\n",
+    "supporting": [
+      "foss-oracle-r_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

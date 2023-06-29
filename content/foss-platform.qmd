@@ -5,7 +5,7 @@ title: Access public data using the FOSS Interactive Platform
 ```{r setup, include=FALSE}
 #| file: ../code/functions.R
 
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
 # Quick Start Guide: Access AFSC data interactively through the FOSS platform
@@ -81,4 +81,6 @@ Click the `RUN REPORT` button. Below the select and filter area, the results of 
 knitr::include_graphics(path = here::here("img", "foss_5_run_report.png"))
 ```
 
-
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```

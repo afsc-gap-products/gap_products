@@ -37,5 +37,56 @@
   },
   "content/akfin_intro.qmd": {
     "akfin_intro.html": "0cf26a48"
+  },
+  "content/run-notes.qmd": {
+    "run-notes.html": "d1fe5fb6"
+  },
+  "content/akfin-intro.qmd": {
+    "akfin-intro.html": "f19abb45"
+  },
+  "content/foss-intro.qmd": {
+    "foss-intro.html": "ba13ab99"
+  },
+  "content/foss-metadata.qmd": {
+    "foss-metadata.html": "0e697734"
+  },
+  "content/foss-platform.qmd": {
+    "foss-platform.html": "b3cd80ec"
+  },
+  "content/product-intro.qmd": {
+    "product-intro.html": "4fb08eb0"
+  },
+  "content/product-metadata.qmd": {
+    "product-metadata.html": "76699276"
+  },
+  "content/product-metadata-column.qmd": {
+    "product-metadata-column.html": "6c59c4de"
+  },
+  "content/akfin-metadata.qmd": {
+    "akfin-metadata.html": "eca33118"
+  },
+  "content/akfin-oracle-sql-r.qmd": {
+    "akfin-oracle-sql-r.html": "bb1713a7"
+  },
+  "content/foss-api-r.qmd": {
+    "foss-api-r.html": "94c3211a"
+  },
+  "content/product-gapindex.qmd": {
+    "product-gapindex.html": "5c3f308c"
+  },
+  "content/foss-oracle-r.qmd": {
+    "foss-oracle-r.html": "e8c00b09"
+  },
+  "content/acknowledgements.qmd": {
+    "acknowledgements.html": "4b7d3510"
+  },
+  "content/foss-api-py.qmd": {
+    "foss-api-py.html": "a7f2ed54"
+  },
+  "content/introduction.qmd": {
+    "introduction.html": "e87387fc"
+  },
+  "content/contact-us.qmd": {
+    "contact-us.html": "750b6d75"
   }
 }

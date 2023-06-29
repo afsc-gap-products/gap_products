@@ -1,0 +1,16 @@
+{
+  "hash": "72a69390532c44b4f374a8b70e0731e0",
+  "result": {
+    "markdown": "---\ntitle: AFSC RACE Groundfish Data for AKFIN Metadata\n---\n\n\n\n\n# Metadata\n\n## Data description\n\n*In development*\n\n\n## Data created in this repo\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n",
+    "supporting": [
+      "akfin-metadata_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

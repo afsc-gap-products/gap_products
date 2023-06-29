@@ -5,7 +5,7 @@ title: GAP FOSS Column Metadata
 ```{r setup, include=FALSE}
 #| file: ../code/functions.R
 
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
 # Metadata
@@ -35,13 +35,12 @@ FROM user_views;") %>%
 
 locations <- foss_views$TABLE_NAME
 
-```
-
-```{r table-load, eval = TRUE, echo = FALSE}
 str00 <- print_table_metadata(channel, locations)
 ```
 
 `r str00`
 
-
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```
 

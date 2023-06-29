@@ -1,0 +1,50 @@
+---
+title: Universal Column Metadata
+---
+  
+```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
+```
+
+# Universal Column Metadata
+
+```{r table_metadata}
+# str0 <- readtext::readtext(file = here::here(dir_out,"metadata_column_comment.txt"))$text
+b <- RODBC::sqlQuery(channel = channel, 
+                       query = "SELECT table_name, comments 
+FROM all_tab_comments 
+WHERE owner = 'GAP_PRODUCTS' 
+ORDER BY table_name")
+str0 <- b$COMMENTS[b$TABLE_NAME == 
+                     strsplit(x = "GAP_PRODUCTS.METADATA_COLUMN", 
+                              split = ".", fixed = TRUE)[[1]][2]]
+```
+
+`r str0`
+
+```{r}
+#| label: metadata-column
+#| tbl-cap: "Universal stock metadata that users can use to document their table columns. "
+#| eval: true
+#| echo: false
+
+metadata_column0 <- RODBC::sqlQuery(
+  channel = channel, 
+  query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")  %>%
+  janitor::clean_names() %>% 
+  dplyr::arrange(metadata_colname) %>%
+  dplyr::select(
+    "Column name from data" = metadata_colname,
+    "Descriptive column Name" = metadata_colname_long,
+    "Units" = metadata_units,
+    "Units" = metadata_units,
+    "Oracle data type" = metadata_datatype,
+    "Column description" = metadata_colname_desc)
+knitr::kable(metadata_column0, row.names = FALSE)
+```
+
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```

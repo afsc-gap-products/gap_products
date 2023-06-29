@@ -1,22 +1,29 @@
 ---
 title: Access public data using the API and Python
-author: Sam Pottinger (sam.pottinger@berkeley.edu; GitHub::sampottinger)
-date: May 13, 2023
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
 
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = FALSE)
-library(reticulate)
+knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 ```
 
 ### {afscgap} Library Installation
 
+> author: Sam Pottinger (sam.pottinger@berkeley.edu; GitHub::sampottinger)
+> date: May 13, 2023
+
 The third-party `afscgap` Python package interfaces with FOSS to access AFSC GAP data. It can be installed via pip:
 
-```{python install-afscgap}
+```{r lib}
+#The reticulate package provides a comprehensive set of tools for interoperability between Python and R. 
+library(reticulate)
+```
+
+```{r}
+#| label: install-afscgap
+
 pip install afscgap
+pip install git+https://github.com/SchmidtDSE/afscgap.git@main
 ```
 
 For more information on installation and deployment, see the [library documentation](https://pyafscgap.org).
@@ -25,7 +32,9 @@ For more information on installation and deployment, see the [library documentat
 
 This first example queries for Pacific glass shrimp (*Pasiphaea pacifica*) in the Gulf of Alaska in 2021. The library will automatically generate HTTP queries, converting from Python types to [ORDS](https://www.oracle.com/database/technologies/appdev/rest.html) query syntax.
 
-```{python query1}
+```{r}
+#| label: query1
+
 import afscgap
 
 query = afscgap.Query()
@@ -42,7 +51,9 @@ The `results` variable in this example is an iterator that will automatically pe
 
 The easiest way to interact with results is a simple for loop. This next example determines the frequency of different catch per unit effort where Pacific glass shrimp were reported:
 
-```{python query2}
+```{r}
+#| label: query2
+
 import afscgap
 
 # Mapping from CPUE to count
@@ -70,9 +81,11 @@ Note that, in this example, only records with Pacific glass shrimp are included 
 
 ### Iterating with functional programming
 
-A for loop is not the only option for iterating through results. List comprehensions and other functional programming methods can be used \as well.
+A for loop is not the only option for iterating through results. List comprehensions and other functional programming methods can be used as well.
 
-```{python query3}
+```{r}
+#| label: query3
+
 import statistics
 
 import afscgap
@@ -97,7 +110,9 @@ This example reports the median temperature in Celcius for when Pacific glass sh
 
 The results from the `afscgap` package are serializable and can be loaded into other tools like [Pandas](https://pandas.pydata.org/). This example loads Pacific glass shrimp from 2021 Gulf of Alaska into a data frame.
 
-```{python query4}
+```{r}
+#| label: query4
+
 import pandas
 
 import afscgap
@@ -117,7 +132,9 @@ Specifically, `to_dicts` provides an iterator over a dictionary form of the data
 
 Queries so far have focused on filters requiring equality but range queries can be built as well.
 
-```{python query5}
+```{r}
+#| label: query5
+
 import afscgap
 
 # Build query
@@ -139,7 +156,9 @@ This example queries for Pacific glass shrimp data between 2015 and 2019, summin
 
 Until this point, these examples use presence-only data. However, the `afscgap` package can infer negative or "zero catch" records as well.
 
-```{python query6}
+```{r}
+#| label: query6
+
 import afscgap
 
 # Mapping from CPUE to count
@@ -177,7 +196,4 @@ Put simply, while the earlier example showed CPUE counts for hauls in which Paci
 ### More information
 
 Please see the [API documentation](https://pyafscgap.org/devdocs/afscgap.html) for the Python library for additional details.
-
-```{r child-footer, child=here::here("docs","footer.Rmd")}
-```
 

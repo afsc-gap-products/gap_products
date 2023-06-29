@@ -1,0 +1,29 @@
+---
+title: GAP Production Data Metadata
+---
+
+```{r setup, include=FALSE}
+#| file: ../code/functions.R
+
+```
+
+## Data created in this repo
+
+```{r table-locations, eval = TRUE, echo = FALSE}
+ # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
+
+locations <- paste0("GAP_PRODUCTS.", 
+                    c("AGECOMP", "AREA", 
+                 "BIOMASS", 'CPUE', 
+                 "DESIGN_SURVEY", "METADATA_TABLE", 
+                 "STRATUM_GROUPS", "SIZECOMP"))
+
+str00 <- print_table_metadata(channel, locations)
+```
+
+`r str00`
+
+```{r rodbc-close}
+RODBC::odbcCloseAll()
+```
+

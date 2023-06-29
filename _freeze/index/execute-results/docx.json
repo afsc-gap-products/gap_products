@@ -1,0 +1,20 @@
+{
+  "hash": "e7d94e76a1c727cf9686857a2bda90bf",
+  "result": {
+    "markdown": "# AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data {.unnumbered}\n\n\n\n\n\n\n\n\n\n> Please consider this resource to be a **Living Document**. The code in this repository is regularly being updated and improved. Please refer to [releases](https://github.com/afsc-gap-products/gap_products/releases) for finalized products and project milestones.  \n\n## What is the research objective?\n\nThe objectives of these surveys are to: \n\n - monitor trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska, \n - produce fishery-independent biomass and abundance estimates for commercially important fish and crab species, and \n - collect other biological and environmental data for use in ecosystem-based fishery management. \n \n Learn more about the [program](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys!\n \n![Sorting and weighing fish on deck on the 2022 Bering Sea groundfish survey aboard the F/V Alaska Knight. Credit: Emily Markowitz/NOAA Fisheries.](https://www.fisheries.noaa.gov/s3/2023-04/750x500-bottom-trawl-survey-afsc.jpg)\n\n\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

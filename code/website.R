@@ -1,5 +1,8 @@
 
 
+# https://stackoverflow.com/questions/73802144/how-do-i-change-the-default-output-location-of-the-quarto-document-in-rstudio
+
+
 library(ggplot2)
 library(viridis)
 library(akgfmaps)
@@ -87,13 +90,13 @@ rmarkdown::render(input = here::here("docs","README.Rmd"),
                   output_format = 'md_document',
                   output_file = here::here("README.md"))
 
-# Make README into index
-index <- base::readLines(con = here::here("docs","README.Rmd"))
-utils::write.table(x = index,
-                   file = here::here("docs","index.Rmd"),
-                   row.names = FALSE,
-                   col.names = FALSE,
-                   quote = FALSE)
+# # Make README into index
+# index <- base::readLines(con = here::here("docs","README.Rmd"))
+# utils::write.table(x = index,
+#                    file = here::here("docs","index.Rmd"),
+#                    row.names = FALSE,
+#                    col.names = FALSE,
+#                    quote = FALSE)
 
 
 comb <- list.files(path = "docs/", pattern = ".Rmd", ignore.case = TRUE)

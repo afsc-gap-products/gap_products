@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>GAP Production Data Documentation - 3&nbsp; GAP Production Data Metadata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/product-metadata-column.html" rel="next">
+<link href="../content/product-intro.html" rel="prev">
+<link href="../favicon.ico/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/product-intro.html">AFSC RACE Groundfish Survey Production Data</a></li><li class="breadcrumb-item"><a href="../content/product-metadata.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">GAP Production Data Metadata</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">GAP Production Data Documentation</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.docx">
+              <i class="bi bi-bi-file-word pe-1"></i>
+            Download Docx
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/contact-us.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Contact-us</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish Survey Production Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">GAP Production Data Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-gapindex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">GAP Production Data - Created using {gapindex}</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/akfin-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish Data for AKFIN</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/foss-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish and Shellfish Survey Public Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GAP FOSS Column Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Access public data using the FOSS Interactive Platform</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Access public data using the API and R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data using the API and Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access public data using R in Oracle</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/run-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-created-in-this-repo" id="toc-data-created-in-this-repo" class="nav-link active" data-scroll-target="#data-created-in-this-repo"><span class="header-section-number">3.1</span> Data created in this repo</a>
+  <ul class="collapse">
+  <li><a href="#gap_products.agecomp" id="toc-gap_products.agecomp" class="nav-link" data-scroll-target="#gap_products.agecomp"><span class="header-section-number">3.1.1</span> GAP_PRODUCTS.AGECOMP</a></li>
+  <li><a href="#gap_products.area" id="toc-gap_products.area" class="nav-link" data-scroll-target="#gap_products.area"><span class="header-section-number">3.1.2</span> GAP_PRODUCTS.AREA</a></li>
+  <li><a href="#gap_products.biomass" id="toc-gap_products.biomass" class="nav-link" data-scroll-target="#gap_products.biomass"><span class="header-section-number">3.1.3</span> GAP_PRODUCTS.BIOMASS</a></li>
+  <li><a href="#gap_products.cpue" id="toc-gap_products.cpue" class="nav-link" data-scroll-target="#gap_products.cpue"><span class="header-section-number">3.1.4</span> GAP_PRODUCTS.CPUE</a></li>
+  <li><a href="#gap_products.design_survey" id="toc-gap_products.design_survey" class="nav-link" data-scroll-target="#gap_products.design_survey"><span class="header-section-number">3.1.5</span> GAP_PRODUCTS.DESIGN_SURVEY</a></li>
+  <li><a href="#gap_products.metadata_table" id="toc-gap_products.metadata_table" class="nav-link" data-scroll-target="#gap_products.metadata_table"><span class="header-section-number">3.1.6</span> GAP_PRODUCTS.METADATA_TABLE</a></li>
+  <li><a href="#gap_products.stratum_groups" id="toc-gap_products.stratum_groups" class="nav-link" data-scroll-target="#gap_products.stratum_groups"><span class="header-section-number">3.1.7</span> GAP_PRODUCTS.STRATUM_GROUPS</a></li>
+  <li><a href="#gap_products.sizecomp" id="toc-gap_products.sizecomp" class="nav-link" data-scroll-target="#gap_products.sizecomp"><span class="header-section-number">3.1.8</span> GAP_PRODUCTS.SIZECOMP</a></li>
+  <li><a href="#gap_products.area-1" id="toc-gap_products.area-1" class="nav-link" data-scroll-target="#gap_products.area-1"><span class="header-section-number">3.1.9</span> GAP_PRODUCTS.AREA</a></li>
+  <li><a href="#gap_products.biomass-1" id="toc-gap_products.biomass-1" class="nav-link" data-scroll-target="#gap_products.biomass-1"><span class="header-section-number">3.1.10</span> GAP_PRODUCTS.BIOMASS</a></li>
+  <li><a href="#gap_products.cpue-1" id="toc-gap_products.cpue-1" class="nav-link" data-scroll-target="#gap_products.cpue-1"><span class="header-section-number">3.1.11</span> GAP_PRODUCTS.CPUE</a></li>
+  <li><a href="#gap_products.design_survey-1" id="toc-gap_products.design_survey-1" class="nav-link" data-scroll-target="#gap_products.design_survey-1"><span class="header-section-number">3.1.12</span> GAP_PRODUCTS.DESIGN_SURVEY</a></li>
+  <li><a href="#gap_products.metadata_table-1" id="toc-gap_products.metadata_table-1" class="nav-link" data-scroll-target="#gap_products.metadata_table-1"><span class="header-section-number">3.1.13</span> GAP_PRODUCTS.METADATA_TABLE</a></li>
+  <li><a href="#gap_products.stratum_groups-1" id="toc-gap_products.stratum_groups-1" class="nav-link" data-scroll-target="#gap_products.stratum_groups-1"><span class="header-section-number">3.1.14</span> GAP_PRODUCTS.STRATUM_GROUPS</a></li>
+  <li><a href="#gap_products.sizecomp-1" id="toc-gap_products.sizecomp-1" class="nav-link" data-scroll-target="#gap_products.sizecomp-1"><span class="header-section-number">3.1.15</span> GAP_PRODUCTS.SIZECOMP</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/product-metadata.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/product-metadata.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">GAP Production Data Metadata</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="data-created-in-this-repo" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="data-created-in-this-repo"><span class="header-section-number">3.1</span> Data created in this repo</h2>
+<section id="gap_products.agecomp" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="gap_products.agecomp"><span class="header-section-number">3.1.1</span> GAP_PRODUCTS.AGECOMP</h3>
+<p>Stratum/subarea/management area/region-level abundance by sex/length bin. Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in historical versions of this table, are melted into a single column (called SEX) similar to the AGECOMP tables with values 1/2/3 for M/F/U. The AREA_ID field replaces the STRATUM field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 719695 | cols: 9</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+YEAR
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+SEX
+</th>
+<th style="text-align:right;">
+AGE
+</th>
+<th style="text-align:right;">
+POPULATION_COUNT
+</th>
+<th style="text-align:right;">
+LENGTH_MM_MEAN
+</th>
+<th style="text-align:right;">
+LENGTH_MM_SD
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+21370
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+-9
+</td>
+<td style="text-align:right;">
+620288
+</td>
+<td style="text-align:right;">
+113.33
+</td>
+<td style="text-align:right;">
+10.54
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+21370
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-9
+</td>
+<td style="text-align:right;">
+1846350
+</td>
+<td style="text-align:right;">
+281.37
+</td>
+<td style="text-align:right;">
+39.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+21370
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-9
+</td>
+<td style="text-align:right;">
+1927790
+</td>
+<td style="text-align:right;">
+313.40
+</td>
+<td style="text-align:right;">
+81.15
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.area" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="gap_products.area"><span class="header-section-number">3.1.2</span> GAP_PRODUCTS.AREA</h3>
+<p>This reference table stores all metadata and estimates for all estimates of stratum and subarea area estimates. Use this table with the STRATUM_GROUPS and SURVEY_DESIGN tables. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 473 | cols: 10</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+DESIGN_YEAR
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:left;">
+TYPE
+</th>
+<th style="text-align:left;">
+AREA_NAME
+</th>
+<th style="text-align:left;">
+DESCRIPTION
+</th>
+<th style="text-align:right;">
+AREA_KM2
+</th>
+<th style="text-align:right;">
+DEPTH_MIN_M
+</th>
+<th style="text-align:right;">
+DEPTH_MAX_M
+</th>
+<th style="text-align:left;">
+crs
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+2022
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Outer Domain
+</td>
+<td style="text-align:left;">
+100-200 m, NW section, high density, St.&nbsp;Matthew - OUTER DOMAIN
+</td>
+<td style="text-align:right;">
+6461.505
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2022
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Inner Domain
+</td>
+<td style="text-align:left;">
+&lt;50 m , N of standard area, N to St.Lawrence Is.
+</td>
+<td style="text-align:right;">
+79259.889
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2022
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Inner Domain
+</td>
+<td style="text-align:left;">
+&lt;50 m, Norton Sound and N of St.&nbsp;Lawrence Island to Bering Strait. Omits AA-10
+</td>
+<td style="text-align:right;">
+81255.025
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.biomass" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="gap_products.biomass"><span class="header-section-number">3.1.3</span> GAP_PRODUCTS.BIOMASS</h3>
+<p>Stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), total biomass (with variance), total abundance (with variance). The AREA_ID field replaces the STRATUM field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. The associated variance of estimates will suffice as the metric of variability to use. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 5343337 | cols: 16</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+YEAR
+</th>
+<th style="text-align:right;">
+N_HAUL
+</th>
+<th style="text-align:right;">
+N_WEIGHT
+</th>
+<th style="text-align:right;">
+N_COUNT
+</th>
+<th style="text-align:right;">
+N_LENGTH
+</th>
+<th style="text-align:right;">
+CPUE_KGKM2_MEAN
+</th>
+<th style="text-align:right;">
+CPUE_KGKM2_VAR
+</th>
+<th style="text-align:right;">
+CPUE_NOKM2_MEAN
+</th>
+<th style="text-align:right;">
+CPUE_NOKM2_VAR
+</th>
+<th style="text-align:right;">
+BIOMASS_MT
+</th>
+<th style="text-align:right;">
+BIOMASS_VAR
+</th>
+<th style="text-align:right;">
+POPULATION_COUNT
+</th>
+<th style="text-align:right;">
+POPULATION_VAR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+71525
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.840009
+</td>
+<td style="text-align:right;">
+1.613901
+</td>
+<td style="text-align:right;">
+121.281272
+</td>
+<td style="text-align:right;">
+6372.12148
+</td>
+<td style="text-align:right;">
+145.838883
+</td>
+<td style="text-align:right;">
+10138.735932
+</td>
+<td style="text-align:right;">
+9612740
+</td>
+<td style="text-align:right;">
+4.00305e+13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+71526
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.00000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+71535
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.017783
+</td>
+<td style="text-align:right;">
+0.000316
+</td>
+<td style="text-align:right;">
+4.252415
+</td>
+<td style="text-align:right;">
+18.08304
+</td>
+<td style="text-align:right;">
+1.409465
+</td>
+<td style="text-align:right;">
+1.986592
+</td>
+<td style="text-align:right;">
+337046
+</td>
+<td style="text-align:right;">
+1.13600e+11
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.cpue" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="gap_products.cpue"><span class="header-section-number">3.1.4</span> GAP_PRODUCTS.CPUE</h3>
+<p>All haul-level zero-filled haul-level catch-per-unit-effort (units in kg/km2) data. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 42200740 | cols: 7</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+HAULJOIN
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+WEIGHT_KG
+</th>
+<th style="text-align:right;">
+COUNT
+</th>
+<th style="text-align:right;">
+AREA_SWEPT_KM2
+</th>
+<th style="text-align:right;">
+CPUE_KGKM2
+</th>
+<th style="text-align:right;">
+CPUE_NOKM2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-22025
+</td>
+<td style="text-align:right;">
+72758
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.044405
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-22025
+</td>
+<td style="text-align:right;">
+72759
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.044405
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-22025
+</td>
+<td style="text-align:right;">
+72760
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.044405
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.design_survey" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="gap_products.design_survey"><span class="header-section-number">3.1.5</span> GAP_PRODUCTS.DESIGN_SURVEY</h3>
+<p>rows: 42S02 942 [Oracle][ODBC][Ora]ORA-00942: table or view does not exist | cols:</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+42S02 942 [Oracle][ODBC][Ora]ORA-00942: table or view does not exist
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+[RODBC] ERROR: Could not SQLExecDirect ’SELECT * FROM GAP_PRODUCTS.DESIGN_SURVEY FETCH FIRST 3 ROWS ONLY;’
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.metadata_table" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="gap_products.metadata_table"><span class="header-section-number">3.1.6</span> GAP_PRODUCTS.METADATA_TABLE</h3>
+<p>These column provide the column metadata for all GAP oracle tables. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated June 27, 2023. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
+<p>rows: 8 | cols: 3</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+METADATA_SENTENCE_NAME
+</th>
+<th style="text-align:left;">
+METADATA_SENTENCE_TYPE
+</th>
+<th style="text-align:left;">
+METADATA_SENTENCE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+survey_institution
+</td>
+<td style="text-align:left;">
+fragment
+</td>
+<td style="text-align:left;">
+by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+legal_restrict
+</td>
+<td style="text-align:left;">
+sentence
+</td>
+<td style="text-align:left;">
+There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+legal_restrict_none
+</td>
+<td style="text-align:left;">
+sentence
+</td>
+<td style="text-align:left;">
+There are no legal restrictions on access to the data.
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.stratum_groups" class="level3" data-number="3.1.7">
+<h3 data-number="3.1.7" class="anchored" data-anchor-id="gap_products.stratum_groups"><span class="header-section-number">3.1.7</span> GAP_PRODUCTS.STRATUM_GROUPS</h3>
+<p>This reference table identifies which STRATUM (the lowest common denominator of statistical area groupings in this survey) relate to what greater statistical areas (AREA_ID), along with what year (DESIGN_YEAR) and survey (SURVEY_DEFINITION_ID) that pairing is relevant to. Use this table with the AREA and SURVEY_DESIGN tables. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 744 | cols: 4</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+DESIGN_YEAR
+</th>
+<th style="text-align:right;">
+STRATUM
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+721
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+712
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+722
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.sizecomp" class="level3" data-number="3.1.8">
+<h3 data-number="3.1.8" class="anchored" data-anchor-id="gap_products.sizecomp"><span class="header-section-number">3.1.8</span> GAP_PRODUCTS.SIZECOMP</h3>
+<p>All region-level abundance by sex/age. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 3439200 | cols: 7</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+YEAR
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+LENGTH_MM
+</th>
+<th style="text-align:right;">
+SEX
+</th>
+<th style="text-align:right;">
+POPULATION_COUNT
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+10110
+</td>
+<td style="text-align:right;">
+540
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+43378
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+10110
+</td>
+<td style="text-align:right;">
+560
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+70492
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+10110
+</td>
+<td style="text-align:right;">
+570
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+43378
+</td>
+</tr>
+</tbody>
+
+</table>
+<p>, ### GAP_PRODUCTS.AGECOMP</p>
+<p>Stratum/subarea/management area/region-level abundance by sex/length bin. Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in historical versions of this table, are melted into a single column (called SEX) similar to the AGECOMP tables with values 1/2/3 for M/F/U. The AREA_ID field replaces the STRATUM field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 719695 | cols: 9</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+YEAR
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+SEX
+</th>
+<th style="text-align:right;">
+AGE
+</th>
+<th style="text-align:right;">
+POPULATION_COUNT
+</th>
+<th style="text-align:right;">
+LENGTH_MM_MEAN
+</th>
+<th style="text-align:right;">
+LENGTH_MM_SD
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+21370
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+-9
+</td>
+<td style="text-align:right;">
+620288
+</td>
+<td style="text-align:right;">
+113.33
+</td>
+<td style="text-align:right;">
+10.54
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+21370
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-9
+</td>
+<td style="text-align:right;">
+1846350
+</td>
+<td style="text-align:right;">
+281.37
+</td>
+<td style="text-align:right;">
+39.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+21370
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-9
+</td>
+<td style="text-align:right;">
+1927790
+</td>
+<td style="text-align:right;">
+313.40
+</td>
+<td style="text-align:right;">
+81.15
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.area-1" class="level3" data-number="3.1.9">
+<h3 data-number="3.1.9" class="anchored" data-anchor-id="gap_products.area-1"><span class="header-section-number">3.1.9</span> GAP_PRODUCTS.AREA</h3>
+<p>This reference table stores all metadata and estimates for all estimates of stratum and subarea area estimates. Use this table with the STRATUM_GROUPS and SURVEY_DESIGN tables. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 473 | cols: 10</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+DESIGN_YEAR
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:left;">
+TYPE
+</th>
+<th style="text-align:left;">
+AREA_NAME
+</th>
+<th style="text-align:left;">
+DESCRIPTION
+</th>
+<th style="text-align:right;">
+AREA_KM2
+</th>
+<th style="text-align:right;">
+DEPTH_MIN_M
+</th>
+<th style="text-align:right;">
+DEPTH_MAX_M
+</th>
+<th style="text-align:left;">
+crs
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+2022
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Outer Domain
+</td>
+<td style="text-align:left;">
+100-200 m, NW section, high density, St.&nbsp;Matthew - OUTER DOMAIN
+</td>
+<td style="text-align:right;">
+6461.505
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2022
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Inner Domain
+</td>
+<td style="text-align:left;">
+&lt;50 m , N of standard area, N to St.Lawrence Is.
+</td>
+<td style="text-align:right;">
+79259.889
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2022
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Inner Domain
+</td>
+<td style="text-align:left;">
+&lt;50 m, Norton Sound and N of St.&nbsp;Lawrence Island to Bering Strait. Omits AA-10
+</td>
+<td style="text-align:right;">
+81255.025
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.biomass-1" class="level3" data-number="3.1.10">
+<h3 data-number="3.1.10" class="anchored" data-anchor-id="gap_products.biomass-1"><span class="header-section-number">3.1.10</span> GAP_PRODUCTS.BIOMASS</h3>
+<p>Stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), total biomass (with variance), total abundance (with variance). The AREA_ID field replaces the STRATUM field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. The associated variance of estimates will suffice as the metric of variability to use. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 5343337 | cols: 16</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+YEAR
+</th>
+<th style="text-align:right;">
+N_HAUL
+</th>
+<th style="text-align:right;">
+N_WEIGHT
+</th>
+<th style="text-align:right;">
+N_COUNT
+</th>
+<th style="text-align:right;">
+N_LENGTH
+</th>
+<th style="text-align:right;">
+CPUE_KGKM2_MEAN
+</th>
+<th style="text-align:right;">
+CPUE_KGKM2_VAR
+</th>
+<th style="text-align:right;">
+CPUE_NOKM2_MEAN
+</th>
+<th style="text-align:right;">
+CPUE_NOKM2_VAR
+</th>
+<th style="text-align:right;">
+BIOMASS_MT
+</th>
+<th style="text-align:right;">
+BIOMASS_VAR
+</th>
+<th style="text-align:right;">
+POPULATION_COUNT
+</th>
+<th style="text-align:right;">
+POPULATION_VAR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+71525
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.840009
+</td>
+<td style="text-align:right;">
+1.613901
+</td>
+<td style="text-align:right;">
+121.281272
+</td>
+<td style="text-align:right;">
+6372.12148
+</td>
+<td style="text-align:right;">
+145.838883
+</td>
+<td style="text-align:right;">
+10138.735932
+</td>
+<td style="text-align:right;">
+9612740
+</td>
+<td style="text-align:right;">
+4.00305e+13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+71526
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.00000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+71535
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.017783
+</td>
+<td style="text-align:right;">
+0.000316
+</td>
+<td style="text-align:right;">
+4.252415
+</td>
+<td style="text-align:right;">
+18.08304
+</td>
+<td style="text-align:right;">
+1.409465
+</td>
+<td style="text-align:right;">
+1.986592
+</td>
+<td style="text-align:right;">
+337046
+</td>
+<td style="text-align:right;">
+1.13600e+11
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.cpue-1" class="level3" data-number="3.1.11">
+<h3 data-number="3.1.11" class="anchored" data-anchor-id="gap_products.cpue-1"><span class="header-section-number">3.1.11</span> GAP_PRODUCTS.CPUE</h3>
+<p>All haul-level zero-filled haul-level catch-per-unit-effort (units in kg/km2) data. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 42200740 | cols: 7</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+HAULJOIN
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+WEIGHT_KG
+</th>
+<th style="text-align:right;">
+COUNT
+</th>
+<th style="text-align:right;">
+AREA_SWEPT_KM2
+</th>
+<th style="text-align:right;">
+CPUE_KGKM2
+</th>
+<th style="text-align:right;">
+CPUE_NOKM2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-22025
+</td>
+<td style="text-align:right;">
+72758
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.044405
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-22025
+</td>
+<td style="text-align:right;">
+72759
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.044405
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-22025
+</td>
+<td style="text-align:right;">
+72760
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.044405
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.design_survey-1" class="level3" data-number="3.1.12">
+<h3 data-number="3.1.12" class="anchored" data-anchor-id="gap_products.design_survey-1"><span class="header-section-number">3.1.12</span> GAP_PRODUCTS.DESIGN_SURVEY</h3>
+<p>rows: [RODBC] ERROR: Could not SQLExecDirect ’SELECT COUNT(*) FROM GAP_PRODUCTS.DESIGN_SURVEY;’ | cols:</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+42S02 942 [Oracle][ODBC][Ora]ORA-00942: table or view does not exist
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+[RODBC] ERROR: Could not SQLExecDirect ’SELECT * FROM GAP_PRODUCTS.DESIGN_SURVEY FETCH FIRST 3 ROWS ONLY;’
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.metadata_table-1" class="level3" data-number="3.1.13">
+<h3 data-number="3.1.13" class="anchored" data-anchor-id="gap_products.metadata_table-1"><span class="header-section-number">3.1.13</span> GAP_PRODUCTS.METADATA_TABLE</h3>
+<p>These column provide the column metadata for all GAP oracle tables. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated June 27, 2023. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
+<p>rows: 8 | cols: 3</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+METADATA_SENTENCE_NAME
+</th>
+<th style="text-align:left;">
+METADATA_SENTENCE_TYPE
+</th>
+<th style="text-align:left;">
+METADATA_SENTENCE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+survey_institution
+</td>
+<td style="text-align:left;">
+fragment
+</td>
+<td style="text-align:left;">
+by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+legal_restrict
+</td>
+<td style="text-align:left;">
+sentence
+</td>
+<td style="text-align:left;">
+There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+legal_restrict_none
+</td>
+<td style="text-align:left;">
+sentence
+</td>
+<td style="text-align:left;">
+There are no legal restrictions on access to the data.
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.stratum_groups-1" class="level3" data-number="3.1.14">
+<h3 data-number="3.1.14" class="anchored" data-anchor-id="gap_products.stratum_groups-1"><span class="header-section-number">3.1.14</span> GAP_PRODUCTS.STRATUM_GROUPS</h3>
+<p>This reference table identifies which STRATUM (the lowest common denominator of statistical area groupings in this survey) relate to what greater statistical areas (AREA_ID), along with what year (DESIGN_YEAR) and survey (SURVEY_DEFINITION_ID) that pairing is relevant to. Use this table with the AREA and SURVEY_DESIGN tables. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 744 | cols: 4</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+DESIGN_YEAR
+</th>
+<th style="text-align:right;">
+STRATUM
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+721
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+712
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+799
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+722
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="gap_products.sizecomp-1" class="level3" data-number="3.1.15">
+<h3 data-number="3.1.15" class="anchored" data-anchor-id="gap_products.sizecomp-1"><span class="header-section-number">3.1.15</span> GAP_PRODUCTS.SIZECOMP</h3>
+<p>All region-level abundance by sex/age. by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated June 27, 2023.</p>
+<p>rows: 3439200 | cols: 7</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+SURVEY_DEFINITION_ID
+</th>
+<th style="text-align:right;">
+YEAR
+</th>
+<th style="text-align:right;">
+AREA_ID
+</th>
+<th style="text-align:right;">
+SPECIES_CODE
+</th>
+<th style="text-align:right;">
+LENGTH_MM
+</th>
+<th style="text-align:right;">
+SEX
+</th>
+<th style="text-align:right;">
+POPULATION_COUNT
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+10110
+</td>
+<td style="text-align:right;">
+540
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+43378
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+10110
+</td>
+<td style="text-align:right;">
+560
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+70492
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+2021
+</td>
+<td style="text-align:right;">
+99902
+</td>
+<td style="text-align:right;">
+10110
+</td>
+<td style="text-align:right;">
+570
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+43378
+</td>
+</tr>
+</tbody>
+
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/product-intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">AFSC RACE Groundfish Survey Production Data</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../content/product-metadata-column.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-1.0</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>

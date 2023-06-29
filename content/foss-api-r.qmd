@@ -1,16 +1,12 @@
 ---
 title: 'Access public data using the API and R'
-description: |
- Access public data using the API and R
 ---
 
-```{r setup, include=FALSE}
-#| file: ../code/functions.R
-
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
-```
-
 # Connect to the API with R
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, echo = TRUE)
+```
 
 An application programming interface (API) is a way for two or more computer programs to communicate with each other.
 
@@ -20,10 +16,14 @@ More information about how to amend API links can be found [here](https://docs.o
 
 ## Ex. 1: Load the first 25 rows (default) of data
 
-```{r test-0, echo = TRUE}
+```{r}
+#| label: test-1
+#| tbl-cap: "Ex. 1: Load the first 25 rows (default) of data. "
+
  # install.packages(c("httr", "jsonlite"))
-library("httr")
-library("jsonlite")
+library(httr)
+library(jsonlite)
+library(dplyr)
  # link to the API
 api_link <- "https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey/"
 
@@ -36,69 +36,97 @@ flextable::flextable(head(data$items, 3))
 
 ## Ex. 2: Load the first 10000 rows of data
 
-```{r test-1}
+```{r}
+#| label: test-2
+#| tbl-cap: "Ex. 2: Load the first 10000 rows of data. "
+
+# Not run because too big:
 res <- httr::GET(url = paste0(api_link, "?offset=0&limit=10000"))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-dim(data$items)
-flextable::flextable(data$items)
+print(paste0("rows: ", dim(data$items)[1], "; cols: ", dim(data$items)[2]))
 ```
 
 ## Ex. 3: Filter by Year
 
 Show all the data greater than the year 2020. 
 
-```{r test-2, eval = FALSE, echo = FALSE}
+```{r}
+#| label: test-3
+#| tbl-cap: "Ex. 3: Filter by Year. "
+
 res <- httr::GET(url = paste0(api_link, '?q={"year":{"$gt":2020}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+flextable::flextable(
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
 ```
 
-## Ex. 4: Filter by Species name
+## Ex. 4: Filter by species name
 
 Show all the data where the product name contains pollock Please note that here the word pollock is case sensitive.
 
 The notation for finding a string is to use % around it. Since % is a reserved character in a URL, you have to replace `%` with `%25`. 
 
-```{r test-3}
-res <- httr::GET(url = paste0(api_link, '?q={"common_name":{"$like":"%25pollock%25"}}'))
+```{r}
+#| label: test-4
+#| tbl-cap: "Ex. 4: Filter by species name. "
+
+res <- httr::GET(
+  url = paste0(api_link, '?q={"common_name":{"$like":"%25pollock%25"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+flextable::flextable(
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
 ```
 
-## Ex. 4: Combination of year and name filters
+## Ex. 5: Combination of year and name filters
 
 Show all the data where years > 2020 and the product name contains pollock
 
-```{r test-4, eval = FALSE, echo = FALSE}
-res <- httr::GET(url = paste0(api_link, '?q={"year":{"$gt":2020},"name":{"$like":"%25pollock%25"}}'))
+```{r}
+#| label: test-5
+#| tbl-cap: "Ex. 5: Combination of year and name filters. "
+
+res <- httr::GET(
+  url = paste0(api_link, 
+               '?q={"year":{"$gt":2020},"common_name":{"$like":"%25pollock%25"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+flextable::flextable(
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
 ```
 
-## Ex. 5: Combination of year, srvy, stratum
+## Ex. 6: Combination of year, srvy, stratum
 
 Show all the data where year = 1989, srvy = "EBS", and stratum is not equal to 81
 
-```{r test-5, eval = FALSE, echo = TRUE}
-res <- httr::GET(url = paste0(api_link, '?q={"year":1989,"srvy":"EBS","stratum":{"$ne":"81"}}'))
+```{r}
+#| label: test-6
+#| tbl-cap: "Ex. 6: Combination of year, srvy, stratum. "
+
+res <- httr::GET(
+  url = paste0(api_link, '?q={"year":1989,"srvy":"EBS","stratum":{"$ne":"81"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+flextable::flextable(
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
 ```
 
-## Ex. 6: Visualize CPUE data in distribution map
+## Ex. 7: Visualize CPUE data in distribution map
 
 Pacific cod catch-per-unit-effort estimates for NBS in 2021 and map constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). 
 
-```{r test-6, echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE}
+```{r}
+#| label: test-7
+#| tbl-cap: "Ex. 7: Visualize CPUE data in distribution map. "
+
 # res <- httr::GET(
 #   url = paste0(api_link, "?offset=0&limit=10000"), 
 #   query = list(year = 2021, srvy = "EBS", species_code = 30060))
-res <- httr::GET(url = paste0(api_link, '?q={"year":2021,"srvy":"NBS","species_code":21720}'))
+res <- httr::GET(
+  url = paste0(api_link, '?q={"year":2021,"srvy":"NBS","species_code":21720}'))
 data_catch <- jsonlite::fromJSON(base::rawToChar(res$content))$items %>% 
   dplyr::select(stratum, station, cpue_kgkm2) 
 
 # zero-fill data (imperfectly, but effective for this example)
-res <- httr::GET(url = paste0(api_link, '?q={"year":2021,"srvy":"NBS"}offset=0&limit=10000'))
+res <- httr::GET(
+  url = paste0(api_link, '?q={"year":2021,"srvy":"NBS"}offset=0&limit=10000'))
 data_haul <- jsonlite::fromJSON(base::rawToChar(res$content))$items %>% 
   dplyr::select(stratum, station, latitude_dd, longitude_dd) %>%
   dplyr::distinct()
@@ -106,6 +134,13 @@ data_haul <- jsonlite::fromJSON(base::rawToChar(res$content))$items %>%
 data <- dplyr::left_join(data_haul, data_catch) %>% 
   dplyr::mutate(cpue_kgkm2 = ifelse(is.na(cpue_kgkm2), 0, cpue_kgkm2), 
                 dplyr::across(dplyr::everything(), as.numeric)) 
+
+flextable::flextable(data[1:3,])
+```
+
+```{r}
+#| label: test-7-fig
+#| fig-cap: "Ex. 7: Visualize CPUE data in distribution map. "
 
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
 library(akgfmaps)
@@ -121,11 +156,8 @@ figure <- akgfmaps::make_idw_map(
   grid.cell = c(20000, 20000), # 20x20km grid
   key.title = "Pacific Ocean perch") # Include in the legend title
 
-flextable::flextable(data[1:3,])
 figure$plot + 
   ggplot2::guides(fill=guide_legend(title = "Pacific cod\nCPUE (kg/km2)"))
 ```
 
 
-```{r child-footer, child=here::here("docs","footer.Rmd")}
-```
