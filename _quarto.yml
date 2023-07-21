@@ -27,8 +27,9 @@ book:
           department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
   chapters:
     - index.qmd
-    - content/introduction.qmd
-    - content/contact-us.qmd
+    - content/intro.qmd
+    - content/intro-contact-us.qmd
+    - content/intro-news.qmd
     - part: content/product-intro.qmd
       chapters:
         - content/product-metadata.qmd
@@ -45,9 +46,9 @@ book:
         - content/foss-api-r.qmd
         - content/foss-api-py.qmd
         - content/foss-oracle-r.qmd
-    - content/acknowledgements.qmd
-    - content/run-notes.qmd
-    - content/references.qmd
+    - content/end-acknowledgements.qmd
+    - content/end-run-notes.qmd
+    - content/end-refs.qmd
 
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 

@@ -1,0 +1,16 @@
+---
+title: News
+---
+
+## Early 2023
+
+The main goal here to simplify the data management or to also standardize the way stock assessors are using RACE data. 
+
+We have decided to undergo this organizational change to meet the following best practices and long-term data goals. Let us know how we can better meet these objectives and best work with IT: 
+
+ - Minimize duplication (both in tables and in columns within tables)
+ - Minimize schemata and Oracle objects to the extent possible
+ - Streamlined integration of tables
+ - Minimize work for data creators
+ - Minimize confusion and obstacles for data users
+ - Security and data management best practices
