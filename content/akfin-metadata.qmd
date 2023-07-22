@@ -3,17 +3,12 @@ title: AFSC RACE Groundfish Data for AKFIN Metadata
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
-
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-# Metadata
 
 ## Data description
 
 *In development*
-
 
 ## Data created in this repo
 
@@ -30,10 +25,10 @@ FROM user_views;") %>%
 
 locations <- akfin_views$TABLE_NAME
 
-# str00 <- print_table_metadata(channel, locations)
-# <!-- `r str00` -->
+str00 <- print_table_metadata(channel, locations)
 ```
 
+`r str00`
 
 ```{r rodbc-close}
 RODBC::odbcCloseAll()

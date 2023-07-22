@@ -3,20 +3,15 @@ title: AFSC RACE Groundfish Data for AKFIN
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
-
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
 
 Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/code/CITATION_GAPakfin.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
 
-{{< code/CITATION_GAPakfin.bib >}}
-
 ```{r load_citation, echo = FALSE}
-# cat(readLines(con = here::here("CITATION_GAPakfin.bib")), sep = "\n")
+cat(readLines(con = here::here("code", "CITATION_GAPakfin.bib")), sep = "\n") 
 ```
 
 # NEWS
 
-After this transition year (2023 season), we will depricate the old tables and completely replace the current tables with these new proposed tables. 
+After the 2023 field season, we will deprecate the old tables and completely replace the current tables with these new proposed tables. 

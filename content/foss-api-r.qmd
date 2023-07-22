@@ -12,8 +12,6 @@ An application programming interface (API) is a way for two or more computer pro
 
 More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
 
-# API in action
-
 ## Ex. 1: Load the first 25 rows (default) of data
 
 ```{r}
@@ -57,7 +55,8 @@ Show all the data greater than the year 2020.
 res <- httr::GET(url = paste0(api_link, '?q={"year":{"$gt":2020}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
+  flextable::theme_zebra()
 ```
 
 ## Ex. 4: Filter by species name
@@ -74,7 +73,8 @@ res <- httr::GET(
   url = paste0(api_link, '?q={"common_name":{"$like":"%25pollock%25"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
+  flextable::theme_zebra()
 ```
 
 ## Ex. 5: Combination of year and name filters
@@ -90,7 +90,8 @@ res <- httr::GET(
                '?q={"year":{"$gt":2020},"common_name":{"$like":"%25pollock%25"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
+  flextable::theme_zebra()
 ```
 
 ## Ex. 6: Combination of year, srvy, stratum
@@ -105,7 +106,8 @@ res <- httr::GET(
   url = paste0(api_link, '?q={"year":1989,"srvy":"EBS","stratum":{"$ne":"81"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")])
+  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
+  flextable::theme_zebra()
 ```
 
 ## Ex. 7: Visualize CPUE data in distribution map
@@ -135,12 +137,15 @@ data <- dplyr::left_join(data_haul, data_catch) %>%
   dplyr::mutate(cpue_kgkm2 = ifelse(is.na(cpue_kgkm2), 0, cpue_kgkm2), 
                 dplyr::across(dplyr::everything(), as.numeric)) 
 
-flextable::flextable(data[1:3,])
+flextable::flextable(data[1:3,]) %>% 
+  flextable::theme_zebra()
 ```
 
 ```{r}
 #| label: test-7-fig
 #| fig-cap: "Ex. 7: Visualize CPUE data in distribution map. "
+#| message: false
+#| warning: false
 
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
 library(akgfmaps)

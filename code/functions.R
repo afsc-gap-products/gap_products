@@ -150,13 +150,15 @@ ORDER BY table_name")
     
     str0 <- paste0("### ", locations[i], "\n\n", 
                    metadata_table, "\n\n",
-                   "rows: ", temp_rows, " | cols: ", temp_cols, 
+                   "Number of rows: ", temp_rows, 
+                   "\n\nNumber of columns: ", temp_cols, 
                    # " | ", 
                    # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
                    #         digits = 1, format = "f", big.mark = ","), 
                    # " ", ifelse(temp>1e+7, "GB", "B"), 
                    "\n\n", 
-                   kable(temp_data), 
+                   flextable::flextable(temp_data) %>% theme_zebra(), 
+                   # knitr::kable(temp_data, row.names = FALSE), 
                    "\n\n\n"
                    )
     

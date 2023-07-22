@@ -51,7 +51,6 @@ oracle_connect <- function(
 channel <- oracle_connect()
 ```
 
-
 ### Ex. 1: Join data
 
 To join these tables in Oracle, you may use a variant of the following code: 
@@ -69,7 +68,7 @@ Once connected, pull and save (if needed) the tables into the `R` environment.
 To pull a small subset of the data (especially since files like `RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED` are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021: 
 
 ```{r oracle-data-pull-subset, echo = TRUE, eval = FALSE}
- # Pull data
+# Pull data
 a <- RODBC::sqlQuery(
 channel = channel, 
 query = 
@@ -80,7 +79,7 @@ WHERE SRVY = 'EBS'
 AND COMMON_NAME = 'Pacific cod' 
 AND YEAR >= 2010 
 AND YEAR < 2021")
- # Save table to local directory
+# Save table to local directory
 write.csv(x = a, file = "RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv")
 ```
 

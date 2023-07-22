@@ -3,15 +3,10 @@ title: Universal Column Metadata
 ---
   
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
-
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
-# Universal Column Metadata
-
 ```{r table_metadata}
-# str0 <- readtext::readtext(file = here::here(dir_out,"metadata_column_comment.txt"))$text
 b <- RODBC::sqlQuery(channel = channel, 
                        query = "SELECT table_name, comments 
 FROM all_tab_comments 

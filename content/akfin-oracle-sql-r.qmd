@@ -1,10 +1,8 @@
 ---
-title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R'
+title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
-
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
@@ -12,15 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 
 AFSC `Oracle` users can access the database via `SQL developer` to view and pull the production data directly from the `GAP_PRODUCTS` `Oracle` schema. 
 
-### Connect to Oracle from R
-
-Many users will want to access the data from `Oracle` using `R`. The user will need to install the `RODBC` `R` package and ask OFIS (IT) connect `R` to `Oracle`. Then, use the following code in `R` to establish a connection from `R` to `Oracle`: 
-
-Here, the user can write in their username and password directly into the `RODBC` connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
-
-# Connect to Oracle from R
-
-## Access data via Oracle
+### Access data via Oracle
 
 If the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the GAP Products data directly from the `GAP_PRODUCTS` `Oracle` schema. 
 
@@ -30,7 +20,7 @@ Many users will want to access the data from `Oracle` using `R`. The user will n
 
 Here, the user can establish the oracle connection by entering their username and password in the `channel <- gapindex::oracle_connect()` function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
 
-# Data SQL Query Examples: 
+## Data SQL Query Examples: 
 
 ### Ex. 0: Select all data from a table
 
@@ -39,6 +29,9 @@ You can download all of the tables locally using a variation of the code below. 
 ```{r}
 #| label: test-0
 #| eval: false
+#| message: false
+#| warning: false
+#| echo: true
 
 locations <- c(
   "GAP_PRODUCTS.AKFIN_AGECOMP", 
@@ -70,6 +63,9 @@ Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western
 
 ```{r}
 #| label: test-1
+#| message: false
+#| warning: false
+#| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -92,6 +88,9 @@ AND BIOMASS.SPECIES_CODE = 30060")
 ```{r}
 #| label: test-1-tbl
 #| tbl-cap: "Ex. 1: GOA Pacific Ocean perch biomass and abundance. "
+#| message: false
+#| warning: false
+#| echo: true
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
@@ -109,12 +108,15 @@ dat0 <- dat %>%
   dplyr::mutate(
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
 
-flextable::flextable(head(dat))
+flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 ```{r}
 #| label: test-1-plot
 #| fig-cap: "Ex. 1: GOA Pacific Ocean perch biomass and abundance. "
+#| message: false
+#| warning: false
+#| echo: true
 
 # install.packages("scales")
 library(scales)
@@ -141,6 +143,9 @@ Northern and Southern rock sole size composition data from 1991 – 2022 for the
 
 ```{r}
 #| label: test-2
+#| message: false
+#| warning: false
+#| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -164,18 +169,23 @@ AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
 ```{r}
 #| label: test-2-tbl
 #| tbl-cap: "Ex. 2: AI Rock sole size compositions and ridge plot. "
+#| message: false
+#| warning: false
+#| echo: true
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
   dplyr::mutate(length_cm = length_mm/10)
-flextable::flextable(head(dat))
-
+flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 
 ```{r}
 #| label: test-2-plot
 #| fig-cap: "Ex. 2: AI Rock sole size compositions and ridge plot. "
+#| message: false
+#| warning: false
+#| echo: true
 
 # install.packages("ggridges")
 library(ggridges)
@@ -199,6 +209,9 @@ Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and
 
 ```{r}
 #| label: test-3
+#| message: false
+#| warning: false
+#| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -224,6 +237,9 @@ AND AGE >= 0")
 ```{r}
 #| label: test-3-tbl
 #| tbl-cap: "Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid. "
+#| message: false
+#| warning: false
+#| echo: true
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
@@ -233,13 +249,16 @@ dat0 <- dat %>%
     population_count = # change male population to negative
       ifelse(sex=="M", population_count*(-1), population_count*1)/1e9) 
 
-flextable::flextable(head(dat))
+flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 
 ```{r}
 #| label: test-3-plot
 #| fig-cap: "Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid. "
+#| message: false
+#| warning: false
+#| echo: true
 
 figure <- ggplot2::ggplot(
   data = dat0, 
@@ -265,6 +284,9 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 ```{r}
 #| label: test-4
+#| message: false
+#| warning: false
+#| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -291,6 +313,9 @@ AND BIOMASS.SPECIES_CODE = 21720")
 ```{r}
 #| label: test-4-tbl
 #| tbl-cap: "Ex. 4: NBS Pacific cod biomass and abundance. "
+#| message: false
+#| warning: false
+#| echo: true
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
@@ -302,12 +327,15 @@ dat0 <- dat %>%
     val = ifelse(var == "biomass_mt", val/1e6, val/1e9), 
     var = ifelse(var == "biomass_mt", "Biomass (Mmt)", "Population (B)"), 
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
-flextable::flextable(head(dat))
+flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 ```{r}
 #| label: test-4-fig
 #| fig-cap: "Ex. 4: NBS Pacific cod biomass and abundance. "
+#| message: false
+#| warning: false
+#| echo: true
 
 figure <- ggplot2::ggplot(
   dat = dat0, 
@@ -332,6 +360,9 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.
 
 ```{r}
 #| label: test-5
+#| message: false
+#| warning: false
+#| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -351,18 +382,24 @@ AND YEAR BETWEEN 1984 AND 2021;") %>%
 ```{r}
 #| label: test-5-tbl
 #| tbl-cap: "Ex. 5: GOA Pacific Ocean perch biomass and line plot. "
+#| message: false
+#| warning: false
+#| echo: true
 
 a_mean <- dat %>% 
   dplyr::group_by(survey_definition_id) %>% 
   dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
                    minyr = min(year, na.rm = TRUE), 
                    maxyr = max(year, na.rm = TRUE)) 
-flextable::flextable(head(dat))
+flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 ```{r}
 #| label: test-5-fig
 #| fig-cap: "Ex. 5: GOA Pacific Ocean perch biomass and line plot. "
+#| message: false
+#| warning: false
+#| echo: true
 
 figure <-
   ggplot(data = dat, 
@@ -384,7 +421,7 @@ figure <-
                   y = biomass_mt, 
                   yend = biomass_mt),
     linetype = "dashed", 
-    size = 2) +
+    linewidth = 2) +
   ggplot2::ggtitle(
     label = "GOA Pacific Ocean Perch Biomass 1984-2021", 
     subtitle = paste0("Mean = ", 
@@ -404,6 +441,9 @@ Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from `GAP_PR
 
 ```{r}
 #| label: test-6
+#| message: false
+#| warning: false
+#| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -431,8 +471,10 @@ AND cc.YEAR = 2021;")
 #| label: test-6-tbl
 #| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
 #| message: false
+#| warning: false
+#| echo: true
 
-flextable::flextable(head(dat))
+flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 
@@ -440,6 +482,9 @@ flextable::flextable(head(dat))
 #| label: test-6-fig
 #| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
 #| message: false
+#| echo: true
+#| message: false
+#| warning: false
 
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
 library(akgfmaps)

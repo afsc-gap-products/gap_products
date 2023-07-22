@@ -8,7 +8,7 @@ title: Introduction
 
 # Objective
 
-Please refer to our [Draft Data Changes Brief]{https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing). Once finalized, this language will be included here. 
+Please refer to our [Draft Data Changes Brief](https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing). Once finalized, this language will be included here. 
 
 # Data levels
 
