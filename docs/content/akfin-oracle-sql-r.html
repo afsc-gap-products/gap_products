@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 8&nbsp; AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</title>
+<title>GAP Production Data Documentation - 8&nbsp; AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AFSC RACE Groundfish Data for AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-oracle-sql-r.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R'</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AFSC RACE Groundfish Data for AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-oracle-sql-r.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -131,33 +165,44 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/intro-contact-us.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Contact-us</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">News</span></span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">AFSC RACE Groundfish Survey Production Data</span></a>
+            <a href="../content/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro-contact-us.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Contact us</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">News</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFSC RACE Groundfish Survey Production Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link">
@@ -182,11 +227,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../content/akfin-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AFSC RACE Groundfish Data for AKFIN</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
@@ -196,7 +241,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R</span></span></a>
   </div>
 </li>
       </ul>
@@ -205,11 +250,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../content/foss-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AFSC RACE Groundfish and Shellfish Survey Public Data</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link">
@@ -242,24 +287,35 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/end.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-acknowledgements.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -272,24 +328,18 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#access-data-via-oracle-afsc-only" id="toc-access-data-via-oracle-afsc-only" class="nav-link active" data-scroll-target="#access-data-via-oracle-afsc-only"><span class="header-section-number">8.1</span> Access data via Oracle (AFSC only)</a>
   <ul class="collapse">
-  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">8.1.1</span> Connect to Oracle from R</a></li>
+  <li><a href="#access-data-via-oracle" id="toc-access-data-via-oracle" class="nav-link" data-scroll-target="#access-data-via-oracle"><span class="header-section-number">8.1.1</span> Access data via Oracle</a></li>
+  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">8.1.2</span> Connect to Oracle from R</a></li>
   </ul></li>
-  <li><a href="#connect-to-oracle-from-r-1" id="toc-connect-to-oracle-from-r-1" class="nav-link" data-scroll-target="#connect-to-oracle-from-r-1"><span class="header-section-number">9</span> Connect to Oracle from R</a>
+  <li><a href="#data-sql-query-examples" id="toc-data-sql-query-examples" class="nav-link" data-scroll-target="#data-sql-query-examples"><span class="header-section-number">8.2</span> Data SQL Query Examples:</a>
   <ul class="collapse">
-  <li><a href="#access-data-via-oracle" id="toc-access-data-via-oracle" class="nav-link" data-scroll-target="#access-data-via-oracle"><span class="header-section-number">9.1</span> Access data via Oracle</a>
-  <ul class="collapse">
-  <li><a href="#connect-to-oracle-from-r-2" id="toc-connect-to-oracle-from-r-2" class="nav-link" data-scroll-target="#connect-to-oracle-from-r-2"><span class="header-section-number">9.1.1</span> Connect to Oracle from R</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#data-sql-query-examples" id="toc-data-sql-query-examples" class="nav-link" data-scroll-target="#data-sql-query-examples"><span class="header-section-number">10</span> Data SQL Query Examples:</a>
-  <ul class="collapse">
-  <li><a href="#ex.-0-select-all-data-from-a-table" id="toc-ex.-0-select-all-data-from-a-table" class="nav-link" data-scroll-target="#ex.-0-select-all-data-from-a-table"><span class="header-section-number">10.0.1</span> Ex. 0: Select all data from a table</a></li>
-  <li><a href="#ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" id="toc-ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" class="nav-link" data-scroll-target="#ex.-1-goa-pacific-ocean-perch-biomass-and-abundance"><span class="header-section-number">10.0.2</span> Ex. 1: GOA Pacific Ocean perch biomass and abundance</a></li>
-  <li><a href="#ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" id="toc-ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" class="nav-link" data-scroll-target="#ex.-2-ai-rock-sole-size-compositions-and-ridge-plot"><span class="header-section-number">10.0.3</span> Ex. 2: AI Rock sole size compositions and ridge plot</a></li>
-  <li><a href="#ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" id="toc-ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" class="nav-link" data-scroll-target="#ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid"><span class="header-section-number">10.0.4</span> Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid</a></li>
-  <li><a href="#ex.-4-nbs-pacific-cod-biomass-and-abundance" id="toc-ex.-4-nbs-pacific-cod-biomass-and-abundance" class="nav-link" data-scroll-target="#ex.-4-nbs-pacific-cod-biomass-and-abundance"><span class="header-section-number">10.0.5</span> Ex. 4: NBS Pacific cod biomass and abundance</a></li>
-  <li><a href="#ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" id="toc-ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" class="nav-link" data-scroll-target="#ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot"><span class="header-section-number">10.0.6</span> Ex. 5: GOA Pacific Ocean perch biomass and line plot</a></li>
-  <li><a href="#ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" id="toc-ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" class="nav-link" data-scroll-target="#ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map"><span class="header-section-number">10.0.7</span> Ex. 6: EBS Pacific Ocean perch CPUE and <code>akgfmaps</code> map</a></li>
+  <li><a href="#ex.-0-select-all-data-from-a-table" id="toc-ex.-0-select-all-data-from-a-table" class="nav-link" data-scroll-target="#ex.-0-select-all-data-from-a-table"><span class="header-section-number">8.2.1</span> Ex. 0: Select all data from a table</a></li>
+  <li><a href="#ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" id="toc-ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" class="nav-link" data-scroll-target="#ex.-1-goa-pacific-ocean-perch-biomass-and-abundance"><span class="header-section-number">8.2.2</span> Ex. 1: GOA Pacific Ocean perch biomass and abundance</a></li>
+  <li><a href="#ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" id="toc-ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" class="nav-link" data-scroll-target="#ex.-2-ai-rock-sole-size-compositions-and-ridge-plot"><span class="header-section-number">8.2.3</span> Ex. 2: AI Rock sole size compositions and ridge plot</a></li>
+  <li><a href="#ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" id="toc-ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" class="nav-link" data-scroll-target="#ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid"><span class="header-section-number">8.2.4</span> Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid</a></li>
+  <li><a href="#ex.-4-nbs-pacific-cod-biomass-and-abundance" id="toc-ex.-4-nbs-pacific-cod-biomass-and-abundance" class="nav-link" data-scroll-target="#ex.-4-nbs-pacific-cod-biomass-and-abundance"><span class="header-section-number">8.2.5</span> Ex. 4: NBS Pacific cod biomass and abundance</a></li>
+  <li><a href="#ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" id="toc-ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" class="nav-link" data-scroll-target="#ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot"><span class="header-section-number">8.2.6</span> Ex. 5: GOA Pacific Ocean perch biomass and line plot</a></li>
+  <li><a href="#ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" id="toc-ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" class="nav-link" data-scroll-target="#ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map"><span class="header-section-number">8.2.7</span> Ex. 6: EBS Pacific Ocean perch CPUE and <code>akgfmaps</code> map</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/akfin-oracle-sql-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/akfin-oracle-sql-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -299,7 +349,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R’</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R</span></h1>
 </div>
 
 
@@ -317,54 +367,108 @@ ul.task-list li input[type="checkbox"] {
 <section id="access-data-via-oracle-afsc-only" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="access-data-via-oracle-afsc-only"><span class="header-section-number">8.1</span> Access data via Oracle (AFSC only)</h2>
 <p>AFSC <code>Oracle</code> users can access the database via <code>SQL developer</code> to view and pull the production data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
-<section id="connect-to-oracle-from-r" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">8.1.1</span> Connect to Oracle from R</h3>
-<p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
-<p>Here, the user can write in their username and password directly into the <code>RODBC</code> connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
-</section>
-</section>
-<section id="connect-to-oracle-from-r-1" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Connect to Oracle from R</h1>
-<section id="access-data-via-oracle" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="access-data-via-oracle"><span class="header-section-number">9.1</span> Access data via Oracle</h2>
+<section id="access-data-via-oracle" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="access-data-via-oracle"><span class="header-section-number">8.1.1</span> Access data via Oracle</h3>
 <p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the GAP Products data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
-<section id="connect-to-oracle-from-r-2" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="connect-to-oracle-from-r-2"><span class="header-section-number">9.1.1</span> Connect to Oracle from R</h3>
+</section>
+<section id="connect-to-oracle-from-r" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">8.1.2</span> Connect to Oracle from R</h3>
 <p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
 <p>Here, the user can establish the oracle connection by entering their username and password in the <code>channel &lt;- gapindex::oracle_connect()</code> function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
 </section>
 </section>
-</section>
-<section id="data-sql-query-examples" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Data SQL Query Examples:</h1>
-<section id="ex.-0-select-all-data-from-a-table" class="level3" data-number="10.0.1">
-<h3 data-number="10.0.1" class="anchored" data-anchor-id="ex.-0-select-all-data-from-a-table"><span class="header-section-number">10.0.1</span> Ex. 0: Select all data from a table</h3>
+<section id="data-sql-query-examples" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="data-sql-query-examples"><span class="header-section-number">8.2</span> Data SQL Query Examples:</h2>
+<section id="ex.-0-select-all-data-from-a-table" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="ex.-0-select-all-data-from-a-table"><span class="header-section-number">8.2.1</span> Ex. 0: Select all data from a table</h3>
 <p>You can download all of the tables locally using a variation of the code below. Once connected, pull and save the tables of interest into the <code>R</code> environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_AGECOMP"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_AREA"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_BIOMASS"</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_CATCH"</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_CPUE"</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_CRUISES"</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_HAUL"</span>, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_LENGTH"</span>, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_METADATA_COLUMN"</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_SIZECOMP"</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_SPECIMEN"</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_STRATUM_GROUPS"</span>, </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_SURVEY_DESIGN"</span>, </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.AKFIN_TAXONOMICS_WORMS"</span> </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(locations)) {</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(locations[i])</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(channel, <span class="fu">paste0</span>(<span class="st">"SELECT * FROM "</span>, locations[i]))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="at">x =</span> a, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste0</span>(locations[i], <span class="st">".csv"</span>)))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" class="level3" data-number="10.0.2">
-<h3 data-number="10.0.2" class="anchored" data-anchor-id="ex.-1-goa-pacific-ocean-perch-biomass-and-abundance"><span class="header-section-number">10.0.2</span> Ex. 1: GOA Pacific Ocean perch biomass and abundance</h3>
+<section id="ex.-1-goa-pacific-ocean-perch-biomass-and-abundance" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="ex.-1-goa-pacific-ocean-perch-biomass-and-abundance"><span class="header-section-number">8.2.2</span> Ex. 1: GOA Pacific Ocean perch biomass and abundance</h3>
 <p>Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western/central/eastern GOA management areas as well as for the entire region.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">query =</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">"WITH FILTERED_STRATA AS (</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AKFIN_AREA</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE TYPE in ('REGULATORY_AREA', 'REGION') </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">AND SURVEY_DEFINITION_ID = 47)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">BIOMASS_MT,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">POPULATION_COUNT, </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">YEAR, </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">DESCRIPTION</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_BIOMASS BIOMASS</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN FILTERED_STRATA STRATA </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">ON STRATA.AREA_ID = BIOMASS.AREA_ID</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE BIOMASS.SURVEY_DEFINITION_ID IN 47 </span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">AND BIOMASS.SPECIES_CODE = 30060"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(biomass_mt, population_count, year, <span class="at">area =</span> description) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"biomass_mt"</span>, <span class="st">"population_count"</span>), </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"var"</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"val"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">val =</span> <span class="fu">ifelse</span>(var <span class="sc">==</span> <span class="st">"biomass_mt"</span>, val<span class="sc">/</span><span class="fl">1e6</span>, val<span class="sc">/</span><span class="fl">1e9</span>), </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">ifelse</span>(var <span class="sc">==</span> <span class="st">"biomass_mt"</span>, <span class="st">"Biomass (Mmt)"</span>, <span class="st">"Population (B)"</span>), </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">gsub</span>(<span class="at">x =</span> area, <span class="at">pattern =</span> <span class="st">" - "</span>, <span class="at">replacement =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">gsub</span>(<span class="at">x =</span> area, <span class="at">pattern =</span> <span class="st">": "</span>, <span class="at">replacement =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">sapply</span>(<span class="at">X =</span> <span class="fu">strsplit</span>(<span class="at">x =</span> area, <span class="at">split =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>), <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="dv">2</span>))  <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(type) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">factor</span>(area, <span class="at">levels =</span> <span class="fu">unique</span>(area), <span class="at">labels =</span> <span class="fu">unique</span>(area), <span class="at">ordered =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">%&gt;%</span> <span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-3caf3544{}.cl-3ca25478{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3ca795dc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3ca795e6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3ca7b6d4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6de{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6df{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6e8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6e9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3ca7b6ea{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-3caf3544"><caption><p>Ex. 1: GOA Pacific Ocean perch biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-3ca7b6d4"><p class="cl-3ca795dc"><span class="cl-3ca25478">BIOMASS_MT</span></p></th><th class="cl-3ca7b6d4"><p class="cl-3ca795dc"><span class="cl-3ca25478">POPULATION_COUNT</span></p></th><th class="cl-3ca7b6d4"><p class="cl-3ca795dc"><span class="cl-3ca25478">YEAR</span></p></th><th class="cl-3ca7b6de"><p class="cl-3ca795e6"><span class="cl-3ca25478">DESCRIPTION</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">220,910.5</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">471,190,743</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,984</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">241,438.2</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">482,466,826</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,987</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">157,295.1</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">317,129,408</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,990</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">483,622.6</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">833,902,161</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,993</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">771,412.8</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,252,616,603</span></p></td><td class="cl-3ca7b6df"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,996</span></p></td><td class="cl-3ca7b6e8"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3ca7b6e9"><p class="cl-3ca795dc"><span class="cl-3ca25478">727,063.5</span></p></td><td class="cl-3ca7b6e9"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,212,034,913</span></p></td><td class="cl-3ca7b6e9"><p class="cl-3ca795dc"><span class="cl-3ca25478">1,999</span></p></td><td class="cl-3ca7b6ea"><p class="cl-3ca795e6"><span class="cl-3ca25478">GOA Region: All Strata</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-f738b336{}.cl-f719965e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f71996ae{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f726c50e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f726c522{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f7270604{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f727060e{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f7270618{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f7270619{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f7270622{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f7270623{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f738b336"><caption><p>Ex. 1: GOA Pacific Ocean perch biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-f7270604"><p class="cl-f726c50e"><span class="cl-f719965e">BIOMASS_MT</span></p></th><th class="cl-f7270604"><p class="cl-f726c50e"><span class="cl-f719965e">POPULATION_COUNT</span></p></th><th class="cl-f7270604"><p class="cl-f726c50e"><span class="cl-f719965e">YEAR</span></p></th><th class="cl-f727060e"><p class="cl-f726c522"><span class="cl-f719965e">DESCRIPTION</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">220,910.5</span></p></td><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">471,190,743</span></p></td><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">1,984</span></p></td><td class="cl-f7270619"><p class="cl-f726c522"><span class="cl-f71996ae">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">241,438.2</span></p></td><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">482,466,826</span></p></td><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">1,987</span></p></td><td class="cl-f7270623"><p class="cl-f726c522"><span class="cl-f71996ae">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">157,295.1</span></p></td><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">317,129,408</span></p></td><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">1,990</span></p></td><td class="cl-f7270619"><p class="cl-f726c522"><span class="cl-f71996ae">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">483,622.6</span></p></td><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">833,902,161</span></p></td><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">1,993</span></p></td><td class="cl-f7270623"><p class="cl-f726c522"><span class="cl-f71996ae">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">771,412.8</span></p></td><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">1,252,616,603</span></p></td><td class="cl-f7270618"><p class="cl-f726c50e"><span class="cl-f71996ae">1,996</span></p></td><td class="cl-f7270619"><p class="cl-f726c522"><span class="cl-f71996ae">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">727,063.5</span></p></td><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">1,212,034,913</span></p></td><td class="cl-f7270622"><p class="cl-f726c50e"><span class="cl-f71996ae">1,999</span></p></td><td class="cl-f7270623"><p class="cl-f726c522"><span class="cl-f71996ae">GOA Region: All Strata</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'scales'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:readr':
-
-    col_factor</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:terra':
-
-    rescale</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("scales")</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dat =</span> dat0, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> val, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(area), <span class="at">rows =</span> <span class="fu">vars</span>(var), <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Year"</span>, <span class="at">n.breaks =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Estimate"</span>, <span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'GOA Pacific Ocean perch biomass and abundance 1990 – 2023'</span>)  <span class="sc">+</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">guides</span>(<span class="at">color=</span><span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Region Type"</span>))<span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_color_grey</span>() <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>figure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -375,23 +479,53 @@ Attaching package: 'scales'</code></pre>
 </div>
 </div>
 </section>
-<section id="ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" class="level3" data-number="10.0.3">
-<h3 data-number="10.0.3" class="anchored" data-anchor-id="ex.-2-ai-rock-sole-size-compositions-and-ridge-plot"><span class="header-section-number">10.0.3</span> Ex. 2: AI Rock sole size compositions and ridge plot</h3>
+<section id="ex.-2-ai-rock-sole-size-compositions-and-ridge-plot" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="ex.-2-ai-rock-sole-size-compositions-and-ridge-plot"><span class="header-section-number">8.2.3</span> Ex. 2: AI Rock sole size compositions and ridge plot</h3>
 <p>Northern and Southern rock sole size composition data from 1991 – 2022 for the Aleutian Islands, with Ridge plot from <a href="https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html"><code>ggridges</code></a>.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">query =</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">"WITH FILTERED_STRATA AS (</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">AREA_ID, </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">DESCRIPTION </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_AREA</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE TYPE = 'REGION' </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND SURVEY_DEFINITION_ID = 52)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">LENGTH_MM, </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">YEAR</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_SIZECOMP SIZECOMP</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN FILTERED_STRATA STRATA </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">ON STRATA.AREA_ID = SIZECOMP.AREA_ID</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SIZECOMP.SURVEY_DEFINITION_ID IN 52 </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">AND SIZECOMP.SPECIES_CODE IN (10261, 10262)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">length_cm =</span> length_mm<span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">%&gt;%</span> <span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-3f6a7974{}.cl-3f57fd3a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3f5f986a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3f5fcd62{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3f5fcd6c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3f5fcd76{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-3f6a7974"><caption><p>Ex. 2: AI Rock sole size compositions and ridge plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-3f5fcd62"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">LENGTH_MM</span></p></th><th class="cl-3f5fcd62"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">YEAR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">110</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">130</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">140</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">150</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">160</span></p></td><td class="cl-3f5fcd6c"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3f5fcd76"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">170</span></p></td><td class="cl-3f5fcd76"><p class="cl-3f5f986a"><span class="cl-3f57fd3a">1,997</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-f89da52e{}.cl-f87fb85c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f87fb870{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f889f042{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f88a2ce2{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f88a2cf6{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f88a2d00{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f89da52e"><caption><p>Ex. 2: AI Rock sole size compositions and ridge plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-f88a2ce2"><p class="cl-f889f042"><span class="cl-f87fb85c">LENGTH_MM</span></p></th><th class="cl-f88a2ce2"><p class="cl-f889f042"><span class="cl-f87fb85c">YEAR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f88a2cf6"><p class="cl-f889f042"><span class="cl-f87fb870">110</span></p></td><td class="cl-f88a2cf6"><p class="cl-f889f042"><span class="cl-f87fb870">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f88a2d00"><p class="cl-f889f042"><span class="cl-f87fb870">130</span></p></td><td class="cl-f88a2d00"><p class="cl-f889f042"><span class="cl-f87fb870">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f88a2cf6"><p class="cl-f889f042"><span class="cl-f87fb870">140</span></p></td><td class="cl-f88a2cf6"><p class="cl-f889f042"><span class="cl-f87fb870">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f88a2d00"><p class="cl-f889f042"><span class="cl-f87fb870">150</span></p></td><td class="cl-f88a2d00"><p class="cl-f889f042"><span class="cl-f87fb870">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f88a2cf6"><p class="cl-f889f042"><span class="cl-f87fb870">160</span></p></td><td class="cl-f88a2cf6"><p class="cl-f889f042"><span class="cl-f87fb870">1,997</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f88a2d00"><p class="cl-f889f042"><span class="cl-f87fb870">170</span></p></td><td class="cl-f88a2d00"><p class="cl-f889f042"><span class="cl-f87fb870">1,997</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: `stat(x)` was deprecated in ggplot2 3.4.0.
-ℹ Please use `after_stat(x)` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Picking joint bandwidth of 3.65</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggridges")</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dat0, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> length_cm, <span class="at">y =</span> <span class="fu">as.factor</span>(year), <span class="at">fill =</span> <span class="fu">stat</span>(x))) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">theme_ridges</span>(<span class="at">center_axis_labels =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>(<span class="at">scale =</span> <span class="dv">4</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="st">"Year"</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Length (cm)"</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggplot2::scale_fill_grey() +</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'AI Rock sole Size Compositions 1991 – 2022'</span>) </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>figure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -402,16 +536,62 @@ Attaching package: 'scales'</code></pre>
 </div>
 </div>
 </section>
-<section id="ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" class="level3" data-number="10.0.4">
-<h3 data-number="10.0.4" class="anchored" data-anchor-id="ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid"><span class="header-section-number">10.0.4</span> Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid</h3>
+<section id="ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid" class="level3" data-number="8.2.4">
+<h3 data-number="8.2.4" class="anchored" data-anchor-id="ex.-3-ebs-walleye-pollock-age-compositions-and-age-pyramid"><span class="header-section-number">8.2.4</span> Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid</h3>
 <p>Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and the EBS + NW Area from 1987 – 2022, with age pyramid plot.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">query =</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">"WITH FILTERED_STRATA AS (</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">AREA_ID, </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">DESCRIPTION </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_AREA</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE TYPE = 'REGION' AND </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="st">SURVEY_DEFINITION_ID = 98)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="st">AGECOMP.AGE, </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="st">AGECOMP.POPULATION_COUNT, </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="st">AGECOMP.SEX</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_AGECOMP AGECOMP</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN FILTERED_STRATA STRATA </span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="st">ON STRATA.AREA_ID = AGECOMP.AREA_ID</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SURVEY_DEFINITION_ID = 98 </span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="st">AND SPECIES_CODE = 21740</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="st">AND AGE &gt;= 0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"M"</span>, <span class="st">"F"</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">population_count =</span> <span class="co"># change male population to negative</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ifelse</span>(sex<span class="sc">==</span><span class="st">"M"</span>, population_count<span class="sc">*</span>(<span class="sc">-</span><span class="dv">1</span>), population_count<span class="sc">*</span><span class="dv">1</span>)<span class="sc">/</span><span class="fl">1e9</span>) </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">%&gt;%</span> <span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-41435a04{}.cl-41242440{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4130b2dc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4130eae0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4130eaf4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4130eafe{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-41435a04"><caption><p>Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-4130eae0"><p class="cl-4130b2dc"><span class="cl-41242440">AGE</span></p></th><th class="cl-4130eae0"><p class="cl-4130b2dc"><span class="cl-41242440">POPULATION_COUNT</span></p></th><th class="cl-4130eae0"><p class="cl-4130b2dc"><span class="cl-41242440">SEX</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">137,398,782</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">2</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1,040,787,296</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">3</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1,183,060,368</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">4</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1,661,729,359</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">5</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">507,355,476</span></p></td><td class="cl-4130eaf4"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4130eafe"><p class="cl-4130b2dc"><span class="cl-41242440">6</span></p></td><td class="cl-4130eafe"><p class="cl-4130b2dc"><span class="cl-41242440">70,450,613</span></p></td><td class="cl-4130eafe"><p class="cl-4130b2dc"><span class="cl-41242440">1</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-fa934ad2{}.cl-fa72f890{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fa72f8a4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fa7d3684{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fa7d6d7a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fa7d6d8e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fa7d6d98{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-fa934ad2"><caption><p>Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-fa7d6d7a"><p class="cl-fa7d3684"><span class="cl-fa72f890">AGE</span></p></th><th class="cl-fa7d6d7a"><p class="cl-fa7d3684"><span class="cl-fa72f890">POPULATION_COUNT</span></p></th><th class="cl-fa7d6d7a"><p class="cl-fa7d3684"><span class="cl-fa72f890">SEX</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">137,398,782</span></p></td><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">2</span></p></td><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1,040,787,296</span></p></td><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">3</span></p></td><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1,183,060,368</span></p></td><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">4</span></p></td><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1,661,729,359</span></p></td><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">5</span></p></td><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">507,355,476</span></p></td><td class="cl-fa7d6d8e"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">6</span></p></td><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">70,450,613</span></p></td><td class="cl-fa7d6d98"><p class="cl-fa7d3684"><span class="cl-fa72f8a4">1</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat0, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> age,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> population_count, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Age"</span>) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Population (billions)"</span>, <span class="at">labels =</span> abs) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggtitle</span>(<span class="at">label =</span> <span class="st">"EBS Walleye Pollock Age Compositions 1982 – 2022"</span>)  <span class="sc">+</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Sex"</span>))<span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>figure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -422,16 +602,64 @@ Attaching package: 'scales'</code></pre>
 </div>
 </div>
 </section>
-<section id="ex.-4-nbs-pacific-cod-biomass-and-abundance" class="level3" data-number="10.0.5">
-<h3 data-number="10.0.5" class="anchored" data-anchor-id="ex.-4-nbs-pacific-cod-biomass-and-abundance"><span class="header-section-number">10.0.5</span> Ex. 4: NBS Pacific cod biomass and abundance</h3>
+<section id="ex.-4-nbs-pacific-cod-biomass-and-abundance" class="level3" data-number="8.2.5">
+<h3 data-number="8.2.5" class="anchored" data-anchor-id="ex.-4-nbs-pacific-cod-biomass-and-abundance"><span class="header-section-number">8.2.5</span> Ex. 4: NBS Pacific cod biomass and abundance</h3>
 <p>Pacific cod biomass and abundance data for the NBS by stratum.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">query =</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">"WITH FILTERED_STRATA AS (</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">AREA_ID, </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">AREA_NAME, </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">DESCRIPTION </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_AREA</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE TYPE in ('STRATUM') AND </span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">SURVEY_DEFINITION_ID = 143) </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">BIOMASS.BIOMASS_MT, </span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="st">BIOMASS.POPULATION_COUNT, </span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="st">BIOMASS.YEAR, </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="st">STRATA.AREA_NAME</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_BIOMASS BIOMASS </span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN FILTERED_STRATA STRATA </span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="st">ON STRATA.AREA_ID = BIOMASS.AREA_ID</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE BIOMASS.SURVEY_DEFINITION_ID IN 143 </span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="st">AND BIOMASS.SPECIES_CODE = 21720"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(biomass_mt, population_count, year, <span class="at">area =</span> area_name) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"biomass_mt"</span>, <span class="st">"population_count"</span>), </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"var"</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"val"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">val =</span> <span class="fu">ifelse</span>(var <span class="sc">==</span> <span class="st">"biomass_mt"</span>, val<span class="sc">/</span><span class="fl">1e6</span>, val<span class="sc">/</span><span class="fl">1e9</span>), </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">ifelse</span>(var <span class="sc">==</span> <span class="st">"biomass_mt"</span>, <span class="st">"Biomass (Mmt)"</span>, <span class="st">"Population (B)"</span>), </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">factor</span>(area, <span class="at">levels =</span> <span class="fu">unique</span>(area), <span class="at">labels =</span> <span class="fu">unique</span>(area), <span class="at">ordered =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">%&gt;%</span> <span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-42edfae4{}.cl-42d349f6{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-42de4216{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-42de422a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-42de671e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de6728{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de6732{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de6733{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de673c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-42de673d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-42edfae4"><caption><p>Ex. 4: NBS Pacific cod biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-42de671e"><p class="cl-42de4216"><span class="cl-42d349f6">BIOMASS_MT</span></p></th><th class="cl-42de671e"><p class="cl-42de4216"><span class="cl-42d349f6">POPULATION_COUNT</span></p></th><th class="cl-42de671e"><p class="cl-42de4216"><span class="cl-42d349f6">YEAR</span></p></th><th class="cl-42de6728"><p class="cl-42de422a"><span class="cl-42d349f6">AREA_NAME</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">7,462.559</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">4,724,153</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,010</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">132,490.152</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">66,187,245</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,017</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">107,096.730</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">102,734,142</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,019</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">95,849.983</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">68,767,498</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,021</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">96,500.697</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">60,433,135</span></p></td><td class="cl-42de6732"><p class="cl-42de4216"><span class="cl-42d349f6">2,022</span></p></td><td class="cl-42de6733"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-42de673c"><p class="cl-42de4216"><span class="cl-42d349f6">20,983.376</span></p></td><td class="cl-42de673c"><p class="cl-42de4216"><span class="cl-42d349f6">3,928,600</span></p></td><td class="cl-42de673c"><p class="cl-42de4216"><span class="cl-42d349f6">2,010</span></p></td><td class="cl-42de673d"><p class="cl-42de422a"><span class="cl-42d349f6">Inner Domain</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-fbd8e212{}.cl-fbc6cf32{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fbc6cf3c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fbcd81e2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fbcd81ec{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fbcd9f60{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fbcd9f74{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fbcd9f75{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fbcd9f76{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fbcd9f7e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fbcd9f7f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-fbd8e212"><caption><p>Ex. 4: NBS Pacific cod biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-fbcd9f60"><p class="cl-fbcd81e2"><span class="cl-fbc6cf32">BIOMASS_MT</span></p></th><th class="cl-fbcd9f60"><p class="cl-fbcd81e2"><span class="cl-fbc6cf32">POPULATION_COUNT</span></p></th><th class="cl-fbcd9f60"><p class="cl-fbcd81e2"><span class="cl-fbc6cf32">YEAR</span></p></th><th class="cl-fbcd9f74"><p class="cl-fbcd81ec"><span class="cl-fbc6cf32">AREA_NAME</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">7,462.559</span></p></td><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">4,724,153</span></p></td><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">2,010</span></p></td><td class="cl-fbcd9f76"><p class="cl-fbcd81ec"><span class="cl-fbc6cf3c">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">132,490.152</span></p></td><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">66,187,245</span></p></td><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">2,017</span></p></td><td class="cl-fbcd9f7f"><p class="cl-fbcd81ec"><span class="cl-fbc6cf3c">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">107,096.730</span></p></td><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">102,734,142</span></p></td><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">2,019</span></p></td><td class="cl-fbcd9f76"><p class="cl-fbcd81ec"><span class="cl-fbc6cf3c">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">95,849.983</span></p></td><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">68,767,498</span></p></td><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">2,021</span></p></td><td class="cl-fbcd9f7f"><p class="cl-fbcd81ec"><span class="cl-fbc6cf3c">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">96,500.697</span></p></td><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">60,433,135</span></p></td><td class="cl-fbcd9f75"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">2,022</span></p></td><td class="cl-fbcd9f76"><p class="cl-fbcd81ec"><span class="cl-fbc6cf3c">Inner Domain</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">20,983.376</span></p></td><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">3,928,600</span></p></td><td class="cl-fbcd9f7e"><p class="cl-fbcd81e2"><span class="cl-fbc6cf3c">2,010</span></p></td><td class="cl-fbcd9f7f"><p class="cl-fbcd81ec"><span class="cl-fbc6cf3c">Inner Domain</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dat =</span> dat0, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> val, <span class="at">x =</span> year, <span class="at">fill =</span> area))  <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span>  </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(var), <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Estimate"</span>, <span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Year"</span>, <span class="at">breaks =</span> <span class="fu">unique</span>(dat0<span class="sc">$</span>year)) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'NBS Pacific cod biomass and abundance by stratum'</span>)  <span class="sc">+</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">guides</span>(<span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Region Type"</span>))<span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>figure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -442,20 +670,69 @@ Attaching package: 'scales'</code></pre>
 </div>
 </div>
 </section>
-<section id="ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" class="level3" data-number="10.0.6">
-<h3 data-number="10.0.6" class="anchored" data-anchor-id="ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot"><span class="header-section-number">10.0.6</span> Ex. 5: GOA Pacific Ocean perch biomass and line plot</h3>
+<section id="ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot" class="level3" data-number="8.2.6">
+<h3 data-number="8.2.6" class="anchored" data-anchor-id="ex.-5-goa-pacific-ocean-perch-biomass-and-line-plot"><span class="header-section-number">8.2.6</span> Ex. 5: GOA Pacific Ocean perch biomass and line plot</h3>
 <p>Pacific Ocean perch biomass totals for GOA between 1984-2021 from <code>GAP_PRODUCTS.AKFIN_BIOMASS</code></p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">query =</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">SURVEY_DEFINITION_ID, </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">BIOMASS_MT, </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">YEAR</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_BIOMASS</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SPECIES_CODE = 30060 </span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND SURVEY_DEFINITION_ID = 47 </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">AND AREA_ID = 99903 </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR BETWEEN 1984 AND 2021;"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">biomass_mt =</span> biomass_mt<span class="sc">/</span><span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>a_mean <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(survey_definition_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">biomass_mt =</span> <span class="fu">mean</span>(biomass_mt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">minyr =</span> <span class="fu">min</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxyr =</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">%&gt;%</span> <span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-4421a5d2{}.cl-43fe8bba{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-440c1a32{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-440c8580{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-440c859e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-440c859f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-4421a5d2"><caption><p>Ex. 5: GOA Pacific Ocean perch biomass and line plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-440c8580"><p class="cl-440c1a32"><span class="cl-43fe8bba">survey_definition_id</span></p></th><th class="cl-440c8580"><p class="cl-440c1a32"><span class="cl-43fe8bba">biomass_mt</span></p></th><th class="cl-440c8580"><p class="cl-440c1a32"><span class="cl-43fe8bba">year</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">220.9105</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,984</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">241.4382</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,987</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">157.2951</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,990</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">483.6226</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,993</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">771.4128</span></p></td><td class="cl-440c859e"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,996</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-440c859f"><p class="cl-440c1a32"><span class="cl-43fe8bba">47</span></p></td><td class="cl-440c859f"><p class="cl-440c1a32"><span class="cl-43fe8bba">727.0635</span></p></td><td class="cl-440c859f"><p class="cl-440c1a32"><span class="cl-43fe8bba">1,999</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-fce74d38{}.cl-fcd0ea84{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fcd0ea98{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fcdb2dfa{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fcdb56f4{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcdb5708{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcdb5712{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-fce74d38"><caption><p>Ex. 5: GOA Pacific Ocean perch biomass and line plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-fcdb56f4"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea84">survey_definition_id</span></p></th><th class="cl-fcdb56f4"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea84">biomass_mt</span></p></th><th class="cl-fcdb56f4"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea84">year</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">47</span></p></td><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">220.9105</span></p></td><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">1,984</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">47</span></p></td><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">241.4382</span></p></td><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">1,987</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">47</span></p></td><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">157.2951</span></p></td><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">1,990</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">47</span></p></td><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">483.6226</span></p></td><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">1,993</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">47</span></p></td><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">771.4128</span></p></td><td class="cl-fcdb5708"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">1,996</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">47</span></p></td><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">727.0635</span></p></td><td class="cl-fcdb5712"><p class="cl-fcdb2dfa"><span class="cl-fcd0ea98">1,999</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> dat, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> biomass_mt)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">color =</span> <span class="st">"grey40"</span>) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Year"</span>, </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">accuracy =</span> <span class="dv">1</span>, </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">""</span>))   <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_y_continuous</span>(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Biomass (Kmt)"</span>, </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_segment</span>(</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> a_mean,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> minyr, </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xend =</span> maxyr, </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> biomass_mt, </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">yend =</span> biomass_mt),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggtitle</span>(</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"GOA Pacific Ocean Perch Biomass 1984-2021"</span>, </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Mean = "</span>, </span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">formatC</span>(<span class="at">x =</span> a_mean<span class="sc">$</span>biomass_mt, </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>                              <span class="at">digits =</span> <span class="dv">2</span>, </span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>                              <span class="at">big.mark =</span> <span class="st">","</span>, </span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>                              <span class="at">format =</span> <span class="st">"f"</span>), </span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>                      <span class="st">" Kmt"</span>)) <span class="sc">+</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>()</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>figure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -466,28 +743,58 @@ Attaching package: 'scales'</code></pre>
 </div>
 </div>
 </section>
-<section id="ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" class="level3" data-number="10.0.7">
-<h3 data-number="10.0.7" class="anchored" data-anchor-id="ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map"><span class="header-section-number">10.0.7</span> Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a> map</h3>
+<section id="ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map" class="level3" data-number="8.2.7">
+<h3 data-number="8.2.7" class="anchored" data-anchor-id="ex.-6-ebs-pacific-ocean-perch-cpue-and-akgfmaps-map"><span class="header-section-number">8.2.7</span> Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a> map</h3>
 <p>Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from <code>GAP_PRODUCTS.AKFIN_CPUE</code> and map constructed using <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>. Here, we’ll use AKFIN HAUL and CRUISES data also included in this repo, for convenience, though they are very similar to their <code>RACEBASE</code> analogs.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">query =</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">(cp.CPUE_KGKM2/100) CPUE_KGHA, -- akgfmaps is expecting hectares</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">hh.LATITUDE_DD_START LATITUDE,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">hh.LONGITUDE_DD_START LONGITUDE</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.AKFIN_CPUE cp</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">-- Use HAUL data to obtain LATITUDE &amp; LONGITUDE and connect to cruisejoin</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="st">ON cp.HAULJOIN = hh.HAULJOIN</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">-- Use CRUISES data to obtain YEAR and SURVEY_DEFINITION_ID</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISES cc</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="st">ON hh.CRUISEJOIN = cc.CRUISEJOIN</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE cp.SPECIES_CODE = 30060 </span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="st">AND cc.SURVEY_DEFINITION_ID = 98 </span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="st">AND cc.YEAR = 2021;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">%&gt;%</span> <span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-4d7cdeda{}.cl-4d6a9c16{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4d7145b6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4d716da2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4d716dac{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4d716db6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-4d7cdeda"><caption><p>Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>
-map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-4d716da2"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">CPUE_KGHA</span></p></th><th class="cl-4d716da2"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">LATITUDE</span></p></th><th class="cl-4d716da2"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">LONGITUDE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">56.66721</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.7800</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">56.98080</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.6926</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">56.97832</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.1519</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">57.31992</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-159.0614</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">57.32157</span></p></td><td class="cl-4d716dac"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-158.3811</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4d716db6"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">0</span></p></td><td class="cl-4d716db6"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">57.65189</span></p></td><td class="cl-4d716db6"><p class="cl-4d7145b6"><span class="cl-4d6a9c16">-158.3673</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-09e36030{}.cl-09cf5c7a{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-09cf5c8e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-09d6910c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-09d6b9e8{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-09d6b9f2{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-09d6b9fc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-09e36030"><caption><p>Ex. 6: EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>
+map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-09d6b9e8"><p class="cl-09d6910c"><span class="cl-09cf5c7a">CPUE_KGHA</span></p></th><th class="cl-09d6b9e8"><p class="cl-09d6910c"><span class="cl-09cf5c7a">LATITUDE</span></p></th><th class="cl-09d6b9e8"><p class="cl-09d6910c"><span class="cl-09cf5c7a">LONGITUDE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">0</span></p></td><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">56.66721</span></p></td><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">-159.7800</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">0</span></p></td><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">56.98080</span></p></td><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">-159.6926</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">0</span></p></td><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">56.97832</span></p></td><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">-159.1519</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">0</span></p></td><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">57.31992</span></p></td><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">-159.0614</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">0</span></p></td><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">57.32157</span></p></td><td class="cl-09d6b9f2"><p class="cl-09d6910c"><span class="cl-09cf5c8e">-158.3811</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">0</span></p></td><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">57.65189</span></p></td><td class="cl-09d6b9fc"><p class="cl-09d6910c"><span class="cl-09cf5c8e">-158.3673</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(akgfmaps)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>figure <span class="ot">&lt;-</span> akgfmaps<span class="sc">::</span><span class="fu">make_idw_map</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> dat, <span class="co"># Pass data as a data frame</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">region =</span> <span class="st">"bs.south"</span>, <span class="co"># Predefined EBS area</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">set.breaks =</span> <span class="st">"jenks"</span>, <span class="co"># Gets Jenks breaks from classint::classIntervals()</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">in.crs =</span> <span class="st">"+proj=longlat"</span>, <span class="co"># Set input coordinate reference system</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.crs =</span> <span class="st">"EPSG:3338"</span>, <span class="co"># Set output coordinate reference system</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">grid.cell =</span> <span class="fu">c</span>(<span class="dv">20000</span>, <span class="dv">20000</span>), <span class="co"># 20x20km grid</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">key.title =</span> <span class="st">"Pacific Ocean perch"</span>) <span class="co"># Include in the legend title</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[inverse distance weighted interpolation]
 [inverse distance weighted interpolation]</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1406 rows containing missing values (`geom_raster()`).</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>figure<span class="sc">$</span>plot <span class="sc">+</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">guides</span>(<span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Pacific Ocean perch</span><span class="sc">\n</span><span class="st">CPUE (kg/km2)"</span>))  <span class="sc">|&gt;</span>   </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">change_fill_color</span>(<span class="at">new.scheme =</span> <span class="st">"grey"</span>, <span class="at">show.plot =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

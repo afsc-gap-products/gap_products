@@ -3,6 +3,7 @@ title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R
 ---
 
 ```{r setup, include=FALSE}
+#| file: ../code/functions.R
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
@@ -483,7 +484,6 @@ flextable::flextable(head(dat)) %>% theme_zebra()
 #| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
 #| message: false
 #| echo: true
-#| message: false
 #| warning: false
 
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)

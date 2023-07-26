@@ -3,21 +3,24 @@ title: Universal Column Metadata
 ---
   
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
+#| file: ../code/functions.R
 ```
 
 ```{r table_metadata}
-b <- RODBC::sqlQuery(channel = channel, 
-                       query = "SELECT table_name, comments 
-FROM all_tab_comments 
-WHERE owner = 'GAP_PRODUCTS' 
-ORDER BY table_name")
-str0 <- b$COMMENTS[b$TABLE_NAME == 
-                     strsplit(x = "GAP_PRODUCTS.METADATA_COLUMN", 
-                              split = ".", fixed = TRUE)[[1]][2]]
+#| eval: true
+#| echo: false
+
+# b <- RODBC::sqlQuery(channel = channel, 
+#                        query = "SELECT table_name, comments 
+# FROM all_tab_comments 
+# WHERE owner = 'GAP_PRODUCTS' 
+# ORDER BY table_name")
+# str0 <- b$COMMENTS[b$TABLE_NAME == 
+#                      strsplit(x = "GAP_PRODUCTS.METADATA_COLUMN", 
+#                               split = ".", fixed = TRUE)[[1]][2]]
+# <!-- `r str0` -->
 ```
 
-`r str0`
 
 ```{r}
 #| label: metadata-column
@@ -37,7 +40,9 @@ metadata_column0 <- RODBC::sqlQuery(
     "Units" = metadata_units,
     "Oracle data type" = metadata_datatype,
     "Column description" = metadata_colname_desc)
-knitr::kable(metadata_column0, row.names = FALSE)
+
+flextable::flextable(metadata_column0) %>% theme_zebra()
+# knitr::kable(metadata_column0, row.names = FALSE)
 ```
 
 ```{r rodbc-close}

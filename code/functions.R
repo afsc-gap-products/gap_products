@@ -14,6 +14,7 @@ PKG <- c(
   "readxl",
   "janitor",
   "kableExtra", 
+  "flextable",
   "here",
   "stringr",
   "badger")
@@ -131,7 +132,7 @@ ORDER BY table_name")
   str00 <- c()
   for (i in 1:length(locations)) {
     metadata_table <- b$COMMENTS[b$TABLE_NAME == 
-                                   strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]][2]]
+                                   strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]]]
     metadata_table <- ifelse(is.na(metadata_table), 
                              "[There is currently no description for this table.]", 
                              metadata_table)
@@ -148,21 +149,20 @@ ORDER BY table_name")
     temp_cols <- temp_data %>% 
       ncol()
     
-    str0 <- paste0("### ", locations[i], "\n\n", 
-                   metadata_table, "\n\n",
-                   "Number of rows: ", temp_rows, 
-                   "\n\nNumber of columns: ", temp_cols, 
-                   # " | ", 
-                   # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
-                   #         digits = 1, format = "f", big.mark = ","), 
-                   # " ", ifelse(temp>1e+7, "GB", "B"), 
-                   "\n\n", 
-                   flextable::flextable(temp_data) %>% theme_zebra(), 
-                   # knitr::kable(temp_data, row.names = FALSE), 
-                   "\n\n\n"
-                   )
-    
-    str00 <- paste0(str00, str0)
+    str00 <- paste0(str00, 
+                    paste0("### ", locations[i], "\n\n", 
+                           metadata_table, "\n\n",
+                           "Number of rows: ", temp_rows, 
+                           "\n\nNumber of columns: ", temp_cols, 
+                           # " | ", 
+                           # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
+                           #         digits = 1, format = "f", big.mark = ","), 
+                           # " ", ifelse(temp>1e+7, "GB", "B"), 
+                           "\n\n", 
+                           # flextable::flextable(temp_data) %>% theme_zebra(), 
+                           knitr::kable(temp_data, row.names = FALSE),
+                           "\n\n\n"
+                    ))
     # cat(str0)
     # # what are the metadata for each column of this table
     # flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
