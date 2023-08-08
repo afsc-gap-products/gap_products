@@ -1,129 +1,184 @@
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Project:       Standard Index Products
+## Author:        Zack Oyafuso (zack.oyafuso@noaa.gov)
+## Description:   Calculate CPUE, Biomass/Abundance, size composition and
+##                age compositions for all species of interest.
+##                Save to the temp/ folder.
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Calculate tables -------------------------------------------------------------
+## Restart R Session before running
+rm(list = ls())
 
-# Descriptions to add to the https://github.com/afsc-gap-products/gapindex/blob/master/code_testing/production.R script 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Import Libraries
+##   Connect to Oracle (Make sure to connect to network or VPN)
+##   Be sure to use the username and password for the GAP_PRODUCTS schema
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(gapindex)
+library(RODBC)
+sql_channel <- gapindex::get_connected()
 
-temp <- paste0(metadata_sentence_survey_institution, " ",
-               metadata_sentence_legal_restrict, " ",
-               metadata_sentence_github, " ",
-               metadata_sentence_codebook, " ",
-               metadata_sentence_last_updated)
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Specify the range of years to calculate indices
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+range_of_years <- 1980:2022
+regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 
-NEW_AGECOMP_COMMENT <- paste0(
-  "Stratum/subarea/management area/region-level abundance by sex/length bin. 
-    Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in 
-    historical versions of this table, are melted into a single column (called SEX) 
-    similar to the AGECOMP tables with values 1/2/3 for M/F/U. The AREA_ID 
-    field replaces the STRATUM field name to generalize the description to 
-    include different types of areas (strata, subareas, regulatory areas, regions, etc.). 
-    Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. ",
-  temp)
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Create temporary folder to put downloaded metadata files. Double-check 
+## that the temp/ folder is in the gitignore file. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (!dir.exists(paths = "temp")) dir.create(path = "temp")
 
-NEW_BIOMASS_COMMENT <- paste0(
-  "Stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), 
-  total biomass (with variance), total abundance (with variance). The AREA_ID 
-  field replaces the STRATUM field name to generalize the description to include 
-  different types of areas (strata, subareas, regulatory areas, regions, etc.). 
-  Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
-  Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. 
-  The associated variance of estimates will suffice as the metric of variability to use. ", 
-  temp)
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Loop over regions
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-NEW_CPUE_COMMENT <- paste0(
-  "All haul-level zero-filled haul-level catch-per-unit-effort (units in kg/km2) data. ",
-  temp)
-
-NEW_SIZECOMP_COMMENT <- paste0(
-  "All region-level abundance by sex/age. ",
-  temp)
-
-
-# NEW__COMMENT <- paste0(
-#   "", 
-#   temp)
-
-
-
-## Area Reference Tables -------------------------------------------------------
-
-#### Load tables ---------------------------------------------------------------
-
-# https://docs.google.com/spreadsheets/d/1v900jEaSPuWjyHzRJhY2RUFzO_c9FqOunow-RM77bHQ
-googledrive::drive_download(
-  file = googledrive::as_id("1v900jEaSPuWjyHzRJhY2RUFzO_c9FqOunow-RM77bHQ"), 
-  path = here::here("data", "stratum.xlsx"), 
-  overwrite = TRUE)
-
-#### Table Metadata ------------------------------------------------------------
-
-# NEW_AREA <- metadata_table <- readxl::read_xlsx(
-#   path = here::here("data", "stratum.xlsx"), 
-#   sheet = "AREA") %>%
-#   janitor::clean_names() 
-
-NEW_AREA_COMMENT <- paste0(
-  "This reference table stores all metadata and estimates for all estimates of 
-  stratum and subarea area estimates. 
-  Use this table with the STRATUM_GROUPS and SURVEY_DESIGN tables. ", 
-  temp)
-
-# NEW_SURVEY_DESIGN <- metadata_table <- readxl::read_xlsx(
-#   path = here::here("data", "stratum.xlsx"), 
-#   sheet = "SURVEY_DESIGN") %>%
-#   janitor::clean_names() %>% 
-#   dplyr::select(-SURVEY)
-
-NEW_SURVEY_DESIGN_COMMENT <- paste0(
-  "This reference table identifies which past year (DESIGN_YEAR) 
-  area (km2) estimates should be used to back-calculate production data estimates 
-  for a given survey (SURVEY_DEFINIITION_ID) year (YEAR). 
-  While the survey areas are generally static in design, there are improvements 
-  on the actual estimates of area. These improvments are due to improved 
-  resolution between water and land or better understandings of survey design in practice. 
-  Use this table with the STRATUM_GROUPS and AREA tables. ",
-  temp)
-
-# NEW_STRATUM_GROUPS <- metadata_table <- readxl::read_xlsx(
-#   path = here::here("data", "stratum.xlsx"), 
-#   sheet = "STRATUM_GROUPS") %>%
-#   janitor::clean_names() 
-
-NEW_STRATUM_GROUPS_COMMENT <- paste0(
-  "This reference table identifies which STRATUM (the lowest common denominator 
-  of statistical area groupings in this survey) relate to what greater statistical 
-  areas (AREA_ID), along with what year (DESIGN_YEAR) and survey (SURVEY_DEFINITION_ID) 
-  that pairing is relevant to. Use this table with the AREA and SURVEY_DESIGN tables. ", 
-  temp)
-
-
-# Load table metadata for all tables -------------------------------------------
-
-# Will be replaced by and augment what is already in 
-# https://github.com/afsc-gap-products/gapindex/blob/master/code_testing/production.R
-
-prod_tables <- data.frame(
-  TABLE_NAME = c("AGECOMP", "AREA", 
-                 "BIOMASS", "CPUE", 
-                 "DESIGN_SURVEY", "METADATA_TABLE", 
-                 "STRATUM_GROUPS", "SIZECOMP"), 
-  metadata_table = c(NEW_AGECOMP_COMMENT, NEW_AREA_COMMENT, 
-                     NEW_BIOMASS_COMMENT, NEW_CPUE_COMMENT, 
-                     NEW_SURVEY_DESIGN_COMMENT, NEW_METADATA_TABLE_COMMENT, 
-                     NEW_STRATUM_GROUPS_COMMENT, NEW_SIZECOMP_COMMENT))
-
-for (ii in 1:nrow(prod_tables)) {
-  print(paste0("\n\n", prod_tables$TABLE_NAME[ii]))
+for (iregion in (1:length(x = regions)) ) { ## Loop over regions -- start
   
-  temp <- fix_metadata_table(
-    metadata_table0 = prod_tables$metadata_table[ii],
-    name0 = prod_tables$TABLE_NAME[ii],
-    dir_out = dir_out)
+  ## Pull data for all years and species from Oracle
+  start_time <- Sys.time()
+  production_data <- gapindex::get_data(
+    year_set = range_of_years,
+    survey_set = names(regions)[iregion],
+    spp_codes = NULL,
+    pull_lengths = TRUE, 
+    haul_type = 3, 
+    abundance_haul = "Y",
+    sql_channel = sql_channel)
+  end_time <- Sys.time()
+  print(end_time - start_time)
   
-  update_metadata(
-    schema = "GAP_PRODUCTS",
-    table_name = prod_tables$TABLE_NAME[ii],
-    channel = channel,
-    metadata_column = metadata_column,
-    table_metadata = temp)
+  saveRDS(object = production_data,
+          file = paste0("temp/production_data_", 
+                        names(regions)[iregion], ".RDS"))
+  
+  ## Extract stratum and subarea information
+  production_strata <- production_data$strata
+  production_subarea <- production_data$subarea
+  
+  ## Calculate and zero-fill CPUE
+  cat("\nCalculating and zero-filling CPUE\n")
+  start_time <- Sys.time()
+  production_cpue <-
+    gapindex::calc_cpue(racebase_tables = production_data)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Calculate biomass/abundance (w/variance), mean/variance CPUE across strata
+  cat("\nCalculating biomass/abundance across strata\n")
+  start_time <- Sys.time()
+  production_biomass_stratum <-
+    gapindex::calc_biomass_stratum(
+      racebase_tables = production_data,
+      cpue = production_cpue)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Aggregate `production_biomass_stratum` to subareas and regions
+  cat("\nAggregate biomass/abundance to subareas and regions\n")
+  start_time <- Sys.time()
+  production_biomass_subarea <-
+    gapindex::calc_biomass_subarea(
+      racebase_tables = production_data,
+      biomass_strata = production_biomass_stratum)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Calculate size composition by stratum. Since the two regions have
+  ## different functions, sizecomp_fn toggles which function to use
+  ## and then it is called in the do.call function.
+  cat("\nCalculate size composition across strata\n")
+  
+  start_time <- Sys.time()
+  production_sizecomp_stratum <- 
+    gapindex::calc_sizecomp_stratum(
+      racebase_tables = production_data,
+      racebase_cpue = production_cpue,
+      racebase_stratum_popn = production_biomass_stratum,
+      spatial_level = "stratum",
+      fill_NA_method = ifelse(test = names(regions)[iregion] %in% 
+                                c("GOA", "AI"),
+                              yes = "AIGOA",
+                              no = "BS"))
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Aggregate `production_sizecomp_stratum` to subareas and regions
+  cat("\nAggregate size composition to subareas and regions\n")
+  start_time <- Sys.time()
+  production_sizecomp_subarea <- gapindex::calc_sizecomp_subareas(
+    racebase_tables = production_data,
+    size_comps = production_sizecomp_stratum)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Aggregate `production_sizecomp_stratum` to subareas and regions
+  cat("\nCalculate regional ALK\n")
+  start_time <- Sys.time()
+  production_alk <- 
+    subset(x = gapindex::calc_ALK(
+      racebase_tables = production_data,
+      unsex = c("all", "unsex")[1], 
+      global = FALSE),
+      subset = AGE_FRAC > 0)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  cat("\nCalculate age composition by stratum\n")
+  start_time <- Sys.time()
+  production_agecomp_stratum <- 
+    gapindex::calc_agecomp_stratum(
+      racebase_tables = production_data,
+      alk = production_alk,
+      size_comp = production_sizecomp_stratum)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Aggregate `production_agecomp_stratum` to subareas and regions
+  cat("\nAggregate age composition to regions\n")
+  start_time <- Sys.time()
+  production_agecomp_region <- 
+    gapindex::calc_agecomp_region(
+      racebase_tables = production_data,
+      age_comps_stratum = production_agecomp_stratum)
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  
+  ## Remove extra columns from `production_cpue`
+  # production_cpue <- subset(x = production_cpue,
+  #                           select = c(HAULJOIN, SPECIES_CODE,
+  #                                      WEIGHT_KG, COUNT, AREA_SWEPT_KM2,
+  #                                      CPUE_KGKM2, CPUE_NOKM2) )
+  
+  # Change "STRATUM" field name to "AREA_ID"
+  names(x = production_biomass_stratum)[
+    names(x = production_biomass_stratum) == "STRATUM"] <- "AREA_ID"
+  
+  names(x = production_sizecomp_stratum)[
+    names(x = production_sizecomp_stratum) == "STRATUM"] <- "AREA_ID"
+  
+  names(x = production_agecomp_stratum$age_comp)[
+    names(x = production_agecomp_stratum$age_comp) == "STRATUM"] <- "AREA_ID"
+  
+  ## Combine stratum, subarea, and region estimates for the biomass and 
+  ## size composition tables
+  production_biomass <- 
+    rbind(production_biomass_stratum[, names(production_biomass_subarea)],
+          production_biomass_subarea)
+  
+  production_sizecomp <- 
+    rbind(production_sizecomp_subarea,
+          production_sizecomp_stratum[, names(production_sizecomp_subarea)])
+  
+  production_agecomp <- 
+    rbind(production_agecomp_region,
+          production_agecomp_stratum$age_comp[, names(production_agecomp_region)])
+  
+  for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
+                  "strata", "subarea")) 
+    write.csv(x = get(paste0("production_", idata)),
+              file = paste0("temp/production_", idata, "_", 
+                            names(regions)[iregion], ".csv"),
+              row.names = F)
 }
-
