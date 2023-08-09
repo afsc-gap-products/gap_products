@@ -19,16 +19,24 @@ sql_channel <- gapindex::get_connected()
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 data_tables <- c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP")
+support_tables <- c("METADATA_COLUMN", "METADATA_TABLE")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Pull GAP_PRODUCTS tables
+##   Pull GAP_PRODUCTS data tables. Separate the data tables by region for 
+##   the initial region-specific comparisons with the historical data. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (!dir.exists(paths = "temp/cloned_gp/")) 
+  dir.create(path = "temp/cloned_gp/")
+writeLines(text = paste("Accessed on", Sys.time()), 
+           con = "temp/cloned_gp/date_accessed.txt")
+
 for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
-  for (idata in data_tables) { ## Loop over data types -- start
+  for (idata in data_tables) { ## Loop over data_tables -- start
     
-    if (!file.exists(paste0("temp/GAP_PRODUCTS_", idata, "_",
-                            names(regions[iregion]), ".csv")))
-
+    ## The query is to select all columns from the idata table in GAP_PRODUCTS
+    ## filtering on the SURVEY_DEFINITION_ID of the iregion. For CPUE, since
+    ## there is not a SURVEY_DEFINITION_ID column, we manually pull the 
+    ## appropriate HAULJOIN values from the iregion.  
     query <- paste0(
       "SELECT * FROM GAP_PRODUCTS.", idata, 
       ifelse(test = idata == "CPUE",
@@ -42,11 +50,21 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
     
     ## Query Oracle and write to csv in the temp folder
     write.csv(x = RODBC::sqlQuery(channel = sql_channel, query = query),
-              file = paste0("temp/GAP_PRODUCTS_", idata, "_",
+              file = paste0("temp/cloned_gp/GAP_PRODUCTS_", idata, "_",
                             names(regions[iregion]), ".csv"),
               row.names = FALSE)
-        
+    
   } ## Loop over data types -- end
 } ## Loop over regions -- end
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Pull GAP_PRODUCTS support tables
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (idata in support_tables)
+  write.csv(x = RODBC::sqlQuery(channel = sql_channel,
+                                query = paste0("SELECT * FROM GAP_PRODUCTS.", 
+                                               idata)), 
+            file = paste0("temp/cloned_gp/", idata, ".csv"),
+            row.names = F)
 
 rm(list = ls())
