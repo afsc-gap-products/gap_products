@@ -130,7 +130,7 @@ test_cpue <-
         y = subset(x = historical_cpue,
                    subset = !SPECIES_CODE %in% hist_non_obs_taxa),
         by = c("HAULJOIN", "SPECIES_CODE"),
-        all.x = TRUE, all.y = TRUE, suffixes = c("_prod", "_hist"))
+        all= TRUE, suffixes = c("_prod", "_hist"))
 
 ## Calculate difference between reported weight and count. If these are 
 ## different then the CPUE values will also be different. 
