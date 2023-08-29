@@ -71,7 +71,7 @@
 rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 0 Setup ----
+##   Step 1 Setup ----
 ##   Make sure temp file is created, save R version data
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (!dir.exists(paths = "temp/"))
@@ -85,15 +85,19 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
           row.names = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 1 Pull Exisiting GAP_PRODUCTS Tables and Views ----
+##   Step 2 Pull Exisiting GAP_PRODUCTS Tables and Views ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/pull_existing_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 2 Update Metadata Tables ----
+##   Step 3 Update Metadata Tables ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/metadata.R")
 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Step X Create Citations ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+file.edit("code/CITATION.R")
 
 # # Support scripts --------------------------------------------------------------
 # 
