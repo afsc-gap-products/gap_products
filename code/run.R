@@ -113,6 +113,7 @@ file.edit("code/push_oracle.R")
 ##   Step Upload Production Tables ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/akfin.R")
+file.edit("code/foss.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step X Create Citations ----
