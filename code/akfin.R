@@ -21,7 +21,7 @@ source("code/functions.R"); source("code/constants.R")
 ##   in code/sql. Hard code descritions of each table. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 akfin_views <- data.frame(
-  table_name = gsub(x = grep(x = dir(path = "code/sql/"), 
+  table_name = gsub(x = grep(x = dir(path = "code/sql_akfin/"), 
                              pattern = ".sql", 
                              value = TRUE),
                     pattern = ".sql",
@@ -37,9 +37,14 @@ akfin_views$desc[akfin_views$table_name == "AKFIN_AREA"] <-
 akfin_views$desc[akfin_views$table_name == "AKFIN_BIOMASS"] <-
   paste0("This table is a copy of GAP_PRODUCTS.BIOMASS ",
          "and does not have any other object dependencies. ")
+akfin_views$desc[akfin_views$table_name == "AKFIN_CATCH"] <-
+  paste0("Catch records from hauls in RACEBASE.HAULS ",
+         "where ABUNDANCE_HAUL = 'Y'. ")
 akfin_views$desc[akfin_views$table_name == "AKFIN_CPUE"] <-
   paste0("This table is a copy of GAP_PRODUCTS.CPUE ",
          "and does not have any other object dependencies. ")
+akfin_views$desc[akfin_views$table_name == "AKFIN_CRUISE"] <-
+  paste0("This is the cruise data table. ")
 akfin_views$desc[akfin_views$table_name == "AKFIN_HAUL"] <-
   paste0("This table is created by subsetting the RACEBASE.HAUL table to ",
          "only hauls with ABUNDANCE_HAUL = 'Y'. These are the hauls that ",
@@ -102,9 +107,7 @@ metadata_fields <-
   RODBC::sqlQuery(channel = sql_channel, 
                   query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")
 
-for (isql_script in 
-     # nrow(x = akfin_views)
-     2:1)  {
+for (isql_script in 1:nrow(x = akfin_views))  {
   start_time <- Sys.time()
   temp_table_name <- paste0("GAP_PRODUCTS.",
                             akfin_views$table_name[isql_script])
@@ -112,17 +115,15 @@ for (isql_script in
   
   available_views <-
     subset(x = RODBC::sqlTables(channel = sql_channel, 
-                                schema = "GAP_PRODUCTS"),
-           subset = TABLE_TYPE == "VIEW")
-  
+                                schema = "GAP_PRODUCTS"))
   
   if (akfin_views$table_name[isql_script] %in% available_views$TABLE_NAME)
     RODBC::sqlQuery(channel = sql_channel, 
-                    query = paste("DROP VIEW", temp_table_name))
+                    query = paste("DROP MATERIALIZED VIEW", temp_table_name))
   
   RODBC::sqlQuery(channel = sql_channel,
                   query = getSQL(filepath = paste0(
-                    "code/sql/",
+                    "code/sql_akfin/",
                     akfin_views$table_name[isql_script],
                     ".sql")))
   
