@@ -12,7 +12,7 @@ rm(list = ls())
 ##   Main result object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 mismatches <- list()
-regions <- c("AI", "GOA", "EBS", "BSS", "NBS")[-4]
+regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions, Merge GAP_PRODUCTS and production CPUE/BIOMASS/SIZE/
@@ -24,22 +24,22 @@ for (iregion in 1:length(x = regions)) {
   ##   Pull CPUE tables from the GAP_PRODUCTS schema and the most recent 
   ##   production run. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  gp_cpue <- read.csv(file = paste0("temp/GAP_PRODUCTS_CPUE", 
+  gp_cpue <- read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_CPUE", 
                                     "_", regions[iregion], ".csv"))
-  production_cpue <- read.csv(file = paste0("temp/production_cpue", 
+  production_cpue <- read.csv(file = paste0("temp/production/production_cpue", 
                                             "_", regions[iregion], ".csv"))
   
   ## Merge the two tables together using HAULJOIN AND SPECIES_CODE as a 
   ## composite key
   test_cpue <- merge(x = production_cpue,
                      y = gp_cpue,
-                     all.x = TRUE, all.y = TRUE,
+                     all = TRUE,
                      suffixes = c("_prod", "_gp"),
                      by = c("HAULJOIN", "SPECIES_CODE"))
   
   ## Compare the CPUEs, weights, and counts
-  test_cpue$CPUE_NOKM2 <- with(test_cpue, CPUE_NOKM2_gp - CPUE_NOKM2_prod)
-  test_cpue$CPUE_KGKM2 <- with(test_cpue, CPUE_KGKM2_gp - CPUE_KGKM2_prod)
+  test_cpue$CPUE_NOKM2 <- with(test_cpue, round(CPUE_NOKM2_gp - CPUE_NOKM2_prod, 2))
+  test_cpue$CPUE_KGKM2 <- with(test_cpue, round(CPUE_KGKM2_gp - CPUE_KGKM2_prod, 2))
   test_cpue$COUNT <- with(test_cpue, COUNT_gp - COUNT_prod)
   test_cpue$WEIGHT_KG <- with(test_cpue, round(WEIGHT_KG_gp, 2) - 
                                 round(WEIGHT_KG_prod, 2))
@@ -68,13 +68,16 @@ for (iregion in 1:length(x = regions)) {
   ##   Pull BIOMASS tables from the GAP_PRODUCTS schema and the most recent 
   ##   production run. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  gp_biomass <- subset(x = read.csv(file = paste0("temp/GAP_PRODUCTS_BIOMASS",
-                                                  "_", regions[iregion], ".csv")))
-  production_biomass <- read.csv(file = paste0("temp/production_biomass", 
-                                               "_", regions[iregion], ".csv"))
+  gp_biomass <- 
+    subset(x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_BIOMASS",
+                                      "_", regions[iregion], ".csv")))
+  production_biomass <- 
+    read.csv(file = paste0("temp/production/production_biomass", 
+                           "_", regions[iregion], ".csv"))
   
-  production_strata <- read.csv(paste0("temp/production_strata_",
-                                       regions[iregion], ".csv"))
+  production_strata <- 
+    read.csv(paste0("temp/production/production_strata_",
+                    regions[iregion], ".csv"))
   
   ## Merge the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## SPECIES_CODE, and YEAR as a composite key
@@ -115,7 +118,9 @@ for (iregion in 1:length(x = regions)) {
   biomass_mismatch <-
     subset(x = test_biomass,
            subset = N_WEIGHT != 0 | is.na(N_WEIGHT) |
-             N_COUNT != 0 | is.na(N_COUNT)  )
+             N_COUNT != 0 | is.na(N_COUNT) |
+             POPULATION_COUNT != 0 | is.na(POPULATION_COUNT) |
+             BIOMASS_MT != 0 | is.na(BIOMASS_MT))
   
   ## Attach to main results object
   mismatches$biomass <- rbind(mismatches$biomass, biomass_mismatch)
@@ -202,13 +207,3 @@ for (iregion in 1:length(x = regions)) {
 ##   Save mismatch object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 saveRDS(object = mismatches, file = "temp/mismatches.RDS")
-
-
-# production_subarea <- read.csv(paste0("temp/production_subarea_", 
-#                                       regions[iregion], ".csv"))
-# production_alk <- 
-#   read.csv(file = paste0("temp/production_alk_", regions[iregion], ".csv"))
-
-
-
-
