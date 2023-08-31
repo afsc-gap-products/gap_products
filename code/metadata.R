@@ -6,7 +6,7 @@
 rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import Libraries
+##   Import Libraries and constants, connect to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(googledrive)
 library(gapindex)
@@ -14,6 +14,8 @@ library(readxl)
 library(RODBC)
 library(janitor)
 library(dplyr)
+library(diffdf)
+source(file = "code/constants.R")
 
 sql_channel <- gapindex::get_connected()
 
@@ -21,22 +23,12 @@ sql_channel <- gapindex::get_connected()
 ##   Download the most recent version of the future_oracle.xlsx 
 ##   google sheet and save locally in the temp folder. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (!dir.exists("temp")) dir.create(path = "temp/")
 
 # https://docs.google.com/spreadsheets/d/1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA/edit?pli=1#gid=65110769
 googledrive::drive_download(
   file = googledrive::as_id("1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA"), 
   path = "temp/future_oracle.xlsx", 
   overwrite = TRUE)
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Constants
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-link_foss <- "https://www.fisheries.noaa.gov/foss"  
-link_repo <- "https://github.com/afsc-gap-products/gap_products" 
-link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
-link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
-pretty_date <- format(Sys.Date(), "%B %d, %Y")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Clean up metadata_table: the table that houses the shared sentence 
@@ -99,6 +91,64 @@ metadata_column_comment <- paste0(
   "These tables provide the column metadata for all of the tables and ",
   "views in GAP_PRODUCTS. These tables are created ",
   shared_metadata_comment)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  Compare the two tables to those already in GAP_PRODUCTS
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gp_metadata_column <- read.csv(file = "temp/cloned_gp/METADATA_COLUMN.csv")
+names(x = gp_metadata_column) <- tolower(x = names(x = gp_metadata_column))
+gp_metadata_table <- read.csv(file = "temp/cloned_gp/METADATA_TABLE.csv")
+names(x = gp_metadata_table) <- tolower(x = names(x = gp_metadata_table))
+
+grouping_fields <- "metadata_colname"
+interest_fields <- paste0("metadata_",  c("colname_long", "units", 
+                                          "datatype", "colname_desc") )
+
+merged_metadata_column <- merge(x = gp_metadata_column,
+                                y = metadata_column,
+                                all = TRUE, suffixes = c("_gp", "_prod"),
+                                by = grouping_fields)
+
+diffdf::diffdf(
+  base = {
+    temp <- subset(x = merged_metadata_column,
+                   select = c(grouping_fields, 
+                              paste0(interest_fields, "_gp")))
+    names(temp) <- gsub(x = names(temp), pattern = "gp", replacement = "")
+    temp
+  },
+  compare = {
+    temp <- subset(x = merged_metadata_column,
+                   select = c(grouping_fields, 
+                              paste0(interest_fields, "_prod")))
+    names(temp) <- gsub(x = names(temp), pattern = "prod", replacement = "")
+    temp
+  }
+)
+
+grouping_fields <- "metadata_sentence_name"
+interest_fields <- paste0("metadata_",  c("sentence_type", "sentence"))
+
+merged_metadata_table <- merge(x = gp_metadata_table,
+                               y = metadata_table,
+                               all = TRUE, suffixes = c("_gp", "_prod"),
+                               by = grouping_fields)
+diffdf::diffdf(
+  base = {
+    temp <- subset(x = merged_metadata_table,
+                   select = c(grouping_fields, 
+                              paste0(interest_fields, "_gp")))
+    names(temp) <- gsub(x = names(temp), pattern = "gp", replacement = "")
+    temp
+  },
+  compare = {
+    temp <- subset(x = merged_metadata_table,
+                   select = c(grouping_fields, 
+                              paste0(interest_fields, "_prod")))
+    names(temp) <- gsub(x = names(temp), pattern = "prod", replacement = "")
+    temp
+  }
+)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  Upload the two tables to Oracle
