@@ -9,6 +9,7 @@
 --               Emily Markowitz (emily.markowitz@noaa.gov)
 --
 
+CREATE MATERIALIZED VIEW GAP_PRODUCTS.FOSS_CATCH AS
 SELECT DISTINCT 
 cp.HAULJOIN,
 cp.SPECIES_CODE, 
@@ -21,10 +22,11 @@ tc.TAXON_CONFIDENCE,
 tt.SCIENTIFIC_NAME,
 tt.COMMON_NAME,
 tt.ID_RANK,
-tt.WORMS,
-tt.ITIS
+--tt.WORMS,
+--tt.ITIS
 FROM GAP_PRODUCTS.CPUE cp
-LEFT JOIN GAP_PRODUCTS.V_TAXONOMICS tt
+LEFT JOIN GAP_PRODUCTS.TEST_SPECIES_CLASSIFICATION tt
+--LEFT JOIN GAP_PRODUCTS.V_TAXONOMICS tt
 ON cp.SPECIES_CODE = tt.SPECIES_CODE
 LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
 ON cp.HAULJOIN = hh.HAULJOIN
@@ -34,15 +36,12 @@ LEFT JOIN GAP_PRODUCTS.TAXON_CONFIDENCE tc
 ON cp.SPECIES_CODE = tc.SPECIES_CODE 
 AND cc.SURVEY_DEFINITION_ID = tc.SURVEY_DEFINITION_ID
 AND cc.YEAR = tc.YEAR
---From ZSO: I don't think we need the extra constraints below since we're 
---          already pulling from GAP_PRODUCTS.CPUE, which already has these
---          constraints.
 WHERE hh.ABUNDANCE_HAUL = 'Y' 
 AND hh.HAUL_TYPE = 3
 AND hh.PERFORMANCE >= 0
 AND cc.SURVEY_DEFINITION_ID IN (143, 98, 47, 52, 78)
 AND cc.YEAR != 2020 -- no surveys happened this year because of COVID
-AND (cc.YEAR >= 1982 AND cc.SURVEY_DEFINITION_ID IN (98, 143, 78)  -- 1982 BS inclusive - much more standardized after this year
+AND (cc.YEAR >= 1982 AND cc.SURVEY_DEFINITION_ID IN (98, 143) -- EBS/NBS survey standard temporal stanza starts in 1982
 OR cc.SURVEY_DEFINITION_ID = 78 -- keep all years of the BSS
-OR cc.YEAR >= 1991 AND cc.SURVEY_DEFINITION_ID IN (52)) -- AI survey standard temporal stanza starts in 1991
+OR cc.YEAR >= 1991 AND cc.SURVEY_DEFINITION_ID IN (52) -- AI survey standard temporal stanza starts in 1991
 OR cc.YEAR >= 1993 AND cc.SURVEY_DEFINITION_ID IN (47)) -- GOA survey standard temporal stanza starts in 1993
