@@ -3,7 +3,6 @@
 ## Description:   Script that houses commonly used constants used to produce
 ##                the metadata for the various production tables and views.  
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-rm(list = ls())
 
 ## Links to various references
 link_foss <- "https://www.fisheries.noaa.gov/foss"  
