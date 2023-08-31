@@ -9,6 +9,7 @@
 --               Emily Markowitz (emily.markowitz@noaa.gov)
 --
 
+CREATE MATERIALIZED VIEW GAP_PRODUCTS.FOSS_HAUL AS
 SELECT DISTINCT 
 cc.YEAR, 
 CASE
@@ -63,6 +64,7 @@ AND hh.ABUNDANCE_HAUL = 'Y'
 AND hh.PERFORMANCE >= 0
 AND cc.SURVEY_DEFINITION_ID IN (143, 98, 47, 52, 78)
 AND cc.YEAR != 2020 -- no surveys happened this year because of COVID
-AND (cc.YEAR >= 1982 AND cc.SURVEY_DEFINITION_ID IN (98, 143)  -- 1982 BS inclusive - much more standardized after this year
+AND (cc.YEAR >= 1982 AND cc.SURVEY_DEFINITION_ID IN (98, 143) -- EBS/NBS survey standard temporal stanza starts in 1982
 OR cc.SURVEY_DEFINITION_ID = 78 -- keep all years of the BSS
-OR cc.YEAR >= 1991 AND cc.SURVEY_DEFINITION_ID IN (52, 47)) -- 1991 AI and GOA (1993) inclusive - much more standardized after this year
+OR cc.YEAR >= 1991 AND cc.SURVEY_DEFINITION_ID IN (52) -- AI survey standard temporal stanza starts in 1991
+OR cc.YEAR >= 1993 AND cc.SURVEY_DEFINITION_ID IN (47)) -- GOA survey standard temporal stanza starts in 1993
