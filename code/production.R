@@ -14,6 +14,7 @@ rm(list = ls())
 ##   Connect to Oracle (Make sure to connect to network or VPN)
 ##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+devtools::install_github("afsc-gap-products/gapindex")
 library(gapindex)
 library(RODBC)
 sql_channel <- gapindex::get_connected()
@@ -21,25 +22,30 @@ sql_channel <- gapindex::get_connected()
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Specify the range of years to calculate indices
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-range_of_years <- 1980:2022
+current_year <- 2023
+start_year <- 
+  c("AI" = 1991, "GOA" = 1993, "EBS" = 1982, "BSS" = 1982, "NBS" = 2010)
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Create temporary folder to put downloaded metadata files. Double-check 
 ## that the temp/ folder is in the gitignore file. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (!dir.exists(paths = "temp")) dir.create(path = "temp")
+if (!dir.exists(paths = "temp/production/")) 
+  dir.create(path = "temp/production/")
+writeLines(text = paste("Accessed on", Sys.time()), 
+           con = "temp/production/date_accessed.txt")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-for (iregion in (1:length(x = regions)) ) { ## Loop over regions -- start
+for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   
   ## Pull data for all years and species from Oracle
   start_time <- Sys.time()
   production_data <- gapindex::get_data(
-    year_set = range_of_years,
+    year_set = start_year[iregion]:current_year,
     survey_set = names(regions)[iregion],
     spp_codes = NULL,
     pull_lengths = TRUE, 
@@ -50,7 +56,7 @@ for (iregion in (1:length(x = regions)) ) { ## Loop over regions -- start
   print(end_time - start_time)
   
   saveRDS(object = production_data,
-          file = paste0("temp/production_data_", 
+          file = paste0("temp/production/production_data_", 
                         names(regions)[iregion], ".RDS"))
   
   ## Extract stratum and subarea information
@@ -178,7 +184,7 @@ for (iregion in (1:length(x = regions)) ) { ## Loop over regions -- start
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
                   "strata", "subarea")) 
     write.csv(x = get(paste0("production_", idata)),
-              file = paste0("temp/production_", idata, "_", 
+              file = paste0("temp/production/production_", idata, "_", 
                             names(regions)[iregion], ".csv"),
               row.names = F)
 }
