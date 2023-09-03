@@ -10,7 +10,7 @@ rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Set up which FOSS tables will be created based on which sql scripts are
-##   in code/sql. Hard code descritions of each table. 
+##   in code/sql. Hard code descriptions of each table. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
 sql_channel <- gapindex::get_connected()
@@ -105,32 +105,23 @@ update_metadata(
   metadata_column = metadata_column, 
   table_metadata = metadata_table)
 
-## Make Taxonomic grouping searching table -----------------------------------------------
+## FOSS_TAXON_GROUP ------------------------------------------------------------
 
-TAXON_GROUPS <- NEW_TAXONOMICS_ITIS %>%
-  dplyr::select(species_code, genus, family, order, class, phylum, kingdom) %>%
-  tidyr::pivot_longer(data = .,
-                      cols = c("genus", "family", "order", "class", "phylum", "kingdom"),
-                      names_to = "id_rank", values_to = "classification") %>%
-  dplyr::relocate(id_rank, classification, species_code) %>%
-  dplyr::arrange(id_rank, classification, species_code) %>%
-  dplyr::filter(!is.na(classification))
+metadata_table <- 
+  paste("This reference datasets contains suggested search groups for ", 
+        "simplifying species selection in the FOSS data platform so users ", 
+        "can better search through FOSS_CATCHThese tables were created", 
+        legal_disclaimer)
 
-# only keep groups that have more than one member
-NEW_TAXON_GROUPS <- TAXON_GROUPS[duplicated(x = TAXON_GROUPS$id_rank),]
+metadata_table <- fix_metadata_table(
+  metadata_table0 = metadata_table,
+  name0 = "FOSS_TAXON_GROUP",
+  dir_out = dir_out)
 
-NEW_TAXON_GROUPS_COMMENT <- paste(
-  "This dataset contains suggested search groups for simplifying species selection in the FOSS data platform. This was developed ", 
-  metadata_sentence_survey_institution,
-  metadata_sentence_legal_restrict_none, 
-  metadata_sentence_foss, 
-  metadata_sentence_github, 
-  metadata_sentence_codebook, 
-  metadata_sentence_last_updated, 
-  collapse = " ", sep = " ")
-
-# NEW_TAXON_GROUPS_TABLE <- fix_metadata_table(
-#   metadata_table0 = NEW_METADATA_TABLE,
-#   name0 = "TAXON_GROUPS",
-#   dir_out = dir_out)
+update_metadata(
+  schema = "GAP_PRODUCTS", 
+  table_name = "FOSS_HAUL", 
+  channel = channel, 
+  metadata_column = metadata_column, 
+  table_metadata = metadata_table)
 

@@ -10,7 +10,14 @@
 --
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_LENGTH AS
-SELECT a.hauljoin, species_code, sex, frequency, length, length_type, sample_type 
+SELECT 
+a.hauljoin,
+species_code, 
+sex, 
+frequency, 
+length as length_mm, 
+length_type, 
+sample_type 
 --select count(*)
 from racebase.length a, race_data.cruises b, race_data.surveys c, 
 race_data.survey_definitions d, racebase.haul f
