@@ -3,11 +3,9 @@ title: GAP FOSS Column Metadata
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
-
-# Metadata
 
 ## Data description
 

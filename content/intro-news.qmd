@@ -14,3 +14,5 @@ We have decided to undergo this organizational change to meet the following best
  - Minimize work for data creators
  - Minimize confusion and obstacles for data users
  - Security and data management best practices
+
+After the 2023 field season, we will deprecate the old AKFIN tables and completely replace the current tables with new tables, outlined in this document. 

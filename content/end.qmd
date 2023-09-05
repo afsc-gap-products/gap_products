@@ -5,4 +5,4 @@ title: "Notes"
 ```{r setup, include=FALSE}
 ```
 
-[Add close out comments.]
+Thank you for using our data guide! 

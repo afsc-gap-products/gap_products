@@ -1,8 +1,6 @@
 ---
-title: 'Access public data using the API and R'
+title: 'Access public data through the FOSS API using R'
 ---
-
-# Connect to the API with R
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = TRUE, echo = TRUE)

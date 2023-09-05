@@ -1,12 +1,10 @@
 ---
-title: Access public data using R in Oracle
+title: Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 ```
-
-## Access data via Oracle (AFSC only)
 
 If the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the FOSS public data directly from the `RACEBASE_FOSS` `Oracle` schema. 
 

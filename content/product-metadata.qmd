@@ -3,7 +3,7 @@ title: GAP Production Data Metadata
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 ```
 
 ## Data created in this repo

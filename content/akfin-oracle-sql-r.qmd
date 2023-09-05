@@ -3,7 +3,7 @@ title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
@@ -460,7 +460,7 @@ LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
 ON cp.HAULJOIN = hh.HAULJOIN
 
 -- Use CRUISES data to obtain YEAR and SURVEY_DEFINITION_ID
-LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISES cc
+LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
 ON hh.CRUISEJOIN = cc.CRUISEJOIN
 
 WHERE cp.SPECIES_CODE = 30060 

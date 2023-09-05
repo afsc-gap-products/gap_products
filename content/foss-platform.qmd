@@ -3,12 +3,10 @@ title: Access public data using the FOSS Interactive Platform
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
-
-# Quick Start Guide: Access AFSC data interactively through the FOSS platform
 
 ```{r foss-1-interface, echo=FALSE}
 #| label: foss-1-interface

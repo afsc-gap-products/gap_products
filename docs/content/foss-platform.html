@@ -234,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data using the API and R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data through the FOSS API using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -246,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data using R in Oracle</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)</span></span></a>
   </div>
 </li>
       </ul>
@@ -290,12 +290,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#quick-start-guide-access-afsc-data-interactively-through-the-foss-platform" id="toc-quick-start-guide-access-afsc-data-interactively-through-the-foss-platform" class="nav-link active" data-scroll-target="#quick-start-guide-access-afsc-data-interactively-through-the-foss-platform"><span class="header-section-number">11</span> Quick Start Guide: Access AFSC data interactively through the FOSS platform</a>
-  <ul class="collapse">
-  <li><a href="#select-and-filter" id="toc-select-and-filter" class="nav-link" data-scroll-target="#select-and-filter"><span class="header-section-number">11.1</span> Select and filter</a></li>
-  <li><a href="#select-data-format" id="toc-select-data-format" class="nav-link" data-scroll-target="#select-data-format"><span class="header-section-number">11.2</span> Select data format</a></li>
-  <li><a href="#run-report" id="toc-run-report" class="nav-link" data-scroll-target="#run-report"><span class="header-section-number">11.3</span> Run report</a></li>
-  </ul></li>
+  <li><a href="#select-and-filter" id="toc-select-and-filter" class="nav-link active" data-scroll-target="#select-and-filter"><span class="header-section-number">10.1</span> Select and filter</a></li>
+  <li><a href="#select-data-format" id="toc-select-data-format" class="nav-link" data-scroll-target="#select-data-format"><span class="header-section-number">10.2</span> Select data format</a></li>
+  <li><a href="#run-report" id="toc-run-report" class="nav-link" data-scroll-target="#run-report"><span class="header-section-number">10.3</span> Run report</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-platform.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-platform.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -319,8 +316,6 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="quick-start-guide-access-afsc-data-interactively-through-the-foss-platform" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Quick Start Guide: Access AFSC data interactively through the FOSS platform</h1>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -331,8 +326,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<section id="select-and-filter" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="select-and-filter"><span class="header-section-number">11.1</span> Select and filter</h2>
+<section id="select-and-filter" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="select-and-filter"><span class="header-section-number">10.1</span> Select and filter</h2>
 <p>Select, filter, and package this and other NOAA Fisheries data from the <a href="https://www.fisheries.noaa.gov/foss">Fisheries One Stop Shop (FOSS)</a> platform. A user guide for the FOSS platform can be found <a href="https://www.fisheries.noaa.gov/foss/f?p=215:7:7542600605674:::::">here</a>. To begin a report, select options from the boxes what you need data for.</p>
 <p>For a given box, select one or a few options from the “options box” (list on the left) to query by highlighting them. To select multiple options, hold down the CTRL key while clicking on the options of interest, or click and drag down the list. Once the options you wish to be included in your query are highlighted, click the right-pointing arrow (<code>&gt;</code>) to move them into the “selection box” (list on the right). If you accidentally select an option that you do not want to query, simply select the unwanted option from the selection box and click the left-pointing arrow (<code>&lt;</code>).</p>
 <p>If you wish to select all options from the options box and send them to the selection box, simply click the double right-pointing arrow (<code>&gt;&gt;</code>). If you want to unselect all options from the selection box, use the double left-pointing arrow (<code>&lt;&lt;</code>) or the reset icon.</p>
@@ -368,8 +363,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="select-data-format" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="select-data-format"><span class="header-section-number">11.2</span> Select data format</h2>
+<section id="select-data-format" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="select-data-format"><span class="header-section-number">10.2</span> Select data format</h2>
 <p>Select from the below radio list of pre-designed output tables. Once you run the report, the user can further specify filter data and select columns of interest. The tables below will only include data from the selections made in the previous step.</p>
 <ul>
 <li><code>All Data Fields: Presence and Absence (zero-filled)</code>: The most complete version of the data, including species, catch, haul, and environmental data. This data will include catch data for where species were caught and zeros for where the species were not caught. This is important for calculating catch-per-unit-effort data, preparing distribution plots (e.g., <a href="https://github.com/afsc-gap-products/akgfmaps">using the akgfmaps R package</a>), and many statistical analyses.</li>
@@ -392,8 +387,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="run-report" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="run-report"><span class="header-section-number">11.3</span> Run report</h2>
+<section id="run-report" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="run-report"><span class="header-section-number">10.3</span> Run report</h2>
 <p>Click the <code>RUN REPORT</code> button. Below the select and filter area, the results of your query will appear below the page in the format you selected. To change the format, make a different selection and run the report again. Further modifications to your results can be made by clicking on the <code>Actions</code> button above your data. Here you can <code>download</code> your data, <code>select columns</code> included in your results, and apply a variety of <code>filters</code> and mathematical tools.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -407,7 +402,6 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -652,7 +646,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../content/foss-api-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data using the API and R</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data through the FOSS API using R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

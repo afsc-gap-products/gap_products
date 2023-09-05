@@ -3,9 +3,18 @@ title: AFSC RACE Groundfish Data for AKFIN
 ---
 
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 ```
 
+These data are used directly by stock assessors and are provided to The [Alaska Fisheries Information Network (AKFIN)]. 
+
+## The Alaska Fisheries Information Network
+
+The [Alaska Fisheries Information Network (AKFIN)](https://www.psmfc.org/program/alaska-fisheries-information-network-akfin) is a regional program that consolidates and supports the collection, processing, analysis, and reporting of fisheries statistics for North Pacific and Alaskan fisheries. AKFIN integrates this information into a single data management system using consistent methods and standardized formats. The Network then reports this information on its website, in various publications, and to researchers. The resulting data enables fishery managers, scientists, and associated agencies to supervise fisheries resources more effectively and efficiently. 
+
+If you are an AFSC employee with access to data through our internal database Oracle server, use this [guide](https://afsc-gap-products.github.io/gap_products/content/akfin-oracle-sql-r.html) to access our data. If not, reach out to AKFIN for a user account.  
+
+## Cite this data
 
 Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/code/CITATION_GAPakfin.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
 
@@ -13,6 +22,3 @@ Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/code/CITATION
 cat(readLines(con = here::here("code", "CITATION_GAPakfin.bib")), sep = "\n") 
 ```
 
-# NEWS
-
-After the 2023 field season, we will deprecate the old tables and completely replace the current tables with these new proposed tables. 

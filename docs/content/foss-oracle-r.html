@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 13&nbsp; Access public data using R in Oracle</title>
+<title>GAP Production Data Documentation - 13&nbsp; Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">AFSC RACE Groundfish and Shellfish Survey Public Data</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data using R in Oracle</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">AFSC RACE Groundfish and Shellfish Survey Public Data</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -268,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data using the API and R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access public data through the FOSS API using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data using R in Oracle</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)</span></span></a>
   </div>
 </li>
       </ul>
@@ -324,12 +324,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#access-data-via-oracle-afsc-only" id="toc-access-data-via-oracle-afsc-only" class="nav-link active" data-scroll-target="#access-data-via-oracle-afsc-only"><span class="header-section-number">13.1</span> Access data via Oracle (AFSC only)</a>
-  <ul class="collapse">
-  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">13.1.1</span> Connect to Oracle from R</a></li>
-  <li><a href="#ex.-1-join-data" id="toc-ex.-1-join-data" class="nav-link" data-scroll-target="#ex.-1-join-data"><span class="header-section-number">13.1.2</span> Ex. 1: Join data</a></li>
-  <li><a href="#ex.-2-subset-data" id="toc-ex.-2-subset-data" class="nav-link" data-scroll-target="#ex.-2-subset-data"><span class="header-section-number">13.1.3</span> Ex. 2: Subset data</a></li>
-  </ul></li>
+  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link active" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</a></li>
+  <li><a href="#ex.-1-join-data" id="toc-ex.-1-join-data" class="nav-link" data-scroll-target="#ex.-1-join-data"><span class="header-section-number">13.0.2</span> Ex. 1: Join data</a></li>
+  <li><a href="#ex.-2-subset-data" id="toc-ex.-2-subset-data" class="nav-link" data-scroll-target="#ex.-2-subset-data"><span class="header-section-number">13.0.3</span> Ex. 2: Subset data</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -338,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data using R in Oracle</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)</span></h1>
 </div>
 
 
@@ -353,11 +350,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="access-data-via-oracle-afsc-only" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="access-data-via-oracle-afsc-only"><span class="header-section-number">13.1</span> Access data via Oracle (AFSC only)</h2>
 <p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the FOSS public data directly from the <code>RACEBASE_FOSS</code> <code>Oracle</code> schema.</p>
-<section id="connect-to-oracle-from-r" class="level3" data-number="13.1.1">
-<h3 data-number="13.1.1" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">13.1.1</span> Connect to Oracle from R</h3>
+<section id="connect-to-oracle-from-r" class="level3" data-number="13.0.1">
+<h3 data-number="13.0.1" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</h3>
 <p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
 <p>Here, the user can write in their username and password directly into the <code>RODBC</code> connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
 <div class="cell">
@@ -395,12 +390,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>channel <span class="ot">&lt;-</span> <span class="fu">oracle_connect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ex.-1-join-data" class="level3" data-number="13.1.2">
-<h3 data-number="13.1.2" class="anchored" data-anchor-id="ex.-1-join-data"><span class="header-section-number">13.1.2</span> Ex. 1: Join data</h3>
+<section id="ex.-1-join-data" class="level3" data-number="13.0.2">
+<h3 data-number="13.0.2" class="anchored" data-anchor-id="ex.-1-join-data"><span class="header-section-number">13.0.2</span> Ex. 1: Join data</h3>
 <p>To join these tables in Oracle, you may use a variant of the following code:</p>
 </section>
-<section id="ex.-2-subset-data" class="level3" data-number="13.1.3">
-<h3 data-number="13.1.3" class="anchored" data-anchor-id="ex.-2-subset-data"><span class="header-section-number">13.1.3</span> Ex. 2: Subset data</h3>
+<section id="ex.-2-subset-data" class="level3" data-number="13.0.3">
+<h3 data-number="13.0.3" class="anchored" data-anchor-id="ex.-2-subset-data"><span class="header-section-number">13.0.3</span> Ex. 2: Subset data</h3>
 <p>Once connected, pull and save (if needed) the tables into the <code>R</code> environment.</p>
 <p>To pull a small subset of the data (especially since files like <code>RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED</code> are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021:</p>
 <div class="cell">
@@ -420,7 +415,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

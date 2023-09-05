@@ -3,7 +3,7 @@ title: Universal Column Metadata
 ---
   
 ```{r setup, include=FALSE}
-#| file: ../code/functions.R
+#| file: functions.R
 ```
 
 ```{r table_metadata}
