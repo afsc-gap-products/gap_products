@@ -109,5 +109,11 @@
   },
   "content/end.qmd": {
     "end.html": "dd7d6fab"
+  },
+  "content/intro-survey-background.qmd": {
+    "intro-survey-background.html": "e2d5fbaf"
+  },
+  "content/intro-workflow.qmd": {
+    "intro-workflow.html": "38b77d51"
   }
 }
