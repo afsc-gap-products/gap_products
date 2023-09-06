@@ -25,11 +25,18 @@ book:
       affiliations:
         - name: NOAA Fisheries Alaska Fisheries Science Center
           department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
+    - name: Sarah Friedman
+      email: sarah.friedman@noaa.gov    
+      affiliations:
+        - name: NOAA Fisheries Alaska Fisheries Science Center
+          department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
   chapters:
     - index.qmd
     - part: content/intro.qmd
       chapters:
         - content/intro.qmd
+        - content/intro-survey-background.qmd
+        - content/intro-workflow.qmd
         - content/intro-contact-us.qmd
         - content/intro-news.qmd
     - part: content/product-intro.qmd

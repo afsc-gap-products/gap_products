@@ -1,0 +1,148 @@
+---
+title: Survey Background
+---
+
+```{r setup, include=FALSE}
+#| file: functions.R
+```
+
+## Bottom trawl surveys and regions
+
+```{r survey-map, echo=FALSE, results='asis'}
+knitr::include_graphics(path = here::here("img", "survey_plot.png"))
+```
+
+```{r source-current-tm, echo=FALSE}
+# source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r")
+srvy_cite <- data.frame(
+  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"),
+  CITE = c("2022NEBS2023", "2022NEBS2023","GOA2018", "AI2018", "RN979"))
+```
+
+- **Aleutian Islands (AI)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
+  - Triennial (1990s)/Biennial since 2000 in even years
+  - Modified Index-Stratified Random of Successful Stations Survey Design
+- **Eastern Bering Sea Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
+  - Intermittent (funding dependent)
+  - Modified Index-Stratified Random of Successful Stations Survey Design
+- **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
+  - Annual
+  - Fixed stations at center of 20 x 20 nm grid
+- **Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
+  - Triennial (1990s)/Biennial since 2001 in odd years
+  - Stratified Random Survey Design
+- **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
+  - Biennial/Annual
+  - Fixed stations at center of 20 x 20 nm grid
+
+
+
+```{r}
+#| tbl-cap: survey-summary-stats
+#| message: false
+#| warning: false
+#| echo: false
+
+dat_cruise <- RODBC::sqlQuery(channel = channel, 
+                       query = 
+"SELECT 
+SURVEY_DEFINITION_ID, 
+SURVEY_NAME, 
+YEAR
+FROM GAP_PRODUCTS.AKFIN_CRUISE cc") %>% 
+  dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
+                                  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
+  dplyr::filter(!is.na(SRVY)) %>% 
+  dplyr::distinct() %>%
+                     dplyr::group_by(SRVY, SURVEY_DEFINITION_ID, SURVEY_NAME) %>% 
+                     dplyr::summarise(YEARS = n(), 
+                                      YEAR_S = max(YEAR, na.rm = T), 
+                                      YEAR_E = min(YEAR, na.rm = T)) %>% 
+                     unique()#)
+
+
+dat_stratum <- RODBC::sqlQuery(channel = channel, 
+                       query = 
+"SELECT 
+SURVEY_DEFINITION_ID, 
+AREA_KM2, 
+DESIGN_YEAR, 
+DEPTH_MIN_M, 
+DEPTH_MAX_M 
+FROM GAP_PRODUCTS.AREA ss")  %>% 
+  dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
+                                  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
+  dplyr::filter(!is.na(SRVY)) %>% 
+      dplyr::group_by(SRVY, DESIGN_YEAR) %>%
+      dplyr::summarise(STRATUM = n(), 
+                       AREA_KM2 = sum(AREA_KM2, na.rm = TRUE), 
+                       DEPTH_MIN_M = min(DEPTH_MIN_M, na.rm = TRUE), 
+                       DEPTH_MAX_M = max(DEPTH_MAX_M, na.rm = TRUE)) %>% 
+  dplyr::filter(!is.na(SRVY) & 
+                  DESIGN_YEAR %in% max(DESIGN_YEAR)) %>% 
+  dplyr::select(-DESIGN_YEAR)
+
+
+dat_station <- RODBC::sqlQuery(channel = channel, 
+                       query = 
+"SELECT 
+SRVY, 
+STATION, 
+DESIGN_YEAR
+FROM GAP_PRODUCTS.OLD_STATION ss")  %>% 
+  dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
+                                  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
+  dplyr::filter(!is.na(SURVEY_DEFINITION_ID)) %>% 
+      dplyr::group_by(SRVY, DESIGN_YEAR) %>%
+      dplyr::summarise(STATION = n()) %>% 
+    dplyr::select(-DESIGN_YEAR)
+
+dat <- dplyr::full_join(dat_stratum, dat_station) %>% 
+  dplyr::full_join(dat_cruise) %>% 
+    dplyr::ungroup() %>%
+  dplyr::mutate(Years = paste0(YEAR_S, " - ", YEAR_E, " (", YEARS, ")"), 
+                area = paste0(formatC(x = AREA_KM2, format = "f", big.mark = ",", digits = 1)), 
+                depth = paste0(formatC(x = DEPTH_MIN_M, format = "f", big.mark = ",", digits = 0), 
+                               " - ", 
+                               formatC(x = DEPTH_MAX_M, format = "f", big.mark = ",", digits = 0))) %>% 
+  dplyr::select(SURVEY_NAME, SURVEY_DEFINITION_ID, Years, depth, area, STRATUM, STATION) %>% 
+  flextable::flextable() %>% 
+  flextable::set_header_labels(
+    SURVEY_NAME = "Survey", 
+    SURVEY_DEFINITION_ID = "Survey Definition ID", 
+    depth = "Depth (m)", 
+    area = "Area (km2)", 
+    STRATUM = "# Statistical Areas", 
+    STATION = "# Possible Stations" ) %>% 
+    theme_flextable_nmfstm(x = ., 
+                           font0 = "Arial", 
+                           pad = 0, 
+                           row_lines = FALSE, 
+                           pgwidth = 8) %>% 
+  flextable::fit_to_width(x = ., max_width = 11) %>%
+  flextable::padding(padding = 5) %>% 
+  flextable::theme_zebra() %>% 
+    flextable::align(x = ., part = "body", align = "center", j = "SURVEY_DEFINITION_ID") %>% 
+  flextable::width(j = "SURVEY_NAME", width = 1.5)
+
+dat 
+```
+
+
+## Survey History
+
+### Aleutian Islands Survey
+
+
+### Bering Sea Survey
+
+
+### Bering Sea Slope Survey
+
+
+### Gulf of Alaska Survey
+
+
+
+
+
