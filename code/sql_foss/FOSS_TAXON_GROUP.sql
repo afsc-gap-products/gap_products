@@ -1,4 +1,4 @@
--- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_CRUISE
+-- SQL Command to Create Materilized View GAP_PRODUCTS.FOSS_TAXON_GROUP
 -- This reference table will allow for easier searching and sorting of species in FOSS
 --
 -- Contributors: Ned Laman (ned.laman@noaa.gov), 

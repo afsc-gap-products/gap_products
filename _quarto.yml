@@ -10,7 +10,7 @@ book:
   site-url: "https://afsc-gap-products.github.io/gap_products" 
   repo-url: "https://github.com/afsc-gap-products/gap_products"
   repo-actions: [edit, source, issue]
-  favicon: favicon.ico/favicon.png
+  favicon: img/favicon.png
   downloads: [pdf, docx]
   search: true
   author:
