@@ -1,5 +1,5 @@
 ---
-title: Access public data using the FOSS Interactive Platform
+title: Using the API
 ---
 
 ```{r setup, include=FALSE}

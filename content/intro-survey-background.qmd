@@ -38,7 +38,7 @@ srvy_cite <- data.frame(
 
 
 ```{r}
-#| tbl-cap: survey-summary-stats
+#| tbl-cap: Survey summary stats
 #| message: false
 #| warning: false
 #| echo: false

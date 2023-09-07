@@ -6,8 +6,6 @@ title: Workflow
 #| file: functions.R
 ```
 
-## Workflow
-
 **Info incoming!**
 
 ## Data levels

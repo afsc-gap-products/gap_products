@@ -1,5 +1,5 @@
 ---
-title: GAP Production Data Metadata
+title: Data description
 ---
 
 ```{r setup, include=FALSE}
@@ -11,11 +11,11 @@ title: GAP Production Data Metadata
 ```{r table-locations, eval = TRUE, echo = FALSE}
  # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
 
-locations <- paste0("GAP_PRODUCTS.", 
+locations <- #paste0("GAP_PRODUCTS.", 
                     c("AGECOMP", "AREA", 
                  "BIOMASS", 'CPUE', 
                  "DESIGN_SURVEY", "METADATA_TABLE", 
-                 "STRATUM_GROUPS", "SIZECOMP"))
+                 "STRATUM_GROUPS", "SIZECOMP")
 
 str00 <- print_table_metadata(channel, locations)
 ```

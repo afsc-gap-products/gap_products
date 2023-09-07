@@ -1,5 +1,5 @@
 ---
-title: Access public data (otherwise available from FOSS) using R in Oracle (AFSC only)
+title: Access data using R (AFSC only)
 ---
 
 ```{r setup, include=FALSE}

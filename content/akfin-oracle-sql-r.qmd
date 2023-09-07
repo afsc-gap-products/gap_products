@@ -1,5 +1,5 @@
 ---
-title: AFSC RACE Groundfish Data for AKFIN in Oracle with SQL and R
+title: Accessing Data
 ---
 
 ```{r setup, include=FALSE}
@@ -9,11 +9,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 
 ## Access data via Oracle (AFSC only)
 
-AFSC `Oracle` users can access the database via `SQL developer` to view and pull the production data directly from the `GAP_PRODUCTS` `Oracle` schema. 
-
-### Access data via Oracle
-
-If the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the GAP Products data directly from the `GAP_PRODUCTS` `Oracle` schema. 
+AFSC `Oracle` users can access the database via `SQL developer` to view and pull the production data directly from the `GAP_PRODUCTS` `Oracle` schema. The user can also use `SQL developer` to view and pull the GAP Products data directly from the `GAP_PRODUCTS` `Oracle` schema. 
 
 ### Connect to Oracle from R
 
@@ -109,7 +105,9 @@ dat0 <- dat %>%
   dplyr::mutate(
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
 
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>% 
+  theme_zebra() %>%
+  flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
 ```
 
 ```{r}
@@ -177,7 +175,10 @@ AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
   dplyr::mutate(length_cm = length_mm/10)
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>% 
+  theme_zebra() %>%
+    flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
+
 ```
 
 
@@ -328,7 +329,9 @@ dat0 <- dat %>%
     val = ifelse(var == "biomass_mt", val/1e6, val/1e9), 
     var = ifelse(var == "biomass_mt", "Biomass (Mmt)", "Population (B)"), 
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>% 
+  theme_zebra() %>%
+  flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
 ```
 
 ```{r}
@@ -392,7 +395,9 @@ a_mean <- dat %>%
   dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
                    minyr = min(year, na.rm = TRUE), 
                    maxyr = max(year, na.rm = TRUE)) 
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>%
+  theme_zebra() %>%
+  flextable::colformat_num(x = ., j = "year", big.mark = "")
 ```
 
 ```{r}

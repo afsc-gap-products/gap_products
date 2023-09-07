@@ -1,5 +1,5 @@
 ---
-title: 'Access public data through the FOSS API using R'
+title: Access API data using R
 ---
 
 ```{r setup, include=FALSE}

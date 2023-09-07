@@ -1,13 +1,11 @@
 ---
-title: GAP FOSS Column Metadata
+title: Data description
 ---
 
 ```{r setup, include=FALSE}
 #| file: functions.R
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
-
-## Data description
 
 The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.
 
@@ -17,7 +15,7 @@ These data are zero-filled (presence and absence) observations from surveys cond
 
 Though not included in the public data, these surveys also collect oceanographic and environmental data, and biological data such as length, weight, stomach contents (to learn more about diet), otoliths (fish ear bones to learn about age), and tissue samples for genetic analysis, all of which can be shared upon special request. Also not included in the public data are estimated biomass (average total weight of all fish and crabs sampled) of crabs and groundfish that support the creation of annual stock assessments.
 
-## Data created in this repo
+## Data tables
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
 

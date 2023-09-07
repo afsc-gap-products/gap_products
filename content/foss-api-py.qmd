@@ -1,5 +1,5 @@
 ---
-title: Access public data using the API and Python
+title: Access API data using Python
 ---
 
 ```{r setup, include=FALSE}

@@ -41,7 +41,7 @@ book:
     - part: content/product-intro.qmd
       chapters:
         - content/product-metadata.qmd
-        - content/product-metadata-column.qmd
+       # - content/product-metadata-column.qmd
         - content/product-gapindex.qmd
     - part: content/akfin-intro.qmd
       chapters:
@@ -56,8 +56,8 @@ book:
         - content/foss-oracle-r.qmd
     - part: content/end.qmd
       chapters:
-        - content/end-acknowledgements.qmd
         - content/end-run-notes.qmd
+        - content/end-acknowledgements.qmd
         - content/end-refs.qmd
         - content/end-contact-us.qmd
 

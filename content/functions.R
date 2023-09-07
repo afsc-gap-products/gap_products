@@ -140,16 +140,36 @@ ORDER BY table_name")
     
     # temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
     temp_rows <- RODBC::sqlQuery(channel = channel, 
-                                 query = paste0("SELECT COUNT(*) FROM " , locations[i], ";"))
+                                 query = paste0("SELECT COUNT(*) FROM GAP_PRODUCTS." , locations[i], ";"))
     
-    temp_data <- RODBC::sqlQuery(channel = channel, 
-                                 query = paste0("SELECT *
-    FROM ", locations[i], "
-    FETCH FIRST 3 ROWS ONLY;"))
+    # temp_data <- RODBC::sqlQuery(channel = channel, 
+    #                              query = paste0("SELECT *
+    # FROM ", locations[i], "
+    # FETCH FIRST 3 ROWS ONLY;"))
+    # 
+    # temp_cols <- temp_data %>% 
+    #   ncol()
     
-    temp_cols <- temp_data %>% 
-      ncol()
+    temp_colnames <- RODBC::sqlQuery(channel = channel, 
+                                     query = paste0("SELECT column_name FROM all_tab_columns WHERE table_name = '", locations[i],"';"))
     
+    
+    temp_cols <- nrow(temp_colnames)
+    
+    # get metadata
+    temp_data <- RODBC::sqlQuery(
+      channel = channel, 
+      query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")  %>%
+      dplyr::right_join(temp_colnames, by = c("METADATA_COLNAME" = "COLUMN_NAME")) %>%
+      janitor::clean_names() %>% 
+      dplyr::arrange(metadata_colname) %>%
+      dplyr::select(
+        "Column name from data" = metadata_colname,
+        "Descriptive column Name" = metadata_colname_long,
+        "Units" = metadata_units,
+        "Oracle data type" = metadata_datatype,
+        "Column description" = metadata_colname_desc)
+
     str00 <- paste0(str00, 
                     paste0("### ", locations[i], "\n\n", 
                            metadata_table, "\n\n",
@@ -161,7 +181,8 @@ ORDER BY table_name")
                            # " ", ifelse(temp>1e+7, "GB", "B"), 
                            "\n\n", 
                            # flextable::flextable(temp_data) %>% theme_zebra(), 
-                           knitr::kable(temp_data, row.names = FALSE),
+                           #knitr::kable(temp_data, row.names = FALSE),
+                           flextable::flextable(temp_data) %>% theme_zebra(),
                            "\n\n\n"
                     ))
     # cat(str0)

@@ -1,5 +1,5 @@
 ---
-title: AFSC RACE Groundfish Data for AKFIN Metadata
+title: Data description
 ---
 
 ```{r setup, include=FALSE}
@@ -8,11 +8,11 @@ title: AFSC RACE Groundfish Data for AKFIN Metadata
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Data description
+## Data Description
 
 *In development*
 
-## Data created in this repo
+## Data Tables
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
  # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:

@@ -1,5 +1,5 @@
 ---
-title: AFSC RACE Groundfish Data for AKFIN
+title: AKFIN
 ---
 
 ```{r setup, include=FALSE}
