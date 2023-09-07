@@ -1,8 +1,8 @@
 project: 
   type: book
   output-dir: docs
-  pre-render: code/functions.R
-  post-render: code/post-render.R
+  pre-render: content/functions.R
+  post-render: content/post-render.R
 
 book: 
   page-navigation: true
@@ -34,10 +34,9 @@ book:
     - index.qmd
     - part: content/intro.qmd
       chapters:
-        - content/intro.qmd
+        # - content/intro.qmd
         - content/intro-survey-background.qmd
         - content/intro-workflow.qmd
-        - content/intro-contact-us.qmd
         - content/intro-news.qmd
     - part: content/product-intro.qmd
       chapters:
@@ -60,6 +59,8 @@ book:
         - content/end-acknowledgements.qmd
         - content/end-run-notes.qmd
         - content/end-refs.qmd
+        - content/end-contact-us.qmd
+
 
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 

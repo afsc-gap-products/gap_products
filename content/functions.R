@@ -21,6 +21,7 @@ PKG <- c(
 
 PKG <- unique(PKG)
 for (p in PKG) {
+  # library(p, character.only = TRUE)
   if(!require(p,character.only = TRUE)) {
     install.packages(p)
     require(p,character.only = TRUE)}

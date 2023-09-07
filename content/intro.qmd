@@ -8,7 +8,7 @@ title: Introduction
 
 ## Our Objective
 
-These data are part of the public domain, and thus need to be available to the public. As part of our commitment to open science and transparency, we additionally provide this interactive metadata guide. Please refer to our [Draft Data Changes Brief](https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing). Once finalized, this language will be included here. 
+These data are part of the public domain, and thus need to be available to the public. As part of our commitment to open science and transparency, we additionally provide this interactive metadata guide. Please refer to our [Draft Data Changes Brief](https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing). Once finalized, this language will be included here.
 
 ## User Resources
 
