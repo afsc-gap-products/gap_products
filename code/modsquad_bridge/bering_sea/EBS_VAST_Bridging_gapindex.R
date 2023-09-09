@@ -211,13 +211,13 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   #     racebase_stratum_popn = nbs_popn_stratum,
   #     spatial_level = "haul",
   #     fill_NA_method = "BS"))
-  sizecomp <- rbind(calc_sizecomp_stratum2(
+  sizecomp <- rbind(calc_sizecomp_stratum(
     racebase_tables = ebs_data,
     racebase_cpue = ebs_cpue,
     racebase_stratum_popn = ebs_popn_stratum,
     spatial_level = "haul",
     fill_NA_method = "BS"),
-    calc_sizecomp_stratum2(
+    calc_sizecomp_stratum(
       racebase_tables = nbs_data,
       racebase_cpue = nbs_cpue,
       racebase_stratum_popn = nbs_popn_stratum,
