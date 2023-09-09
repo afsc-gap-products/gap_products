@@ -14,7 +14,7 @@ rm(list = ls())
 ##   Connect to Oracle (Make sure to connect to network or VPN)
 ##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-devtools::install_github("afsc-gap-products/gapindex")
+# devtools::install_github("afsc-gap-products/gapindex")
 library(gapindex)
 library(RODBC)
 sql_channel <- gapindex::get_connected()
@@ -26,6 +26,10 @@ current_year <- 2023
 start_year <- 
   c("AI" = 1991, "GOA" = 1993, "EBS" = 1982, "BSS" = 1982, "NBS" = 2010)
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
+
+spp_start_year <-
+  RODBC::sqlQuery(channel = sql_channel, 
+                  query = "SELECT * FROM GAP_PRODUCTS.SPECIES_YEAR")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Create temporary folder to put downloaded metadata files. Double-check 
@@ -180,6 +184,25 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   production_agecomp <- 
     rbind(production_agecomp_region,
           production_agecomp_stratum$age_comp[, names(production_agecomp_region)])
+  
+  ## For certain SPECIES_CODEs, constrain all of the data tables to only the
+  ## years when we feel confident about their taxonomic accuracy, e.g., remove
+  ## northern rock sole values prior to 1996.
+  for (irow in 1:nrow(x = spp_start_year)) { ## Loop over species -- start
+    for (idata in paste0("production_", 
+                         c("cpue", 
+                           "biomass", 
+                           "sizecomp", 
+                           "agecomp"))) { ## Loop over data table -- start
+      assign(x = idata,
+             value = subset(
+               x = get(idata),
+               subset = !(SPECIES_CODE == spp_start_year$SPECIES_CODE[irow] & 
+                            YEAR < spp_start_year$YEAR_STARTED[irow])
+             )
+      )
+    } ## Loop over data table -- end
+  } ## Loop over species -- end
   
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
                   "strata", "subarea")) 
