@@ -34,48 +34,44 @@ decimalplaces <- function(x) {
 }
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import production tables
+##   Import production tables from GAP_PRODUCTS Oracle schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## gapindex data object
-production_data <- readRDS(file = "temp/production/production_data_GOA.RDS")
-
 ## CPUE
-production_cpue <- subset(x = read.csv(file = "temp/production/production_cpue_GOA.csv"),
-                          YEAR == 2023)
+hauljoins_2023 <-
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT DISTINCT HAULJOIN FROM GOA.CPUE ",
+                                 "WHERE YEAR = 2023"))$HAULJOIN
+production_cpue <- 
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT * FROM GAP_PRODUCTS.CPUE ",
+                                 "WHERE HAULJOIN IN ",
+                                 gapindex::stitch_entries(hauljoins_2023)))
 
-## strata information
-production_strata <- read.csv(file = paste0("temp/production/production_strata_GOA.csv"))
-
-## subarea information
-production_subarea <- read.csv(file = paste0("temp/production/production_subarea_GOA.csv"))
-
-## stratum biomass
+## Biomass
 production_biomass <- 
-  unique(x = subset(x = read.csv(file = "temp/production/production_biomass_GOA.csv"),
-                    subset = YEAR == 2023))
-## Change AREA_ID field name to STRATUM
-# names(production_biomass)[names(production_biomass) == "AREA_ID"] <- "STRATUM" 
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT * FROM GAP_PRODUCTS.BIOMASS ",
+                                 "WHERE SURVEY_DEFINITION_ID = 47 ",
+                                 "AND YEAR = 2023"))
 
-## stratum size composition
+## Size composition
 production_sizecomp <- 
-  unique(x = subset(x = read.csv(file = "temp/production/production_sizecomp_GOA.csv"),
-                    subset = YEAR == 2023))
-production_sizecomp21 <- 
-  unique(x = subset(x = read.csv(file = "temp/production/production_sizecomp_GOA.csv"),
-                    subset = YEAR == 2021))
-## Change AREA_ID field name to STRATUM
-# names(x = production_sizecomp0)[names(x = production_sizecomp0) == "AREA_ID"] <- 
-# "STRATUM" 
-## Age-length key
-production_alk <- read.csv(file = paste0("temp/production/production_alk_GOA.csv"))
-# age composition
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT * FROM GAP_PRODUCTS.SIZECOMP ",
+                                 "WHERE SURVEY_DEFINITION_ID = 47 ",
+                                 "AND YEAR = 2023"))
+
+## Age composition
 production_agecomp <- 
-  subset(x = read.csv(file = "temp/production/production_agecomp_GOA.csv"),
-         subset = YEAR == 2021 & AREA_ID == 99903,
-         select = -c(AREA_ID, SURVEY, SURVEY_DEFINITION_ID))
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT YEAR, SPECIES_CODE, SEX, AGE, ",
+                                 "POPULATION_COUNT, LENGTH_MM_MEAN, ",
+                                 "LENGTH_MM_SD FROM GAP_PRODUCTS.AGECOMP ",
+                                 "WHERE SURVEY_DEFINITION_ID = 47 ",
+                                 "AND YEAR = 2021"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import historical tables
+##   Import historical tables from GOA Oracle schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 historical_cpue <- 
   RODBC::sqlQuery(channel = sql_channel,
@@ -307,9 +303,9 @@ test_cpue$WEIGHT_KG <-
 test_cpue$COUNT <- with(test_cpue, COUNT_prod - COUNT_hist )
 
 test_cpue$CPUE_KGKM2 <- 
-  with(test_cpue, round(CPUE_KGKM2_prod - CPUE_KGKM2_hist, 9 ))
+  with(test_cpue, round(CPUE_KGKM2_prod - CPUE_KGKM2_hist, 6 ))
 test_cpue$CPUE_NOKM2 <- 
-  with(test_cpue, round(CPUE_NOKM2_prod - CPUE_NOKM2_hist, 9 ))
+  with(test_cpue, round(CPUE_NOKM2_prod - CPUE_NOKM2_hist, 6 ))
 
 ## Subset mismatched records
 mismatch_cpue <- subset(x = test_cpue, 
@@ -490,23 +486,21 @@ test_agecomp <- merge(x = historical_agecomp,
 test_agecomp$POPULATION_COUNT <- 
   with(test_agecomp, POPULATION_COUNT_prod - POPULATION_COUNT_hist)
 test_agecomp$LENGTH_MM_MEAN <- 
-  with(test_agecomp, round(x = (LENGTH_MM_MEAN_prod - LENGTH_MM_MEAN_hist) / LENGTH_MM_MEAN_prod, 2))
+  with(test_agecomp, round(x = (LENGTH_MM_MEAN_prod - LENGTH_MM_MEAN_hist) / 
+                             LENGTH_MM_MEAN_prod, 
+                           digits = 2))
 test_agecomp$LENGTH_MM_SD <- 
-  with(test_agecomp, round(x = (LENGTH_MM_SD_prod - LENGTH_MM_SD_hist) / ifelse(test = LENGTH_MM_SD_prod == 0, 1, LENGTH_MM_SD_prod), 2))
+  with(test_agecomp, round(x = (LENGTH_MM_SD_prod - LENGTH_MM_SD_hist) / 
+                             ifelse(test = LENGTH_MM_SD_prod == 0, 
+                                    yes = 1, 
+                                    no = LENGTH_MM_SD_prod), 
+                           digits = 2))
 
 mismatched_age <- 
   subset(x = test_agecomp, 
-         subset =  abs(POPULATION_COUNT) > 5000 | is.na(x = POPULATION_COUNT)) #|
-           # LENGTH_MM_MEAN != 0 | is.na(x = LENGTH_MM_MEAN) |
-           # LENGTH_MM_SD != 0 | is.na(x = LENGTH_MM_SD))
+         subset =  abs(POPULATION_COUNT) > 5000 | is.na(x = POPULATION_COUNT) |
+           LENGTH_MM_MEAN != 0 | is.na(x = LENGTH_MM_MEAN) |
+           LENGTH_MM_SD != 0 | is.na(x = LENGTH_MM_SD))
 
-tail(mismatched_age)
-test <- merge(x = subset(production_alk, 
-                         YEAR == 2021 & SPECIES_CODE == 30060 & AGE == 32 & SEX == 3),
-              y = subset(production_sizecomp21, 
-                         subset = AREA_ID == 99903 & YEAR == 2021 &
-                           SPECIES_CODE == 30060 & SEX == 3),
-              by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM"))
+mismatched_age
 
-subset(test_agecomp, SPECIES_CODE == 30060 & AGE == 32 & SEX == 3)
-weighted.mean(as.numeric(test$LENGTH_MM), test$POPULATION_COUNT)

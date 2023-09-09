@@ -34,55 +34,39 @@ decimalplaces <- function(x) {
 }
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import production tables
+##   Import production tables from GAP_PRODUCTS Oracle schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## gapindex data object
-production_data <- readRDS(file = "temp/production/production_data_EBS.RDS")
 
-## CPUE
-# production_cpue <- subset(x = read.csv(file = "temp/production/production_cpue_GOA.csv"),
-# YEAR == 2023)
-
-## strata information
-production_strata <- read.csv(file = paste0("temp/production/production_strata_EBS.csv"))
-
-## subarea information
-production_subarea <- read.csv(file = paste0("temp/production/production_subarea_EBS.csv"))
-
-## stratum biomass
+## Biomass
 production_biomass <- 
-  unique(x = subset(x = read.csv(file = "temp/production/production_biomass_EBS.csv"),
-                    subset = YEAR == 2023 & !(AREA_ID %in% c(99900, 100, 200, 300, 8, 9, 82, 90))))
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT * FROM GAP_PRODUCTS.BIOMASS ",
+                                 "WHERE SURVEY_DEFINITION_ID = 98 ",
+                                 "AND YEAR = 2023 AND ",
+                                 "AREA_ID NOT IN (100, 200, 300, 99900)"))
 
-## Change AREA_ID field name to STRATUM
-# names(production_biomass)[names(production_biomass) == "AREA_ID"] <- "STRATUM" 
-
-## stratum size composition
+## Size composition
 production_sizecomp <- 
-  unique(x = subset(x = read.csv(file = "temp/production/production_sizecomp_EBS.csv"),
-                    subset = YEAR == 2023 & !(AREA_ID %in% c(99900, 100, 200, 300, 82, 90)),
-                    select = -c(SURVEY_DEFINITION_ID)))
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT * FROM GAP_PRODUCTS.SIZECOMP ",
+                                 "WHERE SURVEY_DEFINITION_ID = 98 ",
+                                 "AND YEAR = 2023 AND ",
+                                 "AREA_ID NOT IN (82,90,100,200,300,99900)"))
 
-production_alk <- read.csv(file = "temp/production/production_alk_EBS.csv")
-
-# age composition
+## Age composition
 production_agecomp <- 
-  unique(x = subset(x = read.csv(file = "temp/production/production_agecomp_EBS.csv"),
-                    subset = YEAR == 2022 & !(AREA_ID %in% c(99900, 82, 90)),
-                    select = -c(SURVEY, SURVEY_DEFINITION_ID)))
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0("SELECT YEAR, SPECIES_CODE, SEX, AGE, ",
+                                 "POPULATION_COUNT, LENGTH_MM_MEAN, ",
+                                 "LENGTH_MM_SD FROM GAP_PRODUCTS.AGECOMP ",
+                                 "WHERE SURVEY_DEFINITION_ID = 98 ",
+                                 "AND YEAR = 2022 AND AREA_ID != 99900"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import historical tables
+##   Import historical tables from HAEHNR Oracle schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# historical_cpue <- 
-#   RODBC::sqlQuery(channel = sql_channel,
-#                   query = paste0(
-#                     "SELECT HAULJOIN, SPECIES_CODE, ",
-#                     "WEIGHT AS WEIGHT_KG, NUMBER_FISH AS COUNT, ",
-#                     "WGTCPUE AS CPUE_KGKM2, NUMCPUE AS CPUE_NOKM2 ",
-#                     "FROM GOA.CPUE WHERE YEAR = 2023"))
 
-## Biomass by Stratum
+## Biomass
 historical_biomass <- 
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
@@ -96,7 +80,7 @@ historical_biomass <-
                     "VARBIO AS BIOMASS_VAR, ",
                     "POPULATION AS POPULATION_COUNT, ",
                     "VARPOP AS POPULATION_VAR ",
-                    "FROM HAEHNR.BIOMASS_EBS_STANDARD WHERE YEAR = 2022"))
+                    "FROM HAEHNR.BIOMASS_EBS_STANDARD WHERE YEAR = 2023"))
 historical_biomass$AREA_ID[historical_biomass$AREA_ID == 999] <- 99901
 historical_biomass$AREA_ID[historical_biomass$AREA_ID == 100] <- 101
 historical_biomass$AREA_ID[historical_biomass$AREA_ID == 200] <- 201
@@ -106,13 +90,14 @@ historical_biomass <-
          subset = SPECIES_CODE %in% 
            unique(x = production_biomass$SPECIES_CODE))
 
-## Sizecomp by Stratum
+## Size composition
 historical_sizecomp <-
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
                     "SELECT YEAR, STRATUM AS AREA_ID, SPECIES_CODE, ",
                     "LENGTH as LENGTH_MM, MALES, FEMALES, UNSEXED ",
-                    " FROM HAEHNR.SIZECOMP_EBS_STANDARD_STRATUM WHERE YEAR = 2022 and STRATUM NOT IN (82, 90)"))
+                    " FROM HAEHNR.SIZECOMP_EBS_STANDARD_STRATUM ",
+                    "WHERE YEAR = 2023 and STRATUM NOT IN (82, 90)"))
 historical_sizecomp$AREA_ID[historical_sizecomp$AREA_ID == 999999] <- 99901
 
 historical_sizecomp <- 
@@ -126,66 +111,25 @@ historical_sizecomp$SEX <-
          no = ifelse(test = historical_sizecomp$SEX == "FEMALES",
                      yes = 2, no = 3))
 
+## Age composition
 historical_agecomp <-
   RODBC::sqlQuery(channel = sql_channel,
-                  query = paste0("SELECT YEAR, SPECIES_CODE, STRATUM AS AREA_ID, ",
-                                 "SEX, AGE, AGEPOP as POPULATION_COUNT, ",
+                  query = paste0("SELECT YEAR, SPECIES_CODE, ",
+                                 "STRATUM AS AREA_ID, SEX, AGE, ",
+                                 "AGEPOP as POPULATION_COUNT, ",
                                  "MEANLEN AS LENGTH_MM_MEAN , ",
                                  "SDEV AS LENGTH_MM_SD FROM ",
-                                 "HAEHNR.AGECOMP_EBS_STANDARD_STRATUM WHERE YEAR = 2022"))
+                                 "HAEHNR.AGECOMP_EBS_STANDARD_STRATUM ",
+                                 "WHERE YEAR = 2022"))
 
 historical_agecomp$AREA_ID[historical_agecomp$AREA_ID == 999999] <- 99901
-historical_agecomp$LENGTH_MM_MEAN <- round(historical_agecomp$LENGTH_MM_MEAN, 2)
-historical_agecomp$LENGTH_MM_SD <- round(historical_agecomp$LENGTH_MM_SD, 2)
-historical_agecomp$POPULATION_COUNT <- round(historical_agecomp$POPULATION_COUNT, 0)
+historical_agecomp$LENGTH_MM_MEAN <- 
+  round(x = historical_agecomp$LENGTH_MM_MEAN, digits = 2)
+historical_agecomp$LENGTH_MM_SD <- 
+  round(x = historical_agecomp$LENGTH_MM_SD, digits = 2)
+historical_agecomp$POPULATION_COUNT <- 
+  round(x = historical_agecomp$POPULATION_COUNT, digits = 0)
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   CPUE
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
-# nrow(historical_cpue)
-# nrow(production_cpue)
-# 
-# length(unique(historical_cpue$SPECIES_CODE))
-# length(unique(production_cpue$SPECIES_CODE))
-# 
-# ## Query any taxa not observed in the historical dataset. These would not
-# ## be in the production dataset. 
-# historical_cpue <- subset(x = historical_cpue,
-#                           subset = SPECIES_CODE %in% 
-#                             unique(x = production_cpue$SPECIES_CODE))
-# historical_cpue <- subset(x = historical_cpue,
-#                           subset = !SPECIES_CODE %in% c(150, 400,21200, 21300, 
-#                                                         23000, 23800, 66000, 
-#                                                         78010, 79000))
-# 
-# ## Merge CPUE tables using HAULJOIN and SPECIES_CODE as a composite key. 
-# test_cpue <-
-#   merge(x = subset(x = production_cpue,
-#                    subset = SPECIES_CODE %in% 
-#                      unique(x = historical_cpue$SPECIES_CODE)), 
-#         y = historical_cpue,
-#         by = c("HAULJOIN", "SPECIES_CODE"),
-#         all = TRUE, suffixes = c("_prod", "_hist"))
-# 
-# ## Calculate difference between reported weight and count. If these are 
-# ## different then the CPUE values will also be different. 
-# test_cpue$WEIGHT_KG <- 
-#   with(test_cpue, WEIGHT_KG_prod - WEIGHT_KG_hist )
-# test_cpue$COUNT <- with(test_cpue, COUNT_prod - COUNT_hist )
-# 
-# test_cpue$CPUE_KGKM2 <- 
-#   with(test_cpue, round(CPUE_KGKM2_prod - CPUE_KGKM2_hist, 9 ))
-# test_cpue$CPUE_NOKM2 <- 
-#   with(test_cpue, round(CPUE_NOKM2_prod - CPUE_NOKM2_hist, 9 ))
-# 
-# ## Subset mismatched records
-# mismatch_cpue <- subset(x = test_cpue, 
-#                         subset = is.na(COUNT) | COUNT != 0 | 
-#                           WEIGHT_KG != 0 | is.na(WEIGHT_KG) |
-#                           CPUE_KGKM2 != 0 | is.na(CPUE_KGKM2) |
-#                           CPUE_NOKM2 != 0 | is.na(CPUE_NOKM2))
-# 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Biomass Tables
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
