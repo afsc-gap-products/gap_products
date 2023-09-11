@@ -22,13 +22,10 @@ Though not included in the public data, these surveys also collect oceanographic
 # You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
 foss_views <- RODBC::sqlQuery(
   channel = channel,
-  query = "SELECT 'Table' AS object_type, table_name
-FROM user_tables
-UNION ALL
-SELECT 'View', view_name
-FROM user_views;") %>% 
-  dplyr::filter(grepl(x = TABLE_NAME, pattern = "FOSS_") &
-                  !grepl(x = TABLE_NAME, pattern = "RACEBASE_"))
+  query = "SELECT table_name 
+FROM all_tables
+WHERE owner = 'GAP_PRODUCTS';") %>% 
+  dplyr::filter(grepl(x = TABLE_NAME, pattern = "FOSS_"))
 
 locations <- foss_views$TABLE_NAME
 
