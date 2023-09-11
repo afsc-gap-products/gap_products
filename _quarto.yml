@@ -34,7 +34,6 @@ book:
     - index.qmd
     - part: content/intro.qmd
       chapters:
-        # - content/intro.qmd
         - content/intro-survey-background.qmd
         - content/intro-workflow.qmd
         - content/intro-news.qmd
@@ -61,10 +60,8 @@ book:
         - content/end-refs.qmd
         - content/end-contact-us.qmd
 
-
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 
-    #     "This page is built with [Quarto](https://quarto.org/)."
     left: "&copy; CC-1.0"
   
   sidebar:

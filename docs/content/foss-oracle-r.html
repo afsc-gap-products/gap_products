@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.3.353" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation – 13  Access data using R (AFSC only)</title>
+<title>GAP Production Data Documentation - 13&nbsp; Access data using R (AFSC only)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +56,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/end.html" rel="next">
+<link href="../content/foss-api-py.html" rel="prev">
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,31 +91,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
 
 </head>
 
-<body>
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn"
-      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
-      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
-      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <h1 class="quarto-secondary-nav-title"></h1>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
-      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
-      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -110,27 +122,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
-      <a href="/index.html" class="sidebar-logo-link">
-      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none"/>
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="/">
-      GAP Production Data Documentation
-      </a> 
+      <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="/GAP-Production-Data-Documentation.pdf">
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.pdf">
               <i class="bi bi-bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="/GAP-Production-Data-Documentation.docx">
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.docx">
               <i class="bi bi-bi-file-word pe-1"></i>
             Download Docx
             </a>
@@ -149,13 +159,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span></span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -164,27 +174,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-survey-background.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>Survey Background</span></span></a>
+  <a href="../content/intro-survey-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Survey Background</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Workflow</span></span></a>
+  <a href="../content/intro-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-news.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>4</span>  <span class='chapter-title'>News</span></span></a>
+  <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">News</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/product-intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GAP Production Data</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -193,21 +203,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/product-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Data description</span></span></a>
+  <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/product-gapindex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>6</span>  <span class='chapter-title'>Data usage examples</span></span></a>
+  <a href="../content/product-gapindex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data usage examples</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/akfin-intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/akfin-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AKFIN</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -216,21 +226,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>7</span>  <span class='chapter-title'>Data description</span></span></a>
+  <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>8</span>  <span class='chapter-title'>Accessing Data</span></span></a>
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accessing Data</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/foss-intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/foss-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Public Data (FOSS)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -239,39 +249,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>9</span>  <span class='chapter-title'>Data description</span></span></a>
+  <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-platform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>10</span>  <span class='chapter-title'>Using the API</span></span></a>
+  <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using the API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>11</span>  <span class='chapter-title'>Access API data using R</span></span></a>
+  <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-api-py.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>12</span>  <span class='chapter-title'>Access API data using Python</span></span></a>
+  <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-oracle-r.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class='chapter-number'>13</span>  <span class='chapter-title'>Access data using R (AFSC only)</span></span></a>
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/end.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/end.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Notes</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -280,26 +290,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-run-notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>14</span>  <span class='chapter-title'>Production Run Notes</span></span></a>
+  <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>15</span>  <span class='chapter-title'>Acknowledgments</span></span></a>
+  <a href="../content/end-acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-refs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>16</span>  <span class='chapter-title'>References</span></span></a>
+  <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-contact-us.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>17</span>  <span class='chapter-title'>Contact us</span></span></a>
+  <a href="../content/end-contact-us.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Contact us</span></span></a>
   </div>
 </li>
       </ul>
@@ -307,17 +317,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link active" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</a></li>
+  <li><a href="#ex.-1-join-data" id="toc-ex.-1-join-data" class="nav-link" data-scroll-target="#ex.-1-join-data"><span class="header-section-number">13.0.2</span> Ex. 1: Join data</a></li>
+  <li><a href="#ex.-2-subset-data" id="toc-ex.-2-subset-data" class="nav-link" data-scroll-target="#ex.-2-subset-data"><span class="header-section-number">13.0.3</span> Ex. 2: Subset data</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>  <span class="chapter-title">Access data using R (AFSC only)</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></h1>
 </div>
 
 
@@ -331,43 +349,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header>
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</a></li>
-  <li><a href="#ex.-1-join-data" id="toc-ex.-1-join-data"><span class="header-section-number">13.0.2</span> Ex. 1: Join data</a></li>
-  <li><a href="#ex.-2-subset-data" id="toc-ex.-2-subset-data"><span class="header-section-number">13.0.3</span> Ex. 2: Subset data</a></li>
-  </ul>
-</nav>
+
 <p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the FOSS public data directly from the <code>RACEBASE_FOSS</code> <code>Oracle</code> schema.</p>
 <section id="connect-to-oracle-from-r" class="level3" data-number="13.0.1">
-<h3 data-number="13.0.1"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</h3>
+<h3 data-number="13.0.1" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</h3>
 <p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
 <p>Here, the user can write in their username and password directly into the <code>RODBC</code> connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; Define RODBC connection to ORACLE</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; @param schema default = &#39;AFSC&#39;. </span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; @return oracle channel connection</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; @export</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; @examples</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; # Not run</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a> <span class="co">#&#39; # channel &lt;- oracle_connect()</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#' Define RODBC connection to ORACLE</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="co">#'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="co">#' @param schema default = 'AFSC'. </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="co">#'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="co">#' @return oracle channel connection</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="co">#' @export</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="co">#'</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="co">#' @examples</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="co">#' # Not run</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a> <span class="co">#' # channel &lt;- oracle_connect()</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>oracle_connect <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">schema=</span><span class="st">&#39;AFSC&#39;</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">schema=</span><span class="st">'AFSC'</span>, </span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">username =</span> <span class="cn">NULL</span>, </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">passowrd =</span> <span class="cn">NULL</span>){(<span class="at">echo=</span><span class="cn">FALSE</span>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(<span class="st">&quot;RODBC&quot;</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(<span class="st">&quot;getPass&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(<span class="st">"RODBC"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(<span class="st">"getPass"</span>)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(username)) {</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    username <span class="ot">&lt;-</span> <span class="fu">getPass</span>(<span class="at">msg =</span> <span class="st">&quot;Enter your ORACLE Username: &quot;</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    username <span class="ot">&lt;-</span> <span class="fu">getPass</span>(<span class="at">msg =</span> <span class="st">"Enter your ORACLE Username: "</span>)</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(password)) {</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    password <span class="ot">&lt;-</span> <span class="fu">getPass</span>(<span class="at">msg =</span> <span class="st">&quot;Enter your ORACLE Password: &quot;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    password <span class="ot">&lt;-</span> <span class="fu">getPass</span>(<span class="at">msg =</span> <span class="st">"Enter your ORACLE Password: "</span>)</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  channel  <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">odbcConnect</span>(</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(schema),</span>
@@ -377,42 +387,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(channel)</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>channel <span class="ot">&lt;-</span> <span class="fu">oracle_connect</span>()</span></code></pre></div>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>channel <span class="ot">&lt;-</span> <span class="fu">oracle_connect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ex.-1-join-data" class="level3" data-number="13.0.2">
-<h3 data-number="13.0.2"><span class="header-section-number">13.0.2</span> Ex. 1: Join data</h3>
+<h3 data-number="13.0.2" class="anchored" data-anchor-id="ex.-1-join-data"><span class="header-section-number">13.0.2</span> Ex. 1: Join data</h3>
 <p>To join these tables in Oracle, you may use a variant of the following code:</p>
 </section>
 <section id="ex.-2-subset-data" class="level3" data-number="13.0.3">
-<h3 data-number="13.0.3"><span class="header-section-number">13.0.3</span> Ex. 2: Subset data</h3>
+<h3 data-number="13.0.3" class="anchored" data-anchor-id="ex.-2-subset-data"><span class="header-section-number">13.0.3</span> Ex. 2: Subset data</h3>
 <p>Once connected, pull and save (if needed) the tables into the <code>R</code> environment.</p>
 <p>To pull a small subset of the data (especially since files like <code>RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED</code> are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">channel =</span> channel, </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">query =</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN GAP_PRODUCTS.FOSS_HAUL hh</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.HAULJOIN = hh.HAULJOIN</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SRVY = &#39;EBS&#39; </span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND COMMON_NAME = &#39;Pacific cod&#39; </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SRVY = 'EBS' </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND COMMON_NAME = 'Pacific cod' </span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &gt;= 2010 </span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &lt; 2021&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &lt; 2021"</span>)</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Save table to local directory</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> a, <span class="at">file =</span> <span class="st">&quot;RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv&quot;</span>)</span></code></pre></div>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> a, <span class="at">file =</span> <span class="st">"RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden" data-render-id="quarto-int-sidebar-title">GAP Production Data Documentation</span> <span class="hidden" data-render-id="quarto-int-navbar-title">GAP Production Data Documentation</span> <span class="hidden" data-render-id="quarto-int-next">Notes</span> <span class="hidden" data-render-id="quarto-int-prev"><span class="chapter-number">12</span>  <span class="chapter-title">Access API data using Python</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/index.html"><span class="chapter-number">1</span>  <span class="chapter-title">Welcome</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-1">Introduction</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-survey-background.html"><span class="chapter-number">2</span>  <span class="chapter-title">Survey Background</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-workflow.html"><span class="chapter-number">3</span>  <span class="chapter-title">Workflow</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-news.html"><span class="chapter-number">4</span>  <span class="chapter-title">News</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-2">GAP Production Data</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/product-metadata.html"><span class="chapter-number">5</span>  <span class="chapter-title">Data description</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/product-gapindex.html"><span class="chapter-number">6</span>  <span class="chapter-title">Data usage examples</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-3">AKFIN</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/akfin-metadata.html"><span class="chapter-number">7</span>  <span class="chapter-title">Data description</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/akfin-oracle-sql-r.html"><span class="chapter-number">8</span>  <span class="chapter-title">Accessing Data</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-4">Public Data (FOSS)</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-metadata.html"><span class="chapter-number">9</span>  <span class="chapter-title">Data description</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-platform.html"><span class="chapter-number">10</span>  <span class="chapter-title">Using the API</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-api-r.html"><span class="chapter-number">11</span>  <span class="chapter-title">Access API data using R</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-api-py.html"><span class="chapter-number">12</span>  <span class="chapter-title">Access API data using Python</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-oracle-r.html"><span class="chapter-number">13</span>  <span class="chapter-title">Access data using R (AFSC only)</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-5">Notes</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-run-notes.html"><span class="chapter-number">14</span>  <span class="chapter-title">Production Run Notes</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-acknowledgements.html"><span class="chapter-number">15</span>  <span class="chapter-title">Acknowledgments</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-refs.html"><span class="chapter-number">16</span>  <span class="chapter-title">References</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-contact-us.html"><span class="chapter-number">17</span>  <span class="chapter-title">Contact us</span></span> <span class="hidden" data-render-id="footer-left">© CC-1.0</span> <span class="hidden" data-render-id="footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></span> <span class="hidden" data-render-id="quarto-breadcrumbs-ab5b51ee70a9150f268ba79d4b14e61e">Public Data (FOSS)</span> <span class="hidden" data-render-id="quarto-breadcrumbs-68094bf65322f1407a74d196258bc43d"><span class="chapter-number">13</span>  <span class="chapter-title">Access data using R (AFSC only)</span></span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden" data-render-id="quarto-metatitle">GAP Production Data Documentation - <span class="chapter-number">13</span>  <span class="chapter-title">Access data using R (AFSC only)</span></span> <span class="hidden" data-render-id="quarto-twittercardtitle">GAP Production Data Documentation - <span class="chapter-number">13</span>  <span class="chapter-title">Access data using R (AFSC only)</span></span> <span class="hidden" data-render-id="quarto-ogcardtitle">GAP Production Data Documentation - <span class="chapter-number">13</span>  <span class="chapter-title">Access data using R (AFSC only)</span></span> <span class="hidden" data-render-id="quarto-metasitename">GAP Production Data Documentation</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
+
+
 </section>
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -647,12 +653,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a  href="/content/foss-api-py.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class='chapter-number'>12</span>  <span class='chapter-title'>Access API data using Python</span></span>
+      <a href="../content/foss-api-py.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a  href="/content/end.html" class="pagination-link">
+      <a href="../content/end.html" class="pagination-link">
         <span class="nav-page-text">Notes</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -661,17 +667,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-      <div class='footer-contents'>&copy; CC-1.0</div>  
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">
-      <div class='footer-contents'>[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)</div>  
-    </div>
+    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
   </div>
 </footer>
 
-</body>
 
-</html>
+
+</body></html>
