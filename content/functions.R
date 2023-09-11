@@ -129,7 +129,7 @@ FROM all_tab_comments
 WHERE owner = 'GAP_PRODUCTS' 
 ORDER BY table_name")
   
-  # Collect all column metadata for all tables
+  # Collect all column metadata for all table locations
   str00 <- c()
   for (i in 1:length(locations)) {
     metadata_table <- b$COMMENTS[b$TABLE_NAME == locations[i]]
@@ -170,8 +170,8 @@ ORDER BY table_name")
         "Oracle data type" = metadata_datatype,
         "Column description" = metadata_colname_desc)
 
-    str00 <- paste0(str00,
-                    paste0("### ", locations[i], "\n\n"),
+    str00 <- paste0(str00, 
+                    "### ", locations[i], "\n\n",
                             metadata_table, "\n\n",
                             "Number of rows: ", temp_rows,
                             "\n\nNumber of columns: ", temp_cols,

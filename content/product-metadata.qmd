@@ -6,21 +6,16 @@ title: Data description
 #| file: functions.R
 ```
 
-## Data created in this repo
+## Data tables
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
-#| tbl-cap: metadata
-#| message: false
-#| warning: false
-#| echo: false
-
  # You can download all of the tables and save them locally. These are all of the new tables for you to look through:
 
 locations <- #paste0("GAP_PRODUCTS.", 
-                    c("AGECOMP", "AREA", 
-                 "BIOMASS", 'CPUE', 
-                 "DESIGN_SURVEY", "METADATA_TABLE", 
-                 "STRATUM_GROUPS", "SIZECOMP")
+                   c("AGECOMP", "AREA",
+                   "BIOMASS", "CPUE",
+                   "SURVEY_DESIGN", "METADATA_TABLE",
+                   "STRATUM_GROUPS", "SIZECOMP")
 
 str00 <- print_table_metadata(channel, locations)
 ```
