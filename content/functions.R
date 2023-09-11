@@ -170,21 +170,20 @@ ORDER BY table_name")
         "Oracle data type" = metadata_datatype,
         "Column description" = metadata_colname_desc)
 
-    str00 <- paste0(str00, 
-                    paste0("### ", locations[i], "\n\n", 
-                           metadata_table, "\n\n",
-                           "Number of rows: ", temp_rows, 
-                           "\n\nNumber of columns: ", temp_cols, 
-                           # " | ", 
-                           # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1), 
-                           #         digits = 1, format = "f", big.mark = ","), 
-                           # " ", ifelse(temp>1e+7, "GB", "B"), 
-                           "\n\n", 
-                           # flextable::flextable(temp_data) %>% theme_zebra(), 
-                           #knitr::kable(temp_data, row.names = FALSE),
-                           flextable::flextable(temp_data) %>% theme_zebra(),
+    str00 <- paste0(str00,
+                    paste0("### ", locations[i], "\n\n"),
+                            metadata_table, "\n\n",
+                            "Number of rows: ", temp_rows,
+                            "\n\nNumber of columns: ", temp_cols,
+                           # " | ",
+                           # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1),
+                           #         digits = 1, format = "f", big.mark = ","),
+                           # " ", ifelse(temp>1e+7, "GB", "B"),
+                           "\n\n",
+                           kableExtra::kable(temp_data, row.names = FALSE, format = "html") %>%
+                            kableExtra::kable_styling(bootstrap_options = "striped"),
                            "\n\n\n"
-                    ))
+                    )
     # cat(str0)
     # # what are the metadata for each column of this table
     # flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
