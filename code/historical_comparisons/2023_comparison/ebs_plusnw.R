@@ -1,9 +1,9 @@
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Project:       Data table comparison
 ## Author:        Zack Oyafuso (zack.oyafuso@noaa.gov)
-## Description:   Compare EBS+PLUSNW historical data product tables with those produced
-##                with the most recent run production tables currently in the 
-##                temp/ folder. As of 2 September 2023
+## Description:   Compare EBS+PLUSNW historical data product tables with those 
+##                produced with the most recent run production tables currently 
+##                in the temp/ folder. As of 2 September 2023
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
