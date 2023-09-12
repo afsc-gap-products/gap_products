@@ -151,7 +151,10 @@ ORDER BY table_name")
     #   ncol()
     
     temp_colnames <- RODBC::sqlQuery(channel = channel, 
-                                     query = paste0("SELECT column_name FROM all_tab_columns WHERE table_name = '", locations[i],"';"))
+                                     query = paste0("SELECT owner, column_name 
+                                                    FROM all_tab_columns 
+                                                    WHERE table_name = '", locations[i],"' 
+                                                    AND owner = 'GAP_PRODUCTS';"))
     
     
     temp_cols <- nrow(temp_colnames)
@@ -168,8 +171,7 @@ ORDER BY table_name")
         "Descriptive column Name" = metadata_colname_long,
         "Units" = metadata_units,
         "Oracle data type" = metadata_datatype,
-        "Column description" = metadata_colname_desc) %>%
-      unique()
+        "Column description" = metadata_colname_desc) 
 
     str00 <- paste0(str00, 
                     "### ", locations[i], "\n\n",
