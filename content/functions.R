@@ -168,7 +168,8 @@ ORDER BY table_name")
         "Descriptive column Name" = metadata_colname_long,
         "Units" = metadata_units,
         "Oracle data type" = metadata_datatype,
-        "Column description" = metadata_colname_desc)
+        "Column description" = metadata_colname_desc) %>%
+      unique()
 
     str00 <- paste0(str00, 
                     "### ", locations[i], "\n\n",
