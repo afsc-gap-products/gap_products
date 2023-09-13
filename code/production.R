@@ -146,7 +146,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   print(end_time - start_time)
   
   ## Aggregate `production_agecomp_stratum` to subareas and regions
-  cat("\nAggregate age composition to regions\n")
+  cat("\nAggregate age composition to regions\n\n")
   start_time <- Sys.time()
   production_agecomp_region <- 
     gapindex::calc_agecomp_region(
@@ -154,13 +154,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
       age_comps_stratum = production_agecomp_stratum)
   end_time <- Sys.time()
   print(end_time - start_time)
-  
-  ## Remove extra columns from `production_cpue`
-  # production_cpue <- subset(x = production_cpue,
-  #                           select = c(HAULJOIN, SPECIES_CODE,
-  #                                      WEIGHT_KG, COUNT, AREA_SWEPT_KM2,
-  #                                      CPUE_KGKM2, CPUE_NOKM2) )
-  
+
   # Change "STRATUM" field name to "AREA_ID"
   names(x = production_biomass_stratum)[
     names(x = production_biomass_stratum) == "STRATUM"] <- "AREA_ID"
@@ -204,6 +198,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     } ## Loop over data table -- end
   } ## Loop over species -- end
   
+  ## Save to the temp/ folder 
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
                   "strata", "subarea")) 
     write.csv(x = get(paste0("production_", idata)),
