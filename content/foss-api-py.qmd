@@ -3,7 +3,6 @@ title: Access API data using Python
 ---
 
 ```{r setup, include=FALSE}
-
 knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 ```
 

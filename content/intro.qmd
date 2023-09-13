@@ -12,10 +12,6 @@ As part of our commitment to open science and transparency, we provide this inte
 
 ## User Resources
 
--   [GitHub repository](`r link_repo`).
--   [Access Tips and Documentation for All Production Data](`r link_repo_web `)
--   [Fisheries One Stop Shop (FOSS)](`r link_foss`)
-
 -   [Groundfish Assessment Program Bottom Trawl Surveys](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
 -   [AFSC’s Resource Assessment and Conservation Engineering Division](https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division)
 -   [Survey code books](`r link_code_books `)
