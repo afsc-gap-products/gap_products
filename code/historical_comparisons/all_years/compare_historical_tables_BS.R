@@ -38,15 +38,16 @@ decimalplaces <- function(x) {
 ##   Import production tables, trim 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## gapindex data object
-production_data <- readRDS(file = "temp/production_data_EBS.RDS")
+production_data <- readRDS(file = "temp/production/production_data_EBS.RDS")
 ## CPUE
-production_cpue <- read.csv(file = "temp/production_cpue_EBS.csv")
+production_cpue <- read.csv(file = "temp/production/production_cpue_EBS.csv")
 ## stratum information
-production_strata <- read.csv(file = "temp/production_strata_EBS.csv")
+production_strata <- read.csv(file = "temp/production/production_strata_EBS.csv")
 ## subarea information
-production_subarea <- read.csv(file = "temp/production_subarea_EBS.csv")
+production_subarea <- read.csv(file = "temp/production/production_subarea_EBS.csv")
+
 ## stratum-level biomass, abundance, mean/var CPUE
-production_biomass <- read.csv(file = "temp/production_biomass_EBS.csv")
+production_biomass <- read.csv(file = "temp/production/production_biomass_EBS.csv")
 production_biomass <- subset(x = production_biomass,
                              subset = AREA_ID %in% production_strata$STRATUM)
 names(production_biomass)[names(production_biomass) == "AREA_ID"] <- "STRATUM"
@@ -56,9 +57,9 @@ production_sizecomp <- subset(x = production_sizecomp,
                               subset = AREA_ID %in% production_strata$STRATUM)
 names(production_sizecomp)[names(production_sizecomp) == "AREA_ID"] <- "STRATUM"
 ## age-length key
-production_alk <- read.csv(file = "temp/production_alk_EBS.csv")
+production_alk <- read.csv(file = "temp/production/production_alk_EBS.csv")
 ## age composition
-production_agecomp <- read.csv(file = "temp/production_agecomp_EBS.csv")
+production_agecomp <- read.csv(file = "temp/production/production_agecomp_EBS.csv")
 production_agecomp <- subset(x = production_agecomp,
                              subset = AREA_ID %in% production_strata$STRATUM)
 names(production_agecomp)[names(production_agecomp) == "AREA_ID"] <- "STRATUM"
