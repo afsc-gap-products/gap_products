@@ -9,7 +9,7 @@
 --               Emily Markowitz (emily.markowitz@noaa.gov)
 --
 
-
+CREATE MATERIALIZED VIEW GAP_PRODUCTS.FOSS_CPUE_PRESONLY AS 
 SELECT DISTINCT 
 hh.YEAR,
 hh.SRVY,                 

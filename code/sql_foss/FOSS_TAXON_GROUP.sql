@@ -6,6 +6,7 @@
 --               Emily Markowitz (emily.markowitz@noaa.gov)
 --
 
+CREATE MATERIALIZED VIEW GAP_PRODUCTS.FOSS_TAXON_GROUP AS
 SELECT  
 REPLACE(REPLACE(RANK_ID, '_TAXON', ''), 'SPECIES_NAME', 'SPECIES') AS RANK_ID, 
 CLASSIFICATION, 
@@ -29,20 +30,3 @@ PHYLUM_TAXON,
 KINGDOM_TAXON)) 
 WHERE CLASSIFICATION IS NOT NULL
 ORDER BY ID_RANK, CLASSIFICATION, SPECIES_CODE
-
-
-# ------------------------------------------------------------------------------
--- # Orig R code
--- 
--- TAXON_GROUPS <- gap_products_old_taxonomics_worms0 %>% 
---   dplyr::select(species_code, genus, family, order, class, phylum, kingdom) %>% 
---   tidyr::pivot_longer(data = ., 
---                       cols = c("genus", "family", "order", "class", "phylum", "kingdom"), 
---                       names_to = "id_rank", values_to = "classification") %>% 
---   dplyr::relocate(id_rank, classification, species_code) %>% 
---   dplyr::arrange(id_rank, classification, species_code) %>% 
---   dplyr::filter(!is.na(classification))
--- 
--- # only keep groups that have more than one member
--- TAXON_GROUPS <- TAXON_GROUPS[duplicated(x = TAXON_GROUPS$id_rank),]
-
