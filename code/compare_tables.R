@@ -131,11 +131,12 @@ for (iregion in 1:length(x = regions)) {
   ## Pull SIZECOMP tables from the GAP_PRODUCTS schema and the most recent 
   ##   production run. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  gp_sizecomp <- read.csv(file = paste0("temp/GAP_PRODUCTS_SIZECOMP",
-                                        "_", regions[iregion],
-                                        ".csv"))
-  production_sizecomp <- read.csv(file = paste0("temp/production_sizecomp", 
-                                                "_", regions[iregion], ".csv"))
+  gp_sizecomp <- 
+    read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_SIZECOMP",
+                           "_", regions[iregion], ".csv"))
+  production_sizecomp <- 
+    read.csv(file = paste0("temp/production/production_sizecomp", 
+                           "_", regions[iregion], ".csv"))
   
   ## Merge the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND LENGTH_MM as a composite key
@@ -163,11 +164,12 @@ for (iregion in 1:length(x = regions)) {
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ## Pull age composition tables   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  gp_agecomp <- subset(x = read.csv(file = paste0("temp/GAP_PRODUCTS_AGECOMP",
-                                                  "_", regions[iregion],
-                                                  ".csv")))
-  production_agecomp <- read.csv(file = paste0("temp/production_agecomp", 
-                                               "_", regions[iregion], ".csv"))
+  gp_agecomp <- 
+    subset(x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_AGECOMP",
+                                      "_", regions[iregion], ".csv")))
+  production_agecomp <- 
+    read.csv(file = paste0("temp/production/production_agecomp", 
+                           "_", regions[iregion], ".csv"))
   
   ## Merge the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND AGE as a composite key
