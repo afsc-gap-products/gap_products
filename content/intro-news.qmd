@@ -2,17 +2,8 @@
 title: News
 ---
 
-## Early 2023
+## September 2023
 
-The main goal here to simplify the data management or to also standardize the way stock assessors are using RACE data. 
+-   Provisional data product tables -- CPUE, BIOMASS, SIZECOMP, and AGECOMP -- as well as provisional support tables -- AREA, STRATUM_GROUPS, METADATA_COLUMN, SPECIES_YEAR, SURVEY_DESIGN -- are available in the GAP_PRODUCTS Oracle schema with updated 2023 GOA and EBS survey data.
 
-We have decided to undergo this organizational change to meet the following best practices and long-term data goals. Let us know how we can better meet these objectives and best work with IT: 
-
- - Minimize duplication (both in tables and in columns within tables)
- - Minimize schemata and Oracle objects to the extent possible
- - Streamlined integration of tables
- - Minimize work for data creators
- - Minimize confusion and obstacles for data users
- - Security and data management best practices
-
-After the 2023 field season, we will deprecate the old AKFIN tables and completely replace the current tables with new tables, outlined in this document. 
+-   Provisional AKFIN and FOSS tables are also available in the GAP_PRODUCTS Oracle schema. These include: AKFIN_AGECOMP, AKFIN_AREA, AKFIN_BIOMASS, AKFIN_CATCH, AKFIN_CPUE, AKFIN_CRUISE, AKFIN_HAUL, AKFIN_LENGTH, AKFIN_METADATA_COLUMN, AKFIN_SIZECOMP, AKFIN_SPECIMEN, AKFIN_SURVEY_DESIGN, AKFIN_STRATUM_GROUPS, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_TAXON_GROUP.
