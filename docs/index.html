@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -59,8 +59,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -79,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -96,8 +95,8 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -292,7 +291,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-the-research-objective" id="toc-what-is-the-research-objective" class="nav-link active" data-scroll-target="#what-is-the-research-objective"><span class="header-section-number">0.1</span> What is the research objective?</a></li>
+  <li><a href="#background-of-the-gap_products-repo" id="toc-background-of-the-gap_products-repo" class="nav-link active" data-scroll-target="#background-of-the-gap_products-repo"><span class="header-section-number">0.1</span> Background of the gap_products repo</a></li>
+  <li><a href="#major-advantages" id="toc-major-advantages" class="nav-link" data-scroll-target="#major-advantages"><span class="header-section-number">0.2</span> Major Advantages</a></li>
+  <li><a href="#goa-2025-restratification-mock-data-for-testing" id="toc-goa-2025-restratification-mock-data-for-testing" class="nav-link" data-scroll-target="#goa-2025-restratification-mock-data-for-testing"><span class="header-section-number">0.3</span> GOA 2025 Restratification – Mock Data for Testing</a></li>
+  <li><a href="#progress-timeline" id="toc-progress-timeline" class="nav-link" data-scroll-target="#progress-timeline"><span class="header-section-number">0.4</span> Progress Timeline</a></li>
+  <li><a href="#what-is-the-research-objective" id="toc-what-is-the-research-objective" class="nav-link" data-scroll-target="#what-is-the-research-objective"><span class="header-section-number">0.5</span> What is the research objective?</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -346,10 +349,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <blockquote class="blockquote">
-<p>Please consider this resource to be a <strong>Living Document</strong>. The code in this repository is regularly being updated and improved. Please refer to <a href="https://github.com/afsc-gap-products/gap_products/releases">releases</a> for finalized products and project milestones.</p>
+<p>Please consider this resource to be a <strong>Living Document</strong>. The code in this repository is regularly being updated and improved. Please refer to <a href="`r paste0(link_repo, '/releases')`">releases</a> for finalized products and project milestones.</p>
 </blockquote>
-<section id="what-is-the-research-objective" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="what-is-the-research-objective"><span class="header-section-number">0.1</span> What is the research objective?</h2>
+<section id="background-of-the-gap_products-repo" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="background-of-the-gap_products-repo"><span class="header-section-number">0.1</span> Background of the gap_products repo</h2>
+<p>This work is the result of the massive efforts of three concurrent GAP working groups:</p>
+<p>1) Index Computation Working Group: consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AIGOA survey regions.</p>
+<p>2) Data Processes Working Group: reorganization of the Oracle data infrastructure that houses the standard data products produced by GAP.</p>
+<p>3) Gulf of Alaska Survey Restratification Working Group: implementation of a new stratified random survey design in the Gulf of Alaska bottom trawl survey.</p>
+<p>We began this effort in collaboration with the Status of Stocks team (SSMA) to present both the orientation and opportunity to interact with Gulf of Alaska data from the restratified survey design that we will be implementing in the 2025 field season. As that part of the project evolved, the Data Processes Working Group identified the opportunity and need for gaining efficiencies by redesigning and consolidating the Oracle objects (tables and materialized views) that have historically served these data. The Index Computation Working Group also identified an opportunity to gain efficiencies by consolidating the various scripts that were developed independently by both survey region groups into a workflow that was more accessible and documented.</p>
+<p>The Index Computation Working Group developed the gapindex R package, a code repository that consolidates the code that calculates the various standard GAP products (e.g., CPUE, total biomass, size/age composition) for both the Bering Sea and AIGOA survey regions. The Data Processes Working Group was responsible for compiling the data structures needed to support data product tables that were consistent across all of the AFSC GAP survey regions as well as the creation of the GAP_PRODUCTS oracle schema that will house these consolidated products in the future.</p>
+<p>This gap_products GitHub repository houses the code that will conduct the “standard production run” that produces the new data tables via the gapindex R package and upload those tables to the GAP_PRODUCTS Oracle schema.</p>
+</section>
+<section id="major-advantages" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="major-advantages"><span class="header-section-number">0.2</span> Major Advantages</h2>
+<ul>
+<li><p>Consolidated production tables include all standard data products for all surveys. Data will be provided in the same format, with the same units, and created using the same mathematical methodology. This should limit data pulls, reduce complexity for data access, and reduce complicated secondary data wrangling.</p></li>
+<li><p>Consistent naming conventions for schemata, tables, and column metadata. Columns across all tables will use the same naming conventions, units, and data types. Restricting standard data product table content to absolutely necessary columns.</p></li>
+<li><p>Removal of redundant data columns that can be acquired by joining to reference tables is key for providing consistent and up-to-date data while limiting data table sizes.</p></li>
+<li><p>Consolidation and repurposing of Oracle schemata. This will help the GAP team limit unnecessary access to unprocessed or problematic data by outside users.</p></li>
+<li><p>Vetted data methods. All code and data inclusion decisions and wrangling are documented in the {gapindex} R package. Streamlined and rapid data production. Improved and consolidated data creation and documentation provide data creators and users with greater confidence in the data products and enhanced ability to share the data.</p></li>
+</ul>
+</section>
+<section id="goa-2025-restratification-mock-data-for-testing" class="level2" data-number="0.3">
+<h2 data-number="0.3" class="anchored" data-anchor-id="goa-2025-restratification-mock-data-for-testing"><span class="header-section-number">0.3</span> GOA 2025 Restratification – Mock Data for Testing</h2>
+<p>Additionally, the inclusion of mock data for the under the new 2025 GOA stratified random survey (labeled in the GAP_PRODUCTS tables as YEAR 2025) will provide stock authors with the opportunity to interact with data from the new survey design to be implemented in 2025. In 2023, we will be populating both the historical tables as we have been AND the new GAP_PRODUCTS tables with this summer’s survey data. The plan will be, once all are satisfied with the new GAP_PRODUCTS schema and tables, to sunset the historic product tables in 2024 and proceed with only GAP_PRODUCTS for the 2024 post-survey stock assessment season.</p>
+</section>
+<section id="progress-timeline" class="level2" data-number="0.4">
+<h2 data-number="0.4" class="anchored" data-anchor-id="progress-timeline"><span class="header-section-number">0.4</span> Progress Timeline</h2>
+<ul>
+<li><p>October 2022: The data processes and index computation working group convened to address the development of standard survey data products (e.g., biomass/abundance, size composition, age composition, CPUE).&nbsp;</p>
+<ul>
+<li><p>Index Computation Working Group: consolidation of index computation methods between the Bering Sea and AI-GOA regions.</p></li>
+<li><p>Data Processes Working Group: consolidation, clean up, and reorganization of survey oracle schemata, tables, and other data for all surveys.</p></li>
+</ul></li>
+<li><p>December 2022: <a href="https://docs.google.com/document/d/1AURrvC1na6TL1Um3p7018svBLDOnih_7nxxyRU34M0k/edit">GAP and SSMA discuss</a> integration of the restratification of the GOA survey design into standard data products.&nbsp;</p>
+<ul>
+<li><p>Stock assessors requested a "dry run" test to work with new mock restratified GOA survey data before implementation of the new survey design.&nbsp;</p></li>
+<li><p>This prompted the postponement of the restratified GOA design to 2025.&nbsp;</p></li>
+</ul></li>
+<li><p>February 2023: Decision was made to include the mock restratified GOA data with the development of the new consolidated standard data products..&nbsp;</p></li>
+<li><p>May 2023: Release of new, draft, standard data product tables, including restratified GOA data. Stock assessment authors will have the opportunity to explore differences between datasets, test workflows, and provide comments and issues during summer 2023.</p></li>
+<li><p>September 2023: Release of provisional standard data product tables and historical tables containing 2023 survey data in the GAP_PRODUCTS schema.</p></li>
+<li><p>December 2023 - March 2024: Meeting between GAP and stock assessment groups in early December 2023 to update progress on the GAP_PRODUCTS testing phase. <strong>Deadline for Comments and Feedback on GAP_PRODUCTS data structures is March 8, 2024.</strong></p></li>
+</ul>
+<p>September 2024: GAP will only release data products according to the new standard. Current, historical data product tables will be archived in a new schema called "<strong>GAP_ARCHIVE</strong>".</p>
+</section>
+<section id="what-is-the-research-objective" class="level2" data-number="0.5">
+<h2 data-number="0.5" class="anchored" data-anchor-id="what-is-the-research-objective"><span class="header-section-number">0.5</span> What is the research objective?</h2>
 <p>The objectives of these surveys are to:</p>
 <ul>
 <li>monitor trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska</li>
