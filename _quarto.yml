@@ -31,8 +31,8 @@ book:
         - name: NOAA Fisheries Alaska Fisheries Science Center
           department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
   chapters:
-    - index.qmd
-    - part: content/intro.qmd
+    - part: index.qmd
+    # - part: content/intro.qmd
       chapters:
         - content/intro-survey-background.qmd
         - content/intro-workflow.qmd
@@ -40,7 +40,7 @@ book:
     - part: content/product-intro.qmd
       chapters:
         - content/product-metadata.qmd
-        - content/product-metadata-column.qmd
+      #  - content/product-metadata-column.qmd
         - content/product-gapindex.qmd
     - part: content/akfin-intro.qmd
       chapters:
@@ -57,6 +57,7 @@ book:
     - part: content/end.qmd
       chapters:
         - content/end-run-notes.qmd
+        - content/end-data-constraints.qmd
         - content/end-acknowledgements.qmd
         - content/end-refs.qmd
         - content/end-contact-us.qmd

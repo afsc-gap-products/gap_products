@@ -1,0 +1,29 @@
+---
+title: Data constraints
+---
+
+```{r setup, include=FALSE}
+#| file: functions.R
+```
+
+
+## Cite this data
+
+Use the below \[bibtext citations\](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's \[citation repository\](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program's:
+
+ - Design-Based Production Data (internal) \[\@GAPProducts\].
+
+- AFSC RACE Groundfish Data for AKFIN \[\@GAPakfin\].
+
+- Public Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform \[\@FOSSAFSCData\].
+
+```{r load_citation, echo = FALSE}
+cat(readLines(con = here::here("CITATION.bib")), sep = "\\n")
+```
+
+
+# Access Constraints
+
+There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
+
+**User Constraints:** Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
