@@ -19,29 +19,28 @@ srvy_cite <- data.frame(
   CITE = c("2022NEBS2023", "2022NEBS2023","GOA2018", "AI2018", "RN979"))
 ```
 
-- **Aleutian Islands (AI)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
-  - Triennial (1990s)/Biennial since 2000 in even years
-  - Modified Index-Stratified Random of Successful Stations Survey Design
-- **Eastern Bering Sea Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
-  - Intermittent (funding dependent)
-  - Modified Index-Stratified Random of Successful Stations Survey Design
-- **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
-  - Annual
-  - Fixed stations at center of 20 x 20 nm grid
-- **Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
-  - Triennial (1990s)/Biennial since 2001 in odd years
-  - Stratified Random Survey Design
-- **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
-  - Biennial/Annual
-  - Fixed stations at center of 20 x 20 nm grid
-
-
 
 ```{r}
 #| tbl-cap: Survey summary stats
 #| message: false
 #| warning: false
 #| echo: false
+
+# - **Aleutian Islands (AI)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
+#   - Triennial (1990s)/Biennial since 2000 in even years
+#   - Modified Index-Stratified Random of Successful Stations Survey Design
+# - **Eastern Bering Sea Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
+#   - Intermittent (funding dependent)
+#   - Modified Index-Stratified Random of Successful Stations Survey Design
+# - **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
+#   - Annual
+#   - Fixed stations at center of 20 x 20 nm grid
+# - **Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
+#   - Triennial (1990s)/Biennial since 2001 in odd years
+#   - Stratified Random Survey Design
+# - **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
+#   - Biennial/Annual
+#   - Fixed stations at center of 20 x 20 nm grid
 
 dat_cruise <- RODBC::sqlQuery(channel = channel, 
                        query = 
@@ -97,15 +96,26 @@ FROM GAP_PRODUCTS.OLD_STATION ss")  %>%
       dplyr::summarise(STATION = n()) %>% 
     dplyr::select(-DESIGN_YEAR)
 
-dat <- dplyr::full_join(dat_stratum, dat_station) %>% 
+table_raw <- dplyr::full_join(dat_stratum, dat_station) %>% 
   dplyr::full_join(dat_cruise) %>% 
-    dplyr::ungroup() %>%
+    dplyr::ungroup()  %>% 
+  dplyr::left_join(y = srvy_cite, 
+                   by = "SRVY")%>%
   dplyr::mutate(Years = paste0(YEAR_S, " - ", YEAR_E, " (", YEARS, ")"), 
                 area = paste0(formatC(x = AREA_KM2, format = "f", big.mark = ",", digits = 1)), 
                 depth = paste0(formatC(x = DEPTH_MIN_M, format = "f", big.mark = ",", digits = 0), 
                                " - ", 
-                               formatC(x = DEPTH_MAX_M, format = "f", big.mark = ",", digits = 0))) %>% 
-  dplyr::select(SURVEY_NAME, SURVEY_DEFINITION_ID, Years, depth, area, STRATUM, STATION) %>% 
+                               formatC(x = DEPTH_MAX_M, format = "f", big.mark = ",", digits = 0)), 
+                Design = dplyr::case_when(
+                  SRVY == "AI" ~ "Triennial (1990s)/Biennial since 2000 in even years; Modified Index-Stratified Random of Successful Stations Survey Design", 
+                SRVY == "BSS" ~ "Intermittent (funding dependent); Modified Index-Stratified Random of Successful Stations Survey Design", 
+                SRVY == "EBS" ~ "Annual; Fixed stations at center of 20 x 20 nm grid", 
+                SRVY == "NBS" ~ "Biennial/Annual; Fixed stations at center of 20 x 20 nm grid", 
+                SRVY == "GOA" ~ "Triennial (1990s)/Biennial since 2001 in odd years; Stratified Random Survey Design"), 
+                CITE = paste0("@", CITE)) %>% 
+  dplyr::select(SURVEY_NAME, SURVEY_DEFINITION_ID, Years, depth, area, STRATUM, STATION, Citation = CITE, Design)
+
+table_print <- table_raw %>% 
   flextable::flextable() %>% 
   flextable::set_header_labels(
     SURVEY_NAME = "Survey", 
@@ -123,9 +133,10 @@ dat <- dplyr::full_join(dat_stratum, dat_station) %>%
   flextable::padding(padding = 5) %>% 
   flextable::theme_zebra() %>% 
     flextable::align(x = ., part = "body", align = "center", j = "SURVEY_DEFINITION_ID") %>% 
-  flextable::width(j = "SURVEY_NAME", width = 1.5)
+  flextable::width(j = "SURVEY_NAME", width = 1.5) %>%
+  ftExtra::colformat_md()
 
-dat 
+table_print 
 ```
 
 
