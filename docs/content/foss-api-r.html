@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 11&nbsp; Access API data using R</title>
+<title>GAP Production Data Documentation - 12&nbsp; Access API data using R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
@@ -109,10 +110,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-api-r.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access API data using R</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-api-r.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using R</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -129,8 +130,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -204,14 +205,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/product-gapindex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data usage examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data usage examples</span></span></a>
   </div>
 </li>
       </ul>
@@ -228,13 +235,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accessing Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Accessing Data</span></span></a>
   </div>
 </li>
       </ul>
@@ -251,31 +258,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using the API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using the API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></span></a>
   </div>
 </li>
       </ul>
@@ -292,25 +299,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-contact-us.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Contact us</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Contact us</span></span></a>
   </div>
 </li>
       </ul>
@@ -325,22 +332,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ex.-1-load-the-first-25-rows-default-of-data" id="toc-ex.-1-load-the-first-25-rows-default-of-data" class="nav-link active" data-scroll-target="#ex.-1-load-the-first-25-rows-default-of-data"><span class="header-section-number">11.1</span> Ex. 1: Load the first 25 rows (default) of data</a></li>
-  <li><a href="#ex.-2-load-the-first-10000-rows-of-data" id="toc-ex.-2-load-the-first-10000-rows-of-data" class="nav-link" data-scroll-target="#ex.-2-load-the-first-10000-rows-of-data"><span class="header-section-number">11.2</span> Ex. 2: Load the first 10000 rows of data</a></li>
-  <li><a href="#ex.-3-filter-by-year" id="toc-ex.-3-filter-by-year" class="nav-link" data-scroll-target="#ex.-3-filter-by-year"><span class="header-section-number">11.3</span> Ex. 3: Filter by Year</a></li>
-  <li><a href="#ex.-4-filter-by-species-name" id="toc-ex.-4-filter-by-species-name" class="nav-link" data-scroll-target="#ex.-4-filter-by-species-name"><span class="header-section-number">11.4</span> Ex. 4: Filter by species name</a></li>
-  <li><a href="#ex.-5-combination-of-year-and-name-filters" id="toc-ex.-5-combination-of-year-and-name-filters" class="nav-link" data-scroll-target="#ex.-5-combination-of-year-and-name-filters"><span class="header-section-number">11.5</span> Ex. 5: Combination of year and name filters</a></li>
-  <li><a href="#ex.-6-combination-of-year-srvy-stratum" id="toc-ex.-6-combination-of-year-srvy-stratum" class="nav-link" data-scroll-target="#ex.-6-combination-of-year-srvy-stratum"><span class="header-section-number">11.6</span> Ex. 6: Combination of year, srvy, stratum</a></li>
-  <li><a href="#ex.-7-visualize-cpue-data-in-distribution-map" id="toc-ex.-7-visualize-cpue-data-in-distribution-map" class="nav-link" data-scroll-target="#ex.-7-visualize-cpue-data-in-distribution-map"><span class="header-section-number">11.7</span> Ex. 7: Visualize CPUE data in distribution map</a></li>
+  <li><a href="#ex.-1-load-the-first-25-rows-default-of-data" id="toc-ex.-1-load-the-first-25-rows-default-of-data" class="nav-link active" data-scroll-target="#ex.-1-load-the-first-25-rows-default-of-data"><span class="header-section-number">12.1</span> Ex. 1: Load the first 25 rows (default) of data</a></li>
+  <li><a href="#ex.-2-load-the-first-10000-rows-of-data" id="toc-ex.-2-load-the-first-10000-rows-of-data" class="nav-link" data-scroll-target="#ex.-2-load-the-first-10000-rows-of-data"><span class="header-section-number">12.2</span> Ex. 2: Load the first 10000 rows of data</a></li>
+  <li><a href="#ex.-3-filter-by-year" id="toc-ex.-3-filter-by-year" class="nav-link" data-scroll-target="#ex.-3-filter-by-year"><span class="header-section-number">12.3</span> Ex. 3: Filter by Year</a></li>
+  <li><a href="#ex.-4-filter-by-species-name" id="toc-ex.-4-filter-by-species-name" class="nav-link" data-scroll-target="#ex.-4-filter-by-species-name"><span class="header-section-number">12.4</span> Ex. 4: Filter by species name</a></li>
+  <li><a href="#ex.-5-combination-of-year-and-name-filters" id="toc-ex.-5-combination-of-year-and-name-filters" class="nav-link" data-scroll-target="#ex.-5-combination-of-year-and-name-filters"><span class="header-section-number">12.5</span> Ex. 5: Combination of year and name filters</a></li>
+  <li><a href="#ex.-6-combination-of-year-srvy-stratum" id="toc-ex.-6-combination-of-year-srvy-stratum" class="nav-link" data-scroll-target="#ex.-6-combination-of-year-srvy-stratum"><span class="header-section-number">12.6</span> Ex. 6: Combination of year, srvy, stratum</a></li>
+  <li><a href="#ex.-7-visualize-cpue-data-in-distribution-map" id="toc-ex.-7-visualize-cpue-data-in-distribution-map" class="nav-link" data-scroll-target="#ex.-7-visualize-cpue-data-in-distribution-map"><span class="header-section-number">12.7</span> Ex. 7: Visualize CPUE data in distribution map</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-api-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-api-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access API data using R</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using R</span></h1>
 </div>
 
 
@@ -357,8 +373,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>An application programming interface (API) is a way for two or more computer programs to communicate with each other.</p>
 <p>More information about how to amend API links can be found <a href="https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/">here</a>. Useful introductions to using APIs in <code>R</code> can be found <a href="https://www.dataquest.io/blog/r-api-tutorial/">here</a>.</p>
-<section id="ex.-1-load-the-first-25-rows-default-of-data" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="ex.-1-load-the-first-25-rows-default-of-data"><span class="header-section-number">11.1</span> Ex. 1: Load the first 25 rows (default) of data</h2>
+<section id="ex.-1-load-the-first-25-rows-default-of-data" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="ex.-1-load-the-first-25-rows-default-of-data"><span class="header-section-number">12.1</span> Ex. 1: Load the first 25 rows (default) of data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># install.packages(c("httr", "jsonlite"))</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
@@ -378,8 +394,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ex.-2-load-the-first-10000-rows-of-data" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="ex.-2-load-the-first-10000-rows-of-data"><span class="header-section-number">11.2</span> Ex. 2: Load the first 10000 rows of data</h2>
+<section id="ex.-2-load-the-first-10000-rows-of-data" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="ex.-2-load-the-first-10000-rows-of-data"><span class="header-section-number">12.2</span> Ex. 2: Load the first 10000 rows of data</h2>
 <div class="cell" data-tbl-cap="Ex. 2: Load the first 10000 rows of data. ">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Not run because too big:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="at">url =</span> <span class="fu">paste0</span>(api_link, <span class="st">"?offset=0&amp;limit=10000"</span>))</span>
@@ -390,8 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ex.-3-filter-by-year" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="ex.-3-filter-by-year"><span class="header-section-number">11.3</span> Ex. 3: Filter by Year</h2>
+<section id="ex.-3-filter-by-year" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="ex.-3-filter-by-year"><span class="header-section-number">12.3</span> Ex. 3: Filter by Year</h2>
 <p>Show all the data greater than the year 2020.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="at">url =</span> <span class="fu">paste0</span>(api_link, <span class="st">'?q={"year":{"$gt":2020}}'</span>))</span>
@@ -405,8 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ex.-4-filter-by-species-name" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="ex.-4-filter-by-species-name"><span class="header-section-number">11.4</span> Ex. 4: Filter by species name</h2>
+<section id="ex.-4-filter-by-species-name" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="ex.-4-filter-by-species-name"><span class="header-section-number">12.4</span> Ex. 4: Filter by species name</h2>
 <p>Show all the data where the product name contains pollock Please note that here the word pollock is case sensitive.</p>
 <p>The notation for finding a string is to use % around it. Since % is a reserved character in a URL, you have to replace <code>%</code> with <code>%25</code>.</p>
 <div class="cell">
@@ -422,8 +438,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ex.-5-combination-of-year-and-name-filters" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="ex.-5-combination-of-year-and-name-filters"><span class="header-section-number">11.5</span> Ex. 5: Combination of year and name filters</h2>
+<section id="ex.-5-combination-of-year-and-name-filters" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="ex.-5-combination-of-year-and-name-filters"><span class="header-section-number">12.5</span> Ex. 5: Combination of year and name filters</h2>
 <p>Show all the data where years &gt; 2020 and the product name contains pollock</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(</span>
@@ -439,8 +455,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ex.-6-combination-of-year-srvy-stratum" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="ex.-6-combination-of-year-srvy-stratum"><span class="header-section-number">11.6</span> Ex. 6: Combination of year, srvy, stratum</h2>
+<section id="ex.-6-combination-of-year-srvy-stratum" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="ex.-6-combination-of-year-srvy-stratum"><span class="header-section-number">12.6</span> Ex. 6: Combination of year, srvy, stratum</h2>
 <p>Show all the data where year = 1989, srvy = “EBS”, and stratum is not equal to 81</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(</span>
@@ -455,8 +471,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ex.-7-visualize-cpue-data-in-distribution-map" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="ex.-7-visualize-cpue-data-in-distribution-map"><span class="header-section-number">11.7</span> Ex. 7: Visualize CPUE data in distribution map</h2>
+<section id="ex.-7-visualize-cpue-data-in-distribution-map" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="ex.-7-visualize-cpue-data-in-distribution-map"><span class="header-section-number">12.7</span> Ex. 7: Visualize CPUE data in distribution map</h2>
 <p>Pacific cod catch-per-unit-effort estimates for NBS in 2021 and map constructed using <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># res &lt;- httr::GET(</span></span>
@@ -755,12 +771,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../content/foss-platform.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using the API</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using the API</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../content/foss-api-py.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

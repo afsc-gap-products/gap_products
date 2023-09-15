@@ -39,7 +39,7 @@ book:
         - content/intro-news.qmd
     - part: content/product-intro.qmd
       chapters:
-        # - content/product-metadata.qmd
+        - content/product-metadata.qmd
         - content/product-metadata-column.qmd
         - content/product-gapindex.qmd
     - part: content/akfin-intro.qmd

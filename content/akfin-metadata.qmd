@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Data Description
 
-*In development*
+**[OUTDATED]** AKFIN Answers https://akfin.psmfc.org/akfin-answers/ is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from direct akfin database credentials (though they may be identical). RACE data on the AKFIN Answers stock assessment dashboard is located on the “RACE Survey” tab for groundfish and the “Crab” tab for crab surveys. More detailed descriptions of each report are included within that report. 
 
 ## Data Tables
 
