@@ -108,6 +108,7 @@ format:
     theme: [cosmo, assets/theme.scss] 
     toc: true
     toc-depth: 3
+    include-before-body: translate.html    
 
 filters:
   - assets/include-files.lua
@@ -116,4 +117,4 @@ filters:
 # Comment next 2 lines if the PDF is having trouble
 metadata-files:
   - _frontmatter.yml
- 
+  - quarto 
