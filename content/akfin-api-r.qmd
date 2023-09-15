@@ -9,6 +9,12 @@ knitr::opts_chunk$set(eval = TRUE, echo = TRUE)
 Use the below function to pull AKFIN data through AKFIN's API.
 
 ```{r akfin-api-fn}
+# load libraries
+library(dplyr)
+library(magrittr)
+library(httr)
+library(flextable)
+
 # tell R to not use scientific notation
 options(scipen=999)
 
@@ -37,5 +43,5 @@ get_gap_biomass<-function(area_id, species_code) {
 #| eval: false
 
 lincod_biomass<-get_gap_biomass(area_id=c(40, 41), species_code=21910)
-lincod_biomass
+flextable::flextable(head(lincod_biomass))
 ```

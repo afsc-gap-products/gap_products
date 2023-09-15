@@ -46,6 +46,7 @@ book:
       chapters:
         - content/akfin-metadata.qmd
         - content/akfin-oracle-sql-r.qmd
+        - content/akfin-api-r.qmd
     - part: content/foss-intro.qmd
       chapters:
         - content/foss-metadata.qmd
