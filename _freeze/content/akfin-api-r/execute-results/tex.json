@@ -1,0 +1,20 @@
+{
+  "hash": "42d77daa6cee1d14b2afb009cd370213",
+  "result": {
+    "markdown": "---\ntitle: Access API data using R\n---\n\n\n\n\n\nUse the below function to pull AKFIN data through AKFIN's API.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# load libraries\nlibrary(dplyr)\nlibrary(magrittr)\nlibrary(httr)\nlibrary(flextable)\n\n# tell R to not use scientific notation\noptions(scipen=999)\n\n# function for pulling data from the api using the httr package\nget_gap_biomass<-function(area_id, species_code) {\n  # paste(... collapse=\",\") puts commas between vector elements\n  area_id <- paste(area_id, collapse = \",\")\n  species_code <- paste(species_code, collapse = \",\")\n  # httr code, parameters are after the '?'\n  httr::content(\n    httr::GET(paste0(\"https://apex.psmfc.org/akfin/data_marts/akmp/gap_biomass?area_id=\",\n                     area_id,\n                     \"&species_code=\",\n                     species_code)),\n    type = \"application/json\") %>%\n    # convert to data frame\n    bind_rows()\n}\n```\n:::\n\n\n\n## Ex. 1: Load lincod data\n\n\n\n::: {.cell tbl-cap='Ex. 1: Load lincod data. '}\n\n```{.r .cell-code}\nlincod_biomass<-get_gap_biomass(area_id=c(40, 41), species_code=21910)\nflextable::flextable(head(lincod_biomass))\n```\n:::\n",
+    "supporting": [
+      "akfin-api-r_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

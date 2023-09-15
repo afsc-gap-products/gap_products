@@ -31,7 +31,7 @@ You can download all of the tables locally using a variation of the code below. 
 #| echo: true
 
 locations <- c(
-  "GAP_PRODUCTS.AKFIN_AGECOMP", 
+  "GAP_PRODUCTS.AKFIN_AGECOMP",s 
   "GAP_PRODUCTS.AKFIN_AREA", 
   "GAP_PRODUCTS.AKFIN_BIOMASS", 
   "GAP_PRODUCTS.AKFIN_CATCH", 
@@ -43,7 +43,8 @@ locations <- c(
   "GAP_PRODUCTS.AKFIN_SIZECOMP", 
   "GAP_PRODUCTS.AKFIN_SPECIMEN", 
   "GAP_PRODUCTS.AKFIN_STRATUM_GROUPS", 
-  "GAP_PRODUCTS.AKFIN_SURVEY_DESIGN"
+  "GAP_PRODUCTS.AKFIN_SURVEY_DESIGN", 
+  "GAP_PRODUCTS.AKFIN_TAXONOMICS"
 )
 
 for (i in 1:length(locations)) {
