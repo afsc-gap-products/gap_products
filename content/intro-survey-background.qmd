@@ -10,11 +10,15 @@ title: Survey Background
 
 The objectives of these surveys are to:
 
--   monitor trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska
--   produce fishery-independent biomass and abundance estimates for commercially important fish and crab species
--   collect biological and environmental data for use in ecosystem-based fishery management.
+- monitor trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska
+- produce fishery-independent biomass and abundance estimates for commercially important fish and crab species
+- collect biological and environmental data for use in ecosystem-based fishery management.
 
 Learn more about the [program](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
+
+## Who is conducting the research?
+
+Scientists from the Alaska Fisheries Science Center conduct these bottom trawl surveys with participation from the Alaska Department of Fish & Game (ADF&G), the International Pacific Halibut Commission (IPHC), and universities. This research is conducted on chartered fishing vessels.
 
 ![Sorting and weighing fish on deck on the 2022 Bering Sea groundfish survey aboard the F/V Alaska Knight. Credit: Emily Markowitz/NOAA Fisheries.](https://www.fisheries.noaa.gov/s3/2023-04/750x500-bottom-trawl-survey-afsc.jpg)
 
@@ -31,6 +35,7 @@ source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/
 #   CITE = c("2022NEBS2023", "2022NEBS2023","GOA2018", "AI2018", "RN979"))
 ```
 
+Each survey conducted by the [Groundfish Assessment Program](https://www.fisheries.noaa.gov/alaska/population-assessments/north-pacific-groundfish-stock-assessments-and-fishery-evaluation) are multispecies bottom trawl surveys. We collect environmental and biological data to assess how climate variability and [loss of sea](https://www.fisheries.noaa.gov/alaska/ecosystems/habitat-and-ecological-processes-research-regarding-loss-sea-ice) ice are affecting bottom-dwelling marine life on the Bering Sea shelf. We monitor trends in the distribution (location and movement patterns) and abundance of groundfish and crab species as well as oceanographic data (e.g., water temperature, depth). We collect biological information such as organism weight, length, stomachs to learn about diets, and [otoliths](https://www.fisheries.noaa.gov/alaska/science-data/alaska-age-and-growth-procedures-otolith-examination) to [determine fish ages](https://www.fisheries.noaa.gov/alaska/science-data/fish-otolith-chronologies). We use this information in [annual stock assessments](https://www.fisheries.noaa.gov/alaska/population-assessments/north-pacific-groundfish-stock-assessments-and-fishery-evaluation) and to assess the state of the ecosystem. This research is conducted on fishing industry contract vessels. 
 
 ```{r}
 #| tbl-cap: Survey summary stats
@@ -141,26 +146,26 @@ table_print
 
 ### **Aleutian Islands (AI)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
 
-- Triennial (1990s)/Biennial since 2000 in even years
+- Upper Continental Slope of the Aleutian Islands from Unimak Pass to Stalemate Bank
+- Triennial (1990s)/Biennial since 2000 in even years, since 1992
 - Modified Index-Stratified Random of Successful Stations Survey Design
+- Important commercial fish species include Atka mackerel, [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [sablefish](https://www.fisheries.noaa.gov/species/sablefish), and other rockfish species. 
 
-## **Eastern Bering Sea Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
+### **Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
 
-- Intermittent (funding dependent)
-- Modified Index-Stratified Random of Successful Stations Survey Design
-  
-```{r srvy-bg-ebs, echo=FALSE}
-#| label: srvy-bg-ebs
-#| fig-cap: "Strata used in the Eastern Bering Sea Survey. "
+- Continental Shelf and Upper Slope of the Gulf of Alaska extending from the Islands of Four Mountains 2,300 km east to Dixon Entrance
+- Triennial (1990s)/Biennial since 2001 in odd years, since 1991
+- Stratified Random Survey Design
+- Important commercial species in the Gulf of Alaska include [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), flatfish, and other rockfish species. 
 
-knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
-```
+### **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
 
-## **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
+- The continental shelf of the eastern Bering Sea from the Aleutian Islands to the Bering Strait
+- Conducted annually since 1982. 
+- Uses a stratified systematic sampling survey design with fixed stations at center of 20 x 20 nm grid. 
+- Similar in design to the northern Bering Sea shelf bottom trawl survey. 
+- Focus species for the Bering Sea include [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [Greenland turbot](https://www.fisheries.noaa.gov/species/greenland-turbot), [yellowfin sole](https://www.fisheries.noaa.gov/species/yellowfin-sole), [northern rock sole](https://www.fisheries.noaa.gov/species/rock-sole), [red king crab](https://www.fisheries.noaa.gov/species/red-king-crab), and [snow](https://www.fisheries.noaa.gov/species/alaska-snow-crab) and Tanner crabs. 
 
-- Annual
-- Fixed stations at center of 20 x 20 nm grid
-  
 ```{r srvy-bg-bss, echo=FALSE}
 #| label: srvy-bg-bss
 #| fig-cap: "Strata used in the Bering Sea Slope Survey. "
@@ -168,13 +173,24 @@ knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
 knitr::include_graphics(path = here::here("img", "bss-strata.png"))
 ```
 
-**Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
+### **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
 
-- Triennial (1990s)/Biennial since 2001 in odd years
-- Stratified Random Survey Design
+- The continental shelf of the northern Bering Sea, including the area north of St. Lawrence Island and Norton Sound
+- Biennial/Annual; conducted intermittently since 2010
+- Uses a stratified systematic sampling survey design with fixed stations at center of 20 x 20 nm grid. 
+- Similar in design to the eastern Bering Sea shelf bottom trawl survey. 
 
-## **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
-- Biennial/Annual
-- Fixed stations at center of 20 x 20 nm grid
+### **Eastern Bering Sea Upper Continental Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
 
+- The eastern Bering Sea upper continental slope survey area extends from Unalaska and Akutan Islands to the U.S.-Russian Maritime Boundary at 61° N near the International Date Line (166° E to 180° W) at depths from 200 to 1,200 m
+- Conducted intermittently since 2002 (funding dependent)
+- Modified Index-Stratified Random of Successful Stations Survey Design
+- Focus species for the Bering Sea slope include giant grenadier, [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), popeye grenadier, [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), and [arrowtooth flounder](https://www.fisheries.noaa.gov/species/arrowtooth-flounder). 
+  
+```{r srvy-bg-ebs, echo=FALSE}
+#| label: srvy-bg-ebs
+#| fig-cap: "Strata used in the Eastern Bering Sea Survey. "
+
+knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
+```
 

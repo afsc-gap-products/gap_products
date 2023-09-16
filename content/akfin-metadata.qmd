@@ -28,7 +28,7 @@ locations <- akfin_views$TABLE_NAME
 str00 <- print_table_metadata(channel, locations)
 ```
 
-`r str00`
+`r str00` 
 
 ```{r rodbc-close}
 RODBC::odbcCloseAll()

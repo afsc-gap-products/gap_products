@@ -53,6 +53,7 @@ book:
         - content/foss-api-r.qmd
         - content/foss-api-py.qmd
         - content/foss-oracle-r.qmd
+    - part: content/other.qmd
     - part: content/end.qmd
       chapters:
         - content/end-run-notes.qmd

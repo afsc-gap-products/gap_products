@@ -7,6 +7,8 @@ title: Public Data (FOSS)
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
+The final, validated survey data are publicly accessible soon after surveys are completed on the [Fisheries One Stop Shop (FOSS) platform](https://www.fisheries.noaa.gov/foss/). This data includes catch, haul, and environmental data collected at each station. On the [FOSS data platform](https://www.fisheries.noaa.gov/foss/), users can interactively select, view, and download data. Descriptive documentation and user-examples are available on the metadata page.
+
 This data contains all of the catch, environmental, and haul data from the fisheries-independent Groundfish and Shellfish Assessment Program surveys in the Bering Sea, Aleutian Islands, and Gulf of Alaska. This data is sought after by the general public, private entities, and NOAA partners alike, including tribal organizations, K-12 classrooms, academic institutions, for-profit groups, and non-profit groups. This data is compiled and approved once a year after each summer survey season and is available for open access. 
 
 # Collaborators and data users
