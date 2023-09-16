@@ -16,17 +16,20 @@ book:
   author:
     - name: Emily Markowitz
       orcid: 0000-0001-5757-4230
-      email: emily.markowitz@noaa.gov    
+      email: emily.markowitz@noaa.gov 
+      note: emilymarkowitz-noaa
       affiliations:
         - name: NOAA Fisheres Alaska Fisheries Science Center
           department: Groundfish Assessment Program, Bering Sea Survey Team
     - name: Zack Oyafuso
       email: zack.oyafuso@noaa.gov    
+      note: zoyafuso-NOAA
       affiliations:
         - name: NOAA Fisheries Alaska Fisheries Science Center
           department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
     - name: Sarah Friedman
       email: sarah.friedman@noaa.gov    
+      note: SarahFriedman-NOAA
       affiliations:
         - name: NOAA Fisheries Alaska Fisheries Science Center
           department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team

@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FAL
 
 As part of our commitment to open science and transparency, we provide this interactive metadata guide to compliment our public-domain data. Please refer to our [Draft Data Changes Brief](https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing). Once finalized, this language will be included here.
 
+![Sorting and weighing fish on deck on the 2022 Bering Sea groundfish survey aboard the F/V Alaska Knight. Credit: Emily Markowitz/NOAA Fisheries.](https://www.fisheries.noaa.gov/s3/2023-04/750x500-bottom-trawl-survey-afsc.jpg)
+
 ## User Resources
 
 -   [Groundfish Assessment Program Bottom Trawl Surveys](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)

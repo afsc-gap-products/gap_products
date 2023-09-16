@@ -20,8 +20,6 @@ Learn more about the [program](https://www.fisheries.noaa.gov/alaska/science-dat
 
 Scientists from the Alaska Fisheries Science Center conduct these bottom trawl surveys with participation from the Alaska Department of Fish & Game (ADF&G), the International Pacific Halibut Commission (IPHC), and universities. This research is conducted on chartered fishing vessels.
 
-![Sorting and weighing fish on deck on the 2022 Bering Sea groundfish survey aboard the F/V Alaska Knight. Credit: Emily Markowitz/NOAA Fisheries.](https://www.fisheries.noaa.gov/s3/2023-04/750x500-bottom-trawl-survey-afsc.jpg)
-
 ## Bottom trawl surveys and regions
 
 ```{r survey-map, echo=FALSE, results='asis'}
@@ -166,11 +164,11 @@ table_print
 - Similar in design to the northern Bering Sea shelf bottom trawl survey. 
 - Focus species for the Bering Sea include [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [Greenland turbot](https://www.fisheries.noaa.gov/species/greenland-turbot), [yellowfin sole](https://www.fisheries.noaa.gov/species/yellowfin-sole), [northern rock sole](https://www.fisheries.noaa.gov/species/rock-sole), [red king crab](https://www.fisheries.noaa.gov/species/red-king-crab), and [snow](https://www.fisheries.noaa.gov/species/alaska-snow-crab) and Tanner crabs. 
 
-```{r srvy-bg-bss, echo=FALSE}
-#| label: srvy-bg-bss
-#| fig-cap: "Strata used in the Bering Sea Slope Survey. "
+```{r srvy-bg-ebs, echo=FALSE}
+#| label: srvy-bg-ebs
+#| fig-cap: "Strata used in the Eastern Bering Sea Survey. "
 
-knitr::include_graphics(path = here::here("img", "bss-strata.png"))
+knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
 ```
 
 ### **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
@@ -186,11 +184,10 @@ knitr::include_graphics(path = here::here("img", "bss-strata.png"))
 - Conducted intermittently since 2002 (funding dependent)
 - Modified Index-Stratified Random of Successful Stations Survey Design
 - Focus species for the Bering Sea slope include giant grenadier, [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), popeye grenadier, [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), and [arrowtooth flounder](https://www.fisheries.noaa.gov/species/arrowtooth-flounder). 
-  
-```{r srvy-bg-ebs, echo=FALSE}
-#| label: srvy-bg-ebs
-#| fig-cap: "Strata used in the Eastern Bering Sea Survey. "
 
-knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
+```{r srvy-bg-bss, echo=FALSE}
+#| label: srvy-bg-bss
+#| fig-cap: "Strata used in the Bering Sea Slope Survey. "
+
+knitr::include_graphics(path = here::here("img", "bss-strata.png"))
 ```
-
