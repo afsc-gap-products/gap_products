@@ -268,92 +268,85 @@
   {
     "objectID": "content/other.html#annual-publications",
     "href": "content/other.html#annual-publications",
-    "title": "Other products",
-    "section": "Annual Publications",
-    "text": "Annual Publications\n\nAnnual Data Report Tech Memos\nThe Alaska Fisheries Science Center uses the NOAA Technical Memorandum series to issue informal scientific and technical publications when complete formal review and editorial processing are not appropriate or feasible. Documents within this series reflect sound professional work and may be referenced in the formal scientific and technical literature. These are available online and the latest publications for each survey are listed below.\n\n\nCommunity Highlights\nEach year, the Groundfish Assessment Program compiles it’s survey findings for communities around Alaska (Markowitz et al., 2022). Please note: This document is for informational purposes only and does not necessarily represent the views or official position of the Department of Commerce, the National Oceanic and Atmospheric Administration, or the National Marine Fisheries Service. Not to be cited without permission from the authors. \n\n\nNorth Pacific Groundfish Plan Team\nEach year, the survey teams present their findings to the North Pacific Groundfish Plan Team. Find those presentations, recordings, and attachments on the North Pacific Fishery Management Council website. ### Research Briefs\nEach year, the Groundfish Assessment Program produces research briefs, or research plans, of their upcoming surveys and research.\n\n\nCode Books\nThe Species and Gear Code book is a listing of codes used for fish and invertebrates identified in RACE Division surveys.\n\n\nSurvey Protocols\nGroundfish bottom trawl survey protocols are documented in NOAA protocols for groundfish bottom trawl surveys of the nation’s fishery resources."
+    "title": "15  Other products",
+    "section": "15.1 Annual Publications",
+    "text": "15.1 Annual Publications\n\n15.1.1 Annual Data Report Tech Memos\nThe Alaska Fisheries Science Center uses the NOAA Technical Memorandum series to issue informal scientific and technical publications when complete formal review and editorial processing are not appropriate or feasible. Documents within this series reflect sound professional work and may be referenced in the formal scientific and technical literature. These are available online and the latest publications for each survey are listed below.\n\n\n15.1.2 Community Highlights\nEach year, the Groundfish Assessment Program compiles it’s survey findings for communities around Alaska (Markowitz et al., 2022). Please note: This document is for informational purposes only and does not necessarily represent the views or official position of the Department of Commerce, the National Oceanic and Atmospheric Administration, or the National Marine Fisheries Service. Not to be cited without permission from the authors. \n\n\n15.1.3 North Pacific Groundfish Plan Team\nEach year, the survey teams present their findings to the North Pacific Groundfish Plan Team. Find those presentations, recordings, and attachments on the North Pacific Fishery Management Council website. ### Research Briefs\nEach year, the Groundfish Assessment Program produces research briefs, or research plans, of their upcoming surveys and research.\n\n\n15.1.4 Code Books\nThe Species and Gear Code book is a listing of codes used for fish and invertebrates identified in RACE Division surveys.\n\n\n15.1.5 Survey Protocols\nGroundfish bottom trawl survey protocols are documented in NOAA protocols for groundfish bottom trawl surveys of the nation’s fishery resources."
   },
   {
     "objectID": "content/other.html#noaa-fisheries-distribution-mapping-and-analysis-portal-dismap",
     "href": "content/other.html#noaa-fisheries-distribution-mapping-and-analysis-portal-dismap",
-    "title": "Other products",
-    "section": "NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)",
-    "text": "NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)\nData from this and other fisheries-independent surveys are used in the NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP), which provides easy access to information to track and understand distributions of marine species in U.S. Marine Ecosystems."
+    "title": "15  Other products",
+    "section": "15.2 NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)",
+    "text": "15.2 NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)\nData from this and other fisheries-independent surveys are used in the NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP), which provides easy access to information to track and understand distributions of marine species in U.S. Marine Ecosystems."
   },
   {
     "objectID": "content/other.html#r-packages",
     "href": "content/other.html#r-packages",
-    "title": "Other products",
-    "section": "R Packages",
-    "text": "R Packages\n\nakgfmaps R package: bottom trawl survey maps layers and plotting examples\ncoldpool R package: cold pool area and temperature data products for the Bering Sea\nakfishcondition R package: groundfish morphometric condition indicators for fish in the Bering Sea, Aleutian Islands, and Gulf of Alaska\ngapindex R package: calculation of Design-Based Indices of Abundance and Composition for AFSC GAP Bottom Trawl Surveys"
+    "title": "15  Other products",
+    "section": "15.3 R Packages",
+    "text": "15.3 R Packages\n\nakgfmaps R package: bottom trawl survey maps layers and plotting examples\ncoldpool R package: cold pool area and temperature data products for the Bering Sea\nakfishcondition R package: groundfish morphometric condition indicators for fish in the Bering Sea, Aleutian Islands, and Gulf of Alaska\ngapindex R package: calculation of Design-Based Indices of Abundance and Composition for AFSC GAP Bottom Trawl Surveys"
   },
   {
     "objectID": "content/other.html#outreach",
     "href": "content/other.html#outreach",
-    "title": "Other products",
-    "section": "Outreach",
-    "text": "Outreach\nMaps of near real-time temperatures from each of our bottom trawl surveys are posted each business day of the survey. Water temperature affects many species’ spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem."
+    "title": "15  Other products",
+    "section": "15.4 Outreach",
+    "text": "15.4 Outreach\nMaps of near real-time temperatures and survey progress from each of our bottom trawl surveys are posted each business day of the survey. Water temperature affects many species’ spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem."
   },
   {
     "objectID": "content/other.html#collaborators",
     "href": "content/other.html#collaborators",
-    "title": "Other products",
-    "section": "Collaborators",
-    "text": "Collaborators\nOur data are used in many annual publications, including but not limited to the list below:\n\nAlaska Stock Assessments\nNorth Pacific Groundfish Stock Assessment and Fishery Evaluation Reports\nGroundfish Economic Status Reports for the Gulf of Alaska and Bering Sea and Aleutian Islands\nAlaska Marine Ecosystem Status Report Database\nSoutheast Alaska Coastal Monitoring Survey Reports\nAlaska Fisheries Life History Database\nEssential Fish Habitat Research Plan in Alaska\n\n\n\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, C., Charriere, N. E., Richar, J. I., Rohan, S. K., Prohaska, B. K., Haehn, R. A., and Stevenson, D. E. (2022). 2022 northern Bering Sea groundfish and crab trawl survey highlights [Outreach]. University of Alaska Fairbanks Strait Science Seminar; https://www.youtube.com/watch?v=TGXN2pIDhfc."
-  },
-  {
-    "objectID": "content/end.html",
-    "href": "content/end.html",
-    "title": "Notes",
-    "section": "",
-    "text": "Thank you for using our data guide!"
-  },
-  {
-    "objectID": "content/end-run-notes.html",
-    "href": "content/end-run-notes.html",
-    "title": "15  Production Run Notes",
-    "section": "",
-    "text": "16 R Version Metadata\n\n\nR version 4.3.0 (2023-04-21 ucrt)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 10 x64 (build 19045)\n\nMatrix products: default\n\n\nlocale:\n[1] LC_COLLATE=English_United States.utf8 \n[2] LC_CTYPE=English_United States.utf8   \n[3] LC_MONETARY=English_United States.utf8\n[4] LC_NUMERIC=C                          \n[5] LC_TIME=English_United States.utf8    \n\ntime zone: America/Los_Angeles\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.2 compiler_4.3.0    fastmap_1.1.1     cli_3.6.1        \n [5] tools_4.3.0       htmltools_0.5.5   rstudioapi_0.15.0 yaml_2.3.7       \n [9] rmarkdown_2.23    knitr_1.43        jsonlite_1.8.7    xfun_0.39        \n[13] digest_0.6.33     rlang_1.1.1       evaluate_0.21    \n\n\n\n16.0.1 NOAA README\nThis repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.\n\n\n16.0.2 NOAA License\nSoftware code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States."
-  },
-  {
-    "objectID": "content/end-data-constraints.html",
-    "href": "content/end-data-constraints.html",
-    "title": "16  Data constraints",
-    "section": "",
-    "text": "17 Access Constraints\nThere are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.\nUser Constraints: Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested."
-  },
-  {
-    "objectID": "content/end-data-constraints.html#cite-this-data",
-    "href": "content/end-data-constraints.html#cite-this-data",
-    "title": "16  Data constraints",
-    "section": "16.1 Cite this data",
-    "text": "16.1 Cite this data\nUse the below [bibtext citations](https://github.com/afsc-gap-products/gap_products/blob/main/CITATION.bib), as cited in our group’s [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program’s:\n\nDesign-Based Production Data (internal) [@GAPProducts].\nAFSC RACE Groundfish Data for AKFIN [@GAPakfin].\nPublic Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform [@FOSSAFSCData].\n\n\n\n\\n@misc{GAPProducts,\\n  author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\\n  year = {2023}, \\n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\\n  howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},\\n  publisher = {{U.S. Dep. Commer.}},\\n  copyright = {Public Domain} \\n}\\n\\n@misc{FOSSAFSCData,\\n  author = {{NOAA Fisheries Alaska Fisheries Science Center}},\\n  year = {2023}, \\n  title = {Fisheries One Stop Shop Public Data: RACE Division Bottom Trawl Survey Data Query},\\n  howpublished = {https://www.fisheries.noaa.gov/foss},\\n  publisher = {{U.S. Dep. Commer.}},\\n  copyright = {Public Domain} \\n}\\n\\n@misc{GAPakfin,\\n  author = {{Alaska Fisheries Information Network (AKFIN)}}, \\n  institution = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\\n  year = {2023}, \\n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\\n  howpublished = {https://www.psmfc.org/program/alaska-fisheries-information-network-akfin},\\n  publisher = {{U.S. Dep. Commer.}},\\n  copyright = {Public Domain} \\n}"
-  },
-  {
-    "objectID": "content/end-acknowledgements.html",
-    "href": "content/end-acknowledgements.html",
-    "title": "17  Acknowledgments",
-    "section": "",
-    "text": "18 Community Acknowledgments\nWe would like to thank the many communities of Alaska and their members who have helped contribute to this body of work. The knowledge, experiences, and insights have been instrumental in expanding the scope of our science and knowledge to encompass the many issues that face this important ecosystem. We appreciate feedback from those residing in the region that are willing to share their insights and participation in an open dialog about how we can improve our collective knowledge of the ecosystem and the region.\nThis quarto book is based off the NOAA-quarto-book GitHub repo designed by Eli Holmes.\nThis repo and GitHub Action was based on the tutorial by Openscapes quarto-website-tutorial by Julia Lowndes and Stefanie Butland."
-  },
-  {
-    "objectID": "content/end-acknowledgements.html#partners",
-    "href": "content/end-acknowledgements.html#partners",
-    "title": "17  Acknowledgments",
-    "section": "19.1 Partners",
-    "text": "19.1 Partners\nScientists from the Alaska Fisheries Science Center conduct these bottom trawl surveys with participation from the Alaska Department of Fish & Game (ADF&G), the International Pacific Halibut Commission (IPHC), and universities. This research is conducted on chartered fishing vessels."
-  },
-  {
-    "objectID": "content/end-refs.html",
-    "href": "content/end-refs.html",
-    "title": "18  References",
-    "section": "",
-    "text": "Alaska Fisheries Information Network (AKFIN). (2023). AFSC goundfish\nassessment program design-based production data. NOAA\nFisheries Alaska Fisheries Science Center, Goundfish Assessment\nProgram;\nhttps://www.psmfc.org/program/alaska-fisheries-information-network-akfin;\nU.S. Dep. Commer.\n\n\nHoff, G. R. (2016). Results of the 2016 eastern Bering\nSea upper continental slope survey of groundfishes and\ninvertebrate resources (NOAA Tech. Memo. NOAA-AFSC-339). U.S.\nDep. Commer. https://doi.org/10.7289/V5/TM-AFSC-339\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, A. B., Rohan, S. K.,\nCharriere, N. E., Prohaska, B. K., and Stevenson, D. E. (2023).\nResults of the 2022 eastern and northern Bering Sea\ncontinental shelf bottom trawl survey of groundfish and invertebrate\nfauna (NOAA Tech. Memo. NMFS-AFSC-469; p. 213). U.S. Dep.\nCommer.\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, C., Charriere, N. E., Richar,\nJ. I., Rohan, S. K., Prohaska, B. K., Haehn, R. A., and Stevenson, D. E.\n(2022). 2022 northern Bering Sea groundfish and crab\ntrawl survey highlights [Outreach]. University of Alaska Fairbanks\nStrait Science Seminar; https://www.youtube.com/watch?v=TGXN2pIDhfc.\n\n\nNOAA Fisheries Alaska Fisheries Science Center. (2023). Fisheries\none stop shop public data: RACE division bottom trawl survey data\nquery. https://www.fisheries.noaa.gov/foss; U.S. Dep.\nCommer.\n\n\nNOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment\nProgram. (2023). AFSC goundfish assessment program design-based\nproduction data.\nhttps://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys;\nU.S. Dep. Commer.\n\n\nVon Szalay, P. G., and Raring, N. W. (2018). Data report: 2017 Gulf of Alaska bottom trawl survey (NOAA\nTech. Memo. NMFS-AFSC-374). U.S. Dep. Commer. https://doi.org/10.7289/V5/TM-AFSC-374\n\n\nVon Szalay, P. G., and Raring, N. W. (2020). Data report: 2018\nAleutian Islands bottom trawl survey (NOAA Tech. Memo.\nNMFS-AFSC-409). U.S. Dep. Commer. https://doi.org/10.25923/qe5v-fz70"
+    "title": "15  Other products",
+    "section": "15.5 Collaborators",
+    "text": "15.5 Collaborators\nOur data are used in many annual publications, including but not limited to the list below:\n\nAlaska Stock Assessments\nNorth Pacific Groundfish Stock Assessment and Fishery Evaluation Reports\nGroundfish Economic Status Reports for the Gulf of Alaska and Bering Sea and Aleutian Islands\nAlaska Marine Ecosystem Status Report Database\nSoutheast Alaska Coastal Monitoring Survey Reports\nAlaska Fisheries Life History Database\nEssential Fish Habitat Research Plan in Alaska\n\n\n\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, C., Charriere, N. E., Richar, J. I., Rohan, S. K., Prohaska, B. K., Haehn, R. A., and Stevenson, D. E. (2022). 2022 northern Bering Sea groundfish and crab trawl survey highlights [Outreach]. University of Alaska Fairbanks Strait Science Seminar; https://www.youtube.com/watch?v=TGXN2pIDhfc."
   },
   {
     "objectID": "content/end-contact-us.html#suggestions-and-comments",
     "href": "content/end-contact-us.html#suggestions-and-comments",
-    "title": "19  Contact us",
-    "section": "19.1 Suggestions and comments",
-    "text": "19.1 Suggestions and comments\nIf the data or metadata can be improved, please create a pull request, submit an issue to the GitHub organization or submit an issue to the code’s repository."
+    "title": "Contact us",
+    "section": "Suggestions and comments",
+    "text": "Suggestions and comments\nIf the data or metadata can be improved, please create a pull request, submit an issue to the GitHub organization or submit an issue to the code’s repository."
+  },
+  {
+    "objectID": "content/end-run-notes.html",
+    "href": "content/end-run-notes.html",
+    "title": "16  Production Run Notes",
+    "section": "",
+    "text": "17 R Version Metadata\n\n\nR version 4.3.0 (2023-04-21 ucrt)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 10 x64 (build 19045)\n\nMatrix products: default\n\n\nlocale:\n[1] LC_COLLATE=English_United States.utf8 \n[2] LC_CTYPE=English_United States.utf8   \n[3] LC_MONETARY=English_United States.utf8\n[4] LC_NUMERIC=C                          \n[5] LC_TIME=English_United States.utf8    \n\ntime zone: America/Los_Angeles\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.2 compiler_4.3.0    fastmap_1.1.1     cli_3.6.1        \n [5] tools_4.3.0       htmltools_0.5.5   rstudioapi_0.15.0 yaml_2.3.7       \n [9] rmarkdown_2.23    knitr_1.43        jsonlite_1.8.7    xfun_0.39        \n[13] digest_0.6.33     rlang_1.1.1       evaluate_0.21    \n\n\n\n17.0.1 NOAA README\nThis repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.\n\n\n17.0.2 NOAA License\nSoftware code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States."
+  },
+  {
+    "objectID": "content/end-data-constraints.html",
+    "href": "content/end-data-constraints.html",
+    "title": "17  Data constraints",
+    "section": "",
+    "text": "18 Access Constraints\nThere are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.\nUser Constraints: Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested."
+  },
+  {
+    "objectID": "content/end-data-constraints.html#cite-this-data",
+    "href": "content/end-data-constraints.html#cite-this-data",
+    "title": "17  Data constraints",
+    "section": "17.1 Cite this data",
+    "text": "17.1 Cite this data\nUse the below [bibtext citations](https://github.com/afsc-gap-products/gap_products/blob/main/CITATION.bib), as cited in our group’s [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program’s:\n\nDesign-Based Production Data (internal) [@GAPProducts].\nAFSC RACE Groundfish Data for AKFIN [@GAPakfin].\nPublic Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform [@FOSSAFSCData].\n\n\n\n\\n@misc{GAPProducts,\\n  author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\\n  year = {2023}, \\n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\\n  howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},\\n  publisher = {{U.S. Dep. Commer.}},\\n  copyright = {Public Domain} \\n}\\n\\n@misc{FOSSAFSCData,\\n  author = {{NOAA Fisheries Alaska Fisheries Science Center}},\\n  year = {2023}, \\n  title = {Fisheries One Stop Shop Public Data: RACE Division Bottom Trawl Survey Data Query},\\n  howpublished = {https://www.fisheries.noaa.gov/foss},\\n  publisher = {{U.S. Dep. Commer.}},\\n  copyright = {Public Domain} \\n}\\n\\n@misc{GAPakfin,\\n  author = {{Alaska Fisheries Information Network (AKFIN)}}, \\n  institution = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\\n  year = {2023}, \\n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\\n  howpublished = {https://www.psmfc.org/program/alaska-fisheries-information-network-akfin},\\n  publisher = {{U.S. Dep. Commer.}},\\n  copyright = {Public Domain} \\n}"
+  },
+  {
+    "objectID": "content/end-acknowledgements.html",
+    "href": "content/end-acknowledgements.html",
+    "title": "18  Acknowledgments",
+    "section": "",
+    "text": "19 Community Acknowledgments\nWe would like to thank the many communities of Alaska and their members who have helped contribute to this body of work. The knowledge, experiences, and insights have been instrumental in expanding the scope of our science and knowledge to encompass the many issues that face this important ecosystem. We appreciate feedback from those residing in the region that are willing to share their insights and participation in an open dialog about how we can improve our collective knowledge of the ecosystem and the region.\nThis quarto book is based off the NOAA-quarto-book GitHub repo designed by Eli Holmes.\nThis repo and GitHub Action was based on the tutorial by Openscapes quarto-website-tutorial by Julia Lowndes and Stefanie Butland."
+  },
+  {
+    "objectID": "content/end-acknowledgements.html#partners",
+    "href": "content/end-acknowledgements.html#partners",
+    "title": "18  Acknowledgments",
+    "section": "20.1 Partners",
+    "text": "20.1 Partners\nScientists from the Alaska Fisheries Science Center conduct these bottom trawl surveys with participation from the Alaska Department of Fish & Game (ADF&G), the International Pacific Halibut Commission (IPHC), and universities. This research is conducted on chartered fishing vessels."
+  },
+  {
+    "objectID": "content/end-refs.html",
+    "href": "content/end-refs.html",
+    "title": "19  References",
+    "section": "",
+    "text": "Alaska Fisheries Information Network (AKFIN). (2023). AFSC goundfish\nassessment program design-based production data. NOAA\nFisheries Alaska Fisheries Science Center, Goundfish Assessment\nProgram;\nhttps://www.psmfc.org/program/alaska-fisheries-information-network-akfin;\nU.S. Dep. Commer.\n\n\nHoff, G. R. (2016). Results of the 2016 eastern Bering\nSea upper continental slope survey of groundfishes and\ninvertebrate resources (NOAA Tech. Memo. NOAA-AFSC-339). U.S.\nDep. Commer. https://doi.org/10.7289/V5/TM-AFSC-339\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, A. B., Rohan, S. K.,\nCharriere, N. E., Prohaska, B. K., and Stevenson, D. E. (2023).\nResults of the 2022 eastern and northern Bering Sea\ncontinental shelf bottom trawl survey of groundfish and invertebrate\nfauna (NOAA Tech. Memo. NMFS-AFSC-469; p. 213). U.S. Dep.\nCommer.\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, C., Charriere, N. E., Richar,\nJ. I., Rohan, S. K., Prohaska, B. K., Haehn, R. A., and Stevenson, D. E.\n(2022). 2022 northern Bering Sea groundfish and crab\ntrawl survey highlights [Outreach]. University of Alaska Fairbanks\nStrait Science Seminar; https://www.youtube.com/watch?v=TGXN2pIDhfc.\n\n\nNOAA Fisheries Alaska Fisheries Science Center. (2023). Fisheries\none stop shop public data: RACE division bottom trawl survey data\nquery. https://www.fisheries.noaa.gov/foss; U.S. Dep.\nCommer.\n\n\nNOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment\nProgram. (2023). AFSC goundfish assessment program design-based\nproduction data.\nhttps://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys;\nU.S. Dep. Commer.\n\n\nVon Szalay, P. G., and Raring, N. W. (2018). Data report: 2017 Gulf of Alaska bottom trawl survey (NOAA\nTech. Memo. NMFS-AFSC-374). U.S. Dep. Commer. https://doi.org/10.7289/V5/TM-AFSC-374\n\n\nVon Szalay, P. G., and Raring, N. W. (2020). Data report: 2018\nAleutian Islands bottom trawl survey (NOAA Tech. Memo.\nNMFS-AFSC-409). U.S. Dep. Commer. https://doi.org/10.25923/qe5v-fz70"
   }
 ]

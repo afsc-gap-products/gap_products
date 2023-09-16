@@ -53,14 +53,14 @@ book:
         - content/foss-api-r.qmd
         - content/foss-api-py.qmd
         - content/foss-oracle-r.qmd
-    - part: content/other.qmd
-    - part: content/end.qmd
+    - content/other.qmd
+    - part: content/end-contact-us.qmd # content/end-acknowledgements.qmd # content/end.qmd
       chapters:
         - content/end-run-notes.qmd
         - content/end-data-constraints.qmd
         - content/end-acknowledgements.qmd
         - content/end-refs.qmd
-        - content/end-contact-us.qmd
+        # - content/end-contact-us.qmd
 
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 

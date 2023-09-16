@@ -2,10 +2,6 @@
 title: Other products
 ---
 
-```{r setup, include=FALSE}
-#| file: functions.R
-```
-
 ## Annual Publications
 
 ### Annual Data Report Tech Memos
@@ -55,8 +51,7 @@ Data from this and other fisheries-independent surveys are used in the [NOAA Fis
 
 ## Outreach
 
-Maps of [near real-time temperatures from each of our bottom trawl surveys](https://www.fisheries.noaa.gov/alaska/science-data/bottom-trawl-survey-temperature-maps) are posted each business day of the survey. Water temperature affects many species' spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem.
-
+Maps of [near real-time temperatures and survey progress from each of our bottom trawl surveys](https://www.fisheries.noaa.gov/alaska/science-data/bottom-trawl-survey-temperature-maps) are posted each business day of the survey. Water temperature affects many species' spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem.
 
 ## Collaborators
 
