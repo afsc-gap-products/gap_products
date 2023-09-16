@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 10&nbsp; Using the API</title>
+<title>GAP Production Data Documentation - 11&nbsp; Using the API</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -73,10 +74,10 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-platform.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using the API</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-platform.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using the API</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -93,8 +94,8 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data" class="quarto-navigation-tool px-1" aria-label="AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -168,8 +169,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Universal Column Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/product-gapindex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data usage examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">gapindex R package</span></span></a>
   </div>
 </li>
       </ul>
@@ -186,19 +193,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Accessing Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accessing Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
   </div>
 </li>
       </ul>
@@ -215,31 +222,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data description</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using the API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using the API</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access API data using Python</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Access data using R (AFSC only)</span></span></a>
   </div>
 </li>
       </ul>
@@ -256,31 +263,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Production Run Notes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-data-constraints.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data constraints</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data constraints</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/end-contact-us.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Contact us</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Contact us</span></span></a>
   </div>
 </li>
       </ul>
@@ -295,9 +302,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#select-and-filter" id="toc-select-and-filter" class="nav-link active" data-scroll-target="#select-and-filter"><span class="header-section-number">10.1</span> Select and filter</a></li>
-  <li><a href="#select-data-format" id="toc-select-data-format" class="nav-link" data-scroll-target="#select-data-format"><span class="header-section-number">10.2</span> Select data format</a></li>
-  <li><a href="#run-report" id="toc-run-report" class="nav-link" data-scroll-target="#run-report"><span class="header-section-number">10.3</span> Run report</a></li>
+  <li><a href="#select-and-filter" id="toc-select-and-filter" class="nav-link active" data-scroll-target="#select-and-filter"><span class="header-section-number">11.1</span> Select and filter</a></li>
+  <li><a href="#select-data-format" id="toc-select-data-format" class="nav-link" data-scroll-target="#select-data-format"><span class="header-section-number">11.2</span> Select data format</a></li>
+  <li><a href="#run-report" id="toc-run-report" class="nav-link" data-scroll-target="#run-report"><span class="header-section-number">11.3</span> Run report</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-platform.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-platform.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -315,7 +322,7 @@ function googleTranslateElementInit() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using the API</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using the API</span></h1>
 </div>
 
 
@@ -340,8 +347,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </div>
-<section id="select-and-filter" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="select-and-filter"><span class="header-section-number">10.1</span> Select and filter</h2>
+<section id="select-and-filter" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="select-and-filter"><span class="header-section-number">11.1</span> Select and filter</h2>
 <p>Select, filter, and package this and other NOAA Fisheries data from the <a href="https://www.fisheries.noaa.gov/foss">Fisheries One Stop Shop (FOSS)</a> platform. A user guide for the FOSS platform can be found <a href="https://www.fisheries.noaa.gov/foss/f?p=215:7:7542600605674:::::">here</a>. To begin a report, select options from the boxes what you need data for.</p>
 <p>For a given box, select one or a few options from the “options box” (list on the left) to query by highlighting them. To select multiple options, hold down the CTRL key while clicking on the options of interest, or click and drag down the list. Once the options you wish to be included in your query are highlighted, click the right-pointing arrow (<code>&gt;</code>) to move them into the “selection box” (list on the right). If you accidentally select an option that you do not want to query, simply select the unwanted option from the selection box and click the left-pointing arrow (<code>&lt;</code>).</p>
 <p>If you wish to select all options from the options box and send them to the selection box, simply click the double right-pointing arrow (<code>&gt;&gt;</code>). If you want to unselect all options from the selection box, use the double left-pointing arrow (<code>&lt;&lt;</code>) or the reset icon.</p>
@@ -377,8 +384,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="select-data-format" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="select-data-format"><span class="header-section-number">10.2</span> Select data format</h2>
+<section id="select-data-format" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="select-data-format"><span class="header-section-number">11.2</span> Select data format</h2>
 <p>Select from the below radio list of pre-designed output tables. Once you run the report, the user can further specify filter data and select columns of interest. The tables below will only include data from the selections made in the previous step.</p>
 <ul>
 <li><code>All Data Fields: Presence and Absence (zero-filled)</code>: The most complete version of the data, including species, catch, haul, and environmental data. This data will include catch data for where species were caught and zeros for where the species were not caught. This is important for calculating catch-per-unit-effort data, preparing distribution plots (e.g., <a href="https://github.com/afsc-gap-products/akgfmaps">using the akgfmaps R package</a>), and many statistical analyses.</li>
@@ -401,8 +408,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="run-report" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="run-report"><span class="header-section-number">10.3</span> Run report</h2>
+<section id="run-report" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="run-report"><span class="header-section-number">11.3</span> Run report</h2>
 <p>Click the <code>RUN REPORT</code> button. Below the select and filter area, the results of your query will appear below the page in the format you selected. To change the format, make a different selection and run the report again. Further modifications to your results can be made by clicking on the <code>Actions</code> button above your data. Here you can <code>download</code> your data, <code>select columns</code> included in your results, and apply a variety of <code>filters</code> and mathematical tools.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -655,12 +662,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../content/foss-metadata.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data description</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data description</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../content/foss-api-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Access API data using R</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access API data using R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

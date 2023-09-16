@@ -11,8 +11,7 @@ title: Data description
 ```{r table-locations, eval = TRUE, echo = FALSE}
  # You can download all of the tables and save them locally. These are all of the new tables for you to look through:
 
-locations <- #paste0("GAP_PRODUCTS.", 
-                   c("AGECOMP", "AREA",
+locations <- c("AGECOMP", "AREA",
                    "BIOMASS", "CPUE",
                    "SURVEY_DESIGN", "METADATA_TABLE",
                    "STRATUM_GROUPS", "SIZECOMP")

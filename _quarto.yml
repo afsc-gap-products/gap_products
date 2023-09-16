@@ -32,7 +32,6 @@ book:
           department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
   chapters:
     - part: index.qmd
-    # - part: content/intro.qmd
       chapters:
         - content/intro-survey-background.qmd
         - content/intro-workflow.qmd
@@ -40,7 +39,7 @@ book:
     - part: content/product-intro.qmd
       chapters:
         - content/product-metadata.qmd
-      #  - content/product-metadata-column.qmd
+        - content/product-metadata-column.qmd
         - content/product-gapindex.qmd
     - part: content/akfin-intro.qmd
       chapters:

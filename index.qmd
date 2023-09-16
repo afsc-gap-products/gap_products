@@ -1,8 +1,5 @@
 ---
-title: Welcome 
-editor: 
-  markdown: 
-    wrap: sentence
+title: Welcome
 ---
 
 ```{r setup, include=FALSE}
@@ -11,15 +8,11 @@ editor:
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-> Please consider this resource to be a **Living Document**.
-> The code in this repository is regularly being updated and improved.
-> Please refer to [releases](%60r%20paste0(link_repo,%20'/releases')%60) for finalized products and project milestones.
-
+> Please consider this resource to be a **Living Document**. The code in this repository is regularly being updated and improved. Please refer to [releases](%60r%20paste0(link_repo,%20'/releases')%60) for finalized products and project milestones.
 
 ## Our Objective
 
 As part of our commitment to open science and transparency, we provide this interactive metadata guide to compliment our public-domain data. Please refer to our [Draft Data Changes Brief](https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing). Once finalized, this language will be included here.
-
 
 ## User Resources
 
@@ -29,17 +22,15 @@ As part of our commitment to open science and transparency, we provide this inte
 -   [Publications and Data Reports](https://repository.library.noaa.gov/)
 -   [Research Surveys conducted at AFSC](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys)
 
-
-
 ## Background of the gap_products repo
 
 This work is the result of the massive efforts of three concurrent GAP working groups:
 
-1\) Index Computation Working Group: consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AIGOA survey regions.
+(@) **Index Computation Working Group:** consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AIGOA survey regions.
 
-2\) Data Processes Working Group: reorganization of the Oracle data infrastructure that houses the standard data products produced by GAP.
+(@) **Data Processes Working Group:** reorganization of the Oracle data infrastructure that houses the standard data products produced by GAP.
 
-3\) Gulf of Alaska Survey Restratification Working Group: implementation of a new stratified random survey design in the Gulf of Alaska bottom trawl survey.
+(@) **Gulf of Alaska Survey Restratification Working Group**: implementation of a new stratified random survey design in the Gulf of Alaska bottom trawl survey.
 
 We began this effort in collaboration with the Status of Stocks team (SSMA) to present both the orientation and opportunity to interact with Gulf of Alaska data from the restratified survey design that we will be implementing in the 2025 field season.
 As that part of the project evolved, the Data Processes Working Group identified the opportunity and need for gaining efficiencies by redesigning and consolidating the Oracle objects (tables and materialized views) that have historically served these data.
@@ -49,7 +40,6 @@ The Index Computation Working Group developed the gapindex R package, a code rep
 The Data Processes Working Group was responsible for compiling the data structures needed to support data product tables that were consistent across all of the AFSC GAP survey regions as well as the creation of the GAP_PRODUCTS oracle schema that will house these consolidated products in the future.
 
 This gap_products GitHub repository houses the code that will conduct the "standard production run" that produces the new data tables via the gapindex R package and upload those tables to the GAP_PRODUCTS Oracle schema.
-
 
 ## Major Advantages
 
@@ -70,4 +60,4 @@ This gap_products GitHub repository houses the code that will conduct the "stand
     All code and data inclusion decisions and wrangling are documented in the {gapindex} R package.
     Streamlined and rapid data production.
     Improved and consolidated data creation and documentation provide data creators and users with greater confidence in the data products and enhanced ability to share the data.
-3-04/750x500-bottom-trawl-survey-afsc.jpg)
+

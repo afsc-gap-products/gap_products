@@ -1,5 +1,5 @@
 ---
-title: Data usage examples
+title: gapindex R package
 ---
 
 ```{r setup, include=FALSE}
@@ -7,9 +7,7 @@ RODBC::odbcCloseAll()
 library(gapindex)
 ```
 
-Our production data is created using the {gapindex} R package. [Insert info and examples from {gapindex}]
-
-<!-- You can download all of the tables and saving them locally. These are all of the new tables for you to look through: -->
+Code to generate design-based catch-per-unit-effort (CPUE), indices of abundance, biomass, and size and age compositions from survey data is avaialble from https://github.com/afsc-gap-products/gapindex. 
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
 # citation(gapindex) # doesn't exist yet
