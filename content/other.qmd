@@ -2,7 +2,7 @@
 title: Other products
 ---
 
-## Annual Publications {.unnumbered}
+## Annual Publications
 
 ### Annual Data Report Tech Memos
 
@@ -26,6 +26,7 @@ Each year, the Groundfish Assessment Program compiles it’s survey findings for
 ### North Pacific Groundfish Plan Team
 
 Each year, the survey teams present their findings to the North Pacific Groundfish Plan Team. Find those presentations, recordings, and attachments on the [North Pacific Fishery Management Council website](https://www.npfmc.org/about-the-council/plan-teams/bsai-and-goa-groundfish/). 
+
 ### Research Briefs
 
 Each year, the Groundfish Assessment Program produces research briefs, or research plans, of their upcoming surveys and research. 
