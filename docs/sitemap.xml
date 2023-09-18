@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2023-09-18T17:38:08.646Z</lastmod>
   </url>
   <url>
@@ -103,5 +104,16 @@
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.docx</loc>
     <lastmod>2023-09-18T17:37:51.904Z</lastmod>
+=======
+    <lastmod>2023-09-18T18:12:11.301Z</lastmod>
+  </url>
+  <url>
+    <loc>https://afsc-gap-products.github.io/gap_products/content/product-intro.html</loc>
+    <lastmod>2023-09-18T17:16:26.314Z</lastmod>
+  </url>
+  <url>
+    <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata.html</loc>
+    <lastmod>2023-09-18T18:33:19.315Z</lastmod>
+>>>>>>> 4a2a0ed50a7ced9ff15f1caa7b08e70ca8307c25
   </url>
 </urlset>

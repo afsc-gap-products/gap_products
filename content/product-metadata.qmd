@@ -6,7 +6,6 @@ title: Data description
 #| file: functions.R
 ```
 
-## Data tables
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
  # You can download all of the tables and save them locally. These are all of the new tables for you to look through:

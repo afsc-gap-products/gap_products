@@ -35,11 +35,11 @@ get_gap_biomass<-function(area_id, species_code) {
 }
 ```
 
-## Ex. 1: Load lincod data
+## Ex. 1: Load lingcod data
 
 ```{r}
 #| label: test-1
-#| tbl-cap: "Ex. 1: Load lincod data. "
+#| tbl-cap: "Ex. 1: Load lingcod data. "
 #| eval: false
 
 lincod_biomass<-get_gap_biomass(area_id=c(40, 41), species_code=21910)
