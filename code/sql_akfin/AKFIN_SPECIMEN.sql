@@ -10,14 +10,30 @@
 --
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_SPECIMEN AS 
-select a.cruisejoin, a.hauljoin, a.region, b.vessel_id, 
-a.specimenid specimen_id, a.biostratum stratum, a.species_code, 
-a.length length_mm, a.sex, a.weight weight_g, a.age age_years, 
-a.maturity, a.maturity_table, a.gonad_wt gonad_g, a.specimen_subsample_method, 
-a.specimen_sample_type, a.age_determination_method 
+select 
+a.cruisejoin, 
+a.hauljoin, 
+-- a.region, 
+-- b.vessel_id, 
+a.specimenid specimen_id, 
+-- a.biostratum stratum, 
+a.species_code, 
+a.length length_mm, 
+a.sex, 
+a.weight weight_g, 
+a.age age_years, 
+a.maturity, 
+a.maturity_table, 
+a.gonad_wt gonad_g, 
+a.specimen_subsample_method, 
+a.specimen_sample_type, 
+a.age_determination_method 
 --select count(*)
-from racebase.specimen a, race_data.cruises b, race_data.surveys c, 
-race_data.survey_definitions d, racebase.haul f
+from racebase.specimen a, 
+race_data.cruises b, 
+race_data.surveys c, 
+race_data.survey_definitions d, 
+racebase.haul f
 where abs(a.cruisejoin) = b.cruise_id
 and a.hauljoin = f.hauljoin
 and c.survey_id =  b.survey_id 
