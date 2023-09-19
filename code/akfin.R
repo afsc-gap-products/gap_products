@@ -73,6 +73,10 @@ akfin_views$desc[akfin_views$table_name == "AKFIN_STRATUM_GROUPS"] <-
 akfin_views$desc[akfin_views$table_name == "AKFIN_SURVEY_DESIGN"] <-
   paste0("This table is a copy of GAP_PRODUCTS.SURVEY_DESIGN ",
          "and does not have any other object dependencies. ")
+akfin_views$desc[akfin_views$table_name == "AKFIN_TAXONOMY"] <-
+  paste0("This table is a copy of GAP_PRODUCTS.SPECIES_CLASSIFICATION ",
+         "filtered for values where SURVEY_SPECIES = 1 "
+         "and does not have any other object dependencies. ")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Assemble the basic text that states that GAP produced the tables, the
