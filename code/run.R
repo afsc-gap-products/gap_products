@@ -36,16 +36,7 @@
 ##                changes to the tables are vetted and documented. These
 ##                tables are then uploaded to GAP_PRODUCTS.
 ##                
-##                Step 3 involves updating the tables containing taxonomic
-##                information. Taxonomic information change over time (e.g., 
-##                classifications, new taxa, deprecated taxa, lumped/
-##                split taxa) so this step updates the taxonomic information 
-##                used in GAP_PRODUCTS. These tables are compared and checked 
-##                to their respective locally saved copies and any changes to 
-##                the tables are vetted and documented. These tables are then 
-##                uploaded to GAP_PRODUCTS.
-##                
-##                Step 4 is the calculation of the four major standard data
+##                Step 3 is the calculation of the four major standard data
 ##                products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are 
 ##                compared and checked to their respective locally saved copies 
 ##                and any changes to the tables are vetted and documented.  
@@ -71,7 +62,7 @@
 rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 1 Setup ----
+##   Step 0 Setup ----
 ##   Make sure temp file is created, save R version data
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (!dir.exists(paths = "temp/"))
@@ -95,13 +86,9 @@ file.edit("code/pull_existing_tables.R")
 file.edit("code/metadata.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step X Create Production Tables ----
+##   Step 4 Create Production Tables ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/production.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step X Compare Tables ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/compare_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
