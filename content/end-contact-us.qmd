@@ -19,4 +19,4 @@ Seattle, WA 98115 USA
 
 ## Suggestions and comments
 
-If the data or metadata can be improved, please create a pull request, [submit an issue to the GitHub organization](`r "https://github.com/afsc-gap-products/data-requests/issues"`) or [submit an issue to the code's repository](`r paste0(link_repo, "/issues")`).
+If the data or metadata can be improved, please create a pull request, [submit an issue to the GitHub organization](https://github.com/afsc-gap-products/data-requests/issues) or [submit an issue to the code's repository](`r paste0(link_repo, "/issues")`).

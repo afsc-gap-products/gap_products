@@ -9,13 +9,13 @@ title: Data constraints
 
 ## Cite this data
 
-Use the below \[bibtext citations\](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's \[citation repository\](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program's:
+Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/CITATION.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program's:
 
- - Design-Based Production Data (internal) \[\@GAPProducts\].
+- Design-Based Production Data [internal](product-intro.qmd).
 
-- AFSC RACE Groundfish Data for AKFIN \[\@GAPakfin\].
+- AFSC RACE Groundfish Data for [AKFIN](akfin-intro.qmd).
 
-- Public Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform \[\@FOSSAFSCData\].
+- Public Data hosted on the Fisheries One Stop Shop [(FOSS) Data Platform](foss-intro.qmd).
 
 ```{r load_citation, echo = FALSE}
 cat(readLines(con = here::here("CITATION.bib")), sep = "\\n")

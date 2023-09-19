@@ -142,21 +142,24 @@ table_print
 ```
 
 
-### **Aleutian Islands (AI)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
+### **Aleutian Islands** 
+[@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
 
 - Upper Continental Slope of the Aleutian Islands from Unimak Pass to Stalemate Bank
 - Triennial (1990s)/Biennial since 2000 in even years, since 1992
 - Modified Index-Stratified Random of Successful Stations Survey Design
 - Important commercial fish species include Atka mackerel, [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [sablefish](https://www.fisheries.noaa.gov/species/sablefish), and other rockfish species. 
 
-### **Gulf of Alaska (GOA)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
+### **Gulf of Alaska** 
+[@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
 
 - Continental Shelf and Upper Slope of the Gulf of Alaska extending from the Islands of Four Mountains 2,300 km east to Dixon Entrance
 - Triennial (1990s)/Biennial since 2001 in odd years, since 1991
 - Stratified Random Survey Design
 - Important commercial species in the Gulf of Alaska include [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), flatfish, and other rockfish species. 
 
-### **Eastern Bering Sea Shelf (EBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
+### **Eastern Bering Sea Shelf** 
+[@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
 
 - The continental shelf of the eastern Bering Sea from the Aleutian Islands to the Bering Strait
 - Conducted annually since 1982. 
@@ -171,14 +174,16 @@ table_print
 knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
 ```
 
-### **Northern Bering Sea (NBS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
+### **Northern Bering Sea** 
+[@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
 
 - The continental shelf of the northern Bering Sea, including the area north of St. Lawrence Island and Norton Sound
 - Biennial/Annual; conducted intermittently since 2010
 - Uses a stratified systematic sampling survey design with fixed stations at center of 20 x 20 nm grid. 
 - Similar in design to the eastern Bering Sea shelf bottom trawl survey. 
 
-### **Eastern Bering Sea Upper Continental Slope (BSS)** [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
+### **Eastern Bering Sea Upper Continental Slope** 
+[@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
 
 - The eastern Bering Sea upper continental slope survey area extends from Unalaska and Akutan Islands to the U.S.-Russian Maritime Boundary at 61° N near the International Date Line (166° E to 180° W) at depths from 200 to 1,200 m
 - Conducted intermittently since 2002 (funding dependent)
