@@ -78,7 +78,7 @@ book:
     tools: 
       - icon: globe
         href: https://github.com/afsc-gap-products
-        text: "AFSC RACE Groundfish and Shellfish Assessment Program Design-Based Production Data"
+        text: "AFSC GAP Survey Data Products"
     style: "docked"
     search: true
     collapse-level: 1
@@ -113,6 +113,7 @@ format:
     theme: [cosmo, assets/theme.scss] 
     toc: true
     toc-depth: 3
+    number-sections: false
     include-before-body: translate.html    
 
 filters:

@@ -42,6 +42,7 @@ get_gap_biomass<-function(area_id, species_code) {
 #| tbl-cap: "Ex. 1: Load lingcod data. "
 #| eval: false
 
-lincod_biomass<-get_gap_biomass(area_id=c(40, 41), species_code=21910)
-flextable::flextable(head(lincod_biomass))
+lingcod_biomass <- get_gap_biomass(area_id=c(40, 41), species_code=21910)
+flextable::flextable(head(lingcod_biomass)) %>%
+  flextable::theme_zebra()
 ```
