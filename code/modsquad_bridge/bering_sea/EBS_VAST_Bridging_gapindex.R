@@ -16,13 +16,12 @@ sql_channel <- gapindex::get_connected()
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Species-Specific Constants
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-species_info <- data.frame(species_name = c("yellowfin_sole", "Pacific_cod", 
-                                            "walleye_pollock"),
-                           species_code = c(10210, 21720, 21740),
+species_info <- data.frame(species_name = c("yellowfin_sole", "Pacific_cod"),
+                           species_code = c(10210, 21720),
                            start_year = 1982,
                            current_year = 2022,
-                           plus_group = c(20, 12, 15), # check pollock + group
-                           start_year_age = c(1982, 1994, 1982))
+                           plus_group = c(20, 12), # check pollock + group
+                           start_year_age = c(1982, 1994))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop Over Species and Create CPUE and Age Comp Datasets
@@ -46,7 +45,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ## Standard EBS stations
   ebs_standard_data <- gapindex::get_data(year_set = start_year:current_year,
                                           survey_set = "EBS",
-                                          spp_codes = species_code,
+                                          spp_codes = c(10210, 21720, 21740),
                                           pull_lengths = TRUE, 
                                           haul_type = 3, 
                                           abundance_haul = "Y",
@@ -83,12 +82,12 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   
   ## Standard NBS stations
   nbs_standard_data <- gapindex::get_data(year_set = start_year:current_year,
-                                survey_set = "NBS",
-                                spp_codes = species_code,
-                                pull_lengths = TRUE, 
-                                haul_type = 3, 
-                                abundance_haul = "Y",
-                                sql_channel = sql_channel)
+                                          survey_set = "NBS",
+                                          spp_codes = species_code,
+                                          pull_lengths = TRUE, 
+                                          haul_type = 3, 
+                                          abundance_haul = "Y",
+                                          sql_channel = sql_channel)
   
   ## Misc. stations in 1985, 1988, and 1991 that were in the NBS but not a part 
   ## of the standard stations. These cruises have a different survey definition 
@@ -211,13 +210,13 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   #     racebase_stratum_popn = nbs_popn_stratum,
   #     spatial_level = "haul",
   #     fill_NA_method = "BS"))
-  sizecomp <- rbind(calc_sizecomp_stratum(
+  sizecomp <- rbind(calc_sizecomp_stratum2(
     racebase_tables = ebs_data,
     racebase_cpue = ebs_cpue,
     racebase_stratum_popn = ebs_popn_stratum,
     spatial_level = "haul",
     fill_NA_method = "BS"),
-    calc_sizecomp_stratum(
+    calc_sizecomp_stratum2(
       racebase_tables = nbs_data,
       racebase_cpue = nbs_cpue,
       racebase_stratum_popn = nbs_popn_stratum,
@@ -450,8 +449,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Save output
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  dir_out <- paste0("temp/VAST_bridging/EBS/", species_name, "_gp/")
-  if (!dir.exists(paths = dir_out)) dir.create(path = dir_out)
+  dir_out <- paste0("temp/VAST_bridging/BS/", species_name, "_gp/")
+  if (!dir.exists(paths = dir_out)) dir.create(path = dir_out, recursive = T)
   for (ifile in c("data_geostat_biomass_index", 
                   "data_geostat_numerical_index",
                   "data_geostat_agecomps", 
