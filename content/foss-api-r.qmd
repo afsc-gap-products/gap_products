@@ -20,6 +20,7 @@ More information about how to amend API links can be found [here](https://docs.o
 library(httr)
 library(jsonlite)
 library(dplyr)
+
  # link to the API
 api_link <- "https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey/"
 
@@ -27,8 +28,13 @@ res <- httr::GET(url = api_link)
  # res # Test connection
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
  # names(data)
-flextable::flextable(head(data$items, 3))  %>% 
-  flextable::theme_zebra()
+tibble::as_tibble(data$items) %>% 
+  dplyr::mutate_if(is.character, type.convert, as.is = TRUE) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>%
+  head(3) %>%
+flextable::flextable() %>%
+    flextable::theme_zebra() %>%
+    flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
 ```
 
 ## Ex. 2: Load the first 10000 rows of data
@@ -53,9 +59,15 @@ Show all the data greater than the year 2020.
 
 res <- httr::GET(url = paste0(api_link, '?q={"year":{"$gt":2020}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
-  flextable::theme_zebra()
+
+as_tibble(data$items) %>% 
+  mutate_if(is.character, type.convert, as.is = TRUE) %>%
+  head(3) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>%
+  dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
+flextable::flextable() %>%
+    flextable::theme_zebra() %>%
+    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 4: Filter by species name
@@ -71,9 +83,15 @@ The notation for finding a string is to use % around it. Since % is a reserved c
 res <- httr::GET(
   url = paste0(api_link, '?q={"common_name":{"$like":"%25pollock%25"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
-  flextable::theme_zebra()
+
+as_tibble(data$items) %>% 
+  mutate_if(is.character, type.convert, as.is = TRUE) %>%
+  head(3) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>%
+  dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
+flextable::flextable() %>%
+    flextable::theme_zebra() %>%
+    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 5: Combination of year and name filters
@@ -88,9 +106,15 @@ res <- httr::GET(
   url = paste0(api_link, 
                '?q={"year":{"$gt":2020},"common_name":{"$like":"%25pollock%25"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
-  flextable::theme_zebra()
+
+as_tibble(data$items) %>% 
+  mutate_if(is.character, type.convert, as.is = TRUE) %>%
+  head(3) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>%
+  dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
+flextable::flextable() %>%
+    flextable::theme_zebra() %>%
+    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 6: Combination of year, srvy, stratum
@@ -104,9 +128,15 @@ Show all the data where year = 1989, srvy = "EBS", and stratum is not equal to 8
 res <- httr::GET(
   url = paste0(api_link, '?q={"year":1989,"srvy":"EBS","stratum":{"$ne":"81"}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-flextable::flextable(
-  data$items[1:3, c("year", "srvy", "stratum", "species_code", "cpue_kgkm2")]) %>% 
-  flextable::theme_zebra()
+
+as_tibble(data$items) %>% 
+  mutate_if(is.character, type.convert, as.is = TRUE) %>%
+  head(3) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>%
+  dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
+flextable::flextable() %>%
+    flextable::theme_zebra() %>%
+    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 7: Visualize CPUE data in distribution map
@@ -130,6 +160,7 @@ res <- httr::GET(
   url = paste0(api_link, '?q={"year":2021,"srvy":"NBS"}offset=0&limit=10000'))
 data_haul <- jsonlite::fromJSON(base::rawToChar(res$content))$items %>% 
   dplyr::select(stratum, station, latitude_dd, longitude_dd) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>% 
   dplyr::distinct()
 
 data <- dplyr::left_join(data_haul, data_catch) %>% 
@@ -137,7 +168,7 @@ data <- dplyr::left_join(data_haul, data_catch) %>%
                 dplyr::across(dplyr::everything(), as.numeric)) 
 
 flextable::flextable(data[1:3,]) %>% 
-  flextable::theme_zebra()
+  flextable::theme_zebra() 
 ```
 
 ```{r}
