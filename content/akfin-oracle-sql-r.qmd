@@ -440,7 +440,7 @@ figure <-
   ggplot2::ggtitle(
     label = "GOA Pacific Ocean Perch Biomass 1984-2021", 
     subtitle = paste0("Mean = ", 
-                      formatC(x = a_mean$biomass_mt, 
+                      formatC(x = a_mean$biomass_kmt, 
                               digits = 2, 
                               big.mark = ",", 
                               format = "f"), 
