@@ -1,5 +1,5 @@
 ---
-title: Access API data using Python
+title: Access via API and Python
 ---
 
 ```{r setup, include=FALSE}

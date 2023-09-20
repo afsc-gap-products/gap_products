@@ -1,5 +1,5 @@
 ---
-title: Access API data using R
+title: Access via API and R
 ---
 
 ```{r setup, include=FALSE}

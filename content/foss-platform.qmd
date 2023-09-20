@@ -1,5 +1,5 @@
 ---
-title: Using the API
+title: Using the FOSS platform
 ---
 
 ```{r setup, include=FALSE}
