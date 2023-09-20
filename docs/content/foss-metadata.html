@@ -278,10 +278,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-tables" id="toc-data-tables" class="nav-link active" data-scroll-target="#data-tables">Data tables</a>
+  <li><a href="#data-tables" id="toc-data-tables" class="nav-link active" data-scroll-target="#data-tables">Data tables</a></li>
+  <li><a href="#data-usage" id="toc-data-usage" class="nav-link" data-scroll-target="#data-usage">Data usage</a></li>
+  <li><a href="#data-tables-1" id="toc-data-tables-1" class="nav-link" data-scroll-target="#data-tables-1">Data tables</a>
   <ul class="collapse">
   <li><a href="#foss_catch" id="toc-foss_catch" class="nav-link" data-scroll-target="#foss_catch">FOSS_CATCH</a></li>
+  <li><a href="#foss_cpue_presonly" id="toc-foss_cpue_presonly" class="nav-link" data-scroll-target="#foss_cpue_presonly">FOSS_CPUE_PRESONLY</a></li>
   <li><a href="#foss_haul" id="toc-foss_haul" class="nav-link" data-scroll-target="#foss_haul">FOSS_HAUL</a></li>
+  <li><a href="#foss_taxon_group" id="toc-foss_taxon_group" class="nav-link" data-scroll-target="#foss_taxon_group">FOSS_TAXON_GROUP</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-metadata.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-metadata.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -321,8 +325,16 @@ function googleTranslateElementInit() {
 <p>Though not included in the public data, these surveys also collect oceanographic and environmental data, and biological data such as length, weight, stomach contents (to learn more about diet), otoliths (fish ear bones to learn about age), and tissue samples for genetic analysis, all of which can be shared upon special request. Also not included in the public data are estimated biomass (average total weight of all fish and crabs sampled) of crabs and groundfish that support the creation of annual stock assessments.</p>
 <section id="data-tables" class="level2">
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
+</section>
+<section id="data-usage" class="level2">
+<h2 class="anchored" data-anchor-id="data-usage">Data usage</h2>
+<p>NA</p>
+</section>
+<section id="data-tables-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-tables-1">Data tables</h2>
 <section id="foss_catch" class="level3">
 <h3 class="anchored" data-anchor-id="foss_catch">FOSS_CATCH</h3>
+<p>[There is currently no description for this table.]</p>
 <p>Number of rows: 42281918</p>
 <p>Number of columns: 12</p>
 
@@ -555,8 +567,669 @@ Species code as identified in the World Register of Marine Species (WoRMS) (http
 
 </table>
 </section>
+<section id="foss_cpue_presonly" class="level3">
+<h3 class="anchored" data-anchor-id="foss_cpue_presonly">FOSS_CPUE_PRESONLY</h3>
+<p>[There is currently no description for this table.]</p>
+<p>Number of rows: 42281918</p>
+<p>Number of columns: 37</p>
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AREA_SWEPT_KM2
+</td>
+<td style="text-align:left;">
+Area Swept (km)
+</td>
+<td style="text-align:left;">
+kilometers
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+The area the net covered while the net was fishing (kilometers squared), defined as the distance fished times the net width.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BOTTOM_TEMPERATURE_C
+</td>
+<td style="text-align:left;">
+Bottom Temperature (Degrees Celsius)
+</td>
+<td style="text-align:left;">
+degrees Celsius
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Bottom temperature (tenths of a degree Celsius); NA indicates removed or missing values.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+COMMON_NAME
+</td>
+<td style="text-align:left;">
+Taxon Common Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The common name of the marine organism associated with the ‘scientific_name’ and ‘species_code’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+COUNT
+</td>
+<td style="text-align:left;">
+Taxon Count
+</td>
+<td style="text-align:left;">
+count, whole number resolution
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Total number of individuals caught in haul by taxon, represented in whole numbers used in calculation.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPUE_KGKM2
+</td>
+<td style="text-align:left;">
+Weight CPUE (kg/km&lt;sup&gt;2&lt;/sup&gt;)
+</td>
+<td style="text-align:left;">
+kilograms per kilometers squared
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+Catch weight (kilograms) divided by area (squared kilometers) swept by the net.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPUE_NOKM2
+</td>
+<td style="text-align:left;">
+Number CPUE (no/km&lt;sup&gt;2&lt;/sup&gt;)
+</td>
+<td style="text-align:left;">
+count per kilometers squared
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+Catch number (in number of organisms) per area (squared kilometers) swept by the net.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRUISE
+</td>
+<td style="text-align:left;">
+Cruise ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a six-digit number identifying the cruise number of the form: YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is sequential; 01 denotes the first cruise that vessel made in this year, 02 is the second, etc.).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRUISEJOIN
+</td>
+<td style="text-align:left;">
+Cruise ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a unique numeric identifier assigned to each survey, vessel, and year combination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DATE_TIME
+</td>
+<td style="text-align:left;">
+Date and Time
+</td>
+<td style="text-align:left;">
+MM/DD/YYYY HH::MM
+</td>
+<td style="text-align:left;">
+DATE
+</td>
+<td style="text-align:left;">
+The date (MM/DD/YYYY) and time (HH:MM) of the haul.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPTH_M
+</td>
+<td style="text-align:left;">
+Depth (m)
+</td>
+<td style="text-align:left;">
+degrees Celsius
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Bottom depth (tenths of a meter).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DISTANCE_FISHED_KM
+</td>
+<td style="text-align:left;">
+Distance Fished (km)
+</td>
+<td style="text-align:left;">
+degrees Celsius
+</td>
+<td style="text-align:left;">
+NUMBER(38,3)
+</td>
+<td style="text-align:left;">
+Distance the net fished (thousandths of kilometers).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DURATION_HR
+</td>
+<td style="text-align:left;">
+Tow Duration (decimal hr)
+</td>
+<td style="text-align:left;">
+hours
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+This is the elapsed time between start and end of a haul (decimal hours).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HAUL
+</td>
+<td style="text-align:left;">
+Haul Number
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This number uniquely identifies a sampling event (haul) within a cruise. It is a sequential number, in chronological order of occurrence.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HAULJOIN
+</td>
+<td style="text-align:left;">
+Haul ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ID_RANK
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank of a given species entry.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ITIS
+</td>
+<td style="text-align:left;">
+ITIS Taxonomic Serial Number
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Species code as identified in the Integrated Taxonomic Information System (https://itis.gov/).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LATITUDE_DD_END
+</td>
+<td style="text-align:left;">
+End Latitude (decimal degrees)
+</td>
+<td style="text-align:left;">
+decimal degrees
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+Latitude (one hundred thousandth of a decimal degree) of the end of the haul.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LATITUDE_DD_START
+</td>
+<td style="text-align:left;">
+Start Latitude (decimal degrees)
+</td>
+<td style="text-align:left;">
+decimal degrees
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+Latitude (one hundred thousandth of a decimal degree) of the start of the haul.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LONGITUDE_DD_END
+</td>
+<td style="text-align:left;">
+End Longitude (decimal degrees)
+</td>
+<td style="text-align:left;">
+decimal degrees
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+Longitude (one hundred thousandth of a decimal degree) of the end of the haul.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LONGITUDE_DD_START
+</td>
+<td style="text-align:left;">
+Start Longitude (decimal degrees)
+</td>
+<td style="text-align:left;">
+decimal degrees
+</td>
+<td style="text-align:left;">
+NUMBER(38,6)
+</td>
+<td style="text-align:left;">
+Longitude (one hundred thousandth of a decimal degree) of the start of the haul.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NET_HEIGHT_M
+</td>
+<td style="text-align:left;">
+Net Height (m)
+</td>
+<td style="text-align:left;">
+meters
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Measured or estimated distance (meters) between footrope and headrope of the trawl.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NET_WIDTH_M
+</td>
+<td style="text-align:left;">
+Net Width (m)
+</td>
+<td style="text-align:left;">
+meters
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Measured or estimated distance (meters) between wingtips of the trawl.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PERFORMANCE
+</td>
+<td style="text-align:left;">
+Haul Performance Code
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This denotes what, if any, issues arose during the haul. For more information, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCIENTIFIC_NAME
+</td>
+<td style="text-align:left;">
+Taxon Scientific Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The scientific name of the organism associated with the ‘common_name’ and ‘species_code’ columns. For a complete taxon list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon Code
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SRVY
+</td>
+<td style="text-align:left;">
+Survey
+</td>
+<td style="text-align:left;">
+text abbreviated
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Abbreviated survey names. The column ‘srvy’ is associated with the ‘survey’ and ‘survey_id’ columns. Northern Bering Sea (NBS), Southeastern Bering Sea (EBS), Bering Sea Slope (BSS), Gulf of Alaska (GOA), Aleutian Islands (AI).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+STATION
+</td>
+<td style="text-align:left;">
+Station ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Alpha-numeric designation for the station established in the design of a survey.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+STRATUM
+</td>
+<td style="text-align:left;">
+Stratum ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(10,0)
+</td>
+<td style="text-align:left;">
+RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey series. Stratum of value 0 indicates experimental tows.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SURFACE_TEMPERATURE_C
+</td>
+<td style="text-align:left;">
+Surface Temperature (Degrees Celsius)
+</td>
+<td style="text-align:left;">
+degrees Celsius
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Surface temperature (tenths of a degree Celsius); NA indicates removed or missing values.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SURVEY
+</td>
+<td style="text-align:left;">
+Survey Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Name and description of survey. The column ‘survey’ is associated with the ‘srvy’ and ‘survey_id’ columns.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SURVEY_DEFINITION_ID
+</td>
+<td style="text-align:left;">
+Survey ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TAXON_CONFIDENCE
+</td>
+<td style="text-align:left;">
+Taxon Confidence Rating
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Confidence in the ability of the survey team to correctly identify the taxon to the specified level, based solely on identification skill (e.g., not likelihood of a taxon being caught at that station on a location-by-location basis). Quality codes follow: <strong>‘High’</strong>: High confidence and consistency. Taxonomy is stable and reliable at this level, and field identification characteristics are well known and reliable. <strong>‘Moderate’</strong>: Moderate confidence. Taxonomy may be questionable at this level, or field identification characteristics may be variable and difficult to assess consistently. <strong>‘Low’</strong>: Low confidence. Taxonomy is incompletely known, or reliable field identification characteristics are unknown. Documentation: <a href="http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2009-04.pdf">Species identification confidence in the eastern Bering Sea shelf survey (1982-2008)</a>, <a href="http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-05.pdf">Species identification confidence in the eastern Bering Sea slope survey (1976-2010)</a>, and <a href="http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-01.pdf">Species identification confidence in the Gulf of Alaska and Aleutian Islands surveys (1980-2011)</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VESSEL_ID
+</td>
+<td style="text-align:left;">
+Vessel ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+ID number of the vessel used to collect data for that haul. The column ‘vessel_id’ is associated with the ‘vessel_name’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VESSEL_NAME
+</td>
+<td style="text-align:left;">
+Vessel Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Name of the vessel used to collect data for that haul. The column ‘vessel_name’ is associated with the ‘vessel_id’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WEIGHT_KG
+</td>
+<td style="text-align:left;">
+Taxon Weight (kg)
+</td>
+<td style="text-align:left;">
+kilograms
+</td>
+<td style="text-align:left;">
+NUMBER(38,3)
+</td>
+<td style="text-align:left;">
+Weight (thousandths of a kilogram) of individuals in a haul by taxon.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WORMS
+</td>
+<td style="text-align:left;">
+World Register of Marine Species Taxonomic Serial Number
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Species code as identified in the World Register of Marine Species (WoRMS) (https://www.marinespecies.org/).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YEAR
+</td>
+<td style="text-align:left;">
+Year
+</td>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:left;">
+NUMBER(10,0)
+</td>
+<td style="text-align:left;">
+Year the survey was conducted in.
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
 <section id="foss_haul" class="level3">
 <h3 class="anchored" data-anchor-id="foss_haul">FOSS_HAUL</h3>
+<p>[There is currently no description for this table.]</p>
 <p>Number of rows: 32510</p>
 <p>Number of columns: 27</p>
 
@@ -1038,6 +1711,88 @@ NUMBER(10,0)
 </td>
 <td style="text-align:left;">
 Year the survey was conducted in.
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="foss_taxon_group" class="level3">
+<h3 class="anchored" data-anchor-id="foss_taxon_group">FOSS_TAXON_GROUP</h3>
+<p>[There is currently no description for this table.]</p>
+<p>Number of rows: 37606</p>
+<p>Number of columns: 3</p>
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CLASSIFICATION
+</td>
+<td style="text-align:left;">
+Taxonomic classification rank group
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic classification group rank for a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RANK_ID
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon Code
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>

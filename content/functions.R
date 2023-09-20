@@ -152,7 +152,10 @@ ORDER BY table_name"
   # Collect all column metadata for all table locations
   str00 <- c()
   for (i in 1:length(locations)) {
-    metadata_table <- b$COMMENTS[b$TABLE_NAME == locations[i]]
+    metadata_table <- ""
+    if (sum(b$TABLE_NAME == locations[i])>0) {
+      metadata_table <- b$COMMENTS[b$TABLE_NAME == locations[i]]
+    }
     # strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]]]
 
     # Putting universal metadata language at top of page

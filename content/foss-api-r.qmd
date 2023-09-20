@@ -27,7 +27,8 @@ res <- httr::GET(url = api_link)
  # res # Test connection
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
  # names(data)
-flextable::flextable(head(data$items, 3)) 
+flextable::flextable(head(data$items, 3))  %>% 
+  flextable::theme_zebra()
 ```
 
 ## Ex. 2: Load the first 10000 rows of data

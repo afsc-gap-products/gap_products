@@ -29,7 +29,7 @@ WHERE owner = 'GAP_PRODUCTS';") %>%
 
 locations <- foss_views$TABLE_NAME
 
-str00 <- print_table_metadata(channel, locations)
+str00 <- print_table_metadata(channel, locations) 
 ```
 
 `r str00`
