@@ -14,25 +14,18 @@ book:
   downloads: [pdf, docx]
   search: true
   author:
-    - name: Emily Markowitz
-      orcid: 0000-0001-5757-4230
-      email: emily.markowitz@noaa.gov 
-      note: emilymarkowitz-noaa
+    - name: Bering Sea Survey Team
+      email: afsc.gap.metadata@noaa.gov 
+      note: https://github.com/afsc-gap-products
       affiliations:
         - name: NOAA Fisheres Alaska Fisheries Science Center
-          department: Groundfish Assessment Program, Bering Sea Survey Team
-    - name: Zack Oyafuso
-      email: zack.oyafuso@noaa.gov    
-      note: zoyafuso-NOAA
+          department: Groundfish Assessment Program
+    - name: Gulf of Alaska and Aleutian Island Survey Team
+      email: afsc.gap.metadata@noaa.gov 
+      note: https://github.com/afsc-gap-products
       affiliations:
-        - name: NOAA Fisheries Alaska Fisheries Science Center
-          department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
-    - name: Sarah Friedman
-      email: sarah.friedman@noaa.gov    
-      note: SarahFriedman-NOAA
-      affiliations:
-        - name: NOAA Fisheries Alaska Fisheries Science Center
-          department: Groundfish Assessment Program, Gulf of Alaska and Aleutian Island Survey Team
+        - name: NOAA Fisheres Alaska Fisheries Science Center
+          department: Groundfish Assessment Program
   chapters:
     - part: index.qmd
       chapters:

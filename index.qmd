@@ -8,7 +8,9 @@ title: Welcome
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-> Please consider this resource to be a **Living Document**. The code in this repository is regularly being updated and improved. Please refer to [releases](%60r%20paste0(link_repo,%20'/releases')%60) for finalized products and project milestones.
+> Please consider this resource to be a **Living Document**. The code in this repository is regularly being updated and improved. Please refer to [releases](%60r%20paste0(link_repo,%20'/releases')) for finalized products and project milestones.
+
+> At this time, these master [production](https://afsc-gap-products.github.io/gap_products/content/product-intro.html) and [AKFIN](https://afsc-gap-products.github.io/gap_products/content/akfin-intro.html) tables are **provisional** and we are welcoming feedback before the 2024 survey season. We look forward to hearing from you. Do not hesitate to reach out (to us at either [afsc.gap.metadata@noaa.gov](afsc.gap.metadata@noaa.gov) or [GitHub issues](https://github.com/afsc-gap-products/gap_products/issues)), especially if you find discrepancies in the data or want to suggest improvements to infrastructure. Thank you in advance for your collaboration and partnership with us as we develop our future data universe.
 
 ## Our Objective
 

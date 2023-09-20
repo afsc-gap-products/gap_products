@@ -17,6 +17,7 @@ PKG <- c(
   "flextable",
   "here",
   "stringr",
+  "scales", 
   "badger"
 )
 

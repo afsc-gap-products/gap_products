@@ -373,14 +373,18 @@ dat <- RODBC::sqlQuery(channel = channel,
 "SELECT 
 SURVEY_DEFINITION_ID, 
 BIOMASS_MT, 
+BIOMASS_VAR, 
 YEAR
 FROM GAP_PRODUCTS.AKFIN_BIOMASS
 WHERE SPECIES_CODE = 30060 
 AND SURVEY_DEFINITION_ID = 47 
 AND AREA_ID = 99903 
-AND YEAR BETWEEN 1984 AND 2021;") %>% 
+AND YEAR BETWEEN 1984 AND 2023;") %>% 
   janitor::clean_names() %>% 
-  dplyr::mutate(biomass_mt = biomass_mt/1000)
+  dplyr::mutate(biomass_kmt = biomass_mt/1000, 
+                # **approximate** 95% confidence interval
+                biomass_kci_up = (biomass_mt + (2*sqrt(biomass_var)))/1000, 
+                biomass_kci_dw = (biomass_mt - (2*sqrt(biomass_var)))/1000) 
 ```
 
 ```{r}
@@ -390,11 +394,6 @@ AND YEAR BETWEEN 1984 AND 2021;") %>%
 #| warning: false
 #| echo: true
 
-a_mean <- dat %>% 
-  dplyr::group_by(survey_definition_id) %>% 
-  dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
-                   minyr = min(year, na.rm = TRUE), 
-                   maxyr = max(year, na.rm = TRUE)) 
 flextable::flextable(head(dat)) %>%
   theme_zebra() %>%
   flextable::colformat_num(x = ., j = "year", big.mark = "")
@@ -407,10 +406,16 @@ flextable::flextable(head(dat)) %>%
 #| warning: false
 #| echo: true
 
+a_mean <- dat %>% 
+  dplyr::group_by(survey_definition_id) %>% 
+  dplyr::summarise(biomass_kmt = mean(biomass_kmt, na.rm = TRUE), 
+                   minyr = min(year, na.rm = TRUE), 
+                   maxyr = max(year, na.rm = TRUE)) 
+
 figure <-
   ggplot(data = dat, 
          mapping = aes(x = year, 
-                       y = biomass_mt)) +
+                       y = biomass_kmt)) +
   ggplot2::geom_point(size = 2.5, color = "grey40") + 
   ggplot2::scale_x_continuous(
     name = "Year", 
@@ -424,10 +429,14 @@ figure <-
     data = a_mean,
     mapping = aes(x = minyr, 
                   xend = maxyr, 
-                  y = biomass_mt, 
-                  yend = biomass_mt),
+                  y = biomass_kmt, 
+                  yend = biomass_kmt),
     linetype = "dashed", 
     linewidth = 2) +
+  ggplot2::geom_errorbar(
+    mapping = aes(ymin = biomass_kci_dw, ymax = biomass_kci_up),
+                 position = position_dodge(.9),
+    alpha = 0.5, width=.2) +
   ggplot2::ggtitle(
     label = "GOA Pacific Ocean Perch Biomass 1984-2021", 
     subtitle = paste0("Mean = ", 
