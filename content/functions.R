@@ -157,10 +157,12 @@ ORDER BY table_name"
       metadata_table <- b$COMMENTS[b$TABLE_NAME == locations[i]]
     }
     # strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]]]
-
-    # Putting universal metadata language at top of page
+    
+    metadata_table <- str_extract(metadata_table, "^.+(?= This table was created by)")
+    
+        # Putting universal metadata language at top of page
     if (i == 1) {
-      if (!is.na(metadata_table)) {
+      if (!is.na(metadata_table) && length(metadata_table) != 0) {
         str00 <- paste0(
           "## Data usage \n\n",
           str_extract(metadata_table, "This table was created by .+$"),
@@ -172,7 +174,6 @@ ORDER BY table_name"
       }
     }
 
-    metadata_table <- str_extract(metadata_table, "^.+(?= This table was created by)")
     metadata_table <- ifelse(is.na(metadata_table) | length(metadata_table) == 0,
       "[There is currently no description for this table.]",
       metadata_table

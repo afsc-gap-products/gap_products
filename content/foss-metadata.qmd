@@ -15,7 +15,6 @@ These data are zero-filled (presence and absence) observations from surveys cond
 
 Though not included in the public data, these surveys also collect oceanographic and environmental data, and biological data such as length, weight, stomach contents (to learn more about diet), otoliths (fish ear bones to learn about age), and tissue samples for genetic analysis, all of which can be shared upon special request. Also not included in the public data are estimated biomass (average total weight of all fish and crabs sampled) of crabs and groundfish that support the creation of annual stock assessments.
 
-## Data tables
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
 

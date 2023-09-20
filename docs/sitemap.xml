@@ -34,7 +34,11 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/akfin-metadata.html</loc>
+<<<<<<< Updated upstream
     <lastmod>2023-09-20T18:42:26.162Z</lastmod>
+=======
+    <lastmod>2023-09-20T18:46:12.252Z</lastmod>
+>>>>>>> Stashed changes
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/akfin-oracle-sql-r.html</loc>
@@ -50,7 +54,11 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html</loc>
+<<<<<<< Updated upstream
     <lastmod>2023-09-20T18:42:26.309Z</lastmod>
+=======
+    <lastmod>2023-09-20T18:45:15.793Z</lastmod>
+>>>>>>> Stashed changes
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-platform.html</loc>
@@ -58,7 +66,11 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-api-r.html</loc>
+<<<<<<< Updated upstream
     <lastmod>2023-09-20T18:42:26.378Z</lastmod>
+=======
+    <lastmod>2023-09-20T18:23:51.157Z</lastmod>
+>>>>>>> Stashed changes
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-api-py.html</loc>
