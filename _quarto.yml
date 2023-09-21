@@ -36,7 +36,7 @@ book:
       chapters:
         - content/product-metadata.qmd
       #  - content/product-metadata-column.qmd
-        - content/product-gapindex.qmd
+      #  - content/product-gapindex.qmd
     - part: content/akfin-intro.qmd
       chapters:
         - content/akfin-metadata.qmd

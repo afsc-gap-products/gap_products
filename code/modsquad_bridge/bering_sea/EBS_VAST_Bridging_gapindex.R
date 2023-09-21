@@ -210,13 +210,13 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   #     racebase_stratum_popn = nbs_popn_stratum,
   #     spatial_level = "haul",
   #     fill_NA_method = "BS"))
-  sizecomp <- rbind(calc_sizecomp_stratum2(
+  sizecomp <- rbind(calc_sizecomp_stratum(
     racebase_tables = ebs_data,
     racebase_cpue = ebs_cpue,
     racebase_stratum_popn = ebs_popn_stratum,
     spatial_level = "haul",
     fill_NA_method = "BS"),
-    calc_sizecomp_stratum2(
+    calc_sizecomp_stratum(
       racebase_tables = nbs_data,
       racebase_cpue = nbs_cpue,
       racebase_stratum_popn = nbs_popn_stratum,
@@ -238,7 +238,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                 CRUISE >= start_year_age * 100 & CRUISE != 201801)
   }
   
-  ebs_alk <- gapindex::calc_ALK(racebase_tables = ebs_data, 
+  ebs_alk <- gapindex::calc_alk(racebase_tables = ebs_data, 
                                 unsex = "unsex", 
                                 global = TRUE)
   
@@ -247,10 +247,10 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##   ALK. Then fill in the missing ALKs with the globally filled EBS ALK.
   ##   Then fill in remaining missing ALKswith the globally filled NBS ALK. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  nbs_alk_non_global <- gapindex::calc_ALK(racebase_tables = nbs_data, 
+  nbs_alk_non_global <- gapindex::calc_alk(racebase_tables = nbs_data, 
                                            unsex = "unsex", 
                                            global = FALSE)
-  nbs_alk_global <-  gapindex::calc_ALK(racebase_tables = nbs_data, 
+  nbs_alk_global <-  gapindex::calc_alk(racebase_tables = nbs_data, 
                                         unsex = "unsex", 
                                         global = TRUE)
   
