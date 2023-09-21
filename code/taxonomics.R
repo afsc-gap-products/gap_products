@@ -17,11 +17,11 @@
 
 ### Load taxon confidence data -------------------------------------------------
 
-TAXON_CONFIDENCE <- data.frame()
-a <- list.files(path = paste0("./data/TAXON_CONFIDENCE/"))
+TAXONOMIC_CONFIDENCE <- data.frame()
+a <- list.files(path = paste0("./data/TAXONOMIC_CONFIDENCE/"))
 for (i in 1:length(a)){
   print(a[i])
-  b <- readxl::read_xlsx(path = paste0("./data/TAXON_CONFIDENCE/", a[i]), 
+  b <- readxl::read_xlsx(path = paste0("./data/TAXONOMIC_CONFIDENCE/", a[i]), 
                          skip = 1, col_names = TRUE) %>% 
     dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
     janitor::clean_names() %>% 
@@ -32,7 +32,7 @@ for (i in 1:length(a)){
   b <- b %>% 
     tidyr::pivot_longer(cols = starts_with("x"), 
                         names_to = "year", 
-                        values_to = "TAXON_CONFIDENCE") %>% 
+                        values_to = "TAXONOMIC_CONFIDENCE") %>% 
     dplyr::mutate(year = gsub(pattern = "[a-z]", 
                               replacement = "", 
                               x = year), 
@@ -42,7 +42,7 @@ for (i in 1:length(a)){
     dplyr::distinct()
   
   cc <- strsplit(x = gsub(x = gsub(x = a[i], 
-                                   pattern = "TAXON_CONFIDENCE_", replacement = ""), 
+                                   pattern = "TAXONOMIC_CONFIDENCE_", replacement = ""), 
                           pattern = ".xlsx", 
                           replacement = ""), 
                  split = "_")[[1]]
@@ -58,16 +58,16 @@ for (i in 1:length(a)){
     }
     b<-bb
   }
-  TAXON_CONFIDENCE <- TAXON_CONFIDENCE %>% 
+  TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE %>% 
     dplyr::bind_rows(b)
 }
 
-TAXON_CONFIDENCE <- TAXON_CONFIDENCE %>% 
-  dplyr::mutate(TAXON_CONFIDENCE_code = TAXON_CONFIDENCE#, 
-                #TAXON_CONFIDENCE = dplyr::case_when(
-                #   TAXON_CONFIDENCE_code == 1 ~ "High",
-                #   TAXON_CONFIDENCE_code == 2 ~ "Moderate",
-                #   TAXON_CONFIDENCE_code == 3 ~ "Low", 
+TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE %>% 
+  dplyr::mutate(TAXONOMIC_CONFIDENCE_code = TAXONOMIC_CONFIDENCE#, 
+                #TAXONOMIC_CONFIDENCE = dplyr::case_when(
+                #   TAXONOMIC_CONFIDENCE_code == 1 ~ "High",
+                #   TAXONOMIC_CONFIDENCE_code == 2 ~ "Moderate",
+                #   TAXONOMIC_CONFIDENCE_code == 3 ~ "Low", 
                 #   TRUE ~ "Unassessed")
   ) %>%
   dplyr::left_join(y = 
@@ -76,7 +76,7 @@ TAXON_CONFIDENCE <- TAXON_CONFIDENCE %>%
                    by = "SRVY") %>% 
   dplyr::select(-scientific_name, -common_name, -SRVY)
 
-### fill in TAXON_CONFIDENCE with, if missing, the values from the year before
+### fill in TAXONOMIC_CONFIDENCE with, if missing, the values from the year before
 
 cruises <- RODBC::sqlQuery(channel = channel_products, "SELECT * FROM RACE_DATA.V_CRUISES") %>% 
   janitor::clean_names() %>% 
@@ -86,25 +86,25 @@ cruises <- RODBC::sqlQuery(channel = channel_products, "SELECT * FROM RACE_DATA.
 # write.csv(x = cruises, file = "RACE_DATA.V_CRUISES.csv")
 
 comb1 <- unique(cruises[, c("survey_definition_id", "year")] )
-comb2 <- unique(TAXON_CONFIDENCE[, c("survey_definition_id", "year")])
+comb2 <- unique(TAXONOMIC_CONFIDENCE[, c("survey_definition_id", "year")])
 comb1$comb <- paste0(comb1$survey_definition_id, "_", comb1$year)
 comb2$comb <- paste0(comb2$survey_definition_id, "_", comb2$year)
 comb <- strsplit(x = setdiff(comb1$comb, comb2$comb), split = "_")
 
-NEW_TAXON_CONFIDENCE <- dplyr::bind_rows(
-  TAXON_CONFIDENCE, 
-  TAXON_CONFIDENCE %>% 
+NEW_TAXONOMIC_CONFIDENCE <- dplyr::bind_rows(
+  TAXONOMIC_CONFIDENCE, 
+  TAXONOMIC_CONFIDENCE %>% 
     dplyr::filter(
       survey_definition_id %in% sapply(comb,"[[",1) &
         year == 2021) %>% 
     dplyr::mutate(year = 2022), 
-  TAXON_CONFIDENCE %>% 
+  TAXONOMIC_CONFIDENCE %>% 
     dplyr::filter(
       survey_definition_id %in% sapply(comb,"[[",1) &
         year == 2021) %>% 
     dplyr::mutate(year = 2023))  
 
-NEW_TAXON_CONFIDENCE_COMMENT <- paste0(
+NEW_TAXONOMIC_CONFIDENCE_COMMENT <- paste0(
   "The quality and specificity of field identifications for many taxa have 
     fluctuated over the history of the surveys due to changing priorities and resources. 
     The matrix lists a confidence level for each taxon for each survey year 
