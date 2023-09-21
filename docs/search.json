@@ -266,39 +266,39 @@
     "text": "If the user has access to the AFSC Oracle database, the user can use SQL developer to view and pull the FOSS public data directly from the RACEBASE_FOSS Oracle schema.\n\nConnect to Oracle from R\nMany users will want to access the data from Oracle using R. The user will need to install the RODBC R package and ask OFIS (IT) connect R to Oracle. Then, use the following code in R to establish a connection from R to Oracle:\nHere, the user can write in their username and password directly into the RODBC connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.\n\n #' Define RODBC connection to ORACLE\n #'\n #' @param schema default = 'AFSC'. \n #'\n #' @return oracle channel connection\n #' @export\n #'\n #' @examples\n #' # Not run\n #' # channel &lt;- oracle_connect()\noracle_connect &lt;- function(\n    schema='AFSC', \n    username = NULL, \n    passowrd = NULL){(echo=FALSE)\n  \n  library(\"RODBC\")\n  library(\"getPass\")\n  if (is.null(username)) {\n    username &lt;- getPass(msg = \"Enter your ORACLE Username: \")\n  }\n  if (is.null(password)) {\n    password &lt;- getPass(msg = \"Enter your ORACLE Password: \")\n  }\n  channel  &lt;- RODBC::odbcConnect(\n    paste(schema),\n    paste(username),\n    paste(password), \n    believeNRows=FALSE)\n  return(channel)\n}\n\nchannel &lt;- oracle_connect()\n\n\n\nEx. 1: Join data\nTo join these tables in Oracle, you may use a variant of the following code:\n\n\nEx. 2: Subset data\nOnce connected, pull and save (if needed) the tables into the R environment.\nTo pull a small subset of the data (especially since files like RACEBASE_FOSS.FOSS_CPUE_ZEROFILLED are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021:\n\n# Pull data\na &lt;- RODBC::sqlQuery(\nchannel = channel, \nquery = \n\"SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc\nJOIN GAP_PRODUCTS.FOSS_HAUL hh\nON cc.HAULJOIN = hh.HAULJOIN\nWHERE SRVY = 'EBS' \nAND COMMON_NAME = 'Pacific cod' \nAND YEAR &gt;= 2010 \nAND YEAR &lt; 2021\")\n# Save table to local directory\nwrite.csv(x = a, file = \"RACEBASE_FOSS-FOSS_CPUE_ZEROFILLED-ebs_pcod_2010-2020.csv\")"
   },
   {
-    "objectID": "content/other.html#annual-publications",
-    "href": "content/other.html#annual-publications",
-    "title": "Other products",
-    "section": "Annual Publications",
-    "text": "Annual Publications\n\nAnnual Data Report Tech Memos\nThe Alaska Fisheries Science Center uses the NOAA Technical Memorandum series to issue informal scientific and technical publications when complete formal review and editorial processing are not appropriate or feasible. Documents within this series reflect sound professional work and may be referenced in the formal scientific and technical literature. These are available online and the latest publications for each survey are listed below.\nPOCs: Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson Gulf of Alaska and Aleutian Islands: margaret Siple, Alex Dowlin\n\n\nCommunity Highlights\nEach year, the Groundfish Assessment Program compiles it’s survey findings for communities around Alaska (Markowitz et al., 2022). Please note: This document is for informational purposes only and does not necessarily represent the views or official position of the Department of Commerce, the National Oceanic and Atmospheric Administration, or the National Marine Fisheries Service. Not to be cited without permission from the authors. \nPOCs: Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson\n\n\nNorth Pacific Groundfish Plan Team\nEach year, the survey teams present their findings to the North Pacific Groundfish Plan Team. Find those presentations, recordings, and attachments on the North Pacific Fishery Management Council website. ### Research Briefs\nEach year, the Groundfish Assessment Program produces research briefs, or research plans, of their upcoming surveys and research.\n\n\nCode Books\nThe Species and Gear Code book is a listing of codes used for fish and invertebrates identified in RACE Division surveys.\nPOCs: Nancy Roberson\n\n\nSurvey Protocols\nGroundfish bottom trawl survey protocols are documented in NOAA protocols for groundfish bottom trawl surveys of the nation’s fishery resources.\nPOCs: Nancy Roberson"
+    "objectID": "content/other-intro.html",
+    "href": "content/other-intro.html",
+    "title": "Data Products",
+    "section": "",
+    "text": "To accompany these data, we also produce data products to make using our data more accessible and straightforward."
   },
   {
-    "objectID": "content/other.html#noaa-fisheries-distribution-mapping-and-analysis-portal-dismap",
-    "href": "content/other.html#noaa-fisheries-distribution-mapping-and-analysis-portal-dismap",
-    "title": "Other products",
+    "objectID": "content/other-pkgs.html#r-packages",
+    "href": "content/other-pkgs.html#r-packages",
+    "title": "Open Source Code",
+    "section": "R Packages",
+    "text": "R Packages\n\nakgfmaps R package\nBttom trawl survey maps layers and plotting examples. POC: Sean Rohan\n\n\ncoldpool R package\nCold pool area and temperature data products for the Bering Sea. POC: Sean Rohan\n\n\nakfishcondition R package\nGroundfish morphometric condition indicators for fish in the Bering Sea, Aleutian Islands, and Gulf of Alaska. POC: Sean Rohan\n\n\ngapindex R package\nCalculation of Design-Based Indices of Abundance and Composition for AFSC GAP Bottom Trawl Surveys. POC: Zack Oyafuso and Margaret Siple"
+  },
+  {
+    "objectID": "content/other-reports.html#annual-publications",
+    "href": "content/other-reports.html#annual-publications",
+    "title": "Reports",
+    "section": "Annual Publications",
+    "text": "Annual Publications\n\nAnnual Data Report Tech Memos\nThe Alaska Fisheries Science Center uses the NOAA Technical Memorandum series to issue informal scientific and technical publications when complete formal review and editorial processing are not appropriate or feasible. Documents within this series reflect sound professional work and may be referenced in the formal scientific and technical literature. These are available online and the latest publications for each survey are listed below.\nPOCs: Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson Gulf of Alaska and Aleutian Islands: margaret Siple, Alex Dowlin\n\n\nNorth Pacific Groundfish Plan Team\nEach year, the survey teams present their findings to the North Pacific Groundfish Plan Team. Find those presentations, recordings, and attachments on the North Pacific Fishery Management Council website. ### Research Briefs\nEach year, the Groundfish Assessment Program produces research briefs, or research plans, of their upcoming surveys and research.\n\n\nCode Books\nThe Species and Gear Code book is a listing of codes used for fish and invertebrates identified in RACE Division surveys.\nPOCs: Nancy Roberson\n\n\nSurvey Protocols\nGroundfish bottom trawl survey protocols are documented in NOAA protocols for groundfish bottom trawl surveys of the nation’s fishery resources.\nPOCs: Nancy Roberson"
+  },
+  {
+    "objectID": "content/other-reports.html#noaa-fisheries-distribution-mapping-and-analysis-portal-dismap",
+    "href": "content/other-reports.html#noaa-fisheries-distribution-mapping-and-analysis-portal-dismap",
+    "title": "Reports",
     "section": "NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)",
     "text": "NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)\nData from this and other fisheries-independent surveys are used in the NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP), which provides easy access to information to track and understand distributions of marine species in U.S. Marine Ecosystems.\nPOCs: NOAA Fisheries Office of Science and Technology"
   },
   {
-    "objectID": "content/other.html#r-packages",
-    "href": "content/other.html#r-packages",
-    "title": "Other products",
-    "section": "R Packages",
-    "text": "R Packages\n\nakgfmaps R package: bottom trawl survey maps layers and plotting examples. POC: Sean Rohan\ncoldpool R package: cold pool area and temperature data products for the Bering Sea. POC: Sean Rohan\nakfishcondition R package: groundfish morphometric condition indicators for fish in the Bering Sea, Aleutian Islands, and Gulf of Alaska. POC: Sean Rohan\ngapindex R package: calculation of Design-Based Indices of Abundance and Composition for AFSC GAP Bottom Trawl Surveys. POC: Zack Oyafuso"
-  },
-  {
-    "objectID": "content/other.html#outreach",
-    "href": "content/other.html#outreach",
-    "title": "Other products",
+    "objectID": "content/other-outreach.html#outreach",
+    "href": "content/other-outreach.html#outreach",
+    "title": "Outreach",
     "section": "Outreach",
-    "text": "Outreach\nMaps of near real-time temperatures and survey progress from each of our bottom trawl surveys are posted each business day of the survey. Water temperature affects many species’ spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem. POCs: Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson"
-  },
-  {
-    "objectID": "content/other.html#collaborators",
-    "href": "content/other.html#collaborators",
-    "title": "Other products",
-    "section": "Collaborators",
-    "text": "Collaborators\nOur data are used in many annual publications, including but not limited to the list below:\n\nAlaska Stock Assessments\nNorth Pacific Groundfish Stock Assessment and Fishery Evaluation Reports\nGroundfish Economic Status Reports for the Gulf of Alaska and Bering Sea and Aleutian Islands\nAlaska Marine Ecosystem Status Report Database\nSoutheast Alaska Coastal Monitoring Survey Reports\nAlaska Fisheries Life History Database\nEssential Fish Habitat Research Plan in Alaska\n\n\n\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, C., Charriere, N. E., Richar, J. I., Rohan, S. K., Prohaska, B. K., Haehn, R. A., and Stevenson, D. E. (2022). 2022 northern Bering Sea groundfish and crab trawl survey highlights [Outreach]. University of Alaska Fairbanks Strait Science Seminar; https://www.youtube.com/watch?v=TGXN2pIDhfc."
+    "text": "Outreach\nMaps of near real-time temperatures and survey progress from each of our bottom trawl surveys are posted each business day of the survey. Water temperature affects many species’ spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem.\nPOCs: Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson\n\nCommunity Highlights\nEach year, the Groundfish Assessment Program compiles it’s survey findings for communities around Alaska (Markowitz et al., 2022). Please note: This document is for informational purposes only and does not necessarily represent the views or official position of the Department of Commerce, the National Oceanic and Atmospheric Administration, or the National Marine Fisheries Service. Not to be cited without permission from the authors. \nPOCs: Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson\n\n\n\n\nMarkowitz, E. H., Dawson, E. J., Anderson, C., Charriere, N. E., Richar, J. I., Rohan, S. K., Prohaska, B. K., Haehn, R. A., and Stevenson, D. E. (2022). 2022 northern Bering Sea groundfish and crab trawl survey highlights [Outreach]. University of Alaska Fairbanks Strait Science Seminar; https://www.youtube.com/watch?v=TGXN2pIDhfc."
   },
   {
     "objectID": "content/end-contact-us.html#suggestions-and-comments",
@@ -341,6 +341,13 @@
     "title": "Acknowledgments",
     "section": "Partners",
     "text": "Partners\nScientists from the Alaska Fisheries Science Center conduct these bottom trawl surveys with participation from the Alaska Department of Fish & Game (ADF&G), the International Pacific Halibut Commission (IPHC), and universities. This research is conducted on chartered fishing vessels."
+  },
+  {
+    "objectID": "content/end-acknowledgements.html#collaborators",
+    "href": "content/end-acknowledgements.html#collaborators",
+    "title": "Acknowledgments",
+    "section": "Collaborators",
+    "text": "Collaborators\nOur data are used in many annual publications, including but not limited to the list below:\n\nAlaska Stock Assessments\nNorth Pacific Groundfish Stock Assessment and Fishery Evaluation Reports\nGroundfish Economic Status Reports for the Gulf of Alaska and Bering Sea and Aleutian Islands\nAlaska Marine Ecosystem Status Report Database\nSoutheast Alaska Coastal Monitoring Survey Reports\nAlaska Fisheries Life History Database\nEssential Fish Habitat Research Plan in Alaska"
   },
   {
     "objectID": "content/end-refs.html",

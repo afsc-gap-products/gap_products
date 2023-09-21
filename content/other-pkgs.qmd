@@ -1,0 +1,22 @@
+---
+title: Open Source Code
+---
+
+## R Packages
+
+### [akgfmaps R package](https://github.com/afsc-gap-products/akgfmaps)
+
+Bttom trawl survey maps layers and plotting examples. **POC:** Sean Rohan
+
+### [coldpool R package](https://github.com/afsc-gap-products/coldpool)
+
+Cold pool area and temperature data products for the Bering Sea. **POC:** Sean Rohan
+
+### [akfishcondition R package](https://github.com/afsc-gap-products/akfishcondition)
+
+Groundfish morphometric condition indicators for fish in the Bering Sea, Aleutian Islands, and Gulf of Alaska. **POC:** Sean Rohan
+
+### [gapindex R package](https://github.com/afsc-gap-products/gapindex)
+
+Calculation of Design-Based Indices of Abundance and Composition for AFSC GAP Bottom Trawl Surveys. **POC:** Zack Oyafuso and Margaret Siple
+

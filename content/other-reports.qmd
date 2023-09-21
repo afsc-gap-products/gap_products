@@ -1,0 +1,39 @@
+---
+title: Reports
+---
+
+## Annual Publications
+
+### Annual Data Report Tech Memos
+
+The Alaska Fisheries Science Center uses the NOAA Technical Memorandum series to issue informal scientific and technical publications when complete formal review and editorial processing are not appropriate or feasible. Documents within this series reflect sound professional work and may be referenced in the formal scientific and technical literature. These are available [online](https://repository.library.noaa.gov/) and the latest publications for each survey are listed below. 
+
+**POCs:** 
+Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson
+Gulf of Alaska and Aleutian Islands: margaret Siple, Alex Dowlin
+
+### North Pacific Groundfish Plan Team
+
+Each year, the survey teams present their findings to the North Pacific Groundfish Plan Team. Find those presentations, recordings, and attachments on the [North Pacific Fishery Management Council website](https://www.npfmc.org/about-the-council/plan-teams/bsai-and-goa-groundfish/). 
+### Research Briefs
+
+Each year, the Groundfish Assessment Program produces research briefs, or research plans, of their upcoming surveys and research. 
+
+### Code Books
+
+The [Species and Gear Code book](https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual) is a listing of codes used for fish and invertebrates identified in RACE Division surveys. 
+
+**POCs:** Nancy Roberson
+
+### Survey Protocols
+
+Groundfish bottom trawl survey protocols are documented in [NOAA protocols for groundfish bottom trawl surveys of the nation’s fishery resources](https://repository.library.noaa.gov/view/noaa/12855). 
+
+**POCs:** Nancy Roberson
+
+## NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)
+
+Data from this and other fisheries-independent surveys are used in the [NOAA Fisheries Distribution Mapping and Analysis Portal (DisMAP)](https://apps-st.fisheries.noaa.gov/dismap/), which provides easy access to information to track and understand distributions of marine species in U.S. Marine Ecosystems.
+
+**POCs:** NOAA Fisheries Office of Science and Technology
+

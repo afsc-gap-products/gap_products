@@ -75,7 +75,7 @@ akfin_views$desc[akfin_views$table_name == "AKFIN_SURVEY_DESIGN"] <-
          "and does not have any other object dependencies. ")
 akfin_views$desc[akfin_views$table_name == "AKFIN_TAXONOMY"] <-
   paste0("This table is a copy of GAP_PRODUCTS.SPECIES_CLASSIFICATION ",
-         "filtered for values where SURVEY_SPECIES = 1 "
+         "filtered for values where SURVEY_SPECIES = 1 ",
          "and does not have any other object dependencies. ")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -127,5 +127,17 @@
   },
   "content/other.qmd": {
     "other.html": "e3729b7c"
+  },
+  "content/other-intro.qmd": {
+    "other-intro.html": "cf799ee4"
+  },
+  "content/other-pkgs.qmd": {
+    "other-pkgs.html": "1dc48536"
+  },
+  "content/other-reports.qmd": {
+    "other-reports.html": "cc4882fc"
+  },
+  "content/other-outreach.qmd": {
+    "other-outreach.html": "353a4e40"
   }
 }
