@@ -117,7 +117,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   ## Aggregate `production_sizecomp_stratum` to subareas and regions
   cat("\nAggregate size composition to subareas and regions\n")
   start_time <- Sys.time()
-  production_sizecomp_subarea <- gapindex::calc_sizecomp_subareas(
+  production_sizecomp_subarea <- gapindex::calc_sizecomp_subarea(
     racebase_tables = production_data,
     size_comps = production_sizecomp_stratum)
   end_time <- Sys.time()
@@ -127,7 +127,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   cat("\nCalculate regional ALK\n")
   start_time <- Sys.time()
   production_alk <- 
-    subset(x = gapindex::calc_ALK(
+    subset(x = gapindex::calc_alk(
       racebase_tables = production_data,
       unsex = c("all", "unsex")[1], 
       global = FALSE),
