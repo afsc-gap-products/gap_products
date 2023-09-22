@@ -2,7 +2,7 @@
 #' title: Create public data 
 #' author: EH Markowitz
 #' start date: 2023-09-23
-#' Notes: Files can be found here: https://drive.google.com/drive/folders/1s-BKOnfiuF3b0642C_DGhLcuRv-MOPxO
+#' Notes: 
 #' -----------------------------------------------------------------------------
 
 ## Taxon Confidence ------------------------------------------------------------
@@ -24,8 +24,9 @@
 PKG <- c(
   "dplyr",
   "magrittr",
-  "readr",
-  "tidyr"
+  "readxl",
+  "tidyr", 
+  "googledrive"
 )
 
 PKG <- unique(PKG)
@@ -43,15 +44,31 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
   gapindex::get_connected()
 }
 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Download the most recent version of the future_oracle.xlsx 
+##   google sheet and save locally in the temp folder. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+googledrive::drive_auth()
+2
+
+a <- googledrive::drive_ls(path = "https://drive.google.com/drive/folders/1s-BKOnfiuF3b0642C_DGhLcuRv-MOPxO")
+for (i in 1:nrow(a)) {
+googledrive::drive_download(
+  file = a$id[i], 
+  path = paste0("temp/", a$name[i]), 
+  overwrite = TRUE)
+}
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Load original taxon confidence data
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TAXONOMIC_CONFIDENCE <- data.frame()
-a <- list.files(path = "temp/TAXONOMIC_CONFIDENCE/")
+a <- a$name
 for (i in 1:length(a)){
   print(a[i])
-  b <- readxl::read_xlsx(path = paste0("data/TAXONOMIC_CONFIDENCE/", a[i]), 
+  b <- readxl::read_xlsx(path = paste0("temp/", a[i]), 
                          skip = 1, col_names = TRUE) %>% 
     dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
     janitor::clean_names() %>% 

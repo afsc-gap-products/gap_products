@@ -38,10 +38,7 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-/output/
-/data/
 /notforgit/
-metadata/*/
 
 # Temporary Files
 temp/
