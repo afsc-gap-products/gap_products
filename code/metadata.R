@@ -29,7 +29,7 @@ googledrive::drive_download(
   file = googledrive::as_id("1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA"), 
   path = "temp/future_oracle.xlsx", 
   overwrite = TRUE)
-
+2
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Clean up metadata_table: the table that houses the shared sentence 
 ##   fragments that will describe each table. 
