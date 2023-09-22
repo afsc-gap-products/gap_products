@@ -48,10 +48,10 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TAXONOMIC_CONFIDENCE <- data.frame()
-a <- list.files(path = paste0("./data/TAXONOMIC_CONFIDENCE/"))
+a <- list.files(path = "temp/TAXONOMIC_CONFIDENCE/")
 for (i in 1:length(a)){
   print(a[i])
-  b <- readxl::read_xlsx(path = paste0("./data/TAXONOMIC_CONFIDENCE/", a[i]), 
+  b <- readxl::read_xlsx(path = paste0("data/TAXONOMIC_CONFIDENCE/", a[i]), 
                          skip = 1, col_names = TRUE) %>% 
     dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
     janitor::clean_names() %>% 
