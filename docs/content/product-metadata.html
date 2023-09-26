@@ -340,14 +340,14 @@ function googleTranslateElementInit() {
 
 <section id="data-usage" class="level2">
 <h2 class="anchored" data-anchor-id="data-usage">Data usage</h2>
-<p>These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">survey code books</a>. These data were last updated September 10, 2023.</p>
+<p>NA</p>
 </section>
 <section id="data-tables" class="level2">
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="agecomp">AGECOMP</h3>
 <p>Region-level age compositions by sex/length bin.</p>
-<p>Number of rows: 552856</p>
+<p>Number of rows: 521,561</p>
 <p>Number of columns: 9</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -419,7 +419,7 @@ numeric
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Mean length estimated in age comp estimate.
+Mean length (millimeters)
 </td>
 </tr>
 <tr>
@@ -436,7 +436,7 @@ numeric
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Variance of mean length estimated in age comp estimate.
+Variance of mean length.
 </td>
 </tr>
 <tr>
@@ -512,7 +512,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -521,7 +521,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -531,7 +531,7 @@ Year the survey was conducted in.
 <section id="area" class="level3">
 <h3 class="anchored" data-anchor-id="area">AREA</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 443</p>
+<p>Number of rows: 473</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -586,7 +586,7 @@ kilometers squared
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Area in thousands of square kilometers.
+Area in square kilometers.
 </td>
 </tr>
 <tr>
@@ -608,6 +608,23 @@ Descriptive name of each AREA_ID. These names often identify the region, depth r
 </tr>
 <tr>
 <td style="text-align:left;">
+CRS
+</td>
+<td style="text-align:left;">
+Coordinate Reference System
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+VARCHAR2(5 BYTE)
+</td>
+<td style="text-align:left;">
+Coordinate reference system that areas (like AREA_KM2) are calculated in, as defined by https://spatialreference.org/ (e.g., “+proj=longlat”, “EPSG:3338”).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 DEPTH_MAX_M
 </td>
 <td style="text-align:left;">
@@ -620,7 +637,7 @@ meters
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Maximum depth (meters) of the area covered by AREA_ID.
+Maximum depth (meters).
 </td>
 </tr>
 <tr>
@@ -637,7 +654,7 @@ meters
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Minimum depth (meters) of the area covered by AREA_ID.
+Minimum depth (meters).
 </td>
 </tr>
 <tr>
@@ -671,7 +688,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-The year the survey area stratum (e.g., statistical stratum, summary area, region) was implimented in.
+Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
 </td>
 </tr>
 <tr>
@@ -708,31 +725,14 @@ NA
 NA
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-crs
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
 </tbody>
 
 </table>
 </section>
 <section id="biomass" class="level3">
 <h3 class="anchored" data-anchor-id="biomass">BIOMASS</h3>
-<p>Stratum/subarea/region-level mean CPUE (weight and numbers), total biomass, and total abundance with associated variances.</p>
-<p>Number of rows: 4589761</p>
+<p>[There is currently no description for this table.]</p>
+<p>Number of rows: 3,202,867</p>
 <p>Number of columns: 16</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -787,7 +787,7 @@ numeric
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The estimated biomass caught in the survey for a species, group, or total for a given survey.
+The estimated total biomass.
 </td>
 </tr>
 <tr>
@@ -804,7 +804,7 @@ numeric
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The estimated biomass variance caught in the survey for a species, group, or total for a given survey.
+The estimated variance associated with the total biomass.
 </td>
 </tr>
 <tr>
@@ -821,7 +821,7 @@ kilograms per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The mean of catch weight (kilograms) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The mean catch weight (kilograms) per unit effort (area swept by the net, units squared kilometers).
 </td>
 </tr>
 <tr>
@@ -838,7 +838,7 @@ kilograms per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The variance of mean of catch weight (kilograms) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The variance of mean catch weight (kilograms) per unit effort (area swept by the net, units squared kilometers).
 </td>
 </tr>
 <tr>
@@ -855,7 +855,7 @@ count per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The mean of catch count (number) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The mean of numerical catch per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -872,7 +872,7 @@ count per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The variance of mMean of catch count (number) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The variance of mean numerical catch per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -889,7 +889,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of hauls with positive taxon counts used in calculation.
+Total number of hauls with positive count data.
 </td>
 </tr>
 <tr>
@@ -906,7 +906,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of valid hauls used in calculation.
+Total number of hauls.
 </td>
 </tr>
 <tr>
@@ -923,7 +923,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of hauls with taxon length data used in calculation.
+Total number of hauls with length data.
 </td>
 </tr>
 <tr>
@@ -940,7 +940,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of hauls with positive catch/weighed taxon data used in calculation.
+Total number of hauls with positive catch biomass.
 </td>
 </tr>
 <tr>
@@ -1016,7 +1016,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -1025,7 +1025,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -1035,7 +1035,7 @@ Year the survey was conducted in.
 <section id="cpue" class="level3">
 <h3 class="anchored" data-anchor-id="cpue">CPUE</h3>
 <p>Haul-level zero-filled weight and numerical catch-per-unit-effort.</p>
-<p>Number of rows: 37834687</p>
+<p>Number of rows: 37,834,687</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1090,7 +1090,7 @@ count, whole number resolution
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of individuals caught in haul by taxon, represented in whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 </td>
 </tr>
 <tr>
@@ -1107,7 +1107,7 @@ kilograms per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-Catch weight (kilograms) divided by area (squared kilometers) swept by the net.
+Catch weight (kilograms) per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -1124,7 +1124,7 @@ count per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-Catch number (in number of organisms) per area (squared kilometers) swept by the net.
+Numerical catch per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -1186,7 +1186,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 <h3 class="anchored" data-anchor-id="survey_design">SURVEY_DESIGN</h3>
 <p>[There is currently no description for this table.]</p>
 <p>Number of rows: 126</p>
-<p>Number of columns: 3</p>
+<p>Number of columns: 4</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -1223,7 +1223,24 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-The year the survey area stratum (e.g., statistical stratum, summary area, region) was implimented in.
+Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SURVEY
+</td>
+<td style="text-align:left;">
+Survey Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Name and description of survey. The column ‘survey’ is associated with the ‘srvy’ and ‘survey_id’ columns.
 </td>
 </tr>
 <tr>
@@ -1248,7 +1265,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -1257,7 +1274,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -1404,7 +1421,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-The year the survey area stratum (e.g., statistical stratum, summary area, region) was implimented in.
+Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
 </td>
 </tr>
 <tr>
@@ -1421,7 +1438,7 @@ ID code
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey series. Stratum of value 0 indicates experimental tows.
+RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey region. Stratum of value 0 indicates experimental tows.
 </td>
 </tr>
 <tr>
@@ -1448,7 +1465,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 <section id="sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="sizecomp">SIZECOMP</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 3130543</p>
+<p>Number of rows: 3,091,631</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1503,7 +1520,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length of a specimen in millimeters.
+Length bin in millimeters.
 </td>
 </tr>
 <tr>
@@ -1579,7 +1596,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -1588,7 +1605,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>

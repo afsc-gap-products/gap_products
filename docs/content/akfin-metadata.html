@@ -353,7 +353,7 @@ function googleTranslateElementInit() {
 <section id="akfin_agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_agecomp">AKFIN_AGECOMP</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 552856</p>
+<p>Number of rows: 552,856</p>
 <p>Number of columns: 9</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -425,7 +425,7 @@ numeric
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Mean length estimated in age comp estimate.
+Mean length (millimeters)
 </td>
 </tr>
 <tr>
@@ -442,7 +442,7 @@ numeric
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Variance of mean length estimated in age comp estimate.
+Variance of mean length.
 </td>
 </tr>
 <tr>
@@ -518,7 +518,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -527,7 +527,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -592,7 +592,7 @@ kilometers squared
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Area in thousands of square kilometers.
+Area in square kilometers.
 </td>
 </tr>
 <tr>
@@ -643,7 +643,7 @@ meters
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Maximum depth (meters) of the area covered by AREA_ID.
+Maximum depth (meters).
 </td>
 </tr>
 <tr>
@@ -660,7 +660,7 @@ meters
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Minimum depth (meters) of the area covered by AREA_ID.
+Minimum depth (meters).
 </td>
 </tr>
 <tr>
@@ -694,7 +694,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-The year the survey area stratum (e.g., statistical stratum, summary area, region) was implimented in.
+Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
 </td>
 </tr>
 <tr>
@@ -738,7 +738,7 @@ NA
 <section id="akfin_biomass" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_biomass">AKFIN_BIOMASS</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 4589761</p>
+<p>Number of rows: 4,589,761</p>
 <p>Number of columns: 16</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -793,7 +793,7 @@ numeric
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The estimated biomass caught in the survey for a species, group, or total for a given survey.
+The estimated total biomass.
 </td>
 </tr>
 <tr>
@@ -810,7 +810,7 @@ numeric
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The estimated biomass variance caught in the survey for a species, group, or total for a given survey.
+The estimated variance associated with the total biomass.
 </td>
 </tr>
 <tr>
@@ -827,7 +827,7 @@ kilograms per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The mean of catch weight (kilograms) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The mean catch weight (kilograms) per unit effort (area swept by the net, units squared kilometers).
 </td>
 </tr>
 <tr>
@@ -844,7 +844,7 @@ kilograms per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The variance of mean of catch weight (kilograms) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The variance of mean catch weight (kilograms) per unit effort (area swept by the net, units squared kilometers).
 </td>
 </tr>
 <tr>
@@ -861,7 +861,7 @@ count per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The mean of catch count (number) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The mean of numerical catch per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -878,7 +878,7 @@ count per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-The variance of mMean of catch count (number) divided by area (squared kilometers) swept by the net used in design-based indicie calculation.
+The variance of mean numerical catch per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -895,7 +895,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of hauls with positive taxon counts used in calculation.
+Total number of hauls with positive count data.
 </td>
 </tr>
 <tr>
@@ -912,7 +912,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of valid hauls used in calculation.
+Total number of hauls.
 </td>
 </tr>
 <tr>
@@ -929,7 +929,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of hauls with taxon length data used in calculation.
+Total number of hauls with length data.
 </td>
 </tr>
 <tr>
@@ -946,7 +946,7 @@ numeric
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of hauls with positive catch/weighed taxon data used in calculation.
+Total number of hauls with positive catch biomass.
 </td>
 </tr>
 <tr>
@@ -1022,7 +1022,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -1031,7 +1031,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -1041,7 +1041,7 @@ Year the survey was conducted in.
 <section id="akfin_catch" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_catch">AKFIN_CATCH</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 985442</p>
+<p>Number of rows: 985,442</p>
 <p>Number of columns: 6</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1096,7 +1096,7 @@ count, whole number resolution
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of individuals caught in haul by taxon, represented in whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 </td>
 </tr>
 <tr>
@@ -1113,7 +1113,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This is a unique numeric identifier assigned to each survey, vessel, and year combination.
+Unique interger ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -1174,7 +1174,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 <section id="akfin_cpue" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cpue">AKFIN_CPUE</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 37834687</p>
+<p>Number of rows: 37,834,687</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1229,7 +1229,7 @@ count, whole number resolution
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total number of individuals caught in haul by taxon, represented in whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 </td>
 </tr>
 <tr>
@@ -1246,7 +1246,7 @@ kilograms per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-Catch weight (kilograms) divided by area (squared kilometers) swept by the net.
+Catch weight (kilograms) per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -1263,7 +1263,7 @@ count per kilometers squared
 NUMBER(38,6)
 </td>
 <td style="text-align:left;">
-Catch number (in number of organisms) per area (squared kilometers) swept by the net.
+Numerical catch per unit effort (area swept by the net, units square kilometers).
 </td>
 </tr>
 <tr>
@@ -1362,7 +1362,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This is a six-digit number identifying the cruise number of the form: YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is sequential; 01 denotes the first cruise that vessel made in this year, 02 is the second, etc.).
+This is a six-digit integer identifying the cruise number of the form: YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is sequential; 01 denotes the first cruise that vessel made in this year, 02 is the second, etc.).
 </td>
 </tr>
 <tr>
@@ -1379,7 +1379,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This is a unique numeric identifier assigned to each survey, vessel, and year combination.
+Unique interger ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -1506,7 +1506,7 @@ Name of the vessel used to collect data for that haul. The column ‘vessel_name
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -1515,7 +1515,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -1525,7 +1525,7 @@ Year the survey was conducted in.
 <section id="akfin_haul" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_haul">AKFIN_HAUL</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 35998</p>
+<p>Number of rows: 35,998</p>
 <p>Number of columns: 25</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1597,7 +1597,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This is a unique numeric identifier assigned to each survey, vessel, and year combination.
+Unique interger ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -1648,7 +1648,7 @@ degrees Celsius
 NUMBER(38,1)
 </td>
 <td style="text-align:left;">
-Bottom depth (tenths of a meter).
+Bottom depth (meters).
 </td>
 </tr>
 <tr>
@@ -1937,7 +1937,7 @@ ID code
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey series. Stratum of value 0 indicates experimental tows.
+RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey region. Stratum of value 0 indicates experimental tows.
 </td>
 </tr>
 <tr>
@@ -1981,7 +1981,7 @@ Length of wire deployed during a given haul in meters.
 <section id="akfin_length" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_length">AKFIN_LENGTH</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 2574443</p>
+<p>Number of rows: 2,574,443</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2053,7 +2053,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length of a specimen in millimeters.
+Length bin in millimeters.
 </td>
 </tr>
 <tr>
@@ -2247,7 +2247,7 @@ Units of the column.
 <section id="akfin_sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_sizecomp">AKFIN_SIZECOMP</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 3130543</p>
+<p>Number of rows: 3,130,543</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2302,7 +2302,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length of a specimen in millimeters.
+Length bin in millimeters.
 </td>
 </tr>
 <tr>
@@ -2378,7 +2378,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -2387,7 +2387,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -2397,7 +2397,7 @@ Year the survey was conducted in.
 <section id="akfin_specimen" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_specimen">AKFIN_SPECIMEN</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 359317</p>
+<p>Number of rows: 359,317</p>
 <p>Number of columns: 14</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2469,7 +2469,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This is a unique numeric identifier assigned to each survey, vessel, and year combination.
+Unique interger ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -2520,7 +2520,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length of a specimen in millimeters.
+Length bin in millimeters.
 </td>
 </tr>
 <tr>
@@ -2721,7 +2721,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-The year the survey area stratum (e.g., statistical stratum, summary area, region) was implimented in.
+Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
 </td>
 </tr>
 <tr>
@@ -2738,7 +2738,7 @@ ID code
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey series. Stratum of value 0 indicates experimental tows.
+RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey region. Stratum of value 0 indicates experimental tows.
 </td>
 </tr>
 <tr>
@@ -2803,7 +2803,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-The year the survey area stratum (e.g., statistical stratum, summary area, region) was implimented in.
+Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
 </td>
 </tr>
 <tr>
@@ -2845,7 +2845,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Year
+Survey Year
 </td>
 <td style="text-align:left;">
 year
@@ -2854,7 +2854,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Year the survey was conducted in.
+NA
 </td>
 </tr>
 </tbody>
@@ -2864,7 +2864,7 @@ Year the survey was conducted in.
 <section id="akfin_taxonomy" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_taxonomy">AKFIN_TAXONOMY</h3>
 <p>[There is currently no description for this table.]</p>
-<p>Number of rows: 2757</p>
+<p>Number of rows: 2,757</p>
 <p>Number of columns: 19</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2927,7 +2927,7 @@ The common name of the marine organism associated with the ‘scientific_name’
 DATABASE
 </td>
 <td style="text-align:left;">
-Genus phylogenetic rank
+Database source
 </td>
 <td style="text-align:left;">
 category
@@ -2936,7 +2936,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Taxonomic database source (e.g., “ITIS”, “WORMS”).
+Taxonomic database source, either ITIS or WoRMS.
 </td>
 </tr>
 <tr>
@@ -2944,7 +2944,7 @@ Taxonomic database source (e.g., “ITIS”, “WORMS”).
 DATABASE_ID
 </td>
 <td style="text-align:left;">
-Subfamily phylogenetic rank
+Species ID in Database
 </td>
 <td style="text-align:left;">
 ID code
@@ -2961,16 +2961,16 @@ Species ID code of a species in the taxonomic “DATABASE” source.
 FAMILY_TAXON
 </td>
 <td style="text-align:left;">
-NA
+Family phylogenetic rank
 </td>
 <td style="text-align:left;">
-NA
+category
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Phylogenetic latin rank of family_taxon of a given species.
 </td>
 </tr>
 <tr>
@@ -3012,7 +3012,7 @@ Lowest taxonomic rank of a given species entry.
 KINGDOM_TAXON
 </td>
 <td style="text-align:left;">
-kingdom_taxon phylogenetic rank
+Kingdom phylogenetic rank
 </td>
 <td style="text-align:left;">
 category
@@ -3029,7 +3029,7 @@ Phylogenetic latin rank of kingdom_taxon of a given species.
 ORDER_TAXON
 </td>
 <td style="text-align:left;">
-Subclass phylogenetic rank
+Order phylogenetic rank
 </td>
 <td style="text-align:left;">
 category
@@ -3046,7 +3046,7 @@ Phylogenetic latin rank of order_taxon of a given species.
 PHYLUM_TAXON
 </td>
 <td style="text-align:left;">
-phylum_taxon phylogenetic rank
+Phylum phylogenetic rank
 </td>
 <td style="text-align:left;">
 category
@@ -3199,16 +3199,16 @@ Phylogenetic latin rank of superfamily_taxon of a given species.
 SUPERORDER_TAXON
 </td>
 <td style="text-align:left;">
-NA
+Superorder phylogenetic rank
 </td>
 <td style="text-align:left;">
-NA
+category
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Phylogenetic latin rank of superorder_taxon of a given species.
 </td>
 </tr>
 </tbody>

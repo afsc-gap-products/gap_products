@@ -201,7 +201,6 @@ ORDER BY table_name"
                                                     AND owner = 'GAP_PRODUCTS';")
     )
 
-
     temp_cols <- nrow(temp_colnames)
 
     # get metadata
@@ -224,8 +223,8 @@ ORDER BY table_name"
       str00,
       "### ", locations[i], "\n\n",
       metadata_table, "\n\n",
-      "Number of rows: ", formatC(x = temp_rows, digits = 0, format = "f", big.mark = ","),
-      "\n\nNumber of columns: ", formatC(x = temp_cols, digits = 0, format = "f", big.mark = ","),
+      "Number of rows: ", formatC(x = unlist(temp_rows), digits = 0, format = "f", big.mark = ","),
+      "\n\nNumber of columns: ", formatC(x = unlist(temp_cols), digits = 0, format = "f", big.mark = ","),
       # " | ",
       # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1),
       #         digits = 1, format = "f", big.mark = ","),

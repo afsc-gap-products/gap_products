@@ -519,7 +519,7 @@ Team~afsc.gap.metadata@noaa.gov
 \setcounter{page}{1}
 \end{frontmatter}
 
-%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
+%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, frame hidden, boxrule=0pt, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1242,17 +1242,7 @@ day this data was accessed.
 \hypertarget{data-usage}{%
 \section{Data usage}\label{data-usage}}
 
-These tables were created by the Resource Assessment and Conservation
-Engineering Division (RACE) Groundfish Assessment Program (GAP) of the
-Alaska Fisheries Science Center (AFSC). There are legal restrictions on
-access to the data. These data are not intended for public dissemination
-and should not be shared without the explicit written consent of the
-data managers and owners (NOAA Fisheries). The GitHub repository for the
-scripts that created this code can be found at
-https://github.com/afsc-gap-products/gap\_products. For more information
-about codes used in the tables, please refer to the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{survey
-code books}. These data were last updated September 10, 2023.
+NA
 
 \hypertarget{data-tables}{%
 \section{Data tables}\label{data-tables}}
@@ -1262,7 +1252,7 @@ code books}. These data were last updated September 10, 2023.
 
 Region-level age compositions by sex/length bin.
 
-Number of rows: 552856
+Number of rows: 521,561
 
 Number of columns: 9
 
@@ -1306,7 +1296,7 @@ numeric
 
 NUMBER(38,3)
 
-Mean length estimated in age comp estimate.
+Mean length (millimeters)
 
 LENGTH\_MM\_SD
 
@@ -1316,7 +1306,7 @@ numeric
 
 NUMBER(38,3)
 
-Variance of mean length estimated in age comp estimate.
+Variance of mean length.
 
 POPULATION\_COUNT
 
@@ -1369,20 +1359,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{area}{%
 \subsection{AREA}\label{area}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 443
+Number of rows: 473
 
 Number of columns: 10
 
@@ -1416,7 +1406,7 @@ kilometers squared
 
 NUMBER(38,3)
 
-Area in thousands of square kilometers.
+Area in square kilometers.
 
 AREA\_NAME
 
@@ -1429,6 +1419,18 @@ VARCHAR2(4000 BYTE)
 Descriptive name of each AREA\_ID. These names often identify the
 region, depth ranges, or other regional information for the area ID.
 
+CRS
+
+Coordinate Reference System
+
+ID code
+
+VARCHAR2(5 BYTE)
+
+Coordinate reference system that areas (like AREA\_KM2) are calculated
+in, as defined by https://spatialreference.org/ (e.g.,
+``+proj=longlat'', ``EPSG:3338'').
+
 DEPTH\_MAX\_M
 
 Area ID Maximum Depth (m)
@@ -1437,7 +1439,7 @@ meters
 
 NUMBER(38,3)
 
-Maximum depth (meters) of the area covered by AREA\_ID.
+Maximum depth (meters).
 
 DEPTH\_MIN\_M
 
@@ -1447,7 +1449,7 @@ meters
 
 NUMBER(38,3)
 
-Minimum depth (meters) of the area covered by AREA\_ID.
+Minimum depth (meters).
 
 DESCRIPTION
 
@@ -1467,8 +1469,8 @@ year
 
 NUMBER(10,0)
 
-The year the survey area stratum (e.g., statistical stratum, summary
-area, region) was implimented in.
+Year ID associated with a given value AREA\_ID. This field describes the
+changes in the survey design over time.
 
 SURVEY\_DEFINITION\_ID
 
@@ -1494,23 +1496,12 @@ NA
 
 NA
 
-crs
-
-NA
-
-NA
-
-NA
-
-NA
-
 \hypertarget{biomass}{%
 \subsection{BIOMASS}\label{biomass}}
 
-Stratum/subarea/region-level mean CPUE (weight and numbers), total
-biomass, and total abundance with associated variances.
+{[}There is currently no description for this table.{]}
 
-Number of rows: 4589761
+Number of rows: 3,287,023
 
 Number of columns: 16
 
@@ -1544,8 +1535,7 @@ numeric
 
 NUMBER(38,6)
 
-The estimated biomass caught in the survey for a species, group, or
-total for a given survey.
+The estimated total biomass.
 
 BIOMASS\_VAR
 
@@ -1555,8 +1545,7 @@ numeric
 
 NUMBER(38,6)
 
-The estimated biomass variance caught in the survey for a species,
-group, or total for a given survey.
+The estimated variance associated with the total biomass.
 
 CPUE\_KGKM2\_MEAN
 
@@ -1566,8 +1555,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-The mean of catch weight (kilograms) divided by area (squared
-kilometers) swept by the net used in design-based indicie calculation.
+The mean catch weight (kilograms) per unit effort (area swept by the
+net, units squared kilometers).
 
 CPUE\_KGKM2\_VAR
 
@@ -1577,9 +1566,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-The variance of mean of catch weight (kilograms) divided by area
-(squared kilometers) swept by the net used in design-based indicie
-calculation.
+The variance of mean catch weight (kilograms) per unit effort (area
+swept by the net, units squared kilometers).
 
 CPUE\_NOKM2\_MEAN
 
@@ -1589,8 +1577,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-The mean of catch count (number) divided by area (squared kilometers)
-swept by the net used in design-based indicie calculation.
+The mean of numerical catch per unit effort (area swept by the net,
+units square kilometers).
 
 CPUE\_NOKM2\_VAR
 
@@ -1600,8 +1588,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-The variance of mMean of catch count (number) divided by area (squared
-kilometers) swept by the net used in design-based indicie calculation.
+The variance of mean numerical catch per unit effort (area swept by the
+net, units square kilometers).
 
 N\_COUNT
 
@@ -1611,7 +1599,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of hauls with positive taxon counts used in calculation.
+Total number of hauls with positive count data.
 
 N\_HAUL
 
@@ -1621,7 +1609,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of valid hauls used in calculation.
+Total number of hauls.
 
 N\_LENGTH
 
@@ -1631,7 +1619,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of hauls with taxon length data used in calculation.
+Total number of hauls with length data.
 
 N\_WEIGHT
 
@@ -1641,8 +1629,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of hauls with positive catch/weighed taxon data used in
-calculation.
+Total number of hauls with positive catch biomass.
 
 POPULATION\_COUNT
 
@@ -1695,20 +1682,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{cpue}{%
 \subsection{CPUE}\label{cpue}}
 
 Haul-level zero-filled weight and numerical catch-per-unit-effort.
 
-Number of rows: 37834687
+Number of rows: 37,834,687
 
 Number of columns: 7
 
@@ -1741,8 +1728,7 @@ count, whole number resolution
 
 NUMBER(38,0)
 
-Total number of individuals caught in haul by taxon, represented in
-whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 
 CPUE\_KGKM2
 
@@ -1752,8 +1738,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-Catch weight (kilograms) divided by area (squared kilometers) swept by
-the net.
+Catch weight (kilograms) per unit effort (area swept by the net, units
+square kilometers).
 
 CPUE\_NOKM2
 
@@ -1763,8 +1749,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-Catch number (in number of organisms) per area (squared kilometers)
-swept by the net.
+Numerical catch per unit effort (area swept by the net, units square
+kilometers).
 
 HAULJOIN
 
@@ -1807,7 +1793,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 
 Number of rows: 126
 
-Number of columns: 3
+Number of columns: 4
 
 Column name from data
 
@@ -1827,8 +1813,19 @@ year
 
 NUMBER(10,0)
 
-The year the survey area stratum (e.g., statistical stratum, summary
-area, region) was implimented in.
+Year ID associated with a given value AREA\_ID. This field describes the
+changes in the survey design over time.
+
+SURVEY
+
+Survey Name
+
+text
+
+VARCHAR2(255 BYTE)
+
+Name and description of survey. The column `survey' is associated with
+the `srvy' and `survey\_id' columns.
 
 SURVEY\_DEFINITION\_ID
 
@@ -1846,13 +1843,13 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{metadata_table}{%
 \subsection{METADATA\_TABLE}\label{metadata_table}}
@@ -1942,8 +1939,8 @@ year
 
 NUMBER(10,0)
 
-The year the survey area stratum (e.g., statistical stratum, summary
-area, region) was implimented in.
+Year ID associated with a given value AREA\_ID. This field describes the
+changes in the survey design over time.
 
 STRATUM
 
@@ -1955,7 +1952,7 @@ NUMBER(10,0)
 
 RACE database statistical area for analyzing data. Strata were designed
 using bathymetry and other geographic and habitat-related elements. The
-strata are unique to each survey series. Stratum of value 0 indicates
+strata are unique to each survey region. Stratum of value 0 indicates
 experimental tows.
 
 SURVEY\_DEFINITION\_ID
@@ -1977,7 +1974,7 @@ books}.
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 3130543
+Number of rows: 3,091,631
 
 Number of columns: 7
 
@@ -2011,7 +2008,7 @@ millimeters
 
 NUMBER(10,0)
 
-Length of a specimen in millimeters.
+Length bin in millimeters.
 
 POPULATION\_COUNT
 
@@ -2064,13 +2061,13 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \part{AKFIN}
 
@@ -2150,7 +2147,7 @@ are included within that report.
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 552856
+Number of rows: 552,856
 
 Number of columns: 9
 
@@ -2194,7 +2191,7 @@ numeric
 
 NUMBER(38,3)
 
-Mean length estimated in age comp estimate.
+Mean length (millimeters)
 
 LENGTH\_MM\_SD
 
@@ -2204,7 +2201,7 @@ numeric
 
 NUMBER(38,3)
 
-Variance of mean length estimated in age comp estimate.
+Variance of mean length.
 
 POPULATION\_COUNT
 
@@ -2257,13 +2254,13 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{akfin_area}{%
 \subsection{AKFIN\_AREA}\label{akfin_area}}
@@ -2304,7 +2301,7 @@ kilometers squared
 
 NUMBER(38,3)
 
-Area in thousands of square kilometers.
+Area in square kilometers.
 
 AREA\_NAME
 
@@ -2337,7 +2334,7 @@ meters
 
 NUMBER(38,3)
 
-Maximum depth (meters) of the area covered by AREA\_ID.
+Maximum depth (meters).
 
 DEPTH\_MIN\_M
 
@@ -2347,7 +2344,7 @@ meters
 
 NUMBER(38,3)
 
-Minimum depth (meters) of the area covered by AREA\_ID.
+Minimum depth (meters).
 
 DESCRIPTION
 
@@ -2367,8 +2364,8 @@ year
 
 NUMBER(10,0)
 
-The year the survey area stratum (e.g., statistical stratum, summary
-area, region) was implimented in.
+Year ID associated with a given value AREA\_ID. This field describes the
+changes in the survey design over time.
 
 SURVEY\_DEFINITION\_ID
 
@@ -2399,7 +2396,7 @@ NA
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 4589761
+Number of rows: 4,589,761
 
 Number of columns: 16
 
@@ -2433,8 +2430,7 @@ numeric
 
 NUMBER(38,6)
 
-The estimated biomass caught in the survey for a species, group, or
-total for a given survey.
+The estimated total biomass.
 
 BIOMASS\_VAR
 
@@ -2444,8 +2440,7 @@ numeric
 
 NUMBER(38,6)
 
-The estimated biomass variance caught in the survey for a species,
-group, or total for a given survey.
+The estimated variance associated with the total biomass.
 
 CPUE\_KGKM2\_MEAN
 
@@ -2455,8 +2450,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-The mean of catch weight (kilograms) divided by area (squared
-kilometers) swept by the net used in design-based indicie calculation.
+The mean catch weight (kilograms) per unit effort (area swept by the
+net, units squared kilometers).
 
 CPUE\_KGKM2\_VAR
 
@@ -2466,9 +2461,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-The variance of mean of catch weight (kilograms) divided by area
-(squared kilometers) swept by the net used in design-based indicie
-calculation.
+The variance of mean catch weight (kilograms) per unit effort (area
+swept by the net, units squared kilometers).
 
 CPUE\_NOKM2\_MEAN
 
@@ -2478,8 +2472,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-The mean of catch count (number) divided by area (squared kilometers)
-swept by the net used in design-based indicie calculation.
+The mean of numerical catch per unit effort (area swept by the net,
+units square kilometers).
 
 CPUE\_NOKM2\_VAR
 
@@ -2489,8 +2483,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-The variance of mMean of catch count (number) divided by area (squared
-kilometers) swept by the net used in design-based indicie calculation.
+The variance of mean numerical catch per unit effort (area swept by the
+net, units square kilometers).
 
 N\_COUNT
 
@@ -2500,7 +2494,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of hauls with positive taxon counts used in calculation.
+Total number of hauls with positive count data.
 
 N\_HAUL
 
@@ -2510,7 +2504,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of valid hauls used in calculation.
+Total number of hauls.
 
 N\_LENGTH
 
@@ -2520,7 +2514,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of hauls with taxon length data used in calculation.
+Total number of hauls with length data.
 
 N\_WEIGHT
 
@@ -2530,8 +2524,7 @@ numeric
 
 NUMBER(38,0)
 
-Total number of hauls with positive catch/weighed taxon data used in
-calculation.
+Total number of hauls with positive catch biomass.
 
 POPULATION\_COUNT
 
@@ -2584,20 +2577,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{akfin_catch}{%
 \subsection{AKFIN\_CATCH}\label{akfin_catch}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 985442
+Number of rows: 985,442
 
 Number of columns: 6
 
@@ -2629,8 +2622,7 @@ count, whole number resolution
 
 NUMBER(38,0)
 
-Total number of individuals caught in haul by taxon, represented in
-whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 
 CRUISEJOIN
 
@@ -2640,8 +2632,8 @@ ID code
 
 NUMBER(38,0)
 
-This is a unique numeric identifier assigned to each survey, vessel, and
-year combination.
+Unique interger ID assigned to each survey, vessel, and year
+combination.
 
 HAULJOIN
 
@@ -2682,7 +2674,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 37834687
+Number of rows: 37,834,687
 
 Number of columns: 7
 
@@ -2715,8 +2707,7 @@ count, whole number resolution
 
 NUMBER(38,0)
 
-Total number of individuals caught in haul by taxon, represented in
-whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 
 CPUE\_KGKM2
 
@@ -2726,8 +2717,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-Catch weight (kilograms) divided by area (squared kilometers) swept by
-the net.
+Catch weight (kilograms) per unit effort (area swept by the net, units
+square kilometers).
 
 CPUE\_NOKM2
 
@@ -2737,8 +2728,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-Catch number (in number of organisms) per area (squared kilometers)
-swept by the net.
+Numerical catch per unit effort (area swept by the net, units square
+kilometers).
 
 HAULJOIN
 
@@ -2801,7 +2792,7 @@ ID code
 
 NUMBER(38,0)
 
-This is a six-digit number identifying the cruise number of the form:
+This is a six-digit integer identifying the cruise number of the form:
 YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is
 sequential; 01 denotes the first cruise that vessel made in this year,
 02 is the second, etc.).
@@ -2814,8 +2805,8 @@ ID code
 
 NUMBER(38,0)
 
-This is a unique numeric identifier assigned to each survey, vessel, and
-year combination.
+Unique interger ID assigned to each survey, vessel, and year
+combination.
 
 DATE\_END
 
@@ -2903,20 +2894,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{akfin_haul}{%
 \subsection{AKFIN\_HAUL}\label{akfin_haul}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 35998
+Number of rows: 35,998
 
 Number of columns: 25
 
@@ -2958,8 +2949,8 @@ ID code
 
 NUMBER(38,0)
 
-This is a unique numeric identifier assigned to each survey, vessel, and
-year combination.
+Unique interger ID assigned to each survey, vessel, and year
+combination.
 
 DATE\_TIME\_START
 
@@ -2989,7 +2980,7 @@ degrees Celsius
 
 NUMBER(38,1)
 
-Bottom depth (tenths of a meter).
+Bottom depth (meters).
 
 DISTANCE\_FISHED\_KM
 
@@ -3177,7 +3168,7 @@ NUMBER(10,0)
 
 RACE database statistical area for analyzing data. Strata were designed
 using bathymetry and other geographic and habitat-related elements. The
-strata are unique to each survey series. Stratum of value 0 indicates
+strata are unique to each survey region. Stratum of value 0 indicates
 experimental tows.
 
 SURFACE\_TEMPERATURE\_C
@@ -3206,7 +3197,7 @@ Length of wire deployed during a given haul in meters.
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 2574443
+Number of rows: 2,574,443
 
 Number of columns: 7
 
@@ -3249,7 +3240,7 @@ millimeters
 
 NUMBER(10,0)
 
-Length of a specimen in millimeters.
+Length bin in millimeters.
 
 LENGTH\_TYPE
 
@@ -3369,7 +3360,7 @@ Units of the column.
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 3130543
+Number of rows: 3,130,543
 
 Number of columns: 7
 
@@ -3403,7 +3394,7 @@ millimeters
 
 NUMBER(10,0)
 
-Length of a specimen in millimeters.
+Length bin in millimeters.
 
 POPULATION\_COUNT
 
@@ -3456,20 +3447,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{akfin_specimen}{%
 \subsection{AKFIN\_SPECIMEN}\label{akfin_specimen}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 359317
+Number of rows: 359,317
 
 Number of columns: 14
 
@@ -3511,8 +3502,8 @@ ID code
 
 NUMBER(38,0)
 
-This is a unique numeric identifier assigned to each survey, vessel, and
-year combination.
+Unique interger ID assigned to each survey, vessel, and year
+combination.
 
 GONAD\_G
 
@@ -3543,7 +3534,7 @@ millimeters
 
 NUMBER(10,0)
 
-Length of a specimen in millimeters.
+Length bin in millimeters.
 
 MATURITY
 
@@ -3668,8 +3659,8 @@ year
 
 NUMBER(10,0)
 
-The year the survey area stratum (e.g., statistical stratum, summary
-area, region) was implimented in.
+Year ID associated with a given value AREA\_ID. This field describes the
+changes in the survey design over time.
 
 STRATUM
 
@@ -3681,7 +3672,7 @@ NUMBER(10,0)
 
 RACE database statistical area for analyzing data. Strata were designed
 using bathymetry and other geographic and habitat-related elements. The
-strata are unique to each survey series. Stratum of value 0 indicates
+strata are unique to each survey region. Stratum of value 0 indicates
 experimental tows.
 
 SURVEY\_DEFINITION\_ID
@@ -3725,8 +3716,8 @@ year
 
 NUMBER(10,0)
 
-The year the survey area stratum (e.g., statistical stratum, summary
-area, region) was implimented in.
+Year ID associated with a given value AREA\_ID. This field describes the
+changes in the survey design over time.
 
 SURVEY
 
@@ -3755,20 +3746,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{akfin_taxonomy}{%
 \subsection{AKFIN\_TAXONOMY}\label{akfin_taxonomy}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 2757
+Number of rows: 2,757
 
 Number of columns: 19
 
@@ -3808,17 +3799,17 @@ books}.
 
 DATABASE
 
-Genus phylogenetic rank
+Database source
 
 category
 
 VARCHAR2(255 BYTE)
 
-Taxonomic database source (e.g., ``ITIS'', ``WORMS'').
+Taxonomic database source, either ITIS or WoRMS.
 
 DATABASE\_ID
 
-Subfamily phylogenetic rank
+Species ID in Database
 
 ID code
 
@@ -3828,13 +3819,13 @@ Species ID code of a species in the taxonomic ``DATABASE'' source.
 
 FAMILY\_TAXON
 
-NA
+Family phylogenetic rank
 
-NA
+category
 
-NA
+VARCHAR2(255 BYTE)
 
-NA
+Phylogenetic latin rank of family\_taxon of a given species.
 
 GENUS\_TAXON
 
@@ -3858,7 +3849,7 @@ Lowest taxonomic rank of a given species entry.
 
 KINGDOM\_TAXON
 
-kingdom\_taxon phylogenetic rank
+Kingdom phylogenetic rank
 
 category
 
@@ -3868,7 +3859,7 @@ Phylogenetic latin rank of kingdom\_taxon of a given species.
 
 ORDER\_TAXON
 
-Subclass phylogenetic rank
+Order phylogenetic rank
 
 category
 
@@ -3878,7 +3869,7 @@ Phylogenetic latin rank of order\_taxon of a given species.
 
 PHYLUM\_TAXON
 
-phylum\_taxon phylogenetic rank
+Phylum phylogenetic rank
 
 category
 
@@ -3971,13 +3962,13 @@ Phylogenetic latin rank of superfamily\_taxon of a given species.
 
 SUPERORDER\_TAXON
 
-NA
+Superorder phylogenetic rank
 
-NA
+category
 
-NA
+VARCHAR2(255 BYTE)
 
-NA
+Phylogenetic latin rank of superorder\_taxon of a given species.
 
 \hypertarget{accessing-data}{%
 \chapter{Accessing Data}\label{accessing-data}}
@@ -5276,7 +5267,7 @@ creation of annual stock assessments.
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 42281918
+Number of rows: 42,281,918
 
 Number of columns: 12
 
@@ -5312,8 +5303,7 @@ count, whole number resolution
 
 NUMBER(38,0)
 
-Total number of individuals caught in haul by taxon, represented in
-whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 
 CPUE\_KGKM2
 
@@ -5323,8 +5313,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-Catch weight (kilograms) divided by area (squared kilometers) swept by
-the net.
+Catch weight (kilograms) per unit effort (area swept by the net, units
+square kilometers).
 
 CPUE\_NOKM2
 
@@ -5334,8 +5324,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-Catch number (in number of organisms) per area (squared kilometers)
-swept by the net.
+Numerical catch per unit effort (area swept by the net, units square
+kilometers).
 
 HAULJOIN
 
@@ -5450,7 +5440,7 @@ Species code as identified in the World Register of Marine Species
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 42281918
+Number of rows: 42,281,918
 
 Number of columns: 37
 
@@ -5508,8 +5498,7 @@ count, whole number resolution
 
 NUMBER(38,0)
 
-Total number of individuals caught in haul by taxon, represented in
-whole numbers used in calculation.
+Total whole number of individuals caught in haul.
 
 CPUE\_KGKM2
 
@@ -5519,8 +5508,8 @@ kilograms per kilometers squared
 
 NUMBER(38,6)
 
-Catch weight (kilograms) divided by area (squared kilometers) swept by
-the net.
+Catch weight (kilograms) per unit effort (area swept by the net, units
+square kilometers).
 
 CPUE\_NOKM2
 
@@ -5530,8 +5519,8 @@ count per kilometers squared
 
 NUMBER(38,6)
 
-Catch number (in number of organisms) per area (squared kilometers)
-swept by the net.
+Numerical catch per unit effort (area swept by the net, units square
+kilometers).
 
 CRUISE
 
@@ -5541,7 +5530,7 @@ ID code
 
 NUMBER(38,0)
 
-This is a six-digit number identifying the cruise number of the form:
+This is a six-digit integer identifying the cruise number of the form:
 YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is
 sequential; 01 denotes the first cruise that vessel made in this year,
 02 is the second, etc.).
@@ -5554,8 +5543,8 @@ ID code
 
 NUMBER(38,0)
 
-This is a unique numeric identifier assigned to each survey, vessel, and
-year combination.
+Unique interger ID assigned to each survey, vessel, and year
+combination.
 
 DATE\_TIME
 
@@ -5575,7 +5564,7 @@ degrees Celsius
 
 NUMBER(38,1)
 
-Bottom depth (tenths of a meter).
+Bottom depth (meters).
 
 DISTANCE\_FISHED\_KM
 
@@ -5779,7 +5768,7 @@ NUMBER(10,0)
 
 RACE database statistical area for analyzing data. Strata were designed
 using bathymetry and other geographic and habitat-related elements. The
-strata are unique to each survey series. Stratum of value 0 indicates
+strata are unique to each survey region. Stratum of value 0 indicates
 experimental tows.
 
 SURFACE\_TEMPERATURE\_C
@@ -5900,20 +5889,20 @@ Species code as identified in the World Register of Marine Species
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{foss_haul}{%
 \subsection{FOSS\_HAUL}\label{foss_haul}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 32510
+Number of rows: 32,510
 
 Number of columns: 27
 
@@ -5957,7 +5946,7 @@ ID code
 
 NUMBER(38,0)
 
-This is a six-digit number identifying the cruise number of the form:
+This is a six-digit integer identifying the cruise number of the form:
 YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is
 sequential; 01 denotes the first cruise that vessel made in this year,
 02 is the second, etc.).
@@ -5970,8 +5959,8 @@ ID code
 
 NUMBER(38,0)
 
-This is a unique numeric identifier assigned to each survey, vessel, and
-year combination.
+Unique interger ID assigned to each survey, vessel, and year
+combination.
 
 DATE\_TIME
 
@@ -5991,7 +5980,7 @@ degrees Celsius
 
 NUMBER(38,1)
 
-Bottom depth (tenths of a meter).
+Bottom depth (meters).
 
 DISTANCE\_FISHED\_KM
 
@@ -6148,7 +6137,7 @@ NUMBER(10,0)
 
 RACE database statistical area for analyzing data. Strata were designed
 using bathymetry and other geographic and habitat-related elements. The
-strata are unique to each survey series. Stratum of value 0 indicates
+strata are unique to each survey region. Stratum of value 0 indicates
 experimental tows.
 
 SURFACE\_TEMPERATURE\_C
@@ -6229,20 +6218,20 @@ books}.
 
 YEAR
 
-Year
+Survey Year
 
 year
 
 NUMBER(10,0)
 
-Year the survey was conducted in.
+NA
 
 \hypertarget{foss_taxon_group}{%
 \subsection{FOSS\_TAXON\_GROUP}\label{foss_taxon_group}}
 
 {[}There is currently no description for this table.{]}
 
-Number of rows: 37606
+Number of rows: 37,606
 
 Number of columns: 3
 
@@ -7691,8 +7680,8 @@ attached base packages:
 
 loaded via a namespace (and not attached):
  [1] compiler_4.3.0    fastmap_1.1.1     cli_3.6.1         tools_4.3.0      
- [5] htmltools_0.5.5   rstudioapi_0.15.0 yaml_2.3.7        rmarkdown_2.23   
- [9] knitr_1.43        jsonlite_1.8.7    xfun_0.39         digest_0.6.33    
+ [5] htmltools_0.5.6   rstudioapi_0.15.0 yaml_2.3.7        rmarkdown_2.24   
+ [9] knitr_1.44        jsonlite_1.8.7    xfun_0.40         digest_0.6.33    
 [13] rlang_1.1.1       evaluate_0.21    
 \end{verbatim}
 
