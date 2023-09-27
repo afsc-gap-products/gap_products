@@ -112,9 +112,8 @@ update_metadata <- function(schema,
   ## Add table metadata 
   RODBC::sqlQuery(
     channel = channel,
-    query = paste0('COMMENT ON ', table_type, " ", schema,'.', table_name,
-                   ' is \'',
-                   table_metadata,'\';'))
+    query = paste0('COMMENT ON ', table_type, " ", schema, '.', table_name, 
+                   " IS '", table_metadata, "';"))
   
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
