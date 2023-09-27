@@ -1,5 +1,5 @@
 ---
-title: Open Source Code
+title: Open source code
 ---
 
 ## R Packages

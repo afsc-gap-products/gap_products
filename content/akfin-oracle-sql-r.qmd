@@ -1,5 +1,5 @@
 ---
-title: Accessing Data
+title: Access data
 ---
 
 ```{r setup, include=FALSE}

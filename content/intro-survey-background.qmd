@@ -1,5 +1,5 @@
 ---
-title: Survey Background
+title: Survey background
 ---
 
 ```{r setup, include=FALSE}

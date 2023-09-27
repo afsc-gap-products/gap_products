@@ -163,13 +163,17 @@ ORDER BY table_name"
         # Putting universal metadata language at top of page
     if (i == 1) {
       if (!is.na(metadata_table) && length(metadata_table) != 0) {
+        data_usage <- str_extract(metadata_table, "This table was created by .+$")
+        if(!is.na(data_usage)){
         str00 <- paste0(
-          "## Data usage \n\n",
-          str_extract(metadata_table, "This table was created by .+$"),
+          "## Data usage \n\n", data_usage,
           "\n\n", "## Data tables", "\n\n") %>%
           str_replace("This table was", "These tables were") %>%
           str_replace("survey code books \\(https", "[survey code books]\\(https")
-      } else {
+        }
+      }
+      
+      if(is.na(metadata_table) || is.na(data_usage)) {
         str00 <- paste0("## Data tables", "\n\n")
       }
     }
