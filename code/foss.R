@@ -39,7 +39,7 @@ metadata_fields <-
 for (isql_script in c("FOSS_HAUL", 
                       "FOSS_CATCH", 
                       "FOSS_CPUE_PRESONLY", 
-                      "FOSS_TAXON_GROUP")) { ## Loop over foss sql -- start
+                      "FOSS_TAXON_GROUP")[2]) { ## Loop over foss sql -- start
   
   temp_table_name <- paste0("GAP_PRODUCTS.", isql_script)
   cat("Creating", temp_table_name, "...\n")
@@ -60,15 +60,15 @@ for (isql_script in c("FOSS_HAUL",
                       "stations. These tables were created", legal_disclaimer))
   
   ## If the view already exists, drop the view before creating
-  available_views <-
-    subset(x = RODBC::sqlTables(channel = sql_channel, 
-                                schema = "GAP_PRODUCTS"),
-           subset = TABLE_TYPE == "VIEW")
-  
+  available_views <- RODBC::sqlTables(channel = sql_channel, 
+                                     schema = "GAP_PRODUCTS")
   
   if (isql_script %in% available_views$TABLE_NAME)
     RODBC::sqlQuery(channel = sql_channel, 
-                    query = paste("DROP VIEW", temp_table_name))
+                    query = paste0("DROP MATERIALIZED VIEW GAP_PRODUCTS.",
+                                   isql_script))
+    # RODBC::sqlDrop(channel = sql_channel, sqtable = isql_script)
+    
   
   ## Create View
   RODBC::sqlQuery(
