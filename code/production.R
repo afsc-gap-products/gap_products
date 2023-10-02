@@ -154,7 +154,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
       age_comps_stratum = production_agecomp_stratum)
   end_time <- Sys.time()
   print(end_time - start_time)
-
+  
   # Change "STRATUM" field name to "AREA_ID"
   names(x = production_biomass_stratum)[
     names(x = production_biomass_stratum) == "STRATUM"] <- "AREA_ID"
@@ -197,6 +197,11 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
       )
     } ## Loop over data table -- end
   } ## Loop over species -- end
+  
+  ## Remove crab data from biomass table
+  production_biomass <- 
+    subset(x = production_biomass,
+           subset = !(SPECIES_CODE %in% c(69323, 69322, 68580, 68560)))
   
   ## Save to the temp/ folder 
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
