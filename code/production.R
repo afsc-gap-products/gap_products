@@ -198,10 +198,11 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     } ## Loop over data table -- end
   } ## Loop over species -- end
   
-  ## Remove crab data from biomass table
+  ## Remove EBS and NBS commercial crab data from biomass table
   production_biomass <- 
     subset(x = production_biomass,
-           subset = !(SPECIES_CODE %in% c(69323, 69322, 68580, 68560)))
+           subset = !(SPECIES_CODE %in% c(69323, 69322, 68580, 68560) &
+                        SURVEY_DEFINITION_ID %in% c(98, 143)))
   
   ## Save to the temp/ folder 
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
