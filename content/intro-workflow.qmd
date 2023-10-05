@@ -6,6 +6,28 @@ title: Workflow
 #| file: functions.R
 ```
 
+## Data workflow from boat to production
+
+```{mermaid}
+//| label: fig-workflow
+//| fig-cap: "Data workflow from boat to production."
+
+flowchart LR
+  A[On vessel\nCatch data tablet] --> B(METIS)
+  A[On vessel\nLength data tablets] --> B(METIS)
+  A[On vessel\nSpecimen data tablet] --> B(METIS)
+  A[On vessel\nWheelhouse haul data] --> C(GIDES and RACE EDIT_* tables in Oracle)
+  B --> C
+  C --> D[RACEBASE Oracle schema]
+  D --> E[gapindex R package and gap_products R scripts]
+  E --> F[GAP_PRODUCTS Oracle schema]
+  F --> G[Data process reports, presentations]
+  F --> G[AKFN]
+  F --> G[FOSS]
+```
+
+## Organization
+
 The code/run.R script houses the sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the GAP_PRODUCTS Oracle schema. The tables are slated to be updated twice a year, once after the survey season following finalization of that summer's bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer's survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data.
 
 Below is a summary of the workflow:
