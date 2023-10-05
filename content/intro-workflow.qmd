@@ -9,21 +9,35 @@ title: Workflow
 ## Data workflow from boat to production
 
 ```{mermaid}
-//| label: fig-workflow
-//| fig-cap: "Data workflow from boat to production."
+%%| label: fig-workflow
+%%| fig-cap: "Data workflow from boat to production."
+%%| mermaid-format: png
+
+<!-- flowchart LR -->
+<!--   A[On vessel Catch data tablet] --> B[METIS] -->
+<!--   A[On vessel Length data tablets] --> B -->
+<!--   A[On vessel Specimen data tablet] --> B -->
+<!--   A[On vessel Wheelhouse haul data] --> C[GIDES and RACE EDIT_* tables in Oracle] -->
+<!--   B --> C -->
+<!--   C --> D[RACEBASE Oracle schema] -->
+<!--   D --> E[gapindex R package] -->
+<!--   D --> F[gap_products R scripts] -->
+<!--   F --> G[GAP_PRODUCTS Oracle schema] -->
+<!--   G --> H[Data process reports, presentations] -->
+<!--   G --> H[AKFN] -->
+<!--   G --> H[FOSS] -->
+
 
 flowchart LR
-  A[On vessel\nCatch data tablet] --> B(METIS)
-  A[On vessel\nLength data tablets] --> B(METIS)
-  A[On vessel\nSpecimen data tablet] --> B(METIS)
-  A[On vessel\nWheelhouse haul data] --> C(GIDES and RACE EDIT_* tables in Oracle)
-  B --> C
-  C --> D[RACEBASE Oracle schema]
-  D --> E[gapindex R package and gap_products R scripts]
-  E --> F[GAP_PRODUCTS Oracle schema]
-  F --> G[Data process reports, presentations]
-  F --> G[AKFN]
+  A[data collected on vessel] --> B(METIS)
+  B --> C(GIDES and real-time data editing)
+  C --> D[RACEBASE Oracle Schema]
+  D --> E(gapindex R package)
+  D --> E(gap_products R scripts)
+  E --> F(GAP_PRODUCTS Oracle schema)
+  F --> G[AKFIN]
   F --> G[FOSS]
+  F --> G[Data process reports, presentations]
 ```
 
 ## Organization

@@ -53,7 +53,7 @@
     "href": "content/intro-workflow.html#data-workflow-from-boat-to-production",
     "title": "Workflow",
     "section": "Data workflow from boat to production",
-    "text": "Data workflow from boat to production\n\n\n\n\n\n//| label: fig-workflow\n//| fig-cap: \"Data workflow from boat to production.\"\n\nflowchart LR\n  A[On vessel\\nCatch data tablet] --&gt; B(METIS)\n  A[On vessel\\nLength data tablets] --&gt; B(METIS)\n  A[On vessel\\nSpecimen data tablet] --&gt; B(METIS)\n  A[On vessel\\nWheelhouse haul data] --&gt; C(GIDES and RACE EDIT_* tables in Oracle)\n  B --&gt; C\n  C --&gt; D[RACEBASE Oracle schema]\n  D --&gt; E[gapindex R package and gap_products R scripts]\n  E --&gt; F[GAP_PRODUCTS Oracle schema]\n  F --&gt; G[Data process reports, presentations]\n  F --&gt; G[AKFN]\n  F --&gt; G[FOSS]"
+    "text": "Data workflow from boat to production\n\n\n\n\n\n\n\nFigure 2.1: Data workflow from boat to production."
   },
   {
     "objectID": "content/intro-workflow.html#organization",

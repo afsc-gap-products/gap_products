@@ -30,7 +30,7 @@ As part of our commitment to open science and transparency, we provide this inte
 
 This work is the result of the massive efforts of three concurrent GAP working groups:
 
-(@) **Index Computation Working Group:** consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AIGOA survey regions.
+(@) **Index Computation Working Group:** consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AI/GOA survey regions.
 
 (@) **Data Processes Working Group:** reorganization of the Oracle data infrastructure that houses the standard data products produced by GAP.
 

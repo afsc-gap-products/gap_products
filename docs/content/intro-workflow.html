@@ -61,9 +61,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -336,26 +333,13 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-workflow-from-boat-to-production">Data workflow from boat to production</h2>
 <div class="cell">
 <div class="cell-output-display">
+<div id="fig-workflow" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <div>
-<div>
-
-<pre class="mermaid mermaid-js">//| label: fig-workflow
-//| fig-cap: "Data workflow from boat to production."
-
-flowchart LR
-  A[On vessel\nCatch data tablet] --&gt; B(METIS)
-  A[On vessel\nLength data tablets] --&gt; B(METIS)
-  A[On vessel\nSpecimen data tablet] --&gt; B(METIS)
-  A[On vessel\nWheelhouse haul data] --&gt; C(GIDES and RACE EDIT_* tables in Oracle)
-  B --&gt; C
-  C --&gt; D[RACEBASE Oracle schema]
-  D --&gt; E[gapindex R package and gap_products R scripts]
-  E --&gt; F[GAP_PRODUCTS Oracle schema]
-  F --&gt; G[Data process reports, presentations]
-  F --&gt; G[AKFN]
-  F --&gt; G[FOSS]
-</pre>
+<p><img src="intro-workflow_files\figure-html\mermaid-figure-1.png" style="width:5.33in;height:5.33in" class="figure-img"></p>
 </div>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Data workflow from boat to production.</figcaption>
+</figure>
 </div>
 </div>
 </div>
