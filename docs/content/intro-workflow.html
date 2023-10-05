@@ -61,6 +61,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -134,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/intro-survey-background.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Survey Background</span></a>
+  <a href="../content/intro-survey-background.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Survey background</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -181,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Accessing Data</span></a>
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -238,7 +241,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/other-pkgs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open Source Code</span></a>
+  <a href="../content/other-pkgs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open source code</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -264,7 +267,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Production Run Notes</span></a>
+  <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Production run notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -294,7 +297,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-levels" id="toc-data-levels" class="nav-link active" data-scroll-target="#data-levels">Data levels</a></li>
+  <li><a href="#data-workflow-from-boat-to-production" id="toc-data-workflow-from-boat-to-production" class="nav-link active" data-scroll-target="#data-workflow-from-boat-to-production">Data workflow from boat to production</a></li>
+  <li><a href="#organization" id="toc-organization" class="nav-link" data-scroll-target="#organization">Organization</a></li>
+  <li><a href="#data-levels" id="toc-data-levels" class="nav-link" data-scroll-target="#data-levels">Data levels</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-workflow.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-workflow.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -327,6 +332,36 @@ function googleTranslateElementInit() {
 
 </header>
 
+<section id="data-workflow-from-boat-to-production" class="level2">
+<h2 class="anchored" data-anchor-id="data-workflow-from-boat-to-production">Data workflow from boat to production</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+
+<pre class="mermaid mermaid-js">//| label: fig-workflow
+//| fig-cap: "Data workflow from boat to production."
+
+flowchart LR
+  A[On vessel\nCatch data tablet] --&gt; B(METIS)
+  A[On vessel\nLength data tablets] --&gt; B(METIS)
+  A[On vessel\nSpecimen data tablet] --&gt; B(METIS)
+  A[On vessel\nWheelhouse haul data] --&gt; C(GIDES and RACE EDIT_* tables in Oracle)
+  B --&gt; C
+  C --&gt; D[RACEBASE Oracle schema]
+  D --&gt; E[gapindex R package and gap_products R scripts]
+  E --&gt; F[GAP_PRODUCTS Oracle schema]
+  F --&gt; G[Data process reports, presentations]
+  F --&gt; G[AKFN]
+  F --&gt; G[FOSS]
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="organization" class="level2">
+<h2 class="anchored" data-anchor-id="organization">Organization</h2>
 <p>The code/run.R script houses the sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the GAP_PRODUCTS Oracle schema. The tables are slated to be updated twice a year, once after the survey season following finalization of that summer’s bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer’s survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data.</p>
 <p>Below is a summary of the workflow:</p>
 <ol type="1">
@@ -334,6 +369,7 @@ function googleTranslateElementInit() {
 <li><p>Use the gapindex R package to calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are compared and checked to their respective locally saved copies and any changes to the tables are vetted and documented. These tables are then uploaded to the GAP_PRODUCTS Oracle schema.</p></li>
 <li><p>Calculate the various materialized views for AKFIN and FOSS purposes. Since these are derivative of the tables in GAP_PRODUCTS as well as other base tables in RACEBASE and RACE_DATA, it is not necessary to check these views in addition to the data checks done in the previous steps.</p></li>
 </ol>
+</section>
 <section id="data-levels" class="level2">
 <h2 class="anchored" data-anchor-id="data-levels">Data levels</h2>
 <p>GAP produces numerous data products* that are subjected to different levels of processing, ranging from raw to highly-derived. The suitability of these data products for analysis varies and there is ambiguity about which data products can be used for which purpose. This ambiguity can create challenges in communicating about data products and potentially lead to misunderstanding and misuse of data. One approach to communicating about the level of processing applied to data products and their suitability for analysis is to describe data products using a Data Processing Level system. Data Processing Level systems are widely used in earth system sciences to characterize the extent of processing that has been applied to data products. For example, the NOAA National Centers for Environmental Information (NCEI) Satellite Program uses a Data Processing Level system to describe data on a scale of 0-4, where Level 0 is raw data and Level 4 is model output or results from analysis. Example of how <a href="https://ladsweb.modaps.eosdis.nasa.gov/search/">NASA remote sensing data products</a> are shared through a public data portal with levels of data processing and documentation.</p>
@@ -586,7 +622,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../content/intro-survey-background.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Survey Background</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Survey background</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
