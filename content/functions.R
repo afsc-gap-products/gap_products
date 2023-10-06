@@ -141,12 +141,21 @@ update_metadata <- function(
 
 print_table_metadata <- function(channel, locations) {
   # Find all descriptions of all tables in the GAP_PRODUCTS schema
-  b <- RODBC::sqlQuery(
+  b <- dplyr::bind_rows(
+    # tables
+    RODBC::sqlQuery(
     channel = channel,
     query = "SELECT table_name, comments
 FROM all_tab_comments
 WHERE owner = 'GAP_PRODUCTS'
-ORDER BY table_name"
+ORDER BY table_name") %>% 
+    data.frame(), 
+    # materialized view
+  RODBC::sqlQuery(
+    channel = channel,
+    query = "SELECT *FROM user_mview_comments") %>% 
+    data.frame() %>% 
+    dplyr::rename(TABLE_NAME = MVIEW_NAME)
   )
 
   # Collect all column metadata for all table locations

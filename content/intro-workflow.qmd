@@ -32,8 +32,7 @@ flowchart LR
   A[data collected on vessel] --> B(METIS)
   B --> C(GIDES and real-time data editing)
   C --> D[RACEBASE Oracle Schema]
-  D --> E(gapindex R package)
-  D --> E(gap_products R scripts)
+  D --> E(gapindex R package & gap_products R scripts)
   E --> F(GAP_PRODUCTS Oracle schema)
   F --> G[AKFIN]
   F --> G[FOSS]
