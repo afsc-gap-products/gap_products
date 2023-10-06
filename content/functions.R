@@ -167,8 +167,9 @@ ORDER BY table_name") %>%
     }
     # strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]]]
     
+    if (grepl(pattern = "This table was created by", x = metadata_table)) {
     metadata_table <- str_extract(metadata_table, "^.+(?= This table was created by)")
-    
+    }
         # Putting universal metadata language at top of page
     if (i == 1) {
       if (!is.na(metadata_table) && length(metadata_table) != 0) {
