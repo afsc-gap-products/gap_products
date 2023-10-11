@@ -205,7 +205,7 @@ table_print <- table_raw %>%
     area = "Area (km2)", 
     STRATUM = "# Statistical Areas", 
     STATION = "# Possible Stations" ) %>% 
-    theme_flextable_nmfstm(x = ., 
+  theme_flextable_nmfstm(x = ., 
                            font0 = "Arial", 
                            pad = 0, 
                            row_lines = FALSE, 

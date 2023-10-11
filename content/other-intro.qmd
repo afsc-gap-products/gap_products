@@ -8,12 +8,19 @@ title: Product Outputs
 
 To accompany these data, we also produce data products to make using our data more accessible and straightforward. 
 
-```{r}
+```{r, echo=FALSE}
 library(googledrive)
 library(magrittr)
 library(flextable)
 googledrive::drive_auth()
 2
+```
+
+```{r prod-table}
+#| tbl-cap: Survey of products developed by GAP
+#| message: false
+#| warning: false
+#| echo: false
 
 googledrive::drive_download(file = googledrive::as_id("1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs"), 
                               type = "csv",
@@ -25,9 +32,9 @@ table_raw <- read.csv(file = here::here("temp", "other_products.csv"),
   dplyr::arrange(product_type)  %>% 
   dplyr::mutate(product_type = stringr::str_to_title(product_type), 
                 poc_goa_ai = gsub(x = poc_goa_ai, 
-                                  replacement = " & ", pattern = " &\n"), 
+                                  pattern = " & ", replacement = " &\n"), 
                 poc_bs = gsub(x = poc_bs, 
-                                  replacement = " & ", pattern = " &\n"), 
+                                  pattern = " & ", replacement = " &\n"), 
                 include = ifelse(is.na(include), TRUE, include)) %>% 
   dplyr::filter(include) %>% 
   dplyr::select(-include)
@@ -62,7 +69,7 @@ table_print <-
   flextable::color(j = "product", i = ~ is.na(product_type), 
                    color = "darkblue", part = "body") %>% 
   flextable::bg(i = ~ !is.na(product_type), bg = "grey70") %>% 
-  # flextable::bold(i = ~ !is.na(product_type), bold = TRUE) %>% 
+  flextable::bold(i = ~ is.na(product_type), bold = TRUE, j = "product") %>%
   flextable::italic(i = ~ !is.na(product_type), italic = TRUE) %>% 
     flextable::padding(padding.left = 10, 
                      j = "product", 
