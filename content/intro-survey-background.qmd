@@ -213,7 +213,7 @@ table_print <- table_raw %>%
   flextable::fit_to_width(x = ., max_width = 11) %>%
   flextable::padding(padding = 5) %>% 
   flextable::theme_zebra() %>% 
-    flextable::align(x = ., part = "body", align = "center", j = "SURVEY_DEFINITION_ID") %>% 
+  flextable::align(x = ., part = "body", align = "center", j = "SURVEY_DEFINITION_ID") %>% 
   flextable::width(j = "SURVEY_NAME", width = 1.5) %>%
   ftExtra::colformat_md()
 

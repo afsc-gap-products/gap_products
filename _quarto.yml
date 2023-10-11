@@ -52,8 +52,8 @@ book:
     - part: content/other-intro.qmd
       chapters:
         - content/other-pkgs.qmd
-        - content/other-reports.qmd
-        - content/other-outreach.qmd
+        # - content/other-reports.qmd
+        # - content/other-outreach.qmd
     - part: content/end-contact-us.qmd # content/end-acknowledgements.qmd # content/end.qmd
       chapters:
         - content/end-run-notes.qmd
