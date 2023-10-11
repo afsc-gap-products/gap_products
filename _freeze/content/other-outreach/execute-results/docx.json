@@ -1,0 +1,20 @@
+{
+  "hash": "ae7d0c82a629e6fe5a97fd9020c62ee9",
+  "result": {
+    "markdown": "---\ntitle: Outreach\n---\n\n\n\n\n## Real-time temperatures and survey progress\n\nMaps of [near real-time temperatures and survey progress from each of our bottom trawl surveys](https://www.fisheries.noaa.gov/alaska/science-data/bottom-trawl-survey-temperature-maps) are posted each business day of the survey. Water temperature affects many species' spawning times, access to food, growth rates, and overall range. Collecting temperature data helps better understand species’ habitats and the larger ecosystem. \n\n**POCs:** Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson\n\n### Community Highlights\n\n\n\n\n::: {.cell}\n\n:::\n\n\n\n\nEach year, the Groundfish Assessment Program compiles it’s survey findings for communities around Alaska [@2022NBSCommunity]. *Please note: This document is for informational purposes only and does not necessarily represent the views or official position of the Department of Commerce, the National Oceanic and Atmospheric Administration, or the National Marine Fisheries Service. Not to be cited without permission from the authors. *\n\n**POCs:** Bering Sea: Emily Markowitz, Liz Dawson, Chris Anderson",
+    "supporting": [
+      "other-outreach_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}
