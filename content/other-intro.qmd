@@ -8,12 +8,17 @@ title: Product Outputs
 
 To accompany these data, we also produce data products to make using our data more accessible and straightforward. 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, }
 library(googledrive)
 library(magrittr)
 library(flextable)
 googledrive::drive_auth()
 2
+
+googledrive::drive_download(file = googledrive::as_id("1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs"), 
+                            type = "csv",
+                            overwrite = TRUE,
+                            path = here::here("temp", "other_products.csv"))
 ```
 
 ```{r prod-table}
@@ -22,22 +27,24 @@ googledrive::drive_auth()
 #| warning: false
 #| echo: false
 
-googledrive::drive_download(file = googledrive::as_id("1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs"), 
-                              type = "csv",
-                              overwrite = TRUE,
-                              path = here::here("temp", "other_products.csv"))
-
 table_raw <- read.csv(file = here::here("temp", "other_products.csv"), 
-                      skip = 1) %>% 
-  dplyr::arrange(product_type)  %>% 
-  dplyr::mutate(product_type = stringr::str_to_title(product_type), 
-                poc_goa_ai = gsub(x = poc_goa_ai, 
-                                  pattern = " & ", replacement = " &\n"), 
-                poc_bs = gsub(x = poc_bs, 
-                                  pattern = " & ", replacement = " &\n"), 
-                include = ifelse(is.na(include), TRUE, include)) %>% 
+                      skip = 1)  %>% 
+  dplyr::mutate(
+    poc_goa_ai = gsub(x = poc_goa_ai, 
+                      pattern = " & ", replacement = " &\n"), 
+    poc_bs = gsub(x = poc_bs, 
+                  pattern = " & ", replacement = " &\n"), 
+    include = ifelse(is.na(include), TRUE, include), 
+    product_type = stringr::str_to_title(product_type), 
+    product_type  = factor(x = product_type, 
+                           levels = c("Data", "Analysis", "Visualization Tools", "Communication"), 
+                           labels = c("Data", "Analysis", "Visualization Tools", "Communication"),
+                           ordered = TRUE)) %>% 
+  dplyr::arrange(product_type) %>% 
   dplyr::filter(include) %>% 
   dplyr::select(-include)
+
+table_raw[is.na(table_raw)] <- "-"
 
 table_print <- 
   flextable::as_grouped_data(x = table_raw, 
@@ -45,8 +52,8 @@ table_print <-
                              columns = NULL) %>% 
   flextable::as_flextable(
     col_keys = c(#"product_type", 
-                 "product",
-                                       "poc_goa_ai", "poc_bs", "description")) %>% 
+      "product",
+      "poc_goa_ai", "poc_bs", "description")) %>% 
   flextable::compose(j = "product",
                      value = as_paragraph(flextable::hyperlink_text(
                        x = product, url = link ) ) )  %>% 
@@ -54,11 +61,11 @@ table_print <-
     i = ~ !is.na(product_type),
     j = "product",
     value = as_paragraph(as_chunk(product_type))) %>%
-    theme_flextable_nmfstm(x = ., 
-                           font0 = "Arial", 
-                           pad = 0, 
-                           row_lines = FALSE, 
-                           pgwidth = 8) %>% 
+  theme_flextable_nmfstm(x = ., 
+                         font0 = "Arial", 
+                         pad = 0, 
+                         row_lines = FALSE, 
+                         pgwidth = 8) %>% 
   flextable::theme_zebra()  %>% 
   flextable::set_header_labels(
     product = "Product", 
@@ -71,7 +78,7 @@ table_print <-
   flextable::bg(i = ~ !is.na(product_type), bg = "grey70") %>% 
   flextable::bold(i = ~ is.na(product_type), bold = TRUE, j = "product") %>%
   flextable::italic(i = ~ !is.na(product_type), italic = TRUE) %>% 
-    flextable::padding(padding.left = 10, 
+  flextable::padding(padding.left = 10, 
                      j = "product", 
                      i = ~ !is.na(product_type), 
                      part = "body") %>% 
