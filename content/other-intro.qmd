@@ -6,9 +6,9 @@ title: Product Outputs
 #| file: functions.R
 ```
 
-To accompany these data, we also produce data products to make using our data more accessible and straightforward.  
+To accompany these data, we also produce data products to make using our data more accessible and straightforward.
 
-```{r, echo=FALSE, }
+```{r, echo = FALSE, message = FALSE, error = FALSE, comment=FALSE}
 library(googledrive)
 library(magrittr)
 library(flextable)
