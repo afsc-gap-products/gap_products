@@ -10,7 +10,7 @@ title: Workflow
 
 ```{mermaid}
 %%| label: fig-workflow
-%%| fig-cap: "Data workflow from boat to production."
+%%| fig-cap: "Simplified data workflow from boat to production."
 
 flowchart LR
   A[Catch data\ncollection tablet] --> B[METIS]
@@ -18,14 +18,16 @@ flowchart LR
   A2[Specimen data\ncollection tablet] --> B
   A3[Wheelhouse\nhaul data] --> C[GIDES and Oracle]
   B --> C
-  C --> D[RACEBASE\nOracle schema]
+  C --> D[RACEBASE and RACE_DATA\nOracle schema]
   D --> E[gapindex\nR package]
   D --> F[gap_products\nR scripts]
+  E --> F
   F --> G[Prodcution tables\nin GAP_PRODUCTS\nOracle schema]
   E --> G
   G --> H[Data process\nreports &\npresentations]
   G --> I[AKFN]
   G --> J[FOSS]
+  
 ```
 
 ## Organization

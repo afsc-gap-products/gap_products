@@ -519,7 +519,7 @@ Team~afsc.gap.metadata@noaa.gov
 \setcounter{page}{1}
 \end{frontmatter}
 
-%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, sharp corners, interior hidden, frame hidden, enhanced]}{\end{tcolorbox}}\fi
+%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, frame hidden, enhanced, interior hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, sharp corners]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1006,7 +1006,7 @@ production}\label{data-workflow-from-boat-to-production}}
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=12.35in,height=2.96in]{content/intro-workflow_files/figure-latex/mermaid-figure-1.png}
+{\centering \includegraphics[width=14.65in,height=2.96in]{content/intro-workflow_files/figure-latex/mermaid-figure-1.png}
 
 }
 
@@ -1014,7 +1014,8 @@ production}\label{data-workflow-from-boat-to-production}}
 
 }
 
-\caption{\label{fig-workflow}Data workflow from boat to production.}
+\caption{\label{fig-workflow}Simplified data workflow from boat to
+production.}
 
 \end{figure}
 
@@ -7628,9 +7629,57 @@ code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{SELECT} \OperatorTok{*} \KeywordTok{FROM}\NormalTok{ GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_HAUL}
-\KeywordTok{FULL} \KeywordTok{JOIN}\NormalTok{ GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_CATCH}
-\KeywordTok{ON}\NormalTok{ GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_HAUL.HAULJOIN }\OperatorTok{=}\NormalTok{ GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_CATCH.HAULJOIN;}
+\CommentTok{{-}{-} old}
+\CommentTok{{-}{-} SELECT * FROM GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_HAUL}
+\CommentTok{{-}{-} FULL JOIN GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_CATCH}
+\CommentTok{{-}{-} ON GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_HAUL.HAULJOIN = GAP\_PRODUCTS.JOIN\_FOSS\_CPUE\_CATCH.HAULJOIN;}
+\CommentTok{{-}{-} When zero{-}filled data are available on }
+
+\CommentTok{{-}{-} new}
+\KeywordTok{SELECT} \KeywordTok{DISTINCT} 
+\NormalTok{hh.}\DataTypeTok{YEAR}\NormalTok{,}
+\NormalTok{hh.SRVY,                 }
+\NormalTok{hh.SURVEY,}
+\NormalTok{hh.SURVEY\_DEFINITION\_ID,}
+\NormalTok{hh.SURVEY\_NAME,}
+\NormalTok{hh.CRUISE,}
+\NormalTok{hh.CRUISEJOIN,           }
+\NormalTok{hh.HAUL,}
+\NormalTok{hh.HAULJOIN,}
+\NormalTok{hh.STRATUM,}
+\NormalTok{hh.STATION,}
+\NormalTok{hh.VESSEL\_ID,}
+\NormalTok{hh.VESSEL\_NAME,          }
+\NormalTok{hh.DATE\_TIME,}
+\NormalTok{hh.LATITUDE\_DD\_START, }
+\NormalTok{hh.LONGITUDE\_DD\_START, }
+\NormalTok{hh.LATITUDE\_DD\_END,}
+\NormalTok{hh.LONGITUDE\_DD\_END, }
+\NormalTok{hh.BOTTOM\_TEMPERATURE\_C,}
+\NormalTok{hh.SURFACE\_TEMPERATURE\_C,}
+\NormalTok{hh.DEPTH\_M,}
+\NormalTok{cc.SPECIES\_CODE,}
+\NormalTok{ss.ITIS,}
+\NormalTok{ss.WORMS,}
+\NormalTok{ss.COMMON\_NAME,     }
+\NormalTok{ss.SCIENTIFIC\_NAME,}
+\NormalTok{ss.ID\_RANK,}
+\NormalTok{cc.TAXON\_CONFIDENCE,}
+\NormalTok{cc.WEIGHT\_KG,}
+\NormalTok{cc.}\FunctionTok{COUNT}\NormalTok{,}
+\NormalTok{cc.CPUE\_KGKM2,}
+\NormalTok{cc.CPUE\_NOKM2,}
+\NormalTok{hh.AREA\_SWEPT\_KM2,       }
+\NormalTok{hh.DISTANCE\_FISHED\_KM,}
+\NormalTok{hh.DURATION\_HR,          }
+\NormalTok{hh.NET\_WIDTH\_M,}
+\NormalTok{hh.NET\_HEIGHT\_M,}
+\NormalTok{hh.PERFORMANCE }
+\KeywordTok{FROM}\NormalTok{ GAP\_PRODUCTS.FOSS\_CATCH cc}
+\KeywordTok{LEFT} \KeywordTok{JOIN}\NormalTok{ GAP\_PRODUCTS.FOSS\_HAUL hh}
+\KeywordTok{ON}\NormalTok{ cc.HAULJOIN }\OperatorTok{=}\NormalTok{ hh.HAULJOIN}
+\KeywordTok{FULL} \KeywordTok{JOIN}\NormalTok{ GAP\_PRODUCTS.FOSS\_SPECIES\_TEST ss}
+\KeywordTok{ON}\NormalTok{ cc.SPECIES\_CODE }\OperatorTok{=}\NormalTok{ ss.SPECIES\_CODE}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7655,7 +7704,7 @@ from 2010 - 2021:
 \StringTok{JOIN GAP\_PRODUCTS.FOSS\_HAUL hh}
 \StringTok{ON cc.HAULJOIN = hh.HAULJOIN}
 \StringTok{WHERE SRVY = \textquotesingle{}EBS\textquotesingle{} }
-\StringTok{AND COMMON\_NAME = \textquotesingle{}Pacific cod\textquotesingle{} }
+\StringTok{AND SPECIES\_CODE = 21720 {-}{-} \textquotesingle{}Pacific cod\textquotesingle{} }
 \StringTok{AND YEAR \textgreater{}= 2010 }
 \StringTok{AND YEAR \textless{} 2021"}\NormalTok{)}
 \CommentTok{\# Save table to local directory}
