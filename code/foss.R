@@ -37,11 +37,11 @@ metadata_fields <-
                   query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")
 
 for (isql_script in c("FOSS_HAUL", 
-                      "FOSS_CATCH", 
-                      "FOSS_CPUE_PRESONLY", 
+                      "FOSS_CATCH",
                       "FOSS_TAXON_GROUP", 
                       "FOSS_SPECIES", 
-                      "FOSS_SURVEY_SPECIES")) { ## Loop over foss sql -- start
+                      "FOSS_SURVEY_SPECIES",
+                      "FOSS_CPUE_PRESONLY")) { ## Loop over foss sql -- start
   
   temp_table_name <- paste0("GAP_PRODUCTS.", isql_script)
   cat("Creating", temp_table_name, "...\n")
