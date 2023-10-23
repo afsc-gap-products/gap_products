@@ -37,27 +37,38 @@ metadata_fields <-
                   query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")
 
 for (isql_script in c("FOSS_HAUL", 
-                      "FOSS_CATCH", 
-                      "FOSS_CPUE_PRESONLY", 
-                      "FOSS_TAXON_GROUP")) { ## Loop over foss sql -- start
+                      "FOSS_CATCH",
+                      "FOSS_TAXON_GROUP", 
+                      "FOSS_SPECIES", 
+                      "FOSS_SURVEY_SPECIES",
+                      "FOSS_CPUE_PRESONLY")) { ## Loop over foss sql -- start
   
   temp_table_name <- paste0("GAP_PRODUCTS.", isql_script)
   cat("Creating", temp_table_name, "...\n")
   
   ## Table Comment for Oracle upload
-  metadata_table <- 
-    ifelse(test = isql_script == "FOSS_TAXON_GROUP",
-           yes = paste("This reference datasets contains suggested search",
-                       "groups for simplifying species selection in the FOSS",
-                       "data platform so users can better search through",
-                       "FOSS_CATCH. These tables were created", 
-                       legal_disclaimer),
-           no = paste("These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, and",
-                      "FOSS_HAUL, when full joined by the HAULJOIN variable,",
-                      "includes zero-filled (presence and absence)",
-                      "observations and catch-per-unit-effort (CPUE)",
-                      "estimates for all identified species at for index",
-                      "stations. These tables were created", legal_disclaimer))
+  if (isql_script == "FOSS_TAXON_GROUP") {
+    metadata_table <- paste(
+      "This reference dataset contains suggested search",
+                            "groups for simplifying species selection in the FOSS",
+                            "data platform so users can better search through",
+                            "FOSS_CATCH. These tables were created", 
+                            legal_disclaimer)
+  } else if (isql_script == "FOSS_SURVEY_SPECIES") {
+    metadata_table <- paste(
+      "This reference dataset contains the full list of species by survey",
+      "to be used to zero-fill FOSS_CATCH and FOSS_HAUL for each survey.",
+      "These tables were created", 
+      legal_disclaimer)      
+  } else {
+    metadata_table <- paste(
+      "These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and",
+          "FOSS_SPECIES, when full joined by the HAULJOIN variable,",
+          "includes zero-filled (presence and absence)",
+          "observations and catch-per-unit-effort (CPUE)",
+          "estimates for all identified species at for index",
+          "stations. These tables were created", legal_disclaimer)
+  }
   
   ## If the view already exists, drop the view before creating
   available_views <- RODBC::sqlTables(channel = sql_channel, 
