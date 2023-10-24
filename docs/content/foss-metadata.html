@@ -289,6 +289,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#foss_catch" id="toc-foss_catch" class="nav-link" data-scroll-target="#foss_catch">FOSS_CATCH</a></li>
   <li><a href="#foss_cpue_presonly" id="toc-foss_cpue_presonly" class="nav-link" data-scroll-target="#foss_cpue_presonly">FOSS_CPUE_PRESONLY</a></li>
   <li><a href="#foss_haul" id="toc-foss_haul" class="nav-link" data-scroll-target="#foss_haul">FOSS_HAUL</a></li>
+  <li><a href="#foss_species" id="toc-foss_species" class="nav-link" data-scroll-target="#foss_species">FOSS_SPECIES</a></li>
+  <li><a href="#foss_survey_species" id="toc-foss_survey_species" class="nav-link" data-scroll-target="#foss_survey_species">FOSS_SURVEY_SPECIES</a></li>
   <li><a href="#foss_taxon_group" id="toc-foss_taxon_group" class="nav-link" data-scroll-target="#foss_taxon_group">FOSS_TAXON_GROUP</a></li>
   </ul></li>
   </ul>
@@ -331,9 +333,9 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="foss_catch" class="level3">
 <h3 class="anchored" data-anchor-id="foss_catch">FOSS_CATCH</h3>
-<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, and FOSS_HAUL, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated September 26, 2023.</p>
-<p>Number of rows: 37,591,876</p>
-<p>Number of columns: 12</p>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated October 17, 2023.</p>
+<p>Number of rows: 928,931</p>
+<p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -358,27 +360,10 @@ Column description
 <tbody>
 <tr>
 <td style="text-align:left;">
-COMMON_NAME
-</td>
-<td style="text-align:left;">
-Taxon Common Name
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-The common name of the marine organism associated with the ‘scientific_name’ and ‘species_code’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 COUNT
 </td>
 <td style="text-align:left;">
-Taxon Count
+Taxon count
 </td>
 <td style="text-align:left;">
 count, whole number resolution
@@ -395,7 +380,7 @@ Total whole number of individuals caught in haul.
 CPUE_KGKM2
 </td>
 <td style="text-align:left;">
-Weight CPUE (kg/km&lt;sup&gt;2&lt;/sup&gt;)
+Weight CPUE (kg/km2)
 </td>
 <td style="text-align:left;">
 kilograms per kilometers squared
@@ -412,7 +397,7 @@ Catch weight (kilograms) per unit effort (area swept by the net, units square ki
 CPUE_NOKM2
 </td>
 <td style="text-align:left;">
-Number CPUE (no/km&lt;sup&gt;2&lt;/sup&gt;)
+Number CPUE (no/km2)
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -443,61 +428,10 @@ This is a unique numeric identifier assigned to each (vessel, cruise, and haul) 
 </tr>
 <tr>
 <td style="text-align:left;">
-ID_RANK
-</td>
-<td style="text-align:left;">
-Lowest taxonomic rank
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Lowest taxonomic rank of a given species entry.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ITIS
-</td>
-<td style="text-align:left;">
-ITIS Taxonomic Serial Number
-</td>
-<td style="text-align:left;">
-ID code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-Species code as identified in the Integrated Taxonomic Information System (https://itis.gov/).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SCIENTIFIC_NAME
-</td>
-<td style="text-align:left;">
-Taxon Scientific Name
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-The scientific name of the organism associated with the ‘common_name’ and ‘species_code’ columns. For a complete taxon list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -514,7 +448,7 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 TAXON_CONFIDENCE
 </td>
 <td style="text-align:left;">
-Taxon Confidence Rating
+Taxon confidence rating
 </td>
 <td style="text-align:left;">
 category
@@ -531,7 +465,7 @@ Confidence in the ability of the survey team to correctly identify the taxon to 
 WEIGHT_KG
 </td>
 <td style="text-align:left;">
-Taxon Weight (kg)
+Sample or taxon weight (kg)
 </td>
 <td style="text-align:left;">
 kilograms
@@ -543,32 +477,15 @@ NUMBER(38,3)
 Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-WORMS
-</td>
-<td style="text-align:left;">
-World Register of Marine Species Taxonomic Serial Number
-</td>
-<td style="text-align:left;">
-ID code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-Species code as identified in the World Register of Marine Species (WoRMS) (https://www.marinespecies.org/).
-</td>
-</tr>
 </tbody>
 
 </table>
 </section>
 <section id="foss_cpue_presonly" class="level3">
 <h3 class="anchored" data-anchor-id="foss_cpue_presonly">FOSS_CPUE_PRESONLY</h3>
-<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, and FOSS_HAUL, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated September 26, 2023.</p>
-<p>Number of rows: 37,591,876</p>
-<p>Number of columns: 37</p>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated October 17, 2023.</p>
+<p>Number of rows: 928,931</p>
+<p>Number of columns: 38</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -596,7 +513,7 @@ Column description
 AREA_SWEPT_KM2
 </td>
 <td style="text-align:left;">
-Area Swept (km)
+Area swept (km)
 </td>
 <td style="text-align:left;">
 kilometers
@@ -613,7 +530,7 @@ The area the net covered while the net was fishing (kilometers squared), defined
 BOTTOM_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Bottom Temperature (Degrees Celsius)
+Bottom temperature (degrees celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -630,7 +547,7 @@ Bottom temperature (tenths of a degree Celsius); NA indicates removed or missing
 COMMON_NAME
 </td>
 <td style="text-align:left;">
-Taxon Common Name
+Taxon common name
 </td>
 <td style="text-align:left;">
 text
@@ -647,7 +564,7 @@ The common name of the marine organism associated with the ‘scientific_name’
 COUNT
 </td>
 <td style="text-align:left;">
-Taxon Count
+Taxon count
 </td>
 <td style="text-align:left;">
 count, whole number resolution
@@ -664,7 +581,7 @@ Total whole number of individuals caught in haul.
 CPUE_KGKM2
 </td>
 <td style="text-align:left;">
-Weight CPUE (kg/km&lt;sup&gt;2&lt;/sup&gt;)
+Weight CPUE (kg/km2)
 </td>
 <td style="text-align:left;">
 kilograms per kilometers squared
@@ -681,7 +598,7 @@ Catch weight (kilograms) per unit effort (area swept by the net, units square ki
 CPUE_NOKM2
 </td>
 <td style="text-align:left;">
-Number CPUE (no/km&lt;sup&gt;2&lt;/sup&gt;)
+Number CPUE (no/km2)
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -732,7 +649,7 @@ Unique interger ID assigned to each survey, vessel, and year combination.
 DATE_TIME
 </td>
 <td style="text-align:left;">
-Date and Time
+Date and time
 </td>
 <td style="text-align:left;">
 MM/DD/YYYY HH::MM
@@ -766,7 +683,7 @@ Bottom depth (meters).
 DISTANCE_FISHED_KM
 </td>
 <td style="text-align:left;">
-Distance Fished (km)
+Distance fished (km)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -783,7 +700,7 @@ Distance the net fished (thousandths of kilometers).
 DURATION_HR
 </td>
 <td style="text-align:left;">
-Tow Duration (decimal hr)
+Tow duration (decimal hr)
 </td>
 <td style="text-align:left;">
 hours
@@ -800,7 +717,7 @@ This is the elapsed time between start and end of a haul (decimal hours).
 HAUL
 </td>
 <td style="text-align:left;">
-Haul Number
+Haul number
 </td>
 <td style="text-align:left;">
 ID code
@@ -851,7 +768,7 @@ Lowest taxonomic rank of a given species entry.
 ITIS
 </td>
 <td style="text-align:left;">
-ITIS Taxonomic Serial Number
+ITIS taxonomic serial number
 </td>
 <td style="text-align:left;">
 ID code
@@ -868,7 +785,7 @@ Species code as identified in the Integrated Taxonomic Information System (https
 LATITUDE_DD_END
 </td>
 <td style="text-align:left;">
-End Latitude (decimal degrees)
+End latitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -885,7 +802,7 @@ Latitude (one hundred thousandth of a decimal degree) of the end of the haul.
 LATITUDE_DD_START
 </td>
 <td style="text-align:left;">
-Start Latitude (decimal degrees)
+Start latitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -902,7 +819,7 @@ Latitude (one hundred thousandth of a decimal degree) of the start of the haul.
 LONGITUDE_DD_END
 </td>
 <td style="text-align:left;">
-End Longitude (decimal degrees)
+End longitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -919,7 +836,7 @@ Longitude (one hundred thousandth of a decimal degree) of the end of the haul.
 LONGITUDE_DD_START
 </td>
 <td style="text-align:left;">
-Start Longitude (decimal degrees)
+Start longitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -936,7 +853,7 @@ Longitude (one hundred thousandth of a decimal degree) of the start of the haul.
 NET_HEIGHT_M
 </td>
 <td style="text-align:left;">
-Net Height (m)
+Net height (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -953,7 +870,7 @@ Measured or estimated distance (meters) between footrope and headrope of the tra
 NET_WIDTH_M
 </td>
 <td style="text-align:left;">
-Net Width (m)
+Net width (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -970,7 +887,7 @@ Measured or estimated distance (meters) between wingtips of the trawl.
 PERFORMANCE
 </td>
 <td style="text-align:left;">
-Haul Performance Code
+Haul performance code
 </td>
 <td style="text-align:left;">
 category
@@ -987,7 +904,7 @@ This denotes what, if any, issues arose during the haul. For more information, r
 SCIENTIFIC_NAME
 </td>
 <td style="text-align:left;">
-Taxon Scientific Name
+Taxon scientific name
 </td>
 <td style="text-align:left;">
 text
@@ -1004,7 +921,7 @@ The scientific name of the organism associated with the ‘common_name’ and �
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -1072,7 +989,7 @@ RACE database statistical area for analyzing data. Strata were designed using ba
 SURFACE_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Surface Temperature (Degrees Celsius)
+Surface temperature (Degrees Celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -1120,10 +1037,27 @@ This number uniquely identifies a survey. Name and description of survey. The co
 </tr>
 <tr>
 <td style="text-align:left;">
+SURVEY_NAME
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 TAXON_CONFIDENCE
 </td>
 <td style="text-align:left;">
-Taxon Confidence Rating
+Taxon confidence rating
 </td>
 <td style="text-align:left;">
 category
@@ -1157,7 +1091,7 @@ ID number of the vessel used to collect data for that haul. The column ‘vessel
 VESSEL_NAME
 </td>
 <td style="text-align:left;">
-Vessel Name
+Vessel name
 </td>
 <td style="text-align:left;">
 text
@@ -1174,7 +1108,7 @@ Name of the vessel used to collect data for that haul. The column ‘vessel_name
 WEIGHT_KG
 </td>
 <td style="text-align:left;">
-Taxon Weight (kg)
+Sample or taxon weight (kg)
 </td>
 <td style="text-align:left;">
 kilograms
@@ -1208,7 +1142,7 @@ Species code as identified in the World Register of Marine Species (WoRMS) (http
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -1217,7 +1151,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
 </td>
 </tr>
 </tbody>
@@ -1226,7 +1160,7 @@ NA
 </section>
 <section id="foss_haul" class="level3">
 <h3 class="anchored" data-anchor-id="foss_haul">FOSS_HAUL</h3>
-<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, and FOSS_HAUL, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated September 26, 2023.</p>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated October 17, 2023.</p>
 <p>Number of rows: 32,626</p>
 <p>Number of columns: 27</p>
 
@@ -1256,7 +1190,7 @@ Column description
 AREA_SWEPT_KM2
 </td>
 <td style="text-align:left;">
-Area Swept (km)
+Area swept (km)
 </td>
 <td style="text-align:left;">
 kilometers
@@ -1273,7 +1207,7 @@ The area the net covered while the net was fishing (kilometers squared), defined
 BOTTOM_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Bottom Temperature (Degrees Celsius)
+Bottom temperature (degrees celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -1324,7 +1258,7 @@ Unique interger ID assigned to each survey, vessel, and year combination.
 DATE_TIME
 </td>
 <td style="text-align:left;">
-Date and Time
+Date and time
 </td>
 <td style="text-align:left;">
 MM/DD/YYYY HH::MM
@@ -1358,7 +1292,7 @@ Bottom depth (meters).
 DISTANCE_FISHED_KM
 </td>
 <td style="text-align:left;">
-Distance Fished (km)
+Distance fished (km)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -1375,7 +1309,7 @@ Distance the net fished (thousandths of kilometers).
 DURATION_HR
 </td>
 <td style="text-align:left;">
-Tow Duration (decimal hr)
+Tow duration (decimal hr)
 </td>
 <td style="text-align:left;">
 hours
@@ -1392,7 +1326,7 @@ This is the elapsed time between start and end of a haul (decimal hours).
 HAUL
 </td>
 <td style="text-align:left;">
-Haul Number
+Haul number
 </td>
 <td style="text-align:left;">
 ID code
@@ -1426,7 +1360,7 @@ This is a unique numeric identifier assigned to each (vessel, cruise, and haul) 
 LATITUDE_DD_END
 </td>
 <td style="text-align:left;">
-End Latitude (decimal degrees)
+End latitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1443,7 +1377,7 @@ Latitude (one hundred thousandth of a decimal degree) of the end of the haul.
 LATITUDE_DD_START
 </td>
 <td style="text-align:left;">
-Start Latitude (decimal degrees)
+Start latitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1460,7 +1394,7 @@ Latitude (one hundred thousandth of a decimal degree) of the start of the haul.
 LONGITUDE_DD_END
 </td>
 <td style="text-align:left;">
-End Longitude (decimal degrees)
+End longitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1477,7 +1411,7 @@ Longitude (one hundred thousandth of a decimal degree) of the end of the haul.
 LONGITUDE_DD_START
 </td>
 <td style="text-align:left;">
-Start Longitude (decimal degrees)
+Start longitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1494,7 +1428,7 @@ Longitude (one hundred thousandth of a decimal degree) of the start of the haul.
 NET_HEIGHT_M
 </td>
 <td style="text-align:left;">
-Net Height (m)
+Net height (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -1511,7 +1445,7 @@ Measured or estimated distance (meters) between footrope and headrope of the tra
 NET_WIDTH_M
 </td>
 <td style="text-align:left;">
-Net Width (m)
+Net width (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -1528,7 +1462,7 @@ Measured or estimated distance (meters) between wingtips of the trawl.
 PERFORMANCE
 </td>
 <td style="text-align:left;">
-Haul Performance Code
+Haul performance code
 </td>
 <td style="text-align:left;">
 category
@@ -1596,7 +1530,7 @@ RACE database statistical area for analyzing data. Strata were designed using ba
 SURFACE_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Surface Temperature (Degrees Celsius)
+Surface temperature (Degrees Celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -1681,7 +1615,7 @@ ID number of the vessel used to collect data for that haul. The column ‘vessel
 VESSEL_NAME
 </td>
 <td style="text-align:left;">
-Vessel Name
+Vessel name
 </td>
 <td style="text-align:left;">
 text
@@ -1698,7 +1632,7 @@ Name of the vessel used to collect data for that haul. The column ‘vessel_name
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -1707,7 +1641,205 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="foss_species" class="level3">
+<h3 class="anchored" data-anchor-id="foss_species">FOSS_SPECIES</h3>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated October 17, 2023.</p>
+<p>Number of rows: 1,936</p>
+<p>Number of columns: 6</p>
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+COMMON_NAME
+</td>
+<td style="text-align:left;">
+Taxon common name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The common name of the marine organism associated with the ‘scientific_name’ and ‘species_code’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ID_RANK
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank of a given species entry.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ITIS
+</td>
+<td style="text-align:left;">
+ITIS taxonomic serial number
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Species code as identified in the Integrated Taxonomic Information System (https://itis.gov/).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCIENTIFIC_NAME
+</td>
+<td style="text-align:left;">
+Taxon scientific name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The scientific name of the organism associated with the ‘common_name’ and ‘species_code’ columns. For a complete taxon list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon code
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WORMS
+</td>
+<td style="text-align:left;">
+World Register of Marine Species Taxonomic Serial Number
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Species code as identified in the World Register of Marine Species (WoRMS) (https://www.marinespecies.org/).
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="foss_survey_species" class="level3">
+<h3 class="anchored" data-anchor-id="foss_survey_species">FOSS_SURVEY_SPECIES</h3>
+<p>This reference dataset contains the full list of species by survey to be used to zero-fill FOSS_CATCH and FOSS_HAUL for each survey. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated October 17, 2023.</p>
+<p>Number of rows: 5,025</p>
+<p>Number of columns: 2</p>
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon code
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SURVEY_DEFINITION_ID
+</td>
+<td style="text-align:left;">
+Survey ID
+</td>
+<td style="text-align:left;">
+ID code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -1716,7 +1848,7 @@ NA
 </section>
 <section id="foss_taxon_group" class="level3">
 <h3 class="anchored" data-anchor-id="foss_taxon_group">FOSS_TAXON_GROUP</h3>
-<p>This reference datasets contains suggested search groups for simplifying species selection in the FOSS data platform so users can better search through FOSS_CATCH. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated September 26, 2023.</p>
+<p>This reference dataset contains suggested search groups for simplifying species selection in the FOSS data platform so users can better search through FOSS_CATCH. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated October 17, 2023.</p>
 <p>Number of rows: 37,606</p>
 <p>Number of columns: 3</p>
 
@@ -1763,16 +1895,16 @@ Phylogenetic classification group rank for a given species.
 RANK_ID
 </td>
 <td style="text-align:left;">
-NA
+Taxonomic rank
 </td>
 <td style="text-align:left;">
-NA
+category
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+The taxonomic rank of a taxon identification.
 </td>
 </tr>
 <tr>
@@ -1780,7 +1912,7 @@ NA
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code

@@ -372,16 +372,16 @@ Column description
 AGE
 </td>
 <td style="text-align:left;">
-Age bin of taxon
+NA
 </td>
 <td style="text-align:left;">
-year
+NA
 </td>
 <td style="text-align:left;">
-NUMBER(38,0)
+NA
 </td>
 <td style="text-align:left;">
-Age bin of a taxon in years estimated by the age comp estimate.
+NA
 </td>
 </tr>
 <tr>
@@ -423,7 +423,7 @@ Mean length (millimeters)
 LENGTH_MM_SD
 </td>
 <td style="text-align:left;">
-standard deviation of length at age weighted by numbers at length
+Standard deviation of length at age weighted by numbers at length
 </td>
 <td style="text-align:left;">
 numeric
@@ -440,7 +440,7 @@ Variance of mean length.
 POPULATION_COUNT
 </td>
 <td style="text-align:left;">
-Estimated Population
+Estimated population
 </td>
 <td style="text-align:left;">
 numeric
@@ -474,7 +474,7 @@ Sex of a specimen where “1” = “Male”, “2” = “Female”, “3” = 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -508,7 +508,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -517,7 +517,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
 </td>
 </tr>
 </tbody>
@@ -573,7 +573,7 @@ Area ID code for each statistical area used to produce production estimates (e.g
 AREA_KM2
 </td>
 <td style="text-align:left;">
-Area (km&lt;sup&gt;2&lt;/sup&gt;)
+Area (km2)
 </td>
 <td style="text-align:left;">
 kilometers squared
@@ -590,7 +590,7 @@ Area in square kilometers.
 AREA_NAME
 </td>
 <td style="text-align:left;">
-Area ID Name
+Area ID name
 </td>
 <td style="text-align:left;">
 text
@@ -607,16 +607,16 @@ Descriptive name of each AREA_ID. These names often identify the region, depth r
 CRS
 </td>
 <td style="text-align:left;">
-Coordinate Reference System
+Coordinate reference system
 </td>
 <td style="text-align:left;">
 ID code
 </td>
 <td style="text-align:left;">
-VARCHAR2(5 BYTE)
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Coordinate reference system that areas (like AREA_KM2) are calculated in, as defined by https://spatialreference.org/ (e.g., “+proj=longlat”, “EPSG:3338”).
+The coordinate reference system (CRS) that shapefiles were created in or areas (like AREA_KM2) are calculated in, as defined by https://spatialreference.org/ (e.g., “+proj=longlat”, “EPSG:3338”).
 </td>
 </tr>
 <tr>
@@ -624,7 +624,7 @@ Coordinate reference system that areas (like AREA_KM2) are calculated in, as def
 DEPTH_MAX_M
 </td>
 <td style="text-align:left;">
-Area ID Maximum Depth (m)
+Area ID maximum depth (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -641,7 +641,7 @@ Maximum depth (meters).
 DEPTH_MIN_M
 </td>
 <td style="text-align:left;">
-Area ID Minimum Depth (m)
+Area ID minimum depth (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -774,7 +774,7 @@ Area ID code for each statistical area used to produce production estimates (e.g
 BIOMASS_MT
 </td>
 <td style="text-align:left;">
-Estimated Biomass
+Estimated biomass
 </td>
 <td style="text-align:left;">
 numeric
@@ -791,7 +791,7 @@ The estimated total biomass.
 BIOMASS_VAR
 </td>
 <td style="text-align:left;">
-Estimated Biomass Variance
+Estimated biomass variance
 </td>
 <td style="text-align:left;">
 numeric
@@ -808,7 +808,7 @@ The estimated variance associated with the total biomass.
 CPUE_KGKM2_MEAN
 </td>
 <td style="text-align:left;">
-Mean Weight CPUE
+Mean weight CPUE
 </td>
 <td style="text-align:left;">
 kilograms per kilometers squared
@@ -825,7 +825,7 @@ The mean catch weight (kilograms) per unit effort (area swept by the net, units 
 CPUE_KGKM2_VAR
 </td>
 <td style="text-align:left;">
-Variance of the Mean Weight CPUE
+Variance of the mean weight CPUE
 </td>
 <td style="text-align:left;">
 kilograms per kilometers squared
@@ -842,7 +842,7 @@ The variance of mean catch weight (kilograms) per unit effort (area swept by the
 CPUE_NOKM2_MEAN
 </td>
 <td style="text-align:left;">
-Mean Numberic CPUE
+Mean numberic CPUE
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -859,7 +859,7 @@ The mean of numerical catch per unit effort (area swept by the net, units square
 CPUE_NOKM2_VAR
 </td>
 <td style="text-align:left;">
-Variance of the Mean Numeric CPUE
+Variance of the mean numeric CPUE
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -944,7 +944,7 @@ Total number of hauls with positive catch biomass.
 POPULATION_COUNT
 </td>
 <td style="text-align:left;">
-Estimated Population
+Estimated population
 </td>
 <td style="text-align:left;">
 numeric
@@ -961,7 +961,7 @@ The estimated population caught in the survey for a species, group, or total for
 POPULATION_VAR
 </td>
 <td style="text-align:left;">
-Estimated Population Variance
+Estimated population variance
 </td>
 <td style="text-align:left;">
 numeric
@@ -978,7 +978,7 @@ The estimated population variance caught in the survey for a species, group, or 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -1012,7 +1012,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -1021,7 +1021,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
 </td>
 </tr>
 </tbody>
@@ -1060,16 +1060,16 @@ Column description
 CATCHJOIN
 </td>
 <td style="text-align:left;">
-NA
+Catch observation ID
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Unique interger ID assigned to each survey, vessel, year, and catch observation combination.
 </td>
 </tr>
 <tr>
@@ -1077,7 +1077,7 @@ NA
 COUNT
 </td>
 <td style="text-align:left;">
-Taxon Count
+Taxon count
 </td>
 <td style="text-align:left;">
 count, whole number resolution
@@ -1128,7 +1128,7 @@ This is a unique numeric identifier assigned to each (vessel, cruise, and haul) 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -1145,7 +1145,7 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 WEIGHT_KG
 </td>
 <td style="text-align:left;">
-Taxon Weight (kg)
+Sample or taxon weight (kg)
 </td>
 <td style="text-align:left;">
 kilograms
@@ -1193,7 +1193,7 @@ Column description
 AREA_SWEPT_KM2
 </td>
 <td style="text-align:left;">
-Area Swept (km)
+Area swept (km)
 </td>
 <td style="text-align:left;">
 kilometers
@@ -1210,7 +1210,7 @@ The area the net covered while the net was fishing (kilometers squared), defined
 COUNT
 </td>
 <td style="text-align:left;">
-Taxon Count
+Taxon count
 </td>
 <td style="text-align:left;">
 count, whole number resolution
@@ -1227,7 +1227,7 @@ Total whole number of individuals caught in haul.
 CPUE_KGKM2
 </td>
 <td style="text-align:left;">
-Weight CPUE (kg/km&lt;sup&gt;2&lt;/sup&gt;)
+Weight CPUE (kg/km2)
 </td>
 <td style="text-align:left;">
 kilograms per kilometers squared
@@ -1244,7 +1244,7 @@ Catch weight (kilograms) per unit effort (area swept by the net, units square ki
 CPUE_NOKM2
 </td>
 <td style="text-align:left;">
-Number CPUE (no/km&lt;sup&gt;2&lt;/sup&gt;)
+Number CPUE (no/km2)
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -1278,7 +1278,7 @@ This is a unique numeric identifier assigned to each (vessel, cruise, and haul) 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -1295,7 +1295,7 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 WEIGHT_KG
 </td>
 <td style="text-align:left;">
-Taxon Weight (kg)
+Sample or taxon weight (kg)
 </td>
 <td style="text-align:left;">
 kilograms
@@ -1377,7 +1377,7 @@ Unique interger ID assigned to each survey, vessel, and year combination.
 DATE_END
 </td>
 <td style="text-align:left;">
-End Date
+End date
 </td>
 <td style="text-align:left;">
 YYYY-MM-DD
@@ -1394,7 +1394,7 @@ The date (YYYY-MM-DD) of the end of the event (e.g., cruise).
 DATE_START
 </td>
 <td style="text-align:left;">
-Start Date
+Start date
 </td>
 <td style="text-align:left;">
 YYYY-MM-DD
@@ -1479,7 +1479,7 @@ ID number of the vessel used to collect data for that haul. The column ‘vessel
 VESSEL_NAME
 </td>
 <td style="text-align:left;">
-Vessel Name
+Vessel name
 </td>
 <td style="text-align:left;">
 text
@@ -1496,7 +1496,7 @@ Name of the vessel used to collect data for that haul. The column ‘vessel_name
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -1505,7 +1505,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
 </td>
 </tr>
 </tbody>
@@ -1544,16 +1544,16 @@ Column description
 ACCESSORIES
 </td>
 <td style="text-align:left;">
-NA
+Type of gear accessories used on the net
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Type of accessories used on net. For a complete list of accessories ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1561,16 +1561,16 @@ NA
 BOTTOM_TYPE
 </td>
 <td style="text-align:left;">
-NA
+Seafloor bottom type code
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Bottom type on sea floor at haul location. For a complete list of bottom type ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1595,7 +1595,7 @@ Unique interger ID assigned to each survey, vessel, and year combination.
 DATE_TIME_START
 </td>
 <td style="text-align:left;">
-Start Date and Time
+Start date and time
 </td>
 <td style="text-align:left;">
 MM/DD/YYYY HH::MM
@@ -1612,16 +1612,16 @@ The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul.
 DEPTH_GEAR_M
 </td>
 <td style="text-align:left;">
-NA
+Depth of gear (m)
 </td>
 <td style="text-align:left;">
-NA
+degrees Celsius
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,1)
 </td>
 <td style="text-align:left;">
-NA
+Depth of gear (meters).
 </td>
 </tr>
 <tr>
@@ -1646,7 +1646,7 @@ Bottom depth (meters).
 DISTANCE_FISHED_KM
 </td>
 <td style="text-align:left;">
-Distance Fished (km)
+Distance fished (km)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -1663,7 +1663,7 @@ Distance the net fished (thousandths of kilometers).
 DURATION_HR
 </td>
 <td style="text-align:left;">
-Tow Duration (decimal hr)
+Tow duration (decimal hr)
 </td>
 <td style="text-align:left;">
 hours
@@ -1680,16 +1680,16 @@ This is the elapsed time between start and end of a haul (decimal hours).
 GEAR
 </td>
 <td style="text-align:left;">
-NA
+Type of gear used on the net
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Type of gear used on net. For a complete list of gear ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1697,16 +1697,16 @@ NA
 GEAR_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-NA
+Gear temperature (Degrees Celsius)
 </td>
 <td style="text-align:left;">
-NA
+degrees Celsius
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,1)
 </td>
 <td style="text-align:left;">
-NA
+Temperature recorded by net gear (tenths of a degree Celsius); NA indicates removed or missing values.
 </td>
 </tr>
 <tr>
@@ -1714,7 +1714,7 @@ NA
 HAUL
 </td>
 <td style="text-align:left;">
-Haul Number
+Haul number
 </td>
 <td style="text-align:left;">
 ID code
@@ -1748,7 +1748,7 @@ This is a unique numeric identifier assigned to each (vessel, cruise, and haul) 
 HAUL_TYPE
 </td>
 <td style="text-align:left;">
-Haul Sampling Type
+Haul sampling type
 </td>
 <td style="text-align:left;">
 ID code
@@ -1765,7 +1765,7 @@ Type of haul sampling method. For a complete list of haul type ID codes, review 
 LATITUDE_DD_END
 </td>
 <td style="text-align:left;">
-End Latitude (decimal degrees)
+End latitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1782,7 +1782,7 @@ Latitude (one hundred thousandth of a decimal degree) of the end of the haul.
 LATITUDE_DD_START
 </td>
 <td style="text-align:left;">
-Start Latitude (decimal degrees)
+Start latitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1799,7 +1799,7 @@ Latitude (one hundred thousandth of a decimal degree) of the start of the haul.
 LONGITUDE_DD_END
 </td>
 <td style="text-align:left;">
-End Longitude (decimal degrees)
+End longitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1816,7 +1816,7 @@ Longitude (one hundred thousandth of a decimal degree) of the end of the haul.
 LONGITUDE_DD_START
 </td>
 <td style="text-align:left;">
-Start Longitude (decimal degrees)
+Start longitude (decimal degrees)
 </td>
 <td style="text-align:left;">
 decimal degrees
@@ -1833,7 +1833,7 @@ Longitude (one hundred thousandth of a decimal degree) of the start of the haul.
 NET_HEIGHT_M
 </td>
 <td style="text-align:left;">
-Net Height (m)
+Net height (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -1856,7 +1856,7 @@ Net measured during haul
 logical
 </td>
 <td style="text-align:left;">
-NA
+BINARY_DOUBLE
 </td>
 <td style="text-align:left;">
 Logical, describing if the net was measured (TRUE) or not (FALSE) by wheelhouse and marport programs during the haul.
@@ -1867,7 +1867,7 @@ Logical, describing if the net was measured (TRUE) or not (FALSE) by wheelhouse 
 NET_WIDTH_M
 </td>
 <td style="text-align:left;">
-Net Width (m)
+Net width (m)
 </td>
 <td style="text-align:left;">
 meters
@@ -1884,7 +1884,7 @@ Measured or estimated distance (meters) between wingtips of the trawl.
 PERFORMANCE
 </td>
 <td style="text-align:left;">
-Haul Performance Code
+Haul performance code
 </td>
 <td style="text-align:left;">
 category
@@ -1935,7 +1935,7 @@ RACE database statistical area for analyzing data. Strata were designed using ba
 SURFACE_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Surface Temperature (Degrees Celsius)
+Surface temperature (Degrees Celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -2000,16 +2000,16 @@ Column description
 FREQUENCY
 </td>
 <td style="text-align:left;">
-NA
+Count of observation
 </td>
 <td style="text-align:left;">
-NA
+count
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Frequency, or count, of an observation.
 </td>
 </tr>
 <tr>
@@ -2051,16 +2051,16 @@ Length bin in millimeters.
 LENGTH_TYPE
 </td>
 <td style="text-align:left;">
-NA
+Length type
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+How the taxon was measured (e.g., fork length, carapace width). For a complete list of length_type ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2068,16 +2068,16 @@ NA
 SAMPLE_TYPE
 </td>
 <td style="text-align:left;">
-NA
+Sample type
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Sampling information on how the taxon was sampled. For a complete list of length_type ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2102,7 +2102,7 @@ Sex of a specimen where “1” = “Male”, “2” = “Female”, “3” = 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -2201,16 +2201,16 @@ Long name for the column.
 METADATA_DATATYPE
 </td>
 <td style="text-align:left;">
-NA
+Oracle datatype code
 </td>
 <td style="text-align:left;">
-NA
+text
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Oracle data type of data column.
 </td>
 </tr>
 <tr>
@@ -2300,7 +2300,7 @@ Length bin in millimeters.
 POPULATION_COUNT
 </td>
 <td style="text-align:left;">
-Estimated Population
+Estimated population
 </td>
 <td style="text-align:left;">
 numeric
@@ -2334,7 +2334,7 @@ Sex of a specimen where “1” = “Male”, “2” = “Female”, “3” = 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -2368,7 +2368,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -2377,7 +2377,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
 </td>
 </tr>
 </tbody>
@@ -2433,16 +2433,16 @@ NA
 AGE_YEARS
 </td>
 <td style="text-align:left;">
-NA
+Age bin of taxon
 </td>
 <td style="text-align:left;">
-NA
+year
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Age bin of a taxon in years estimated by the age comp estimate.
 </td>
 </tr>
 <tr>
@@ -2467,16 +2467,16 @@ Unique interger ID assigned to each survey, vessel, and year combination.
 GONAD_G
 </td>
 <td style="text-align:left;">
-NA
+Weight of gonads (g)
 </td>
 <td style="text-align:left;">
-NA
+grams
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,1)
 </td>
 <td style="text-align:left;">
-NA
+Weight of specimen gonads (grams).
 </td>
 </tr>
 <tr>
@@ -2518,16 +2518,16 @@ Length bin in millimeters.
 MATURITY
 </td>
 <td style="text-align:left;">
-NA
+Specimen maturity code
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+The maturity code or the condition identified by the maturity code.
 </td>
 </tr>
 <tr>
@@ -2552,7 +2552,7 @@ Sex of a specimen where “1” = “Male”, “2” = “Female”, “3” = 
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -2569,16 +2569,16 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 SPECIMEN_ID
 </td>
 <td style="text-align:left;">
-NA
+Specimen unique ID
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Each individual examined must have a number assigned to it that is unique within each haul (0001 to 9999), though specimen numbers may be repeated between hauls
 </td>
 </tr>
 <tr>
@@ -2586,16 +2586,16 @@ NA
 SPECIMEN_SAMPLE_TYPE
 </td>
 <td style="text-align:left;">
-NA
+Specimen sample type
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+For a complete list of Specimen sample type ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2603,16 +2603,16 @@ NA
 SPECIMEN_SUBSAMPLE_METHOD
 </td>
 <td style="text-align:left;">
-NA
+Specimen subsample method
 </td>
 <td style="text-align:left;">
-NA
+ID code
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+For a complete list of specimen subsample method ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2620,16 +2620,16 @@ NA
 WEIGHT_G
 </td>
 <td style="text-align:left;">
-NA
+Specimen weight (g)
 </td>
 <td style="text-align:left;">
-NA
+grams
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,1)
 </td>
 <td style="text-align:left;">
-NA
+Weight of specimen (grams).
 </td>
 </tr>
 </tbody>
@@ -2818,7 +2818,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 YEAR
 </td>
 <td style="text-align:left;">
-Survey Year
+Survey year
 </td>
 <td style="text-align:left;">
 year
@@ -2827,7 +2827,7 @@ year
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-NA
+Year the observation (survey) was collected.
 </td>
 </tr>
 </tbody>
@@ -2875,7 +2875,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of class_taxon of a given species.
+Phylogenetic latin rank of class of a given species.
 </td>
 </tr>
 <tr>
@@ -2883,7 +2883,7 @@ Phylogenetic latin rank of class_taxon of a given species.
 COMMON_NAME
 </td>
 <td style="text-align:left;">
-Taxon Common Name
+Taxon common name
 </td>
 <td style="text-align:left;">
 text
@@ -2917,7 +2917,7 @@ Taxonomic database source, either ITIS or WoRMS.
 DATABASE_ID
 </td>
 <td style="text-align:left;">
-Species ID in Database
+Species ID in database
 </td>
 <td style="text-align:left;">
 ID code
@@ -2943,7 +2943,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of family_taxon of a given species.
+Phylogenetic latin rank of family of a given species.
 </td>
 </tr>
 <tr>
@@ -2960,7 +2960,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of genus_taxon of a given species.
+Phylogenetic latin rank of genus of a given species.
 </td>
 </tr>
 <tr>
@@ -2994,7 +2994,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of kingdom_taxon of a given species.
+Phylogenetic latin rank of kingdom of a given species.
 </td>
 </tr>
 <tr>
@@ -3011,7 +3011,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of order_taxon of a given species.
+Phylogenetic latin rank of order of a given species.
 </td>
 </tr>
 <tr>
@@ -3028,7 +3028,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of phylum_taxon of a given species.
+Phylogenetic latin rank of phylum of a given species.
 </td>
 </tr>
 <tr>
@@ -3036,7 +3036,7 @@ Phylogenetic latin rank of phylum_taxon of a given species.
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
-Taxon Code
+Taxon code
 </td>
 <td style="text-align:left;">
 ID code
@@ -3053,16 +3053,16 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 SPECIES_NAME
 </td>
 <td style="text-align:left;">
-NA
+Scientific name of species
 </td>
 <td style="text-align:left;">
-NA
+text
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Scientific name of species.
 </td>
 </tr>
 <tr>
@@ -3079,7 +3079,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of subclass_taxon of a given species.
+Phylogenetic latin rank of subclass of a given species.
 </td>
 </tr>
 <tr>
@@ -3096,7 +3096,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of subfamily_taxon of a given species.
+Phylogenetic latin rank of subfamily of a given species.
 </td>
 </tr>
 <tr>
@@ -3113,7 +3113,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of suborder_taxon of a given species.
+Phylogenetic latin rank of suborder of a given species.
 </td>
 </tr>
 <tr>
@@ -3130,7 +3130,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of subphylum_taxon of a given species.
+Phylogenetic latin rank of subphylum of a given species.
 </td>
 </tr>
 <tr>
@@ -3147,7 +3147,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of superclass_taxon of a given species.
+Phylogenetic latin rank of superclass of a given species.
 </td>
 </tr>
 <tr>
@@ -3164,7 +3164,7 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of superfamily_taxon of a given species.
+Phylogenetic latin rank of superfamily of a given species.
 </td>
 </tr>
 <tr>
@@ -3181,7 +3181,24 @@ category
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Phylogenetic latin rank of superorder_taxon of a given species.
+Phylogenetic latin rank of superorder of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUPERORDER_TAXON
+</td>
+<td style="text-align:left;">
+Superorder phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of superorder of a given species.
 </td>
 </tr>
 </tbody>
