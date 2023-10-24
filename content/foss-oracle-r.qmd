@@ -15,38 +15,8 @@ Many users will want to access the data from `Oracle` using `R`. The user will n
 Here, the user can write in their username and password directly into the `RODBC` connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
 
 ```{r oracle-connect-2, echo = TRUE, eval = FALSE}
- #' Define RODBC connection to ORACLE
- #'
- #' @param schema default = 'AFSC'. 
- #'
- #' @return oracle channel connection
- #' @export
- #'
- #' @examples
- #' # Not run
- #' # channel <- oracle_connect()
-oracle_connect <- function(
-    schema='AFSC', 
-    username = NULL, 
-    passowrd = NULL){(echo=FALSE)
-  
-  library("RODBC")
-  library("getPass")
-  if (is.null(username)) {
-    username <- getPass(msg = "Enter your ORACLE Username: ")
-  }
-  if (is.null(password)) {
-    password <- getPass(msg = "Enter your ORACLE Password: ")
-  }
-  channel  <- RODBC::odbcConnect(
-    paste(schema),
-    paste(username),
-    paste(password), 
-    believeNRows=FALSE)
-  return(channel)
-}
-
-channel <- oracle_connect()
+library(gapindex)
+channel <- gapindex::get_connected()
 ```
 
 ### Ex. 1: Join data

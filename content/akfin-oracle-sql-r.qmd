@@ -17,6 +17,11 @@ Many users will want to access the data from `Oracle` using `R`. The user will n
 
 Here, the user can establish the oracle connection by entering their username and password in the `channel <- gapindex::oracle_connect()` function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
 
+```{r oracle-connect-2, echo = TRUE, eval = FALSE}
+library(gapindex)
+channel <- gapindex::get_connected()
+```
+
 ## Data SQL Query Examples: 
 
 ### Ex. 0: Select all data from a table
