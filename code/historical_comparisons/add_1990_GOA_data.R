@@ -1,9 +1,9 @@
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Project:       Standard Index Products
+## Project:       Quickfix add GOA 1990 Data
 ## Author:        Zack Oyafuso (zack.oyafuso@noaa.gov)
 ## Description:   Calculate CPUE, Biomass/Abundance, size composition and
-##                age compositions for all species of interest.
-##                Save to the temp/ folder.
+##                age compositions for all species of interest in the GOA. 
+##                Filter for 1990 data and append to GAP_PRODUCTS. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
@@ -44,8 +44,8 @@ writeLines(text = paste("Accessed on", Sys.time()),
 ##   Loop over regions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
-  
+# for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
+for (iregion in 2 ) { ## Loop over regions -- start  
   ## Pull data for all years and species from Oracle
   start_time <- Sys.time()
   production_data <- gapindex::get_data(
@@ -211,4 +211,36 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
               file = paste0("temp/production/production_", idata, "_", 
                             names(regions)[iregion], ".csv"),
               row.names = F)
+}
+
+## Subset data from 1990 and make sure it's in the same form as the tables
+## in GAP_PRODUCTS before appending using RODBC::sqlSave() (otherwise the 
+## program will crash).
+cpue_90 <-
+  subset(x = production_cpue,
+         subset = HAULJOIN %in%
+           subset(x = production_data$haul,
+                  subset = CRUISE %in% 199001:199010)[, "HAULJOIN"],
+         select = c(HAULJOIN, SPECIES_CODE, WEIGHT_KG, COUNT,
+                    AREA_SWEPT_KM2, CPUE_KGKM2, CPUE_NOKM2))
+
+biomass_90 <- 
+  subset(x = production_biomass,
+         subset = YEAR == 1990,
+         select = -SURVEY)
+
+sizecomp_90 <- 
+  subset(x = production_sizecomp,
+         subset = YEAR == 1990)
+
+agecomp_90 <- 
+  subset(x = production_agecomp,
+         subset = YEAR == 1990,
+         select = -SURVEY)
+
+for (idata in c("cpue", "biomass", "sizecomp", "agecomp")) {
+  RODBC::sqlSave(channel = sql_channel, dat = get(paste0(idata, "_90")), 
+                 tablename = paste0("GAP_PRODUCTS.", toupper(x = idata)), 
+                 append = TRUE, 
+                 rownames = FALSE)
 }
