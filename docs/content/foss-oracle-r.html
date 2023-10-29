@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Access via Oracle and R (AFSC only)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access via Oracle and R (AFSC only)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -179,6 +179,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">News</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro-code-of-conduct.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workflow</span></a>
   </div>
 </li>
       </ul>
@@ -279,8 +284,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../content/end-contact-us.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Contact us</span></a>
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">content/end-contact-us.qmd</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -321,6 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link active" data-scroll-target="#connect-to-oracle-from-r">Connect to Oracle from R</a></li>
   <li><a href="#ex.-1-join-data" id="toc-ex.-1-join-data" class="nav-link" data-scroll-target="#ex.-1-join-data">Ex. 1: Join data</a></li>
   <li><a href="#ex.-2-subset-data" id="toc-ex.-2-subset-data" class="nav-link" data-scroll-target="#ex.-2-subset-data">Ex. 2: Subset data</a></li>
+  <li><a href="#ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" id="toc-ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="nav-link" data-scroll-target="#ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023">Ex. 3: Find all species found in the eastern Bering Sea (EBS) survey in 2023</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -418,8 +424,7 @@ function googleTranslateElementInit() {
 </section>
 <section id="ex.-2-subset-data" class="level3">
 <h3 class="anchored" data-anchor-id="ex.-2-subset-data">Ex. 2: Subset data</h3>
-<p>Once connected, pull and save (if needed) the tables into the <code>R</code> environment.</p>
-<p>To pull a small subset of the data (especially since files like <code>GAP_PRODUCTS.FOSS_CPUE_ZEROFILLED</code> are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021:</p>
+<p>Here, we are pulling EBS Pacific cod from 2010 - 2021:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
@@ -432,8 +437,92 @@ function googleTranslateElementInit() {
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND SPECIES_CODE = 21720 -- 'Pacific cod' </span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &gt;= 2010 </span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &lt; 2021"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Save table to local directory</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> a, <span class="at">file =</span> <span class="st">"ebs_pcod_2010-2020.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  HAULJOIN SPECIES_CODE CPUE_KGKM2 CPUE_NOKM2 COUNT WEIGHT_KG TAXON_CONFIDENCE
+1   -19252        21720   413.4828   248.0897    12     20.00                1
+2   -19288        21720   449.8301  1876.1759    83     19.90                1
+3   -17715        21720   491.3252   218.1905    11     24.77                1
+4   -17850        21720   990.1357   152.2616     7     45.52                1
+5   -18731        21720   946.3481  2592.1327   118     43.08                1
+6   -18165        21720  1053.2723   241.8536    12     52.26                1
+  YEAR SRVY             SURVEY SURVEY_DEFINITION_ID
+1 2019  EBS eastern Bering Sea                   98
+2 2019  EBS eastern Bering Sea                   98
+3 2018  EBS eastern Bering Sea                   98
+4 2018  EBS eastern Bering Sea                   98
+5 2019  EBS eastern Bering Sea                   98
+6 2018  EBS eastern Bering Sea                   98
+                                             SURVEY_NAME CRUISE CRUISEJOIN
+1 Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey 201901       -727
+2 Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey 201901       -727
+3 Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey 201801       -723
+4 Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey 201801       -723
+5 Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey 201901       -726
+6 Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey 201801       -723
+  HAULJOIN.1 HAUL STRATUM STATION VESSEL_ID   VESSEL_NAME           DATE_TIME
+1     -19252   76      31    G-03       162 ALASKA KNIGHT 2019-06-24 15:52:02
+2     -19288   96      20    O-18       162 ALASKA KNIGHT 2019-06-29 06:54:00
+3     -17715   92      20    O-18       162 ALASKA KNIGHT 2018-06-26 17:42:00
+4     -17850  117      32    F-19       162 ALASKA KNIGHT 2018-07-02 09:49:43
+5     -18731   11      31    I-13        94   VESTERAALEN 2019-06-04 13:15:57
+6     -18165  172      62    Q-27       162 ALASKA KNIGHT 2018-07-26 07:49:26
+  LATITUDE_DD_START LONGITUDE_DD_START LATITUDE_DD_END LONGITUDE_DD_END
+1          57.01591          -166.4752        56.99137        -166.4601
+2          59.68079          -168.6144        59.65546        -168.6178
+3          59.66752          -168.6701        59.67396        -168.6189
+4          56.67170          -168.9406        56.67359        -168.8919
+5          57.69052          -160.2580        57.66518        -160.2640
+6          60.31173          -174.7032        60.33716        -174.7090
+  BOTTOM_TEMPERATURE_C SURFACE_TEMPERATURE_C DEPTH_M DISTANCE_FISHED_KM
+1                  4.1                   9.7      74              2.880
+2                  5.1                   7.8      39              2.821
+3                  5.9                   5.9      40              2.981
+4                  4.5                   8.8      99              3.005
+5                  5.5                   7.5      54              2.840
+6                  3.2                  10.1     103              2.845
+  DURATION_HR NET_WIDTH_M NET_HEIGHT_M AREA_SWEPT_KM2 PERFORMANCE
+1       0.528      16.795        2.126       0.048370           0
+2       0.505      15.682        2.227       0.044239           0
+3       0.517      16.912        1.736       0.050415           0
+4       0.525      15.299        2.152       0.045973           0
+5       0.520      16.029        2.200       0.045522           0
+6       0.511      17.440        2.200       0.049617           0</code></pre>
+</div>
+</div>
+</section>
+<section id="ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023">Ex. 3: Find all species found in the eastern Bering Sea (EBS) survey in 2023</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">channel =</span> channel, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">query =</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT DISTINCT </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">ss.COMMON_NAME,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">ss.SCIENTIFIC_NAME, </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">ss.ID_RANK, </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">ss.WORMS</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.FOSS_CATCH cc -- get species codes</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.FOSS_SPECIES ss -- get species info</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.SPECIES_CODE = ss.SPECIES_CODE</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.FOSS_HAUL hh -- filter by year and survey</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.HAULJOIN = hh.HAULJOIN</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE hh.YEAR = 2023</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">AND hh.SURVEY_DEFINITION_ID = 98 -- EBS survey</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY COMMON_NAME"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            COMMON_NAME                 SCIENTIFIC_NAME ID_RANK   WORMS
+1    Alaska falsejingle          Pododesmus macrochisma species  758426
+2   Alaska great-tellin               Megangulus luteus species  423511
+3         Alaska plaice Pleuronectes quadrituberculatus species  254564
+4          Alaska razor                    Siliqua alta species  413689
+5          Alaska skate             Arctoraja parmifera species 1577324
+6 Alaska skate egg case    Arctoraja parmifera egg case species      NA</code></pre>
+</div>
 </div>
 
 

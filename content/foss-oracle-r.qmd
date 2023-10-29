@@ -23,7 +23,7 @@ channel <- gapindex::get_connected()
 
 To join these tables in Oracle, you may use a variant of the following code: 
 
-```{sql, eval = FALSE, echo = TRUE}
+```{sql foss-oracle-r-1, eval = FALSE, echo = TRUE}
 SELECT 
 hh.YEAR,
 hh.SRVY,                 
@@ -75,11 +75,9 @@ AND hh.HAULJOIN = cc.HAULJOIN
 
 ### Ex. 2: Subset data
 
-Once connected, pull and save (if needed) the tables into the `R` environment. 
+Here, we are pulling EBS Pacific cod from 2010 - 2021: 
 
-To pull a small subset of the data (especially since files like `GAP_PRODUCTS.FOSS_CPUE_ZEROFILLED` are so big), use a variation of the following code. Here, we are pulling EBS Pacific cod from 2010 - 2021: 
-
-```{r oracle-data-pull-subset, echo = TRUE, eval = FALSE}
+```{r foss-oracle-r-2, echo = TRUE, eval = TRUE}
 # Pull data
 a <- RODBC::sqlQuery(
 channel = channel, 
@@ -91,8 +89,32 @@ WHERE SRVY = 'EBS'
 AND SPECIES_CODE = 21720 -- 'Pacific cod' 
 AND YEAR >= 2010 
 AND YEAR < 2021")
-# Save table to local directory
-write.csv(x = a, file = "ebs_pcod_2010-2020.csv")
+
+head(a)
+```
+
+### Ex. 3: Find all species found in the eastern Bering Sea (EBS) survey in 2023
+
+```{r foss-oracle-r-3, echo = TRUE, eval = TRUE}
+# Pull data
+a <- RODBC::sqlQuery(
+channel = channel, 
+query = 
+"SELECT DISTINCT 
+ss.COMMON_NAME,
+ss.SCIENTIFIC_NAME, 
+ss.ID_RANK, 
+ss.WORMS
+FROM GAP_PRODUCTS.FOSS_CATCH cc -- get species codes
+LEFT JOIN GAP_PRODUCTS.FOSS_SPECIES ss -- get species info
+ON cc.SPECIES_CODE = ss.SPECIES_CODE
+LEFT JOIN GAP_PRODUCTS.FOSS_HAUL hh -- filter by year and survey
+ON cc.HAULJOIN = hh.HAULJOIN
+WHERE hh.YEAR = 2023
+AND hh.SURVEY_DEFINITION_ID = 98 -- EBS survey
+ORDER BY COMMON_NAME")
+
+head(a)
 ```
 
 ```{r rodbc-close}

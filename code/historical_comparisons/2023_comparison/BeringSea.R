@@ -3,44 +3,59 @@
 ## Author:        Zack Oyafuso (zack.oyafuso@noaa.gov)
 ## Description:   Compare EBS+PLUSNW and NBS historical data product tables 
 ##                in the HAEHNR schema with those tables produced in the 
-##                GAP_PRODUCTS schema.
+##                GAP_prodUCTS schema.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
-rm(list = ls())
+# rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import packages, connect to Oracle
+##   Import packages, connect to Oracle ---------------------------------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
 library(reshape2)
 
-sql_channel <- gapindex::get_connected()
+if (file.exists("Z:/Projects/ConnectToOracle.R")) {
+  source("Z:/Projects/ConnectToOracle.R")
+  sql_channel <- channel_products
+} else {
+  sql_channel <- gapindex::get_connected()
+}
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import production tables from GAP_PRODUCTS Oracle schema
+##   Import production tables from GAP_prodUCTS Oracle schema -----------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## CPUE
-hauljoins_2023 <- 
-  c(RODBC::sqlQuery(channel = sql_channel,
-                    query = paste0("SELECT DISTINCT HAULJOIN FROM 
-                                 HAEHNR.CPUE_EBS_PLUSNW 
-                                 WHERE YEAR = 2023"))$HAULJOIN, 
-    RODBC::sqlQuery(channel = sql_channel,
-                    query = paste0("SELECT DISTINCT HAULJOIN FROM 
-                                 HAEHNR.CPUE_NBS 
-                                 WHERE YEAR = 2023"))$HAULJOIN)
+### CPUE -----------------------------------------------------------------------
+# hauljoins_2023 <- 
+#   c(RODBC::sqlQuery(channel = sql_channel,
+#                     query = paste0("SELECT DISTINCT HAULJOIN
+#                     FROM HAEHNR.CPUE_EBS_PLUSNW"#,  "WHERE YEAR = 2023"
+#                     ))$HAULJOIN, 
+#     RODBC::sqlQuery(channel = sql_channel,
+#                     query = paste0("SELECT DISTINCT HAULJOIN 
+#                                    FROM HAEHNR.CPUE_NBS"#,  "WHERE YEAR = 2023"
+#                     ))$HAULJOIN)
 
 production_cpue <- 
   RODBC::sqlQuery(channel = sql_channel,
-                  query = paste0("SELECT * FROM GAP_PRODUCTS.CPUE ",
-                                 "WHERE HAULJOIN IN ",
-                                 gapindex::stitch_entries(hauljoins_2023)))
+                  query = paste0("SELECT * 
+                                 FROM GAP_prodUCTS.CPUE 
+                                 WHERE WEIGHT_KG > 0" #,  
+                                 # "AND HAULJOIN IN (",
+                                 # paste0(hauljoins_2023, collapse = ", "), ")"
+                                 ))
+
 production_cpue$CPUE_KGKM2 <- round(production_cpue$CPUE_KGKM2, 2)
 production_cpue$CPUE_NOKM2 <- round(production_cpue$CPUE_NOKM2, 2)
 
-## Biomass
+### Species --------------------------------------------------------------------
+production_spp <- RODBC::sqlQuery(channel = sql_channel,
+                                  query = paste0(
+                                    "SELECT SPECIES_CODE, COMMON_NAME, SPECIES_NAME ",
+                                    "FROM GAP_prodUCTS.AKFIN_TAXONOMIC_CLASSIFICATION"))
+
+### Biomass --------------------------------------------------------------------
 production_biomass <- 
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0("SELECT SURVEY_DEFINITION_ID, AREA_ID,
@@ -53,58 +68,73 @@ production_biomass <-
                                  ROUND(BIOMASS_MT, 2) AS BIOMASS_MT,
                                  BIOMASS_VAR,
                                  POPULATION_COUNT,
-                                 POPULATION_VAR FROM GAP_PRODUCTS.BIOMASS ",
+                                 POPULATION_VAR FROM GAP_prodUCTS.BIOMASS ",
                                  "WHERE SURVEY_DEFINITION_ID in (98, 143) ",
                                  "AND YEAR = 2023 AND ",
                                  "AREA_ID NOT IN (101, 201, 301, 99901)"))
 
-# test_biomass$CPUE_KGKM2_MEAN_HIST <- round(test_biomass$CPUE_KGKM2_MEAN_HIST, 2)
-# test_biomass$CPUE_NOKM2_MEAN_HIST <- round(test_biomass$CPUE_NOKM2_MEAN_HIST, 2)
-# test_biomass$CPUE_KGKM2_VAR_PROD <- round(test_biomass$CPUE_KGKM2_VAR_PROD, 6)
-# test_biomass$BIOMASS_MT_PROD <- round(test_biomass$BIOMASS_MT_PROD, 2)
-# test_biomass$BIOMASS_MT_HIST <- round(test_biomass$BIOMASS_MT_HIST, 2)
-# test_biomass$BIOMASS_VAR_PROD <- round(test_biomass$BIOMASS_VAR_PROD, 4)
+# test_biomass$CPUE_KGKM2_MEAN_hist <- round(test_biomass$CPUE_KGKM2_MEAN_hist, 2)
+# test_biomass$CPUE_NOKM2_MEAN_hist <- round(test_biomass$CPUE_NOKM2_MEAN_hist, 2)
+# test_biomass$CPUE_KGKM2_VAR_prod <- round(test_biomass$CPUE_KGKM2_VAR_prod, 6)
+# test_biomass$BIOMASS_MT_prod <- round(test_biomass$BIOMASS_MT_prod, 2)
+# test_biomass$BIOMASS_MT_hist <- round(test_biomass$BIOMASS_MT_hist, 2)
+# test_biomass$BIOMASS_VAR_prod <- round(test_biomass$BIOMASS_VAR_prod, 4)
 
-
-## Size composition
+### Size composition -----------------------------------------------------------
 production_sizecomp <- 
   RODBC::sqlQuery(channel = sql_channel,
-                  query = paste0("SELECT * FROM GAP_PRODUCTS.SIZECOMP ",
+                  query = paste0("SELECT * FROM GAP_prodUCTS.SIZECOMP ",
                                  "WHERE SURVEY_DEFINITION_ID in (98, 143) ",
                                  "AND YEAR = 2023 AND ",
                                  "AREA_ID NOT IN (99901, 101, 201, 301)"))
 
-## Age composition
+### Age composition ------------------------------------------------------------
 production_agecomp <- 
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0("SELECT YEAR, SPECIES_CODE, AREA_ID, SEX, ",
                                  "AGE, POPULATION_COUNT, LENGTH_MM_MEAN, ",
-                                 "LENGTH_MM_SD FROM GAP_PRODUCTS.AGECOMP ",
+                                 "LENGTH_MM_SD FROM GAP_prodUCTS.AGECOMP ",
                                  "WHERE SURVEY_DEFINITION_ID in (98, 143) ",
                                  "AND YEAR = 2022 AND AREA_ID != 99901"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import historical tables from HAEHNR Oracle schema
+##   Import historical tables from HAEHNR Oracle schema -----------------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## CPUE
+### CPUE -----------------------------------------------------------------------
 historical_cpue <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
                     "SELECT HAULJOIN, SPECIES_CODE, ",
                     "ROUND(CPUE_KGHA * 100, 2) AS CPUE_KGKM2,
                      ROUND(CPUE_NOHA * 100, 2) AS CPUE_NOKM2 ",
-                    "FROM HAEHNR.CPUE_EBS_PLUSNW WHERE YEAR = 2023")),
+                    "FROM HAEHNR.CPUE_EBS_PLUSNW"#,  "WHERE YEAR = 2023"
+                  )),
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
                     "SELECT HAULJOIN, SPECIES_CODE, 
                      ROUND(CPUE_KGHA * 100, 2) AS CPUE_KGKM2,
                      ROUND(CPUE_NOHA * 100, 2) AS CPUE_NOKM2 
-                     FROM HAEHNR.CPUE_NBS WHERE YEAR = 2023"))
+                     FROM HAEHNR.CPUE_NBS"#,  "WHERE YEAR = 2023"
+                  ))
 )
 
+### Species --------------------------------------------------------------------
+historical_spp <- rbind(
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0(
+                    "SELECT SPECIES_CODE, COMMON_NAME, SPECIES_NAME ",
+                    "FROM HAEHNR.CPUE_EBS_PLUSNW"#,  "WHERE YEAR = 2023"
+                  )),
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = paste0(
+                    "SELECT SPECIES_CODE, COMMON_NAME, SPECIES_NAME 
+                     FROM HAEHNR.CPUE_NBS"#,  "WHERE YEAR = 2023"
+                  ))
+) 
+historical_spp <- unique(historical_spp)
 
-## Biomass
+### Biomass --------------------------------------------------------------------
 historical_biomass <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
@@ -123,7 +153,8 @@ historical_biomass <- rbind(
                     "VARBIO AS BIOMASS_VAR, ",
                     "POPULATION AS POPULATION_COUNT, ",
                     "VARPOP AS POPULATION_VAR ",
-                    "FROM HAEHNR.BIOMASS_EBS_PLUSNW WHERE YEAR = 2023")),
+                    "FROM HAEHNR.BIOMASS_EBS_PLUSNW"#,  "WHERE YEAR = 2023"
+                  )),
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
                     "SELECT 143 AS SURVEY_DEFINITION_ID, YEAR, 
@@ -141,11 +172,12 @@ historical_biomass <- rbind(
                     "BIOMASS_VAR AS BIOMASS_VAR, ",
                     "STRATUM_POP AS POPULATION_COUNT, ",
                     "POP_VAR AS POPULATION_VAR ",
-                    "FROM HAEHNR.BIOMASS_NBS_AKFIN WHERE YEAR = 2023"))
+                    "FROM HAEHNR.BIOMASS_NBS_AKFIN"#,  "WHERE YEAR = 2023"
+                    ))
 )
 
 
-## Size composition 
+### Size composition -----------------------------------------------------------
 historical_sizecomp <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
@@ -156,8 +188,8 @@ historical_sizecomp <- rbind(
                     END AS AREA_ID,
                     SPECIES_CODE, ",
                     "LENGTH as LENGTH_MM, MALES, FEMALES, UNSEXED ",
-                    "FROM HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM ",
-                    "WHERE YEAR = 2023")),
+                    "FROM HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM"#,  "WHERE YEAR = 2023"
+                  )),
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0(
                     "SELECT YEAR, 
@@ -166,8 +198,8 @@ historical_sizecomp <- rbind(
                       ELSE STRATUM
                     END AS AREA_ID, SPECIES_CODE, ",
                     "LENGTH as LENGTH_MM, MALES, FEMALES, UNSEXED ",
-                    "FROM HAEHNR.SIZECOMP_NBS_STRATUM ",
-                    "WHERE YEAR = 2023"))
+                    "FROM HAEHNR.SIZECOMP_NBS_STRATUM"#,  "WHERE YEAR = 2023"
+                  ))
   
 )
 
@@ -183,7 +215,7 @@ historical_sizecomp$SEX <-
          no = ifelse(test = historical_sizecomp$SEX == "FEMALES",
                      yes = 2, no = 3))
 
-## Age composition
+### Age composition ------------------------------------------------------------
 historical_agecomp <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0("SELECT YEAR, SPECIES_CODE, ",
@@ -194,8 +226,8 @@ historical_agecomp <- rbind(
                                  "AGEPOP as POPULATION_COUNT, ",
                                  "MEANLEN AS LENGTH_MM_MEAN , ",
                                  "SDEV AS LENGTH_MM_SD FROM ",
-                                 "HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM ",
-                                 "WHERE YEAR = 2022")),
+                                 "HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM "#,"WHERE YEAR = 2022"
+                                 )),
   RODBC::sqlQuery(channel = sql_channel,
                   query = paste0("SELECT YEAR, SPECIES_CODE, ",
                                  "CASE 
@@ -205,8 +237,8 @@ historical_agecomp <- rbind(
                                  "AGEPOP as POPULATION_COUNT, ",
                                  "MEANLEN AS LENGTH_MM_MEAN , ",
                                  "SDEV AS LENGTH_MM_SD FROM ",
-                                 "HAEHNR.AGECOMP_NBS_STRATUM ",
-                                 "WHERE YEAR = 2022")) 
+                                 "HAEHNR.AGECOMP_NBS_STRATUM "#, "WHERE YEAR = 2022"
+                                 )) 
 )
 
 historical_agecomp$LENGTH_MM_MEAN <- 
@@ -217,8 +249,11 @@ historical_agecomp$POPULATION_COUNT <-
   round(x = historical_agecomp$POPULATION_COUNT, digits = 0)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare CPUE Tables
+##   Compare Tables -----------------------------------------------------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### CPUE --------------------------------------------------------------------
+
 ## Merge CPUE tables using HAULJOIN and SPECIES_CODE as a composite key. 
 test_cpue <-
   merge(x = subset(x = production_cpue,
@@ -243,55 +278,92 @@ mismatch_cpue <-
                       is.na(x = CPUE_NOKM2_prod) &
                       is.na(x = CPUE_NOKM2_hist)) )
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare Biomass Tables
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-historical_biomass <- 
-  subset(x = historical_biomass,
-         subset = SPECIES_CODE %in% 
-           unique(x = production_biomass$SPECIES_CODE))
+### Species --------------------------------------------------------------------
+
+# production_spp$SPECIES_CODE <- trimws(production_spp$SPECIES_CODE)
+# production_spp$COMMON_NAME <- trimws(production_spp$COMMON_NAME)
+# production_spp$SPECIES_NAME <- trimws(production_spp$SPECIES_NAME)
+# 
+# historical_spp$SPECIES_CODE <- trimws(historical_spp$SPECIES_CODE)
+# historical_spp$COMMON_NAME <- trimws(historical_spp$COMMON_NAME)
+# historical_spp$SPECIES_NAME <- trimws(mismatch_spp$SPECIES_NAME)
+
+mismatch_spp <-
+  merge(x = subset(x = unique(production_spp),
+                   subset = SPECIES_CODE %in% 
+                     unique(x = historical_cpue$SPECIES_CODE)), 
+        y = unique(historical_spp),
+        by = c("SPECIES_CODE"),
+        suffixes = c("_prod", "_hist"))
+
+
+mismatch_spp$SPECIES_NAME_diff <- (mismatch_spp$SPECIES_NAME_prod != mismatch_spp$SPECIES_NAME_hist)
+mismatch_spp$SPECIES_NAME_diff <- ifelse(is.na(mismatch_spp$SPECIES_NAME_diff), FALSE, mismatch_spp$SPECIES_NAME_diff)
+mismatch_spp$COMMON_NAME_diff <- (mismatch_spp$COMMON_NAME_prod != mismatch_spp$COMMON_NAME_hist)
+mismatch_spp$COMMON_NAME_diff <- ifelse(is.na(mismatch_spp$COMMON_NAME_diff), FALSE, mismatch_spp$COMMON_NAME_diff)
+
+mismatch_spp <- 
+  subset(x = mismatch_spp,
+         subset = (SPECIES_NAME_diff | COMMON_NAME_diff) )
+
+production_spp_change <- RODBC::sqlQuery(channel = sql_channel,
+                                  query = paste0(
+                                    "SELECT *",
+                                    "FROM GAP_prodUCTS.TAXONOMIC_CHANGES
+                                    WHERE YEAR_CHANGED = 2023")) 
+mismatch_spp_change <- production_spp_change[(production_spp_change$OLD_SPECIES_CODE %in% 
+                                                 historical_spp$SPECIES_CODE |
+                                                 production_spp_change$NEW_SPECIES_CODE %in% 
+                                                 production_spp$SPECIES_CODE), ]
+
+### Biomass --------------------------------------------------------------------
+
+# historical_biomass <- 
+#   subset(x = historical_biomass,
+#          subset = SPECIES_CODE %in% 
+#            unique(x = production_biomass$SPECIES_CODE))
 
 ## Merge BIOMASS tables using YEAR, STRATUM, AND SPECIES_CODE as composite key. 
-test_biomass <- merge(x = historical_biomass,
-                      y = subset(x = production_biomass,
+test_biomass <- merge(x = unique(historical_biomass),
+                      y = subset(x = unique(production_biomass),
                                  subset = SPECIES_CODE %in% 
                                    unique(x = historical_biomass$SPECIES_CODE)),
                       by = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", "SPECIES_CODE"),
-                      all.x = TRUE, suffixes = c("_PROD", "_HIST"))
+                      all.x = TRUE, suffixes = c("_prod", "_hist"))
 
-test_biomass$CPUE_KGKM2_MEAN_HIST <- round(test_biomass$CPUE_KGKM2_MEAN_HIST, 2)
-test_biomass$CPUE_NOKM2_MEAN_HIST <- round(test_biomass$CPUE_NOKM2_MEAN_HIST, 2)
-test_biomass$CPUE_KGKM2_VAR_PROD <- round(test_biomass$CPUE_KGKM2_VAR_PROD, 6)
-test_biomass$BIOMASS_MT_PROD <- round(test_biomass$BIOMASS_MT_PROD, 2)
-test_biomass$BIOMASS_MT_HIST <- round(test_biomass$BIOMASS_MT_HIST, 2)
-test_biomass$BIOMASS_VAR_HIST <- round(test_biomass$BIOMASS_VAR_HIST, 4)
+test_biomass$CPUE_KGKM2_MEAN_hist <- round(test_biomass$CPUE_KGKM2_MEAN_hist, 2)
+test_biomass$CPUE_NOKM2_MEAN_hist <- round(test_biomass$CPUE_NOKM2_MEAN_hist, 2)
+test_biomass$CPUE_KGKM2_VAR_prod <- round(test_biomass$CPUE_KGKM2_VAR_prod, 6)
+test_biomass$BIOMASS_MT_prod <- round(test_biomass$BIOMASS_MT_prod, 2)
+test_biomass$BIOMASS_MT_hist <- round(test_biomass$BIOMASS_MT_hist, 2)
+test_biomass$BIOMASS_VAR_hist <- round(test_biomass$BIOMASS_VAR_hist, 4)
 
 test_biomass$CPUE_NOKM2_VAR <- 
-  with(test_biomass, round(100 * (CPUE_NOKM2_VAR_PROD - CPUE_NOKM2_VAR_HIST) / ifelse(CPUE_NOKM2_VAR_HIST == 0, 1, CPUE_NOKM2_VAR_HIST) ))
+  with(test_biomass, round(100 * (CPUE_NOKM2_VAR_prod - CPUE_NOKM2_VAR_hist) / ifelse(CPUE_NOKM2_VAR_hist == 0, 1, CPUE_NOKM2_VAR_hist) ))
 test_biomass$CPUE_NOKM2_MEAN <- 
-  with(test_biomass, round(100 * (CPUE_NOKM2_MEAN_PROD - CPUE_NOKM2_MEAN_HIST) / ifelse(CPUE_NOKM2_MEAN_HIST == 0, 1, CPUE_NOKM2_MEAN_HIST) ))
+  with(test_biomass, round(100 * (CPUE_NOKM2_MEAN_prod - CPUE_NOKM2_MEAN_hist) / ifelse(CPUE_NOKM2_MEAN_hist == 0, 1, CPUE_NOKM2_MEAN_hist) ))
 
 test_biomass$CPUE_KGKM2_VAR <- 
-  with(test_biomass, round(100 * (CPUE_KGKM2_VAR_PROD - CPUE_KGKM2_VAR_HIST) / ifelse(CPUE_KGKM2_VAR_HIST == 0, 1, CPUE_KGKM2_VAR_HIST) ))
+  with(test_biomass, round(100 * (CPUE_KGKM2_VAR_prod - CPUE_KGKM2_VAR_hist) / ifelse(CPUE_KGKM2_VAR_hist == 0, 1, CPUE_KGKM2_VAR_hist) ))
 test_biomass$CPUE_KGKM2_MEAN <- 
-  with(test_biomass, round(100 * (CPUE_KGKM2_MEAN_PROD - CPUE_KGKM2_MEAN_HIST) / ifelse(CPUE_KGKM2_MEAN_HIST == 0, 1, CPUE_KGKM2_MEAN_HIST) ))
+  with(test_biomass, round(100 * (CPUE_KGKM2_MEAN_prod - CPUE_KGKM2_MEAN_hist) / ifelse(CPUE_KGKM2_MEAN_hist == 0, 1, CPUE_KGKM2_MEAN_hist) ))
 
 test_biomass$N_HAUL <- 
-  with(test_biomass, N_HAUL_PROD - N_HAUL_HIST)
+  with(test_biomass, N_HAUL_prod - N_HAUL_hist)
 test_biomass$N_WEIGHT <- 
-  with(test_biomass, N_WEIGHT_PROD - N_WEIGHT_HIST)
+  with(test_biomass, N_WEIGHT_prod - N_WEIGHT_hist)
 
 
 test_biomass$BIOMASS_MT <- 
-  with(test_biomass, round((BIOMASS_MT_PROD - BIOMASS_MT_HIST)/ifelse(BIOMASS_MT_HIST == 0, 1, BIOMASS_MT_HIST), 2) ) 
+  with(test_biomass, round((BIOMASS_MT_prod - BIOMASS_MT_hist)/ifelse(BIOMASS_MT_hist == 0, 1, BIOMASS_MT_hist), 2) ) 
 
 test_biomass$POPULATION_COUNT <- 
-  with(test_biomass, round((POPULATION_COUNT_PROD - POPULATION_COUNT_HIST)/ifelse(POPULATION_COUNT_HIST == 0, 1, POPULATION_COUNT_HIST), 2) ) 
+  with(test_biomass, round((POPULATION_COUNT_prod - POPULATION_COUNT_hist)/ifelse(POPULATION_COUNT_hist == 0, 1, POPULATION_COUNT_hist), 2) ) 
 
 test_biomass$BIOMASS_VAR <- 
-  with(test_biomass, round((BIOMASS_VAR_PROD - BIOMASS_VAR_HIST)/ifelse(BIOMASS_VAR_HIST == 0, 1, BIOMASS_VAR_HIST), 2) ) 
+  with(test_biomass, round((BIOMASS_VAR_prod - BIOMASS_VAR_hist)/ifelse(BIOMASS_VAR_hist == 0, 1, BIOMASS_VAR_hist), 2) ) 
 test_biomass$POPULATION_VAR <- 
-  with(test_biomass, round((POPULATION_VAR_PROD - POPULATION_VAR_HIST)/ifelse(POPULATION_VAR_HIST == 0, 1, POPULATION_VAR_HIST), 2) ) 
+  with(test_biomass, round((POPULATION_VAR_prod - POPULATION_VAR_hist)/ifelse(POPULATION_VAR_hist == 0, 1, POPULATION_VAR_hist), 2) ) 
 
 
 ## Subset mismatched records
@@ -310,13 +382,11 @@ mismatched_biomass <-
   )
 
 subset(mismatched_biomass, 
-       select = c(YEAR, AREA_ID, SPECIES_CODE, N_WEIGHT_HIST, N_COUNT, 
-                  CPUE_NOKM2_VAR_HIST, CPUE_NOKM2_VAR_PROD, CPUE_NOKM2_VAR,
-                  POPULATION_VAR_HIST, POPULATION_VAR_PROD, POPULATION_VAR))
+       select = c(YEAR, AREA_ID, SPECIES_CODE, N_WEIGHT_hist, N_COUNT, 
+                  CPUE_NOKM2_VAR_hist, CPUE_NOKM2_VAR_prod, CPUE_NOKM2_VAR,
+                  POPULATION_VAR_hist, POPULATION_VAR_prod, POPULATION_VAR))
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare Sizecomp tables
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Sizecomp -------------------------------------------------------------------
 
 length(x = unique(x = production_sizecomp$SPECIES_CODE))
 length(x = unique(x = historical_sizecomp$SPECIES_CODE))
@@ -336,9 +406,7 @@ test_sizecomp$DIFF <-
 ## Subset mismatched records
 mismatched_sizecomp <- subset(test_sizecomp, abs(DIFF) > 3 | is.na(x = DIFF))
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare Age comps
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Age comps ------------------------------------------------------------------
 test_agecomp <- merge(x = historical_agecomp, 
                       y = production_agecomp,
                       by = c("YEAR", "AREA_ID", "SPECIES_CODE", "AGE", "SEX"),
@@ -364,11 +432,19 @@ mismatched_age <-
            LENGTH_MM_SD != 0 | is.na(x = LENGTH_MM_SD))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare Age comps
+##   Combine all mismatches ---------------------------------------------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 all_mismatches <- 
   list(cpue = mismatch_cpue,
+       species = mismatch_spp,
+       species_changes = mismatch_spp_change, 
        biomass = mismatched_biomass,
        sizecomp = mismatched_sizecomp,
        agecomp = mismatched_age)
+
+# save(all_mismatches, file = here::here("temp", "all_mismatches_2023"))
+
+rmarkdown::render(here::here("code/historical_comparisons/2023_comparison/mismatch_report.Rmd"),
+                  output_dir = here::here("temp"),
+                  output_file = "mismatch_report_2023_bs.docx")
 

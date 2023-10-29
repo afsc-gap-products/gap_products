@@ -38,5 +38,9 @@ Or cite our latest data reports for survey-specific data and other findings:
 
 There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
 
-**User Constraints:** Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
+**User Constraints:** Users must read and fully comprehend the metadata and [code of conduct](https://afsc-gap-products.github.io/gap_products/content/code-of-conduct.html) prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
+
+## Suggestions and comments
+
+If the data or metadata can be improved, please create a pull request, [submit an issue to the GitHub organization](https://github.com/afsc-gap-products/data-requests/issues) or [submit an issue to the code's repository](`r paste0(link_repo, "/issues")`).
 

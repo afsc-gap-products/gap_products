@@ -6,3 +6,15 @@ title: Workflow
 ```
 
 ## Code of Conduct
+
+### What are Codes of Conduct?
+
+Codes of Conduct are voluntary sets of rules that assist creators, developers, and users of code and data with data protection compliance and accountability in specific sectors or relating to particular processing operations.
+
+Codes can help organizations to ensure all participants follow best practices and rules designed specifically for their sector or processing operations, thus enhancing compliance and collaboration. They are developed and managed by an association or other body (the ‘Code Owner’) which is representative of a sector (or category of data controllers or processors), with the expert and sectoral knowledge of how to enhance data protection in their area.
+
+### [Code of Conduct](https://github.com/nmfs-opensci/.github/blob/main/CODE_OF_CONDUCT.md) from the [nmfs-opensci GitHub](https://nmfs-opensci.github.io/). 
+
+```{r}
+readLines(con = "https://raw.githubusercontent.com/nmfs-opensci/.github/main/.github/CODE_OF_CONDUCT.md")
+```
