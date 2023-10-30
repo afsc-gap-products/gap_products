@@ -1,0 +1,34 @@
+---
+title: "Contact us"
+---
+
+Thank you for using our data guide! 
+
+```{r setup, include=FALSE}
+#| file: functions.R
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> This code is always in development. Find code used for various reports in the code [releases](`r paste0(link_repo, "/releases")`).
+
+## This code is primarally maintained by:
+
+**Emily Markowitz** (Emily.Markowitz AT noaa.gov; [\@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA)) 
+
+**Zack Oyafuso** (Zack.Oyafuso AT noaa.gov; [\@zoyafuso-NOAA](https://github.com/zoyafuso-NOAA))  
+
+**Sarah Friedman** (Sarah.Friedman AT noaa.gov; [\@SarahFriedman-NOAA](https://github.com/SarahFriedman-NOAA))  
+
+Alaska Fisheries Science Center,
+
+National Marine Fisheries Service,
+
+National Oceanic and Atmospheric Administration,
+
+Seattle, WA 98195
+
+**General questions and more specific data requests** can be sent to <afsc.gap.metadata@noaa.gov> or submitted as an [issue on our GitHub
+Organization](https://github.com/afsc-gap-products/data-requests). The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson (<Duane.Stevenson@noaa.gov>). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman (<Ned.Laman@noaa.gov>). For questions specifically about crab data in any region, contact Mike Litzow (<Mike.Litzow@noaa.gov>), the Shellfish Assessment Program lead.
+
+For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss) platform, please contact us using the Comments page on the [FOSS](https://www.fisheries.noaa.gov/foss) webpage.

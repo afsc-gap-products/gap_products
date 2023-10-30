@@ -1,8 +1,0 @@
----
-title: "Notes"
----
-
-```{r setup, include=FALSE}
-```
-
-Thank you for using our data guide! 

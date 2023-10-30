@@ -55,14 +55,13 @@ book:
         - content/other-pkgs.qmd
         # - content/other-reports.qmd
         # - content/other-outreach.qmd
-    - part: content/end-contact-us.qmd # content/end-acknowledgements.qmd # content/end.qmd
+    - part: content/end-contact-us.qmd 
       chapters:
         - content/end-run-notes.qmd
-        - content/end-data-constraints.qmd
+        # - content/end-data-constraints.qmd
         - content/end-acknowledgements.qmd
         - content/end-refs.qmd
-        # - content/end-contact-us.qmd
-
+        
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 
     left: "&copy; CC-1.0"
@@ -83,6 +82,8 @@ book:
 
 bibliography: [content/references.bib]
 csl: content/references.csl
+# csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl
+# bibliography: https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib
 
 execute:
   echo: false

@@ -26,6 +26,7 @@ for (p in PKG) {
     require(p,character.only = TRUE)}
 }
 # library("badger", quietly = TRUE)
+link_repo <- "https://github.com/afsc-gap-products/gap_products"
 ```
 
 ```{r, echo = FALSE, results='asis', message=FALSE}
@@ -53,16 +54,6 @@ National Marine Fisheries Service,
 National Oceanic and Atmospheric Administration,
 
 Seattle, WA 98195
-
-## This code and the associated releases were used to develop the following reports, outreach documents, and presentations:
-
-<!-- Use .bib file to cite reports in subsection titles -->
-
-<div id="refs"></div>
-
-# Cite these Data
-
-**NOAA Fisheries Alaska Fisheries Science Center. RACE Division Bottom Trawl Survey Data, Accessed mm/dd/yyyy**
 
 ## NOAA README
 

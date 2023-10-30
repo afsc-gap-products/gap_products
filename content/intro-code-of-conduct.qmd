@@ -1,13 +1,11 @@
 ---
-title: Workflow
+title: Code of Conduct
 ---
 
 ```{r setup, include=FALSE}
 ```
 
-## Code of Conduct
-
-### What are Codes of Conduct?
+## What are Codes of Conduct?
 
 Codes of Conduct are voluntary sets of rules that assist creators, developers, and users of code and data with data protection compliance and accountability in specific sectors or relating to particular processing operations.
 
