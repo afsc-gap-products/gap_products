@@ -3,7 +3,7 @@
 ## Author:        Zack Oyafuso (zack.oyafuso@noaa.gov)
 ## Description:   Compare EBS+PLUSNW and NBS historical data product tables 
 ##                in the HAEHNR schema with those tables produced in the 
-##                GAP_prodUCTS schema.
+##                GAP_PRODUCTS schema.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
@@ -27,25 +27,44 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### CPUE -----------------------------------------------------------------------
-# hauljoins_2023 <- 
+# hauljoins_2023 <-
 #   c(RODBC::sqlQuery(channel = sql_channel,
 #                     query = paste0("SELECT DISTINCT HAULJOIN
 #                     FROM HAEHNR.CPUE_EBS_PLUSNW"#,  "WHERE YEAR = 2023"
-#                     ))$HAULJOIN, 
+#                     ))$HAULJOIN,
 #     RODBC::sqlQuery(channel = sql_channel,
-#                     query = paste0("SELECT DISTINCT HAULJOIN 
+#                     query = paste0("SELECT DISTINCT HAULJOIN
 #                                    FROM HAEHNR.CPUE_NBS"#,  "WHERE YEAR = 2023"
 #                     ))$HAULJOIN)
 
-production_cpue <- 
-  RODBC::sqlQuery(channel = sql_channel,
-                  query = paste0("SELECT * 
-                                 FROM GAP_prodUCTS.CPUE 
-                                 WHERE WEIGHT_KG > 0" #,  
-                                 # "AND HAULJOIN IN (",
-                                 # paste0(hauljoins_2023, collapse = ", "), ")"
-                                 ))
+hauljoins <-
+  c(RODBC::sqlQuery(channel = sql_channel,
+                    query = paste0("SELECT DISTINCT HAULJOIN
+                    FROM HAEHNR.CPUE_EBS_PLUSNW"#,  "WHERE YEAR = 2023"
+                    ))$HAULJOIN,
+    RODBC::sqlQuery(channel = sql_channel,
+                    query = paste0("SELECT DISTINCT HAULJOIN
+                                   FROM HAEHNR.CPUE_NBS"#,  "WHERE YEAR = 2023"
+                    ))$HAULJOIN)
 
+start0 <- end0 <- 1
+production_cpue <- data.frame()
+aa <- (ceiling(length(hauljoins)/999))
+
+for (i in 1:aa) {
+  end0 <- ifelse(i == max(aa), length(hauljoins), (start0 + 999))
+  production_cpue0 <-
+    RODBC::sqlQuery(channel = sql_channel,
+                    query = paste0("SELECT *
+                                   FROM GAP_prodUCTS.CPUE
+                                   WHERE WEIGHT_KG > 0 ",
+                                   "AND HAULJOIN IN (",
+                                   paste0(hauljoins[start0:end0], collapse = ", "), ")"
+                                   ))
+  production_cpue <- rbind.data.frame(production_cpue, production_cpue0)
+  print(paste0("i = ",i,", start: ", start0, ", end: ", end0, ", diff: ", end0-start0))
+  start0 <- end0 + 1
+}
 production_cpue$CPUE_KGKM2 <- round(production_cpue$CPUE_KGKM2, 2)
 production_cpue$CPUE_NOKM2 <- round(production_cpue$CPUE_NOKM2, 2)
 
@@ -70,8 +89,8 @@ production_biomass <-
                                  POPULATION_COUNT,
                                  POPULATION_VAR FROM GAP_prodUCTS.BIOMASS ",
                                  "WHERE SURVEY_DEFINITION_ID in (98, 143) ",
-                                 "AND YEAR = 2023 AND ",
-                                 "AREA_ID NOT IN (101, 201, 301, 99901)"))
+                                 # "AND YEAR = 2023 ",
+                                 "AND AREA_ID NOT IN (101, 201, 301, 99901)"))
 
 # test_biomass$CPUE_KGKM2_MEAN_hist <- round(test_biomass$CPUE_KGKM2_MEAN_hist, 2)
 # test_biomass$CPUE_NOKM2_MEAN_hist <- round(test_biomass$CPUE_NOKM2_MEAN_hist, 2)
@@ -163,7 +182,8 @@ historical_biomass <- rbind(
                       ELSE STRATUM
                      END AS AREA_ID,
                     SPECIES_CODE, ",
-                    "HAUL_COUNT as N_HAUL, CATCH_COUNT AS N_WEIGHT, ",
+                    "HAUL_COUNT as N_HAUL,", 
+                    "CATCH_COUNT AS N_WEIGHT, ",
                     "MEAN_WGT_CPUE AS CPUE_KGKM2_MEAN, ",
                     "VAR_WGT_CPUE AS CPUE_KGKM2_VAR, ",
                     "MEAN_NUM_CPUE AS CPUE_NOKM2_MEAN, ",
@@ -324,12 +344,15 @@ mismatch_spp_change <- production_spp_change[(production_spp_change$OLD_SPECIES_
 #            unique(x = production_biomass$SPECIES_CODE))
 
 ## Merge BIOMASS tables using YEAR, STRATUM, AND SPECIES_CODE as composite key. 
-test_biomass <- merge(x = unique(historical_biomass),
-                      y = subset(x = unique(production_biomass),
-                                 subset = SPECIES_CODE %in% 
-                                   unique(x = historical_biomass$SPECIES_CODE)),
+test_biomass <- merge(y = historical_biomass,
+                      x = production_biomass,
+                      # x = subset(x = production_biomass,
+                      #            subset = SPECIES_CODE %in%
+                      #              unique(historical_biomass$SPECIES_CODE)),
                       by = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", "SPECIES_CODE"),
-                      all.x = TRUE, suffixes = c("_prod", "_hist"))
+                      all = TRUE, 
+                      # all.x = TRUE, 
+                      suffixes = c("_prod", "_hist"))
 
 test_biomass$CPUE_KGKM2_MEAN_hist <- round(test_biomass$CPUE_KGKM2_MEAN_hist, 2)
 test_biomass$CPUE_NOKM2_MEAN_hist <- round(test_biomass$CPUE_NOKM2_MEAN_hist, 2)
@@ -353,7 +376,6 @@ test_biomass$N_HAUL <-
 test_biomass$N_WEIGHT <- 
   with(test_biomass, N_WEIGHT_prod - N_WEIGHT_hist)
 
-
 test_biomass$BIOMASS_MT <- 
   with(test_biomass, round((BIOMASS_MT_prod - BIOMASS_MT_hist)/ifelse(BIOMASS_MT_hist == 0, 1, BIOMASS_MT_hist), 2) ) 
 
@@ -367,7 +389,7 @@ test_biomass$POPULATION_VAR <-
 
 
 ## Subset mismatched records
-mismatched_biomass <- 
+mismatch_biomass <- 
   subset(x = test_biomass, 
          subset = CPUE_NOKM2_MEAN != 0 | is.na(x = CPUE_NOKM2_MEAN) |
            CPUE_NOKM2_VAR != 0 | is.na(x = CPUE_NOKM2_VAR) |
@@ -381,7 +403,7 @@ mismatched_biomass <-
          # N_WEIGHT != 0 | is.na(x = N_WEIGHT) 
   )
 
-subset(mismatched_biomass, 
+subset(mismatch_biomass, 
        select = c(YEAR, AREA_ID, SPECIES_CODE, N_WEIGHT_hist, N_COUNT, 
                   CPUE_NOKM2_VAR_hist, CPUE_NOKM2_VAR_prod, CPUE_NOKM2_VAR,
                   POPULATION_VAR_hist, POPULATION_VAR_prod, POPULATION_VAR))
@@ -397,6 +419,7 @@ test_sizecomp <- merge(x = historical_sizecomp,
                        y = production_sizecomp,
                        by = c("YEAR", "AREA_ID", "SPECIES_CODE", 
                               "LENGTH_MM", "SEX"),
+                       all = TRUE, 
                        suffixes = c("_hist", "_prod"))
 
 ## Calculate difference between size comps
@@ -404,11 +427,12 @@ test_sizecomp$DIFF <-
   with(test_sizecomp, POPULATION_COUNT_hist - POPULATION_COUNT_prod)
 
 ## Subset mismatched records
-mismatched_sizecomp <- subset(test_sizecomp, abs(DIFF) > 3 | is.na(x = DIFF))
+mismatch_sizecomp <- subset(test_sizecomp, abs(DIFF) > 3 | is.na(x = DIFF))
 
 ### Age comps ------------------------------------------------------------------
 test_agecomp <- merge(x = historical_agecomp, 
                       y = production_agecomp,
+                      all = TRUE, 
                       by = c("YEAR", "AREA_ID", "SPECIES_CODE", "AGE", "SEX"),
                       suffixes = c("_hist", "_prod"))
 
@@ -419,13 +443,14 @@ test_agecomp$LENGTH_MM_MEAN <-
        round(x = 100 * (LENGTH_MM_MEAN_prod - LENGTH_MM_MEAN_hist) / 
                LENGTH_MM_MEAN_prod, 
              digits = 2))
+
 test_agecomp$LENGTH_MM_SD <- 
   with(test_agecomp, 
        round(x = 100 * (LENGTH_MM_SD_prod - LENGTH_MM_SD_hist) / 
                ifelse(test = LENGTH_MM_SD_prod == 0, 1, LENGTH_MM_SD_prod), 
              digits = 2))
 
-mismatched_age <- 
+mismatch_age <- 
   subset(x = test_agecomp, 
          subset =  abs(POPULATION_COUNT) > 8 | is.na(x = POPULATION_COUNT) |
            LENGTH_MM_MEAN != 0 | is.na(x = LENGTH_MM_MEAN) |
@@ -438,9 +463,9 @@ all_mismatches <-
   list(cpue = mismatch_cpue,
        species = mismatch_spp,
        species_changes = mismatch_spp_change, 
-       biomass = mismatched_biomass,
-       sizecomp = mismatched_sizecomp,
-       agecomp = mismatched_age)
+       biomass = mismatch_biomass,
+       sizecomp = mismatch_sizecomp,
+       agecomp = mismatch_age)
 
 # save(all_mismatches, file = here::here("temp", "all_mismatches_2023"))
 

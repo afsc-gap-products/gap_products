@@ -3,7 +3,7 @@ output: word_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, warnings = FALSE, error = FALSE)
 ```
 
 ```{r setup1}
@@ -14,35 +14,140 @@ library(flextable)
 this_yr <- 2023
 past_yr <- this_yr-1
 
-find_difference <- function(mismatch, str0, past_yr, this_yr) {
+# find_difference <- function(mismatch, str0, past_yr, this_yr) {
+# aa <- mismatch %>% 
+#   dplyr::select(dplyr::ends_with("_hist")) %>% 
+#   names()
+# aa <- gsub(pattern = "_hist", replacement = "", x = aa)
+# 
+# a$changes <- ""
+# for (i in 1:nrow(a)) {
+#   aaaa <- c()
+#   for (ii in 1:length(aa)) {
+#     aaa <- a[i,] %>% 
+#       dplyr::select(dplyr::starts_with(aa[ii])) 
+#     if (aaa[,1] %in% aaa[,2]) {
+#       aaaa <- c(aaaa, aa[ii])
+#     }
+#   }
+#   aaaa <- ifelse(aaa[,1] == aaa[,2], "", 
+#                 paste0(aaaa, collapse = ", "))
+#   
+#   a$changes[i] <- aaaa
+# }
+# 
+# str00 <- paste0("There were ", nrow(a), 
+#                 " ",str0," estimates that changed from the ", 
+#                 past_yr," and ", this_yr," datasets. ")
+# 
+# return(list("a" = a, 
+#             "str00" = str00))
+# }
+
+
+find_difference <- function(mismatch, str0, past_yr, this_yr, col) {
+
+mismatch0 <- mismatch
+
 aa <- mismatch %>% 
   dplyr::select(dplyr::ends_with("_hist")) %>% 
   names()
 aa <- gsub(pattern = "_hist", replacement = "", x = aa)
 
-a$changes <- ""
-for (i in 1:nrow(a)) {
-  aaaa <- c()
-  for (ii in 1:length(aa)) {
-    aaa <- a[i,] %>% 
-      dplyr::select(dplyr::starts_with(aa[ii])) 
-    if (aaa[,1] %in% aaa[,2]) {
-      aaaa <- c(aaaa, aa[ii])
-    }
-  }
-  aaaa <- ifelse(aaa[,1] == aaa[,2], "", 
-                paste0(aaaa, collapse = ", "))
+mismatch <- mismatch %>% 
+  dplyr::select(dplyr::any_of(col), 
+                dplyr::ends_with("_hist"), 
+                dplyr::ends_with("_prod"))  %>% 
+  dplyr::select(order(colnames(.))) %>% 
+  dplyr::relocate(dplyr::any_of(col))
+
+for (i in 1:length(aa)) {
+  aaa <- names(mismatch)[which(grepl(pattern = aa[i], x = names(mismatch)))]
+  mismatch$temp <- (mismatch[, aaa[1]] - mismatch[, aaa[2]])
+  names(mismatch)[names(mismatch) == "temp"] <- paste0(aa[i], "_diff")
   
-  a$changes[i] <- aaaa
+  mismatch$temp <- #mismatch %>% 
+    dplyr::case_when(
+      is.na(mismatch[,aaa[1]]) ~ paste0("missing from hist"), 
+      is.na(mismatch[,aaa[2]]) ~ paste0("missing from prod"), 
+      abs(mismatch[,paste0(aa[i], "_diff")])>0.1 ~ paste0("rounding error in ", aa[i]), 
+      abs(mismatch[,paste0(aa[i], "_diff")])<=0.1 ~ paste0("actual change in ", aa[i]), 
+      # ~ "FALSE"
+    )
+  
+  # mismatch$temp <- ""
+  # mismatch$temp[is.na(mismatch[,paste0(aaa[1])])] <- paste0("missing from hist")
+  # mismatch$temp[is.na(mismatch[,paste0(aaa[2])])] <- paste0("missing from hist")
+  # 
+  # 
+  # mismatch$temp <- ifelse((abs(mismatch[,paste0(aa[i], "_diff")])>0.05 | 
+  #                            is.na(mismatch[,paste0(aa[i], "_diff")])), 
+  #                         TRUE, FALSE)
+  names(mismatch)[names(mismatch) == "temp"] <- paste0(aa[i], "_case")
 }
 
-str00 <- paste0("There were ", nrow(a), 
-                " ",str0," estimates that changed from the ", 
+mismatch00 <- mismatch
+str00 <- paste0("There were ", nrow(mismatch), 
+                " ", str0," estimates that changed from the ", 
                 past_yr," and ", this_yr," datasets. ")
 
-return(list("a" = a, 
+mismatch_missing <- mismatch[grepl(pattern = "missing from ", x = mismatch[, paste0(aa[1], "_case")]), ]
+# table(mismatch_missing[, c("SPECIES_CODE", "YEAR", paste0(aa[i],"_case"))])
+if (nrow(mismatch_missing) > 0) {
+str00 <- paste0(str00, 
+                "However, ", 
+                ifelse(nrow(mismatch) != nrow(mismatch_missing), nrow(mismatch_missing), "all"),
+                " observations were missing between datasets. ")
+}
+# table(mismatch_missing[, c("SPECIES_CODE", "YEAR")])
+
+mismatch_rounding <- mismatch[grepl(pattern = "rounding error ", x = mismatch[, paste0(aa[1], "_case")]), ]
+if (nrow(mismatch_rounding) > 0) {
+str00 <- paste0(str00, 
+                "", 
+                ifelse(nrow(mismatch) != nrow(mismatch_rounding), nrow(mismatch_rounding), "all"),
+                " differences were due to rounding errors (+-0.1 difference). ")
+}
+
+mismatch_actual <- mismatch[grepl(pattern = "actual change ", x = mismatch[, paste0(aa[1], "_case")]), ]
+if (nrow(mismatch_actual) > 0) {
+str00 <- paste0(str00, 
+                "In total, ", 
+                ifelse(nrow(mismatch) != nrow(mismatch_actual), nrow(mismatch_actual), "all"),
+                " differences were actual changes. ")
+}
+mismatch <- mismatch_actual
+# mismatch$case <- rowSums(is.na(mismatch[,which(grepl(pattern = "_case", x = names(mismatch)))]))
+# mismatch$case <- rowSums(mismatch[,which(grepl(pattern = "_case", x = names(mismatch)))])
+# mismatch$case <- ifelse(is.na(mismatch$case), TRUE, mismatch$case)
+
+
+# mismatch <- mismatch[,which(grepl(pattern = "_case", x = names(mismatch)))]
+
+
+
+
+# str00 <- paste0(a0$str00, 
+#                 "With the new dataset, ", length(is.na(a[,paste0(aa[1], "_hist")])), 
+#                 " enteries were added and ", length(is.na(a[,paste0(aa[1], "_prod")])), 
+#                 " enteries were removed from the newest dataset. ")
+
+
+mismatch <- mismatch %>% 
+  # dplyr::filter(case>0) %>% 
+  dplyr::select(dplyr::any_of(names(mismatch0)))
+
+if (nrow(mismatch) == 0) {
+  mismatch <- ""
+} else {
+  mismatch <- flextable::flextable(mismatch) %>% flextable::theme_vanilla()
+}
+
+return(list("a" = mismatch, 
+            "a0" = mismatch00, 
             "str00" = str00))
 }
+
 ```
 
 ```{r print_differences, echo=FALSE}
@@ -63,27 +168,6 @@ return(list("a" = a,
 # Species
 
 ```{r}
-a <- mismatch_spp_change
-str00 <- paste0("There were ", nrow(a), " species scientific names that changed from the ", 
-                past_yr," and ", this_yr," datasets. ")
-flextable::flextable(a)
-```
-
-`r print(str00)` 
-
-```{r}
-a <- table(mismatch_spp_change[, c("ACTION")]) %>% data.frame()
-str00 <- paste0("There were ", 
-                paste0(a$Freq, " instances of ", a$Var1, collapse = " and "), 
-                " species info tables that changed from the ", 
-                past_yr," and ", this_yr," datasets. ")
-a <- table(mismatch_spp_change[, c("ACTION", "REASON")]) %>% data.frame()
-flextable::flextable(a)
-```
-
-`r print(str00)` 
-
-```{r}
 a <- mismatch_spp %>% 
   dplyr::filter(SPECIES_NAME_diff) %>%
   dplyr::select(!dplyr::ends_with("_diff"))  %>%
@@ -92,12 +176,33 @@ a <- mismatch_spp %>%
 str00 <- paste0("There were ", nrow(a), 
                 " species scientific names that changed from the ", 
                 past_yr," and ", this_yr," datasets. ")
-flextable::flextable(a)
+
+a <- mismatch_spp_change
+str00 <- paste0(str00, 
+                "There were ", nrow(a), " species scientific taxonomics that changed across all of the surveys. ")
+
+a0 <- table(mismatch_spp_change[, c("ACTION")]) %>% data.frame()
+str00 <- paste0(str00, 
+                "There were ", 
+                paste0(a0$Freq, " instances of ", a0$Var1, collapse = " and "), 
+                " species info tables that changed. ")
+a0 <- table(mismatch_spp_change[, c("ACTION", "REASON")]) %>% data.frame()
+str00 <- paste0(str00, 
+                "These changes were changed because ", paste0(a0$REASON, collapse = ", "), " were identified. ")
 ```
 
-`r print(str00)` 
+```{r, eval = FALSE}
+a <- mismatch_spp %>% 
+  dplyr::filter(SPECIES_NAME_diff) %>%
+  dplyr::select(!dplyr::ends_with("_diff"))  %>%
+  dplyr::select(SPECIES_CODE, dplyr::starts_with("SPECIES_NAME_")) 
 
-```{r}
+str00 <- paste0("These changes are now represented in the data. There were ", nrow(a), 
+                " species scientific names that changed from the ", 
+                past_yr," and ", this_yr," datasets. ")
+```
+
+```{r, eval = FALSE}
 a <- mismatch_spp %>% 
   dplyr::filter(COMMON_NAME_diff) %>%
   dplyr::select(!dplyr::ends_with("_diff"))  %>%
@@ -106,97 +211,73 @@ a <- mismatch_spp %>%
 str00 <- paste0("There were ", nrow(a), 
                 " species common names that changed from the ", 
                 past_yr," and ", this_yr," datasets. ")
-flextable::flextable(a)
 ```
 
-`r print(str00)` 
+`r (str00)` 
+
+`r flextable::flextable(a) %>% flextable::theme_vanilla() `
 
 # Catch-per-unit-effort
 
 ```{r changes-cpue}
-str0 <- "catch-per-unit-effort"
-a <- mismatch_cpue %>% 
-  dplyr::select(HAULJOIN, SPECIES_CODE, 
-                dplyr::ends_with("_hist"), dplyr::ends_with("_prod"))  %>% 
-  dplyr::select(order(colnames(.))) %>% 
-  dplyr::relocate(HAULJOIN, SPECIES_CODE)
-
-a <- find_difference(mismatch = a, str0 = str0, 
-                past_yr = past_yr, this_yr = this_yr)
-
-str00 <- a$str00
-a <- a$a
-
-# flextable::flextable(a)
+a <- find_difference(mismatch = mismatch_cpue, 
+                     str0 = "catch-per-unit-effort", 
+                past_yr = past_yr, 
+                this_yr = this_yr, 
+                col = c("HAULJOIN", "SPECIES_CODE"))
 ```
 
-`r print(str00)` 
+`r (a$str00)` 
+
+`r a$a`
 
 # Biomass and Abundance
 
+known cut offs for species because of confidence (ATF, Kam, skates; if n_haul of prod is NA and n_haul of hist is not 0 or NA)
+unnecessary zero-filled for unobserved species in a survey (darkfin sculpin 21340; if n_haul of prod is NA and n_haul of hist is not 0)
+
+
 ```{r changes-bio}
-str0 <- "biomass and abundance"
-a <- mismatched_biomass %>% 
-  dplyr::select(SURVEY_DEFINITION_ID, YEAR, AREA_ID, SPECIES_CODE, 
-                dplyr::ends_with("_hist"), dplyr::ends_with("_prod")) %>% 
-  dplyr::select(order(colnames(.))) %>% 
-  dplyr::relocate(SURVEY_DEFINITION_ID, YEAR, AREA_ID, SPECIES_CODE)
-
-a0 <- find_difference(mismatch = a, str0 = str0, 
-                past_yr = past_yr, this_yr = this_yr)
-
-str00 <- paste0(a0$str00, 
-                "With the new dataset, ", length(is.na(a[,paste0(aa[1], "_hist")])), 
-                 " enteries were added and ", length(is.na(a[,paste0(aa[1], "_prod")])), 
-                 " enteries were removed from the newest dataset. ")
-a <- a0$a
-
-# flextable::flextable(a)
+a <- find_difference(mismatch = mismatch_biomass, 
+                     str0 = "biomass and abundance", 
+                past_yr = past_yr, 
+                this_yr = this_yr, 
+                col = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", "SPECIES_CODE"))
 ```
 
-`r print(str00)` 
+`r (a$str00)` 
+
+<!-- `r a$a` -->
 
 # Size Compositions
 
+simply a data change: -9's were reconsidered as 'unsexed.' Tried to sex the fish but couldn't or were too small or data mixup. 
+
 ```{r changes-size}
-str0 <- "size compositions"
-a <- mismatched_sizecomp %>% 
-  dplyr::select(SURVEY_DEFINITION_ID, YEAR, AREA_ID, SEX, LENGTH_MM, SPECIES_CODE, 
-                dplyr::ends_with("_hist"), dplyr::ends_with("_prod")) %>% 
-  dplyr::select(order(colnames(.))) %>% 
-  dplyr::relocate(SURVEY_DEFINITION_ID, YEAR, AREA_ID, SEX, LENGTH_MM, SPECIES_CODE, SPECIES_CODE) 
-
-a <- find_difference(mismatch = a, str0 = str0, 
-                past_yr = past_yr, this_yr = this_yr)
-
-str00 <- a$str00
-a <- a$a
-
-flextable::flextable(a)
+a <- find_difference(mismatch = mismatch_sizecomp, 
+                     str0 = "size compositions", 
+                past_yr = past_yr, 
+                this_yr = this_yr, 
+                col = c("YEAR", "AREA_ID", "SPECIES_CODE", "SEX", "LENGTH_MM"))
 ```
 
-`r print(str00)` 
+`r (a$str00)` 
+
+`r a$a`
 
 # Age Compositions
 
 ```{r changes-age}
-str0 <- "age compositions"
-a <- mismatched_age %>% 
-  dplyr::select(YEAR, AREA_ID, SEX, AGE, SPECIES_CODE, 
-                dplyr::ends_with("_hist"), dplyr::ends_with("_prod")) %>% 
-  dplyr::select(order(colnames(.))) %>% 
-  dplyr::relocate(YEAR, AREA_ID, SEX, AGE, SPECIES_CODE)
-
-a <- find_difference(mismatch = a, str0 = str0, 
-                past_yr = past_yr, this_yr = this_yr)
-
-str00 <- a$str00
-a <- a$a
-
-flextable::flextable(a)
+a <- find_difference(mismatch = mismatch_age, 
+                     str0 = "age compositions", 
+                past_yr = past_yr, 
+                this_yr = this_yr, 
+                col = c("YEAR", "AREA_ID", "SPECIES_CODE", "SEX", "LENGTH_MM", "AGE"))
 ```
 
-`r print(str00)` 
+`r (a$str00)` 
+
+`r a$a`
 
 
 
