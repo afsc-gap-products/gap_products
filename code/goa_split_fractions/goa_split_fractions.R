@@ -129,34 +129,34 @@ goa_split_fractions$EAST_BIOMASS <-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare output from gapindex to what is currently in the GOA schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+# 
 ## Pull current split fractions table
-historical_split <-
-  RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, MANAGEMENT_GROUP, 
-                           WEST_BIOMASS, EAST_BIOMASS 
-                           FROM GOA.SPLIT_FRACTIONS 
-                           WHERE YEAR >= 2019")
-
-## Merge the current split fraction table with the gapindex-produced table
-test_split <- 
-  merge(x = historical_split,
-        y = goa_split_fractions,
-        by = c("YEAR", "MANAGEMENT_GROUP"),
-        all.x = TRUE, 
-        suffixes = c("_HIST", "_GP"))
-
-## Calculate absolute differences between the west and east biomass estimates
-test_split$WEST_BIOMASS_DIFF <- 
-  test_split$WEST_BIOMASS_GP - test_split$WEST_BIOMASS_HIST
-test_split$EAST_BIOMASS_DIFF <- 
-  test_split$EAST_BIOMASS_GP - test_split$EAST_BIOMASS_HIST
-
-write.csv(x = test_split[order(test_split$MANAGEMENT_GROUP), 
-                         c("YEAR", "MANAGEMENT_GROUP", 
-                             "WEST_BIOMASS_HIST", "WEST_BIOMASS_GP", 
-                             "WEST_BIOMASS_DIFF", "EAST_BIOMASS_HIST", 
-                             "EAST_BIOMASS_GP", "EAST_BIOMASS_DIFF")], 
-          file = "code/goa_split_fractions/goa_split_fractions.csv",
-          row.names = F)
+# historical_split <-
+#   RODBC::sqlQuery(channel = sql_channel,
+#                   query = "SELECT YEAR, MANAGEMENT_GROUP, 
+#                            WEST_BIOMASS, EAST_BIOMASS 
+#                            FROM GOA.SPLIT_FRACTIONS 
+#                            WHERE YEAR >= 2019")
+# 
+# ## Merge the current split fraction table with the gapindex-produced table
+# test_split <- 
+#   merge(x = historical_split,
+#         y = goa_split_fractions,
+#         by = c("YEAR", "MANAGEMENT_GROUP"),
+#         all.x = TRUE, 
+#         suffixes = c("_HIST", "_GP"))
+# 
+# ## Calculate absolute differences between the west and east biomass estimates
+# test_split$WEST_BIOMASS_DIFF <- 
+#   test_split$WEST_BIOMASS_GP - test_split$WEST_BIOMASS_HIST
+# test_split$EAST_BIOMASS_DIFF <- 
+#   test_split$EAST_BIOMASS_GP - test_split$EAST_BIOMASS_HIST
+# 
+# write.csv(x = test_split[order(test_split$MANAGEMENT_GROUP), 
+#                          c("YEAR", "MANAGEMENT_GROUP", 
+#                              "WEST_BIOMASS_HIST", "WEST_BIOMASS_GP", 
+#                              "WEST_BIOMASS_DIFF", "EAST_BIOMASS_HIST", 
+#                              "EAST_BIOMASS_GP", "EAST_BIOMASS_DIFF")], 
+#           file = "code/goa_split_fractions/goa_split_fractions.csv",
+#           row.names = F)
 
