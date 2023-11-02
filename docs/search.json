@@ -126,11 +126,18 @@
     "text": "Cite this data\nUse the below bibtext citations, as cited in our group’s citation repository for citing the data created and maintained in this repo (Alaska Fisheries Information Network (AKFIN), 2023). Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed.\n\n\n@misc{GAPakfin,\n  author = {{Alaska Fisheries Information Network (AKFIN)}}, \n  institution = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\n  year = {2023}, \n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\n  howpublished = {https://www.psmfc.org/program/alaska-fisheries-information-network-akfin},\n  publisher = {{U.S. Dep. Commer.}},\n  copyright = {Public Domain} \n}\n\n\n\n\n\n\nAlaska Fisheries Information Network (AKFIN). (2023). AFSC goundfish assessment program design-based production data. NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program; https://www.psmfc.org/program/alaska-fisheries-information-network-akfin; U.S. Dep. Commer."
   },
   {
+    "objectID": "content/akfin-metadata.html#other-resources",
+    "href": "content/akfin-metadata.html#other-resources",
+    "title": "Data description",
+    "section": "Other resources",
+    "text": "Other resources\n(AKFIN Answers)[https://akfin.psmfc.org/akfin-answers/] is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from direct AKFIN database credentials."
+  },
+  {
     "objectID": "content/akfin-metadata.html#data-description",
     "href": "content/akfin-metadata.html#data-description",
     "title": "Data description",
     "section": "Data description",
-    "text": "Data description\n[OUTDATED] AKFIN Answers https://akfin.psmfc.org/akfin-answers/ is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from direct akfin database credentials (though they may be identical). RACE data on the AKFIN Answers stock assessment dashboard is located on the “RACE Survey” tab for groundfish and the “Crab” tab for crab surveys. More detailed descriptions of each report are included within that report."
+    "text": "Data description"
   },
   {
     "objectID": "content/akfin-metadata.html#data-tables",
