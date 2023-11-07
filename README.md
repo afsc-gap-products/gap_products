@@ -4,7 +4,7 @@
 
 [![](https://img.shields.io/github/last-commit/afsc-gap-products/gap_products.svg)](https://github.com/afsc-gap-products/gap_products/commits/main)
 
-## This code is primarally maintained by:
+## This code is primarily maintained by:
 
 **Zack Oyafuso** (Zack.Oyafuso AT noaa.gov;
 [@zoyafuso-NOAA](https://github.com/zoyafuso-NOAA))
