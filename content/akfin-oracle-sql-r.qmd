@@ -522,6 +522,90 @@ figure$plot +
   change_fill_color(new.scheme = "grey", show.plot = FALSE)
 ```
 
+
+### Ex. 7: Calculate summary sample totals from survey for eastern Bering Sea northern Rock Sole
+
+```{r}
+#| label: test-7
+#| message: false
+#| warning: false
+#| echo: true
+
+
+# Work in progress
+
+# dat_haul <- RODBC::sqlQuery(channel = channel,
+#                        query =
+# "SELECT
+# bb.SPECIES_CODE,
+# bb.YEAR,
+# bb.SURVEY_DEFINITION_ID,
+# bb.AREA_ID,
+# SUM(bb.N_HAUL) AS TOTAL_HAULS,
+# --COUNT(N_LENGTH) AS HAULS_W_LENGTH,
+# SUM(bb.N_LENGTH) AS NUM_LENGTHS
+# --HAULS_W_OTOLITHS,
+# --HAULS_W_AGES,
+# --NUM_OTOLITHS,
+# -- NUM_AGES
+# FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
+# WHERE bb.SPECIES_CODE = 435 --10210
+# AND bb.SURVEY_DEFINITION_ID = 98
+# AND bb.AREA_ID = 99900
+# GROUP BY bb.SPECIES_CODE, bb.YEAR, bb.SURVEY_DEFINITION_ID, bb.AREA_ID
+# ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
+# 
+# 
+# dat_specimen <- RODBC::sqlQuery(channel = channel,
+#                        query =
+# "SELECT
+# ss.SPECIES_CODE,
+# cc.YEAR,
+# cc.SURVEY_DEFINITION_ID,
+# aa.AREA_ID,
+# COUNT(ss.AGE_YEARS) AS NUM_AGES
+# FROM GAP_PRODUCTS.AKFIN_SPECIMEN ss
+# LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
+# ON ss.HAULJOIN = hh.HAULJOIN
+# LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
+# ON hh.CRUISEJOIN = cc.CRUISEJOIN
+# LEFT JOIN GAP_PRODUCTS.AKFIN_STRATUM_GROUPS aa
+# ON hh.STRATUM = aa.STRATUM
+# AND cc.SURVEY_DEFINITION_ID = aa.SURVEY_DEFINITION_ID
+# WHERE ss.specimen_sample_type = 1
+# AND ss.SPECIES_CODE = 10110 
+# AND cc.SURVEY_DEFINITION_ID = 98
+# AND cc.YEAR = 2021
+# AND aa.AREA_ID = 99900
+# GROUP BY ss.SPECIES_CODE, cc.YEAR, cc.SURVEY_DEFINITION_ID, aa.AREA_ID
+# ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE;")
+
+
+
+```
+
+```{r}
+#| label: test-7-tbl
+#| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| message: false
+#| warning: false
+#| echo: true
+
+# flextable::flextable(head(dat)) %>% theme_zebra()
+```
+
+
+```{r}
+#| label: test-7-fig
+#| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| message: false
+#| echo: true
+#| warning: false
+
+# 
+```
+
+
 ```{r rodbc-close}
 RODBC::odbcCloseAll()
 ```

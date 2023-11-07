@@ -11,20 +11,20 @@
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_SPECIMEN AS 
 select 
-a.cruisejoin, 
+-- a.cruisejoin, 
 a.hauljoin, 
 -- a.region, 
 -- b.vessel_id, 
-a.specimenid specimen_id, 
+a.specimenid as specimen_id, 
 -- a.biostratum stratum, 
 a.species_code, 
-a.length length_mm, 
+a.length as length_mm, 
 a.sex, 
-a.weight weight_g, 
-a.age age_years, 
+a.weight as weight_g, 
+a.age, 
 a.maturity, 
 -- a.maturity_table, 
-a.gonad_wt gonad_g, 
+a.gonad_wt as gonad_g, 
 a.specimen_subsample_method, 
 a.specimen_sample_type, 
 a.age_determination_method 
