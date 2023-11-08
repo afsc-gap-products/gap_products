@@ -1,5 +1,7 @@
 ---
 title: Access data
+number-sections: true
+number-depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -7,7 +9,7 @@ title: Access data
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 
-## Access data via Oracle (AFSC only)
+## Access data via Oracle (AFSC only) {.unnumbered}
 
 AFSC `Oracle` users can access the database via `SQL developer` to view and pull the production data directly from the `GAP_PRODUCTS` `Oracle` schema. The user can also use `SQL developer` to view and pull the GAP Products data directly from the `GAP_PRODUCTS` `Oracle` schema. 
 
@@ -17,18 +19,24 @@ Many users will want to access the data from `Oracle` using `R`. The user will n
 
 Here, the user can establish the oracle connection by entering their username and password in the `channel <- gapindex::oracle_connect()` function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
 
+After you connect to VPN, you'll be able to log into Oracle. 
+
 ```{r oracle-connect-2, echo = TRUE, eval = FALSE}
+library(RODBC)
+channel <- gapindex::get_connected()
+```
+
+## Data SQL Query Examples: {.unnumbered}
+
+```{r load packages, echo = TRUE, eval = TRUE}
 library(gapindex)
 library(RODBC)
 library(flextable)
 library(ggplot2)
 library(magrittr)
-channel <- gapindex::get_connected()
 ```
 
-## Data SQL Query Examples: 
-
-### Ex. 0: Select all data from a table
+### Ex. Select all data from a table
 
 You can download all of the tables locally using a variation of the code below. Once connected, pull and save the tables of interest into the `R` environment. 
 
@@ -63,7 +71,131 @@ for (i in 1:length(locations)) {
 }
 ```
 
-### Ex. 1: GOA Pacific Ocean perch biomass and abundance
+### Ex. CPUE for all stations contained in the INPFC Shumagin region (AREA_ID = 919) for Pacific cod. 
+
+```{r}
+#| label: test-8
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- RODBC::sqlQuery(channel = channel,
+                       query =
+"
+-- Select columns for output data
+SELECT 
+HAULJOIN, 
+SPECIES_CODE, 
+STRATUM, 
+LATITUDE_DD_START, 
+LONGITUDE_DD_START,
+CPUE_KGKM2, 
+GEAR_TEMPERATURE_C
+
+-- Identify what tables to pull data from
+FROM GAP_PRODUCTS.AKFIN_CPUE cpue
+LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL haul
+USING (HAULJOIN) 
+
+-- Filter for P. Cod observations
+WHERE SPECIES_CODE IN (21720)
+
+-- Select all stratum within the area_id 919 (INPFC Shumagin region)
+AND haul.STRATUM IN
+(
+SELECT 
+ss.STRATUM
+FROM GAP_PRODUCTS.AKFIN_STRATUM_GROUPS ss
+WHERE ss.AREA_ID = 919
+);")
+```
+
+```{r}
+#| label: test-8-tbl
+#| tbl-cap: "Ex. 8: CPUE for all stations contained in the Shumagin region (AREA_ID = 919). "
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- dat %>% 
+  dplyr::select(HAULJOIN, STRATUM, SPECIES_CODE, LATITUDE_DD_START, LONGITUDE_DD_START, CPUE_KGKM2, GEAR_TEMPERATURE_C) %>% 
+  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
+                STRATUM = as.character(STRATUM)) %>% 
+  dplyr::arrange(SPECIES_CODE)
+
+flextable::flextable(head(dat)) %>% theme_zebra()
+```
+
+### Ex. EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map 
+
+Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from `GAP_PRODUCTS.AKFIN_CPUE` and map constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). Here, we'll use AKFIN HAUL and CRUISES data also included in this repo, for convenience, though they are very similar to their `RACEBASE` analogs. 
+
+```{r}
+#| label: test-6
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- RODBC::sqlQuery(channel = channel, 
+                       query = 
+"
+-- Select columns for output data
+SELECT 
+(cp.CPUE_KGKM2/100) CPUE_KGHA, -- akgfmaps is expecting hectares
+hh.LATITUDE_DD_START LATITUDE,
+hh.LONGITUDE_DD_START LONGITUDE
+
+-- Use HAUL data to obtain LATITUDE & LONGITUDE and connect to cruisejoin
+FROM GAP_PRODUCTS.AKFIN_CPUE cp
+LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
+ON cp.HAULJOIN = hh.HAULJOIN
+
+-- Use CRUISES data to obtain YEAR and SURVEY_DEFINITION_ID
+LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
+ON hh.CRUISEJOIN = cc.CRUISEJOIN
+
+-- Filter data
+WHERE cp.SPECIES_CODE = 30060 
+AND cc.SURVEY_DEFINITION_ID = 98 
+AND cc.YEAR = 2021;")
+```
+
+```{r}
+#| label: test-6-tbl
+#| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| message: false
+#| warning: false
+#| echo: true
+
+flextable::flextable(head(dat)) %>% theme_zebra()
+```
+
+
+```{r}
+#| label: test-6-fig
+#| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| message: false
+#| echo: true
+#| warning: false
+
+# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+library(akgfmaps)
+
+figure <- akgfmaps::make_idw_map(
+  x = dat, # Pass data as a data frame
+  region = "bs.south", # Predefined EBS area
+  set.breaks = "jenks", # Gets Jenks breaks from classint::classIntervals()
+  in.crs = "+proj=longlat", # Set input coordinate reference system
+  out.crs = "EPSG:3338", # Set output coordinate reference system
+  grid.cell = c(20000, 20000), # 20x20km grid
+  key.title = "Pacific Ocean perch") # Include in the legend title
+
+figure$plot + 
+  ggplot2::guides(fill=guide_legend(title = "Pacific Ocean perch\nCPUE (kg/km2)"))  |>   
+  change_fill_color(new.scheme = "grey", show.plot = FALSE)
+```
+
+### Ex. GOA Pacific Ocean perch biomass and abundance
 
 Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western/central/eastern GOA management areas as well as for the entire region. 
 
@@ -75,18 +207,26 @@ Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"WITH FILTERED_STRATA AS (
+"
+-- Manipulate data to join to
+WITH FILTERED_STRATA AS (
 SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AKFIN_AREA
 WHERE TYPE in ('REGULATORY_AREA', 'REGION') 
 AND SURVEY_DEFINITION_ID = 47)
+
+-- Select columns for output data
 SELECT 
 BIOMASS_MT,
 POPULATION_COUNT, 
 YEAR, 
 DESCRIPTION
+
+-- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_BIOMASS BIOMASS
 JOIN FILTERED_STRATA STRATA 
 ON STRATA.AREA_ID = BIOMASS.AREA_ID
+
+-- Filter data results
 WHERE BIOMASS.SURVEY_DEFINITION_ID IN 47 
 AND BIOMASS.SPECIES_CODE = 30060")
 ```
@@ -145,7 +285,7 @@ figure <- ggplot2::ggplot(
 figure
 ```
 
-### Ex. 2: AI rock sole size compositions and ridge plot
+### Ex. AI rock sole size compositions and ridge plot
 
 Northern and Southern rock sole size composition data from 1991 – 2022 for the Aleutian Islands, with Ridge plot from [`ggridges`](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html).
 
@@ -157,19 +297,27 @@ Northern and Southern rock sole size composition data from 1991 – 2022 for the
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"WITH FILTERED_STRATA AS (
+"
+-- Manipulate data to join to
+WITH FILTERED_STRATA AS (
 SELECT 
 AREA_ID, 
 DESCRIPTION 
+
+-- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_AREA
 WHERE TYPE = 'REGION' 
 AND SURVEY_DEFINITION_ID = 52)
+
+-- Select columns for output data
 SELECT 
 LENGTH_MM, 
 YEAR
 FROM GAP_PRODUCTS.AKFIN_SIZECOMP SIZECOMP
 JOIN FILTERED_STRATA STRATA 
 ON STRATA.AREA_ID = SIZECOMP.AREA_ID
+
+-- Filter data results
 WHERE SIZECOMP.SURVEY_DEFINITION_ID IN 52 
 AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
 ```
@@ -214,7 +362,7 @@ figure <-
 figure
 ```
 
-### Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid
+### Ex. EBS Walleye Pollock Age Compositions and Age Pyramid
 
 Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and the EBS + NW Area from 1987 – 2022, with age pyramid plot. 
 
@@ -226,20 +374,28 @@ Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"WITH FILTERED_STRATA AS (
+"
+-- Manipulate data to join to
+WITH FILTERED_STRATA AS (
 SELECT 
 AREA_ID, 
 DESCRIPTION 
 FROM GAP_PRODUCTS.AKFIN_AREA
 WHERE TYPE = 'REGION' AND 
 SURVEY_DEFINITION_ID = 98)
+
+-- Select columns for output data
 SELECT 
 AGECOMP.AGE, 
 AGECOMP.POPULATION_COUNT, 
 AGECOMP.SEX
+
+-- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_AGECOMP AGECOMP
 JOIN FILTERED_STRATA STRATA 
 ON STRATA.AREA_ID = AGECOMP.AREA_ID
+
+-- Filter data results
 WHERE SURVEY_DEFINITION_ID = 98 
 AND SPECIES_CODE = 21740
 AND AGE >= 0")
@@ -289,7 +445,7 @@ figure <- ggplot2::ggplot(
 figure
 ```
 
-### Ex. 4: NBS Pacific cod biomass and abundance
+### Ex. NBS Pacific cod biomass and abundance
 
 Pacific cod biomass and abundance data for the NBS by stratum. 
 
@@ -301,7 +457,9 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"WITH FILTERED_STRATA AS (
+"
+-- Manipulate data to join to
+WITH FILTERED_STRATA AS (
 SELECT 
 AREA_ID, 
 AREA_NAME, 
@@ -309,14 +467,20 @@ DESCRIPTION
 FROM GAP_PRODUCTS.AKFIN_AREA
 WHERE TYPE in ('STRATUM') AND 
 SURVEY_DEFINITION_ID = 143) 
+
+-- Select columns for output data
 SELECT 
 BIOMASS.BIOMASS_MT, 
 BIOMASS.POPULATION_COUNT, 
 BIOMASS.YEAR, 
 STRATA.AREA_NAME
+
+-- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_BIOMASS BIOMASS 
 JOIN FILTERED_STRATA STRATA 
 ON STRATA.AREA_ID = BIOMASS.AREA_ID
+
+-- Filter data results
 WHERE BIOMASS.SURVEY_DEFINITION_ID IN 143 
 AND BIOMASS.SPECIES_CODE = 21720")
 ```
@@ -367,7 +531,7 @@ figure <- ggplot2::ggplot(
 figure
 ```
 
-### Ex. 5: GOA Pacific Ocean perch biomass and line plot
+### Ex. GOA Pacific Ocean perch biomass and line plot
 
 Pacific Ocean perch biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.AKFIN_BIOMASS`
 
@@ -379,12 +543,18 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"SELECT 
+"
+-- Select columns for output data
+SELECT 
 SURVEY_DEFINITION_ID, 
 BIOMASS_MT, 
 BIOMASS_VAR, 
 YEAR
+
+-- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_BIOMASS
+
+-- Filter data results
 WHERE SPECIES_CODE = 30060 
 AND SURVEY_DEFINITION_ID = 47 
 AND AREA_ID = 99903 
@@ -459,75 +629,10 @@ figure <-
 figure
 ```
 
-### Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map 
+### Ex. Summary table for EBS and NBS arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
 
-Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from `GAP_PRODUCTS.AKFIN_CPUE` and map constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). Here, we'll use AKFIN HAUL and CRUISES data also included in this repo, for convenience, though they are very similar to their `RACEBASE` analogs. 
-
-```{r}
-#| label: test-6
-#| message: false
-#| warning: false
-#| echo: true
-
-dat <- RODBC::sqlQuery(channel = channel, 
-                       query = 
-"SELECT 
-(cp.CPUE_KGKM2/100) CPUE_KGHA, -- akgfmaps is expecting hectares
-hh.LATITUDE_DD_START LATITUDE,
-hh.LONGITUDE_DD_START LONGITUDE
-
-FROM GAP_PRODUCTS.AKFIN_CPUE cp
-
--- Use HAUL data to obtain LATITUDE & LONGITUDE and connect to cruisejoin
-LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
-ON cp.HAULJOIN = hh.HAULJOIN
-
--- Use CRUISES data to obtain YEAR and SURVEY_DEFINITION_ID
-LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
-ON hh.CRUISEJOIN = cc.CRUISEJOIN
-
-WHERE cp.SPECIES_CODE = 30060 
-AND cc.SURVEY_DEFINITION_ID = 98 
-AND cc.YEAR = 2021;")
-```
-
-```{r}
-#| label: test-6-tbl
-#| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
-#| message: false
-#| warning: false
-#| echo: true
-
-flextable::flextable(head(dat)) %>% theme_zebra()
-```
-
-
-```{r}
-#| label: test-6-fig
-#| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
-#| message: false
-#| echo: true
-#| warning: false
-
-# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
-library(akgfmaps)
-
-figure <- akgfmaps::make_idw_map(
-  x = dat, # Pass data as a data frame
-  region = "bs.south", # Predefined EBS area
-  set.breaks = "jenks", # Gets Jenks breaks from classint::classIntervals()
-  in.crs = "+proj=longlat", # Set input coordinate reference system
-  out.crs = "EPSG:3338", # Set output coordinate reference system
-  grid.cell = c(20000, 20000), # 20x20km grid
-  key.title = "Pacific Ocean perch") # Include in the legend title
-
-figure$plot + 
-  ggplot2::guides(fill=guide_legend(title = "Pacific Ocean perch\nCPUE (kg/km2)"))  |>   
-  change_fill_color(new.scheme = "grey", show.plot = FALSE)
-```
-
-
-### Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
+ - Number hauls where species were observed (N_HAULS) 
+ - Number of length measurements that were colelcted for this species (N_LENGTHS) 
 
 ```{r}
 #| label: test-7
@@ -537,14 +642,20 @@ figure$plot +
 
 dat <- RODBC::sqlQuery(channel = channel,
                        query =
-"SELECT
+"
+-- Select columns for output data
+SELECT
 bb.SPECIES_CODE,
 bb.YEAR,
 bb.SURVEY_DEFINITION_ID,
 bb.AREA_ID,
 SUM(bb.N_HAUL) AS N_HAULS, -- Number hauls where species were observed
 SUM(bb.N_LENGTH) AS N_LENGTHS -- Number of length measurements that were colelcted for this species
+
+-- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
+
+-- Filter data results
 WHERE bb.SPECIES_CODE IN (10110, 435, 10140)
 AND bb.YEAR IN (2022, 2023)
 AND bb.AREA_ID IN (99900, 99902)
@@ -609,57 +720,6 @@ dat <- dat %>%
   dplyr::arrange(SPECIES_CODE)
 
 flextable::flextable(dat) %>% theme_zebra()
-```
-
-### Ex. 8: CPUE for all stations contained in the INPFC Shumagin region (AREA_ID = 919) for Pacific cod. 
-
-```{r}
-#| label: test-8
-#| message: false
-#| warning: false
-#| echo: true
-
-dat <- RODBC::sqlQuery(channel = channel,
-                       query =
-"SELECT 
-HAULJOIN, 
-SPECIES_CODE, 
-STRATUM, 
-LATITUDE_DD_START, 
-LONGITUDE_DD_START,
-CPUE_KGKM2, 
-GEAR_TEMPERATURE_C
-FROM GAP_PRODUCTS.AKFIN_CPUE cpue
-LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL haul
-USING (HAULJOIN) 
-
--- Filter for P. Cod observations
-WHERE SPECIES_CODE IN (21720)
-
--- Select all stratum within the area_id 919 (INPFC Shumagin region)
-AND haul.STRATUM IN
-(
-SELECT 
-ss.STRATUM
-FROM GAP_PRODUCTS.AKFIN_STRATUM_GROUPS ss
-WHERE ss.AREA_ID = 919
-);")
-```
-
-```{r}
-#| label: test-8-tbl
-#| tbl-cap: "Ex. 8: CPUE for all stations contained in the Shumagin region (AREA_ID = 919). "
-#| message: false
-#| warning: false
-#| echo: true
-
-dat <- dat %>% 
-  dplyr::select(HAULJOIN, STRATUM, SPECIES_CODE, LATITUDE_DD_START, LONGITUDE_DD_START, CPUE_KGKM2, GEAR_TEMPERATURE_C) %>% 
-  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
-                STRATUM = as.character(STRATUM)) %>% 
-  dplyr::arrange(SPECIES_CODE)
-
-flextable::flextable(head(dat)) %>% theme_zebra()
 ```
 
 ```{r rodbc-close}
