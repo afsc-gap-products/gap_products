@@ -19,6 +19,10 @@ Here, the user can establish the oracle connection by entering their username an
 
 ```{r oracle-connect-2, echo = TRUE, eval = FALSE}
 library(gapindex)
+library(RODBC)
+library(flextable)
+library(ggplot2)
+library(magrittr)
 channel <- gapindex::get_connected()
 ```
 
@@ -141,7 +145,7 @@ figure <- ggplot2::ggplot(
 figure
 ```
 
-### Ex. 2: AI Rock sole size compositions and ridge plot
+### Ex. 2: AI rock sole size compositions and ridge plot
 
 Northern and Southern rock sole size composition data from 1991 – 2022 for the Aleutian Islands, with Ridge plot from [`ggridges`](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html).
 
@@ -523,7 +527,7 @@ figure$plot +
 ```
 
 
-### Ex. 7: Calculate summary sample totals from survey for eastern Bering Sea northern Rock Sole
+### Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
 
 ```{r}
 #| label: test-7
@@ -531,31 +535,38 @@ figure$plot +
 #| warning: false
 #| echo: true
 
+dat <- RODBC::sqlQuery(channel = channel,
+                       query =
+"SELECT
+bb.SPECIES_CODE,
+bb.YEAR,
+bb.SURVEY_DEFINITION_ID,
+bb.AREA_ID,
+SUM(bb.N_HAUL) AS N_HAULS, -- Number hauls where species were observed
+SUM(bb.N_LENGTH) AS N_LENGTHS -- Number of length measurements that were colelcted for this species
+FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
+WHERE bb.SPECIES_CODE IN (10110, 435, 10140)
+AND bb.YEAR IN (2022, 2023)
+AND bb.AREA_ID IN (99900, 99902)
+GROUP BY bb.SPECIES_CODE, bb.YEAR, bb.SURVEY_DEFINITION_ID, bb.AREA_ID
+ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
+```
 
-# Work in progress
+```{r}
+#| label: test-7-workspace
+#| message: false
+#| warning: false
+#| echo: false
+#| eval: false
 
-# dat_haul <- RODBC::sqlQuery(channel = channel,
-#                        query =
-# "SELECT
-# bb.SPECIES_CODE,
-# bb.YEAR,
-# bb.SURVEY_DEFINITION_ID,
-# bb.AREA_ID,
-# SUM(bb.N_HAUL) AS TOTAL_HAULS,
-# --COUNT(N_LENGTH) AS HAULS_W_LENGTH,
-# SUM(bb.N_LENGTH) AS NUM_LENGTHS
-# --HAULS_W_OTOLITHS,
-# --HAULS_W_AGES,
+# Workspace
+
+# --COUNT(N_LENGTH) AS N_HAULS_W_LENGTH, -- Number of hauls where lengths for this species were collected
+# --HAULS_W_OTOLITHS, -- Number of hauls where otoliths were collected for this species were collected
+# --HAULS_W_AGES, -- Number of hauls where otoliths were collected for this species were collected
 # --NUM_OTOLITHS,
 # -- NUM_AGES
-# FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
-# WHERE bb.SPECIES_CODE = 435 --10210
-# AND bb.SURVEY_DEFINITION_ID = 98
-# AND bb.AREA_ID = 99900
-# GROUP BY bb.SPECIES_CODE, bb.YEAR, bb.SURVEY_DEFINITION_ID, bb.AREA_ID
-# ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
-# 
-# 
+
 # dat_specimen <- RODBC::sqlQuery(channel = channel,
 #                        query =
 # "SELECT
@@ -563,7 +574,7 @@ figure$plot +
 # cc.YEAR,
 # cc.SURVEY_DEFINITION_ID,
 # aa.AREA_ID,
-# COUNT(ss.AGE_YEARS) AS NUM_AGES
+# COUNT(ss.AGE_YEARS) AS N_AGES -- The number of age specimens collected
 # FROM GAP_PRODUCTS.AKFIN_SPECIMEN ss
 # LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
 # ON ss.HAULJOIN = hh.HAULJOIN
@@ -573,38 +584,83 @@ figure$plot +
 # ON hh.STRATUM = aa.STRATUM
 # AND cc.SURVEY_DEFINITION_ID = aa.SURVEY_DEFINITION_ID
 # WHERE ss.specimen_sample_type = 1
-# AND ss.SPECIES_CODE = 10110 
-# AND cc.SURVEY_DEFINITION_ID = 98
-# AND cc.YEAR = 2021
-# AND aa.AREA_ID = 99900
+# AND ss.SPECIES_CODE IN (10110, 435, 10140)
+# AND cc.YEAR IN (2022, 2023)
+# AND bb.AREA_ID IN (99900, 99902)
 # GROUP BY ss.SPECIES_CODE, cc.YEAR, cc.SURVEY_DEFINITION_ID, aa.AREA_ID
 # ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE;")
-
-
+# 
+# dat <- dplyr::full_join(dat_specimen, dat_haul)
 
 ```
 
 ```{r}
 #| label: test-7-tbl
-#| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| tbl-cap: "Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Alaska skate (435). "
 #| message: false
 #| warning: false
 #| echo: true
 
-# flextable::flextable(head(dat)) %>% theme_zebra()
+dat <- dat %>% 
+  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
+                YEAR = as.character(YEAR), 
+                AREA_ID = as.character(AREA_ID)) %>% 
+  dplyr::relocate(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE) %>%
+  dplyr::arrange(SPECIES_CODE)
+
+flextable::flextable(dat) %>% theme_zebra()
 ```
 
+### Ex. 8: CPUE for all stations contained in the INPFC Shumagin region (AREA_ID = 919) for Pacific cod. 
 
 ```{r}
-#| label: test-7-fig
-#| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| label: test-8
 #| message: false
-#| echo: true
 #| warning: false
+#| echo: true
 
-# 
+dat <- RODBC::sqlQuery(channel = channel,
+                       query =
+"SELECT 
+HAULJOIN, 
+SPECIES_CODE, 
+STRATUM, 
+LATITUDE_DD_START, 
+LONGITUDE_DD_START,
+CPUE_KGKM2, 
+GEAR_TEMPERATURE_C
+FROM GAP_PRODUCTS.AKFIN_CPUE cpue
+LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL haul
+USING (HAULJOIN) 
+
+-- Filter for P. Cod observations
+WHERE SPECIES_CODE IN (21720)
+
+-- Select all stratum within the area_id 919 (INPFC Shumagin region)
+AND haul.STRATUM IN
+(
+SELECT 
+ss.STRATUM
+FROM GAP_PRODUCTS.AKFIN_STRATUM_GROUPS ss
+WHERE ss.AREA_ID = 919
+);")
 ```
 
+```{r}
+#| label: test-8-tbl
+#| tbl-cap: "Ex. 8: CPUE for all stations contained in the Shumagin region (AREA_ID = 919). "
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- dat %>% 
+  dplyr::select(HAULJOIN, STRATUM, SPECIES_CODE, LATITUDE_DD_START, LONGITUDE_DD_START, CPUE_KGKM2, GEAR_TEMPERATURE_C) %>% 
+  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
+                STRATUM = as.character(STRATUM)) %>% 
+  dplyr::arrange(SPECIES_CODE)
+
+flextable::flextable(head(dat)) %>% theme_zebra()
+```
 
 ```{r rodbc-close}
 RODBC::odbcCloseAll()

@@ -387,6 +387,8 @@ test_biomass$BIOMASS_VAR <-
 test_biomass$POPULATION_VAR <- 
   with(test_biomass, round((POPULATION_VAR_prod - POPULATION_VAR_hist)/ifelse(POPULATION_VAR_hist == 0, 1, POPULATION_VAR_hist), 2) ) 
 
+test_biomass$POPULATION_COUNT_hist <- round(test_biomass$POPULATION_COUNT_hist, digits = 0)
+test_biomass$POPULATION_COUNT_prod <- round(test_biomass$POPULATION_COUNT_prod, digits = 0)
 
 ## Subset mismatched records
 mismatch_biomass <- 
@@ -469,7 +471,7 @@ all_mismatches <-
 
 # save(all_mismatches, file = here::here("temp", "all_mismatches_2023"))
 
-# rmarkdown::render(here::here("code/historical_comparisons/2023_comparison/mismatch_report.Rmd"),
-#                   output_dir = here::here("temp"),
-#                   output_file = "mismatch_report_2023_bs.docx")
+rmarkdown::render(here::here("code/historical_comparisons/2023_comparison/mismatch_report.Rmd"),
+                  output_dir = here::here("temp"),
+                  output_file = "mismatch_report_2023_bs.docx")
 
