@@ -71,6 +71,99 @@ for (i in 1:length(locations)) {
 }
 ```
 
+### Ex. Summary table for EBS and NBS arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
+
+ - Number hauls where species were observed (N_HAULS) 
+ - Number of length measurements that were colelcted for this species (N_LENGTHS) 
+
+```{r}
+#| label: test-7
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- RODBC::sqlQuery(channel = channel,
+                       query =
+"
+-- Select columns for output data
+SELECT
+bb.SPECIES_CODE,
+bb.YEAR,
+bb.SURVEY_DEFINITION_ID,
+bb.AREA_ID,
+SUM(bb.N_HAUL) AS N_HAULS, -- Number hauls where species were observed
+SUM(bb.N_LENGTH) AS N_LENGTHS -- Number of length measurements that were colelcted for this species
+
+-- Identify what tables to pull data from
+FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
+
+-- Filter data results
+WHERE bb.SPECIES_CODE IN (10110, 435, 10140)
+AND bb.YEAR IN (2022, 2023)
+AND bb.AREA_ID IN (99900, 99902)
+GROUP BY bb.SPECIES_CODE, bb.YEAR, bb.SURVEY_DEFINITION_ID, bb.AREA_ID
+ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
+```
+
+```{r}
+#| label: test-7-workspace
+#| message: false
+#| warning: false
+#| echo: false
+#| eval: false
+
+# Workspace
+
+# --COUNT(N_LENGTH) AS N_HAULS_W_LENGTH, -- Number of hauls where lengths for this species were collected
+# --HAULS_W_OTOLITHS, -- Number of hauls where otoliths were collected for this species were collected
+# --HAULS_W_AGES, -- Number of hauls where otoliths were collected for this species were collected
+# --NUM_OTOLITHS,
+# -- NUM_AGES
+
+# dat_specimen <- RODBC::sqlQuery(channel = channel,
+#                        query =
+# "SELECT
+# ss.SPECIES_CODE,
+# cc.YEAR,
+# cc.SURVEY_DEFINITION_ID,
+# aa.AREA_ID,
+# COUNT(ss.AGE_YEARS) AS N_AGES -- The number of age specimens collected
+# FROM GAP_PRODUCTS.AKFIN_SPECIMEN ss
+# LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
+# ON ss.HAULJOIN = hh.HAULJOIN
+# LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
+# ON hh.CRUISEJOIN = cc.CRUISEJOIN
+# LEFT JOIN GAP_PRODUCTS.AKFIN_STRATUM_GROUPS aa
+# ON hh.STRATUM = aa.STRATUM
+# AND cc.SURVEY_DEFINITION_ID = aa.SURVEY_DEFINITION_ID
+# WHERE ss.specimen_sample_type = 1
+# AND ss.SPECIES_CODE IN (10110, 435, 10140)
+# AND cc.YEAR IN (2022, 2023)
+# AND bb.AREA_ID IN (99900, 99902)
+# GROUP BY ss.SPECIES_CODE, cc.YEAR, cc.SURVEY_DEFINITION_ID, aa.AREA_ID
+# ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE;")
+# 
+# dat <- dplyr::full_join(dat_specimen, dat_haul)
+
+```
+
+```{r}
+#| label: test-7-tbl
+#| tbl-cap: "Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Alaska skate (435). "
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- dat %>% 
+  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
+                YEAR = as.character(YEAR), 
+                AREA_ID = as.character(AREA_ID)) %>% 
+  dplyr::relocate(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE) %>%
+  dplyr::arrange(SPECIES_CODE)
+
+flextable::flextable(dat) %>% theme_zebra()
+```
+
 ### Ex. CPUE for all stations contained in the INPFC Shumagin region (AREA_ID = 919) for Pacific cod. 
 
 ```{r}
@@ -104,9 +197,9 @@ WHERE SPECIES_CODE IN (21720)
 AND haul.STRATUM IN
 (
 SELECT 
-ss.STRATUM
-FROM GAP_PRODUCTS.AKFIN_STRATUM_GROUPS ss
-WHERE ss.AREA_ID = 919
+STRATUM
+FROM GAP_PRODUCTS.AKFIN_STRATUM_GROUPS 
+WHERE AREA_ID = 919
 );")
 ```
 
@@ -227,8 +320,7 @@ JOIN FILTERED_STRATA STRATA
 ON STRATA.AREA_ID = BIOMASS.AREA_ID
 
 -- Filter data results
-WHERE BIOMASS.SURVEY_DEFINITION_ID IN 47 
-AND BIOMASS.SPECIES_CODE = 30060")
+WHERE BIOMASS.SPECIES_CODE = 30060")
 ```
 
 ```{r}
@@ -396,8 +488,7 @@ JOIN FILTERED_STRATA STRATA
 ON STRATA.AREA_ID = AGECOMP.AREA_ID
 
 -- Filter data results
-WHERE SURVEY_DEFINITION_ID = 98 
-AND SPECIES_CODE = 21740
+WHERE SPECIES_CODE = 21740
 AND AGE >= 0")
 ```
 
@@ -627,99 +718,6 @@ figure <-
   ggplot2::theme_bw()
 
 figure
-```
-
-### Ex. Summary table for EBS and NBS arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
-
- - Number hauls where species were observed (N_HAULS) 
- - Number of length measurements that were colelcted for this species (N_LENGTHS) 
-
-```{r}
-#| label: test-7
-#| message: false
-#| warning: false
-#| echo: true
-
-dat <- RODBC::sqlQuery(channel = channel,
-                       query =
-"
--- Select columns for output data
-SELECT
-bb.SPECIES_CODE,
-bb.YEAR,
-bb.SURVEY_DEFINITION_ID,
-bb.AREA_ID,
-SUM(bb.N_HAUL) AS N_HAULS, -- Number hauls where species were observed
-SUM(bb.N_LENGTH) AS N_LENGTHS -- Number of length measurements that were colelcted for this species
-
--- Identify what tables to pull data from
-FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
-
--- Filter data results
-WHERE bb.SPECIES_CODE IN (10110, 435, 10140)
-AND bb.YEAR IN (2022, 2023)
-AND bb.AREA_ID IN (99900, 99902)
-GROUP BY bb.SPECIES_CODE, bb.YEAR, bb.SURVEY_DEFINITION_ID, bb.AREA_ID
-ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
-```
-
-```{r}
-#| label: test-7-workspace
-#| message: false
-#| warning: false
-#| echo: false
-#| eval: false
-
-# Workspace
-
-# --COUNT(N_LENGTH) AS N_HAULS_W_LENGTH, -- Number of hauls where lengths for this species were collected
-# --HAULS_W_OTOLITHS, -- Number of hauls where otoliths were collected for this species were collected
-# --HAULS_W_AGES, -- Number of hauls where otoliths were collected for this species were collected
-# --NUM_OTOLITHS,
-# -- NUM_AGES
-
-# dat_specimen <- RODBC::sqlQuery(channel = channel,
-#                        query =
-# "SELECT
-# ss.SPECIES_CODE,
-# cc.YEAR,
-# cc.SURVEY_DEFINITION_ID,
-# aa.AREA_ID,
-# COUNT(ss.AGE_YEARS) AS N_AGES -- The number of age specimens collected
-# FROM GAP_PRODUCTS.AKFIN_SPECIMEN ss
-# LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
-# ON ss.HAULJOIN = hh.HAULJOIN
-# LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
-# ON hh.CRUISEJOIN = cc.CRUISEJOIN
-# LEFT JOIN GAP_PRODUCTS.AKFIN_STRATUM_GROUPS aa
-# ON hh.STRATUM = aa.STRATUM
-# AND cc.SURVEY_DEFINITION_ID = aa.SURVEY_DEFINITION_ID
-# WHERE ss.specimen_sample_type = 1
-# AND ss.SPECIES_CODE IN (10110, 435, 10140)
-# AND cc.YEAR IN (2022, 2023)
-# AND bb.AREA_ID IN (99900, 99902)
-# GROUP BY ss.SPECIES_CODE, cc.YEAR, cc.SURVEY_DEFINITION_ID, aa.AREA_ID
-# ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE;")
-# 
-# dat <- dplyr::full_join(dat_specimen, dat_haul)
-
-```
-
-```{r}
-#| label: test-7-tbl
-#| tbl-cap: "Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Alaska skate (435). "
-#| message: false
-#| warning: false
-#| echo: true
-
-dat <- dat %>% 
-  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
-                YEAR = as.character(YEAR), 
-                AREA_ID = as.character(AREA_ID)) %>% 
-  dplyr::relocate(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE) %>%
-  dplyr::arrange(SPECIES_CODE)
-
-flextable::flextable(dat) %>% theme_zebra()
 ```
 
 ```{r rodbc-close}
