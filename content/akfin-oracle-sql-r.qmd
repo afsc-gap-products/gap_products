@@ -34,6 +34,7 @@ library(RODBC)
 library(flextable)
 library(ggplot2)
 library(magrittr)
+library(dplyr)
 ```
 
 ### Ex. Select all data from a table
@@ -71,16 +72,19 @@ for (i in 1:length(locations)) {
 }
 ```
 
-### Ex. Summary table for EBS and NBS arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
-
- - Number hauls where species were observed (N_HAULS) 
- - Number of length measurements that were colelcted for this species (N_LENGTHS) 
-
 ```{r}
 #| label: test-7
 #| message: false
 #| warning: false
-#| echo: true
+#| echo: false
+#| eval: false
+
+# ### Ex. Summary table for EBS and NBS arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
+# 
+#  - Number hauls where species were observed (N_HAULS) 
+#  - Number of length measurements that were colelcted for this species (N_LENGTHS) 
+# 
+# 
 
 dat <- RODBC::sqlQuery(channel = channel,
                        query =
@@ -152,7 +156,8 @@ ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
 #| tbl-cap: "Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Alaska skate (435). "
 #| message: false
 #| warning: false
-#| echo: true
+#| echo: false
+#| eval: false
 
 dat <- dat %>% 
   dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
