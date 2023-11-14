@@ -206,9 +206,13 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   
   ## The EBS agecomp only applies to the Standard + NW area and thus should only
   ## go back to 1987.
-  if (regions[iregion] == "EBS")
+  if (names(x = regions[iregion]) == "EBS") {
     production_agecomp <- subset(x = production_agecomp,
                                  subset = YEAR >= 1987)
+    production_agecomp <- subset(x = production_agecomp,
+                                 subset = AREA_ID != 99901)
+  }
+
   
   ## Save to the temp/ folder 
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
