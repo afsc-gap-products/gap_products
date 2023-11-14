@@ -9,7 +9,7 @@
 
 ## Restart R Session before running
 rm(list = ls())
-options(scipen = 999)
+options(scipen = 999999)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Shortcut Functions
@@ -60,6 +60,12 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("HAULJOIN", "SPECIES_CODE"))
+  
+  ## Ignore very, very small cpue discrepancies when the weight or count of the
+  ## record has not changed.
+  eval_cpue$modified_records <- 
+    subset(x = eval_cpue$modified_records, 
+           subset = WEIGHT_KG_DIFF != 0 | COUNT_DIFF != 0)
   
   cat(paste0("Finished with CPUE for the ", regions[iregion], " Region\n"))
   
