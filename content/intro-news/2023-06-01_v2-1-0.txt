@@ -1,0 +1,44 @@
+Run 2023-06-01 gapindex v2.1.0
+Initial compiling and planning notes
+
+
+### GOA 2025 Restratification -- Mock Data for Testing
+
+The plan will be, once all are satisfied with the new GAP_PRODUCTS schema and tables, to sunset the historic product tables in 2024 and proceed with only GAP_PRODUCTS for the 2024 post-survey stock assessment season.
+
+-   December 2023 - March 2024: Meeting between GAP and stock assessment groups in early December 2023 to update progress on the GAP_PRODUCTS testing phase.
+    **Deadline for Comments and Feedback on GAP_PRODUCTS data structures is March 8, 2024.**
+
+-   September 2024: GAP will only release data products according to the new standard.
+Current, historical data product tables will be archived in a new schema called \"**GAP_ARCHIVE**\".
+
+
+
+## Previous updates
+
+-   September 2023: Provisional data product tables -- CPUE, BIOMASS, SIZECOMP, and AGECOMP -- as well as provisional support tables -- AREA, STRATUM_GROUPS, METADATA_COLUMN, SPECIES_YEAR, SURVEY_DESIGN -- are available in the GAP_PRODUCTS Oracle schema with updated 2023 GOA and EBS survey data.
+    
+    -   Additionally, the inclusion of mock data for the under the new 2025 GOA stratified random survey (labeled in the GAP_PRODUCTS tables as YEAR 2025) will provide stock authors with the opportunity to interact with data from the new survey design to be implemented in 2025.
+   
+    -   Provisional AKFIN and FOSS tables are also available in the GAP_PRODUCTS Oracle schema. These include: AKFIN_AGECOMP, AKFIN_AREA, AKFIN_BIOMASS, AKFIN_CATCH, AKFIN_CPUE, AKFIN_CRUISE, AKFIN_HAUL, AKFIN_LENGTH, AKFIN_METADATA_COLUMN, AKFIN_SIZECOMP, AKFIN_SPECIMEN, AKFIN_SURVEY_DESIGN, AKFIN_STRATUM_GROUPS, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_TAXON_GROUP.
+
+
+-   May 2023: Release of new, draft, standard data product tables, including restratified GOA data.
+    Stock assessment authors will have the opportunity to explore differences between datasets, test workflows, and provide comments and issues during summer 2023.
+
+
+-   February 2023: Decision was made to include the mock restratified GOA data with the development of the new consolidated standard data products.
+
+
+-   December 2022: [GAP and SSMA discuss](https://docs.google.com/document/d/1AURrvC1na6TL1Um3p7018svBLDOnih_7nxxyRU34M0k/edit) integration of the restratification of the GOA survey design into standard data products.
+
+    -   Stock assessors requested a \"dry run\" test to work with new mock restratified GOA survey data before implementation of the new survey design.
+
+    -   This prompted the postponement of the restratified GOA design to 2025.
+
+-   October 2022: The data processes and index computation working group convened to address the development of standard survey data products (e.g., biomass/abundance, size composition, age composition, CPUE).
+
+    -   Index Computation Working Group: consolidation of index computation methods between the Bering Sea and AI-GOA regions.
+
+    -   Data Processes Working Group: consolidation, clean up, and reorganization of survey oracle schemata, tables, and other data for all surveys.
+
