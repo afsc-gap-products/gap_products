@@ -4,6 +4,8 @@ title: News
 
 ## Future plans
 
+[insert text if section is appropriate]
+
 ## News/change logs
 
 ```{r news-source-pull}
@@ -19,7 +21,7 @@ str0 <- paste0(paste0(" -- [",
                       news_name,
                       "](",
                       list.files(here::here("content/intro-news/"), 
-                                 full.names = TRUE), # recalling function so it prints relative directory during quarto render
+                                 full.names = TRUE), # recalling function so it prints relative directory during quarto render (I hope)
                       "): ", 
                       news_desc ), collapse = "\n\n")
 ```
