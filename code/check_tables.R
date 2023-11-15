@@ -211,3 +211,20 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
 ##   Save mismatch object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 saveRDS(object = mismatches, file = "temp/mismatches.RDS")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Look at the mismatch object and write a quick paragraph about the changes
+##   in the data tables. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gapindex_version <- 
+  subset(x = read.csv(file = "temp/installed_packages.csv"),
+         subset = Package == "gapindex")$Version
+
+detailed_notes <- 
+  "A new version of gapindex ([v2.1.1](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.1.1)) was used to produced these data. There was a slight change to how subarea biomass totals are calculated. The modified biomass records reflect this change. New 2022 otolith data were available since the last iteration of the GAP_PRODUCTS for Aleutian Island Pacific ocean perch and northern rockifsh and Eastern Bering Sea northern rock sole. Zero-filled CPUE records for four GOA species codes (SPECIES_CODE: 21210, 30010, 30360, 77102, 98101) were added due to how the 1990 data were integrated in the last production run of GAP_PRODUCTS. Two Arctic cod (SPECIES_CODE: 21725) and one plain sculpin (SPECIES_CODE: 21371) count records were modified in the NBS data, which changes the numerical CPUE estimates for those hauls which changes the estimated population abundance and size composition for those species."
+
+rmarkdown::render(input = "code/report_changes.RMD",
+                  output_format = "html_document",
+                  output_file = "../temp/report_changes.html",
+                  params = list("detailed_notes" = detailed_notes,
+                                "gapindex_version" = gapindex_version))
