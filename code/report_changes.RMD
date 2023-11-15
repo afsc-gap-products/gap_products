@@ -1,0 +1,41 @@
+---
+title: "GAP_PRODUCTS ChangeLog (`r Sys.Date()`)"
+output: html_document
+params:
+  detailed_notes: null
+  gapindex_version: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r import data, echo = F}
+mismatches <- readRDS(file = "../temp/mismatches.RDS")
+
+summary_report <- ""
+for (iregion in c("AI", "GOA", "EBS", "NBS", "BSS")) {
+  summary_report <- paste(summary_report, iregion, "Region: \n\n")
+  
+  for (idata in c("cpue", "biomass", "sizecomp", "agecomp")) {
+    summary_report <- 
+      paste(summary_report, idata, ": \n",
+            "There are**", nrow(mismatches[[iregion]][[idata]]$new_records), 
+            "new", idata, "records. ",
+            "There are", nrow(mismatches[[iregion]][[idata]]$removed_records),
+            idata, "records that were removed. ",
+            "There are", nrow(mismatches[[iregion]][[idata]]$modified_records),
+            "modified", idata, "records.\n\n")
+  }
+  summary_report <- paste(summary_report, "\n\n")
+}
+
+```
+
+[gapindex](https://afsc-gap-products.github.io/gapindex/) version used to produce data: `r params$gapindex_version`. 
+
+## Summary of Changes
+`r summary_report`
+
+## Detailed Notes
+`r params$detailed_notes`
