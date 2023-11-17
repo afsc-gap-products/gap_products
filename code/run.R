@@ -68,6 +68,8 @@ rm(list = ls())
 if (!dir.exists(paths = "temp/"))
   dir.create(path = "temp/")
 
+writeLines(text = as.character(Sys.Date()), 
+           con = "temp/timestamp.txt")
 writeLines(text = capture.output(sessionInfo()), 
            con = "temp/sessionInfo.txt")
 write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")], 
@@ -85,13 +87,11 @@ file.edit("code/pull_existing_tables.R")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/metadata.R")
 
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step 4 Create Production Tables ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/production.R")
-file.edit("code/compare_tables.R")
-file.edit("code/report_changes.R")
+file.edit("code/check_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step Upload Production Tables ----
@@ -102,17 +102,45 @@ file.edit("code/push_oracle.R")
 ##   Step Upload Production Tables ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/akfin.R")
-
 file.edit("code/taxonomics.R")
 file.edit("code/foss.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Archive GAP_PRODUCTS  ----
+##   Only archive the bits that would allow one to reproduce the 
+##   Standard Data tables. The session info and package versions are also 
+##   csv files in the temp/folder. The NEWS html is currently the way that 
+##   changes are reported. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Create a new directory with the timestamp as the title
+dir.create(path = readLines(con = "temp/timestamp.txt"))
+
+## Copy the necessary items into the directory
+file.copy(from = "gap_products.Rproj", 
+          to = )
+fs::dir_copy(path = "code/", 
+         new_path = readLines(con = "temp/timestamp.txt"))
+fs::dir_copy(path = "functions/", 
+             new_path = readLines(con = "temp/timestamp.txt"))
+fs::dir_copy(path = "temp/", 
+             new_path = readLines(con = "temp/timestamp.txt"))
+
+## zip folder and move to G: drive
+utils::zip(files = readLines(con = "temp/timestamp.txt"),
+           zipfile = paste0(getwd(), "/", 
+                            readLines(con = "temp/timestamp.txt"), ".zip") )
+
+fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
+              new_path = "Y:/RACE_GF/GAP_PRODUCTS_Archives/")
+fs::file_delete(path = readLines(con = "temp/timestamp.txt"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step Create Citations ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/CITATION.R")
+# file.edit("code/CITATION.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step Create README ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-rmarkdown::render("code/README.Rmd",
-                  output_file = "README.md")
+# rmarkdown::render("code/README.Rmd",
+#                   output_file = "README.md")
