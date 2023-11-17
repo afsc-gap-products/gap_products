@@ -28,9 +28,14 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
 source(file = "functions/calc_diff.R")
 source(file = "functions/compare_tables.R")
 
+spp_year <- RODBC::sqlQuery(channel = sql_channel,
+                            query = "SELECT * FROM GAP_PRODUCTS.SPECIES_YEAR")
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare CPUE Tables -----------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Filter EBS and NBS records from GAP_PRODUCTS.CPUE
 production_cpue <- 
   RODBC::sqlQuery(channel = sql_channel,
                   query = "SELECT 
@@ -52,6 +57,7 @@ production_cpue <-
                            WHERE cc.SURVEY_DEFINITION_ID in (98, 143) 
                            AND hh.ABUNDANCE_HAUL = 'Y'")
 
+## Bind the EBS and NBS CPUE tables in the HAEHNR schema. 
 historical_cpue <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
                   query = "SELECT 98 AS SURVEY_DEFINITION_ID, YEAR,
@@ -76,20 +82,86 @@ test_cpue <- merge(x = production_cpue,
                           "SPECIES_CODE"),
                    suffixes = c("_GP", "_HAEHNR"))
 
+## Evaluate the new, removed, and modified records between the HAEHNR
+## and GAP_PRODUCTS versions of the biomass tables. 
 eval_cpue <-     
   compare_tables(
     x = test_cpue,
     cols_to_check = data.frame(
       colname = c("CPUE_KGKM2", "CPUE_NOKM2"),
       percent = c(F, F),
-      decplaces = c(2, 2)),
+      decplaces = c(0, 0)),
     base_table_suffix = "_HAEHNR",
     update_table_suffix = "_GP",
     key_columns = c("SURVEY_DEFINITION_ID", "YEAR", "HAULJOIN", "SPECIES_CODE"))
 
+## Annotate new cpue records: records that are not in the HAEHNR versions of 
+## the CPUE tables and unique to the GAP_PRODUCTS versions of the CPUE table.
+
+## Reason Code 1: The historical Bering Sea tables only include a subset of 
+## taxa. The GAP_PRODUCTS tables include all values of SPECIES_CODES present 
+## in RACEBASE.CATCH for a given survey region. Assign these records a code
+## 1 in the NOTES field. 
+
+## Query distinct species codes in the EBS and NBS HAEHNR CPUE tables. 
+ebs_cpue_taxa <- 
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = "SELECT DISTINCT SPECIES_CODE
+                           FROM HAEHNR.CPUE_EBS_PLUSNW")$SPECIES_CODE
+nbs_cpue_taxa <- 
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = "SELECT DISTINCT SPECIES_CODE
+                           FROM HAEHNR.CPUE_NBS")$SPECIES_CODE
+
+eval_cpue$new_records$NOTE[
+  !(eval_cpue$new_records$SPECIES_CODE %in% ebs_cpue_taxa & 
+      eval_cpue$new_records$SURVEY_DEFINITION_ID == 98) |
+    !(eval_cpue$new_records$SPECIES_CODE %in% nbs_cpue_taxa & 
+        eval_cpue$new_records$SURVEY_DEFINITION_ID == 143)
+] <- 1
+
+table(eval_cpue$new_records$NOTE)
+
+## Annotate removed cpue records: records that are in the HAEHNR versions of 
+## the CPUE tables but removed in the GAP_PRODUCTS versions of the CPUE table.
+
+## Reason code 2: For a subset of taxa, GAP was confident about the 
+## identification of these species after some given year, e.g., northern rock 
+## sole was confidently identified starting from 1996. Records before this 
+## start year were removed and are not present in the GAP_PRODUCTS tables. See
+## GAP_PRODUCTS.SPECIES_YEAR for the full list of species and starting years. 
+## Assign these records a code 2 in the NOTES field. 
+
+for (irow in 1:nrow(x = spp_year)) { ## Loop over species -- start
+  eval_cpue$removed_records$NOTE[
+    eval_cpue$removed_records$SPECIES_CODE == spp_year$SPECIES_CODE[irow] &
+      eval_cpue$removed_records$YEAR < spp_year$YEAR_STARTED[irow] 
+  ] <- 2
+} ## Loop over species -- end
+
+table(eval_cpue$removed_records$NOTE)
+
+## Annotate modified cpue records: records that changed between the HAEHNR and
+## GAP_PRODUCTS versions of the CPUE tables.
+
+## Reason code 3: The number of individuals caught was different between when 
+## the HAEHNR version of the table was created and when the GAP_PRODUCTS 
+## version of the table was created. Assign these records a code 3 in the 
+## NOTES field. 
+eval_cpue$modified_records$NOTE[
+  (eval_cpue$modified_records$SPECIES_CODE == 21725 &
+    eval_cpue$modified_records$YEAR == 2010) |
+    (eval_cpue$modified_records$SPECIES_CODE == 21371 &
+       eval_cpue$modified_records$YEAR == 2017)
+] <- 3
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Biomass Tables -----------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Filter EBS and NBS records from GAP_PRODUCTS.BIOMASS. Only the EBS + NW 
+## survey region is included for comparison, so the YEAR is further filtered
+## to those years after 1986. 99901, 101, 201, 301 are area_id values 
+## corresponding to the EBS Standard survey region. 
 production_biomass <- 
   RODBC::sqlQuery(channel = sql_channel,
                   query = "SELECT SURVEY_DEFINITION_ID, AREA_ID, SPECIES_CODE, 
@@ -103,9 +175,12 @@ production_biomass <-
                            ROUND(POPULATION_COUNT) AS POPULATION_COUNT,
                            POPULATION_VAR FROM GAP_prodUCTS.BIOMASS 
                            WHERE SURVEY_DEFINITION_ID in (98, 143)
-                           AND YEAR > 1987
+                           AND YEAR >= 1987
                            AND AREA_ID NOT IN (101, 201, 301, 99901)")
 
+## Filter EBS and NBS records from GAP_PRODUCTS.BIOMASS. Only the EBS + NW 
+## survey region is included for comparison, so the YEAR is further filtered
+## to those years after 1986
 historical_biomass <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
                   query = "SELECT 98 AS SURVEY_DEFINITION_ID, YEAR, 
@@ -127,7 +202,7 @@ historical_biomass <- rbind(
                            VARPOP AS POPULATION_VAR
                     
                            FROM HAEHNR.BIOMASS_EBS_PLUSNW
-                           WHERE YEAR > 1987"),
+                           WHERE YEAR >= 1987"),
   RODBC::sqlQuery(channel = sql_channel,
                   query = "SELECT 143 AS SURVEY_DEFINITION_ID, YEAR, 
                            SPECIES_CODE, 
@@ -151,8 +226,8 @@ historical_biomass <- rbind(
                            WHERE YEAR > 1987")
 )
 
-## FUll join the two tables using YEAR, AREA_ID, and SPECIES_CODE as 
-## a composite key.
+## Full join the two tables using SURVEY_DEFINITION_ID, YEAR, AREA_ID, 
+## and SPECIES_CODE as a composite key.
 test_biomass <- merge(x = production_biomass,
                       y = historical_biomass,
                       by = c("SURVEY_DEFINITION_ID", "YEAR", 
@@ -160,6 +235,8 @@ test_biomass <- merge(x = production_biomass,
                       all = TRUE, 
                       suffixes = c("_GP", "_HAEHNR"))
 
+## Evaluate the new, removed, and modified records between the HAEHNR
+## and GAP_PRODUCTS versions of the biomass tables. 
 eval_biomass <- 
   compare_tables(
     x = test_biomass,
@@ -170,27 +247,139 @@ eval_biomass <-
                   "BIOMASS_MT", "BIOMASS_VAR", 
                   "POPULATION_COUNT", "POPULATION_VAR"),
       percent = c(F, F, F, T, T, T, T, T, T, T, T),
-      decplaces = c(0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2)),
+      decplaces = c(0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0)),
     base_table_suffix = "_HAEHNR",
     update_table_suffix = "_GP",
     key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
                     "SPECIES_CODE", "YEAR"))
 
+## Annotate new biomass records: records that are not in the HAEHNR versions of 
+## the biomass tables and unique to the GAP_PRODUCTS version of the biomass
+## table.
+
+## Reason Code 1: The historical Bering Sea tables only include a subset of 
+## taxa. The GAP_PRODUCTS tables include all values of SPECIES_CODES present 
+## in RACEBASE.CATCH for a given survey region. Assign these records a code
+## 1 in the NOTES field. 
+
+## Query distinct species codes in the EBS and NBS HAEHNR biomass tables. 
+ebs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                query = "SELECT DISTINCT SPECIES_CODE
+                                         FROM HAEHNR.BIOMASS_EBS_PLUSNW
+                                         WHERE YEAR >= 1987")$SPECIES_CODE
+nbs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                query = "SELECT DISTINCT SPECIES_CODE
+                                         FROM HAEHNR.BIOMASS_NBS_AKFIN 
+                                         WHERE YEAR >= 1987")$SPECIES_CODE
+
+## Note taxa that were not previously in the HAEHNR versions of the 
+## biomass tables that are now in the GAP_PRODUCTS.BIOMASS. 
+eval_biomass$new_records$NOTE[
+  !(eval_biomass$new_records$SPECIES_CODE %in% ebs_bio_taxa & 
+      eval_biomass$new_records$SURVEY_DEFINITION_ID == 98) |
+    !(eval_biomass$new_records$SPECIES_CODE %in% nbs_bio_taxa & 
+        eval_biomass$new_records$SURVEY_DEFINITION_ID == 143)
+] <- 1
+
+table(eval_biomass$new_records$NOTE)
+
+
+## Annotate removed biomass records: records that are in the HAEHNR versions of 
+## the biomass tables but removed in the GAP_PRODUCTS version of the biomass 
+## table.
+
+## Reason code 2: For a subset of taxa, GAP was confident about the 
+## identification of these species after some given year, e.g., northern rock 
+## sole was confidently identified starting from 1996. Records before this 
+## start year were removed and are not present in the GAP_PRODUCTS tables. See
+## GAP_PRODUCTS.SPECIES_YEAR for the full list of species and starting years. 
+## Assign these records a code 2 in the NOTES field. 
+for (irow in 1:nrow(x = spp_year)) {
+  eval_biomass$removed_records$NOTE[
+    eval_biomass$removed_records$SPECIES_CODE == spp_year$SPECIES_CODE[irow] &
+      eval_biomass$removed_records$YEAR < spp_year$YEAR_STARTED[irow] 
+  ] <- 2
+}
+
+## Reason code 4: there are some taxa in the HAEHNR tables that were not 
+## observed in the Bering Sea and are completely zero-filled. In 
+## GAP_PRODUCTS.BIOMASS, biomass records are only present for observed taxa.
+## Assign these records a code 4 in the NOTES field. 
+temp_totals <- 
+  stats::aggregate(BIOMASS_MT ~ SPECIES_CODE + SURVEY_DEFINITION_ID,
+                   data = historical_biomass,
+                   subset = SPECIES_CODE %in% 
+                     unique(x = subset(x = eval_biomass$removed_records, 
+                                       subset = NOTE == "")$SPECIES_CODE),
+                   FUN = sum)
+
+for (irow in which(temp_totals$BIOMASS_MT == 0)) {
+  eval_biomass$removed_records$NOTE[
+    eval_biomass$removed_records$SPECIES_CODE == 
+      temp_totals$SPECIES_CODE[irow]  
+    &
+      eval_biomass$removed_records$SURVEY_DEFINITION_ID == 
+      temp_totals$SURVEY_DEFINITION_ID[irow]
+  ] <- 4
+}
+
+## Reason code 5: NBS and EBS commercial crab taxa are removed from 
+## GAP_PRODUCTS.BIOMASS. Assign these records a code 5 in the NOTES field. 
+eval_biomass$removed_records$NOTE[
+  eval_biomass$removed_records$SPECIES_CODE %in% c(69323, 69322, 68580, 68560)
+] <- 5
+
+table(eval_biomass$removed_records$NOTE)
+
+subset(eval_biomass$removed_records, NOTE == "")
+
+## Annotate modified biomass records: records that changed between the HAEHNR 
+## and GAP_PRODUCTS version of the biomass tables.
+
+## Reason code 6: For instances where the number of hauls with weight data does
+## not equal the number of hauls with count data, the way NA values are handled
+## is slightly different when using gapindex to calculate variances. Assign 
+## these records a code 6 in the NOTES field. 
+eval_biomass$modified_records$NOTE[
+  eval_biomass$modified_records$N_WEIGHT_HAEHNR != 
+    eval_biomass$modified_records$N_COUNT_HAEHNR
+] <- 6
+
+## Reason code 3: The number of individuals caught was different between when 
+## the HAEHNR version of the table was created and when the GAP_PRODUCTS 
+## version of the table was created. These changes in the CPUE records 
+## propagate onto the biomass tables. Assign these records a code 6 in the 
+## NOTES field. 
+eval_biomass$modified_records$NOTE[
+  (eval_biomass$modified_records$SPECIES_CODE == 21725 &
+     eval_biomass$modified_records$YEAR == 2010) |
+    (eval_biomass$modified_records$SPECIES_CODE == 21371 &
+       eval_biomass$modified_records$YEAR == 2017)
+] <- 3
+
+table(eval_biomass$modified_records$NOTE)
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Size Composition Tables -----------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Filter EBS and NBS records from GAP_PRODUCTS.SIZECOMP. Only the EBS + NW 
+## survey region is included for comparison, so the YEAR is further filtered
+## to those years after 1986. 99901, 101, 201, 301 are area_id values 
+## corresponding to the EBS Standard survey region. 
 production_sizecomp <- 
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, SPECIES_CODE, AREA_ID, SEX,
-                           LENGTH_MM, POPULATION_COUNT 
+                  query = "SELECT SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
+                           AREA_ID, SEX, LENGTH_MM, POPULATION_COUNT 
                            FROM GAP_PRODUCTS.SIZECOMP 
                            WHERE SURVEY_DEFINITION_ID in (98, 143) 
                            AND YEAR >= 1987 
                            AND AREA_ID NOT IN (99901, 101, 201, 301)")
 
+## Bind the EBS and NBS sizecomp tables in the HAEHNR schema. 
 historical_sizecomp <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, SPECIES_CODE, 
+                  query = "SELECT 98 AS SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
                            CASE 
                              WHEN STRATUM = 999999 THEN 99900
                              ELSE STRATUM
@@ -199,7 +388,7 @@ historical_sizecomp <- rbind(
                            MALES, FEMALES, UNSEXED, TOTAL
                            FROM HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM"),
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, SPECIES_CODE, 
+                  query = "SELECT 143 AS SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
                            CASE 
                              WHEN STRATUM = 999999 THEN 99902
                              ELSE STRATUM
@@ -208,6 +397,9 @@ historical_sizecomp <- rbind(
                            MALES, FEMALES, UNSEXED, TOTAL
                            FROM HAEHNR.SIZECOMP_NBS_STRATUM")
 )
+
+## Melt the MALES, FEMALES, UNSEXED fields into one SEX field. Recode M/F/3
+## to 1/2/3.
 historical_sizecomp$UNSEXED[historical_sizecomp$LENGTH_MM == -9] <- 
   historical_sizecomp$TOTAL[historical_sizecomp$LENGTH_MM == -9]
 
@@ -228,27 +420,137 @@ historical_sizecomp$SEX <-
 test_sizecomp <- 
   merge(x = historical_sizecomp,
         y = production_sizecomp,
-        by = c("YEAR", "AREA_ID", "SPECIES_CODE", "LENGTH_MM", "SEX"),
+        by = c("SURVEY_DEFINITION_ID","YEAR", "AREA_ID", 
+               "SPECIES_CODE", "LENGTH_MM", "SEX"),
         all = TRUE, 
         suffixes = c("_HAEHNR", "_GP"))
 
+## Evaluate the new, removed, and modified records between the HAEHNR
+## and GAP_PRODUCTS versions of the sizecomp tables. 
 eval_sizecomp <-   
   compare_tables(
     x = test_sizecomp,
-    cols_to_check = data.frame(
-      colname = "POPULATION_COUNT",
-      percent = T,
-      decplaces = 2),
+    cols_to_check = data.frame(colname = "POPULATION_COUNT", 
+                               percent = T, 
+                               decplaces = 2),
     base_table_suffix = "_HAEHNR",
     update_table_suffix = "_GP",
-    key_columns = c("AREA_ID", "YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM"))
+    key_columns = c("SURVEY_DEFINITION_ID","AREA_ID", "YEAR", 
+                    "SPECIES_CODE", "SEX", "LENGTH_MM"))
+
+## Annotate new sizecomp records: records that are not in the HAEHNR versions of 
+## the sizecomp tables and unique to the GAP_PRODUCTS version of the sizecomp
+## table.
+
+## Reason Code 1: The historical Bering Sea tables only include a subset of 
+## taxa. The GAP_PRODUCTS tables include all values of SPECIES_CODES present 
+## in RACEBASE.CATCH for a given survey region. Assign these records a code
+## 1 in the NOTES field. 
+
+## Query distinct species codes in the EBS and NBS HAEHNR sizecomp tables. 
+ebs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                query = "SELECT DISTINCT SPECIES_CODE
+                                         FROM HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM
+                                         WHERE YEAR > 1987")$SPECIES_CODE
+nbs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                query = "SELECT DISTINCT SPECIES_CODE
+                                         FROM HAEHNR.SIZECOMP_NBS_STRATUM 
+                                         WHERE YEAR > 1987")$SPECIES_CODE
+
+eval_sizecomp$new_records$NOTE[
+  !(eval_sizecomp$new_records$SPECIES_CODE %in% ebs_bio_taxa & 
+      eval_sizecomp$new_records$SURVEY_DEFINITION_ID == 98) |
+    !(eval_sizecomp$new_records$SPECIES_CODE %in% nbs_bio_taxa & 
+        eval_sizecomp$new_records$SURVEY_DEFINITION_ID == 143)
+] <- 1
+
+table(eval_sizecomp$new_records$NOTE)
+
+## Annotate removed sizecomp records: records that are in the HAEHNR versions of 
+## the sizecomp tables but removed in the GAP_PRODUCTS version of the sizecomp 
+## table.
+
+## Reason code 7: The GAP_PRDOUCTS versions of the age and size composition 
+## tables are not zero-filled whereas the HAEHNR version of the composition 
+## tables are zero-filled. included in the GAP_PRODUCTS version of the 
+## sizecomp table. Assign these records a code 7 in the NOTES field. 
+eval_sizecomp$removed_records$NOTE[
+  eval_sizecomp$removed_records$POPULATION_COUNT_HAEHNR == 0 
+] <- "zero-filled"
+
+## Records from the HAEHNR sizecomp tables were removed from 
+## GAP_PRODUCTS.SIZECOMP because there are records from years prior to when 
+## we were confident about the taxon identification for a given species code. 
+for (irow in 1:nrow(x = spp_year)) {
+  eval_sizecomp$removed_records$NOTE[
+    eval_sizecomp$removed_records$SPECIES_CODE == spp_year$SPECIES_CODE[irow] &
+      eval_sizecomp$removed_records$YEAR < spp_year$YEAR_STARTED[irow] 
+  ] <- "before taxon confidence"
+}
+
+## The remaining removed records were anomalously long individuals that were
+## corrected. 
+eval_sizecomp$removed_records$NOTE[
+  eval_sizecomp$removed_records$NOTE == ""
+] <- "incorrectly large size classes"
+table(eval_sizecomp$removed_records$NOTE)
+
+
+
+## Annotate modified sizecomp records: records that changed between the HAEHNR 
+## and GAP_PRODUCTS version of the sizecomp tables.
+
+# for (irow in 1:nrow(x = vouchered_records)) {
+#   
+#   eval_sizecomp$modified_records$NOTE[
+#     eval_sizecomp$modified_records$SPECIES_CODE == vouchered_records$SPECIES_CODE[irow] &
+#       eval_sizecomp$modified_records$YEAR == vouchered_records$YEAR[irow]
+#   ] <- "voucher change"
+#   
+# }
+
+eval_sizecomp$modified_records$NOTE[
+  (eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == 143 & 
+     eval_sizecomp$modified_records$YEAR == 2017 & 
+     eval_sizecomp$modified_records$SPECIES_CODE == 21371) |
+    (eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == 143 & 
+       eval_sizecomp$modified_records$YEAR == 2010 & 
+       eval_sizecomp$modified_records$SPECIES_CODE == 21725)
+] <- "very large lengths removed"
+
+eval_sizecomp$modified_records$NOTE[
+  eval_sizecomp$modified_records$SPECIES_CODE == 10261
+] <- "Error with NRS juv. calculation"
+
+
+excluded_length_bin <- 
+  unique(x = subset(x = eval_sizecomp$modified_records, 
+                    NOTE == "" & POPULATION_COUNT_HAEHNR == 0,
+                    select = c(SURVEY_DEFINITION_ID, SPECIES_CODE, YEAR)))
+
+for (irow in 1:nrow(x = excluded_length_bin)) {
+  eval_sizecomp$modified_records$NOTE[
+    eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == excluded_length_bin$SURVEY_DEFINITION_ID[irow]
+    & eval_sizecomp$modified_records$SPECIES_CODE == excluded_length_bin$SPECIES_CODE[irow]
+    & eval_sizecomp$modified_records$YEAR == excluded_length_bin$YEAR[irow]
+  ] <-"excluded length bin"
+}
+
+eval_sizecomp$modified_records$NOTE[
+  eval_sizecomp$modified_records$SPECIES_CODE == 21740
+  & eval_sizecomp$modified_records$NOTE == ""
+  & eval_sizecomp$modified_records$YEAR == 1991
+] <- "Unresolved issue with pollock juv. data"
+
+table(eval_sizecomp$modified_records$NOTE)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Age Composition Tables -----------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 production_agecomp <- 
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, SPECIES_CODE, AREA_ID, SEX, AGE, 
+                  query = "SELECT SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
+                           AREA_ID, SEX, AGE, 
                            POPULATION_COUNT, LENGTH_MM_MEAN, LENGTH_MM_SD 
                            FROM GAP_PRODUCTS.AGECOMP 
                            WHERE SURVEY_DEFINITION_ID in (98, 143)
@@ -256,49 +558,204 @@ production_agecomp <-
 
 historical_agecomp <- rbind(
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, SPECIES_CODE, 
+                  query = "SELECT 98 AS SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
                            CASE 
                               WHEN STRATUM = 999999 THEN 99900
                               ELSE STRATUM
-                           END AS AREA_ID, SEX, AGE,
+                           END AS AREA_ID, AGE, SEX,
                            ROUND(AGEPOP) as POPULATION_COUNT,
                            ROUND(MEANLEN, 2) AS LENGTH_MM_MEAN,
                            ROUND(SDEV, 2) AS LENGTH_MM_SD 
                            FROM HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM"),
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT YEAR, SPECIES_CODE, 
+                  query = "SELECT 143 AS SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
                            CASE 
                               WHEN STRATUM = 999999 THEN 99902
                               ELSE STRATUM
-                           END AS AREA_ID, SEX, AGE,
+                           END AS AREA_ID, AGE, SEX,
                            ROUND(AGEPOP) as POPULATION_COUNT,
                            ROUND(MEANLEN, 2) AS LENGTH_MM_MEAN,
                            ROUND(SDEV, 2) AS LENGTH_MM_SD 
                            FROM HAEHNR.AGECOMP_NBS_STRATUM")
 )
+historical_agecomp$SEX[
+  historical_agecomp$SEX == 9 & historical_agecomp$AGE == -99
+] <- 3
 
-## Full join the agecomp tables using YEAR, AREA_ID, SPECIES_CODE, AGE, 
-## and SEX as a composite key.
+historical_agecomp <- subset(x = historical_agecomp,
+                             subset = SEX < 9)
 
+## Full join the agecomp tables using SURVEY_DEFINITION_ID, YEAR, AREA_ID, 
+## SPECIES_CODE, AGE, and SEX as a composite key.
 test_agecomp <- merge(x = historical_agecomp, 
                       y = production_agecomp,
                       all = TRUE, 
-                      by = c("YEAR", "AREA_ID", "SPECIES_CODE", "AGE", "SEX"),
+                      by = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", 
+                             "SPECIES_CODE", "AGE", "SEX"),
                       suffixes = c("_HAEHNR", "_GP"))
 
+## Evaluate the new, removed, and modified records between the HAEHNR
+## and GAP_PRODUCTS versions of the agecomp tables. 
 eval_agecomp <- 
   compare_tables(
     x = test_agecomp,
     cols_to_check = data.frame(
       colname = c("POPULATION_COUNT", "LENGTH_MM_MEAN", "LENGTH_MM_SD"),
-      percent = c(F, T, T),
-      decplaces = c(0, 2, 2)),
+      percent = c(T, F, F),
+      decplaces = c(0, 1, 1)),
     base_table_suffix = "_HAEHNR",
     update_table_suffix = "_GP",
-    key_columns = c('AREA_ID', "YEAR", "SPECIES_CODE", "SEX", "AGE"))
+    key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
+                    "SPECIES_CODE", "SEX", "AGE"))
+
+## Annotate new biomass records: records that are not in the HAEHNR versions of 
+## the biomass tables and unique to the GAP_PRODUCTS version of the biomass
+## table.
+
+## Annotate removed biomass records: records that are in the HAEHNR versions of 
+## the biomass tables but removed in the GAP_PRODUCTS version of the biomass 
+## table.
+
+## Annotate modified biomass records: records that changed between the HAEHNR 
+## and GAP_PRODUCTS version of the biomass tables.
+
+## Query species and years where otoliths were collected from bad-performing
+## hauls. These age data were included in the agecomp calculations in the 
+## HAEHNR versions of the agecomp tables. The GAP_PRODUCTS.AGECOMP only includes
+## age data from well-performing hauls. So for these species/year instances
+## the age compositions will be different. 
+spp_year_neg_hauls <- 
+  RODBC::sqlQuery(channel = sql_channel,
+                  query = "SELECT DISTINCT FLOOR(CRUISE/100) AS YEAR, SPECIES_CODE
+
+FROM RACEBASE.SPECIMEN 
+LEFT JOIN (SELECT HAULJOIN, PERFORMANCE, STRATUM FROM RACEBASE.HAUL) 
+USING (HAULJOIN)
+
+WHERE REGION = 'BS' 
+AND AGE > 0
+AND PERFORMANCE < 0
+AND CRUISE >= 198700
+AND STRATUM IS NOT NULL
+ORDER BY SPECIES_CODE, YEAR")
+
+## Annotate new records
+eval_agecomp$new_records$NOTE <- ""
+
+## Query distinct species codes in the EBS and NBS HAEHNR agecomp tables. 
+ebs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                query = "SELECT DISTINCT SPECIES_CODE
+                                         FROM HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM
+                                         WHERE YEAR > 1987")$SPECIES_CODE
+nbs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                query = "SELECT DISTINCT SPECIES_CODE
+                                         FROM HAEHNR.AGECOMP_NBS_STRATUM 
+                                         WHERE YEAR > 1987")$SPECIES_CODE
+
+
+for (ispp in ebs_bio_taxa) {
+  temp_years <- 
+    RODBC::sqlQuery(channel = sql_channel,
+                    query = paste0("SELECT DISTINCT YEAR 
+                                  FROM HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM 
+                                  WHERE SPECIES_CODE = ", ispp, 
+                                   " AND YEAR >= 1987 AND AGE > 0"))$YEAR
+  eval_agecomp$new_records$NOTE[
+    (eval_agecomp$new_records$SURVEY_DEFINITION_ID == 98 
+     & eval_agecomp$new_records$SPECIES_CODE == ispp 
+     & !eval_agecomp$new_records$YEAR %in% temp_years)
+  ] <- "no otoliths collected"
+}
+
+for (ispp in nbs_bio_taxa) {
+  temp_years <- 
+    RODBC::sqlQuery(channel = sql_channel,
+                    query = paste0("SELECT DISTINCT YEAR 
+                                  FROM HAEHNR.AGECOMP_NBS_STRATUM 
+                                  WHERE SPECIES_CODE = ", ispp, 
+                                   " AND YEAR >= 1987 AND AGE > 0"))$YEAR
+  eval_agecomp$new_records$NOTE[
+    (eval_agecomp$new_records$SURVEY_DEFINITION_ID == 143 
+     & eval_agecomp$new_records$SPECIES_CODE == ispp 
+     & !eval_agecomp$new_records$YEAR %in% temp_years)
+  ] <- "no otoliths collected"
+}
+
+eval_agecomp$new_records$NOTE[
+  eval_agecomp$new_records$NOTE == "" 
+  & eval_agecomp$new_records$SPECIES_CODE == 10261
+] <- "additional 2022 NRS otoliths data"
+
+for (irow in 1:nrow(x = spp_year_neg_hauls)) {
+  eval_agecomp$new_records$NOTE[
+    eval_agecomp$new_records$SPECIES_CODE == spp_year_neg_hauls$SPECIES_CODE[irow] 
+    & eval_agecomp$new_records$YEAR == spp_year_neg_hauls$YEAR[irow]  
+  ] <- "otoliths from bad haul"
+}
+table(eval_agecomp$new_records$NOTE)
+
+## Annotate removed records
+eval_agecomp$removed_records$NOTE <- ""
+eval_agecomp$removed_records$NOTE[
+  eval_agecomp$removed_records$POPULATION_COUNT_HAEHNR == 0 
+] <- "zero-filled"
+
+for (irow in 1:nrow(x = spp_year_neg_hauls)) {
+  eval_agecomp$removed_records$NOTE[
+    eval_agecomp$removed_records$SPECIES_CODE == spp_year_neg_hauls$SPECIES_CODE[irow] 
+    & eval_agecomp$removed_records$YEAR == spp_year_neg_hauls$YEAR[irow]  
+  ] <- "otoliths from bad haul"
+}
+
+eval_agecomp$removed_records$NOTE[
+  eval_agecomp$removed_records$NOTE == "" 
+  & eval_agecomp$removed_records$SPECIES_CODE == 10261
+] <- "additional 2022 NRS otoliths data"
+
+for (irow in which(eval_agecomp$removed_records$NOTE == "")) {
+  temp_df <- 
+    subset(x = production_agecomp,
+           subset = SURVEY_DEFINITION_ID == eval_agecomp$removed_records$SURVEY_DEFINITION_ID[irow] 
+           & AREA_ID == eval_agecomp$removed_records$AREA_ID[irow] 
+           & YEAR  == eval_agecomp$removed_records$YEAR[irow]
+           & SPECIES_CODE  == eval_agecomp$removed_records$SPECIES_CODE[irow] )
+  
+  if (nrow(x = temp_df) == 0)
+    eval_agecomp$removed_records$NOTE[irow] <- "otolith not collected"
+  
+  print(eval_agecomp$removed_records[irow, ])
+}
+
+table(eval_agecomp$removed_records$NOTE)
+
+## Annotate modified records
+eval_agecomp$modified_records$NOTE <- ""
+
+for (irow in 1:nrow(x = spp_year_neg_hauls)) {
+  eval_agecomp$modified_records$NOTE[
+    eval_agecomp$modified_records$SPECIES_CODE == spp_year_neg_hauls$SPECIES_CODE[irow] 
+    & eval_agecomp$modified_records$YEAR == spp_year_neg_hauls$YEAR[irow]  
+  ] <- "otoliths from bad haul"
+}
+
+eval_agecomp$modified_records$NOTE[
+  eval_agecomp$modified_records$NOTE == "" 
+  & eval_agecomp$modified_records$SPECIES_CODE == 10261
+  & eval_agecomp$modified_records$YEAR == 2022
+] <- "additional 2022 NRS otoliths data"
+
+eval_agecomp$modified_records$NOTE[
+  eval_agecomp$modified_records$SPECIES_CODE == 21740
+  & eval_agecomp$modified_records$NOTE == ""
+  & eval_agecomp$modified_records$YEAR == 1991
+] <- "Unresolved issue with pollock juv. data"
+
+
+table(eval_agecomp$modified_records$NOTE)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Taxonomic Tables -----------------
+##   reference GAP_PRODUCTS.TAXONOMIC_CHANGES
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 production_taxon <- 
   RODBC::sqlQuery(channel = sql_channel,
@@ -351,10 +808,15 @@ eval_taxon <-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 bs_table_comparisons <- 
   list(cpue = eval_cpue,
-       biomas = eval_biomass,
+       biomass = eval_biomass,
        sizecomp = eval_sizecomp,
        agecomp = eval_agecomp,
        taxon = eval_taxon)
+
+for (idata in c("cpue", "biomass", "sizecomp", "agecomp")) {
+  print(lapply(X = bs_table_comparisons[[idata]], 
+               FUN = function(x) table(x$NOTE)))
+}
 
 saveRDS(object = bs_table_comparisons, 
         file = "code/historical_comparisons/bs_table_comparisons.RDS")
