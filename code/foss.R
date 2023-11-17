@@ -100,7 +100,3 @@ for (isql_script in c("FOSS_HAUL",
   
 } ## Loop over foss sql -- end
 
-# b <- RODBC::sqlQuery(channel = sql_channel,
-#                 query = "SELECT *
-#                        FROM ALL_MVIEW_COMMENTS
-#                        WHERE owner = 'GAP_PRODUCTS'")

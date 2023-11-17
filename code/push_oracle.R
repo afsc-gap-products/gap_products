@@ -100,8 +100,3 @@ for (idata in quantity) { ## Loop over data types -- start
                           metadata_column = metadata_column)
   
 } ## Loop over data types -- start
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Upload FOSS Materialized Views to GAP_PRODUCTS
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
