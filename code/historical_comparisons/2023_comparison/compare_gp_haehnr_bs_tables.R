@@ -324,6 +324,10 @@ eval_biomass$removed_records$NOTE[
   eval_biomass$removed_records$SPECIES_CODE %in% c(69323, 69322, 68580, 68560)
 ] <- 5
 
+## Reason code 15: In the HAEHNR version of the biomass tables, for strata 
+## where the hauls only collect weight data, the POPULATION_COUNT is 
+## incorrectly assumed to be zero with zero variance or NA with zero variance.
+## Assign these records a code 15 in the NOTES field. 
 eval_biomass$removed_records$NOTE[
   eval_biomass$removed_records$NOTE == "" 
   & eval_biomass$removed_records$N_COUNT_GP == 0 
