@@ -150,7 +150,7 @@ table(eval_cpue$removed_records$NOTE)
 ## NOTES field. 
 eval_cpue$modified_records$NOTE[
   (eval_cpue$modified_records$SPECIES_CODE == 21725 &
-    eval_cpue$modified_records$YEAR == 2010) |
+     eval_cpue$modified_records$YEAR == 2010) |
     (eval_cpue$modified_records$SPECIES_CODE == 21371 &
        eval_cpue$modified_records$YEAR == 2017)
 ] <- 3
@@ -495,20 +495,12 @@ eval_sizecomp$removed_records$NOTE[
 ] <- "incorrectly large size classes"
 table(eval_sizecomp$removed_records$NOTE)
 
-
-
 ## Annotate modified sizecomp records: records that changed between the HAEHNR 
 ## and GAP_PRODUCTS version of the sizecomp tables.
 
-# for (irow in 1:nrow(x = vouchered_records)) {
-#   
-#   eval_sizecomp$modified_records$NOTE[
-#     eval_sizecomp$modified_records$SPECIES_CODE == vouchered_records$SPECIES_CODE[irow] &
-#       eval_sizecomp$modified_records$YEAR == vouchered_records$YEAR[irow]
-#   ] <- "voucher change"
-#   
-# }
-
+## Reason code 8: These anomalously large size classes are errors and have 
+## since been removed from RACEBASE.LENGTH. Assign these records a code 8 in 
+## the NOTES field. 
 eval_sizecomp$modified_records$NOTE[
   (eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == 143 & 
      eval_sizecomp$modified_records$YEAR == 2017 & 
@@ -516,12 +508,16 @@ eval_sizecomp$modified_records$NOTE[
     (eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == 143 & 
        eval_sizecomp$modified_records$YEAR == 2010 & 
        eval_sizecomp$modified_records$SPECIES_CODE == 21725)
-] <- "very large lengths removed"
+] <- 8
 
+## Reason code 9: There was a discrepancy with how juvenile and adult 
+## northern rock sole were handled and have been resolved in the current 
+## version of GAP_PRODUCTS. Assign these records a code 9 in the NOTES field. 
 eval_sizecomp$modified_records$NOTE[
   eval_sizecomp$modified_records$SPECIES_CODE == 10261
-] <- "Error with NRS juv. calculation"
+] <- 9
 
+## Reason code 10: 
 
 excluded_length_bin <- 
   unique(x = subset(x = eval_sizecomp$modified_records, 
@@ -533,14 +529,17 @@ for (irow in 1:nrow(x = excluded_length_bin)) {
     eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == excluded_length_bin$SURVEY_DEFINITION_ID[irow]
     & eval_sizecomp$modified_records$SPECIES_CODE == excluded_length_bin$SPECIES_CODE[irow]
     & eval_sizecomp$modified_records$YEAR == excluded_length_bin$YEAR[irow]
-  ] <-"excluded length bin"
+  ] <-10
 }
+
+## Reason code 11: This mismatch is due to an unresolved issue with juvenile 
+## walleye pollock 1991 data. Assign these records a code 11 in the NOTES field. 
 
 eval_sizecomp$modified_records$NOTE[
   eval_sizecomp$modified_records$SPECIES_CODE == 21740
   & eval_sizecomp$modified_records$NOTE == ""
   & eval_sizecomp$modified_records$YEAR == 1991
-] <- "Unresolved issue with pollock juv. data"
+] <- 11
 
 table(eval_sizecomp$modified_records$NOTE)
 
@@ -608,52 +607,63 @@ eval_agecomp <-
     key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
                     "SPECIES_CODE", "SEX", "AGE"))
 
-## Annotate new biomass records: records that are not in the HAEHNR versions of 
-## the biomass tables and unique to the GAP_PRODUCTS version of the biomass
+## Annotate new agecomp records: records that are not in the HAEHNR versions of 
+## the agecomp tables and unique to the GAP_PRODUCTS version of the agecomp
 ## table.
 
-## Annotate removed biomass records: records that are in the HAEHNR versions of 
-## the biomass tables but removed in the GAP_PRODUCTS version of the biomass 
-## table.
+## Reason code 12: historically, otoliths from hauls with negative performance
+## codes were included in the calculation of the age composition, even though
+## these hauls were excluded from the biomass and size composition calculations.
+## The GAP_PRODUCTS version of the age composition table only includes data from
+## hauls with positive performance codes. Assign these records a code 12 in the
+## NOTES field.
 
-## Annotate modified biomass records: records that changed between the HAEHNR 
-## and GAP_PRODUCTS version of the biomass tables.
-
-## Query species and years where otoliths were collected from bad-performing
-## hauls. These age data were included in the agecomp calculations in the 
-## HAEHNR versions of the agecomp tables. The GAP_PRODUCTS.AGECOMP only includes
-## age data from well-performing hauls. So for these species/year instances
-## the age compositions will be different. 
+## But first, query specimen data that come from hauls with negative 
+## performance codes. 
 spp_year_neg_hauls <- 
   RODBC::sqlQuery(channel = sql_channel,
-                  query = "SELECT DISTINCT FLOOR(CRUISE/100) AS YEAR, SPECIES_CODE
+                  query = "SELECT DISTINCT 
+                           FLOOR(CRUISE/100) AS YEAR, SPECIES_CODE
+                           FROM RACEBASE.SPECIMEN 
+                           
+                           LEFT JOIN 
+                           (SELECT HAULJOIN, PERFORMANCE, STRATUM 
+                            FROM RACEBASE.HAUL)
+                           USING (HAULJOIN)
 
-FROM RACEBASE.SPECIMEN 
-LEFT JOIN (SELECT HAULJOIN, PERFORMANCE, STRATUM FROM RACEBASE.HAUL) 
-USING (HAULJOIN)
+                           WHERE REGION = 'BS' 
+                           AND AGE > 0
+                           AND PERFORMANCE < 0
+                           AND CRUISE >= 198700
+                           AND STRATUM IS NOT NULL
+                           ORDER BY SPECIES_CODE, YEAR")
 
-WHERE REGION = 'BS' 
-AND AGE > 0
-AND PERFORMANCE < 0
-AND CRUISE >= 198700
-AND STRATUM IS NOT NULL
-ORDER BY SPECIES_CODE, YEAR")
+for (irow in 1:nrow(x = spp_year_neg_hauls)) { # Loop over spp/year -- start
+  eval_agecomp$new_records$NOTE[
+    eval_agecomp$new_records$SPECIES_CODE == 
+      spp_year_neg_hauls$SPECIES_CODE[irow] 
+    & eval_agecomp$new_records$YEAR == 
+      spp_year_neg_hauls$YEAR[irow]  
+  ] <- 12
+} # Loop over spp/year -- end
 
-## Annotate new records
-eval_agecomp$new_records$NOTE <- ""
+## Reason code 13: By default, if otoliths were not collected for a given 
+## species/year gapindex reports the total age-aggregated abundance by sex 
+## with age -9 or -99 (age and sex aggregated). These records are not in the
+## HAEHNR versions of the table. Assign these records a code 13 in the NOTES 
+## field.
 
 ## Query distinct species codes in the EBS and NBS HAEHNR agecomp tables. 
-ebs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+ebs_agecomp_taxa <- RODBC::sqlQuery(channel = sql_channel,
                                 query = "SELECT DISTINCT SPECIES_CODE
                                          FROM HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM
-                                         WHERE YEAR > 1987")$SPECIES_CODE
-nbs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
+                                         WHERE YEAR >= 1987")$SPECIES_CODE
+nbs_agecomp_taxa <- RODBC::sqlQuery(channel = sql_channel,
                                 query = "SELECT DISTINCT SPECIES_CODE
                                          FROM HAEHNR.AGECOMP_NBS_STRATUM 
-                                         WHERE YEAR > 1987")$SPECIES_CODE
+                                         WHERE YEAR >= 1987")$SPECIES_CODE
 
-
-for (ispp in ebs_bio_taxa) {
+for (ispp in ebs_agecomp_taxa) { ## Loop over EBS spp -- start
   temp_years <- 
     RODBC::sqlQuery(channel = sql_channel,
                     query = paste0("SELECT DISTINCT YEAR 
@@ -664,10 +674,10 @@ for (ispp in ebs_bio_taxa) {
     (eval_agecomp$new_records$SURVEY_DEFINITION_ID == 98 
      & eval_agecomp$new_records$SPECIES_CODE == ispp 
      & !eval_agecomp$new_records$YEAR %in% temp_years)
-  ] <- "no otoliths collected"
-}
+  ] <- 13
+} ## Loop over EBS spp -- end
 
-for (ispp in nbs_bio_taxa) {
+for (ispp in nbs_agecomp_taxa) { ## Loop over NBS spp -- start
   temp_years <- 
     RODBC::sqlQuery(channel = sql_channel,
                     query = paste0("SELECT DISTINCT YEAR 
@@ -678,39 +688,49 @@ for (ispp in nbs_bio_taxa) {
     (eval_agecomp$new_records$SURVEY_DEFINITION_ID == 143 
      & eval_agecomp$new_records$SPECIES_CODE == ispp 
      & !eval_agecomp$new_records$YEAR %in% temp_years)
-  ] <- "no otoliths collected"
-}
+  ] <- 13
+} ## Loop over NBS spp -- end
 
+## Reason code 14: There was an addition of 2022 NRS otolith data since the 
+## HAEHNR versions of the tables were produced. Assign these records a code 
+## 14 in the NOTES field.
 eval_agecomp$new_records$NOTE[
   eval_agecomp$new_records$NOTE == "" 
   & eval_agecomp$new_records$SPECIES_CODE == 10261
-] <- "additional 2022 NRS otoliths data"
+] <- 14
 
-for (irow in 1:nrow(x = spp_year_neg_hauls)) {
-  eval_agecomp$new_records$NOTE[
-    eval_agecomp$new_records$SPECIES_CODE == spp_year_neg_hauls$SPECIES_CODE[irow] 
-    & eval_agecomp$new_records$YEAR == spp_year_neg_hauls$YEAR[irow]  
-  ] <- "otoliths from bad haul"
-}
 table(eval_agecomp$new_records$NOTE)
 
-## Annotate removed records
-eval_agecomp$removed_records$NOTE <- ""
+## Annotate removed agecomp records: records that are in the HAEHNR versions of 
+## the agecomp tables but removed in the GAP_PRODUCTS version of the agecomp 
+## table.
+
+## Reason code 7: The GAP_PRDOUCTS versions of the age and size composition 
+## tables are not zero-filled whereas the HAEHNR version of the composition 
+## tables are zero-filled. included in the GAP_PRODUCTS version of the 
+## sizecomp table. Assign these records a code 7 in the NOTES field. 
 eval_agecomp$removed_records$NOTE[
   eval_agecomp$removed_records$POPULATION_COUNT_HAEHNR == 0 
-] <- "zero-filled"
+] <- 7
 
+## Reason code 12: historically, otoliths from hauls with negative performance
+## codes were included in the calculation of the age composition, even though
+## these hauls were excluded from the biomass and size composition calculations.
+## The GAP_PRODUCTS version of the age composition table only includes data from
+## hauls with positive performance codes. Assign these records a code 12 in the
+## NOTES field.
 for (irow in 1:nrow(x = spp_year_neg_hauls)) {
   eval_agecomp$removed_records$NOTE[
     eval_agecomp$removed_records$SPECIES_CODE == spp_year_neg_hauls$SPECIES_CODE[irow] 
-    & eval_agecomp$removed_records$YEAR == spp_year_neg_hauls$YEAR[irow]  
-  ] <- "otoliths from bad haul"
+    & eval_agecomp$removed_records$YEAR == 
+      spp_year_neg_hauls$YEAR[irow]  
+  ] <-12
 }
 
 eval_agecomp$removed_records$NOTE[
   eval_agecomp$removed_records$NOTE == "" 
   & eval_agecomp$removed_records$SPECIES_CODE == 10261
-] <- "additional 2022 NRS otoliths data"
+] <- 14
 
 for (irow in which(eval_agecomp$removed_records$NOTE == "")) {
   temp_df <- 
@@ -721,35 +741,33 @@ for (irow in which(eval_agecomp$removed_records$NOTE == "")) {
            & SPECIES_CODE  == eval_agecomp$removed_records$SPECIES_CODE[irow] )
   
   if (nrow(x = temp_df) == 0)
-    eval_agecomp$removed_records$NOTE[irow] <- "otolith not collected"
+    eval_agecomp$removed_records$NOTE[irow] <-12
   
   print(eval_agecomp$removed_records[irow, ])
 }
 
 table(eval_agecomp$removed_records$NOTE)
 
-## Annotate modified records
-eval_agecomp$modified_records$NOTE <- ""
+## Annotate modified agecomp records: records that changed between the HAEHNR 
+## and GAP_PRODUCTS version of the agecomp tables.
+eval_agecomp$modified_records$NOTE[
+  eval_agecomp$modified_records$SPECIES_CODE == 21740
+  & eval_agecomp$modified_records$NOTE == ""
+  & eval_agecomp$modified_records$YEAR == 1991
+] <- 11
 
 for (irow in 1:nrow(x = spp_year_neg_hauls)) {
   eval_agecomp$modified_records$NOTE[
     eval_agecomp$modified_records$SPECIES_CODE == spp_year_neg_hauls$SPECIES_CODE[irow] 
     & eval_agecomp$modified_records$YEAR == spp_year_neg_hauls$YEAR[irow]  
-  ] <- "otoliths from bad haul"
+  ] <-12
 }
 
 eval_agecomp$modified_records$NOTE[
   eval_agecomp$modified_records$NOTE == "" 
   & eval_agecomp$modified_records$SPECIES_CODE == 10261
   & eval_agecomp$modified_records$YEAR == 2022
-] <- "additional 2022 NRS otoliths data"
-
-eval_agecomp$modified_records$NOTE[
-  eval_agecomp$modified_records$SPECIES_CODE == 21740
-  & eval_agecomp$modified_records$NOTE == ""
-  & eval_agecomp$modified_records$YEAR == 1991
-] <- "Unresolved issue with pollock juv. data"
-
+] <- 14
 
 table(eval_agecomp$modified_records$NOTE)
 
