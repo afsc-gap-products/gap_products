@@ -55,6 +55,11 @@ compare_tables <- function(x = NULL,
   if (!all(key_columns %in% names(x = x))) 
     stop("The `key_columns` need to be present in argument `x`")
   
+  col_order <- 
+    as.vector(t(sapply(X = c(base_table_suffix, update_table_suffix, "_DIFF"),
+                       FUN = function(x) paste0(cols_to_check$colname, x), 
+                       simplify = T)))
+  
   for (icol in 1:nrow(x = cols_to_check)) {
     x[, paste0(cols_to_check$colname[icol], "_DIFF")] <- 
       round(x = calc_diff(v1 = x[, paste0(cols_to_check$colname[icol], 
@@ -75,6 +80,10 @@ compare_tables <- function(x = NULL,
                   collapse = "|"), 
            ")")
   new_records <- eval(parse(text = new_records_stmt))
+  new_records <- new_records[, c(key_columns, col_order)]
+  
+  if (nrow(x = new_records) > 0) new_records$NOTE <- ""
+  
   
   removed_records_stmt <- 
     paste0("subset(x = x, subset = ",
@@ -86,6 +95,8 @@ compare_tables <- function(x = NULL,
                   collapse = "|"), 
            ")")
   removed_records <- eval(parse(text = removed_records_stmt))
+  removed_records <- removed_records[, c(key_columns, col_order)]
+  if (nrow(x = removed_records) > 0) removed_records$NOTE <- ""
   
   modified_records_stmt <- 
     paste0("subset(x = x, subset = ",
@@ -95,14 +106,12 @@ compare_tables <- function(x = NULL,
                   collapse = " | "), 
            ")")
   modified_records <- eval(parse(text = modified_records_stmt))
-  
-  col_order <- 
-    as.vector(t(sapply(X = c(base_table_suffix, update_table_suffix, "_DIFF"),
-                       FUN = function(x) paste0(cols_to_check$colname, x), 
-                       simplify = T)))
-  
-  return(list(new_records = new_records[, c(key_columns, col_order)],
-              removed_records = removed_records[, c(key_columns, col_order)],
-              modified_records = modified_records[, c(key_columns, col_order)]))
+  modified_records <- modified_records[, c(key_columns, col_order)]
+  if (nrow(x = modified_records) > 0) modified_records$NOTE <- ""
+
+    
+  return(list(new_records = new_records, 
+              removed_records = removed_records, 
+              modified_records = modified_records))
   
 }
