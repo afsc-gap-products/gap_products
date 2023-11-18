@@ -84,16 +84,15 @@ test_cpue <- merge(x = production_cpue,
 
 ## Evaluate the new, removed, and modified records between the HAEHNR
 ## and GAP_PRODUCTS versions of the biomass tables. 
-eval_cpue <-     
-  compare_tables(
-    x = test_cpue,
-    cols_to_check = data.frame(
-      colname = c("CPUE_KGKM2", "CPUE_NOKM2"),
-      percent = c(F, F),
-      decplaces = c(0, 0)),
-    base_table_suffix = "_HAEHNR",
-    update_table_suffix = "_GP",
-    key_columns = c("SURVEY_DEFINITION_ID", "YEAR", "HAULJOIN", "SPECIES_CODE"))
+eval_cpue <- compare_tables(x = test_cpue,
+                            cols_to_check = data.frame(
+                              colname = c("CPUE_KGKM2", "CPUE_NOKM2"),
+                              percent = c(F, F),
+                              decplaces = c(0, 0)),
+                            base_table_suffix = "_HAEHNR",
+                            update_table_suffix = "_GP",
+                            key_columns = c("SURVEY_DEFINITION_ID", "YEAR", 
+                                            "HAULJOIN", "SPECIES_CODE"))
 
 ## Annotate new cpue records: records that are not in the HAEHNR versions of 
 ## the CPUE tables and unique to the GAP_PRODUCTS versions of the CPUE table.
@@ -238,20 +237,19 @@ test_biomass <- merge(x = production_biomass,
 ## Evaluate the new, removed, and modified records between the HAEHNR
 ## and GAP_PRODUCTS versions of the biomass tables. 
 eval_biomass <- 
-  compare_tables(
-    x = test_biomass,
-    cols_to_check = data.frame(
-      colname = c("N_HAUL", "N_WEIGHT", "N_COUNT",
-                  "CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR", 
-                  "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
-                  "BIOMASS_MT", "BIOMASS_VAR", 
-                  "POPULATION_COUNT", "POPULATION_VAR"),
-      percent = c(F, F, F, T, T, T, T, T, T, T, T),
-      decplaces = c(0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0)),
-    base_table_suffix = "_HAEHNR",
-    update_table_suffix = "_GP",
-    key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
-                    "SPECIES_CODE", "YEAR"))
+  compare_tables(x = test_biomass,
+                 cols_to_check = data.frame(
+                   colname = c("N_HAUL", "N_WEIGHT", "N_COUNT",
+                               "CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR", 
+                               "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
+                               "BIOMASS_MT", "BIOMASS_VAR", 
+                               "POPULATION_COUNT", "POPULATION_VAR"),
+                   percent = c(F, F, F, T, T, T, T, T, T, T, T),
+                   decplaces = c(0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0)),
+                 base_table_suffix = "_HAEHNR",
+                 update_table_suffix = "_GP",
+                 key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
+                                 "SPECIES_CODE", "YEAR"))
 
 ## Annotate new biomass records: records that are not in the HAEHNR versions of 
 ## the biomass tables and unique to the GAP_PRODUCTS version of the biomass
@@ -271,9 +269,6 @@ nbs_bio_taxa <- RODBC::sqlQuery(channel = sql_channel,
                                 query = "SELECT DISTINCT SPECIES_CODE
                                          FROM HAEHNR.BIOMASS_NBS_AKFIN 
                                          WHERE YEAR >= 1987")$SPECIES_CODE
-
-## Note taxa that were not previously in the HAEHNR versions of the 
-## biomass tables that are now in the GAP_PRODUCTS.BIOMASS. 
 eval_biomass$new_records$NOTE[
   !(eval_biomass$new_records$SPECIES_CODE %in% ebs_bio_taxa & 
       eval_biomass$new_records$SURVEY_DEFINITION_ID == 98) |
@@ -329,9 +324,13 @@ eval_biomass$removed_records$NOTE[
   eval_biomass$removed_records$SPECIES_CODE %in% c(69323, 69322, 68580, 68560)
 ] <- 5
 
-table(eval_biomass$removed_records$NOTE)
+eval_biomass$removed_records$NOTE[
+  eval_biomass$removed_records$NOTE == "" 
+  & eval_biomass$removed_records$N_COUNT_GP == 0 
+  & is.na(x = eval_biomass$removed_records$POPULATION_GP)
+] <- 15
 
-subset(eval_biomass$removed_records, NOTE == "")
+table(eval_biomass$removed_records$NOTE)
 
 ## Annotate modified biomass records: records that changed between the HAEHNR 
 ## and GAP_PRODUCTS version of the biomass tables.
@@ -517,8 +516,9 @@ eval_sizecomp$modified_records$NOTE[
   eval_sizecomp$modified_records$SPECIES_CODE == 10261
 ] <- 9
 
-## Reason code 10: 
-
+## Reason code 10: Unresolved issue: These length bins were somehow excluded 
+## from the HAEHNR version of the sizecomp tables. Assign these records a code 
+## 10 in the NOTES field. 
 excluded_length_bin <- 
   unique(x = subset(x = eval_sizecomp$modified_records, 
                     NOTE == "" & POPULATION_COUNT_HAEHNR == 0,
@@ -655,11 +655,11 @@ for (irow in 1:nrow(x = spp_year_neg_hauls)) { # Loop over spp/year -- start
 
 ## Query distinct species codes in the EBS and NBS HAEHNR agecomp tables. 
 ebs_agecomp_taxa <- RODBC::sqlQuery(channel = sql_channel,
-                                query = "SELECT DISTINCT SPECIES_CODE
+                                    query = "SELECT DISTINCT SPECIES_CODE
                                          FROM HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM
                                          WHERE YEAR >= 1987")$SPECIES_CODE
 nbs_agecomp_taxa <- RODBC::sqlQuery(channel = sql_channel,
-                                query = "SELECT DISTINCT SPECIES_CODE
+                                    query = "SELECT DISTINCT SPECIES_CODE
                                          FROM HAEHNR.AGECOMP_NBS_STRATUM 
                                          WHERE YEAR >= 1987")$SPECIES_CODE
 
@@ -742,8 +742,6 @@ for (irow in which(eval_agecomp$removed_records$NOTE == "")) {
   
   if (nrow(x = temp_df) == 0)
     eval_agecomp$removed_records$NOTE[irow] <-12
-  
-  print(eval_agecomp$removed_records[irow, ])
 }
 
 table(eval_agecomp$removed_records$NOTE)
