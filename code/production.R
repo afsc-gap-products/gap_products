@@ -22,7 +22,7 @@ sql_channel <- gapindex::get_connected()
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Specify the range of years to calculate indices
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-current_year <- 2023
+current_year <- as.integer(format(x = Sys.Date(), format = "%Y"))
 start_year <- 
   c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 1982, "NBS" = 2010)
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
@@ -37,8 +37,6 @@ spp_start_year <-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (!dir.exists(paths = "temp/production/")) 
   dir.create(path = "temp/production/")
-writeLines(text = paste("Accessed on", Sys.time()), 
-           con = "temp/production/date_accessed.txt")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions
@@ -213,7 +211,6 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
                                  subset = AREA_ID != 99901)
   }
 
-  
   ## Save to the temp/ folder 
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
                   "strata", "subarea")) 
