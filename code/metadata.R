@@ -11,7 +11,6 @@ rm(list = ls())
 library(googledrive)
 library(gapindex)
 library(readxl)
-library(RODBC)
 library(janitor)
 library(dplyr)
 source(file = "code/constants.R")
@@ -22,8 +21,6 @@ sql_channel <- gapindex::get_connected()
 ##   Download the most recent version of the future_oracle.xlsx 
 ##   google sheet and save locally in the temp folder. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# https://docs.google.com/spreadsheets/d/1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA/edit?pli=1#gid=65110769
 googledrive::drive_download(
   file = googledrive::as_id("1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA"), 
   path = "temp/future_oracle.xlsx", 
@@ -101,10 +98,9 @@ for (isql_table in c("metadata_table",
   ## field names in get(x = isql_table) should match those in 
   ## `metadata_column$metadata_colname`. If they don't, modify the future_oracle
   ## spreadsheet and reimport. 
-  temp_metadata_column <- 
-    subset(x = metadata_column, 
-           subset = metadata_colname %in% 
-             toupper(names(x = get(x = isql_table))))
+  temp_metadata_column <- subset(x = metadata_column, 
+                                 subset = metadata_colname %in% 
+                                   toupper(names(x = get(x = isql_table))))
   
   ## In gapindex::upload_oracle, the `table_metadata` argument requires 
   ## specific field names
@@ -113,8 +109,7 @@ for (isql_table in c("metadata_table",
                                           replacement = "")
   
   ## Temporary comment on the table itself
-  temp_metadata_comment <- 
-    get(x = paste0(isql_table, "_comment"))
+  temp_metadata_comment <- get(x = paste0(isql_table, "_comment"))
   
   ## Upload table: gapindex function will drop the table if it already exists,
   ## saves the table, then adds the comment on the table and each column.
@@ -127,29 +122,3 @@ for (isql_table in c("metadata_table",
                           share_with_all_users = TRUE)
   
 } ## loop over tables -- end
-
-
-# Make metadata sentences for this repo ----------------------------------------
-
-# for (i in 1:nrow(NEW_METADATA_TABLE)){
-#   assign(x = paste0("metadata_sentence_", 
-#                     metadata_table$metadata_sentence_name[i]), 
-#          value = metadata_table$metadata_sentence[i])
-# }
-# 
-# metadata_sentence_github <- gsub(
-#   x = metadata_sentence_github, 
-#   pattern = "INSERT_REPO", 
-#   replacement = link_repo)
-# 
-# metadata_sentence_last_updated <- gsub(
-#   x = metadata_sentence_last_updated, 
-#   pattern = "INSERT_DATE", 
-#   replacement = pretty_date)
-# 
-# 
-# metadata_column <- NEW_METADATA_COLUMN
-# names(metadata_column) <- gsub(pattern = "metadata_", 
-#                                replacement = "", 
-#                                x = names(metadata_column))
-
