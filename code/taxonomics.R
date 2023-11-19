@@ -68,7 +68,7 @@ TAXONOMIC_CONFIDENCE <- data.frame()
 a <- a$name
 for (i in 1:length(a)){
   print(a[i])
-  b <- readxl::read_xlsx(path = paste0("temp/", a[i]), 
+  b <- readxl::read_xlsx(path = here::here("temp/", a[i]), 
                          skip = 1, col_names = TRUE) %>% 
     dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
     janitor::clean_names() %>% 
@@ -136,14 +136,16 @@ comb2 <- unique(TAXONOMIC_CONFIDENCE[, c("survey_definition_id", "year")])
 comb1$comb <- paste0(comb1$survey_definition_id, "_", comb1$year)
 comb2$comb <- paste0(comb2$survey_definition_id, "_", comb2$year)
 comb <- strsplit(x = setdiff(comb1$comb, comb2$comb), split = "_")
+comb <- data.frame(t(data.frame(comb)))
+names(comb) <- c("survey_definition_id", "year")
 
 for (i in 1:nrow(comb)) {
   TAXONOMIC_CONFIDENCE <- dplyr::bind_rows(
     TAXONOMIC_CONFIDENCE, 
     TAXONOMIC_CONFIDENCE %>% 
-    dplyr::filter(survey_definition_id == comb[[i]][1]) %>% 
-    dplyr::filter(year == max(year, na.rm = TRUE)) %>% 
-    dplyr::mutate(year = comb[[i]][2]) )
+    dplyr::filter(survey_definition_id == comb$survey_definition_id[i] & 
+                    year == max(year, na.rm = TRUE)) %>% 
+    dplyr::mutate(year = as.numeric(comb$year[i])) )
 }
 
 ### Add table and column metadata -------

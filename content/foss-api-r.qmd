@@ -188,10 +188,7 @@ figure <- akgfmaps::make_idw_map(
   set.breaks = "jenks", # Gets Jenks breaks from classint::classIntervals()
   in.crs = "+proj=longlat", # Set input coordinate reference system
   out.crs = "EPSG:3338", # Set output coordinate reference system
-  grid.cell = c(20000, 20000), # 20x20km grid
-  key.title = "Pacific Ocean perch") # Include in the legend title
-
-figure$plot + 
+  grid.cell = c(20000, 20000))$plot + # 20x20km grid
   ggplot2::guides(fill=guide_legend(title = "Pacific cod\nCPUE (kg/km2)"))
 ```
 
