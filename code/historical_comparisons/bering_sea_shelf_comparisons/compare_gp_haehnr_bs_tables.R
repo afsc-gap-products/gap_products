@@ -843,4 +843,6 @@ for (idata in c("cpue", "biomass", "sizecomp", "agecomp")) {
 }
 
 saveRDS(object = bs_table_comparisons, 
-        file = "code/historical_comparisons/bs_table_comparisons.RDS")
+        file = paste0("code/historical_comparisons/",
+                      "bering_sea_shelf_comparisons/",
+                      "bs_table_comparisons.RDS"))
