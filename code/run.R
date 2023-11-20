@@ -117,7 +117,7 @@ dir.create(path = readLines(con = "temp/timestamp.txt"))
 
 ## Copy the necessary items into the directory
 file.copy(from = "gap_products.Rproj", 
-          to = )
+          to = readLines(con = "temp/timestamp.txt"))
 fs::dir_copy(path = "code/", 
          new_path = readLines(con = "temp/timestamp.txt"))
 fs::dir_copy(path = "functions/", 
