@@ -154,6 +154,8 @@ eval_cpue$modified_records$NOTE[
        eval_cpue$modified_records$YEAR == 2017)
 ] <- 3
 
+table(eval_cpue$modified_records$NOTE)
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Biomass Tables -----------------
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -278,7 +280,6 @@ eval_biomass$new_records$NOTE[
 
 table(eval_biomass$new_records$NOTE)
 
-
 ## Annotate removed biomass records: records that are in the HAEHNR versions of 
 ## the biomass tables but removed in the GAP_PRODUCTS version of the biomass 
 ## table.
@@ -331,7 +332,7 @@ eval_biomass$removed_records$NOTE[
 eval_biomass$removed_records$NOTE[
   eval_biomass$removed_records$NOTE == "" 
   & eval_biomass$removed_records$N_COUNT_GP == 0 
-  & is.na(x = eval_biomass$removed_records$POPULATION_GP)
+  & is.na(x = eval_biomass$removed_records$POPULATION_VAR_GP)
 ] <- 15
 
 table(eval_biomass$removed_records$NOTE)
@@ -479,23 +480,26 @@ table(eval_sizecomp$new_records$NOTE)
 ## sizecomp table. Assign these records a code 7 in the NOTES field. 
 eval_sizecomp$removed_records$NOTE[
   eval_sizecomp$removed_records$POPULATION_COUNT_HAEHNR == 0 
-] <- "zero-filled"
+] <- 7
 
-## Records from the HAEHNR sizecomp tables were removed from 
-## GAP_PRODUCTS.SIZECOMP because there are records from years prior to when 
-## we were confident about the taxon identification for a given species code. 
+## Reason code 2: For a subset of taxa, GAP was confident about the 
+## identification of these species after some given year, e.g., northern rock 
+## sole was confidently identified starting from 1996. Records before this 
+## start year were removed and are not present in the GAP_PRODUCTS tables. See
+## GAP_PRODUCTS.SPECIES_YEAR for the full list of species and starting years. 
+## Assign these records a code 2 in the NOTES field. 
 for (irow in 1:nrow(x = spp_year)) {
   eval_sizecomp$removed_records$NOTE[
     eval_sizecomp$removed_records$SPECIES_CODE == spp_year$SPECIES_CODE[irow] &
       eval_sizecomp$removed_records$YEAR < spp_year$YEAR_STARTED[irow] 
-  ] <- "before taxon confidence"
+  ] <- 2
 }
 
 ## The remaining removed records were anomalously long individuals that were
 ## corrected. 
 eval_sizecomp$removed_records$NOTE[
   eval_sizecomp$removed_records$NOTE == ""
-] <- "incorrectly large size classes"
+] <- 8
 table(eval_sizecomp$removed_records$NOTE)
 
 ## Annotate modified sizecomp records: records that changed between the HAEHNR 
