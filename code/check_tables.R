@@ -223,10 +223,13 @@ gapindex_version <-
 detailed_notes <- 
   "A new version of gapindex ([v2.1.2](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.1.2)) was used to produced these data. There was a slight change to how subarea biomass totals are calculated that was not fully addressed in v2.1.1. The modified biomass records reflect this change."
 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Create report changelogs
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 timestamp <- readLines(con = "temp/timestamp.txt")
 rmarkdown::render(input = "code/report_changes.RMD",
                   output_format = "html_document",
-                  output_file = "../temp/report_changes.html",
+                  output_file = paste0("../temp/report_changes.html"),
                   params = list("detailed_notes" = detailed_notes,
                                 "gapindex_version" = gapindex_version,
                                 "timestamp" = timestamp))

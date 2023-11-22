@@ -1,6 +1,53 @@
-Run 2023-11-14 gapindex v2.1.1
-First proper version
+GAP_PRODUCTS ChangeLog (last produced on 2023-11-14) using gapindex v2.1.1
+A new version of gapindex (v2.1.1) was used to produced these data. There was a slight change to how subarea biomass totals are calculated. The modified biomass records reflect this change. New 2022 otolith data were available since the last iteration of the GAP_PRODUCTS for Aleutian Island Pacific ocean perch and northern rockifsh and Eastern Bering Sea northern rock sole. Zero-filled CPUE records for four GOA species codes (SPECIES_CODE: 21210, 30010, 30360, 77102, 98101) were added due to how the 1990 data were integrated in the last production run of GAP_PRODUCTS. Two Arctic cod (SPECIES_CODE: 21725) and one plain sculpin (SPECIES_CODE: 21371) count records were modified in the NBS data, which changes the numerical CPUE estimates for those hauls which changes the estimated population abundance and size composition for those species.
 
+Summary of Changes
+AI Region:
 
-[insert run notes]
+cpue : There are 0 new cpue records. There are 0 cpue records that were removed. There are 0 modified cpue records.
 
+biomass : There are 0 new biomass records. There are 0 biomass records that were removed. There are 846 modified biomass records.
+
+sizecomp : There are 0 new sizecomp records. There are 0 sizecomp records that were removed. There are 0 modified sizecomp records.
+
+agecomp : There are 6804 new agecomp records. There are 106 agecomp records that were removed. There are 50 modified agecomp records.
+
+GOA Region:
+
+cpue : There are 51200 new cpue records. There are 0 cpue records that were removed. There are 0 modified cpue records.
+
+biomass : There are 0 new biomass records. There are 0 biomass records that were removed. There are 136 modified biomass records.
+
+sizecomp : There are 0 new sizecomp records. There are 0 sizecomp records that were removed. There are 0 modified sizecomp records.
+
+agecomp : There are 0 new agecomp records. There are 0 agecomp records that were removed. There are 0 modified agecomp records.
+
+EBS Region:
+
+cpue : There are 0 new cpue records. There are 0 cpue records that were removed. There are 0 modified cpue records.
+
+biomass : There are 0 new biomass records. There are 0 biomass records that were removed. There are 348 modified biomass records.
+
+sizecomp : There are 0 new sizecomp records. There are 0 sizecomp records that were removed. There are 0 modified sizecomp records.
+
+agecomp : There are 104 new agecomp records. There are 3 agecomp records that were removed. There are 518 modified agecomp records.
+
+NBS Region:
+
+cpue : There are 0 new cpue records. There are 0 cpue records that were removed. There are 3 modified cpue records.
+
+biomass : There are 0 new biomass records. There are 0 biomass records that were removed. There are 5 modified biomass records.
+
+sizecomp : There are 21 new sizecomp records. There are 22 sizecomp records that were removed. There are 657 modified sizecomp records.
+
+agecomp : There are 0 new agecomp records. There are 0 agecomp records that were removed. There are 0 modified agecomp records.
+
+BSS Region:
+
+cpue : There are 0 new cpue records. There are 0 cpue records that were removed. There are 0 modified cpue records.
+
+biomass : There are 0 new biomass records. There are 0 biomass records that were removed. There are 46 modified biomass records.
+
+sizecomp : There are 0 new sizecomp records. There are 0 sizecomp records that were removed. There are 0 modified sizecomp records.
+
+agecomp : There are 0 new agecomp records. There are 0 agecomp records that were removed. There are 0 modified agecomp records.

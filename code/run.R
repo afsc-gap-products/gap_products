@@ -112,6 +112,12 @@ file.edit("code/foss.R")
 ##   csv files in the temp/folder. The NEWS html is currently the way that 
 ##   changes are reported. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Copy report changes to news section
+fs::file_copy(path = "temp/report_changes.txt",
+              new_path = paste0("content/intro-news/", 
+                                readLines(con = "temp/timestamp.txt"), 
+                                ".txt") )
+
 ## Create a new directory with the timestamp as the title
 dir.create(path = readLines(con = "temp/timestamp.txt"))
 

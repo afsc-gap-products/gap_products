@@ -1,5 +1,6 @@
 ---
 title: "GAP_PRODUCTS ChangeLog (`r params$timestamp`)"
+author: "[gapindex](https://afsc-gap-products.github.io/gapindex/) version `r params$gapindex_version`"
 output: html_document
 params:
   detailed_notes: null
@@ -28,15 +29,23 @@ for (iregion in c("AI", "GOA", "EBS", "NBS", "BSS")) {
             "There are", nrow(mismatches[[iregion]][[idata]]$modified_records),
             "modified", idata, "records.\n\n")
   }
-  summary_report <- paste(summary_report, "\n\n")
+  summary_report <- paste0(summary_report, "\n\n")
 }
 
 ```
 
-[gapindex](https://afsc-gap-products.github.io/gapindex/) version used to produce data: `r params$gapindex_version`. 
+<!-- [gapindex](https://afsc-gap-products.github.io/gapindex/) version used to produce data: `r params$gapindex_version`.  -->
 
 ## Summary of Changes
 `r summary_report`
 
 ## Detailed Notes
 `r params$detailed_notes`
+
+```{r write plain text changelog, echo = F}
+fileConn <- file("../temp/report_changes.txt")
+writeLines(c(paste0("GAP_PRODUCTS ChangeLog (last produced on ", params$timestamp, ") using gapindex v", params$gapindex_version),
+             params$detailed_notes, "\n",
+             summary_report), fileConn)
+close(fileConn)
+```
