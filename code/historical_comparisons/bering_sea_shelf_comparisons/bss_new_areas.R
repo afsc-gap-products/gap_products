@@ -197,7 +197,6 @@ eval_biomass <-
     key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
                     "SPECIES_CODE", "YEAR"))
 
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  SIZECOMP TABLE
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -265,3 +264,92 @@ mismatches <-
        sizecomp = eval_sizecomp,
        agecomp = eval_agecomp)
 
+for (idata in c("BIOMASS_MT", "POPULATION_COUNT")) {
+  
+  png(filename = paste0("code/historical_comparisons/",
+                        "bering_sea_shelf_comparisons/bss_comp_", 
+                        tolower(x = idata), ".png"), 
+      width = 140, height = 200, units = "mm", res = 500, family = "serif")
+  par(mar = c(0.5, 0, 0, .5), oma = c(3, 5, 5, 5), mfrow = c(7, 2))
+  for (iarea in c(1:6, 99905)) {
+    
+    ## Plot total of idata over time
+    idata_name <- idata
+    with(subset(x = test_biomass,
+                subset =  SPECIES_CODE == 10115 & AREA_ID == iarea),
+         matplot(x = YEAR, 
+                 y = cbind(get(paste0(idata_name, "_CURRENT")), 
+                           get(paste0(idata_name, "_UPDATE"))) *
+                   c("BIOMASS_MT" = 1e-3, 
+                     "POPULATION_COUNT" = 1e-6)[idata],
+                 pch = 16, col = c("black", "red"),  las = 1, ann = F, axes = F))
+    with(subset(x = test_biomass,
+                subset =  SPECIES_CODE == 10115 & AREA_ID == iarea),
+         matlines(x = YEAR, 
+                  y = cbind(get(paste0(idata_name, "_CURRENT")), 
+                            get(paste0(idata_name, "_UPDATE"))) *
+                    c("BIOMASS_MT" = 1e-3, 
+                      "POPULATION_COUNT" = 1e-6)[idata],
+                  pch = 16, col = c("black", "red"), lty = 1))
+    mtext(side = 3, text = ifelse(test = iarea %in% 1:6,
+                                  yes = paste("Subarea", iarea),
+                                  no = "All Subareas"), line = -1, cex = 0.75)
+    axis(side = 2, las = 1)
+    if (iarea == 1) {
+      mtext(side = 3, 
+            line = 1,
+            font = 2,
+            text = c("BIOMASS_MT" = "Total Biomass",
+                     "POPULATION_COUNT" = "Total Abundance")[idata])
+      legend("right", legend = c("2002 Areas", "2023 Areas"),
+             col = c("black", "red"), lty = 1)
+    }
+
+    if (iarea == 99905) axis(side = 1)
+    box()
+    
+    ## Plot CV of idata over time
+    idata_var_name <- c("BIOMASS_MT" = "BIOMASS_VAR", 
+                        "POPULATION_COUNT" = "POPULATION_VAR")[idata]
+    with(subset(x = test_biomass,
+                subset =  SPECIES_CODE == 10115 & AREA_ID == iarea),
+         matplot(x = YEAR, 
+                 y = cbind(sqrt(get(paste0(idata_var_name, "_CURRENT"))) / 
+                             get(paste0(idata_name, "_CURRENT")), 
+                           sqrt(get(paste0(idata_var_name, "_UPDATE"))) / 
+                             get(paste0(idata_name, "_UPDATE"))),
+                 pch = 16, col = c("black", "red"), las = 1, ann = F, axes = F))
+    with(subset(x = test_biomass,
+                subset =  SPECIES_CODE == 10115 & AREA_ID == iarea),
+         matlines(x = YEAR, 
+                  y = cbind(sqrt(get(paste0(idata_var_name, "_CURRENT"))) / 
+                              get(paste0(idata_name, "_CURRENT")), 
+                            sqrt(get(paste0(idata_var_name, "_UPDATE"))) / 
+                              get(paste0(idata_name, "_UPDATE"))),
+                  pch = 16, col = c("black", "red"), lty = 1))
+    axis(side = 4, las = 1)
+    mtext(side = 3, text = ifelse(test = iarea %in% 1:6,
+                                  yes = paste("Subarea:", iarea),
+                                  no = "All Subareas"), line = -1, cex = 0.75)
+    if (iarea == 1) 
+      mtext(side = 3, 
+            line = 1,
+            font = 2,
+            text = c("BIOMASS_MT" = "CV of Total Biomass",
+                     "POPULATION_COUNT" = "CV of Total Abundance")[idata])
+    if (iarea == 99905) axis(side = 1)
+    box()
+  }
+  
+  mtext(side = 1, text = "Year", outer = T, line = 1.5)
+  mtext(side = 2, text = ifelse(test = idata == "BIOMASS_MT",
+                                yes = "Total Biomass (thousand metric tons)",
+                                no = "Total Abundance (millions)"), 
+        outer = T, line = 3)
+  mtext(side = 4, text = ifelse(test = idata == "BIOMASS_MT",
+                                yes = "CV of Total Biomass",
+                                no = "CV of Total Abundance"), 
+        outer = T, line = 2.5)
+  mtext(side = 3, text = "Greenland turbot", outer = T, line = 3, font = 2)
+  dev.off()
+}
