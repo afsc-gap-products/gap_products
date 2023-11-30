@@ -51,14 +51,14 @@ fix_metadata_table <- function(metadata_table0, name0, dir_out) {
   metadata_table0 <- gsub(pattern = "\n", replacement = " ", x = metadata_table0)
   metadata_table0 <- gsub(pattern = "   ", replacement = " ", x = metadata_table0)
   metadata_table0 <- gsub(pattern = "  ", replacement = " ", x = metadata_table0)
-
+  
   readr::write_lines(
     x = metadata_table0,
     file = paste0(dir_out, name0, "_comment.txt")
   )
   # readr::write_lines(x = metadata_table,
   #                    file = paste0(dir_out, a_name, "_metadata_table.txt", collapse="\n"))
-
+  
   return(metadata_table0)
 }
 
@@ -73,7 +73,7 @@ update_metadata <- function(
     update_metadata = TRUE,
     share_with_all_users = TRUE) {
   cat("Updating Metadata ...\n")
-
+  
   ## Add column metadata
   if (nrow(x = metadata_column) > 0) {
     for (i in 1:nrow(x = metadata_column)) {
@@ -89,7 +89,7 @@ update_metadata <- function(
         x = metadata_column$colname[i],
         fixed = TRUE
       )
-
+      
       RODBC::sqlQuery(
         channel = channel,
         query = paste0(
@@ -114,8 +114,8 @@ update_metadata <- function(
       table_metadata, "';"
     )
   )
-
-
+  
+  
   ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Grant select access to all users
   ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,7 +125,7 @@ update_metadata <- function(
       channel = channel,
       query = paste0("SELECT * FROM all_users;")
     )
-
+    
     for (iname in sort(all_schemas$USERNAME)) {
       RODBC::sqlQuery(
         channel = channel,
@@ -144,20 +144,20 @@ print_table_metadata <- function(channel, locations) {
   b <- dplyr::bind_rows(
     # tables
     RODBC::sqlQuery(
-    channel = channel,
-    query = "SELECT table_name, comments
+      channel = channel,
+      query = "SELECT table_name, comments
 FROM all_tab_comments
 WHERE owner = 'GAP_PRODUCTS'
 ORDER BY table_name") %>% 
-    data.frame(), 
+      data.frame(), 
     # materialized view
-  RODBC::sqlQuery(
-    channel = channel,
-    query = "SELECT *FROM user_mview_comments") %>% 
-    data.frame() %>% 
-    dplyr::rename(TABLE_NAME = MVIEW_NAME)
+    RODBC::sqlQuery(
+      channel = channel,
+      query = "SELECT *FROM user_mview_comments") %>% 
+      data.frame() %>% 
+      dplyr::rename(TABLE_NAME = MVIEW_NAME)
   )
-
+  
   # Collect all column metadata for all table locations
   str00 <- c()
   for (i in 1:length(locations)) {
@@ -168,18 +168,18 @@ ORDER BY table_name") %>%
     # strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]]]
     
     if (grepl(pattern = "This table was created by", x = metadata_table)) {
-    metadata_table <- str_extract(metadata_table, "^.+(?= This table was created by)")
+      metadata_table <- str_extract(metadata_table, "^.+(?= This table was created by)")
     }
-        # Putting universal metadata language at top of page
+    # Putting universal metadata language at top of page
     if (i == 1) {
       if (!is.na(metadata_table) && length(metadata_table) != 0) {
         data_usage <- str_extract(metadata_table, "This table was created by .+$")
         if(!is.na(data_usage)){
-        str00 <- paste0(
-          "## Data usage \n\n", data_usage,
-          "\n\n", "## Data tables", "\n\n") %>%
-          str_replace("This table was", "These tables were") %>%
-          str_replace("survey code books \\(https", "[survey code books]\\(https")
+          str00 <- paste0(
+            "## Data usage \n\n", data_usage,
+            "\n\n", "## Data tables", "\n\n") %>%
+            str_replace("This table was", "These tables were") %>%
+            str_replace("survey code books \\(https", "[survey code books]\\(https")
         }
       }
       
@@ -187,18 +187,18 @@ ORDER BY table_name") %>%
         str00 <- paste0("## Data tables", "\n\n")
       }
     }
-
+    
     metadata_table <- ifelse(is.na(metadata_table) | length(metadata_table) == 0,
-      "[There is currently no description for this table.]",
-      metadata_table
+                             "[There is currently no description for this table.]",
+                             metadata_table
     )
-
+    
     # temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
     temp_rows <- RODBC::sqlQuery(
       channel = channel,
       query = paste0("SELECT COUNT(*) FROM GAP_PRODUCTS.", locations[i], ";")
     )
-
+    
     # temp_data <- RODBC::sqlQuery(channel = channel,
     #                              query = paste0("SELECT *
     # FROM ", locations[i], "
@@ -206,17 +206,17 @@ ORDER BY table_name") %>%
     #
     # temp_cols <- temp_data %>%
     #   ncol()
-
+    
     temp_colnames <- RODBC::sqlQuery(
       channel = channel,
       query = paste0("SELECT owner, column_name
-                                                    FROM all_tab_columns
-                                                    WHERE table_name = '", locations[i], "'
-                                                    AND owner = 'GAP_PRODUCTS';")
+FROM all_tab_columns
+WHERE table_name = '", locations[i], "'
+AND owner = 'GAP_PRODUCTS';")
     )
-
+    
     temp_cols <- nrow(temp_colnames)
-
+    
     # get metadata
     temp_data <- RODBC::sqlQuery(
       channel = channel,
@@ -232,7 +232,7 @@ ORDER BY table_name") %>%
         "Oracle data type" = metadata_datatype,
         "Column description" = metadata_colname_desc
       )
-
+    
     str00 <- paste0(
       str00,
       "### ", locations[i], "\n\n",
@@ -297,20 +297,20 @@ theme_flextable_nmfstm <- function(x,
   if (!inherits(x, "flextable")) {
     stop("theme_flextable_nmfstm supports only flextable objects.")
   }
-
+  
   FitFlextableToPage <- function(x, pgwidth = 6) {
     # https://stackoverflow.com/questions/57175351/flextable-autofit-in-a-rmarkdown-to-word-doc-causes-table-to-go-outside-page-mar
     ft_out <- x %>% flextable::autofit()
-
+    
     ft_out <- flextable::width(ft_out, width = dim(ft_out)$widths * pgwidth / (flextable::flextable_dim(ft_out)$widths))
     return(ft_out)
   }
-
+  
   std_b <- officer::fp_border(width = 2, color = "grey10")
   thin_b <- officer::fp_border(width = 0.5, color = "grey10")
-
+  
   x <- flextable::border_remove(x)
-
+  
   if (row_lines == TRUE) {
     x <- flextable::hline(x = x, border = thin_b, part = "body")
   }
@@ -330,8 +330,8 @@ theme_flextable_nmfstm <- function(x,
   #                         unit = "in")
   x <- FitFlextableToPage(x = x, pgwidth = pgwidth)
   # x <- flextable::line_spacing(x = x, space = spacing, part = "all")
-
+  
   x <- flextable::fix_border_issues(x = x)
-
+  
   return(x)
 }

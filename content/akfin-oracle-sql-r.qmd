@@ -37,7 +37,7 @@ library(magrittr)
 library(dplyr)
 ```
 
-### Ex. Select all data from a table
+### Ex. Select all data from tables
 
 You can download all of the tables locally using a variation of the code below. Once connected, pull and save the tables of interest into the `R` environment. 
 
@@ -72,101 +72,57 @@ for (i in 1:length(locations)) {
 }
 ```
 
+### Ex. CPUE for all EBS and NBS stations with associated haul, cruise, and species information.
+
 ```{r}
 #| label: test-7
 #| message: false
 #| warning: false
-#| echo: false
-#| eval: false
+#| echo: true
+#| tbl-cap: "Ex.: CPUE for all EBS and NBS stations with associated haul, cruise, and species information. "
 
-# ### Ex. Summary table for EBS and NBS arrowtooth flounder (10110), Bering flounder (10140), and Bering skate (435)
-# 
-#  - Number hauls where species were observed (N_HAULS) 
-#  - Number of length measurements that were colelcted for this species (N_LENGTHS) 
-# 
-# 
-
-dat <- RODBC::sqlQuery(channel = channel,
-                       query =
+a <- RODBC::sqlQuery(channel = channel, # NOT RACEBASE.HAUL
+                     query = paste0(
 "
 -- Select columns for output data
 SELECT
-bb.SPECIES_CODE,
-bb.YEAR,
-bb.SURVEY_DEFINITION_ID,
-bb.AREA_ID,
-SUM(bb.N_HAUL) AS N_HAULS, -- Number hauls where species were observed
-SUM(bb.N_LENGTH) AS N_LENGTHS -- Number of length measurements that were colelcted for this species
+cr.CRUISEJOIN,
+cr.CRUISE,
+cr.YEAR,
+cr.SURVEY_DEFINITION_ID,
+cr.SURVEY_NAME,
+cr.VESSEL_ID,
+cr.VESSEL_NAME,
+cp.HAULJOIN,
+cp.SPECIES_CODE,
+tt.SPECIES_NAME,
+tt.COMMON_NAME,
+cp.WEIGHT_KG,
+cp.COUNT,
+cp.AREA_SWEPT_KM2,
+cp.CPUE_KGKM2,
+cp.CPUE_NOKM2,
+hh.HAUL,
+hh.STATION
 
 -- Identify what tables to pull data from
-FROM GAP_PRODUCTS.AKFIN_BIOMASS bb
+FROM GAP_PRODUCTS.AKFIN_HAUL hh
+LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cr
+ON hh.CRUISEJOIN = cr.CRUISEJOIN
+LEFT JOIN GAP_PRODUCTS.AKFIN_CPUE cp
+ON hh.HAULJOIN = cp.HAULJOIN
+LEFT JOIN GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION tt
+ON cp.SPECIES_CODE = tt.SPECIES_CODE
 
--- Filter data results
-WHERE bb.SPECIES_CODE IN (10110, 435, 10140)
-AND bb.YEAR IN (2022, 2023)
-AND bb.AREA_ID IN (99900, 99902)
-GROUP BY bb.SPECIES_CODE, bb.YEAR, bb.SURVEY_DEFINITION_ID, bb.AREA_ID
-ORDER BY bb.SURVEY_DEFINITION_ID, bb.YEAR, bb.SPECIES_CODE;")
-```
+-- Filter for EBS and NBS observations
+WHERE SURVEY_DEFINITION_ID IN (143, 98) -- 143 NBS, 98 EBS
+AND tt.SURVEY_SPECIES = 1
 
-```{r}
-#| label: test-7-workspace
-#| message: false
-#| warning: false
-#| echo: false
-#| eval: false
+-- Only return the first 3 rows because otherwise this would be a huge table!
+FETCH FIRST 3 ROWS ONLY;")) 
 
-# Workspace
+flextable::flextable(head(a)) %>% theme_zebra()
 
-# --COUNT(N_LENGTH) AS N_HAULS_W_LENGTH, -- Number of hauls where lengths for this species were collected
-# --HAULS_W_OTOLITHS, -- Number of hauls where otoliths were collected for this species were collected
-# --HAULS_W_AGES, -- Number of hauls where otoliths were collected for this species were collected
-# --NUM_OTOLITHS,
-# -- NUM_AGES
-
-# dat_specimen <- RODBC::sqlQuery(channel = channel,
-#                        query =
-# "SELECT
-# ss.SPECIES_CODE,
-# cc.YEAR,
-# cc.SURVEY_DEFINITION_ID,
-# aa.AREA_ID,
-# COUNT(ss.AGE_YEARS) AS N_AGES -- The number of age specimens collected
-# FROM GAP_PRODUCTS.AKFIN_SPECIMEN ss
-# LEFT JOIN GAP_PRODUCTS.AKFIN_HAUL hh
-# ON ss.HAULJOIN = hh.HAULJOIN
-# LEFT JOIN GAP_PRODUCTS.AKFIN_CRUISE cc
-# ON hh.CRUISEJOIN = cc.CRUISEJOIN
-# LEFT JOIN GAP_PRODUCTS.AKFIN_STRATUM_GROUPS aa
-# ON hh.STRATUM = aa.STRATUM
-# AND cc.SURVEY_DEFINITION_ID = aa.SURVEY_DEFINITION_ID
-# WHERE ss.specimen_sample_type = 1
-# AND ss.SPECIES_CODE IN (10110, 435, 10140)
-# AND cc.YEAR IN (2022, 2023)
-# AND bb.AREA_ID IN (99900, 99902)
-# GROUP BY ss.SPECIES_CODE, cc.YEAR, cc.SURVEY_DEFINITION_ID, aa.AREA_ID
-# ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE;")
-# 
-# dat <- dplyr::full_join(dat_specimen, dat_haul)
-
-```
-
-```{r}
-#| label: test-7-tbl
-#| tbl-cap: "Ex. 7: Summary table of Number hauls where species were observed (N_HAULS) and number of length measurements that were colelcted for this species (N_LENGTHS) for EBS and NBS, for arrowtooth flounder (10110), Bering flounder (10140), and Alaska skate (435). "
-#| message: false
-#| warning: false
-#| echo: false
-#| eval: false
-
-dat <- dat %>% 
-  dplyr::mutate(SPECIES_CODE = as.character(SPECIES_CODE), 
-                YEAR = as.character(YEAR), 
-                AREA_ID = as.character(AREA_ID)) %>% 
-  dplyr::relocate(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE) %>%
-  dplyr::arrange(SPECIES_CODE)
-
-flextable::flextable(dat) %>% theme_zebra()
 ```
 
 ### Ex. CPUE for all stations contained in the INPFC Shumagin region (AREA_ID = 919) for Pacific cod. 
@@ -309,7 +265,7 @@ dat <- RODBC::sqlQuery(channel = channel,
 -- Manipulate data to join to
 WITH FILTERED_STRATA AS (
 SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AKFIN_AREA
-WHERE TYPE in ('REGULATORY_AREA', 'REGION') 
+WHERE AREA_TYPE in ('REGULATORY_AREA', 'REGION') 
 AND SURVEY_DEFINITION_ID = 47)
 
 -- Select columns for output data
@@ -399,11 +355,11 @@ dat <- RODBC::sqlQuery(channel = channel,
 WITH FILTERED_STRATA AS (
 SELECT 
 AREA_ID, 
-DESCRIPTION 
+DESCRIPTION
 
 -- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_AREA
-WHERE TYPE = 'REGION' 
+WHERE AREA_TYPE = 'REGION' 
 AND SURVEY_DEFINITION_ID = 52)
 
 -- Select columns for output data
@@ -428,11 +384,12 @@ AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
-  dplyr::mutate(length_cm = length_mm/10)
-flextable::flextable(head(dat)) %>% 
-  theme_zebra() %>%
-    flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
-
+  dplyr::mutate(length_cm = length_mm/10) %>% 
+  head() %>% 
+  flextable::flextable() %>% 
+  flextable::theme_zebra() %>%
+    flextable::colformat_num(x = ., j = "year", big.mark = "")
+dat0
 ```
 
 
@@ -447,8 +404,8 @@ flextable::flextable(head(dat)) %>%
 library(ggridges)
 figure <- 
   ggplot2::ggplot(
-    data = dat0, 
-    mapping = aes(x = length_cm, y = as.factor(year), fill = stat(x))) +
+    data = dat, 
+    mapping = aes(x = LENGTH_MM, y = as.factor(YEAR), fill = stat(x))) +
   ggridges::theme_ridges(center_axis_labels = TRUE) + 
   ggridges::geom_density_ridges_gradient(scale = 4, show.legend = FALSE) + 
   ggplot2::scale_y_discrete(name = "Year", expand = c(0.01, 0)) +
@@ -478,7 +435,7 @@ SELECT
 AREA_ID, 
 DESCRIPTION 
 FROM GAP_PRODUCTS.AKFIN_AREA
-WHERE TYPE = 'REGION' AND 
+WHERE AREA_TYPE = 'REGION' AND 
 SURVEY_DEFINITION_ID = 98)
 
 -- Select columns for output data
@@ -561,7 +518,7 @@ AREA_ID,
 AREA_NAME, 
 DESCRIPTION 
 FROM GAP_PRODUCTS.AKFIN_AREA
-WHERE TYPE in ('STRATUM') AND 
+WHERE AREA_TYPE in ('STRATUM') AND 
 SURVEY_DEFINITION_ID = 143) 
 
 -- Select columns for output data
