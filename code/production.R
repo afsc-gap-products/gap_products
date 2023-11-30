@@ -199,7 +199,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   ## Remove EBS and NBS commercial crab data from biomass table
   production_biomass <- 
     subset(x = production_biomass,
-           subset = !(SPECIES_CODE %in% c(69323, 69322, 68580, 68560) &
+           subset = !(SPECIES_CODE %in% c(69323, 69322, 68580, 68560, 68590) &
                         SURVEY_DEFINITION_ID %in% c(98, 143)))
   
   ## The EBS agecomp only applies to the Standard + NW area and thus should only
