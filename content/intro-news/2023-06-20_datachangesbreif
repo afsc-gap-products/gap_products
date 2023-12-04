@@ -1,0 +1,501 @@
+Groundfish Assessment Program Survey Data Serving and Data Improvements
+Initial data changes brief distributed to SSMA and other partners by Ned Laman, Zack Oyafuso, and Emily Markowitz
+
+Thank you for your patience as we’ve developed and are beginning to roll out revised access to the AFSC Groundfish Assessment Program’s (GAP) standard bottom trawl survey data products. We began this effort in collaboration with your Status of Stocks team (SSMA) to present both the orientation and opportunity to interact with Gulf of Alaska data from the restratified survey design that we will be implementing in the 2025 field season. As that part of the project evolved, our team identified the opportunity and need for gaining efficiencies by redesigning the Oracle objects (tables and materialized views) that have historically served these data. In particular, we’ve reduced the many locations (schemata) and objects where these products were accessed in the past (i.e., Oracle schemata like “HAEHNR”, “GOA”, “HOFFJ”, and “AI” and a variety of different tables) by consolidating data products from all of our bottom trawl surveys in a single schema (GAP_PRODUCTS) and into tables (e.g., BIOMASS) where estimates identified by survey region coexist in the same location. 
+
+Our intention with providing access to this new schema and these new table objects is to allow stock assessment authors sufficient time and ample opportunity to test scripts against the new objects as well as to compare results generated from historical and new data product tables. Additionally, the inclusion of mock restratified data for the GOA (labeled in the GAP_PRODUCTS tables as YEAR 2025) will provide stock authors with the opportunity to interact with data from the new survey design to be implemented in 2025. In 2023, we will be populating both the historical tables as we have been AND the new GAP_PRODUCTS tables with this summer’s survey data. The plan will be, once all are satisfied with the new GAP_PRODUCTS schema and tables, to sunset the historic product tables in 2024 and proceed with only GAP_PRODUCTS for the 2024 post-survey stock assessment season. Bear in mind that this trajectory will be achieved by mutual agreement so that there won’t be any surprises at critical times! 
+
+The AFSC Groundfish Assessment Program (GAP) team recently completed drafting and populating new and consolidated standard data product tables and established new Oracle schemata to store and serve standard bottom trawl survey data products. Additionally, these tables contain mock restratified GOA data, to allow stock assessment authors to become familiar with the new survey design that will be implemented in the Gulf in 2025. The new Oracle schema, “GAP_PRODUCTS”, contains all data from standard data products previously shared with stock assessment authors (e.g., CPUE, biomass/abundance, age comps, and size comps), now in simplified and standardized formats, with transparent documentation and metadata. In this document, we will provide a road map of the changes and access points for the new data objects. 
+
+These new GAP_PRODUCTS tables, Oracle schemata, and the overall initiative achieve several important goals: 
+
+Consolidated production tables include all standard data products for all surveys. Data will be provided in the same format, with the same units, and created using the same mathematical methodology. This should limit data pulls, reduce complexity for data access, and reduce complicated secondary data wrangling. 
+
+Consistent naming conventions for schemata, tables, and column metadata. Columns across all tables will use the same naming conventions, units, and data types. 
+
+Restricting standard data product table content to absolutely necessary columns. Removal of redundant data columns that can be acquired by joining to reference tables is key for providing consistent and up-to-date data while limiting data table sizes. 
+
+Consolidation and repurposing of Oracle schemata. This will help the GAP team limit unnecessary access to unprocessed or problematic data by outside users. 
+
+Vetted data methods. All code and data inclusion decisions and wrangling are documented in the {gapindex} R package. 
+
+Streamlined and rapid data production. Improved and consolidated data creation and documentation provide data creators and users with greater confidence in the data products and enhanced ability to share the data. 
+
+Next steps that are still in development, include:
+
+Implementation of annual maintenance and auditing systems that will identify changes, improvements, and corrections to the data for stock assessors to reference.  
+
+Removal and discontinuation of problematic, outdated, duplicative data products, Oracle schemata, and metadata to ensure that all data users are pulling consistently from the same data sources. These tables will be moved to a separate schema called “GAP_ARCHIVE”. 
+Documentation of mismatches in the historical and GAP_PRODUCTS data product tables. Sources of known mismatches are detailed in Appendix B. 
+
+
+## Progress Timeline
+
+October 2022: The data processes and index computation working group convened to address the development of standard survey data products (e.g., biomass/abundance, size composition, age composition, CPUE). 
+Index Computation Working Group: consolidation of index computation methods between the Bering Sea and AI-GOA regions.
+Data Processes Working Group: consolidation, clean up, and reorganization of survey oracle schemata, tables, and other data for all surveys.
+
+December 2022: GAP and SSMA discuss integration of the restratification of the GOA survey design into standard data products. 
+Stock assessors requested a “dry run” test to work with new mock restratified GOA survey data before implementation of the new survey design. 
+This prompted the postponement of the restratified GOA design to 2025. 
+
+February 2023: Decision was made to include the mock restratified GOA data with the development of the new consolidated standard data products.. 
+May 2023: Release of new, draft, standard data product tables, including restratified GOA data. Stock assessment authors will have the opportunity to explore differences between datasets, test workflows, and provide comments and issues during summer 2023.
+September 2023: Release of new standard data product tables and historical tables containing 2023 survey data.
+
+December 2023 - March 2024: Meeting between GAP and stock assessment groups in early December 2023 to update progress on the GAP_PRODUCTS testing phase. Deadline for Comments and Feedback on GAP_PRODUCTS data structures is March 8, 2024.
+
+September 2024: GAP will only release data products according to the new standard. Current, historical data product tables will be archived in a new schema called “GAP_ARCHIVE”. 
+
+
+## GAP_PRODUCTS Schema
+
+The GAP_PRODUCTS schema will contain four tables that contain the standard annual GAP survey products:
+GAP_PRODUCTS.CPUE: zero-filled haul-level catch per unit effort (units in kg/km2). 
+HAULJOIN: Haul ID assigned to each unique cruise/vessel/haul combination.
+SPECIES_CODE: Taxon code listed here.
+WEIGHT_KG: Weight (kg) of haul catch. 
+COUNT: Total number of individuals caught in haul, represented in whole numbers.
+AREA_SWEPT_KM2: Area Swept (km2). The total area the net sampled while “on-bottom,” defined as the product of distance fished and net width.
+CPUE_KGKM2: catch weight per swept area (kg/km2).
+CPUE_NOKM2: catch number per swept area (no/km2).
+
+GAP_PRODUCTS.BIOMASS: stratum/subarea/management area/region-level mean/variance CPUE (weight and numbers), total biomass (with variance), total abundance (with variance). The “AREA_ID” field replaces the “STRATUM” field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. 
+Note confidence intervals are currently not supported in the GAP_PRODUCTS version of the biomass/abundance tables. The associated variance of estimates will suffice as the metric of variability to use. Additional fields include: 
+AREA_ID: ID code that corresponds to a statistical stratum, subarea, management region, or region. For a complete list of the area IDs, see GAP_PRODUCTS.AREA.
+YEAR: Survey year.
+N_HAUL: Total number of valid hauls.
+N_WEIGHT: Total number of hauls with positive catch. 
+N_COUNT: Total number of hauls with positive counts. 
+N_LENGTH: Total number of hauls with length data
+CPUE_KGKM2_MEAN: Estimated mean weight-CPUE (kg/km2). 
+CPUE_KGKM2_VAR: Estimated sample variance associated with the mean weight-CPUE.
+CPUE_NOKM2_MEAN: Estimated mean numbers-CPUE (no/km2). 
+CPUE_NOKM2_VAR: Estimated sample variance associated with the mean numbers-CPUE.
+BIOMASS_MT: Estimated total biomass (metric tons)
+BIOMASS_VAR: Estimated variance associated with the total estimated biomass.
+POPULATION_COUNT: Estimated total abundance (numbers). 
+POPULATION_VAR: Estimated variance associated with the total estimated abundance.
+
+GAP_PRODUCTS.SIZECOMP: stratum/subarea/management area/region-level abundance by sex/length bin. Sex-specific columns (i.e., MALES, FEMALES, UNSEXED), previously formatted in historical versions of this table, are melted into a single column (called “SEX”) similar to the AGECOMP tables with values 1/2/3 for M/F/U. The “AREA_ID” field replaces the “STRATUM” field name to generalize the description to include different types of areas (strata, subareas, regulatory areas, regions, etc.). Use the GAP_PRODUCTS.AREA table to look up the values of AREA_ID for your particular region. Additional fields include: 
+LENGTH_MM: Length bin (mm).
+SEX: Sex code where "1" = "Male", "2" = "Female", "3" = Unsexed.
+
+GAP_PRODUCTS.AGECOMP: region-level abundance by sex/age. Additional fields include: 
+AGE: age bin (years). 
+LENGTH_MM_MEAN: Estimated mean length-at-age (mm) weighted by numbers-at-length. 
+LENGTH_MM_SD: Standard deviation associated with the estimated mean length-at-age.
+
+Mock Restratified GOA Survey Data
+Mock data were created to reflect how the GOA restratification would be expressed in the new restructuring of the standard GAP data products. Station/haul-level data from the 2019 GOA survey were reclassified according to the new restratified stratum design. These “mock” hauls are temporarily assigned to year 2025. 
+
+Resources to help
+Field names that override the existing table field names can be found in Appendix A. For example, the “AGEPOP” column from GOA.AGECOMP_TOTAL is now “POPULATION_COUNT” in GAP_PRODUCTS.AGECOMP.
+Sources of known mismatches between the historical and GAP_PRODUCTS data product tables are detailed in Appendix B and efforts to continue vetting these tables are still ongoing.  
+Example SQL Queries are in Appendix C.
+Please use the GitHub repo issue tracker (https://github.com/afsc-gap-products/gapindex/issues) to communicate any issues, fields we should add, missing records, mismatches, etc. so those communications remain open and centralized. Please tag @oyafusoz-NOAA, @EmilyMarkowitz-NOAA, and/or @Ned-Laman-NOAA on the GitHub issue so we can be aware of your issue. 
+
+## Appendix A: Field name updates between existing survey product tables and survey product tables in the GAP_PRODUCTS schema. Use this lookup table to relate field names in the existing survey product tables to those in the GAP_PRODUCTS schema. For example, if you are looking for the “EFFORT” field in AI.CPUE, it is now defined as the “AREA_SWEPT_KM2” field in GAP_PRODUCTS.CPUE.
+
+| Existing Oracle Table                      | Existing Oracle Table Column | Column action                      | New GAP_PRODUCTS Table | New GAP_PRODUCTS Table Field | Notes                           |
+| ------------------------------------------ | ---------------------------- | ---------------------------------- | ---------------------- | ---------------------------- | ------------------------------- |
+| AI.AGECOMP_TOTAL                           | AGE                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| AI.AGECOMP_TOTAL                           | AGEPOP                       | Column name change                 | GAP_PRODUCTS.AGECOMP   | POPULATION_COUNT             |                                 |
+| AI.AGECOMP_TOTAL                           | MEAN_LENGTH                  | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_MEAN               |                                 |
+| AI.AGECOMP_TOTAL                           | SEX                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| AI.AGECOMP_TOTAL                           | SPECIES_CODE                 | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| AI.AGECOMP_TOTAL                           | STANDARD_DEVIATION           | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_SD                 |                                 |
+| AI.AGECOMP_TOTAL                           | SURVEY                       | Column content replaced            | GAP_PRODUCTS.AGECOMP   | SURVEY_DEFINITION_ID         |                                 |
+| AI.AGECOMP_TOTAL                           | SURVEY_YEAR                  | Column name change                 | GAP_PRODUCTS.AGECOMP   | YEAR                         |                                 |
+| AI.BIOMASS_STRATUM                         | BIOMASS_VAR                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| AI.BIOMASS_STRATUM                         | CATCH_COUNT                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| AI.BIOMASS_STRATUM                         | HAUL_COUNT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| AI.BIOMASS_STRATUM                         | MAX_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_STRATUM                         | MAX_POP                      | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_STRATUM                         | MEAN_NUM_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| AI.BIOMASS_STRATUM                         | MEAN_WGT_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| AI.BIOMASS_STRATUM                         | MIN_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_STRATUM                         | MIN_POP                      | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_STRATUM                         | POP_VAR                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_VAR               |                                 |
+| AI.BIOMASS_STRATUM                         | SPECIES_CODE                 | Unchanged                          | GAP_PRODUCTS.BIOMASS   |                              |                                 |
+| AI.BIOMASS_STRATUM                         | STRATUM                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | AREA_ID                      |                                 |
+| AI.BIOMASS_STRATUM                         | STRATUM_BIOMASS              | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| AI.BIOMASS_STRATUM                         | STRATUM_POP                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| AI.BIOMASS_STRATUM                         | SURVEY                       | Column content replaced            | GAP_PRODUCTS.BIOMASS   | SURVEY_DEFINITION_ID         |                                 |
+| AI.BIOMASS_STRATUM                         | VAR_NUM_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| AI.BIOMASS_STRATUM                         | VAR_WGT_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_VAR               |                                 |
+| AI.BIOMASS_STRATUM                         | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| AI.BIOMASS_TOTAL                           | BIOMASS_VAR                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| AI.BIOMASS_TOTAL                           | CATCH_COUNT                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| AI.BIOMASS_TOTAL                           | HAUL_COUNT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| AI.BIOMASS_TOTAL                           | MAX_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_TOTAL                           | MAX_POP                      | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_TOTAL                           | MEAN_NUM_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| AI.BIOMASS_TOTAL                           | MEAN_WGT_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| AI.BIOMASS_TOTAL                           | MIN_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_TOTAL                           | MIN_POP                      | Deprecated                         |                        |                              |                                 |
+| AI.BIOMASS_TOTAL                           | POP_VAR                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_VAR               |                                 |
+| AI.BIOMASS_TOTAL                           | SPECIES_CODE                 | Unchanged                          | GAP_PRODUCTS.BIOMASS   |                              |                                 |
+| AI.BIOMASS_TOTAL                           | SURVEY                       | Column content replaced            | GAP_PRODUCTS.BIOMASS   | SURVEY_DEFINITION_ID         |                                 |
+| AI.BIOMASS_TOTAL                           | TOTAL_BIOMASS                | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| AI.BIOMASS_TOTAL                           | TOTAL_POP                    | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| AI.BIOMASS_TOTAL                           | VAR_NUM_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| AI.BIOMASS_TOTAL                           | VAR_WGT_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_VAR               |                                 |
+| AI.BIOMASS_TOTAL                           | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| AI.CPUE                                    | CATCHJOIN                    | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| AI.CPUE                                    | CRUISE                       | Removed - available via table join |                        |                              | CRUISEJOIN                      |
+| AI.CPUE                                    | DISTANCE_FISHED              | Removed - available via table join |                        |                              |                                 |
+| AI.CPUE                                    | EFFORT                       | Column name change                 | GAP_PRODUCTS.CPUE      | AREA_SWEPT_KM2               |                                 |
+| AI.CPUE                                    | HAUL                         | Removed - available via table join |                        |                              |                                 |
+| AI.CPUE                                    | HAULJOIN                     | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| AI.CPUE                                    | NET_WIDTH                    | Removed - available via table join |                        |                              |                                 |
+| AI.CPUE                                    | NUMBER_FISH                  | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| AI.CPUE                                    | NUMCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_NOKM2                   |                                 |
+| AI.CPUE                                    | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| AI.CPUE                                    | STRATUM                      | Removed - available via table join |                        |                              | HAULJOIN                        |
+| AI.CPUE                                    | SURVEY                       | Removed - available via table join |                        |                              | HAULJOIN                        |
+| AI.CPUE                                    | VESSEL                       | Removed - available via table join |                        |                              |                                 |
+| AI.CPUE                                    | WEIGHT                       | Column name change                 | GAP_PRODUCTS.CPUE      | WEIGHT_KG                    |                                 |
+| AI.CPUE                                    | WGTCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2                   |                                 |
+| AI.CPUE                                    | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| AI.SIZECOMP_STRATUM                        | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_STRATUM                        | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| AI.SIZECOMP_STRATUM                        | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_STRATUM                        | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| AI.SIZECOMP_STRATUM                        | STRATUM                      | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| AI.SIZECOMP_STRATUM                        | SURVEY                       | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | SURVEY_DEFINITION_ID         |                                 |
+| AI.SIZECOMP_STRATUM                        | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_STRATUM                        |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| AI.SIZECOMP_STRATUM                        | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_STRATUM                        | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| AI.SIZECOMP_TOTAL                          | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_TOTAL                          | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| AI.SIZECOMP_TOTAL                          | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_TOTAL                          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| AI.SIZECOMP_TOTAL                          | SUMMARY_AREA                 | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| AI.SIZECOMP_TOTAL                          | SURVEY                       | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | SURVEY_DEFINITION_ID         |                                 |
+| AI.SIZECOMP_TOTAL                          | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_TOTAL                          |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| AI.SIZECOMP_TOTAL                          | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| AI.SIZECOMP_TOTAL                          | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| EBSSHELF.EBSSHELF_CPUE                     | CATCHJOIN                    | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | CRUISE                       | Removed - available via table join |                        |                              | CRUISEJOIN                      |
+| EBSSHELF.EBSSHELF_CPUE                     | DISTANCE_FISHED              | Removed - available via table join |                        |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | EFFORT                       | Column name change                 | GAP_PRODUCTS.CPUE      | AREA_SWEPT_KM2               |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | HAUL                         | Removed - available via table join |                        |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | HAULJOIN                     | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | NET_WIDTH                    | Removed - available via table join |                        |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | NUMBER_FISH                  | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | NUMCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_NOKM2                   |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | STATIONID                    | Removed - available via table join | GAP_PRODUCTS.CPUE      |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | STRATUM                      | Removed - available via table join |                        |                              | HAULJOIN                        |
+| EBSSHELF.EBSSHELF_CPUE                     | SURVEY                       | Removed - available via table join |                        |                              | HAULJOIN                        |
+| EBSSHELF.EBSSHELF_CPUE                     | VESSEL                       | Removed - available via table join |                        |                              |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | WEIGHT                       | Column name change                 | GAP_PRODUCTS.CPUE      | WEIGHT_KG                    |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | WGTCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2                   |                                 |
+| EBSSHELF.EBSSHELF_CPUE                     | YEAR                         | Removed - available via table join |                        |                              |                                 |
+| GOA.AGECOMP_TOTAL                          | AGE                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| GOA.AGECOMP_TOTAL                          | AGEPOP                       | Column name change                 | GAP_PRODUCTS.AGECOMP   | POPULATION_COUNT             |                                 |
+| GOA.AGECOMP_TOTAL                          | MEAN_LENGTH                  | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_MEAN               |                                 |
+| GOA.AGECOMP_TOTAL                          | SEX                          | Unchanged                          |                        |                              |                                 |
+| GOA.AGECOMP_TOTAL                          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| GOA.AGECOMP_TOTAL                          | STANDARD_DEVIATION           | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_SD                 |                                 |
+| GOA.AGECOMP_TOTAL                          | SURVEY                       | Column content replaced            | GAP_PRODUCTS.AGECOMP   | SURVEY_DEFINITION_ID         |                                 |
+| GOA.AGECOMP_TOTAL                          | SURVEY_YEAR                  | Column name change                 | GAP_PRODUCTS.AGECOMP   | YEAR                         |                                 |
+| GOA.BIOMASS_STRATUM                        | BIOMASS_VAR                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| GOA.BIOMASS_STRATUM                        | CATCH_COUNT                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| GOA.BIOMASS_STRATUM                        | HAUL_COUNT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| GOA.BIOMASS_STRATUM                        | MAX_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_STRATUM                        | MAX_POP                      | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_STRATUM                        | MEAN_NUM_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| GOA.BIOMASS_STRATUM                        | MEAN_WGT_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| GOA.BIOMASS_STRATUM                        | MIN_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_STRATUM                        | MIN_POP                      | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_STRATUM                        | POP_VAR                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_VAR               |                                 |
+| GOA.BIOMASS_STRATUM                        | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| GOA.BIOMASS_STRATUM                        | STRATUM                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | AREA_ID                      |                                 |
+| GOA.BIOMASS_STRATUM                        | STRATUM_BIOMASS              | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| GOA.BIOMASS_STRATUM                        | STRATUM_POP                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| GOA.BIOMASS_STRATUM                        | SURVEY                       | Column content replaced            | GAP_PRODUCTS.BIOMASS   | SURVEY_DEFINITION_ID         |                                 |
+| GOA.BIOMASS_STRATUM                        | VAR_NUM_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| GOA.BIOMASS_STRATUM                        | VAR_WGT_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_VAR               |                                 |
+| GOA.BIOMASS_STRATUM                        | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| GOA.BIOMASS_TOTAL                          | BIOMASS_VAR                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| GOA.BIOMASS_TOTAL                          | CATCH_COUNT                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| GOA.BIOMASS_TOTAL                          | HAUL_COUNT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| GOA.BIOMASS_TOTAL                          | MAX_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_TOTAL                          | MAX_POP                      | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_TOTAL                          | MEAN_NUM_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| GOA.BIOMASS_TOTAL                          | MEAN_WGT_CPUE                | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| GOA.BIOMASS_TOTAL                          | MIN_BIOMASS                  | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_TOTAL                          | MIN_POP                      | Deprecated                         |                        |                              |                                 |
+| GOA.BIOMASS_TOTAL                          | POP_VAR                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_VAR               |                                 |
+| GOA.BIOMASS_TOTAL                          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| GOA.BIOMASS_TOTAL                          | SURVEY                       | Column content replaced            | GAP_PRODUCTS.BIOMASS   | SURVEY_DEFINITION_ID         |                                 |
+| GOA.BIOMASS_TOTAL                          | TOTAL_BIOMASS                | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| GOA.BIOMASS_TOTAL                          | TOTAL_POP                    | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| GOA.BIOMASS_TOTAL                          | VAR_NUM_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| GOA.BIOMASS_TOTAL                          | VAR_WGT_CPUE                 | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_VAR               |                                 |
+| GOA.BIOMASS_TOTAL                          | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| GOA.CPUE                                   | CATCHJOIN                    | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| GOA.CPUE                                   | CRUISE                       | Removed - available via table join |                        |                              | CRUISEJOIN                      |
+| GOA.CPUE                                   | DISTANCE_FISHED              | Removed - available via table join |                        |                              |                                 |
+| GOA.CPUE                                   | EFFORT                       | Column name change                 | GAP_PRODUCTS.CPUE      | AREA_SWEPT_KM2               |                                 |
+| GOA.CPUE                                   | HAUL                         | Removed - available via table join |                        |                              |                                 |
+| GOA.CPUE                                   | HAULJOIN                     | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| GOA.CPUE                                   | NET_WIDTH                    | Removed - available via table join |                        |                              |                                 |
+| GOA.CPUE                                   | NUMBER_FISH                  | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| GOA.CPUE                                   | NUMCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_NOKM2                   |                                 |
+| GOA.CPUE                                   | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| GOA.CPUE                                   | STRATUM                      | Removed - available via table join |                        |                              | HAULJOIN                        |
+| GOA.CPUE                                   | SURVEY                       | Removed - available via table join |                        |                              | HAULJOIN                        |
+| GOA.CPUE                                   | VESSEL                       | Removed - available via table join |                        |                              |                                 |
+| GOA.CPUE                                   | WEIGHT                       | Column name change                 | GAP_PRODUCTS.CPUE      | WEIGHT_KG                    |                                 |
+| GOA.CPUE                                   | WGTCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2                   |                                 |
+| GOA.CPUE                                   | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| GOA.SIZECOMP_STRATUM                       | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_STRATUM                       | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| GOA.SIZECOMP_STRATUM                       | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_STRATUM                       | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| GOA.SIZECOMP_STRATUM                       | STRATUM                      | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| GOA.SIZECOMP_STRATUM                       | SURVEY                       | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | SURVEY_DEFINITION_ID         |                                 |
+| GOA.SIZECOMP_STRATUM                       | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_STRATUM                       |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| GOA.SIZECOMP_STRATUM                       | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_STRATUM                       | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| GOA.SIZECOMP_TOTAL                         | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_TOTAL                         | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| GOA.SIZECOMP_TOTAL                         | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_TOTAL                         | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| GOA.SIZECOMP_TOTAL                         | SUMMARY_AREA                 | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| GOA.SIZECOMP_TOTAL                         | SURVEY                       | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | SURVEY_DEFINITION_ID         |                                 |
+| GOA.SIZECOMP_TOTAL                         | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_TOTAL                         |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| GOA.SIZECOMP_TOTAL                         | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| GOA.SIZECOMP_TOTAL                         | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | AGE                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | AGE                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | AGEPOP                       | Column name change                 | GAP_PRODUCTS.AGECOMP   | POPULATION_COUNT             |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | AGEPOP                       | Column name change                 | GAP_PRODUCTS.AGECOMP   | POPULATION_COUNT             |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | MEANLEN                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_MEAN               |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | MEANLEN                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_MEAN               |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | SDEV                         | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_SD                 |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | SDEV                         | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_SD                 |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | SEX                          | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | SEX                          | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | STRATUM                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | AREA_ID                      |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | STRATUM                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | AREA_ID                      |                                 |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.AGECOMP_EBS_PLUSNW_STRATUM          | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | AGE                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | AGE                          | Unchanged                          | GAP_PRODUCTS.AGECOMP   |                              |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | AGEPOP                       | Column name change                 | GAP_PRODUCTS.AGECOMP   | POPULATION_COUNT             |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | AGEPOP                       | Column name change                 | GAP_PRODUCTS.AGECOMP   | POPULATION_COUNT             |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | MEANLEN                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_MEAN               |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | MEANLEN                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_MEAN               |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | SDEV                         | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_SD                 |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | SDEV                         | Column name change                 | GAP_PRODUCTS.AGECOMP   | LENGTH_MM_SD                 |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | SEX                          | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | SEX                          | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | STRATUM                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | AREA_ID                      |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | STRATUM                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | AREA_ID                      |                                 |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.AGECOMP_NBS_STRATUM                 | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | BIOMASS                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | CATCOUNT                     | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | COMMON_NAME                  | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | DEGREEFNUM                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_DF                |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | DEGREEFWGT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_DF                |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | HAULCOUNT                    | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | LENCOUNT                     | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_LENGTH                 |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | LOWERB                       | Deprecated                         |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | LOWERP                       | Deprecated                         |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | MEANNUMCPUE                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | MEANWGTCPUE                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | NUMCOUNT                     | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | POPULATION                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | SPECIES_NAME                 | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | STRATUM                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | AREA_ID                      |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | UPPERB                       | Deprecated                         |                        |                              | replaced with variance estimate |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | UPPERP                       | Deprecated                         |                        |                              | replaced with variance estimate |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | VARBIO                       | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | VARNUMCPUE                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | VARPOP                       | Column name change                 | GAP_PRODUCTS.CPUE      | POPULATION_VAR               |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | VARWGTCPUE                   | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2_VAR               |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW                  | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | BIOMASS                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | CATCOUNT                     | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | COMMON_NAME                  | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | DEGREEFNUM                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_DF                |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | DEGREEFWGT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_DF                |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | HAULCOUNT                    | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | LENCOUNT                     | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_LENGTH                 |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | LOWERB                       | Deprecated                         |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | LOWERP                       | Deprecated                         |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | MEANNUMCPUE                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | MEANWGTCPUE                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | NUMCOUNT                     | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | POPULATION                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | SPECIES_NAME                 | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | STRATUM                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | AREA_ID                      |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | UPPERB                       | Deprecated                         |                        |                              | replaced with variance estimate |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | UPPERP                       | Deprecated                         |                        |                              | replaced with variance estimate |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | VARBIO                       | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | VARNUMCPUE                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | VARPOP                       | Column name change                 | GAP_PRODUCTS.CPUE      | POPULATION_VAR               |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | VARWGTCPUE                   | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2_VAR               |                                 |
+| HAEHNR.BIOMASS_EBS_PLUSNW_GROUPED          | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.BIOMASS_NBS_SAFE                    | BIOMASS                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_MT                   |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | CATCOUNT                     | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_CATCH                  |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | COMMON_NAME                  | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | DEGREEFNUM                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_DF                |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | DEGREEFWGT                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_DF                |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | HAULCOUNT                    | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_HAUL                   |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | LENCOUNT                     | Column name change                 | GAP_PRODUCTS.BIOMASS   | COUNT_LENGTH                 |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | LOWERB                       | Deprecated                         |                        |                              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | LOWERP                       | Deprecated                         |                        |                              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | MEANNUMCPUE                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_MEAN              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | MEANWGTCPUE                  | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_KGKM2_MEAN              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | NUMCOUNT                     | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | POPULATION                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | POPULATION_COUNT             |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | SPECIES_NAME                 | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | STRATUM                      | Column name change                 | GAP_PRODUCTS.BIOMASS   | AREA_ID                      |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | UPPERB                       | Deprecated                         |                        |                              | replaced with variance estimate |
+| HAEHNR.BIOMASS_NBS_SAFE                    | UPPERP                       | Deprecated                         |                        |                              | replaced with variance estimate |
+| HAEHNR.BIOMASS_NBS_SAFE                    | VARBIO                       | Column name change                 | GAP_PRODUCTS.BIOMASS   | BIOMASS_VAR                  |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | VARNUMCPUE                   | Column name change                 | GAP_PRODUCTS.BIOMASS   | CPUE_NOKM2_VAR               |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | VARPOP                       | Column name change                 | GAP_PRODUCTS.CPUE      | POPULATION_VAR               |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | VARWGTCPUE                   | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2_VAR               |                                 |
+| HAEHNR.BIOMASS_NBS_SAFE                    | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | COMMON_NAME                  | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | SPECIES_NAME                 | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | STRATUM                      | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM         | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | COMMON_NAME                  | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | SPECIES_NAME                 | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | STRATUM                      | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_EBS_PLUSNW_STRATUM_GROUPED | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | COMMON_NAME                  | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | SPECIES_NAME                 | Removed - available via table join |                        |                              |                                 |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | STRATUM                      | Column name change                 | GAP_PRODUCTS.AGECOMP   | AREA_ID                      |                                 |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_NBS_STRATUM                |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HAEHNR.SIZECOMP_NBS_STRATUM                | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | BTEMP_C                      | Removed - available via table join |                        |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | DEPTH_M                      | Removed - available via table join |                        |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | HAULJOIN                     | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | LATITUDE                     | Removed - available via table join |                        |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | LONGITUDE                    | Removed - available via table join |                        |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | NUMCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_NOKM2                   |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | SST_C                        | Removed - available via table join |                        |                              |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | STRATUM                      | Removed - available via table join |                        |                              | HAULJOIN                        |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | WGTCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2                   |                                 |
+| HOFFJ.CPUE_EBSSLOPE_POS                    | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | FEMALES                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | LENGTH                       | Column name change                 | GAP_PRODUCTS.SIZECOMP  | LENGTH_MM                    |                                 |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | MALES                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | STRATUM                      | Column name change                 | GAP_PRODUCTS.SIZECOMP  | AREA_ID                      |                                 |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | TOTAL                        | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HOFFJ.SIZECOMP_EBSSLOPE                    |                              | New Column                         | GAP_PRODUCTS.SIZECOMP  | SEX                          |                                 |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | UNSEXED                      | Column content replaced            | GAP_PRODUCTS.SIZECOMP  | POPULATION_COUNT             | Search by SEX column            |
+| HOFFJ.SIZECOMP_EBSSLOPE                    | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+| NBSSHELF.NBS_CPUE                          | CATCHJOIN                    | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | CRUISE                       | Removed - available via table join |                        |                              | CRUISEJOIN                      |
+| NBSSHELF.NBS_CPUE                          | DISTANCE_FISHED              | Removed - available via table join |                        |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | EFFORT                       | Column name change                 | GAP_PRODUCTS.CPUE      | AREA_SWEPT_KM2               |                                 |
+| NBSSHELF.NBS_CPUE                          | HAUL                         | Removed - available via table join |                        |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | HAULJOIN                     | Unchanged                          | GAP_PRODUCTS.CPUE      |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | NET_WIDTH                    | Removed - available via table join |                        |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | NUMBER_FISH                  | Column name change                 | GAP_PRODUCTS.CPUE      | COUNT                        |                                 |
+| NBSSHELF.NBS_CPUE                          | NUMCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_NOKM2                   |                                 |
+| NBSSHELF.NBS_CPUE                          | SPECIES_CODE                 | Unchanged                          |                        |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | STATIONID                    | Removed - available via table join | GAP_PRODUCTS.CPUE      |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | STRATUM                      | Removed - available via table join |                        |                              | HAULJOIN                        |
+| NBSSHELF.NBS_CPUE                          | SURVEY                       | Removed - available via table join |                        |                              | HAULJOIN                        |
+| NBSSHELF.NBS_CPUE                          | VESSEL                       | Removed - available via table join |                        |                              |                                 |
+| NBSSHELF.NBS_CPUE                          | WEIGHT                       | Column name change                 | GAP_PRODUCTS.CPUE      | WEIGHT_KG                    |                                 |
+| NBSSHELF.NBS_CPUE                          | WGTCPUE                      | Column name change                 | GAP_PRODUCTS.CPUE      | CPUE_KGKM2                   |                                 |
+| NBSSHELF.NBS_CPUE                          | YEAR                         | Removed - available via table join |                        |                              | HAULJOIN or CRUISEJOIN          |
+
+
+
+## Appendix B: Known mismatches between tables in GAP_PRODUCTS and existing survey product tables
+
+There are known sources of mismatches between the records in the new GAP_PRODUCTS tables and the previous database(?). Since the size and age compositions are dependent on the abundance estimates, mismatches in the biomass/abundance estimates will propagate to estimates of size and age composition. Below are some known sources of mismatch: 
+1)    Historically, there were some hauls in the AI/GOA where a positive catch weight [column name] was recorded for a taxon without an associated count. The old biomass scripts for the AI-GOA would assume these NA catch values to be zero, which slightly negatively biaseds any abundance estimates calculated with these hauls. The updated database is therefore expected to have slightly higher abundance estimates for years in which these hauls occurred [year range], and subsequent changes to compositional data.
+When this situation occurs in the Bering Sea, those hauls with NA counts are not included in the sample variance calculation, however hauls with NA counts are included in the total sample size when calculating the variance associated with the mean numbers or -CPUE [column name?]. This leads to a slightly negative bias in the variance calculation in the updatedexisting tables for Bering Sea records for the years in question [ year range again].
+2)    There are instances where the number of positive catch weight records in the AI.CPUE/GOA.CPUE table in Oracle do not match the number of positive weight records in RACEBASE.CATCH. This is mostly due to records in RACEBASE.CATCH where the SPECIES_CODE is modified post-hoc but the CPUE value in the CPUE table is not modified. Because we do not recalculate the indices for all survey years every year, that change isn’t propagated to the CPUE table, which is then not propagated to the BIOMASS, SIZECOMP, and AGECOMP tables. As a result, there will be values in the GAP_PRODUCTS tables (CPUE/BIOMASS/SIZECOMP/AGECOMP) that will differ slightly from their respective records in the GOA and AI schemata but not in any systematic fashion. 
+3)    There are instances where the number of hauls used in the historical mean CPUE calculations (via the HAUL_COUNT column) for a particular stratum does not match the number of acceptable hauls (“ABUNDANCE_HAUL” == “Y”). This occurs when the ABUNDANCE_HAUL value for a particular haul is switched from “Y” → “N'' in RACEBASE.HAUL post-hoc. Because we do not recalculate the indices for all survey years every year, that change isn’t propagated to the CPUE table, which is then not propagated to the BIOMASS, SIZECOMP, and AGECOMP tables. 
+4)    There are some instances in the AI-GOA index computation workflow where the number of fish are different between RACEBASE.CATCH and the CPUE table. For example, initially there may have been 3 unidentified octopods in the CPUE table but 2 octopods were identified to species and that record was changed to 1 unidentified octopod in RACEBASE.CATCH. Because we do not recalculate the indices for all survey years every year, that change isn’t propagated to the CPUE table, which is then not propagated to the BIOMASS, SIZECOMP, and AGECOMP tables. 
+Note: When GAP_PRODUCTS is fully implemented, future computation of AI and GOA CPUE and the other data products derived for a given year will be wholly recalculated whenever the computation code is run. This will eliminate the concurrency issues described above. 
+5) Some sets of size composition for a particular survey/year/stratum/taxon combination in the historical Oracle tables are inconsistent with the estimated abundance in the historical biomass tables. The reason for this error has not been resolved yet but the summation of the size composition within a survey/year/stratum/taxon combination should be equal to the total abundance for that survey/year/stratum/taxon found in the biomass/abundance table. 
+6) The age composition production script in gapindex only includes specimen data from acceptable hauls (ABUNDANCE_HAUL = “Y” or PERFORMANCE >= 0). Summarized in this GitHub issue, historically some survey regions included specimen data from hauls with “bad” performance (PERFORMANCE < 0), and this produces a different age composition than what is in GAP_PRODUCTS.AGECOMP. 
+
+
+## Appendix C: Example SQL Queries
+
+Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western/central/eastern GOA management areas as well as for the entire region. 
+WITH FILTERED_STRATA AS (
+SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AREA
+WHERE TYPE in ('REGULATORY AREA', 'REGION') AND  SURVEY_DEFINITION_ID = 47)
+SELECT *
+FROM GAP_PRODUCTS.BIOMASS BIOMASS
+JOIN FILTERED_STRATA STRATA ON STRATA.AREA_ID = BIOMASS.AREA_ID
+WHERE BIOMASS.SURVEY_DEFINITION_ID IN 47 AND BIOMASS.SPECIES_CODE = 30060
+Northern and Southern rock sole size composition data from 1991 – 2022 for the Aleutian Islands
+WITH FILTERED_STRATA AS (
+  SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AREA
+  WHERE TYPE = 'REGION' AND SURVEY_DEFINITION_ID = 52)
+SELECT * 
+FROM GAP_PRODUCTS.SIZECOMP SIZECOMP
+JOIN FILTERED_STRATA STRATA ON STRATA.AREA_ID = SIZECOMP.AREA_ID
+WHERE SIZECOMP.SURVEY_DEFINITION_ID IN 52 AND SIZECOMP.SPECIES_CODE IN (10261, 10262)
+Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and the EBS + NW Area from 1987 – 2022
+WITH FILTERED_STRATA AS (
+  SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AREA
+  WHERE TYPE = 'REGION' AND SURVEY_DEFINITION_ID = 98)
+SELECT * 
+ FROM GAP_PRODUCTS.AGECOMP AGECOMP
+ JOIN FILTERED_STRATA STRATA ON STRATA.AREA_ID = AGECOMP.AREA_ID
+ WHERE SURVEY_DEFINITION_ID = 98 AND SPECIES_CODE = 21740
+
+Pacific cod biomass and abundance data for the NBS by stratum for 2022. 
+WITH FILTERED_STRATA AS (
+SELECT AREA_ID, AREA_NAME, DESCRIPTION FROM GAP_PRODUCTS.AREA
+WHERE TYPE in ('STRATUM') AND SURVEY_DEFINITION_ID = 143) 
+SELECT * 
+FROM GAP_PRODUCTS.BIOMASS BIOMASS 
+JOIN FILTERED_STRATA STRATA ON STRATA.AREA_ID = BIOMASS.AREA_ID
+WHERE BIOMASS.SURVEY_DEFINITION_ID IN 143 AND BIOMASS.SPECIES_CODE = 21720
+
+Arrowtooth flounder station-level catch per unit effort data for the AI in 2022 with auxiliary haul data
+
