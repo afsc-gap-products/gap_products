@@ -22,7 +22,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -285,10 +304,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#our-objective" id="toc-our-objective" class="nav-link active" data-scroll-target="#our-objective">Our Objective</a></li>
+  <li><a href="#afsc-bottom-trawl-surveys" id="toc-afsc-bottom-trawl-surveys" class="nav-link active" data-scroll-target="#afsc-bottom-trawl-surveys">AFSC Bottom Trawl Surveys</a></li>
+  <li><a href="#documentation-objective" id="toc-documentation-objective" class="nav-link" data-scroll-target="#documentation-objective">Documentation Objective</a></li>
   <li><a href="#user-resources" id="toc-user-resources" class="nav-link" data-scroll-target="#user-resources">User Resources</a></li>
-  <li><a href="#background-of-the-gap_products-repo" id="toc-background-of-the-gap_products-repo" class="nav-link" data-scroll-target="#background-of-the-gap_products-repo">Background of the gap_products repo</a></li>
-  <li><a href="#major-advantages" id="toc-major-advantages" class="nav-link" data-scroll-target="#major-advantages">Major Advantages</a></li>
+  <li><a href="#cite-this-data" id="toc-cite-this-data" class="nav-link" data-scroll-target="#cite-this-data">Cite this data</a></li>
+  <li><a href="#access-constraints" id="toc-access-constraints" class="nav-link" data-scroll-target="#access-constraints">Access Constraints</a></li>
+  <li><a href="#suggestions-and-comments" id="toc-suggestions-and-comments" class="nav-link" data-scroll-target="#suggestions-and-comments">Suggestions and comments</a></li>
+  <li><a href="#noaa-readme" id="toc-noaa-readme" class="nav-link" data-scroll-target="#noaa-readme">NOAA README</a></li>
+  <li><a href="#noaa-license" id="toc-noaa-license" class="nav-link" data-scroll-target="#noaa-license">NOAA License</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -342,15 +365,9 @@ function googleTranslateElementInit() {
 
 </header>
 
-<blockquote class="blockquote">
-<p>Please consider this resource to be a <strong>Living Document</strong>. The code in this repository is regularly being updated and improved. Please refer to <a href="`r paste0(link_repo, '/releases')">releases</a> for finalized products and project milestones.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>At this time, these master <a href="https://afsc-gap-products.github.io/gap_products/content/product-intro.html">production</a> and <a href="https://afsc-gap-products.github.io/gap_products/content/akfin-intro.html">AKFIN</a> tables are <strong>provisional and we are welcoming feedback before the 2024 survey season.</strong> We look forward to hearing from you. Do not hesitate to reach out (to us at either <a href="afsc.gap.metadata@noaa.gov">afsc.gap.metadata@noaa.gov</a> or <a href="https://github.com/afsc-gap-products/gap_products/issues">GitHub issues</a>), especially if you find discrepancies in the data or want to suggest improvements to infrastructure. Thank you in advance for your collaboration and partnership with us as we develop our future data universe.</p>
-</blockquote>
-<section id="our-objective" class="level2">
-<h2 class="anchored" data-anchor-id="our-objective">Our Objective</h2>
-<p>As part of our commitment to open science and transparency, we provide this interactive metadata guide to compliment our public-domain data. Please refer to our <a href="https://docs.google.com/document/d/1ie0it6G_V_PrpO1fYe-731Fvubuahn2yi0ixBIpaYO8/edit?usp=sharing">Draft Data Changes Brief</a>. Once finalized, this language will be included here.</p>
+<section id="afsc-bottom-trawl-surveys" class="level2">
+<h2 class="anchored" data-anchor-id="afsc-bottom-trawl-surveys">AFSC Bottom Trawl Surveys</h2>
+<p>AFSC bottom trawl surveys are conducted by the AFSC’s Groundfish Assessment Program and Shellfish Assessment Program and are conducted in the <a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#gulf-of-alaska-bottom-trawl-survey">Gulf of Alaska</a>, <a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#aleutian-islands-bottom-trawl-survey">Aleutian Islands</a>, <a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#eastern-bering-sea-upper-continental-slope-bottom-trawl-survey">Eastern Bering Sea Slope</a>, <a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#eastern-bering-sea-shelf-bottom-trawl-survey">Eastern Bering Sea Shelf</a>, and <a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#northern-bering-sea-shelf-bottom-trawl-survey">Northern Bering Sea</a>. Each survey is a multispecies survey that collects data on the distribution, abundance, and biological characteristics of fish, crab, and other resources to inform groundfish stock assessment and management. These fishery-independent surveys are conducted in the summer aboard contracted commercial fishing vessels. Specifics regarding each of the surveys can be found below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.fisheries.noaa.gov/s3/2023-04/750x500-bottom-trawl-survey-afsc.jpg" class="img-fluid figure-img"></p>
@@ -358,39 +375,98 @@ function googleTranslateElementInit() {
 </figure>
 </div>
 </section>
+<section id="documentation-objective" class="level2">
+<h2 class="anchored" data-anchor-id="documentation-objective">Documentation Objective</h2>
+<p>As part of our commitment to open science, reproducibility, and transparency, we provide this metadata guide to compliment our public-domain data.</p>
+<blockquote class="blockquote">
+<p>Please consider this resource to be a <strong>Living Document</strong>. The code in this repository is regularly being updated and improved. Please refer to <a href="https://github.com/afsc-gap-products/gap_products/releases">releases</a> for finalized products and project milestones.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>At this time, these master <a href="https://afsc-gap-products.github.io/gap_products/content/product-intro.html">production</a> and <a href="https://afsc-gap-products.github.io/gap_products/content/akfin-intro.html">AKFIN</a> tables are <strong>provisional and we are welcoming feedback before the 2024 survey season.</strong> We look forward to hearing from you. Do not hesitate to reach out (to us at either <a href="afsc.gap.metadata@noaa.gov">afsc.gap.metadata@noaa.gov</a> or <a href="https://github.com/afsc-gap-products/gap_products/issues">GitHub issues</a>, especially if you find discrepancies in the data or want to suggest improvements to infrastructure. Thank you in advance for your collaboration and partnership with us as we develop our future data universe.</p>
+</blockquote>
+</section>
 <section id="user-resources" class="level2">
 <h2 class="anchored" data-anchor-id="user-resources">User Resources</h2>
 <ul>
 <li><a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys">Groundfish Assessment Program Bottom Trawl Surveys</a></li>
 <li><a href="https://www.fisheries.noaa.gov/about/resource-assessment-and-conservation-engineering-division">AFSC’s Resource Assessment and Conservation Engineering Division</a></li>
+<li><a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys">All AFSC Research Surveys</a></li>
 <li><a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">Survey code books</a></li>
 <li><a href="https://repository.library.noaa.gov/">Publications and Data Reports</a></li>
 <li><a href="https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys">Research Surveys conducted at AFSC</a></li>
 </ul>
 </section>
-<section id="background-of-the-gap_products-repo" class="level2">
-<h2 class="anchored" data-anchor-id="background-of-the-gap_products-repo">Background of the gap_products repo</h2>
-<p>This work is the result of the massive efforts of three concurrent GAP working groups:</p>
-<ol class="example" type="1">
-<li><p><strong>Index Computation Working Group:</strong> consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AI/GOA survey regions.</p></li>
-<li><p><strong>Data Processes Working Group:</strong> reorganization of the Oracle data infrastructure that houses the standard data products produced by GAP.</p></li>
-<li><p><strong>Gulf of Alaska Survey Restratification Working Group</strong>: implementation of a new stratified random survey design in the Gulf of Alaska bottom trawl survey.</p></li>
-</ol>
-<p>We began this effort in collaboration with the Status of Stocks team (SSMA) to present both the orientation and opportunity to interact with Gulf of Alaska data from the restratified survey design that we will be implementing in the 2025 field season. As that part of the project evolved, the Data Processes Working Group identified the opportunity and need for gaining efficiencies by redesigning and consolidating the Oracle objects (tables and materialized views) that have historically served these data. The Index Computation Working Group also identified an opportunity to gain efficiencies by consolidating the various scripts that were developed independently by both survey region groups into a workflow that was more accessible and documented.</p>
-<p>The Index Computation Working Group developed the gapindex R package, a code repository that consolidates the code that calculates the various standard GAP products (e.g., CPUE, total biomass, size/age composition) for both the Bering Sea and AIGOA survey regions. The Data Processes Working Group was responsible for compiling the data structures needed to support data product tables that were consistent across all of the AFSC GAP survey regions as well as the creation of the GAP_PRODUCTS oracle schema that will house these consolidated products in the future.</p>
-<p>This gap_products GitHub repository houses the code that will conduct the “standard production run” that produces the new data tables via the gapindex R package and upload those tables to the GAP_PRODUCTS Oracle schema.</p>
-</section>
-<section id="major-advantages" class="level2">
-<h2 class="anchored" data-anchor-id="major-advantages">Major Advantages</h2>
+<section id="cite-this-data" class="level2">
+<h2 class="anchored" data-anchor-id="cite-this-data">Cite this data</h2>
+<p>Use the below <a href="https://github.com/afsc-gap-products/gap_products/blob/main/CITATION.bib">bibtext citations</a>, as cited in our group’s <a href="https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib">citation repository</a> for citing the data created and maintained in this repo. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program’s:</p>
 <ul>
-<li><p>Consolidated production tables include all standard data products for all surveys. Data will be provided in the same format, with the same units, and created using the same mathematical methodology. This should limit data pulls, reduce complexity for data access, and reduce complicated secondary data wrangling.</p></li>
-<li><p>Consistent naming conventions for schemata, tables, and column metadata. Columns across all tables will use the same naming conventions, units, and data types. Restricting standard data product table content to absolutely necessary columns.</p></li>
-<li><p>Removal of redundant data columns that can be acquired by joining to reference tables is key for providing consistent and up-to-date data while limiting data table sizes.</p></li>
-<li><p>Consolidation and repurposing of Oracle schemata. This will help the GAP team limit unnecessary access to unprocessed or problematic data by outside users.</p></li>
-<li><p>Vetted data methods. All code and data inclusion decisions and wrangling are documented in the {gapindex} R package. Streamlined and rapid data production. Improved and consolidated data creation and documentation provide data creators and users with greater confidence in the data products and enhanced ability to share the data.</p></li>
+<li>Design-Based Production Data (internal) <span class="citation" data-cites="GAPProducts">(<a href="content/end-refs.html#ref-GAPProducts" role="doc-biblioref">NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program, 2023</a>)</span>.<br>
+</li>
+<li>AFSC RACE Groundfish Data for AKFIN <span class="citation" data-cites="GAPakfin">(<a href="content/end-refs.html#ref-GAPakfin" role="doc-biblioref">Alaska Fisheries Information Network (AKFIN), 2023</a>)</span>.</li>
+<li>Public Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform <span class="citation" data-cites="FOSSAFSCData">(<a href="content/end-refs.html#ref-FOSSAFSCData" role="doc-biblioref">NOAA Fisheries Alaska Fisheries Science Center, 2023</a>)</span>.</li>
 </ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+@misc{GAPProducts,
+  author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},
+  year = {2023}, 
+  title = {AFSC Goundfish Assessment Program Design-Based Production Data},
+  howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},
+  publisher = {{U.S. Dep. Commer.}},
+  copyright = {Public Domain} 
+}
+
+@misc{FOSSAFSCData,
+  author = {{NOAA Fisheries Alaska Fisheries Science Center}},
+  year = {2023}, 
+  title = {Fisheries One Stop Shop Public Data: RACE Division Bottom Trawl Survey Data Query},
+  howpublished = {https://www.fisheries.noaa.gov/foss},
+  publisher = {{U.S. Dep. Commer.}},
+  copyright = {Public Domain} 
+}
+
+@misc{GAPakfin,
+  author = {{Alaska Fisheries Information Network (AKFIN)}}, 
+  institution = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},
+  year = {2023}, 
+  title = {AFSC Goundfish Assessment Program Design-Based Production Data},
+  howpublished = {https://www.psmfc.org/program/alaska-fisheries-information-network-akfin},
+  publisher = {{U.S. Dep. Commer.}},
+  copyright = {Public Domain} 
+}</code></pre>
+</div>
+</div>
+</section>
+<section id="access-constraints" class="level2">
+<h2 class="anchored" data-anchor-id="access-constraints">Access Constraints</h2>
+<p>There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.</p>
+<p><strong>User Constraints:</strong> Users must read and fully comprehend the metadata and <a href="https://afsc-gap-products.github.io/gap_products/content/code-of-conduct.html">code of conduct</a> prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.</p>
+</section>
+<section id="suggestions-and-comments" class="level2">
+<h2 class="anchored" data-anchor-id="suggestions-and-comments">Suggestions and comments</h2>
+<p>If the data or metadata can be improved, please create a pull request, <a href="https://github.com/afsc-gap-products/data-requests/issues">submit an issue to the GitHub organization</a> or <a href="https://github.com/afsc-gap-products/gap_products/issues">submit an issue to the code’s repository</a>.</p>
+</section>
+<section id="noaa-readme" class="level2">
+<h2 class="anchored" data-anchor-id="noaa-readme">NOAA README</h2>
+<p>This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.</p>
+</section>
+<section id="noaa-license" class="level2">
+<h2 class="anchored" data-anchor-id="noaa-license">NOAA License</h2>
+<p>Software code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-GAPakfin" class="csl-entry" role="listitem">
+Alaska Fisheries Information Network (AKFIN). (2023). <em>AFSC goundfish assessment program design-based production data</em>. <span>NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program</span>; https://www.psmfc.org/program/alaska-fisheries-information-network-akfin; <span>U.S. Dep. Commer.</span>
+</div>
+<div id="ref-FOSSAFSCData" class="csl-entry" role="listitem">
+NOAA Fisheries Alaska Fisheries Science Center. (2023). <em>Fisheries one stop shop public data: RACE division bottom trawl survey data query</em>. https://www.fisheries.noaa.gov/foss; <span>U.S. Dep. Commer.</span>
+</div>
+<div id="ref-GAPProducts" class="csl-entry" role="listitem">
+NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program. (2023). <em>AFSC goundfish assessment program design-based production data</em>. https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys; <span>U.S. Dep. Commer.</span>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

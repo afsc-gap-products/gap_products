@@ -2,7 +2,7 @@
 title: News
 ---
 
-## News/change logs
+## News/change logs 
 
 ```{r news-source-pull}
 news_link <- list.files(here::here("content/intro-news/"), full.names = TRUE)

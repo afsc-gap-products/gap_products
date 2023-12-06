@@ -1,31 +1,59 @@
 [
   {
-    "objectID": "index.html#our-objective",
-    "href": "index.html#our-objective",
+    "objectID": "index.html#afsc-bottom-trawl-surveys",
+    "href": "index.html#afsc-bottom-trawl-surveys",
     "title": "GAP Production Data Documentation",
-    "section": "Our Objective",
-    "text": "Our Objective\nAs part of our commitment to open science and transparency, we provide this interactive metadata guide to compliment our public-domain data. Please refer to our Draft Data Changes Brief. Once finalized, this language will be included here.\n\n\n\nSorting and weighing fish on deck on the 2022 Bering Sea groundfish survey aboard the F/V Alaska Knight. Credit: Emily Markowitz/NOAA Fisheries."
+    "section": "AFSC Bottom Trawl Surveys",
+    "text": "AFSC Bottom Trawl Surveys\nAFSC bottom trawl surveys are conducted by the AFSC’s Groundfish Assessment Program and Shellfish Assessment Program and are conducted in the Gulf of Alaska, Aleutian Islands, Eastern Bering Sea Slope, Eastern Bering Sea Shelf, and Northern Bering Sea. Each survey is a multispecies survey that collects data on the distribution, abundance, and biological characteristics of fish, crab, and other resources to inform groundfish stock assessment and management. These fishery-independent surveys are conducted in the summer aboard contracted commercial fishing vessels. Specifics regarding each of the surveys can be found below.\n\n\n\nSorting and weighing fish on deck on the 2022 Bering Sea groundfish survey aboard the F/V Alaska Knight. Credit: Emily Markowitz/NOAA Fisheries."
+  },
+  {
+    "objectID": "index.html#documentation-objective",
+    "href": "index.html#documentation-objective",
+    "title": "GAP Production Data Documentation",
+    "section": "Documentation Objective",
+    "text": "Documentation Objective\nAs part of our commitment to open science, reproducibility, and transparency, we provide this metadata guide to compliment our public-domain data.\n\nPlease consider this resource to be a Living Document. The code in this repository is regularly being updated and improved. Please refer to releases for finalized products and project milestones.\n\n\nAt this time, these master production and AKFIN tables are provisional and we are welcoming feedback before the 2024 survey season. We look forward to hearing from you. Do not hesitate to reach out (to us at either afsc.gap.metadata@noaa.gov or GitHub issues, especially if you find discrepancies in the data or want to suggest improvements to infrastructure. Thank you in advance for your collaboration and partnership with us as we develop our future data universe."
   },
   {
     "objectID": "index.html#user-resources",
     "href": "index.html#user-resources",
     "title": "GAP Production Data Documentation",
     "section": "User Resources",
-    "text": "User Resources\n\nGroundfish Assessment Program Bottom Trawl Surveys\nAFSC’s Resource Assessment and Conservation Engineering Division\nSurvey code books\nPublications and Data Reports\nResearch Surveys conducted at AFSC"
+    "text": "User Resources\n\nGroundfish Assessment Program Bottom Trawl Surveys\nAFSC’s Resource Assessment and Conservation Engineering Division\nAll AFSC Research Surveys\nSurvey code books\nPublications and Data Reports\nResearch Surveys conducted at AFSC"
   },
   {
-    "objectID": "index.html#background-of-the-gap_products-repo",
-    "href": "index.html#background-of-the-gap_products-repo",
+    "objectID": "index.html#cite-this-data",
+    "href": "index.html#cite-this-data",
     "title": "GAP Production Data Documentation",
-    "section": "Background of the gap_products repo",
-    "text": "Background of the gap_products repo\nThis work is the result of the massive efforts of three concurrent GAP working groups:\n\nIndex Computation Working Group: consolidation of the methods used to produced design-based estimates of abundance and size/age composition between the Bering Sea and AI/GOA survey regions.\nData Processes Working Group: reorganization of the Oracle data infrastructure that houses the standard data products produced by GAP.\nGulf of Alaska Survey Restratification Working Group: implementation of a new stratified random survey design in the Gulf of Alaska bottom trawl survey.\n\nWe began this effort in collaboration with the Status of Stocks team (SSMA) to present both the orientation and opportunity to interact with Gulf of Alaska data from the restratified survey design that we will be implementing in the 2025 field season. As that part of the project evolved, the Data Processes Working Group identified the opportunity and need for gaining efficiencies by redesigning and consolidating the Oracle objects (tables and materialized views) that have historically served these data. The Index Computation Working Group also identified an opportunity to gain efficiencies by consolidating the various scripts that were developed independently by both survey region groups into a workflow that was more accessible and documented.\nThe Index Computation Working Group developed the gapindex R package, a code repository that consolidates the code that calculates the various standard GAP products (e.g., CPUE, total biomass, size/age composition) for both the Bering Sea and AIGOA survey regions. The Data Processes Working Group was responsible for compiling the data structures needed to support data product tables that were consistent across all of the AFSC GAP survey regions as well as the creation of the GAP_PRODUCTS oracle schema that will house these consolidated products in the future.\nThis gap_products GitHub repository houses the code that will conduct the “standard production run” that produces the new data tables via the gapindex R package and upload those tables to the GAP_PRODUCTS Oracle schema."
+    "section": "Cite this data",
+    "text": "Cite this data\nUse the below bibtext citations, as cited in our group’s citation repository for citing the data created and maintained in this repo. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed. Included here are AFSC RACE Groundfish and Shellfish Assessment Program’s:\n\nDesign-Based Production Data (internal) (NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program, 2023).\n\nAFSC RACE Groundfish Data for AKFIN (Alaska Fisheries Information Network (AKFIN), 2023).\nPublic Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform (NOAA Fisheries Alaska Fisheries Science Center, 2023).\n\n\n\n\n@misc{GAPProducts,\n  author = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\n  year = {2023}, \n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\n  howpublished = {https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys},\n  publisher = {{U.S. Dep. Commer.}},\n  copyright = {Public Domain} \n}\n\n@misc{FOSSAFSCData,\n  author = {{NOAA Fisheries Alaska Fisheries Science Center}},\n  year = {2023}, \n  title = {Fisheries One Stop Shop Public Data: RACE Division Bottom Trawl Survey Data Query},\n  howpublished = {https://www.fisheries.noaa.gov/foss},\n  publisher = {{U.S. Dep. Commer.}},\n  copyright = {Public Domain} \n}\n\n@misc{GAPakfin,\n  author = {{Alaska Fisheries Information Network (AKFIN)}}, \n  institution = {{NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program}},\n  year = {2023}, \n  title = {AFSC Goundfish Assessment Program Design-Based Production Data},\n  howpublished = {https://www.psmfc.org/program/alaska-fisheries-information-network-akfin},\n  publisher = {{U.S. Dep. Commer.}},\n  copyright = {Public Domain} \n}"
   },
   {
-    "objectID": "index.html#major-advantages",
-    "href": "index.html#major-advantages",
+    "objectID": "index.html#access-constraints",
+    "href": "index.html#access-constraints",
     "title": "GAP Production Data Documentation",
-    "section": "Major Advantages",
-    "text": "Major Advantages\n\nConsolidated production tables include all standard data products for all surveys. Data will be provided in the same format, with the same units, and created using the same mathematical methodology. This should limit data pulls, reduce complexity for data access, and reduce complicated secondary data wrangling.\nConsistent naming conventions for schemata, tables, and column metadata. Columns across all tables will use the same naming conventions, units, and data types. Restricting standard data product table content to absolutely necessary columns.\nRemoval of redundant data columns that can be acquired by joining to reference tables is key for providing consistent and up-to-date data while limiting data table sizes.\nConsolidation and repurposing of Oracle schemata. This will help the GAP team limit unnecessary access to unprocessed or problematic data by outside users.\nVetted data methods. All code and data inclusion decisions and wrangling are documented in the {gapindex} R package. Streamlined and rapid data production. Improved and consolidated data creation and documentation provide data creators and users with greater confidence in the data products and enhanced ability to share the data."
+    "section": "Access Constraints",
+    "text": "Access Constraints\nThere are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.\nUser Constraints: Users must read and fully comprehend the metadata and code of conduct prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested."
+  },
+  {
+    "objectID": "index.html#suggestions-and-comments",
+    "href": "index.html#suggestions-and-comments",
+    "title": "GAP Production Data Documentation",
+    "section": "Suggestions and comments",
+    "text": "Suggestions and comments\nIf the data or metadata can be improved, please create a pull request, submit an issue to the GitHub organization or submit an issue to the code’s repository."
+  },
+  {
+    "objectID": "index.html#noaa-readme",
+    "href": "index.html#noaa-readme",
+    "title": "GAP Production Data Documentation",
+    "section": "NOAA README",
+    "text": "NOAA README\nThis repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government."
+  },
+  {
+    "objectID": "index.html#noaa-license",
+    "href": "index.html#noaa-license",
+    "title": "GAP Production Data Documentation",
+    "section": "NOAA License",
+    "text": "NOAA License\nSoftware code created by U.S. Government employees is not subject to copyright in the United States (17 U.S.C. §105). The United States/Department of Commerce reserve all rights to seek and obtain copyright protection in countries other than the United States for Software authored in its entirety by the Department of Commerce. To this end, the Department of Commerce hereby grants to Recipient a royalty-free, nonexclusive license to use, copy, and create derivative works of the Software outside of the United States.\n\n\n\n\nAlaska Fisheries Information Network (AKFIN). (2023). AFSC goundfish assessment program design-based production data. NOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program; https://www.psmfc.org/program/alaska-fisheries-information-network-akfin; U.S. Dep. Commer.\n\n\nNOAA Fisheries Alaska Fisheries Science Center. (2023). Fisheries one stop shop public data: RACE division bottom trawl survey data query. https://www.fisheries.noaa.gov/foss; U.S. Dep. Commer.\n\n\nNOAA Fisheries Alaska Fisheries Science Center, Goundfish Assessment Program. (2023). AFSC goundfish assessment program design-based production data. https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys; U.S. Dep. Commer."
   },
   {
     "objectID": "content/intro-survey-background.html#what-is-the-research-objective",
@@ -74,7 +102,7 @@
     "href": "content/intro-news.html#newschange-logs",
     "title": "News",
     "section": "News/change logs",
-    "text": "News/change logs\n– Run 2023-06-01 gapindex v2.1.0: Initial compiling and planning notes\n– GAP_PRODUCTS ChangeLog (last produced on 2023-11-14) using gapindex v2.1.1: A new version of gapindex (v2.1.1) was used to produced these data. There was a slight change to how subarea biomass totals are calculated. The modified biomass records reflect this change. New 2022 otolith data were available since the last iteration of the GAP_PRODUCTS for Aleutian Island Pacific ocean perch and northern rockifsh and Eastern Bering Sea northern rock sole. Zero-filled CPUE records for four GOA species codes (SPECIES_CODE: 21210, 30010, 30360, 77102, 98101) were added due to how the 1990 data were integrated in the last production run of GAP_PRODUCTS. Two Arctic cod (SPECIES_CODE: 21725) and one plain sculpin (SPECIES_CODE: 21371) count records were modified in the NBS data, which changes the numerical CPUE estimates for those hauls which changes the estimated population abundance and size composition for those species.\n– GAP_PRODUCTS ChangeLog (last produced on 2023-11-17) using gapindex v2.1.2: A new version of gapindex (v2.1.2) was used to produced these data. There was a slight change to how subarea biomass totals are calculated that was not fully addressed in v2.1.1. The modified biomass records reflect this change."
+    "text": "News/change logs\n– Run 2023-06-01 gapindex v2.1.0: Initial compiling and planning notes\n– Groundfish Assessment Program Survey Data Serving and Data Improvements: Initial data changes brief distributed to SSMA and other partners by Ned Laman, Zack Oyafuso, and Emily Markowitz\n– GAP_PRODUCTS ChangeLog (last produced on 2023-11-14) using gapindex v2.1.1: A new version of gapindex (v2.1.1) was used to produced these data. There was a slight change to how subarea biomass totals are calculated. The modified biomass records reflect this change. New 2022 otolith data were available since the last iteration of the GAP_PRODUCTS for Aleutian Island Pacific ocean perch and northern rockifsh and Eastern Bering Sea northern rock sole. Zero-filled CPUE records for four GOA species codes (SPECIES_CODE: 21210, 30010, 30360, 77102, 98101) were added due to how the 1990 data were integrated in the last production run of GAP_PRODUCTS. Two Arctic cod (SPECIES_CODE: 21725) and one plain sculpin (SPECIES_CODE: 21371) count records were modified in the NBS data, which changes the numerical CPUE estimates for those hauls which changes the estimated population abundance and size composition for those species.\n– GAP_PRODUCTS ChangeLog (last produced on 2023-11-17) using gapindex v2.1.2: A new version of gapindex (v2.1.2) was used to produced these data. There was a slight change to how subarea biomass totals are calculated that was not fully addressed in v2.1.1. The modified biomass records reflect this change."
   },
   {
     "objectID": "content/intro-code-of-conduct.html#what-are-codes-of-conduct",
