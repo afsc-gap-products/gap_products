@@ -6,7 +6,7 @@ title: Data Products & Tools
 #| file: functions.R
 ```
 
-To accompany these data, we also produce data products to make using our data more accessible and straightforward. 
+To accompany these data, we also produce data products to make using our data more accessible and straightforward.
 
 ```{r, echo = FALSE, include = FALSE}
 library(googledrive)

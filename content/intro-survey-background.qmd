@@ -6,15 +6,20 @@ title: Survey background
 #| file: functions.R
 ```
 
+## What we do
+
+## Who is conducting the research?
+
+Scientists from the Alaska Fisheries Science Center’s Groundfish Assessment Program (GAP) conduct these bottom trawl surveys with participation from the Alaska Department of Fish & Game (ADF&G), the International Pacific Halibut Commission (IPHC), universities, and other organizations. This research is conducted primarily on chartered fishing vessels.
+
+
 ## What is the research objective?
 
-The objectives of these surveys are to:
+Learn more about the [program](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys). The objectives of these surveys are to:
 
-- monitor trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska
-- produce fishery-independent biomass and abundance estimates for commercially important fish and crab species
-- collect biological and environmental data for use in ecosystem-based fishery management.
-
-Learn more about the [program](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys)
+ - monitor the population and environmental trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska, 
+ - produce fishery-independent biomass (weight) and abundance (number) estimates for commercially important fish and crab species, and 
+ - collect other biological and environmental data for use in ecosystem-based fishery management.
 
 ## Who is conducting the research?
 
