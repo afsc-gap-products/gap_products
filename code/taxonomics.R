@@ -41,7 +41,7 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
   source("Z:/Projects/ConnectToOracle.R")
   channel <- channel_products
 } else {
-  gapindex::get_connected()
+  channel <- gapindex::get_connected()
 }
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,7 +123,8 @@ TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE %>%
 
 ### fill in TAXONOMIC_CONFIDENCE with, if missing, the values from the year before -------
 
-comb1 <- RODBC::sqlQuery(channel = channel_products, "SELECT * FROM GAP_PRODUCTS.AKFIN_CRUISE") %>% 
+comb1 <- RODBC::sqlQuery(channel = channel, 
+                         query = "SELECT * FROM GAP_PRODUCTS.AKFIN_CRUISE") %>% 
   janitor::clean_names() %>% 
   dplyr::filter(survey_definition_id %in% c(143, 98, 47, 52, 78) & 
                   !is.na(cruisejoin) & 
