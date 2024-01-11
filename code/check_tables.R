@@ -110,7 +110,7 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
                     "BIOMASS_MT", "BIOMASS_VAR", 
                     "POPULATION_COUNT", "POPULATION_VAR"),
         percent = c(F, F, T, T, T, T, T, T, T, T),
-        decplaces = c(0, 0, 2, 2, 2, 2, 2, 2, 2, 2)),
+        decplaces = c(0, 0, 2, 2, 2, 2, 2, 2, 1, 2)),
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
@@ -221,7 +221,26 @@ gapindex_version <-
          subset = Package == "gapindex")$Version
 
 detailed_notes <- 
-  "A new version of gapindex ([v2.1.2](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.1.2)) was used to produced these data. There was a slight change to how subarea biomass totals are calculated that was not fully addressed in v2.1.1. The modified biomass records reflect this change."
+"gapindex Version
+
+- A new version of gapindex ([v2.1.3](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.1.3)) was used to produced these data.
+
+Biomass removals:
+
+-  Data for SPECIES_CODE 68590 (Chionoecetes hybrids) are now removed, per this issue (https://github.com/afsc-gap-products/gap_products/issues/3)
+
+Age data additions:
+
+- Aleutian Islands: 2022 otolith data for Atka mackerel were added. 
+- Gulf of Alaska: 2021 otolith data for arrowtooth flounder were added. 
+- Northern Bering Sea: 2022 otolith data walleye pollock were added
+
+Size comp modifications:
+
+- Gulf of Alaska: Depth subareas 995 and 996 were added. 
+- Eastern Bering Sea: size composition for unidentified skates (SPECIES_CODE 400) now included. Two records for Bering skate (SPECIES_CODE 435, strata 50 and 90, Year 2010), were removed. 
+
+"
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Create report changelogs
