@@ -50,7 +50,7 @@ table_comments <- data.frame(
               paste("Haul-level zero-filled weight and numerical",
                     "catch-per-unit-effort.", "This table was created", 
                     legal_disclaimer))
-  )
+)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Upload Tables to GAP_PRODUCTS
@@ -80,9 +80,10 @@ for (idata in quantity) { ## Loop over data types -- start
   ## Pull field descriptions from GAP_PRODUCTS.METADATA_COLUMN
   metadata_column <- 
     RODBC::sqlQuery(channel = sql_channel,
-                    query = paste("SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN",
-                                  "WHERE METADATA_COLNAME IN",
-                                  gapindex::stitch_entries(names(temp_data))))
+                    query = paste(
+                      "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
+                       WHERE METADATA_COLNAME IN",
+                      gapindex::stitch_entries(names(x = data_table))))
   
   ## Clean up field names to be consistent with the data input format for 
   ## gapindex::upload_oracle
