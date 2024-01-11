@@ -9,13 +9,11 @@
 rm(list = ls())
 options(scipen = 999999)
 
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import packages, connect to Oracle 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex); library(reshape2)
 sql_channel <- gapindex::get_connected()
-
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import helper functions
@@ -118,9 +116,11 @@ ai_cpue_taxa <-
 
 eval_cpue$new_records$NOTE[
   !(eval_cpue$new_records$SPECIES_CODE %in% goa_cpue_taxa & 
-      eval_cpue$new_records$SURVEY_DEFINITION_ID == 47) |
-    !(eval_cpue$new_records$SPECIES_CODE %in% goa_cpue_taxa & 
-        eval_cpue$new_records$SURVEY_DEFINITION_ID == 52)
+      eval_cpue$new_records$SURVEY_DEFINITION_ID == 47)
+] <- 1
+eval_cpue$new_records$NOTE[
+  !(eval_cpue$new_records$SPECIES_CODE %in% goa_cpue_taxa & 
+      eval_cpue$new_records$SURVEY_DEFINITION_ID == 52)
 ] <- 1
 
 table(eval_cpue$new_records$NOTE)
@@ -134,7 +134,6 @@ table(eval_cpue$new_records$NOTE)
 ## start year were removed and are not present in the GAP_PRODUCTS tables. See
 ## GAP_PRODUCTS.SPECIES_YEAR for the full list of species and starting years. 
 ## Assign these records a code 2 in the NOTES field. 
-eval_cpue$removed_records$NOTE <- ""
 
 for (irow in 1:nrow(x = spp_year)) { ## Loop over species -- start
   eval_cpue$removed_records$NOTE[
@@ -143,6 +142,10 @@ for (irow in 1:nrow(x = spp_year)) { ## Loop over species -- start
   ] <- 2
 } ## Loop over species -- end
 
+## Reason code 3. There are some taxa in the historical tables that were not 
+## observed in the AI/GOA and are completely zero-filled. In 
+## GAP_PRODUCTS.BIOMASS, biomass records are only present for observed taxa.
+## Assign these records a code 3 in the NOTES field. 
 goa_obs_cpue_spp <- unique(x = subset(x = production_cpue,
                                       subset = SURVEY_DEFINITION_ID == 47,
                                       select = SPECIES_CODE))$SPECIES_CODE
@@ -156,40 +159,23 @@ eval_cpue$removed_records$NOTE[
        (eval_cpue$removed_records$SURVEY_DEFINITION_ID == 47 &
           !eval_cpue$removed_records$SPECIES_CODE %in% goa_obs_cpue_spp))
   
-] <- "zero_filled"
+] <- 3
 
-
-ai_fully_zero_filled_cpue <- 
-  subset(x = stats::aggregate(WEIGHT_KG ~ SPECIES_CODE,
-                              data = historical_cpue,
-                              subset = SURVEY_DEFINITION_ID == 52,
-                              FUN = sum),
-         subset = WEIGHT_KG == 0)$SPECIES_CODE
-goa_fully_zero_filled_cpue <- 
-  subset(x = stats::aggregate(WEIGHT_KG ~ SPECIES_CODE,
-                              data = historical_cpue,
-                              subset = SURVEY_DEFINITION_ID == 47,
-                              FUN = sum),
-         subset = WEIGHT_KG == 0)$SPECIES_CODE
-
-eval_cpue$removed_records$NOTE[
-  eval_cpue$removed_records$NOTE == "" & 
-    
-    ((eval_cpue$removed_records$SURVEY_DEFINITION_ID == 52 & 
-        eval_cpue$removed_records$SPECIES_CODE %in% ai_fully_zero_filled_cpue) |
-       (eval_cpue$removed_records$SURVEY_DEFINITION_ID == 47 & 
-          eval_cpue$removed_records$SPECIES_CODE %in% goa_fully_zero_filled_cpue))
-] <- "zero_filled"
-
+## Reason code 4. There was a change in the reported weight in RACEBASE.CATCH
+## that was not updated in the historical CPUE tables. Assign these records a 
+## code 4 in the NOTES field. 
 eval_cpue$removed_records$NOTE[
   eval_cpue$removed_records$WEIGHT_KG_DIFF != 0 
-] <- "voucher weight change"
+] <- 4
 
+## Reason code 5. In the historical CPUE tables, sometimes a zero count is 
+## associated with a positive weight when it should be NA. ssign these records 
+## a code 5 in the NOTES field. 
 for (irow in which(eval_cpue$removed_records$NOTE == "")){
   temp_record <- eval_cpue$removed_records[irow, ]
   if (temp_record$CPUE_KGKM2_DIFF == 0 &
       is.na(x = temp_record$CPUE_NOKM2_DIFF)) {
-    eval_cpue$removed_records$NOTE[irow] <- "false zero in hist. table"
+    eval_cpue$removed_records$NOTE[irow] <- 5
   } 
 }
 
@@ -197,10 +183,9 @@ table(eval_cpue$removed_records$NOTE)
 
 ## Annotate modified cpue records: records that changed between the historical
 ## and GAP_PRODUCTS versions of the CPUE tables.
-head(eval_cpue$modified_records)
 eval_cpue$modified_records$NOTE[
   eval_cpue$modified_records$WEIGHT_KG_DIFF != 0 
-] <- "voucher weight change"
+] <- 4
 
 table(eval_cpue$modified_records$NOTE)
 
@@ -485,7 +470,7 @@ eval_biomass <-
                                "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
                                "BIOMASS_MT", "BIOMASS_VAR", 
                                "POPULATION_COUNT", "POPULATION_VAR"),
-                   percent = c(F, F, T, T, T, T, T, T, T, T),
+                   percent = c(F, F, T, T, T, T, F, T, T, T),
                    decplaces = c(0, 0, 0, 0, 2, 2, 0, 0, 1, 1)),
                  base_table_suffix = "_HIST",
                  update_table_suffix = "_PROD",
@@ -536,6 +521,10 @@ for (irow in 1:nrow(x = spp_year)) {
   ] <- 2
 }
 
+## Reason code 3. There are some taxa in the historical tables that were not 
+## observed in the AI/GOA and are completely zero-filled. In 
+## GAP_PRODUCTS.BIOMASS, biomass records are only present for observed taxa.
+## Assign these records a code 3 in the NOTES field. 
 eval_biomass$removed_records$NOTE[
   eval_biomass$removed_records$NOTE == "" &
     ((eval_biomass$removed_records$SURVEY_DEFINITION_ID == 52 &
@@ -543,122 +532,75 @@ eval_biomass$removed_records$NOTE[
        (eval_biomass$removed_records$SURVEY_DEFINITION_ID == 47 &
           !eval_biomass$removed_records$SPECIES_CODE %in% goa_obs_cpue_spp))
   
-] <- "zero_filled"
+] <- 3
 
-eval_biomass$removed_records$NOTE[
-  eval_biomass$removed_records$NOTE == "" & 
-    
-    ((eval_biomass$removed_records$SURVEY_DEFINITION_ID == 52 & 
-        eval_biomass$removed_records$SPECIES_CODE %in% ai_fully_zero_filled_cpue) |
-       (eval_biomass$removed_records$SURVEY_DEFINITION_ID == 47 & 
-          eval_biomass$removed_records$SPECIES_CODE %in% goa_fully_zero_filled_cpue))
-] <- "zero_filled"
-
-for (irow in which(eval_cpue$removed_records$NOTE == 
-                   "false zero in hist. table")){
+## Reason code 5. In the historical CPUE tables, sometimes a zero count is 
+## associated with a positive weight when it should be NA. Assign these 
+## records a code 5 in the NOTES field. 
+for (irow in which(eval_cpue$removed_records$NOTE == 5)){
   temp_record <- eval_cpue$removed_records[irow, ]
   
   eval_biomass$removed_records$NOTE[
     eval_biomass$removed_records$NOTE == "" & 
-      (eval_biomass$removed_records$SURVEY_DEFINITION_ID == eval_cpue$removed_records$SURVEY_DEFINITION_ID[irow] & 
-         eval_biomass$removed_records$YEAR == eval_cpue$removed_records$YEAR[irow] & 
-         eval_biomass$removed_records$SPECIES_CODE == eval_cpue$removed_records$SPECIES_CODE[irow] & 
-         eval_biomass$removed_records$AREA_ID == eval_cpue$removed_records$AREA_ID[irow])
-    
-  ] <- "false zero in hist table"
+      (eval_biomass$removed_records$SURVEY_DEFINITION_ID == 
+         temp_record$SURVEY_DEFINITION_ID & 
+         eval_biomass$removed_records$YEAR == 
+         temp_record$YEAR & 
+         eval_biomass$removed_records$SPECIES_CODE == 
+         temp_record$SPECIES_CODE & 
+         eval_biomass$removed_records$AREA_ID == 
+         temp_record$AREA_ID)
+  ] <- 5
 }
 
 table(eval_biomass$removed_records$NOTE)
-
 table(subset(eval_biomass$removed_records, NOTE== "")$AREA_ID)
+
+subset(eval_biomass$removed_records, NOTE== "" & AREA_ID == 35)
+subset(eval_cpue$removed_records, AREA_ID == 35 & YEAR == 1990 & SPECIES_CODE == 66120)
 
 ## Annotate modified records
 
 ## Sometimes there is a mismatch due to truncation in the mean CPUE estimates
 ## but no mismatch  when extrapolated to total abundance/biomass. This is a 
-## false mismatche only due to truncation.
+## false mismatche only due to truncation. Assign these records a code 6.
 ## To avoid any false mismatches due to truncation, only include modified 
 ## records where either the mean numerical CPUE and abundance estimates are 
 ## mismatched OR the mean weight CPUE and biomass estimates are mismatched. 
 eval_biomass$modified_records$NOTE[
   eval_biomass$modified_records$POPULATION_COUNT_DIFF == 0 &
     eval_biomass$modified_records$CPUE_NOKM2_MEAN_DIFF != 0
-] <- "truncation"
+] <- 6
 eval_biomass$modified_records$NOTE[
   eval_biomass$modified_records$BIOMASS_MT_DIFF == 0 &
     eval_biomass$modified_records$CPUE_KGKM2_MEAN_DIFF != 0
-] <- "truncation"
+] <- 6
 eval_biomass$modified_records$NOTE[
   eval_biomass$modified_records$BIOMASS_MT_DIFF != 0 &
     eval_biomass$modified_records$CPUE_KGKM2_MEAN_DIFF == 0
-] <- "truncation"
+] <- 6
 eval_biomass$modified_records$NOTE[
   eval_biomass$modified_records$N_HAUL_HIST == 1 &
     eval_biomass$modified_records$N_WEIGHT_HIST == 1
-] <- "truncation"
+] <- 6
 
-# eval_biomass$modified_records <-
-#   subset(x = eval_biomass$modified_records,
-#          subset = !(BIOMASS_MT_DIFF != 0 & 
-#                       CPUE_KGKM2_MEAN_DIFF == 0) )
-
+## Reason code 7. Different number of N_HAUL between historical and 
+## GAP_PRODUCTS versions of the biomass tables. Assign these records a code 7.
 eval_biomass$modified_records$NOTE[
   eval_biomass$modified_records$N_HAUL_DIFF != 0
-] <- "Diff N_HAUL"
+] <- 7
 
+## Reason code 8. Different number of N_WEIGHT between historical and 
+## GAP_PRODUCTS versions of the biomass tables. Assign these records a code 8.
 eval_biomass$modified_records$NOTE[
   eval_biomass$modified_records$N_WEIGHT_DIFF != 0
-] <- "DIff N_WEIGHT"
+] <- 8
 
 strata_id <- RODBC::sqlQuery(channel = sql_channel,
                              query = "SELECT AREA_ID 
                                       FROM GAP_PRODUCTS.AREA 
                                       WHERE SURVEY_DEFINITION_ID IN (47, 52) 
                                       AND AREA_TYPE = 'STRATUM'")$AREA_ID
-
-# for (irow in which(eval_biomass$modified_records$NOTE == "" & 
-#                    eval_biomass$modified_records$AREA_ID %in% strata_id)[2]){
-#   
-#   temp_record <- eval_biomass$modified_records[irow, ]
-#   
-#   if (temp_record$BIOMASS_MT_DIFF == 0 & 
-#       temp_record$POPULATION_COUNT_DIFF != 0) {
-#     test_query <- 
-#       subset(x = rbind(eval_cpue$removed_records, eval_cpue$modified_records),
-#              SURVEY_DEFINITION_ID == temp_record$SURVEY_DEFINITION_ID &
-#                AREA_ID == temp_record$AREA_ID &
-#                SPECIES_CODE == temp_record$SPECIES_CODE & 
-#                YEAR == temp_record$YEAR)
-#     if (nrow(x = test_query) > 0) {
-#       eval_biomass$modified_records$NOTE[irow] <- "false zero in hist. table"
-#       
-#       affected_subareas <- 
-#         RODBC::sqlQuery(channel = sql_channel,
-#                         query = paste0("SELECT AREA_ID FROM 
-#                                       GAP_PRODUCTS.STRATUM_GROUPS
-#                                       WHERE STRATUM = ", temp_record$AREA_ID,
-#                                        "AND SURVEY_DEFINITION_ID = ",
-#                                        temp_record$SURVEY_DEFINITION_ID))
-#       
-#       affected_subarea_records <- 
-#         subset(x = eval_biomass$modified_records,
-#                subset = SURVEY_DEFINITION_ID == temp_record$SURVEY_DEFINITION_ID &
-#                  AREA_ID %in% affected_subareas$AREA_ID &
-#                  SPECIES_CODE == temp_record$SPECIES_CODE & 
-#                  YEAR == temp_record$YEAR)
-#       
-#       if (nrow(x = affected_subarea_records) > 0) 
-#         eval_biomass$modified_records$NOTE[
-#           eval_biomass$modified_records$SURVEY_DEFINITION_ID == temp_record$SURVEY_DEFINITION_ID &
-#             eval_biomass$modified_records$AREA_ID %in% affected_subareas$AREA_ID &
-#             eval_biomass$modified_records$SPECIES_CODE == temp_record$SPECIES_CODE & 
-#             eval_biomass$modified_records$YEAR == temp_record$YEAR
-#         ] <- "false zero in hist. table"
-#       
-#     }
-#     
-#   }
-# }
 
 for (irow in which(eval_biomass$modified_records$NOTE == "" & 
                    eval_biomass$modified_records$AREA_ID %in% strata_id)) {
@@ -684,54 +626,27 @@ for (irow in which(eval_biomass$modified_records$NOTE == "" &
     
     affected_subarea_records <- 
       subset(x = eval_biomass$modified_records,
-             subset = SURVEY_DEFINITION_ID == temp_record$SURVEY_DEFINITION_ID &
+             subset = SURVEY_DEFINITION_ID == 
+               temp_record$SURVEY_DEFINITION_ID &
                AREA_ID %in% affected_subareas &
                SPECIES_CODE == temp_record$SPECIES_CODE & 
                YEAR == temp_record$YEAR)
     
     if (nrow(x = affected_subarea_records) > 0) 
       eval_biomass$modified_records$NOTE[
-        eval_biomass$modified_records$SURVEY_DEFINITION_ID == temp_record$SURVEY_DEFINITION_ID &
+        eval_biomass$modified_records$SURVEY_DEFINITION_ID == 
+          temp_record$SURVEY_DEFINITION_ID &
           eval_biomass$modified_records$AREA_ID %in% affected_subareas &
-          eval_biomass$modified_records$SPECIES_CODE == temp_record$SPECIES_CODE & 
-          eval_biomass$modified_records$YEAR == temp_record$YEAR
+          eval_biomass$modified_records$SPECIES_CODE == 
+          temp_record$SPECIES_CODE & 
+          eval_biomass$modified_records$YEAR == 
+          temp_record$YEAR
       ] <-  test_query$NOTE
   }
 }
 
 table(eval_biomass$modified_records$NOTE)
-tail(subset(eval_biomass$modified_records, NOTE == ""))
-
-# eval_biomass$modified_records$NOTE[
-#   eval_biomass$modified_records$NOTE == "" & 
-#     eval_biomass$modified_records$BIOMASS_MT_HIST < 20 & 
-#     abs(eval_biomass$modified_records$BIOMASS_MT_HIST - 
-#           eval_biomass$modified_records$BIOMASS_MT_PROD) <= 1
-# ] <- "truncation"
-# 
-# eval_biomass$modified_records$NOTE[
-#   eval_biomass$modified_records$NOTE == "" & 
-#     eval_biomass$modified_records$CPUE_NOKM2_MEAN_HIST  < 20 & 
-#     abs(eval_biomass$modified_records$CPUE_NOKM2_MEAN_HIST  - 
-#           eval_biomass$modified_records$CPUE_NOKM2_MEAN_PROD) < 0.5
-# ] <- "truncation"
-# 
-# eval_biomass$modified_records$NOTE[
-#   eval_biomass$modified_records$NOTE == "" & 
-#     eval_biomass$modified_records$CPUE_NOKM2_VAR_HIST  < 50 & 
-#     abs(eval_biomass$modified_records$CPUE_NOKM2_VAR_HIST  - 
-#           eval_biomass$modified_records$CPUE_NOKM2_VAR_PROD) < 0.1
-# ] <- "truncation"
-# 
-# 
-# eval_biomass$modified_records$NOTE[
-#   eval_biomass$modified_records$NOTE == "" & 
-#     eval_biomass$modified_records$CPUE_KGKM2_MEAN_HIST  < 20 & 
-#     abs(eval_biomass$modified_records$CPUE_KGKM2_MEAN_HIST  - 
-#           eval_biomass$modified_records$CPUE_KGKM2_MEAN_PROD) < 0.5
-# ] <- "truncation"
-
-
+head(subset(eval_biomass$modified_records, NOTE == ""))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Sizecomp Tables 
@@ -950,16 +865,49 @@ for (irow in 1:nrow(x = spp_year)) {
 table(eval_sizecomp$removed_records$NOTE)
 subset(eval_sizecomp$removed_records, NOTE == "")
 
+## Reason code 9. Differences in estimated abundance is propagated to the size 
+## comps. Assign these records a error code 9. 
 
-for (irow in which(eval_biomass$modified_records$POPULATION_COUNT_DIFF != 0 & eval_biomass$modified_records$SPECIES_CODE %in% unique(eval_sizecomp$modified_records$SPECIES_CODE))[]) {
+for (irow in which(eval_biomass$modified_records$POPULATION_COUNT_DIFF != 0 &
+                   eval_biomass$modified_records$SPECIES_CODE %in%
+                   unique(eval_sizecomp$modified_records$SPECIES_CODE))[]) {
+  
   temp_record <- eval_biomass$modified_records[irow, ]
   eval_sizecomp$modified_records$NOTE[
     eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == temp_record$SURVEY_DEFINITION_ID & 
       eval_sizecomp$modified_records$AREA_ID == temp_record$AREA_ID &
       eval_sizecomp$modified_records$SPECIES_CODE == temp_record$SPECIES_CODE  &
       eval_sizecomp$modified_records$YEAR == temp_record$YEAR 
-  ] <- "DIFF POP EST"
+  ] <- 9
+  
+  affected_subareas <- 
+    RODBC::sqlQuery(channel = sql_channel,
+                    query = paste0("SELECT AREA_ID FROM 
+                                      GAP_PRODUCTS.STRATUM_GROUPS
+                                      WHERE STRATUM = ", temp_record$AREA_ID,
+                                   "AND SURVEY_DEFINITION_ID = ",
+                                   temp_record$SURVEY_DEFINITION_ID))$AREA_ID
+  
+  affected_subarea_records <- 
+    subset(x = eval_sizecomp$modified_records,
+           subset = SURVEY_DEFINITION_ID == 
+             temp_record$SURVEY_DEFINITION_ID &
+             AREA_ID %in% affected_subareas &
+             SPECIES_CODE == temp_record$SPECIES_CODE & 
+             YEAR == temp_record$YEAR)
+  
+  if (nrow(x = affected_subarea_records) > 0) 
+    eval_sizecomp$modified_records$NOTE[
+      eval_sizecomp$modified_records$SURVEY_DEFINITION_ID == 
+        temp_record$SURVEY_DEFINITION_ID &
+        eval_sizecomp$modified_records$AREA_ID %in% affected_subareas &
+        eval_sizecomp$modified_records$SPECIES_CODE == 
+        temp_record$SPECIES_CODE & 
+        eval_sizecomp$modified_records$YEAR == 
+        temp_record$YEAR
+    ] <-  9
 }
+table(eval_sizecomp$modified_records$NOTE)
 
 ## But first, query length data that come from hauls with negative 
 ## performance codes. 
@@ -1016,6 +964,8 @@ for (irow in 1:nrow(x = spp_year_neg_hauls)) {
     ] <-  "USED NEG HAUL"
 }
 
+table(eval_sizecomp$modified_records$NOTE)
+
 unique_size_mismatches <- 
   unique(x = subset(x = eval_sizecomp$modified_records, 
                     subset = NOTE == "",
@@ -1058,8 +1008,9 @@ table(eval_sizecomp$modified_records$NOTE)
 subset(eval_sizecomp$modified_records, NOTE == "")
 
 subset(spp_year_neg_hauls, SPECIES_CODE == 21720 & STRATUM == 222)
-subset(test_sizecomp, SPECIES_CODE == 30152 & AREA_ID == 122 & YEAR == 1999)
+# subset(test_sizecomp, SPECIES_CODE == 30152 & AREA_ID == 122 & YEAR == 1999)
 
+subset(test_sizecomp, SPECIES_CODE == 21921 & YEAR == 2002 & AREA_ID == 293)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare Agecomp Tables 
