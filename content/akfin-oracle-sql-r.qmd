@@ -83,7 +83,7 @@ for (i in 1:length(locations)) {
 
 a <- RODBC::sqlQuery(channel = channel, # NOT RACEBASE.HAUL
                      query = paste0(
-"
+                       "
 -- Select columns for output data
 SELECT
 cr.CRUISEJOIN,
@@ -121,8 +121,8 @@ AND tt.SURVEY_SPECIES = 1
 -- Only return the first 3 rows because otherwise this would be a huge table!
 FETCH FIRST 3 ROWS ONLY;")) 
 
-flextable::flextable(head(a)) %>% theme_zebra()
-
+flextable::flextable(head(a)) %>% 
+  flextable::theme_zebra()
 ```
 
 ### Ex. CPUE for all stations contained in the INPFC Shumagin region (AREA_ID = 919) for Pacific cod. 
@@ -135,7 +135,7 @@ flextable::flextable(head(a)) %>% theme_zebra()
 
 dat <- RODBC::sqlQuery(channel = channel,
                        query =
-"
+                         "
 -- Select columns for output data
 SELECT 
 HAULJOIN, 
@@ -177,7 +177,9 @@ dat <- dat %>%
                 STRATUM = as.character(STRATUM)) %>% 
   dplyr::arrange(SPECIES_CODE)
 
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>%   
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra()
 ```
 
 ### Ex. EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map 
@@ -192,7 +194,7 @@ Pacific Ocean perch catch-per-unit-effort estimates for EBS in 2021 from `GAP_PR
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"
+                         "
 -- Select columns for output data
 SELECT 
 (cp.CPUE_KGKM2/100) CPUE_KGHA, -- akgfmaps is expecting hectares
@@ -221,7 +223,9 @@ AND cc.YEAR = 2021;")
 #| warning: false
 #| echo: true
 
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>%  
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra()
 ```
 
 
@@ -261,7 +265,7 @@ Biomass and abundance for Pacific Ocean perch from 1990 – 2023 for the western
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"
+                         "
 -- Manipulate data to join to
 WITH FILTERED_STRATA AS (
 SELECT AREA_ID, DESCRIPTION FROM GAP_PRODUCTS.AKFIN_AREA
@@ -308,7 +312,8 @@ dat0 <- dat %>%
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
 
 flextable::flextable(head(dat)) %>% 
-  theme_zebra() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
   flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
 ```
 
@@ -350,7 +355,7 @@ Northern and Southern rock sole size composition data from 1991 – 2022 for the
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"
+                         "
 -- Manipulate data to join to
 WITH FILTERED_STRATA AS (
 SELECT 
@@ -387,8 +392,9 @@ dat0 <- dat %>%
   dplyr::mutate(length_cm = length_mm/10) %>% 
   head() %>% 
   flextable::flextable() %>% 
+  flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
-    flextable::colformat_num(x = ., j = "year", big.mark = "")
+  flextable::colformat_num(x = ., j = "year", big.mark = "")
 dat0
 ```
 
@@ -428,7 +434,7 @@ Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"
+                         "
 -- Manipulate data to join to
 WITH FILTERED_STRATA AS (
 SELECT 
@@ -469,7 +475,9 @@ dat0 <- dat %>%
     population_count = # change male population to negative
       ifelse(sex=="M", population_count*(-1), population_count*1)/1e9) 
 
-flextable::flextable(head(dat)) %>% theme_zebra()
+flextable::flextable(head(dat)) %>% 
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra()
 ```
 
 
@@ -483,9 +491,9 @@ flextable::flextable(head(dat)) %>% theme_zebra()
 figure <- ggplot2::ggplot(
   data = dat0, 
   mapping = 
-                 aes(x = age,
-                     y = population_count, 
-                     fill = sex)) +
+    aes(x = age,
+        y = population_count, 
+        fill = sex)) +
   ggplot2::scale_fill_grey() +
   ggplot2::geom_bar(stat = "identity") +
   ggplot2::coord_flip() +
@@ -510,7 +518,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"
+                         "
 -- Manipulate data to join to
 WITH FILTERED_STRATA AS (
 SELECT 
@@ -556,7 +564,8 @@ dat0 <- dat %>%
     var = ifelse(var == "biomass_mt", "Biomass (Mmt)", "Population (B)"), 
     area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
 flextable::flextable(head(dat)) %>% 
-  theme_zebra() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
   flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
 ```
 
@@ -596,7 +605,7 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.
 
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
-"
+                         "
 -- Select columns for output data
 SELECT 
 SURVEY_DEFINITION_ID, 
@@ -627,7 +636,8 @@ AND YEAR BETWEEN 1984 AND 2023;") %>%
 #| echo: true
 
 flextable::flextable(head(dat)) %>%
-  theme_zebra() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
   flextable::colformat_num(x = ., j = "year", big.mark = "")
 ```
 
@@ -667,7 +677,7 @@ figure <-
     linewidth = 2) +
   ggplot2::geom_errorbar(
     mapping = aes(ymin = biomass_kci_dw, ymax = biomass_kci_up),
-                 position = position_dodge(.9),
+    position = position_dodge(.9),
     alpha = 0.5, width=.2) +
   ggplot2::ggtitle(
     label = "GOA Pacific Ocean Perch Biomass 1984-2021", 

@@ -332,7 +332,7 @@ function googleTranslateElementInit() {
 <section id="agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="agecomp">AGECOMP</h3>
 <p>Region-level age compositions by sex/length bin.</p>
-<p>Number of rows: 545,107</p>
+<p>Number of rows: 547,436</p>
 <p>Number of columns: 9</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -361,16 +361,16 @@ Column description
 AGE
 </td>
 <td style="text-align:left;">
-NA
+Taxon age bin (yrs)
 </td>
 <td style="text-align:left;">
-NA
+integer
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate.
 </td>
 </tr>
 <tr>
@@ -435,7 +435,7 @@ Estimated population
 numeric
 </td>
 <td style="text-align:left;">
-NUMBER(38,6)
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
@@ -489,7 +489,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -516,7 +516,7 @@ Year the observation (survey) was collected.
 <section id="area" class="level3">
 <h3 class="anchored" data-anchor-id="area">AREA</h3>
 <p>This is a table</p>
-<p>Number of rows: 473</p>
+<p>Number of rows: 511</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -589,6 +589,23 @@ VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Descriptive name of each AREA_ID. These names often identify the region, depth ranges, or other regional information for the area ID.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AREA_TYPE
+</td>
+<td style="text-align:left;">
+Area ID type description
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The type of stratum that AREA_ID represents. Types include: STRATUM (the smallest building-block unit of area in these surveys), REGION, DEPTH, SUBAREA, INPFC BY DEPTH, INPFC, SUBAREA BY DEPTH, REGULATORY AREA, NMFS STATISTICAL AREA.
 </td>
 </tr>
 <tr>
@@ -690,24 +707,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TYPE
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -717,7 +717,7 @@ NA
 <section id="biomass" class="level3">
 <h3 class="anchored" data-anchor-id="biomass">BIOMASS</h3>
 <p>Stratum/subarea/region-level mean CPUE (weight and numbers), total biomass, and total abundance with associated variances.</p>
-<p>Number of rows: 4,689,557</p>
+<p>Number of rows: 4,714,192</p>
 <p>Number of columns: 16</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -831,7 +831,7 @@ The variance of mean catch weight (kilograms) per unit effort (area swept by the
 CPUE_NOKM2_MEAN
 </td>
 <td style="text-align:left;">
-Mean numberic CPUE
+Mean numeric CPUE
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -885,7 +885,7 @@ N_HAUL
 Valid hauls
 </td>
 <td style="text-align:left;">
-numeric
+count
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -902,7 +902,7 @@ N_LENGTH
 Hauls with taxon lengths
 </td>
 <td style="text-align:left;">
-numeric
+count
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -919,7 +919,7 @@ N_WEIGHT
 Hauls with catch
 </td>
 <td style="text-align:left;">
-numeric
+count
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -939,7 +939,7 @@ Estimated population
 numeric
 </td>
 <td style="text-align:left;">
-NUMBER(38,6)
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
@@ -993,7 +993,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1020,7 +1020,7 @@ Year the observation (survey) was collected.
 <section id="cpue" class="level3">
 <h3 class="anchored" data-anchor-id="cpue">CPUE</h3>
 <p>Haul-level zero-filled weight and numerical catch-per-unit-effort.</p>
-<p>Number of rows: 38,965,699</p>
+<p>Number of rows: 39,016,899</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1075,7 +1075,7 @@ count, whole number resolution
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total whole number of individuals caught in haul.
+Total whole number of individuals caught in haul or samples collected.
 </td>
 </tr>
 <tr>
@@ -1225,7 +1225,7 @@ text
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Name and description of survey. The column ‘survey’ is associated with the ‘srvy’ and ‘survey_id’ columns.
+Name and description of survey. The column ‘survey’ is associated with the ‘srvy’ and ‘survey_definition_id’ columns.
 </td>
 </tr>
 <tr>
@@ -1242,7 +1242,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1268,7 +1268,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="metadata_table" class="level3">
 <h3 class="anchored" data-anchor-id="metadata_table">METADATA_TABLE</h3>
-<p>These columns provide the table metadata for all of the tables and views in GAP_PRODUCTS. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated October 12, 2023. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
+<p>These columns provide the table metadata for all of the tables and views in GAP_PRODUCTS. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
 <p>Number of rows: 8</p>
 <p>Number of columns: 3</p>
 
@@ -1304,7 +1304,7 @@ Sentence
 text
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Table metadata sentence.
@@ -1321,7 +1321,7 @@ Metadata sentence name
 text
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Name of table metadata sentence.
@@ -1338,7 +1338,7 @@ Sentence type
 text
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Type of sentence to have in table metadata.
@@ -1440,7 +1440,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -1449,8 +1449,8 @@ This number uniquely identifies a survey. Name and description of survey. The co
 </section>
 <section id="sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="sizecomp">SIZECOMP</h3>
-<p>Stratum/subarea/region-level size compositions by sex. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated September 25, 2023.</p>
-<p>Number of rows: 3,186,101</p>
+<p>Stratum/subarea/region-level size compositions by sex. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated January 10, 2024.</p>
+<p>Number of rows: 3,180,973</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1519,7 +1519,7 @@ Estimated population
 numeric
 </td>
 <td style="text-align:left;">
-NUMBER(38,6)
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
@@ -1573,7 +1573,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>

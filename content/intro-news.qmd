@@ -16,8 +16,9 @@ for (i in 1:length(news_link)) {
 str0 <- paste0(paste0(" -- [",
                       news_name,
                       "](",
+                      "https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/",
                       list.files(here::here("content/intro-news/"), 
-                                 full.names = TRUE), # recalling function so it prints relative directory during quarto render (I hope)
+                                 full.names = FALSE), # recalling function so it prints relative directory during quarto render (I hope)
                       "): ", 
                       news_desc ), collapse = "\n\n")
 ```

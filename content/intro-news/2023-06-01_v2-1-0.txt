@@ -1,7 +1,6 @@
 Run 2023-06-01 gapindex v2.1.0
 Initial compiling and planning notes
 
-
 ### GOA 2025 Restratification -- Mock Data for Testing
 
 The plan will be, once all are satisfied with the new GAP_PRODUCTS schema and tables, to sunset the historic product tables in 2024 and proceed with only GAP_PRODUCTS for the 2024 post-survey stock assessment season.
@@ -11,8 +10,6 @@ The plan will be, once all are satisfied with the new GAP_PRODUCTS schema and ta
 
 -   September 2024: GAP will only release data products according to the new standard.
 Current, historical data product tables will be archived in a new schema called \"**GAP_ARCHIVE**\".
-
-
 
 ## Previous updates
 

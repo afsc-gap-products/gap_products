@@ -14,5 +14,7 @@ Codes can help organizations to ensure all participants follow best practices an
 ### [Code of Conduct](https://github.com/nmfs-opensci/.github/blob/main/CODE_OF_CONDUCT.md) from the [nmfs-opensci GitHub](https://nmfs-opensci.github.io/). 
 
 ```{r}
-cat(readLines(con = "https://raw.githubusercontent.com/nmfs-opensci/.github/main/.github/CODE_OF_CONDUCT.md"), sep = "\n")
+str0 <- paste0(readLines(con = "https://raw.githubusercontent.com/nmfs-opensci/.github/main/.github/CODE_OF_CONDUCT.md"), collapse = "\n")
 ```
+
+`r str0`

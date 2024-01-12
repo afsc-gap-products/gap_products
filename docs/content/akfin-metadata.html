@@ -346,8 +346,8 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="akfin_agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_agecomp">AKFIN_AGECOMP</h3>
-<p>This table is a copy of GAP_PRODUCTS.AGECOMP and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
-<p>Number of rows: 533,785</p>
+<p>This table is a copy of GAP_PRODUCTS.AGECOMP and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
+<p>Number of rows: 547,436</p>
 <p>Number of columns: 9</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -376,16 +376,16 @@ Column description
 AGE
 </td>
 <td style="text-align:left;">
-NA
+Taxon age bin (yrs)
 </td>
 <td style="text-align:left;">
-NA
+integer
 </td>
 <td style="text-align:left;">
-NA
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-NA
+Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate.
 </td>
 </tr>
 <tr>
@@ -450,7 +450,7 @@ Estimated population
 numeric
 </td>
 <td style="text-align:left;">
-NUMBER(38,6)
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
@@ -504,7 +504,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -530,8 +530,8 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_area" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_area">AKFIN_AREA</h3>
-<p>This table is a copy of GAP_PRODUCTS.AREA and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
-<p>Number of rows: 473</p>
+<p>This table is a copy of GAP_PRODUCTS.AREA and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
+<p>Number of rows: 511</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -604,6 +604,23 @@ VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Descriptive name of each AREA_ID. These names often identify the region, depth ranges, or other regional information for the area ID.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AREA_TYPE
+</td>
+<td style="text-align:left;">
+Area ID type description
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The type of stratum that AREA_ID represents. Types include: STRATUM (the smallest building-block unit of area in these surveys), REGION, DEPTH, SUBAREA, INPFC BY DEPTH, INPFC, SUBAREA BY DEPTH, REGULATORY AREA, NMFS STATISTICAL AREA.
 </td>
 </tr>
 <tr>
@@ -705,24 +722,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TYPE
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -731,8 +731,8 @@ NA
 </section>
 <section id="akfin_biomass" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_biomass">AKFIN_BIOMASS</h3>
-<p>This table is a copy of GAP_PRODUCTS.BIOMASS and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated October 04, 2023.</p>
-<p>Number of rows: 4,569,717</p>
+<p>This table is a copy of GAP_PRODUCTS.BIOMASS and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
+<p>Number of rows: 4,714,192</p>
 <p>Number of columns: 16</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -846,7 +846,7 @@ The variance of mean catch weight (kilograms) per unit effort (area swept by the
 CPUE_NOKM2_MEAN
 </td>
 <td style="text-align:left;">
-Mean numberic CPUE
+Mean numeric CPUE
 </td>
 <td style="text-align:left;">
 count per kilometers squared
@@ -900,7 +900,7 @@ N_HAUL
 Valid hauls
 </td>
 <td style="text-align:left;">
-numeric
+count
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -917,7 +917,7 @@ N_LENGTH
 Hauls with taxon lengths
 </td>
 <td style="text-align:left;">
-numeric
+count
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -934,7 +934,7 @@ N_WEIGHT
 Hauls with catch
 </td>
 <td style="text-align:left;">
-numeric
+count
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -954,7 +954,7 @@ Estimated population
 numeric
 </td>
 <td style="text-align:left;">
-NUMBER(38,6)
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
@@ -1008,7 +1008,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1073,7 +1073,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Unique interger ID assigned to each survey, vessel, year, and catch observation combination.
+Unique integer ID assigned to each survey, vessel, year, and catch observation combination.
 </td>
 </tr>
 <tr>
@@ -1090,7 +1090,7 @@ count, whole number resolution
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total whole number of individuals caught in haul.
+Total whole number of individuals caught in haul or samples collected.
 </td>
 </tr>
 <tr>
@@ -1107,7 +1107,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Unique interger ID assigned to each survey, vessel, and year combination.
+Unique integer ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -1167,8 +1167,8 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </section>
 <section id="akfin_cpue" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cpue">AKFIN_CPUE</h3>
-<p>This table is a copy of GAP_PRODUCTS.CPUE and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
-<p>Number of rows: 37,905,115</p>
+<p>This table is a copy of GAP_PRODUCTS.CPUE and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
+<p>Number of rows: 39,016,899</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1223,7 +1223,7 @@ count, whole number resolution
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Total whole number of individuals caught in haul.
+Total whole number of individuals caught in haul or samples collected.
 </td>
 </tr>
 <tr>
@@ -1317,7 +1317,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </section>
 <section id="akfin_cruise" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cruise">AKFIN_CRUISE</h3>
-<p>This is the cruise data table. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
+<p>This is the cruise data table. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
 <p>Number of rows: 187</p>
 <p>Number of columns: 10</p>
 
@@ -1373,7 +1373,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Unique interger ID assigned to each survey, vessel, and year combination.
+Unique integer ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -1441,7 +1441,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1449,16 +1449,16 @@ This number uniquely identifies a survey. Name and description of survey. The co
 SURVEY_NAME
 </td>
 <td style="text-align:left;">
-NA
+Survey name
 </td>
 <td style="text-align:left;">
-NA
+text
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Long name of the survey conducted
 </td>
 </tr>
 <tr>
@@ -1518,7 +1518,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_haul" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_haul">AKFIN_HAUL</h3>
-<p>This table is created by subsetting the RACEBASE.HAUL table to only hauls with ABUNDANCE_HAUL = ‘Y’. These are the hauls that are used for the standard production tables in GAP_PRODUCTS. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023</p>
+<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_HAUL</p>
 <p>Number of rows: 36,114</p>
 <p>Number of columns: 25</p>
 
@@ -1591,7 +1591,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Unique interger ID assigned to each survey, vessel, and year combination.
+Unique integer ID assigned to each survey, vessel, and year combination.
 </td>
 </tr>
 <tr>
@@ -1605,10 +1605,10 @@ Start date and time
 MM/DD/YYYY HH::MM
 </td>
 <td style="text-align:left;">
-DATE
+TIMESTAMP
 </td>
 <td style="text-align:left;">
-The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul.
+The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul. All dates and times are in Alaska time (AKDT) of Anchorage, AK, USA (UTC/GMT -8 hours).
 </td>
 </tr>
 <tr>
@@ -1659,7 +1659,7 @@ degrees Celsius
 NUMBER(38,3)
 </td>
 <td style="text-align:left;">
-Distance the net fished (thousandths of kilometers).
+Distance the net fished (thousands of kilometers).
 </td>
 </tr>
 <tr>
@@ -1975,7 +1975,7 @@ Length of wire deployed during a given haul in meters.
 <section id="akfin_length" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_length">AKFIN_LENGTH</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_LENGTH</p>
-<p>Number of rows: 2,587,694</p>
+<p>Number of rows: 2,588,430</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2124,8 +2124,8 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 </section>
 <section id="akfin_metadata_column" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_metadata_column">AKFIN_METADATA_COLUMN</h3>
-<p>This table is a copy of GAP_PRODUCTS.METADATA_COLUMN and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
-<p>Number of rows: 128</p>
+<p>This table is a copy of GAP_PRODUCTS.METADATA_COLUMN and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
+<p>Number of rows: 158</p>
 <p>Number of columns: 5</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2160,7 +2160,7 @@ Column name
 text
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Name of the column in a table.
@@ -2180,7 +2180,7 @@ text
 VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
-Descritpion of the column.
+Description of the column.
 </td>
 </tr>
 <tr>
@@ -2194,7 +2194,7 @@ Column name spelled out
 text
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Long name for the column.
@@ -2211,7 +2211,7 @@ Oracle datatype code
 text
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Oracle data type of data column.
@@ -2228,7 +2228,7 @@ Units
 category
 </td>
 <td style="text-align:left;">
-VARCHAR2(255 BYTE)
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Units of the column.
@@ -2240,8 +2240,8 @@ Units of the column.
 </section>
 <section id="akfin_sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_sizecomp">AKFIN_SIZECOMP</h3>
-<p>This table is a copy of GAP_PRODUCTS.SIZECOMP and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
-<p>Number of rows: 3,134,121</p>
+<p>This table is a copy of GAP_PRODUCTS.SIZECOMP and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
+<p>Number of rows: 3,180,973</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2310,7 +2310,7 @@ Estimated population
 numeric
 </td>
 <td style="text-align:left;">
-NUMBER(38,6)
+NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
@@ -2364,7 +2364,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2392,7 +2392,7 @@ Year the observation (survey) was collected.
 <h3 class="anchored" data-anchor-id="akfin_specimen">AKFIN_SPECIMEN</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_SPECIMEN</p>
 <p>Number of rows: 360,602</p>
-<p>Number of columns: 13</p>
+<p>Number of columns: 12</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -2417,53 +2417,36 @@ Column description
 <tbody>
 <tr>
 <td style="text-align:left;">
-AGE_DETERMINATION_METHOD
+AGE
 </td>
 <td style="text-align:left;">
-NA
+Taxon age bin (yrs)
 </td>
 <td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AGE_YEARS
-</td>
-<td style="text-align:left;">
-Age bin of taxon
-</td>
-<td style="text-align:left;">
-year
+integer
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Age bin of a taxon in years estimated by the age comp estimate.
+Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate.
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-CRUISEJOIN
+AGE_DETERMINATION_METHOD
 </td>
 <td style="text-align:left;">
-Cruise ID
+Aging method
 </td>
 <td style="text-align:left;">
 ID code
 </td>
 <td style="text-align:left;">
-NUMBER(38,0)
+NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Unique interger ID assigned to each survey, vessel, and year combination.
+Numeric code corresponding to the method of age determination. For a complete list of age determination codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2599,7 +2582,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-For a complete list of Specimen sample type ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The specimen sample type ID code as defined in the RACE_DATA.SPECIMEN_SAMPLE_TYPES table. For a complete list of Specimen sample type ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2642,7 +2625,7 @@ Weight of specimen (grams).
 </section>
 <section id="akfin_stratum_groups" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_stratum_groups">AKFIN_STRATUM_GROUPS</h3>
-<p>This table is a copy of GAP_PRODUCTS.STRATUM_GROUPS and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
+<p>This table is a copy of GAP_PRODUCTS.STRATUM_GROUPS and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
 <p>Number of rows: 774</p>
 <p>Number of columns: 4</p>
 
@@ -2732,7 +2715,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -2741,7 +2724,7 @@ This number uniquely identifies a survey. Name and description of survey. The co
 </section>
 <section id="akfin_survey_design" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_survey_design">AKFIN_SURVEY_DESIGN</h3>
-<p>This table is a copy of GAP_PRODUCTS.SURVEY_DESIGN and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
+<p>This table is a copy of GAP_PRODUCTS.SURVEY_DESIGN and does not have any other object dependencies. These data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
 <p>Number of rows: 126</p>
 <p>Number of columns: 4</p>
 
@@ -2797,7 +2780,7 @@ text
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Name and description of survey. The column ‘survey’ is associated with the ‘srvy’ and ‘survey_id’ columns.
+Name and description of survey. The column ‘survey’ is associated with the ‘srvy’ and ‘survey_definition_id’ columns.
 </td>
 </tr>
 <tr>
@@ -2814,7 +2797,7 @@ ID code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-This number uniquely identifies a survey. Name and description of survey. The column ‘survey_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2840,7 +2823,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_taxonomic_classification" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_taxonomic_classification">AKFIN_TAXONOMIC_CLASSIFICATION</h3>
-<p>NAThese data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 26, 2023.</p>
+<p>NAThese data are produced by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated January 11, 2024.</p>
 <p>Number of rows: 2,757</p>
 <p>Number of columns: 19</p>
 
@@ -3169,23 +3152,6 @@ VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
 Phylogenetic latin rank of superfamily of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SUPERORDER_TAXON
-</td>
-<td style="text-align:left;">
-Superorder phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of superorder of a given species.
 </td>
 </tr>
 <tr>

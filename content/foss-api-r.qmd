@@ -16,25 +16,26 @@ More information about how to amend API links can be found [here](https://docs.o
 #| label: test-1
 #| tbl-cap: "Ex. 1: Load the first 25 rows (default) of data. "
 
- # install.packages(c("httr", "jsonlite"))
+# install.packages(c("httr", "jsonlite"))
 library(httr)
 library(jsonlite)
 library(dplyr)
 
- # link to the API
+# link to the API
 api_link <- "https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey/"
 
 res <- httr::GET(url = api_link)
- # res # Test connection
+# res # Test connection
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
- # names(data)
+# names(data)
 tibble::as_tibble(data$items) %>% 
   dplyr::mutate_if(is.character, type.convert, as.is = TRUE) %>%
   dplyr::mutate(across(where(is.numeric), round, 3)) %>%
   head(3) %>%
-flextable::flextable() %>%
-    flextable::theme_zebra() %>%
-    flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
+  flextable::flextable() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
 ```
 
 ## Ex. 2: Load the first 10000 rows of data
@@ -65,9 +66,10 @@ as_tibble(data$items) %>%
   head(3) %>%
   dplyr::mutate(across(where(is.numeric), round, 3)) %>%
   dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
-flextable::flextable() %>%
-    flextable::theme_zebra() %>%
-    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
+  flextable::flextable() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 4: Filter by species name
@@ -89,9 +91,10 @@ as_tibble(data$items) %>%
   head(3) %>%
   dplyr::mutate(across(where(is.numeric), round, 3)) %>%
   dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
-flextable::flextable() %>%
-    flextable::theme_zebra() %>%
-    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
+  flextable::flextable() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 5: Combination of year and name filters
@@ -112,9 +115,10 @@ as_tibble(data$items) %>%
   head(3) %>%
   dplyr::mutate(across(where(is.numeric), round, 3)) %>%
   dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
-flextable::flextable() %>%
-    flextable::theme_zebra() %>%
-    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
+  flextable::flextable() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 6: Combination of year, srvy, stratum
@@ -134,9 +138,10 @@ as_tibble(data$items) %>%
   head(3) %>%
   dplyr::mutate(across(where(is.numeric), round, 3)) %>%
   dplyr::select(year, srvy, stratum, species_code, cpue_kgkm2) %>%
-flextable::flextable() %>%
-    flextable::theme_zebra() %>%
-    flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
+  flextable::flextable() %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
 ## Ex. 7: Visualize CPUE data in distribution map
@@ -168,6 +173,7 @@ data <- dplyr::left_join(data_haul, data_catch) %>%
                 dplyr::across(dplyr::everything(), as.numeric)) 
 
 flextable::flextable(data[1:3,]) %>% 
+  flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() 
 ```
 

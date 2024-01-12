@@ -8,6 +8,8 @@ title: Workflow
 
 ## Data workflow from boat to production
 
+Below is a summary of the workflow:
+
 ```{mermaid}
 %%| label: fig-workflow
 %%| fig-cap: "Simplified data workflow from boat to production."
@@ -22,7 +24,7 @@ flowchart LR
   D --> E[gapindex\nR package]
   D --> F[gap_products\nR scripts]
   E --> F
-  F --> G[Prodcution tables\nin GAP_PRODUCTS\nOracle schema]
+  F --> G[Production tables\nin GAP_PRODUCTS\nOracle schema]
   E --> G
   G --> H[Data process\nreports &\npresentations]
   G --> I[AKFN]
@@ -30,17 +32,84 @@ flowchart LR
   
 ```
 
-## Organization
-
-The code/run.R script houses the sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the GAP_PRODUCTS Oracle schema. The tables are slated to be updated twice a year, once after the survey season following finalization of that summer's bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer's survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data.
-
-Below is a summary of the workflow:
+**Once survey data collected on the vessel has been checked and validated**, the `code/run.R` script (within the `gap_products` repository) houses the sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the GAP_PRODUCTS Oracle schema. The tables are slated to be updated twice a year, once after the survey season following finalization of that summer's bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer's survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data.
 
 1.  Import versions of the tables in GAP_PRODUCTS locally within the gap_products repository to compare with the updated production tables. Any changes to a production table will be compared and checked to make sure those changes are intentional and documented.
 
-2.  Use the gapindex R package to calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are compared and checked to their respective locally saved copies and any changes to the tables are vetted and documented. These tables are then uploaded to the GAP_PRODUCTS Oracle schema.
+2.  Use the `gapindex` R package to calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are compared and checked to their respective locally saved copies and any changes to the tables are vetted and documented. These tables are then uploaded to the GAP_PRODUCTS Oracle schema.
 
 3.  Calculate the various materialized views for AKFIN and FOSS purposes. Since these are derivative of the tables in GAP_PRODUCTS as well as other base tables in RACEBASE and RACE_DATA, it is not necessary to check these views in addition to the data checks done in the previous steps.
+
+## Operational Product Development Timeline
+
+```{r prod-timeline}
+#| tbl-cap: Operational product development timeline. 
+
+dat <- data.frame(Month = unique(months(as.Date(x = 1:365, format = "%m"))), 
+           Surveys = 
+             c(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0), 
+           Planning = 
+             c(1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1), 
+           Development = 
+             c(1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1), 
+           deployment_deliverables = # Deployment (survey deliverables)
+             c(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1), 
+           deployment_operations = # Deployment (survey operations)
+             c(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0), 
+           triage = 1, # Triage (fixing bugs and errors)
+           feedback = 1 # User feedback and brainstorming
+           ) %>% 
+  t() %>% 
+  data.frame()
+
+names(dat) <- dat[1,]
+dat <- dat[-1,]
+cols  <- viridis_pal(option = "G", begin = .2, end = .8)(nrow(dat))
+# dat$cols <- cols
+dat[dat == 0] <- ""
+# for (i in 1:nrow(dat)) {
+#   dat[i,][dat == TRUE] <- rownames(dat)[i]
+# }
+dat <- cbind.data.frame(" " = c("Surveys", "Planning", "Development", "Deployment (survey deliverables)", "Deployment (survey operations)", "Triage (fixing bugs and errors)", "User feedback and brainstorming"), 
+                        dat)
+t0 <- dat %>% 
+  flextable::flextable() %>% # col_keys = names(dat)[-ncol(dat)]
+  flextable::vline(j = 1)
+
+for (i in 1:nrow(dat)){
+  for (j in 2:(ncol(dat))) {
+    if (dat[i,j] == 1) {
+t0 <- t0 %>% 
+  flextable::bg(i = i, j = j, bg = cols[i], part = "body")  %>% 
+  flextable::color(i = i, j = j, color = cols[i], part = "body") 
+    }
+  }
+}
+
+t0
+```
+
+## Where are these data used?
+
+```{mermaid}
+%%| label: fig-data-used
+%%| fig-cap: "Major users of the GAP data product tables. "
+
+flowchart LR
+  A[gap_products data tables] --> B[Reports]
+  B --> C[Data process\nreports &\npresentations]
+  B --> G[Ecosystem Status Reports]
+  A --> D[Outreach]
+  D --> E[Plan Team Presentations]
+  D --> F[Community\nHighlight\nDocuments]
+  D --> H[Survey progress and temperature maps]
+  A --> I[Data Platforms]
+  I --> J[AKFN]
+  I --> K[FOSS]
+  I --> L[afscgap Python package]
+  A --> M[VAST Model-Based Indices]
+
+```
 
 ## Data levels
 
