@@ -33,7 +33,6 @@ tibble::as_tibble(data$items) %>%
   dplyr::mutate(across(where(is.numeric), round, 3)) %>%
   head(3) %>%
   flextable::flextable() %>%
-  flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
   flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
 ```
@@ -196,6 +195,8 @@ figure <- akgfmaps::make_idw_map(
   out.crs = "EPSG:3338", # Set output coordinate reference system
   grid.cell = c(20000, 20000))$plot + # 20x20km grid
   ggplot2::guides(fill=guide_legend(title = "Pacific cod\nCPUE (kg/km2)"))
+
+figure
 ```
 
 

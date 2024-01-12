@@ -122,6 +122,7 @@ AND tt.SURVEY_SPECIES = 1
 FETCH FIRST 3 ROWS ONLY;")) 
 
 flextable::flextable(head(a)) %>% 
+  flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra()
 ```
 

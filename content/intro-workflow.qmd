@@ -42,8 +42,9 @@ flowchart LR
 
 ## Operational Product Development Timeline
 
-```{r prod-timeline}
+```{r}
 #| tbl-cap: Operational product development timeline. 
+#| label: prod-timeline
 
 dat <- data.frame(Month = unique(months(as.Date(x = 1:365, format = "%m"))), 
            Surveys = 
