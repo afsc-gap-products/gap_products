@@ -8,7 +8,7 @@ title: Welcome
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-> Report run date: `r `format(Sys.Date(), format = "%A %B %d, %Y")`
+> Report run date: `r format(Sys.Date(), format = "%A %B %d, %Y")`
 
 ## AFSC Bottom Trawl Surveys
 
