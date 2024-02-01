@@ -15,21 +15,50 @@ Below is a summary of the workflow:
 %%| fig-cap: "Simplified data workflow from boat to production."
 
 flowchart LR
-  A[Catch data\ncollection tablet] --> B[METIS]
-  A1[Length data\ncollection tablets] --> B
-  A2[Specimen data\ncollection tablet] --> B
-  A3[Wheelhouse\nhaul data] --> C[GIDES and Oracle]
-  B --> C
-  C --> D[RACEBASE and RACE_DATA\nOracle schema]
-  D --> E[gapindex\nR package]
-  D --> F[gap_products\nR scripts]
-  E --> F
-  F --> G[Production tables\nin GAP_PRODUCTS\nOracle schema]
-  E --> G
-  G --> H[Data process\nreports &\npresentations]
-  G --> I[AKFN]
-  G --> J[FOSS]
-  
+  A([Catch data\ndeck tablet]) --> B1[METIS Biological\ndata editing\nsoftware]
+  A1([Length data\ndeck tablets]) --> B1
+  A2([Specimen data\ndeck tablet]) --> B1
+  A3([Haul performance w/ marport sensors]) --> B2[Wheelhouse &\nCalyposo \nhaul data] 
+  A4([CTD]) --> B2
+  A5([sea state\nobersvations]) --> B2
+  A6([HOBO bottom\ncontact sensor]) --> B2
+  A7{{NavMap\nR package\nfor navigation}} --> B2
+  B1 --> C[GIDES &\nRACE_EDIT\nOracle schema]
+  B2 --> C
+  C --> C1
+  C --> D[RACEBASE and RACE_DATA\nOracle schemata]
+  C1(Whole-survey\nreview &\ndata checking) --> D
+  D1{{gapindex R package}} --> F[Public Data Product:\ntables in\nGAP_PRODUCTS\nOracle schema]
+  D2{{gap_products\nR scripts}} --> F
+  D --> F
+  subgraph AA[Data Level 0: Raw]
+  A
+  A1
+  A2
+  A3
+  A4
+  A5
+  A6
+  A7
+  end
+  subgraph BB[Data Level 1:\nQA/QC'ed data]
+  B1
+  B2
+  end
+  subgraph CC[Data Level 2:\nAnalysis ready product for internal use]
+  C
+  C1
+  D
+  D1
+  D2
+  end
+  subgraph FF[Data Level 3:\nAnalysis ready product\nfor external/public use]
+  F
+  end
+  style AA fill:beige,::
+  style BB fill:white,::
+  style CC fill:beige,::
+  style FF fill:white,::
 ```
 
 **Once survey data collected on the vessel has been checked and validated**, the `code/run.R` script (within the `gap_products` repository) houses the sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the GAP_PRODUCTS Oracle schema. The tables are slated to be updated twice a year, once after the survey season following finalization of that summer's bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer's survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data.
@@ -96,19 +125,29 @@ t0
 %%| label: fig-data-used
 %%| fig-cap: "Major users of the GAP data product tables. "
 
-flowchart LR
-  A[gap_products data tables] --> B[Reports]
-  B --> C[Data process\nreports &\npresentations]
-  B --> G[Ecosystem Status Reports]
+flowchart
+  subgraph AA[Data Level 4]
+  A[gap_products\ndata product\ntables] --> C[Data process\nreports &\npresentations]
+  A --> G3{{esrindex R package}}
+  G3 --> G1[ESP: Ecosystem\nStatus Reports]
+  G3 --> G2[ESR: Ecosystem\nand Socioeconomic\nProfiles]
+  G3 --> C
+  G3 --> G4[Stock assessment\nrisk assessment\ntables]
   A --> D[Outreach]
-  D --> E[Plan Team Presentations]
+  D --> E[Plan Team\nPresentations]
   D --> F[Community\nHighlight\nDocuments]
-  D --> H[Survey progress and temperature maps]
+  D --> H[Survey progress\n& temperature maps]
   A --> I[Data Platforms]
-  I --> J[AKFN]
-  I --> K[FOSS]
-  I --> L[afscgap Python package]
-  A --> M[VAST Model-Based Indices]
+  I --> J[AKFIN: Alaska\nFisheries\nInformation\nNetwork]
+  I --> K[FOSS: Fisheries One\nStop Shop]
+  I --> L{{afscgap\nPython package}}
+  A --> M[Model-Based\nIndices]
+  M --> N{{VAST/tinyVAST}}
+  M --> O{{sdmTMB}}
+  M --> P[EFH: Essential\nFish Habitat]
+  F
+  end
+  style AA fill:beige,::
 
 ```
 

@@ -34,7 +34,7 @@ race_data.cruises b,
 race_data.surveys c, 
 race_data.survey_definitions d, 
 racebase.haul f
-where abs(a.cruisejoin) = b.cruise_id
+where abs(a.cruisejoin) = b.cruise_id -- negative/positive values from a.cruisejoin articulate where data came from (e.g., race_data, which only goes back to 2005)
 and a.hauljoin = f.hauljoin
 and c.survey_id =  b.survey_id 
 and c.survey_definition_id = d.SURVEY_DEFINITION_ID 

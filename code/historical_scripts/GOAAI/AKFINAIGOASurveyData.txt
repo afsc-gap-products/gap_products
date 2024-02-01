@@ -1,0 +1,65 @@
+/* AKFIN Data Transfer for AI/GOA Bottom Trawl Survey */
+
+/* Extract valid AI/GOA HAUL data into a file "haulaigoa" */
+drop table haulaigoa;
+create table haulaigoa as
+select h.* from racebase.haul h, goa.biennial_surveys g 
+where h.cruisejoin=g.cruisejoin
+order by h.region, h.cruise, h.vessel, h.haul;
+
+/* Extract Catch Data based upon above view      */
+drop table catchaigoa;
+create table catchaigoa as
+select c.* from racebase.catch c, haulaigoa a
+where c.hauljoin=a.hauljoin
+order by c.region, c.cruise, c.vessel, c.haul, c.species_code;
+
+/*   extract length frequency data based on above  */
+drop table lengthaigoa;
+create table lengthaigoa as
+select l.* from racebase.length l, haulaigoa a
+where l.hauljoin=a.hauljoin
+order by l.region, l.cruise, l.vessel, l.haul, l.species_code, l.sex, l.length;
+
+/*    Extract specimen data base upon above view    */
+drop table specimenaigoa;
+create table specimenaigoa as
+select s.* from racebase.specimen s, haulaigoa a
+where s.hauljoin=a.hauljoin
+order by s.region, s.cruise, s.vessel, s.haul, s.specimenid;
+
+/*    Extract Species codes                  */
+drop table racespeciescodes;
+create table racespeciescodes as
+select * from race_data.race_species_codes;
+
+/*   Extract gear_codes  */
+drop table racegearcodes;
+create table racegearcodes as
+select * from race_data.gear_codes;
+
+/*  Extract vessel codes  */
+drop table racevessels;
+create table racevessels as
+select * from race_data.vessels;
+
+/* Extract accessories  */
+drop table raceaccessories; 
+create table raceaccessories as
+SELECT * from race_data.gear_accessories;
+
+/* Extract haul types   */
+drop table racehaultypes;
+create table racehaultypes as
+select * from race_data.haul_types;
+
+
+haulaigoa
+catchaigoa
+lengthaigoa
+specimenaigoa
+racespeciescodes
+racegearcodes
+raceaccessories
+racevessels
+racehaultypes
