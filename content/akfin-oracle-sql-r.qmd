@@ -121,7 +121,7 @@ AND tt.SURVEY_SPECIES = 1
 -- Only return the first 3 rows because otherwise this would be a huge table!
 FETCH FIRST 3 ROWS ONLY;")) 
 
-flextable::flextable(head(a)) %>% 
+flextable::flextable(head(a[,2:8])) %>% 
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra()
 ```
@@ -224,7 +224,10 @@ AND cc.YEAR = 2021;")
 #| warning: false
 #| echo: true
 
-flextable::flextable(head(dat)) %>%  
+dat %>% 
+  dplyr::arrange(desc(CPUE_KGHA)) %>% 
+  head() %>% 
+  flextable::flextable() %>%  
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra()
 ```

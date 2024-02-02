@@ -8,8 +8,6 @@ title: Welcome
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
-> Report run date: `r format(Sys.Date(), format = "%A, %B %d, %Y")`
-
 ## AFSC Bottom Trawl Surveys
 
 AFSC bottom trawl surveys are conducted by the AFSC’s Groundfish Assessment Program and Shellfish Assessment Program and are conducted in the [Gulf of Alaska](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#gulf-of-alaska-bottom-trawl-survey), [Aleutian Islands](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#aleutian-islands-bottom-trawl-survey), [Eastern Bering Sea Slope](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#eastern-bering-sea-upper-continental-slope-bottom-trawl-survey), [Eastern Bering Sea Shelf](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#eastern-bering-sea-shelf-bottom-trawl-survey), and [Northern Bering Sea](https://www.fisheries.noaa.gov/alaska/ecosystems/alaska-fish-research-surveys#northern-bering-sea-shelf-bottom-trawl-survey). Each survey is a multispecies survey that collects data on the distribution, abundance, and biological characteristics of fish, crab, and other resources to inform groundfish stock assessment and management. These fishery-independent surveys are conducted in the summer aboard contracted commercial fishing vessels. Specifics regarding each of the surveys can be found below. 

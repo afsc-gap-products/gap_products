@@ -519,7 +519,7 @@ Team~afsc.gap.metadata@noaa.gov
 \setcounter{page}{1}
 \end{frontmatter}
 
-%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, breakable, interior hidden, enhanced, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
+%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, frame hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -530,10 +530,6 @@ Team~afsc.gap.metadata@noaa.gov
 \listoftables
 \mainmatter
 \part{Welcome}
-
-\begin{quote}
-Report run date: Thursday, February 01, 2024
-\end{quote}
 
 \hypertarget{afsc-bottom-trawl-surveys}{%
 \section*{AFSC Bottom Trawl Surveys}\label{afsc-bottom-trawl-surveys}}
@@ -1075,70 +1071,15 @@ Slope}}{Eastern Bering Sea Upper Continental Slope}}\label{eastern-bering-sea-up
 \hypertarget{workflow}{%
 \chapter{Workflow}\label{workflow}}
 
-\hypertarget{data-workflow-from-boat-to-production}{%
-\section{Data workflow from boat to
-production}\label{data-workflow-from-boat-to-production}}
-
-Below is a summary of the workflow:
-
-\begin{figure}
-
-{\centering 
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=15.55in,height=8.76in]{content/intro-workflow_files/figure-latex/mermaid-figure-1.png}
-
-}
-
-\end{figure}
-
-}
-
-\caption{\label{fig-workflow}Simplified data workflow from boat to
-production.}
-
-\end{figure}
-
-\textbf{Once survey data collected on the vessel has been checked and
-validated}, the \texttt{code/run.R} script (within the
-\texttt{gap\_products} repository) houses the sequence of programs that
-calculate the standard data products resulting from the NOAA AFSC GAP
-bottom trawl surveys. Standard data products are the CPUE, BIOMASS,
-SIZECOMP, and AGECOMP tables in the GAP\_PRODUCTS Oracle schema. The
-tables are slated to be updated twice a year, once after the survey
-season following finalization of that summer's bottom trawl survey data
-to incorporate the new catch, size, and effort data and once prior to an
-upcoming survey to incorporate new age data that were processed after
-the prior summer's survey season ended. This second pre-survey
-production run will also incorporate changes in the data due to the
-specimen voucher process as well as other post-hoc changes in the survey
-data.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Import versions of the tables in GAP\_PRODUCTS locally within the
-  gap\_products repository to compare with the updated production
-  tables. Any changes to a production table will be compared and checked
-  to make sure those changes are intentional and documented.
-\item
-  Use the \texttt{gapindex} R package to calculate the four major
-  standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables
-  are compared and checked to their respective locally saved copies and
-  any changes to the tables are vetted and documented. These tables are
-  then uploaded to the GAP\_PRODUCTS Oracle schema.
-\item
-  Calculate the various materialized views for AKFIN and FOSS purposes.
-  Since these are derivative of the tables in GAP\_PRODUCTS as well as
-  other base tables in RACEBASE and RACE\_DATA, it is not necessary to
-  check these views in addition to the data checks done in the previous
-  steps.
-\end{enumerate}
-
 \hypertarget{operational-product-development-timeline}{%
 \section{Operational Product Development
 Timeline}\label{operational-product-development-timeline}}
+
+Over the course of the year, the survey team is developing a variety of
+different data products. Planning and preparation for surveys happens in
+the late winter and spring, surveys occur in the summer, data validation
+takes place over the course of the survey and after the survey, and data
+products are produced through fall and late winter.
 
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
 
@@ -1244,8 +1185,81 @@ Timeline}\label{operational-product-development-timeline}}
 
 \renewcommand*{\arraystretch}{1}
 
-\hypertarget{where-are-these-data-used}{%
-\section{Where are these data used?}\label{where-are-these-data-used}}
+\hypertarget{data-workflow-from-boat-to-production}{%
+\section{Data workflow from boat to
+production}\label{data-workflow-from-boat-to-production}}
+
+The objective of this process is to take raw data, QA/QC and clean these
+data, curate standard data products for these survey. Please note,
+through this process we are not providing ``data'' (what we consider
+lower level data material; see the data levels section below) but ``data
+products'', which is intended to facilitate the most fool-proof standard
+interpretation of the data. These data products only use data from
+standard and validated hauls, and has undergone careful review.
+
+\textbf{Once survey data collected on the vessel has been checked and
+validated}, the
+\href{https://github.com/afsc-gap-products/gap_products/blob/main/code/run.R}{\texttt{gap\_products/code/run.R}}
+script is used to orchestrate a sequence of programs that calculate the
+standard data products resulting from the NOAA AFSC GAP bottom trawl
+surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and
+AGECOMP tables in the \texttt{GAP\_PRODUCTS} Oracle schema. The tables
+are slated to be updated twice a year: once after the survey season
+following finalization of that summer's bottom trawl survey data to
+incorporate the new catch, size, and effort data and once prior to an
+upcoming survey to incorporate new age data that were processed after
+the prior summer's survey season ended. This second pre-survey
+production run will also incorporate changes in the data due to the
+specimen voucher process as well as other post-hoc changes in the survey
+data.
+
+\begin{quote}
+The data from these surveys constitute a \textbf{living data set} so we
+can continue to \textbf{provide the best available data to all partners,
+stakeholders, and fellow scientists}.
+\end{quote}
+
+\begin{figure}
+
+{\centering 
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=15.55in,height=8.76in]{content/intro-workflow_files/figure-latex/mermaid-figure-1.png}
+
+}
+
+\end{figure}
+
+}
+
+\caption{\label{fig-workflow}Simplified data workflow from boat to
+production.}
+
+\end{figure}
+
+During each data product run cycle:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Versions of the tables in GAP\_PRODUCTS are locally imported within
+  the gap\_products repository to compare with the updated production
+  tables. Any changes to a production table will be compared and checked
+  to make sure those changes are intentional and documented.
+\item
+  Use the \texttt{gapindex} R package to calculate the four major
+  standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables
+  are compared and checked to their respective locally saved copies and
+  any changes to the tables are vetted and documented. These tables are
+  then uploaded to the GAP\_PRODUCTS Oracle schema.
+\item
+  Calculate the various materialized views for AKFIN and FOSS purposes.
+  Since these are derivative of the tables in GAP\_PRODUCTS as well as
+  other base tables in RACEBASE and RACE\_DATA, it is not necessary to
+  check these views in addition to the data checks done in the previous
+  steps.
+\end{enumerate}
 
 \begin{figure}
 
@@ -1261,7 +1275,7 @@ Timeline}\label{operational-product-development-timeline}}
 
 }
 
-\caption{\label{fig-data-used}Major users of the GAP data product
+\caption{\label{fig-data-used}Major end-users of the GAP data product
 tables.}
 
 \end{figure}
@@ -2460,9 +2474,9 @@ repository} for citing the data created and maintained in this repo
 \hypertarget{other-resources}{%
 \section{Other resources}\label{other-resources}}
 
-(AKFIN Answers){[}https://akfin.psmfc.org/akfin-answers/{]} is an Oracle
-BI tool used for distributing data to stock assessors and other users.
-Usernames and passwords are distinct from direct AKFIN database
+\href{https://akfin.psmfc.org/akfin-answers/}{AKFIN Answers} is an
+Oracle BI tool used for distributing data to stock assessors and other
+users. Usernames and passwords are distinct from direct AKFIN database
 credentials.
 
 \hypertarget{data-description-3}{%
@@ -4539,7 +4553,7 @@ information.}\label{ex.-cpue-for-all-ebs-and-nbs-stations-with-associated-haul-c
 \StringTok{{-}{-} Only return the first 3 rows because otherwise this would be a huge table!}
 \StringTok{FETCH FIRST 3 ROWS ONLY;"}\NormalTok{)) }
 
-\NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(a)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(a[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{8}\NormalTok{])) }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{fit\_to\_width}\NormalTok{(}\AttributeTok{max\_width =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{theme\_zebra}\NormalTok{()}
 \end{Highlighting}
@@ -4557,24 +4571,24 @@ information.}\label{ex.-cpue-for-all-ebs-and-nbs-stations-with-associated-haul-c
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{|p{0.27in}|p{0.24in}|p{0.22in}|p{0.35in}|p{0.54in}|p{0.26in}|p{0.29in}|p{0.25in}|p{0.29in}|p{0.29in}|p{0.30in}|p{0.27in}|p{0.23in}|p{0.32in}|p{0.28in}|p{0.28in}|p{0.22in}|p{0.25in}}
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
 \caption{Ex.: CPUE for all EBS and NBS stations with associated haul, cruise, and
 species information.}\tabularnewline
 
 
 
 
-\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
 
-\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CRUISEJOIN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.24in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CRUISE}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{YEAR}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.35in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SURVEY\_DEFINITION\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.54in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SURVEY\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.26in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{VESSEL\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{VESSEL\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{HAULJOIN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SPECIES\_CODE}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SPECIES\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{COMMON\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{WEIGHT\_KG}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.23in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{COUNT}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.32in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{AREA\_SWEPT\_KM2}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CPUE\_KGKM2}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CPUE\_NOKM2}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{HAUL}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{STATION}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{CRUISE}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{YEAR}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{SURVEY\_DEFINITION\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{SURVEY\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{VESSEL\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{VESSEL\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{HAULJOIN}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
 \endfirsthead 
 
-\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
 
-\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CRUISEJOIN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.24in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CRUISE}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{YEAR}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.35in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SURVEY\_DEFINITION\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.54in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SURVEY\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.26in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{VESSEL\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{VESSEL\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{HAULJOIN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SPECIES\_CODE}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{SPECIES\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{COMMON\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{WEIGHT\_KG}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.23in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{COUNT}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.32in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{AREA\_SWEPT\_KM2}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CPUE\_KGKM2}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{CPUE\_NOKM2}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{HAUL}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{\textbf{STATION}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{CRUISE}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{YEAR}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{SURVEY\_DEFINITION\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{SURVEY\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{VESSEL\_ID}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{VESSEL\_NAME}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{HAULJOIN}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4582,7 +4596,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{80}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.24in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{198,203}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1,982}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.35in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{98}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.54in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.26in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{CHAPMAN}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{877}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{fish\ egg\ unid.}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.23in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.32in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0.042021}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{21}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{G-10}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{198,203}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,982}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{98}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{CHAPMAN}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{877}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4590,7 +4604,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{80}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.24in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{198,203}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1,982}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.35in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{98}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.54in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.26in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{CHAPMAN}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{877}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{2}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{fish\ larvae\ unid.}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.23in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.32in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0.042021}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{21}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{G-10}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{198,203}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,982}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{98}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{CHAPMAN}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{877}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4598,7 +4612,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{80}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.24in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{198,203}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1,982}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.35in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{98}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.54in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.26in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{1}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{CHAPMAN}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{877}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{3}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.29in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{fish\ unid.}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.27in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.23in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.32in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0.042021}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.28in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.22in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{21}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.25in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{1}{1}\selectfont{G-10}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{198,203}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,982}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{98}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{CHAPMAN}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{877}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4809,7 +4823,10 @@ analogs.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(dat)) }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{dat }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(CPUE\_KGHA)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}  
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{fit\_to\_width}\NormalTok{(}\AttributeTok{max\_width =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{theme\_zebra}\NormalTok{()}
 \end{Highlighting}
@@ -4853,7 +4870,7 @@ map.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{58.00612}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-172.8205}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{10.1768965}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{57.64871}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-173.3735}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4861,7 +4878,7 @@ map.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{58.36181}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-172.3055}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{6.2734470}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{56.36952}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-169.4604}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4869,7 +4886,7 @@ map.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{60.68245}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-174.1275}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{3.0252034}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{56.66253}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-171.9549}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4877,7 +4894,7 @@ map.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{61.30959}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-173.5769}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1.8214628}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{57.98912}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-173.4816}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4885,7 +4902,7 @@ map.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{58.97291}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-171.1306}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.5535672}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{55.65865}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-168.1804}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -4893,7 +4910,7 @@ map.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{57.32779}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-171.4952}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.2813533}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{57.32545}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-173.3217}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5595,7 +5612,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{107,096.730}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{102,734,142}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2019}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Inner\ Domain}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7,089.874}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,191,118}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2017}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Middle\ Domain}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5603,7 +5620,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{76,708.433}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{39,605,860}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2023}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Inner\ Domain}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7,089.874}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,191,118}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2017}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Middle\ Domain}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5611,7 +5628,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{132,490.152}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{66,187,245}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2017}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Inner\ Domain}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7,089.874}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,191,118}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2017}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Middle\ Domain}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5619,7 +5636,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{96,500.697}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{60,433,135}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Inner\ Domain}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7,089.874}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,191,118}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2017}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Middle\ Domain}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5627,7 +5644,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7,462.559}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,724,153}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2010}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Inner\ Domain}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7,089.874}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,191,118}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2017}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Middle\ Domain}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5635,7 +5652,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{95,849.983}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{68,767,498}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2021}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Inner\ Domain}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{30,487.278}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{15,157,597}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Middle\ Domain}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
