@@ -102,8 +102,6 @@ flowchart LR
   subgraph CC[Data Level 2:\nAnalysis ready product for internal use]
   C
   D
-  D1
-  D2
   end
   subgraph FF[Data Level 3:\nAnalysis ready product\nfor external/public use]
   F
@@ -128,7 +126,7 @@ During each data product run cycle:
 
 flowchart
   subgraph AA[Data Level 4]
-  A[gap_products\ndata product\ntables] --> C[Data process\nreports &\npresentations]
+  A[GAP_PRODUCTS\nOracle data\nproduct tables] --> C[Data process\nreports &\npresentations]
   A --> G3{{esrindex R package}}
   G3 --> G1[ESP: Ecosystem\nStatus Reports]
   G3 --> G2[ESR: Ecosystem\nand Socioeconomic\nProfiles]
