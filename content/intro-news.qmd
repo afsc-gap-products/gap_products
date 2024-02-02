@@ -8,7 +8,7 @@ title: News
 news_link <- list.files(here::here("content/intro-news/"), full.names = TRUE)
 news_name <- c()
 news_desc <- c()
-for (i in 1:length(news_link)) {
+for (i in length(news_link):1) {
   a <- readLines(con = news_link[i])
   news_name <- c(news_name, a[1])
   news_desc <- c(news_desc, a[2])

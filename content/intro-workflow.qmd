@@ -79,11 +79,9 @@ flowchart LR
   A5([sea state\nobersvations]) --> B2
   A6([HOBO bottom\ncontact sensor]) --> B2
   A7{{NavMap\nR package\nfor navigation}} --> B2
-  B1 --> C[GIDES &\nRACE_EDIT\nOracle schema]
+  B1 --> C[GIDES &\nRACE_EDIT\nOracle schema\n& whole-survey\nreview &\ndata checking]
   B2 --> C
-  C --> C1
   C --> D[RACEBASE and RACE_DATA\nOracle schemata]
-  C1(Whole-survey\nreview &\ndata checking) --> D
   D1{{gapindex R package}} --> F[Public Data Product:\ntables in\nGAP_PRODUCTS\nOracle schema]
   D2{{gap_products\nR scripts}} --> F
   D --> F
@@ -103,7 +101,6 @@ flowchart LR
   end
   subgraph CC[Data Level 2:\nAnalysis ready product for internal use]
   C
-  C1
   D
   D1
   D2
@@ -162,7 +159,7 @@ GAP produces numerous data products that are subjected to different levels of pr
 For more information, see [Sean Rohan's October 2022 SCRUGS presentation](https://docs.google.com/presentation/d/1rWSZpeghWJqzWMIa5oBc4BCoy-zy1Yue86RoTw58u6M/edit?usp=sharing) on the topic.
 
 -   **Level 0**: Raw and unprocessed data. Ex: Data on the G drive, some tables in RACE_DATA
--   **Level 1A**: Data products with QA/QC applied that may or may not be expanded to analysis units, but either not georeferenced or does not include full metadata. Ex: Some tables in RACE_DATA and RACEBASE
+-   **Level 1**: Data products with QA/QC applied that may or may not be expanded to analysis units, but either not georeferenced or does not include full metadata. Ex: Some tables in RACE_DATA and RACEBASE
 -   **Level 2**: Analysis-ready data products that are derived for a standardized extent and account for zeros and missing/bad data. Ex: CPUE tables, some data products in public-facing archives and repositories
 -   **Level 3**: Data products that are synthesized across a standardized extent, often inputs in a higher-level analytical product. Ex: Abundance indices, some data products in public-facing archives and repositories
 -   **Level 4**: Analytically generated data products that are derived from lower-level data, often to inform management. Ex: Biological reference points from stock assessments, Essential Fish Habitat layers, indicators in Ecosystem Status Reports and Ecosystem and Socioeconomic Profiles
