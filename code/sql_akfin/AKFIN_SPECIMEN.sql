@@ -13,10 +13,7 @@ CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_SPECIMEN AS
 select 
 -- a.cruisejoin, 
 a.hauljoin, 
--- a.region, 
--- b.vessel_id, 
 a.specimenid as specimen_id, 
--- a.biostratum stratum, 
 a.species_code, 
 a.length as length_mm, 
 a.sex, 
@@ -34,7 +31,9 @@ race_data.cruises b,
 race_data.surveys c, 
 race_data.survey_definitions d, 
 racebase.haul f
-where abs(a.cruisejoin) = b.cruise_id -- negative/positive values from a.cruisejoin articulate where data came from (e.g., race_data, which only goes back to 2005)
+-- where abs(a.cruisejoin) = b.cruise_id  -- added by N. Laman 2/2024 to replace where abs(a.cruisejoin) = b.cruise_id  -- negative/positive values from a.cruisejoin articulate where data came from (e.g., race_data, which only goes back to 2005)
+WHERE A.CRUISE = B.CRUISE -- added by N. Laman 2/2024 to replace where abs(a.cruisejoin) = b.cruise_id
+AND A.VESSEL = B.VESSEL_ID -- added by N. Laman 2/2024 to replace where abs(a.cruisejoin) = b.cruise_id
 and a.hauljoin = f.hauljoin
 and c.survey_id =  b.survey_id 
 and c.survey_definition_id = d.SURVEY_DEFINITION_ID 
