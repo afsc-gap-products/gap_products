@@ -81,9 +81,11 @@ flowchart LR
   A7{{NavMap\nR package\nfor navigation}} --> B2
   B1 --> C[GIDES &\nRACE_EDIT\nOracle schema\n& whole-survey\nreview &\ndata checking]
   B2 --> C
-  C --> D[RACEBASE and RACE_DATA\nOracle schemata]
+  C --> D[RACEBASE\nand RACE_DATA\nOracle schemata]
   D1{{gapindex R package}} --> F[Public Data Product:\ntables in\nGAP_PRODUCTS\nOracle schema]
   D2{{gap_products\nR scripts}} --> F
+  D --> D1
+  D1 --> D2
   D --> F
   subgraph AA[Data Level 0: Raw]
   A

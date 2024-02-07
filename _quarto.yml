@@ -64,7 +64,7 @@ book:
         
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 
-    left: "&copy; CC-1.0\n"
+    left: "&copy; CC-1.0"
   
   sidebar:
     background: "#D9E3E4"
