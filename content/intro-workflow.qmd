@@ -60,6 +60,75 @@ t0
 
 ## Data workflow from boat to production
 
+Organisms first need to be collected aboard the vessel before data can be entered into tablets. 
+
+```{mermaid}
+%%| label: fig-deck-bio-workflow
+%%| fig-cap: "Simplified boat deck processing workflow."
+
+flowchart 
+  A1[Net and catch\ntotal weight/volume] --> A2
+  A1 --> |Catch tablet|BB
+  A2[Fish are collected and\ndumped on the table] --> A3[Initial on deck\nsampling decisions\n and sort by\nspecies and mix]
+  P1[Specimen bag and tag] --> P5[Observer collections]
+  P1 --> P6[Museum collections]
+  P1 --> P7[Research samples]
+  P2[SAT/PAT fish and crab tagging]
+  P3[Species condition]
+  P4[Genetics]
+  A3 --> C1[Crab:\nSex, weight]
+  A3 --> C2[Fish, size varying:\nWeight, sex, length]
+  A3 --> |Catch tablet|C3[Fish, small:\nWeight, sex]
+  A3 --> C4[Invertebrates, colonial:\nWeight]
+  A3 --> C5[Invertebrates, other:\nWeight, count]
+  C1 --> |Crab tablet|S1[Length, width, weight, \nshell condition]
+  C2 --> |Specimen tablet|S2[Otolith, length, width, \nweight, sex]
+  C2 --> |Length tablet|S3[Length, sex]
+  C2 --> |Stomach tablet|S4[Diet/stomach samples]
+  V1[Fish collections in formalin 10%]
+  V2[Invertebrate collections in ethanol]
+  subgraph AA[Net on deck]
+  A1
+  A2
+  A3
+  subgraph BB[Benthic bag]
+  B[Identify,\npresence/absence]
+  end
+  end
+  subgraph CC[Bag composition data]
+  C1
+  C2
+  C3
+  C4
+  C5
+  subgraph VV[Voucher collections]
+  V1
+  V2
+  end
+  end
+  subgraph SS[Individual specimen data]
+  S1
+  S2
+  S3
+  S4
+  subgraph PP[Non-core science project requests]
+  P1
+  P2
+  P3
+  P4
+  P5
+  P6
+  P7
+  end
+  end
+  style AA fill:white,::
+  style SS fill:beige,::
+  style BB fill:beige,::
+  style CC fill:beige,::
+  style PP fill:white,::
+  style VV fill:white,::
+```
+
 The objective of this process is to take raw data, QA/QC and clean these data, curate standard data products for these survey. Please note, through this process we are not providing "data" (what we consider lower level data material; see the data levels section below) but "data products", which is intended to facilitate the most fool-proof standard interpretation of the data. These data products only use data from standard and validated hauls, and has undergone careful review. 
 
 **Once survey data collected on the vessel has been checked and validated**, the [`gap_products/code/run.R`](https://github.com/afsc-gap-products/gap_products/blob/main/code/run.R) script is used to orchestrate a sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the `GAP_PRODUCTS` Oracle schema. The tables are slated to be updated twice a year: once after the survey season following finalization of that summer's bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer's survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data. 
