@@ -72,6 +72,53 @@ for (i in 1:length(locations)) {
 }
 ```
 
+
+
+```{r}
+#| label: test-11
+#| message: false
+#| warning: false
+#| echo: true
+#| eval: false
+#| tbl-cap: "Ex.: Pull AI rockfish with {dbplyr}. "
+
+library(odbc)
+library(RODBC)
+library(dbplyr)
+
+my_spp_codes <- c(
+30010, #	Sebastolobus sp.	thornyhead unid.
+30020, #	Sebastolobus alascanus	shortspine thornyhead
+30025, #	Sebastolobus macrochir	broadfin thornyhead
+30330, #	Sebastes melanops	black rockfish
+30430, #	Sebastes proriger	redstripe rockfish
+30470, #	Sebastes ruberrimus	yelloweye rockfish
+30475, #	Sebastes babcocki	redbanded rockfish
+30535, #	Sebastes variegatus	harlequin rockfish
+30560, # Sebastes zacentrus	sharpchin rockfish
+30600, # Sebastes reedi	yellowmouth rockfish
+30030, # Sebastolobus altivelis	longspine thornyhead
+30040, # Sebastes sp.	rockfish unid.
+30100, # Sebastes brevispinis	silvergray rockfish
+30150, # NA	dusky and dark rockfishes unid.
+30152, # Sebastes variabilis	dusky rockfish
+30170, # Sebastes crameri	darkblotched rockfish
+30270) # Sebastes helvomaculatus	rosethorn rockfish
+
+a <- dplyr::tbl(channel, dplyr::sql('gap_products.akfin_biomass')) %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::select(survey_definition_id, area_id, species_code, year, biomass_mt, biomass_var) %>% 
+  dplyr::filter(species_code %in% my_spp_codes & 
+                  area_id %in% 99904 & 
+                  year >= 1991) %>% 
+  dplyr::collect() 
+
+flextable::flextable(head(a)) %>% 
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra()
+```
+
+
 ### Ex. CPUE for all EBS and NBS stations with associated haul, cruise, and species information.
 
 ```{r}
