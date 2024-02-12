@@ -304,6 +304,9 @@ div.csl-indent {
    
   <ul>
   <li><a href="#the-alaska-fisheries-information-network" id="toc-the-alaska-fisheries-information-network" class="nav-link active" data-scroll-target="#the-alaska-fisheries-information-network">The Alaska Fisheries Information Network</a></li>
+  <li><a href="#data-access-options" id="toc-data-access-options" class="nav-link" data-scroll-target="#data-access-options">Data Access Options</a></li>
+  <li><a href="#akfin-answers" id="toc-akfin-answers" class="nav-link" data-scroll-target="#akfin-answers">AKFIN Answers</a></li>
+  <li><a href="#web-service" id="toc-web-service" class="nav-link" data-scroll-target="#web-service">Web Service</a></li>
   <li><a href="#cite-this-data" id="toc-cite-this-data" class="nav-link" data-scroll-target="#cite-this-data">Cite this data</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/akfin-intro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/akfin-intro.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -340,8 +343,31 @@ function googleTranslateElementInit() {
 <p>These data are used directly by stock assessors and are provided to The [Alaska Fisheries Information Network (AKFIN)].</p>
 <section id="the-alaska-fisheries-information-network" class="level2">
 <h2 class="anchored" data-anchor-id="the-alaska-fisheries-information-network">The Alaska Fisheries Information Network</h2>
-<p>The <a href="https://www.psmfc.org/program/alaska-fisheries-information-network-akfin">Alaska Fisheries Information Network (AKFIN)</a> is a regional program that consolidates and supports the collection, processing, analysis, and reporting of fisheries statistics for North Pacific and Alaskan fisheries. AKFIN integrates this information into a single data management system using consistent methods and standardized formats. The Network then reports this information on its website, in various publications, and to researchers. The resulting data enables fishery managers, scientists, and associated agencies to supervise fisheries resources more effectively and efficiently.</p>
-<p>If you are an AFSC employee with access to data through our internal database Oracle server, use this <a href="https://afsc-gap-products.github.io/gap_products/content/akfin-oracle-sql-r.html">guide</a> to access our data. If not, reach out to AKFIN for a user account.</p>
+<p>The Alaska Fisheries Information Network (AKFIN) is a regional program that consolidates and supports the processing, analysis, and reporting of fisheries data for Alaskan fisheries. AKFIN integrates this information into a single data management system using consistent methods and standardized formats. The resulting data enables fishery managers, scientists, and associated agencies to supervise fisheries resources more effectively and efficiently. The AKFIN database contains much of the data needed to complete stock assessments, including GAP trawl survey data. .</p>
+</section>
+<section id="data-access-options" class="level2">
+<h2 class="anchored" data-anchor-id="data-access-options">Data Access Options</h2>
+<p>Direct database connection If you are an AFSC employee you may access the AKFIN oracle database directly while on the NOAA network or VPN. Note that this is a separate database from the AFSC oracle database referenced above, and requires separate credentials. If you do not already have an AKFIN account you can request one here. NOAA IT will need to add AKFIN access to your tnsnames.ora file (They do this frequently). Once your connection is established data may be accessed through SQL queries using SQL developer, R, or python.</p>
+</section>
+<section id="akfin-answers" class="level2">
+<h2 class="anchored" data-anchor-id="akfin-answers">AKFIN Answers</h2>
+<p>(AKFIN Answers)[https://akfin.psmfc.org/akfin-answers/] is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from AKFIN direct database credentials. The distribution of GAP_PRODUCTS on AKFIN Answers is planned but not yet implemented. The RACE Survey tab on the stock assessment dashboard contains reports generated from now depreciated tables that predated the GAP_PRODUCTS tables. AKFIN will keep these reports for reference but they will not be updated 2024 onward.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/akfin.jpg" class="img-fluid figure-img" width="932"></p>
+<figcaption class="figure-caption">AKFIN platfrom.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="web-service" class="level2">
+<h2 class="anchored" data-anchor-id="web-service"><a href="https://afsc-gap-products.github.io/gap_products/content/akfin-api-r.html">Web Service</a></h2>
+<p>AKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.</p>
+<p>The url structure is “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]” . For example “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass” is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&amp;area_id=10&amp;species_code=21740&amp;start_year=2022&amp;end_year=2022”.</p>
+<p>If you’re using R to pull data through web services you might find the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/tree/main">akfingapdata</a> (pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.</p>
 </section>
 <section id="cite-this-data" class="level2">
 <h2 class="anchored" data-anchor-id="cite-this-data">Cite this data</h2>

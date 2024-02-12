@@ -28,7 +28,7 @@ Use the `Reset All Parameters` button to reset all parameters for entire form.
 
 ```{r foss-2-select, echo=FALSE}
 #| label: foss-2-select
-#| fig-cap: "Diagram of selection and search tools available on the FOSS platofrom. "
+#| fig-cap: "Diagram of selection and search tools available on the FOSS platfrom. "
 
 knitr::include_graphics(path = here::here("img", "foss_2_select.png"))
 ```

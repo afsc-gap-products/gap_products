@@ -519,7 +519,7 @@ Team~afsc.gap.metadata@noaa.gov
 \setcounter{page}{1}
 \end{frontmatter}
 
-%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, sharp corners, breakable, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -2450,22 +2450,83 @@ Network}\label{the-alaska-fisheries-information-network}}
 
 \markright{The Alaska Fisheries Information Network}
 
-The
-\href{https://www.psmfc.org/program/alaska-fisheries-information-network-akfin}{Alaska
-Fisheries Information Network (AKFIN)} is a regional program that
-consolidates and supports the collection, processing, analysis, and
-reporting of fisheries statistics for North Pacific and Alaskan
-fisheries. AKFIN integrates this information into a single data
-management system using consistent methods and standardized formats. The
-Network then reports this information on its website, in various
-publications, and to researchers. The resulting data enables fishery
+The Alaska Fisheries Information Network (AKFIN) is a regional program
+that consolidates and supports the processing, analysis, and reporting
+of fisheries data for Alaskan fisheries. AKFIN integrates this
+information into a single data management system using consistent
+methods and standardized formats. The resulting data enables fishery
 managers, scientists, and associated agencies to supervise fisheries
-resources more effectively and efficiently.
+resources more effectively and efficiently. The AKFIN database contains
+much of the data needed to complete stock assessments, including GAP
+trawl survey data. .
 
-If you are an AFSC employee with access to data through our internal
-database Oracle server, use this
-\href{https://afsc-gap-products.github.io/gap_products/content/akfin-oracle-sql-r.html}{guide}
-to access our data. If not, reach out to AKFIN for a user account.
+\hypertarget{data-access-options}{%
+\section*{Data Access Options}\label{data-access-options}}
+\addcontentsline{toc}{section}{Data Access Options}
+
+\markright{Data Access Options}
+
+Direct database connection If you are an AFSC employee you may access
+the AKFIN oracle database directly while on the NOAA network or VPN.
+Note that this is a separate database from the AFSC oracle database
+referenced above, and requires separate credentials. If you do not
+already have an AKFIN account you can request one here. NOAA IT will
+need to add AKFIN access to your tnsnames.ora file (They do this
+frequently). Once your connection is established data may be accessed
+through SQL queries using SQL developer, R, or python.
+
+\hypertarget{akfin-answers}{%
+\section*{AKFIN Answers}\label{akfin-answers}}
+\addcontentsline{toc}{section}{AKFIN Answers}
+
+\markright{AKFIN Answers}
+
+(AKFIN Answers){[}https://akfin.psmfc.org/akfin-answers/{]} is an Oracle
+BI tool used for distributing data to stock assessors and other users.
+Usernames and passwords are distinct from AKFIN direct database
+credentials. The distribution of GAP\_PRODUCTS on AKFIN Answers is
+planned but not yet implemented. The RACE Survey tab on the stock
+assessment dashboard contains reports generated from now depreciated
+tables that predated the GAP\_PRODUCTS tables. AKFIN will keep these
+reports for reference but they will not be updated 2024 onward.
+
+\begin{figure}
+
+{\centering \includegraphics[width=6.22in,height=\textheight]{content/../img/akfin.jpg}
+
+}
+
+\caption{AKFIN platfrom.}
+
+\end{figure}
+
+\hypertarget{web-service}{%
+\section*{\texorpdfstring{\href{https://afsc-gap-products.github.io/gap_products/content/akfin-api-r.html}{Web
+Service}}{Web Service}}\label{web-service}}
+\addcontentsline{toc}{section}{\href{https://afsc-gap-products.github.io/gap_products/content/akfin-api-r.html}{Web
+Service}}
+
+\markright{Web Service}
+
+AKFIN has developed web services (apis) to distribute GAP data. Like the
+GAP\_PRODUCTS schema, these are under active development. These do not
+require VPN or an oracle connection but they are protected by Oracle
+authentication, please contact matt.callahan@noaa.gov for information on
+how to get an api token to use this option.
+
+The url structure is
+``https://apex.psmfc.org/akfin/data\_marts/gap\_products/gap\_{[}base
+table name{]}'' . For example
+``https://apex.psmfc.org/akfin/data\_marts/gap\_products/gap\_biomass''
+is the base url to get data from the akfin\_biomass table. Web services
+linked to large tables have mandatory parameters to reduce data download
+size. For example to get agecomp data for Bering Sea pollock in area\_id
+10 in 2022 you would use
+``https://apex.psmfc.org/akfin/data\_marts/gap\_products/gap\_biomass?survey\_definition\_id=98\&area\_id=10\&species\_code=21740\&start\_year=2022\&end\_year=2022''.
+
+If you're using R to pull data through web services you might find the
+\href{https://github.com/MattCallahan-NOAA/akfingapdata/tree/main}{akfingapdata}
+(pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.
 
 \hypertarget{cite-this-data-2}{%
 \section*{Cite this data}\label{cite-this-data-2}}
@@ -5921,7 +5982,25 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from
 \hypertarget{access-api-data-using-r}{%
 \chapter{Access API data using R}\label{access-api-data-using-r}}
 
-Use the below function to pull AKFIN data through AKFIN's API.
+AKFIN has developed web services (apis) to distribute GAP data. Like the
+GAP\_PRODUCTS schema, these are under active development. These do not
+require VPN or an oracle connection but they are protected by Oracle
+authentication, please contact matt.callahan@noaa.gov for information on
+how to get an api token to use this option.
+
+The url structure is
+``https://apex.psmfc.org/akfin/data\_marts/gap\_products/gap\_{[}base
+table name{]}'' . For example
+``https://apex.psmfc.org/akfin/data\_marts/gap\_products/gap\_biomass''
+is the base url to get data from the akfin\_biomass table. Web services
+linked to large tables have mandatory parameters to reduce data download
+size. For example to get agecomp data for Bering Sea pollock in area\_id
+10 in 2022 you would use
+``https://apex.psmfc.org/akfin/data\_marts/gap\_products/gap\_biomass?survey\_definition\_id=98\&area\_id=10\&species\_code=21740\&start\_year=2022\&end\_year=2022''.
+
+If you're using R to pull data through web services you might find the
+\href{https://github.com/MattCallahan-NOAA/akfingapdata/tree/main}{akfingapdata}
+(pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5960,6 +6039,39 @@ Use the below function to pull AKFIN data through AKFIN's API.
 \NormalTok{lingcod\_biomass }\OtherTok{\textless{}{-}} \FunctionTok{get\_gap\_biomass}\NormalTok{(}\AttributeTok{area\_id=}\FunctionTok{c}\NormalTok{(}\DecValTok{40}\NormalTok{, }\DecValTok{41}\NormalTok{), }\AttributeTok{species\_code=}\DecValTok{21910}\NormalTok{)}
 \NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(lingcod\_biomass)) }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{theme\_zebra}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Direct database query in R using the (akfingapdata
+readme){[}https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd{]}
+R package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load packages}
+\FunctionTok{library}\NormalTok{(odbc)}
+\FunctionTok{library}\NormalTok{(getPass)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\CommentTok{\# connect to AKFIN Oracle database}
+\NormalTok{con }\OtherTok{\textless{}{-}} \FunctionTok{dbConnect}\NormalTok{(odbc}\SpecialCharTok{::}\FunctionTok{odbc}\NormalTok{(), }\StringTok{"akfin"}\NormalTok{, }\AttributeTok{UID=}\FunctionTok{getPass}\NormalTok{(}\AttributeTok{msg=}\StringTok{"USER NAME"}\NormalTok{), }\AttributeTok{PWD=}\FunctionTok{getPass}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# define species code for pollock}
+\NormalTok{my\_species }\OtherTok{\textless{}{-}} \DecValTok{21740}
+
+\CommentTok{\#query database}
+\NormalTok{data}\OtherTok{\textless{}{-}} \FunctionTok{dbFetch}\NormalTok{(}\FunctionTok{dbSendQuery}\NormalTok{(con,}
+                           \FunctionTok{paste0}\NormalTok{(}\StringTok{"select * from gap\_products.akfin\_biomass }
+\StringTok{where species\_name = "}\NormalTok{, my\_species, }
+\StringTok{" and survey\_definition\_id = 98, }
+\StringTok{and area\_id = 10"}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{rename\_with}\NormalTok{(tolower) }\CommentTok{\# everyone likes lower case letters better}
+
+\FunctionTok{head}\NormalTok{(data)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6238,492 +6350,6 @@ kilograms
 NUMBER(38,3)
 
 Weight (thousandths of a kilogram) of individuals in a haul by taxon.
-
-\hypertarget{foss_cpue_presonly}{%
-\subsection{FOSS\_CPUE\_PRESONLY}\label{foss_cpue_presonly}}
-
-These datasets, FOSS\_CATCH, FOSS\_CPUE\_PRESONLY, FOSS\_HAUL, and
-FOSS\_SPECIES, when full joined by the HAULJOIN variable, includes
-zero-filled (presence and absence) observations and
-catch-per-unit-effort (CPUE) estimates for all identified species at for
-index stations. These tables were created by the Resource Assessment and
-Conservation Engineering Division (RACE) Groundfish Assessment Program
-(GAP) of the Alaska Fisheries Science Center (AFSC). There are legal
-restrictions on access to the data. These data are not intended for
-public dissemination and should not be shared without the explicit
-written consent of the data managers and owners (NOAA Fisheries). The
-GitHub repository for the scripts that created this code can be found at
-https://github.com/afsc-gap-products/gap\_products. For more information
-about codes used in the tables, please refer to the survey code books
-(https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).
-These data were last updated February 10, 2024.
-
-Number of rows: 928,931
-
-Number of columns: 38
-
-Column name from data
-
-Descriptive column Name
-
-Units
-
-Oracle data type
-
-Column description
-
-AREA\_SWEPT\_KM2
-
-Area swept (km)
-
-kilometers
-
-NUMBER(38,6)
-
-The area the net covered while the net was fishing (kilometers squared),
-defined as the distance fished times the net width.
-
-BOTTOM\_TEMPERATURE\_C
-
-Bottom temperature (degrees celsius)
-
-degrees Celsius
-
-NUMBER(38,1)
-
-Bottom temperature (tenths of a degree Celsius); NA indicates removed or
-missing values.
-
-COMMON\_NAME
-
-Taxon common name
-
-text
-
-VARCHAR2(255 BYTE)
-
-The common name of the marine organism associated with the
-`scientific\_name' and `species\_code' columns. For a complete species
-list, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-COUNT
-
-Taxon count
-
-count, whole number resolution
-
-NUMBER(38,0)
-
-Total whole number of individuals caught in haul or samples collected.
-
-CPUE\_KGKM2
-
-Weight CPUE (kg/km2)
-
-kilograms per kilometers squared
-
-NUMBER(38,6)
-
-Catch weight (kilograms) per unit effort (area swept by the net, units
-square kilometers).
-
-CPUE\_NOKM2
-
-Number CPUE (no/km2)
-
-count per kilometers squared
-
-NUMBER(38,6)
-
-Numerical catch per unit effort (area swept by the net, units square
-kilometers).
-
-CRUISE
-
-Cruise ID
-
-ID code
-
-NUMBER(38,0)
-
-This is a six-digit integer identifying the cruise number of the form:
-YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is
-sequential; 01 denotes the first cruise that vessel made in this year,
-02 is the second, etc.).
-
-CRUISEJOIN
-
-Cruise ID
-
-ID code
-
-NUMBER(38,0)
-
-Unique integer ID assigned to each survey, vessel, and year combination.
-
-DATE\_TIME
-
-Date and time
-
-MM/DD/YYYY HH::MM
-
-DATE
-
-The date (MM/DD/YYYY) and time (HH:MM) of the haul. All dates and times
-are in Alaska time (AKDT) of Anchorage, AK, USA (UTC/GMT -8 hours).
-
-DEPTH\_M
-
-Depth (m)
-
-degrees Celsius
-
-NUMBER(38,1)
-
-Bottom depth (meters).
-
-DISTANCE\_FISHED\_KM
-
-Distance fished (km)
-
-degrees Celsius
-
-NUMBER(38,3)
-
-Distance the net fished (thousands of kilometers).
-
-DURATION\_HR
-
-Tow duration (decimal hr)
-
-hours
-
-NUMBER(38,1)
-
-This is the elapsed time between start and end of a haul (decimal
-hours).
-
-HAUL
-
-Haul number
-
-ID code
-
-NUMBER(38,0)
-
-This number uniquely identifies a sampling event (haul) within a cruise.
-It is a sequential number, in chronological order of occurrence.
-
-HAULJOIN
-
-Haul ID
-
-ID code
-
-NUMBER(38,0)
-
-This is a unique numeric identifier assigned to each (vessel, cruise,
-and haul) combination.
-
-ID\_RANK
-
-Lowest taxonomic rank
-
-text
-
-VARCHAR2(255 BYTE)
-
-Lowest taxonomic rank of a given species entry.
-
-ITIS
-
-ITIS taxonomic serial number
-
-ID code
-
-NUMBER(38,0)
-
-Species code as identified in the Integrated Taxonomic Information
-System (https://itis.gov/).
-
-LATITUDE\_DD\_END
-
-End latitude (decimal degrees)
-
-decimal degrees
-
-NUMBER(38,6)
-
-Latitude (one hundred thousandth of a decimal degree) of the end of the
-haul.
-
-LATITUDE\_DD\_START
-
-Start latitude (decimal degrees)
-
-decimal degrees
-
-NUMBER(38,6)
-
-Latitude (one hundred thousandth of a decimal degree) of the start of
-the haul.
-
-LONGITUDE\_DD\_END
-
-End longitude (decimal degrees)
-
-decimal degrees
-
-NUMBER(38,6)
-
-Longitude (one hundred thousandth of a decimal degree) of the end of the
-haul.
-
-LONGITUDE\_DD\_START
-
-Start longitude (decimal degrees)
-
-decimal degrees
-
-NUMBER(38,6)
-
-Longitude (one hundred thousandth of a decimal degree) of the start of
-the haul.
-
-NET\_HEIGHT\_M
-
-Net height (m)
-
-meters
-
-NUMBER(38,1)
-
-Measured or estimated distance (meters) between footrope and headrope of
-the trawl.
-
-NET\_WIDTH\_M
-
-Net width (m)
-
-meters
-
-NUMBER(38,1)
-
-Measured or estimated distance (meters) between wingtips of the trawl.
-
-PERFORMANCE
-
-Haul performance code
-
-category
-
-NUMBER(38,0)
-
-This denotes what, if any, issues arose during the haul. For more
-information, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-SCIENTIFIC\_NAME
-
-Taxon scientific name
-
-text
-
-VARCHAR2(255 BYTE)
-
-The scientific name of the organism associated with the `common\_name'
-and `species\_code' columns. For a complete taxon list, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-SPECIES\_CODE
-
-Taxon code
-
-ID code
-
-NUMBER(38,0)
-
-The species code of the organism associated with the `common\_name' and
-`scientific\_name' columns. For a complete species list, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-SRVY
-
-Survey
-
-text abbreviated
-
-VARCHAR2(255 BYTE)
-
-Abbreviated survey names. The column `srvy' is associated with the
-`survey' and `survey\_definition\_id' columns. Northern Bering Sea
-(NBS), Southeastern Bering Sea (EBS), Bering Sea Slope (BSS), Gulf of
-Alaska (GOA), Aleutian Islands (AI).
-
-STATION
-
-Station ID
-
-ID code
-
-VARCHAR2(255 BYTE)
-
-Alpha-numeric designation for the station established in the design of a
-survey.
-
-STRATUM
-
-Stratum ID
-
-ID code
-
-NUMBER(10,0)
-
-RACE database statistical area for analyzing data. Strata were designed
-using bathymetry and other geographic and habitat-related elements. The
-strata are unique to each survey region. Stratum of value 0 indicates
-experimental tows.
-
-SURFACE\_TEMPERATURE\_C
-
-Surface temperature (Degrees Celsius)
-
-degrees Celsius
-
-NUMBER(38,1)
-
-Surface temperature (tenths of a degree Celsius); NA indicates removed
-or missing values.
-
-SURVEY
-
-Survey Name
-
-text
-
-VARCHAR2(255 BYTE)
-
-Name and description of survey. The column `survey' is associated with
-the `srvy' and `survey\_definition\_id' columns.
-
-SURVEY\_DEFINITION\_ID
-
-Survey ID
-
-ID code
-
-NUMBER(38,0)
-
-The survey definition ID code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
-`srvy' and `survey' columns. For a complete list of surveys, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-SURVEY\_NAME
-
-Survey name
-
-text
-
-VARCHAR2(255 BYTE)
-
-Long name of the survey conducted
-
-TAXON\_CONFIDENCE
-
-Taxon confidence rating
-
-category
-
-VARCHAR2(255 BYTE)
-
-Confidence in the ability of the survey team to correctly identify the
-taxon to the specified level, based solely on identification skill
-(e.g., not likelihood of a taxon being caught at that station on a
-location-by-location basis). Quality codes follow: \textbf{`High'}: High
-confidence and consistency. Taxonomy is stable and reliable at this
-level, and field identification characteristics are well known and
-reliable. \textbf{`Moderate'}: Moderate confidence. Taxonomy may be
-questionable at this level, or field identification characteristics may
-be variable and difficult to assess consistently. \textbf{`Low'}: Low
-confidence. Taxonomy is incompletely known, or reliable field
-identification characteristics are unknown. Documentation:
-\href{http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2009-04.pdf}{Species
-identification confidence in the eastern Bering Sea shelf survey
-(1982-2008)},
-\href{http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-05.pdf}{Species
-identification confidence in the eastern Bering Sea slope survey
-(1976-2010)}, and
-\href{http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-01.pdf}{Species
-identification confidence in the Gulf of Alaska and Aleutian Islands
-surveys (1980-2011)}.
-
-VESSEL\_ID
-
-Vessel ID
-
-ID code
-
-NUMBER(38,0)
-
-ID number of the vessel used to collect data for that haul. The column
-`vessel\_id' is associated with the `vessel\_name' column. Note that it
-is possible for a vessel to have a new name but the same vessel id
-number. For a complete list of vessel ID codes, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-VESSEL\_NAME
-
-Vessel name
-
-text
-
-VARCHAR2(255 BYTE)
-
-Name of the vessel used to collect data for that haul. The column
-`vessel\_name' is associated with the `vessel\_id' column. Note that it
-is possible for a vessel to have a new name but the same vessel id
-number. For a complete list of vessel ID codes, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-WEIGHT\_KG
-
-Sample or taxon weight (kg)
-
-kilograms
-
-NUMBER(38,3)
-
-Weight (thousandths of a kilogram) of individuals in a haul by taxon.
-
-WORMS
-
-World Register of Marine Species Taxonomic Serial Number
-
-ID code
-
-NUMBER(38,0)
-
-Species code as identified in the World Register of Marine Species
-(WoRMS) (https://www.marinespecies.org/).
-
-YEAR
-
-Survey year
-
-year
-
-NUMBER(10,0)
-
-Year the observation (survey) was collected.
 
 \hypertarget{foss_haul}{%
 \subsection{FOSS\_HAUL}\label{foss_haul}}
@@ -7352,7 +6978,7 @@ for entire form.
 }
 
 \caption{Diagram of selection and search tools available on the FOSS
-platofrom.}
+platfrom.}
 
 \end{figure}
 
