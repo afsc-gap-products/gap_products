@@ -52,7 +52,7 @@ flextable::flextable(head(lingcod_biomass)) %>%
   flextable::theme_zebra()
 ```
 
-Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
+## Ex. 2: Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
 
 ```{r}
 #| label: test-2a

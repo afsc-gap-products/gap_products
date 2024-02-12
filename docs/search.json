@@ -256,7 +256,14 @@
     "href": "content/akfin-api-r.html#ex.-1-load-lingcod-data",
     "title": "Access API data using R",
     "section": "Ex. 1: Load lingcod data",
-    "text": "Ex. 1: Load lingcod data\n\nlingcod_biomass &lt;- get_gap_biomass(area_id=c(40, 41), species_code=21910)\nflextable::flextable(head(lingcod_biomass)) %&gt;%\n  flextable::theme_zebra()\n\nDirect database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:\n\n# load packages\nlibrary(odbc)\nlibrary(getPass)\nlibrary(tidyverse)\n\n# connect to AKFIN Oracle database\ncon &lt;- dbConnect(odbc::odbc(), \"akfin\", UID=getPass(msg=\"USER NAME\"), PWD=getPass())\n\n\n# define species code for pollock\nmy_species &lt;- 21740\n\n#query database\ndata&lt;- dbFetch(dbSendQuery(con,\n                           paste0(\"select * from gap_products.akfin_biomass \nwhere species_name = \", my_species, \n\" and survey_definition_id = 98, \nand area_id = 10\"))) %&gt;%\nrename_with(tolower) # everyone likes lower case letters better\n\nhead(data)"
+    "text": "Ex. 1: Load lingcod data\n\nlingcod_biomass &lt;- get_gap_biomass(area_id=c(40, 41), species_code=21910)\nflextable::flextable(head(lingcod_biomass)) %&gt;%\n  flextable::theme_zebra()"
+  },
+  {
+    "objectID": "content/akfin-api-r.html#ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package",
+    "href": "content/akfin-api-r.html#ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package",
+    "title": "Access API data using R",
+    "section": "Ex. 2: Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:",
+    "text": "Ex. 2: Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:\n\n# load packages\nlibrary(odbc)\nlibrary(getPass)\nlibrary(tidyverse)\n\n# connect to AKFIN Oracle database\ncon &lt;- dbConnect(odbc::odbc(), \"akfin\", UID=getPass(msg=\"USER NAME\"), PWD=getPass())\n\n\n# define species code for pollock\nmy_species &lt;- 21740\n\n#query database\ndata&lt;- dbFetch(dbSendQuery(con,\n                           paste0(\"select * from gap_products.akfin_biomass \nwhere species_name = \", my_species, \n\" and survey_definition_id = 98, \nand area_id = 10\"))) %&gt;%\nrename_with(tolower) # everyone likes lower case letters better\n\nhead(data)"
   },
   {
     "objectID": "content/foss-intro.html",

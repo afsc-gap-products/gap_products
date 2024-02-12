@@ -319,6 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#ex.-1-load-lingcod-data" id="toc-ex.-1-load-lingcod-data" class="nav-link active" data-scroll-target="#ex.-1-load-lingcod-data">Ex. 1: Load lingcod data</a></li>
+  <li><a href="#ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package" id="toc-ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package" class="nav-link" data-scroll-target="#ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package">Ex. 2: Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/akfin-api-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/akfin-api-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -387,7 +388,9 @@ function googleTranslateElementInit() {
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(lingcod_biomass)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</p>
+</section>
+<section id="ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package" class="level2">
+<h2 class="anchored" data-anchor-id="ex.-2-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package">Ex. 2: Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(odbc)</span>
