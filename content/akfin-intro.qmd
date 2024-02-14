@@ -6,7 +6,7 @@ title: AKFIN
 #| file: functions.R
 ```
 
-These data are used directly by stock assessors and are provided to The [Alaska Fisheries Information Network (AKFIN)]. 
+These data are used directly by stock assessors and are provided to The [Alaska Fisheries Information Network (AKFIN)](https://akfin.psmfc.org/). 
 
 ## The Alaska Fisheries Information Network
 
