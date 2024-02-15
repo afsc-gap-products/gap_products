@@ -94,3 +94,20 @@ rename_with(tolower) # everyone likes lower case letters better
 
 head(data)
 ```
+
+```{r}
+#| label: test-3
+#| tbl-cap: "Ex. 2: Load catch data with {akfingapdata}. "
+#| eval: true
+#| echo: true
+
+library(akfingapdata)
+
+# Sign into akfin with token (need to request token from AKFIN)
+token <- akfingapdata::create_token(file = paste0(dirname(here::here()), "/akfin_token.txt"))
+
+akfingapdata::get_gap_catch()[,1:6] %>% 
+  head() %>% 
+  flextable::flextable() %>%
+  flextable::theme_zebra()
+```
