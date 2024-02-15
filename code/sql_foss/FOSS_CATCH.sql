@@ -46,7 +46,7 @@ AND cc.YEAR != 2020 -- no surveys happened this year because of COVID
 AND (cc.YEAR >= 1982 AND cc.SURVEY_DEFINITION_ID IN (98, 143) -- EBS/NBS survey standard temporal stanza starts in 1982
 OR cc.SURVEY_DEFINITION_ID = 78 -- keep all years of the BSS
 OR cc.YEAR >= 1991 AND cc.SURVEY_DEFINITION_ID IN (52) -- AI survey standard temporal stanza starts in 1991
-OR cc.YEAR >= 1993 AND cc.SURVEY_DEFINITION_ID IN (47)) -- GOA survey standard temporal stanza starts in 1993
+OR cc.YEAR >= 1990 AND cc.SURVEY_DEFINITION_ID IN (47)) -- GOA survey standard temporal stanza starts in 1993
 
 -- # testing -------------------------------------------------------------------
 
