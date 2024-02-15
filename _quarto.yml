@@ -78,7 +78,7 @@ book:
         text: "AFSC GAP Survey Data Products"
     style: "docked"
     search: true
-    collapse-level: 1
+    collapse-level: 2
 
 bibliography: [content/references.bib]
 csl: content/references.csl

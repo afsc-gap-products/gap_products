@@ -1,5 +1,7 @@
 ---
 title: Access API data using R
+number-sections: true
+number-depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -40,19 +42,7 @@ get_gap_biomass<-function(area_id, species_code) {
 }
 ```
 
-## Ex. 1: Load lingcod data
-
-```{r}
-#| label: test-1
-#| tbl-cap: "Ex. 1: Load lingcod data. "
-#| eval: false
-
-lingcod_biomass <- get_gap_biomass(area_id=c(40, 41), species_code=21910)
-flextable::flextable(head(lingcod_biomass)) %>%
-  flextable::theme_zebra()
-```
-
-## Ex. 2: Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
+## Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
 
 ```{r}
 #| label: test-2a
@@ -94,6 +84,7 @@ rename_with(tolower) # everyone likes lower case letters better
 
 head(data)
 ```
+## Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
 
 ```{r}
 #| label: test-3
@@ -111,3 +102,4 @@ akfingapdata::get_gap_catch()[,1:6] %>%
   flextable::flextable() %>%
   flextable::theme_zebra()
 ```
+
