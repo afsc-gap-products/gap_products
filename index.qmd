@@ -22,7 +22,7 @@ As part of our commitment to open science, reproducibility, and transparency, we
 
 > Please consider this resource to be a **Living Document**. The code in this repository is regularly being updated and improved. Please refer to [releases](`r paste0(link_repo, '/releases')`) for finalized products and project milestones.
 
-> At this time, these master [production](https://afsc-gap-products.github.io/gap_products/content/product-intro.html) and [AKFIN](https://afsc-gap-products.github.io/gap_products/content/akfin-intro.html) tables are **provisional and we are welcoming feedback before the 2024 survey season.** We look forward to hearing from you. Do not hesitate to reach out (to us at either [afsc.gap.metadata@noaa.gov](afsc.gap.metadata@noaa.gov) or [GitHub issues](`r paste0(link_repo, "/issues")`), especially if you find discrepancies in the data or want to suggest improvements to infrastructure. Thank you in advance for your collaboration and partnership with us as we develop our future data universe.
+> At this time, these master [production](https://afsc-gap-products.github.io/gap_products/content/product-intro.html) and [AKFIN](https://afsc-gap-products.github.io/gap_products/content/akfin-intro.html) tables are **provisional and we are welcoming feedback before the 2024 survey season.** We look forward to hearing from you. Do not hesitate to reach out (to us at either [nmfs.afsc.gap.metadata@noaa.gov](nmfs.afsc.gap.metadata@noaa.gov) or [GitHub issues](`r paste0(link_repo, "/issues")`), especially if you find discrepancies in the data or want to suggest improvements to infrastructure. Thank you in advance for your collaboration and partnership with us as we develop our future data universe.
 
 ## User Resources
 

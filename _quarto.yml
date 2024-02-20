@@ -15,13 +15,13 @@ book:
   search: true
   author:
     - name: Bering Sea Survey Team
-      email: afsc.gap.metadata@noaa.gov 
+      email: nmfs.afsc.gap.metadata@noaa.gov 
       note: https://github.com/afsc-gap-products
       affiliations:
         - name: NOAA Fisheres Alaska Fisheries Science Center
           department: Groundfish Assessment Program
     - name: Gulf of Alaska and Aleutian Island Survey Team
-      email: afsc.gap.metadata@noaa.gov 
+      email: nmfs.afsc.gap.metadata@noaa.gov 
       note: https://github.com/afsc-gap-products
       affiliations:
         - name: NOAA Fisheres Alaska Fisheries Science Center
