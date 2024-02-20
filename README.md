@@ -190,7 +190,7 @@ source from which these data were obtained, in any publications and/or
 other representations of these data, is suggested.
 
 **General questions and more specific data requests** can be sent to
-<afsc.gap.metadata@noaa.gov> or submitted as an [issue on our GitHub
+<nmfs.afsc.gap.metadata@noaa.gov> or submitted as an [issue on our GitHub
 Organization](https://github.com/afsc-gap-products/data-requests). The
 version of this data used for stock assessments can be found through the
 Alaska Fisheries Information Network (AKFIN). For questions about the
