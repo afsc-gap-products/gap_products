@@ -35,6 +35,10 @@ metadata_table <- readxl::read_xlsx(path = "temp/future_oracle.xlsx",
 metadata_table$metadata_sentence <- gsub(x = metadata_table$metadata_sentence,
                                          pattern = "INSERT_CODE_BOOK", 
                                          replacement = link_code_books)
+AREA <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+                          sheet = "AREA") 
+STRATUM_GROUPS <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+                                    sheet = "STRATUM_GROUPS") 
 
 shared_metadata_comment <-
   with(metadata_table, 
@@ -52,6 +56,21 @@ metadata_table_comment <- paste(
   "These columns provide the table metadata for all of the tables and ",
   "views in GAP_PRODUCTS. These tables are created", shared_metadata_comment
 )
+
+AREA_comment <- paste(
+  "This table contains all of the information related to the various strata,",
+  "subareas, INPFC and NMFS management areas, and regions for the Aleutian",
+  "Islands, Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys.",
+  "These tables are created", shared_metadata_comment
+)
+
+STRATUM_GROUPS_comment <- paste(
+  "This table contains all of strata that are contained within a given",
+  "subarea, INPFC or NMFS management area, or region for the Aleutian Islands,",
+  "Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys.",
+  "These tables are created", shared_metadata_comment
+)
+
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Clean up metadata_column: df that houses metadata column info
@@ -92,7 +111,8 @@ metadata_column_comment <- paste0(
 ##  Upload the two tables to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (isql_table in c("metadata_table", 
-                     "metadata_column")) { ## loop over tables -- start
+                     "metadata_column",
+                     "AREA", "STRATUM_GROUPS")) { ## loop over tables -- start
   
   ## Temporary dataframe that houses comment on each field The 
   ## field names in get(x = isql_table) should match those in 
