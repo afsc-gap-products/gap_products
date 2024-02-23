@@ -1,3 +1,11 @@
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Project:
+## Author:        Emily Markowitz (emily.markowitz@noaa.gov)
+## Description:   Create the 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Restart R Session before running
+rm(list = ls())
 
 # Create CITIATION.bib file for repo -------------------------------------------
 
