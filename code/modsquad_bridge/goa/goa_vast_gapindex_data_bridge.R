@@ -14,7 +14,7 @@ library(gapindex)
 library(readxl)
 
 data_sources <- as.data.frame(readxl::read_xlsx(
-  path = paste0("code_testing/VAST_bridging/GOA/",
+  path = paste0("code/modsquad_bridge/GOA/",
                 "2023_hindcast_datasources.xlsx")))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,7 +25,7 @@ sql_channel <- gapindex::get_connected()
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over species, pull in data, compare to gapindex
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (irow in 1:nrow(data_sources)) {
+for (irow in 1:nrow(x = data_sources)) {
   
   ## Pull data from gapindex for a given species using gapindex
   species_code <- data_sources$species_code[irow]
@@ -48,7 +48,7 @@ for (irow in 1:nrow(data_sources)) {
   goa_drive_id <- googledrive::as_id(x = data_sources$url[irow])
   file_id <- with(googledrive::drive_ls(path = goa_drive_id), 
                   id[name == data_sources$filename[irow]])
-  
+
   ## Download VAST input dataset, save locally
   googledrive::drive_download(
     file = file_id,
