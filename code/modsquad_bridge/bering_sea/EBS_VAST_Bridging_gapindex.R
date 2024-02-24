@@ -20,18 +20,16 @@ species_info <- data.frame(species_name = c("yellowfin_sole", "Pacific_cod"),
                            species_code = c(10210, 21720),
                            start_year = 1982,
                            current_year = 2022,
-                           plus_group = c(20, 12), # check pollock + group
+                           plus_group = c(20, 12), 
                            start_year_age = c(1982, 1994))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop Over Species and Create CPUE and Age Comp Datasets
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Make sure temporary folder exists (ignored in GitHub)
-if (!dir.exists(paths = "temp/")) dir.create(path = "temp/")
-
 for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   
+  ## Set constants
   start_year <- species_info$start_year[ispp]
   current_year <- species_info$current_year[ispp]
   species_code <- species_info$species_code[ispp]
@@ -40,20 +38,22 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   plus_group <- species_info$plus_group[ispp]
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ##   Pull catch and effort data
+  ##   Pull EBS catch and effort data
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ## Standard EBS stations
+  ## First, pull data from the standard EBS stations
   ebs_standard_data <- gapindex::get_data(year_set = start_year:current_year,
                                           survey_set = "EBS",
-                                          spp_codes = c(10210, 21720, 21740),
+                                          spp_codes = species_code,
                                           pull_lengths = TRUE, 
                                           haul_type = 3, 
                                           abundance_haul = "Y",
                                           sql_channel = sql_channel,
                                           na_rm_strata = TRUE)
   
-  ## Well-performing hauls that are not included in the design-based indices
-  ## (abundance_haul == "N") but are included in VAST.  
+  ## Next, pull data from hauls that are not included in the design-based index
+  ## production (abundance_haul == "N") but are included in VAST. By default, 
+  ## the gapindex::get_data() function will filter out hauls with negative 
+  ## performance codes (i.e., poor-performing hauls).
   ebs_other_data <- gapindex::get_data(year_set = c(1994, 2001, 2005, 2006),
                                        survey_set = "EBS",
                                        spp_codes = species_code,
@@ -63,7 +63,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                        sql_channel = sql_channel, 
                                        na_rm_strata = TRUE)
   
-  ## Combine the EBS standard and EBS other datasets
+  ## Combine the EBS standard and EBS other data into one list. 
   ebs_data <- list(
     ## Some cruises are shared between the standard and other EBS cruises, 
     ## so the unique() wrapper is there to remove duplicate cruise records. 
@@ -80,7 +80,10 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                      ebs_other_data$specimen),
     strata = ebs_standard_data$strata)
   
-  ## Standard NBS stations
+  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##   Pull NBS catch and effort data
+  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ## Pull data from the standard NBS stations
   nbs_standard_data <- gapindex::get_data(year_set = start_year:current_year,
                                           survey_set = "NBS",
                                           spp_codes = species_code,
@@ -89,10 +92,12 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                           abundance_haul = "Y",
                                           sql_channel = sql_channel)
   
-  ## Misc. stations in 1985, 1988, and 1991 that were in the NBS but not a part 
-  ## of the standard stations. These cruises have a different survey definition 
-  ## ID, so they will not come up in gapindex::get_data(). Thus, the next set 
-  ## of functions are direct SQL pulls from RACEBASE. 
+  ## Pull data from miscellaneous stations in 1985, 1988, and 1991 that were 
+  ## sampled in the NBS but are not a part of the standard stations used in the
+  ## design-based index production. These cruises have a different survey 
+  ## definition IDs from the EBS (98), NBS (143) and BSS (78), so they will not
+  ## come up in gapindex::get_data(). Thus, the next set of code consists of
+  ## hard-coded SQL pulls from RACEBASE.
   nbs_other <- list()
   
   nbs_other$cruise <-
@@ -101,48 +106,58 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                SURVEY = "NBS",
                RODBC::sqlQuery(
                  channel = sql_channel,
-                 query = paste("SELECT CRUISEJOIN, CRUISE",
-                               "FROM RACEBASE.CRUISE WHERE",
-                               "CRUISE IN (198502, 198808, 199102) AND",
-                               "REGION = 'BS'")),
+                 query = "SELECT CRUISEJOIN, CRUISE
+                          FROM RACEBASE.CRUISE 
+                          WHERE CRUISE IN (198502, 198808, 199102) 
+                          AND REGION = 'BS'"),
                VESSEL_ID = NA,
                VESSEL_NAME = NA,
                DESIGN_YEAR = 2022)
   
   nbs_other$haul <- 
     RODBC::sqlQuery(channel = sql_channel,
-                    query = paste("SELECT * from RACEBASE.HAUL WHERE",
-                                  "CRUISE IN (198502, 198808, 199102) AND",
-                                  "HAUL_TYPE = 3 AND PERFORMANCE >= 0 AND",
-                                  "ABUNDANCE_HAUL = 'Y'"))
+                    query = "SELECT *
+                             FROM RACEBASE.HAUL 
+                             WHERE CRUISE IN (198502, 198808, 199102) 
+                             AND HAUL_TYPE = 3 
+                             AND PERFORMANCE >= 0 
+                             AND ABUNDANCE_HAUL = 'Y'")
   nbs_other$catch <- 
     RODBC::sqlQuery(
       channel = sql_channel,
-      query = paste("SELECT HAULJOIN, SPECIES_CODE, WEIGHT, NUMBER_FISH",
-                    "FROM RACEBASE.CATCH WHERE",
-                    "SPECIES_CODE IN ", gapindex::stitch_entries(species_code),
+      query = paste("SELECT HAULJOIN, SPECIES_CODE, WEIGHT, NUMBER_FISH
+                     FROM RACEBASE.CATCH 
+                     WHERE SPECIES_CODE IN", 
+                    gapindex::stitch_entries(species_code),
                     "AND HAULJOIN IN",
                     gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
   nbs_other$size <-
     RODBC::sqlQuery(
       channel = sql_channel,
-      query = paste("SELECT * from RACEBASE.LENGTH WHERE",
-                    "SPECIES_CODE IN ", gapindex::stitch_entries(species_code),
+      query = paste("SELECT CRUISEJOIN, HAULJOIN, SPECIES_CODE, LENGTH, 
+                     SEX, FREQUENCY 
+                     FROM RACEBASE.LENGTH 
+                     WHERE SPECIES_CODE IN", 
+                    gapindex::stitch_entries(species_code),
                     "AND HAULJOIN IN",
                     gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
   nbs_other$specimen <-
     RODBC::sqlQuery(
       channel = sql_channel,
-      query = paste("SELECT SPECIES_CODE, CRUISEJOIN, HAULJOIN, REGION,",
-                    "VESSEL, CRUISE, HAUL, SPECIMENID, LENGTH, SEX, WEIGHT,",
-                    " AGE from RACEBASE.SPECIMEN WHERE",
-                    "SPECIES_CODE IN ", gapindex::stitch_entries(species_code),
+      query = paste("SELECT SPECIES_CODE, CRUISEJOIN, HAULJOIN, REGION,
+                     VESSEL, CRUISE, HAUL, SPECIMENID, LENGTH, SEX, WEIGHT, AGE
+                     FROM RACEBASE.SPECIMEN 
+                     WHERE SPECIES_CODE IN", 
+                    gapindex::stitch_entries(species_code),
                     "AND HAULJOIN IN",
                     gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
-  ## 2018 NBS survey that is defined as an EBS survey
+  ## Pull data from a 2018 NBS survey that is defined as an EBS survey but just
+  ## with a different haul_type value. ABUNDANCE_TYPE for these hauls is 'N' 
+  ## but by default, the gapindex::get_data() function will filter out hauls 
+  ## with negative performance codes (i.e., poor-performing hauls).
   nbs18_data <- gapindex::get_data(year_set = 2018,
                                    survey_set = "EBS",
                                    spp_codes = species_code,
@@ -153,6 +168,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   nbs18_data$cruise$SURVEY <- "NBS"
   nbs18_data$cruise$SURVEY_DEFINITION_ID <- 143
   
+  ## Combine all the NBS data into one list. 
   nbs_data <- 
     list(cruise = rbind(nbs_standard_data$cruise[,names(x = nbs18_data$cruise)],
                         nbs_other$cruise,
@@ -186,7 +202,6 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                       "SPECIES_CODE", "WEIGHT_KG", "COUNT",
                       "AREA_SWEPT_KM2", "CPUE_KGKM2", "CPUE_NOKM2"))
   
-  
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate Total Abundance 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -198,25 +213,13 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate numerical CPUE for a given haul/sex/length bin
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # sizecomp <- rbind(gapindex::calc_sizecomp_stratum(
-  #   racebase_tables = ebs_data,
-  #   racebase_cpue = ebs_cpue,
-  #   racebase_stratum_popn = ebs_popn_stratum,
-  #   spatial_level = "haul",
-  #   fill_NA_method = "BS"),
-  #   gapindex::calc_sizecomp_stratum(
-  #     racebase_tables = nbs_data,
-  #     racebase_cpue = nbs_cpue,
-  #     racebase_stratum_popn = nbs_popn_stratum,
-  #     spatial_level = "haul",
-  #     fill_NA_method = "BS"))
-  sizecomp <- rbind(calc_sizecomp_stratum(
+  sizecomp <- rbind(gapindex::calc_sizecomp_stratum(
     racebase_tables = ebs_data,
     racebase_cpue = ebs_cpue,
     racebase_stratum_popn = ebs_popn_stratum,
     spatial_level = "haul",
     fill_NA_method = "BS"),
-    calc_sizecomp_stratum(
+    gapindex::calc_sizecomp_stratum(
       racebase_tables = nbs_data,
       racebase_cpue = nbs_cpue,
       racebase_stratum_popn = nbs_popn_stratum,
@@ -226,14 +229,22 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate globally filled Age-Length Key for EBS
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  if (start_year != start_year_age) {
+  if (start_year != start_year_age) { ## i.e., Pcod when age data start 1994
+    ebs_data$size <- merge(x = ebs_data$size,
+                           y = ebs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
+                           by = "CRUISEJOIN")
     ebs_data$size <- subset(x = ebs_data$size, 
                             CRUISE >= start_year_age * 100)
+    
     ebs_data$specimen <- subset(x = ebs_data$specimen, 
                                 CRUISE >= start_year_age * 100)
     
+    nbs_data$size <- merge(x = nbs_data$size,
+                           y = nbs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
+                           by = "CRUISEJOIN")
     nbs_data$size <- subset(x = nbs_data$size, 
                             CRUISE >= start_year_age * 100)
+    
     nbs_data$specimen <- subset(x = nbs_data$specimen, 
                                 CRUISE >= start_year_age * 100 & CRUISE != 201801)
   }
@@ -245,7 +256,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate Age-Length Key (ALK) for NBS. First calculate the non-global 
   ##   ALK. Then fill in the missing ALKs with the globally filled EBS ALK.
-  ##   Then fill in remaining missing ALKswith the globally filled NBS ALK. 
+  ##   Then fill in any remaining missing ALKs with the globally filled NBS ALK. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   nbs_alk_non_global <- gapindex::calc_alk(racebase_tables = nbs_data, 
                                            unsex = "unsex", 
@@ -262,8 +273,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
           all.y = TRUE,
           by = c("SURVEY", "YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM", "AGE"))
   
-  ## Calculate the mising ALK, the combinations of year/sex/length that
-  ## don't have probabilities across ages. 
+  ## Calculate which ALK records are missing, i.e., the combinations of 
+  ## year/sex/length that don't have probabilities across ages. 
   missing_alk <-
     do.call(what = rbind,
             args = lapply(X = split(x = nbs_alk,
@@ -391,7 +402,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                 SPECIES_CODE = species_code,
                 AGE = min(age_cpue$AGE, na.rm = TRUE):plus_group)
   
-  ## merge the age_cpue onto the `every_combo_of_ages` df using "HAULJOIN", 
+  ## Merge the age_cpue onto the `every_combo_of_ages` df using "HAULJOIN", 
   ## "SPECIES_CODE", and "AGE" as a composite key. all.x = TRUE will reveal
   ## missing ages denoted by an NA AGE_CPUE_NOKM2 value
   every_combo_of_ages <- merge(x = every_combo_of_ages,
@@ -416,7 +427,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##   Format VAST Data
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
   data_geostat_biomass_index <- with(ebs_nbs_cpue,
-                                     data.frame(Region = SURVEY,
+                                     data.frame(Hauljoin = HAULJOIN,
+                                                Region = SURVEY,
                                                 Catch_KG = CPUE_KGKM2,
                                                 Year = YEAR,
                                                 Vessel = "missing", 
@@ -426,7 +438,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                                 Pass = 0))
   
   data_geostat_numerical_index <- with(ebs_nbs_cpue,
-                                       data.frame(Region = SURVEY,
+                                       data.frame(Hauljoin = HAULJOIN,
+                                                  Region = SURVEY,
                                                   Catch_KG = CPUE_NOKM2,
                                                   Year = YEAR,
                                                   Vessel = "missing", 
@@ -436,7 +449,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                                   Pass = 0))
   
   data_geostat_agecomps <- with(age_cpue, 
-                                data.frame(Region = SURVEY,
+                                data.frame(Hauljoin = HAULJOIN,
+                                           Region = SURVEY,
                                            Catch_KG = AGE_CPUE_NOKM2,
                                            Year = YEAR,
                                            Vessel = "missing",
@@ -446,10 +460,15 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                            Lon = LONGITUDE_DD_START,
                                            Pass = 0)) 
   
+  if (start_year != start_year_age) {
+    data_geostat_agecomps <- subset(x = data_geostat_agecomps,
+                                    subset = Year >= start_year_age)
+  }
+  
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Save output
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  dir_out <- paste0("temp/VAST_bridging/BS/", species_name, "_gp/")
+  dir_out <- paste0("code/modsquad_bridge/bering_sea/", species_name, "_gp/")
   if (!dir.exists(paths = dir_out)) dir.create(path = dir_out, recursive = T)
   for (ifile in c("data_geostat_biomass_index", 
                   "data_geostat_numerical_index",
