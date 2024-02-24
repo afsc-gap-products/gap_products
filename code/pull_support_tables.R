@@ -29,7 +29,7 @@ sql_channel <- gapindex::get_connected()
 ##   Download spreadsheet where the tables currently exist (in the future,
 ##   these tables will live somewhere in Oracle). 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-data_url <- "https://docs.google.com/spreadsheets/d/1v900jEaSPuWjyHzRJhY2RUFzO_c9FqOunow-RM77bHQ/edit#gid=1391902078"
+data_url <- "https://docs.google.com/spreadsheets/d/1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA/edit#gid=689332364"
 data_id <- googledrive::as_id(x = data_url)
 
 data_spreadsheet <- googledrive::drive_download(file = data_id,
@@ -45,8 +45,7 @@ SURVEY_DESIGN <-
 
 AREA <- 
   as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
-                                   sheet = "AREA",
-                                   skip = 1))
+                                   sheet = "AREA"))
 
 STRATUM_GROUPS <- 
   as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
@@ -93,3 +92,4 @@ for (idata in c("SURVEY_DESIGN", "AREA", "STRATUM_GROUPS", "SPECIES_YEAR")) {
     table_metadata = "This is a table",
     metadata_column = metadata_columns)
 }
+
