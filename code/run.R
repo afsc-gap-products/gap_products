@@ -16,46 +16,13 @@
 ##                survey to incorporate new age data that were processed after
 ##                the prior summer's survey season ended. This second 
 ##                pre-survey production run will also incorporate changes in 
-##                the data due to the specimen voucher process as well as other
-##                post-hoc changes in the survey data. 
+##                the data due to the specimen voucher process, as well as 
+##                other post hoc changes to the survey data. 
 ##                
-##                Step 1 of the workflow is importing versions of the tables
-##                in GAP_PRODUCTS locally within the gap_products repository
-##                in a temporary (temp/) folder. The temp/ folder is ignored in
-##                the GitHub workflow and is important when comparing the 
-##                updated production tables to what is currently in the 
-##                GAP_PRODUCTS schema. Any updates to a production table will 
-##                be compared and checked to make sure changes to the contents 
-##                of the table are intentional and documented.
-##                
-##                Step 2 involves updating the metadata tables in GAP_PRODUCTS
-##                used to create the metadata for the tables and views in 
-##                GAP_PRODUCTS. The contents of these tables are maintained
-##                in a shared googlesheets document. These tables are compared 
-##                and checked to their respective locally saved copies and any 
-##                changes to the tables are vetted and documented. These
-##                tables are then uploaded to GAP_PRODUCTS.
-##                
-##                Step 3 is the calculation of the four major standard data
-##                products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are 
-##                compared and checked to their respective locally saved copies 
-##                and any changes to the tables are vetted and documented.  
-##                These tables are then uploaded to GAP_PRODUCTS.
-##                
-##                Step 5 is the calculation of the various materialized views
-##                for AKFIN purposes. Since these are derivative of the tables
-##                in GAP_PRODUCTS as well as other base tables in RACEBASE and
-##                RACE_DATA, it is not necessary to check these views. 
-## 
-##                Step 6 is the calculation of the CPUE and haul materialized 
-##                views for FOSS purposes. Since these are derivative of the 
-##                tables and views in GAP_PRODUCTS as well as other base tables
-##                in RACEBASE and RACE_DATA, it is not necessary to check these
-##                views. 
-##                
-##                Disclaimer: Each script is self-contained. Do not source 
+##                **DISCLAIMER**: Each script is self-contained. Do not source 
 ##                this script. The script for each step needs to be run 
-##                line-by-line with caution.  
+##                line-by-line with caution. The file.edit() function simply
+##                opens the script in a new tab within RStudio. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
@@ -79,27 +46,52 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step 2 Pull Exisiting GAP_PRODUCTS Tables and Views ----
+##   Import the current version of the tables in GAP_PRODUCTS locally within 
+##   the gap_products repository in the temporary (temp/) folder that was just
+##   created. The local versions of these tables are used to compare the 
+##   updated production tables that we create in a later step to what is 
+##   currently in the GAP_PRODUCTS schema.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/pull_existing_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step 3 Update Metadata Tables ----
+##   This script updates the metadata tables in GAP_PRODUCTS used to create the
+##   metadata for the tables and views in GAP_PRODUCTS. The contents of these 
+##   tables are maintained in a shared googlesheets document. These tables are 
+##   then uploaded to the GAP_PRODUCTS Oracle schema. A future goal of this 
+##   step is to move away from making changes to the googlesheet and instead 
+##   setting up triggers in Oracle to provide an audit record any time a change
+##   is made to these metadata tables. In this way, changes are arguably 
+##   better documented and the upkeep of the tables are fully contained within
+##   Oracle instead of the current workflow which is Google Sheets --> R (via 
+##   the googledrive R package) --> Oracle. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/metadata.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step 4 Create Production Tables ----
+##   Calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, 
+##   AGECOMP for all taxa, survey years, survey regions. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/production.R")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   These tables are compared and checked to their respective locally saved 
+##   copies in the temp/ folder, and any changes to the tables are tabulated 
+##   and documented in a text file outputted to the temp/ folder.  
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/check_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Upload Production Tables ----
+##   Upload Production Tables ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/push_oracle.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Step Upload Production Tables ----
+##   Set up queries for the various materialized views created for AKFIN
+##   and FOSS.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/akfin.R")
 file.edit("code/taxonomics.R")
@@ -131,7 +123,7 @@ fs::dir_copy(path = "functions/",
 fs::dir_copy(path = "temp/", 
              new_path = readLines(con = "temp/timestamp.txt"))
 
-## zip folder and move to G: drive
+## Zip folder and move to G: drive
 utils::zip(files = readLines(con = "temp/timestamp.txt"),
            zipfile = paste0(getwd(), "/", 
                             readLines(con = "temp/timestamp.txt"), ".zip") )
