@@ -1,19 +1,19 @@
 #' -----------------------------------------------------------------------------
-#' title: Create public data 
+#' title: Taxonomic ID Confidence Tables
 #' author: EH Markowitz
-#' start date: 2023-09-23
-#' Notes: 
+#' Notes: This script creates the taxonomic identification confidence tables
+#'        for each region and survey year used currently for FOSS purposes. 
+#'        
+#'        Quality Codes:
+#'        1 – High confidence and consistency. Taxonomy is stable and reliable 
+#'            at this level, and field identification characteristics are well 
+#'            known and reliable.
+#'        2 – Moderate confidence. Taxonomy may be questionable at this level,
+#'            or field identification characteristics may be variable and 
+#'            difficult to assess consistently.
+#'        3 – Low confidence. Taxonomy is incompletely known, or reliable field
+#'            identification characteristics are unknown.
 #' -----------------------------------------------------------------------------
-
-## Taxon Confidence ------------------------------------------------------------
-
-# Quality Codes
-# 1 – High confidence and consistency.  Taxonomy is stable and reliable at this 
-#     level, and field identification characteristics are well known and reliable.
-# 2 – Moderate confidence.  Taxonomy may be questionable at this level, or field  
-#     identification characteristics may be variable and difficult to assess consistently.
-# 3 – Low confidence.  Taxonomy is incompletely known, or reliable field  
-#     identification characteristics are unknown.
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import Libraries
@@ -21,15 +21,7 @@
 ##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PKG <- c(
-  "dplyr",
-  "magrittr",
-  "readxl",
-  "tidyr", 
-  "googledrive"
-)
-
-PKG <- unique(PKG)
+PKG <- c("dplyr", "magrittr", "readxl", "tidyr", "googledrive")
 for (p in PKG) {
   if (!require(p, character.only = TRUE)) {
     install.packages(p)
