@@ -21,7 +21,7 @@ rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import sumfish ----
-##   Installation instructions: https://github.com/afsc-gap-products/sumfish
+##   Installation instructions: https://github.como/afsc-gap-products/sumfish
 ##   Setup Oracle Account
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
 library(sumfish)
@@ -40,13 +40,12 @@ sumfish::getSQL()
 ##   plus_group is used for the age composition calculations, where ages at or
 ##   older than the plus group are grouped as one group. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-species_info <- data.frame(species_name = c("yellowfin_sole", "Pacific_cod", 
-                                            "walleye_pollock"),
-                           species_code = c(10210, 21720, 21740),
+species_info <- data.frame(species_name = c("yellowfin_sole", "Pacific_cod"),
+                           species_code = c(10210, 21720),
                            start_year = 1982,
                            current_year = 2022,
-                           plus_group = c(20, 12, 15), # check pollock + group
-                           start_year_age = c(1982, 1994, 1982))
+                           plus_group = c(20, 12), 
+                           start_year_age = c(1982, 1994))
 
 for (ispp in 1:nrow(x = species_info)) {
   
@@ -61,7 +60,7 @@ for (ispp in 1:nrow(x = species_info)) {
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Create directory to store data products
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-  res_dir <- paste0("temp/VAST_bridging/EBS/", species_name, "_sumfish/")
+  res_dir <- paste0("code/modsquad_bridge/bering_sea/", species_name, "_sumfish/")
   if (!dir.exists(res_dir)) dir.create(res_dir, recursive = TRUE)
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,7 +161,7 @@ for (ispp in 1:nrow(x = species_info)) {
   
   weightAll <- sumAll <- dplyr::bind_rows(sumEBS, sumNBS,sum18) %>%
     dplyr::filter(SPECIES_CODE %in% species_code, 
-                  YEAR >= min_year_ages,
+                  # YEAR >= min_year_ages,
                   !is.na(EFFORT))
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -354,10 +353,23 @@ for (ispp in 1:nrow(x = species_info)) {
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Format VAST Data ----
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-  data_geostat_index <- 
+  data_geostat_biomass_index <- 
     with(sumAll,
-         data.frame(Region = REGION,
+         data.frame(Hauljoin = HAULJOIN,
+                    Region = REGION,
                     Catch_KG = wCPUE, #cpue units: kg per hectare
+                    Year = YEAR,
+                    Vessel = "missing", 
+                    AreaSwept_km2 = 0.01, # converts cpue units to: kg per km^2
+                    Lat = START_LATITUDE,
+                    Lon = START_LONGITUDE,
+                    Pass = 0 ))
+  
+  data_geostat_numerical_index <- 
+    with(sumAll,
+         data.frame(Hauljoin = HAULJOIN,
+                    Region = REGION,
+                    Catch_KG = nCPUE, #cpue units: kg per hectare
                     Year = YEAR,
                     Vessel = "missing", 
                     AreaSwept_km2 = 0.01, # converts cpue units to: kg per km^2
@@ -367,6 +379,7 @@ for (ispp in 1:nrow(x = species_info)) {
   
   data_geostat_agecomps <-  dplyr::transmute(
     Data,
+    Hauljoin = HAULJOIN,
     Catch_KG = ageCPUE,
     Year = YEAR,
     Vessel = "missing",
@@ -375,7 +388,7 @@ for (ispp in 1:nrow(x = species_info)) {
     Lat = START_LATITUDE,
     Lon = START_LONGITUDE,
     Pass = 0) %>%
-    data.frame()
+    data.frame() 
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Save output ----
@@ -383,8 +396,10 @@ for (ispp in 1:nrow(x = species_info)) {
   ## Index data
   write_rds(x = weightAll, 
             file = paste0(res_dir, "EBS_NBS_Index.RDS"))
-  write_rds(x = data_geostat_index, 
-            file = paste0(res_dir, "data_geostat_index.RDS"))
+  write_rds(x = data_geostat_biomass_index, 
+            file = paste0(res_dir, "data_geostat_biomass_index.RDS"))
+  write_rds(x = data_geostat_numerical_index, 
+            file = paste0(res_dir, "data_geostat_numerical_index.RDS"))
   
   ## Age comp data
   write_rds(x = sizeAll, 
