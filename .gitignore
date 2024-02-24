@@ -49,3 +49,6 @@ temp/
 /.quarto/
 /_site/
 /_book/
+
+# Modsquad bridging RDS objects
+code/modsquad_bridge/**/*.RDS
