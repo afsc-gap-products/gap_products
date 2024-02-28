@@ -397,8 +397,13 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   
   ## Zero-fill CPUEs for missing ages. First we create a grid of all possible
   ## HAULJOINs and ages
+  unique_hauls_cpue_zeros <- sort(unique(x = ebs_nbs_cpue$HAULJOIN[ebs_nbs_cpue$CPUE_NOKM2 == 0]))
+  unique_hauls_cpue_pos <- sort(unique(x = ebs_nbs_cpue$HAULJOIN[ebs_nbs_cpue$CPUE_NOKM2 > 0]))
+  unique_hauls_sizecomp <- sort(unique(x = sizecomp$HAULJOIN))
+  
   every_combo_of_ages <- 
-    expand.grid(HAULJOIN = unique(x = ebs_nbs_cpue$HAULJOIN),
+    expand.grid(HAULJOIN = c(unique_hauls_cpue_zeros,
+                             unique_hauls_cpue_pos[unique_hauls_cpue_pos %in% unique_hauls_sizecomp]),
                 SPECIES_CODE = species_code,
                 AGE = min(age_cpue$AGE, na.rm = TRUE):plus_group)
   
