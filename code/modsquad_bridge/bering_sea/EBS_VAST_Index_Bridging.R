@@ -8,187 +8,196 @@
 
 ## Restart R Session before running
 rm(list = ls())
+options(scipen = 99999)
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import gapindex package, connect to Oracle
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Import gapindex and connect to Oracle.
 library(gapindex)
-library(googledrive)
-sql_channel <- gapindex::get_connected()
+chl <- gapindex::get_connected()
+
+## Import comparison functions
+source("functions/calc_diff.R"); source("functions/compare_tables.R")
+
+ispp = c("yellowfin_sole", "Pacific_cod")[2]
+
+wcpue_gp <- subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                             ispp, "_gp/data_geostat_biomass_index.RDS")),
+                   select = -c(Pass, AreaSwept_km2, Vessel))
+wcpue_sf <- subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                             ispp, "_sumfish/data_geostat_biomass_index.RDS")),
+                   select = -c(Pass, AreaSwept_km2, Vessel))
+wcpue_sf$Catch_KG <- wcpue_sf$Catch_KG * 100 
+
+wcpue_merge <- merge(x = wcpue_gp, y = wcpue_sf,
+                     by = c("Hauljoin"), 
+                     all = T, suffixes = c("_gp", "_sf"))
+
+
+compare_tables(x = wcpue_merge, 
+               key_columns = c("Hauljoin"), 
+               cols_to_check = data.frame(colname = "Catch_KG", 
+                                          percent = F, 
+                                          decplaces = 4),
+               base_table_suffix = "_sf", 
+               update_table_suffix = "_gp")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Constants
-##   There are some species codes missing from the suite of species in the 
-##   Bering Sea ModSquad requests (pollock, tanner crab) but I am not sure
-##   if there are different data requirements for those... These four species
-##   all have the same data pulls (except NRS where we only pull yeras 1995-on)
+##   
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-species_code <- c(10210, 10112, 10261, 21720)
-start_year <- 1982
-current_year <- 2022
+ncpue_gp <- subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                             ispp, "_gp/data_geostat_numerical_index.RDS")),
+                   select = -c(Pass, AreaSwept_km2, Vessel))
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Pull catch and effort data
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Standard EBS stations
-yfs_ebs_standard <- gapindex::get_data(year_set = start_year:current_year,
-                                       survey_set = "EBS",
-                                       spp_codes = species_code,
-                                       pull_lengths = FALSE, 
-                                       haul_type = 3, 
-                                       abundance_haul = c("Y"),
-                                       sql_channel = sql_channel,
-                                       na_rm_strata = TRUE)
+ncpue_sf <- subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                             ispp, "_sumfish/data_geostat_numerical_index.RDS")),
+                   select = -c(Pass, AreaSwept_km2, Vessel))
+ncpue_sf$Catch_KG <- ncpue_sf$Catch_KG * 100
 
-## Well-performing hauls that are not included in the design-based indices
-## (abundance_haul == "N") but are included in VAST.  
-yfs_ebs_other <- gapindex::get_data(year_set = c(1994, 2001, 2005, 2006),
-                                    survey_set = "EBS",
-                                    spp_codes = species_code,
-                                    pull_lengths = FALSE, 
-                                    haul_type = 3, 
-                                    abundance_haul = c("N"),
-                                    sql_channel = sql_channel, 
-                                    na_rm_strata = TRUE)
+ncpue_merge <- merge(x = ncpue_gp, y = ncpue_sf,
+                     by = c("Hauljoin"), 
+                     all = T, suffixes = c("_gp", "_sf"))
+head(ncpue_merge)
 
-yfs_ebs <- list(
-  ## Some cruises are shared between the standard and other EBS cruises, so the
-  ## unique() wrapper is there to remove duplicate cruise records. 
-  cruise = unique(rbind(yfs_ebs_standard$cruise,
-                        yfs_ebs_other$cruise)),
-  haul = rbind(yfs_ebs_standard$haul,
-               yfs_ebs_other$haul),
-  catch = rbind(yfs_ebs_standard$catch,
-                yfs_ebs_other$catch),
-  size = rbind(yfs_ebs_standard$size,
-               yfs_ebs_other$size),
-  species = yfs_ebs_standard$species,
-  specimen = rbind(yfs_ebs_standard$specimen,
-                   yfs_ebs_other$specimen))
-
-yfs_ebs_cpue <- gapindex::calc_cpue(racebase_tables = yfs_ebs)
-
-## Standard NBS stations
-yfs_nbs_standard <- get_data(year_set = start_year:current_year,
-                             survey_set = "NBS",
-                             spp_codes = species_code,
-                             pull_lengths = FALSE, 
-                             haul_type = 3, 
-                             abundance_haul = c("Y"),
-                             sql_channel = sql_channel)
-nrow(yfs_nbs_standard$haul)
-
-## Misc. stations in 1985, 1988, and 1991 that were in the NBS but not a part 
-## of the standard stations. These cruises have a different survey definition 
-## ID, so they will not come up in gapindex::get_data()
-yfs_nbs_other_hauls <-
-  RODBC::sqlQuery(channel = sql_channel,
-                  query = paste("SELECT * from RACEBASE.HAUL WHERE",
-                                "CRUISE IN (198502, 198808, 199102) AND",
-                                "HAUL_TYPE = 3 AND PERFORMANCE >= 0 AND",
-                                "ABUNDANCE_HAUL = 'Y'"))
-
-yfs_nbs_other_catch <- RODBC::sqlQuery(
-  channel = sql_channel,
-  query = paste("SELECT HAULJOIN, SPECIES_CODE, WEIGHT, NUMBER_FISH",
-                "FROM RACEBASE.CATCH WHERE",
-                "SPECIES_CODE IN ", gapindex::stitch_entries(species_code),
-                "AND HAULJOIN IN",
-                gapindex::stitch_entries(yfs_nbs_other_hauls$HAULJOIN)))
-
-yfs_nbs_other_cruise <-
-  data.frame(YEAR = c(1988, 1985, 1991),
-             SURVEY_DEFINITION_ID = 112,
-             RODBC::sqlQuery(
-               channel = sql_channel,
-               query = paste("SELECT CRUISEJOIN, REGION, CRUISE",
-                             "FROM RACEBASE.CRUISE WHERE",
-                             "CRUISE IN (198502, 198808, 199102) AND",
-                             "REGION = 'BS'")),
-             CRUISE_ID = NA,
-             SURVEY = "NBS",
-             DESIGN_YEAR = 2022)
-
-yfs_nbs_other <- list(cruise = yfs_nbs_other_cruise,
-                      species = yfs_nbs_standard$species,
-                      haul = yfs_nbs_other_hauls,
-                      catch = yfs_nbs_other_catch)
-
-## 2018 NBS survey that is defined as an EBS survey
-yfs_nbs18 <- get_data(year_set = 2018,
-                      survey_set = "EBS",
-                      spp_codes = species_code,
-                      pull_lengths = TRUE, 
-                      haul_type = 13, 
-                      abundance_haul = "N",
-                      sql_channel = sql_channel)
-yfs_nbs18$cruise$SURVEY <- "NBS"
-yfs_nbs18$cruise$SURVEY_DEFINITION_ID <- 143
+ncpue_test <- compare_tables(x = ncpue_merge, 
+                             key_columns = c("Hauljoin"), 
+                             cols_to_check = data.frame(colname = "Catch_KG", 
+                                                        percent = F, 
+                                                        decplaces = 4),
+                             base_table_suffix = "_sf", 
+                             update_table_suffix = "_gp")
+ncpue_test
+na_recs <- RODBC::sqlQuery(channel = chl, 
+                query = paste("SELECT * 
+                              FROM RACEBASE.CATCH 
+                              WHERE SPECIES_CODE = ",
+                              c("Pacific_cod" = 21720, 
+                                "yellowfin_sole" = 10210)[ispp], 
+                              "AND HAULJOIN IN ", 
+                              gapindex::stitch_entries(ncpue_test$removed_records$Hauljoin)))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Append all NBS data into one list, calculate CPUE
+##   
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-yfs_nbs <- list(cruise = rbind(yfs_nbs_standard$cruise,
-                               yfs_nbs_other$cruise,
-                               yfs_nbs18$cruise),
-                catch = rbind(yfs_nbs_standard$catch,
-                              yfs_nbs_other$catch,
-                              yfs_nbs18$catch),
-                haul = rbind(yfs_nbs_standard$haul,
-                             yfs_nbs_other$haul,
-                             yfs_nbs18$haul),
-                species = yfs_nbs_standard$species)
-yfs_nbs_cpue <- gapindex::calc_cpue(racebase_tables = yfs_nbs)
+agecpue_gp <- 
+  subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                   ispp, "_gp/data_geostat_agecomps.RDS")),
+         select = -c(Pass, AreaSwept_km2, Vessel))
+agecpue_sf <- subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                               ispp, "_sumfish/data_geostat_agecomps.RDS")),
+                     select = -c(Pass, AreaSwept_km2, Vessel))
+agecpue_sf$Catch_KG <- agecpue_sf$Catch_KG * 100 
+
+if (ispp == "Pacific_cod")
+  agecpue_sf <- subset(x = agecpue_sf, Year >= 1994)
+
+agecpue_merge <- merge(x = agecpue_gp, y = agecpue_sf,
+                       by = c("Hauljoin", "Year", "Age"), 
+                       all = T, suffixes = c("_gp", "_sf"))
+head(agecpue_merge)
+
+age_test <- compare_tables(x = agecpue_merge, 
+               key_columns = c("Hauljoin", "Year", "Age"), 
+               cols_to_check = data.frame(colname = "Catch_KG", 
+                                          percent = F, 
+                                          decplaces = 4),
+               base_table_suffix = "_sf", 
+               update_table_suffix = "_gp")
+
+RODBC::sqlQuery(channel = chl, 
+                query = paste("SELECT * 
+                              FROM RACEBASE.CATCH
+                              JOIN (SELECT * FROM RACEBASE.HAUL) USING (HAULJOIN)
+                              WHERE SPECIES_CODE = ",
+                              c("Pacific_cod" = 21720, 
+                                "yellowfin_sole" = 10210)[ispp], 
+                              "AND HAULJOIN IN ", 
+                              gapindex::stitch_entries(sort(unique(age_test$removed_records$Hauljoin)))))
+
+RODBC::sqlQuery(channel = chl, 
+                query = paste("SELECT * 
+                              FROM RACEBASE.LENGTH 
+                              WHERE SPECIES_CODE = ",
+                              c("Pacific_cod" = 21720, 
+                                "yellowfin_sole" = 10210)[ispp], 
+                              "AND HAULJOIN IN ", 
+                              gapindex::stitch_entries(sort(unique(age_test$removed_records$Hauljoin)))))
+
+merge(x = aggregate(Catch_KG ~ Hauljoin,
+                    data = agecpue_sf,
+                    FUN = sum,
+                    subset = Hauljoin %in% age_test$modified_records$Hauljoin),
+      y = ncpue_sf,
+      by = "Hauljoin")
+merge(x = aggregate(Catch_KG ~ Hauljoin,
+                    data = agecpue_gp,
+                    FUN = sum,
+                    subset = Hauljoin %in% age_test$modified_records$Hauljoin),
+      y = ncpue_gp,
+      by = "Hauljoin")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Append EBS and NBS CPUE records
+##   Compare ALKs
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-yfs_ebs_nbs_cpue <- 
-  subset(x = rbind(yfs_ebs_cpue,
-                   yfs_nbs_cpue),
-         subset = !(SPECIES_CODE == 10261 & YEAR < 1995),
-         select = c("SURVEY", "YEAR", "STRATUM", "HAULJOIN",
-                    "LATITUDE_DD_START", "LATITUDE_DD_END",
-                    "LONGITUDE_DD_START", "LONGITUDE_DD_END",
-                    "SPECIES_CODE", "WEIGHT_KG", "COUNT",
-                    "AREA_SWEPT_KM2", "CPUE_KGKM2", "CPUE_NOKM2"))
+alk_gp <- subset(readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                       ispp, "_gp/alk.RDS")))
+alk_sf <- readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                ispp, "_sumfish/unstratified_alk.RDS"))
+names(x = alk_sf) <- c("LENGTH_MM", "AGE", "AGE_FRAC", "SPECIES_CODE",
+                       "SEX", "YEAR", "SURVEY")
+
+alk_merge <- merge(x = alk_gp, y = alk_sf,
+                   by = c("SURVEY", "YEAR", "SPECIES_CODE", 
+                          "SEX", "LENGTH_MM", "AGE"), 
+                   all = T, suffixes = c("_gp", "_sf"))
+head(alk_merge)
+
+alk_test <- compare_tables(x = alk_merge, 
+               key_columns = c("SURVEY", "YEAR", "SPECIES_CODE", 
+                               "SEX", "LENGTH_MM", "AGE"), 
+               cols_to_check = data.frame(colname = "AGE_FRAC", 
+                                          percent = F, 
+                                          decplaces = 4),
+               base_table_suffix = "_sf", 
+               update_table_suffix = "_gp")
+
+subset(alk_test$new, SURVEY == "EBS")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Authorize R to communicate with google drive
+##   
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-googledrive::drive_auth()
-1
+data_gp <- readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                       ispp, "_gp/ebs_data.RDS"))
+data_sf <- readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
+                                ispp, "_sumfish/raw_data.RDS"))
 
-data_sources <- 
-  data.frame(
-    species_code = species_code,
-    link = c("https://drive.google.com/file/d/1xnhrLLgslsS00okHPNA2UqacdgUr-Zyl/view?usp=drive_link",
-             "https://drive.google.com/file/d/1Ceux8QNtl6fV-DHTOTAL3SGV69hfWrTR/view?usp=drive_link",
-             "https://drive.google.com/file/d/15ohn8ZAauygf3ixA3FCe0211pYZINKnN/view?usp=drive_link",
-             "https://drive.google.com/file/d/19pRwy-Z-I9YzaojYGfVd3Iooy6q99X0P/view?usp=drive_link")
-  )
+unique_hauls_cpue_sf <- data_sf$NBS$haul$HAULJOIN
+unique_hauls_otos_sf <- sort(unique(data_sf$NBS$specimen$HAULJOIN[!is.na(x = data_sf$NBS$specimen$AGE)]))
 
-for (irow in 1:nrow(data_sources)) {
-  googledrive::with_drive_quiet(
-    googledrive::drive_download( 
-      file = googledrive::as_id(x = data_sources$link[irow]),
-      overwrite = TRUE,
-      path = paste0("temp/VAST_Index_", data_sources$species_code[irow], ".RDS")
-      )
-    )
-  
-  temp_file <- readRDS(file = paste0("temp/VAST_Index_",
-                                     data_sources$species_code[irow],
-                                     ".RDS"))
-  
-  temp_gapindex <- subset(yfs_ebs_nbs_cpue, 
-                          SPECIES_CODE == data_sources$species_code[irow])
-  temp_gapindex$CPUE_KGKM2 <- temp_gapindex$CPUE_KGKM2 / 100
-  
-  test <- merge(x = temp_file[, c("HAULJOIN", "wCPUE")],
-                y = temp_gapindex[, c("HAULJOIN", "CPUE_KGKM2")],
-                by = "HAULJOIN")
-  test$diff <- test$wCPUE  - test$CPUE_KGKM2
-  cat("Number of mismatched records for", 
-      data_sources$species_code[irow], "-", sum(round(test$diff, 1) != 0), "\n")
-}
+
+RODBC::sqlQuery(channel = chl,
+                query = paste("SELECT HAULJOIN, FLOOR(CRUISE/100) AS YEAR, 
+                              STRATUM, HAUL_TYPE, PERFORMANCE, ABUNDANCE_HAUL
+                              FROM RACEBASE.HAUL
+                              WHERE HAULJOIN IN",
+                              gapindex::stitch_entries(unique_hauls_otos_sf[!(unique_hauls_otos_sf %in% unique_hauls_cpue_sf)])))
+
+unique_hauls_cpue_gp <- data_gp$haul$HAULJOIN
+unique_hauls_otos_gp <- sort(unique(data_gp$specimen$HAULJOIN))
+unique_hauls_otos_gp[!(unique_hauls_otos_gp %in% unique_hauls_cpue_gp)]
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+summed_agecpue_gp <- aggregate(Catch_KG ~ Hauljoin + Year, data = agecpue_gp, FUN = sum)
+
+compare_tables(x = merge(x = summed_agecpue_gp,
+                         y = ncpue_gp,
+                         by = c("Hauljoin", "Year"),
+                         suffixes = c("_age", "_ncpue")), 
+               key_columns = c("Hauljoin", "Year"), 
+               cols_to_check = data.frame(colname = "Catch_KG", 
+                                          percent = F, 
+                                          decplaces = 4),
+               base_table_suffix = "_age", 
+               update_table_suffix = "_ncpue")
+
+
