@@ -51,6 +51,10 @@ STRATUM_GROUPS <-
   as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
                                    sheet = "STRATUM_GROUPS"))
 
+SHAPE <- 
+  as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
+                                   sheet = "SHAPE"))
+
 SPECIES_YEAR <- 
   as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
                                    sheet = "SPECIES_YEAR"))
@@ -70,7 +74,7 @@ main_metadata_columns <-
           "METADATA_DATATYPE" = "NUMBER(36, 0)",
           "METADATA_COLNAME_DESC" = "The starting year for a SPECIES_CODE in the time series." ))
 
-for (idata in c("SURVEY_DESIGN", "AREA", "STRATUM_GROUPS", "SPECIES_YEAR")) {
+for (idata in c("SURVEY_DESIGN", "AREA", "STRATUM_GROUPS", "SHAPE", "SPECIES_YEAR")) {
   
   match_idx <- 
     match(x = names(x = get(x = idata)), 
@@ -78,11 +82,11 @@ for (idata in c("SURVEY_DESIGN", "AREA", "STRATUM_GROUPS", "SPECIES_YEAR")) {
   
   metadata_columns <- 
     with(main_metadata_columns,
-         data.frame( colname = toupper(METADATA_COLNAME[match_idx]), 
-                     colname_long = METADATA_COLNAME_LONG[match_idx], 
-                     units = METADATA_UNITS[match_idx], 
-                     datatype = METADATA_DATATYPE[match_idx], 
-                     colname_desc = METADATA_COLNAME_DESC[match_idx]))
+         data.frame(colname = toupper(METADATA_COLNAME[match_idx]), 
+                   colname_long = METADATA_COLNAME_LONG[match_idx], 
+                   units = METADATA_UNITS[match_idx], 
+                   datatype = METADATA_DATATYPE[match_idx], 
+                   colname_desc = METADATA_COLNAME_DESC[match_idx]))
   
   gapindex::upload_oracle(
     channel = sql_channel,
