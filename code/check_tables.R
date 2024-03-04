@@ -20,7 +20,7 @@ source(file = "functions/compare_tables.R")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Main result object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-mismatches <- list()
+mismatches <- list() 
 regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,7 +110,7 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
                     "BIOMASS_MT", "BIOMASS_VAR", 
                     "POPULATION_COUNT", "POPULATION_VAR"),
         percent = c(F, F, T, T, T, T, T, T, T, T),
-        decplaces = c(0, 0, 2, 2, 2, 2, 2, 2, 1, 2)),
+        decplaces = c(0, 0, 2, 2, 2, 2, 2, 2, 0, 2)),
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
@@ -164,47 +164,59 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   gp_agecomp <- 
     subset(x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_AGECOMP",
                                       "_", regions[iregion], ".csv")))
-  production_agecomp <- 
-    read.csv(file = paste0("temp/production/production_agecomp", 
-                           "_", regions[iregion], ".csv"))
-  
-  ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
-  ## YEAR, and SPECIES_CODE, SEX, AND AGE as a composite key
-  test_agecomp <- merge(x = subset(x = gp_agecomp,
-                                   ## Don't compare mock GOA 2025 data
-                                   subset = YEAR != 2025),
-                        y = subset(x = production_agecomp,
-                                   ## Don't compare mock GOA 2025 data
-                                   subset = YEAR != 2025),
-                        all = TRUE,
-                        suffixes = c("_CURRENT", "_UPDATE"),
-                        by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
-                               "SPECIES_CODE", "SEX", "AGE"))
-  
-  ## Evaluate the new, removed, and modified records between the two tables
-  eval_agecomp <- 
-    compare_tables(
-      x = test_agecomp,
-      cols_to_check = data.frame(
-        colname = c("POPULATION_COUNT", "LENGTH_MM_MEAN", "LENGTH_MM_SD"),
-        percent = c(F, T, T),
-        decplaces = c(0, 2, 2)),
-      base_table_suffix = "_CURRENT",
-      update_table_suffix = "_UPDATE",
-      key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
-                      "SPECIES_CODE", "SEX", "AGE"))
-  
-  cat(paste0("Finished with AGECOMP for the ", regions[iregion], " Region\n"))
-  
-  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ##  Attach to mismatch objects
-  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  mismatches[[regions[iregion]]] <- 
-    list(cpue = eval_cpue,
-         biomass = eval_biomass,
-         sizecomp = eval_sizecomp,
-         agecomp = eval_agecomp)
-  
+  if (regions[iregion] == "EBS") {
+    production_agecomp <- 
+      subset(x = read.csv(file = paste0("temp/production/production_agecomp", 
+                                        "_", regions[iregion], ".csv")),
+             subset = AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW",
+             select = -AREA_ID_FOOTPRINT)
+  } else (
+    production_agecomp <- 
+      read.csv(file = paste0("temp/production/production_agecomp", 
+                             "_", regions[iregion], ".csv"))
+  )
+
+
+
+## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
+## YEAR, and SPECIES_CODE, SEX, AND AGE as a composite key
+test_agecomp <- merge(x = subset(x = gp_agecomp,
+                                 ## Don't compare mock GOA 2025 data
+                                 subset = YEAR != 2025),
+                      y = subset(x = production_agecomp,
+                                 ## Don't compare mock GOA 2025 data
+                                 subset = YEAR != 2025),
+                      all = TRUE,
+                      suffixes = c("_CURRENT", "_UPDATE"),
+                      by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
+                             # "AREA_ID_FOOTPRINT",
+                             "SPECIES_CODE", "SEX", "AGE"))
+
+## Evaluate the new, removed, and modified records between the two tables
+eval_agecomp <- 
+  compare_tables(
+    x = test_agecomp,
+    cols_to_check = data.frame(
+      colname = c("POPULATION_COUNT", "LENGTH_MM_MEAN", "LENGTH_MM_SD"),
+      percent = c(F, T, T),
+      decplaces = c(0, 2, 2)),
+    base_table_suffix = "_CURRENT",
+    update_table_suffix = "_UPDATE",
+    key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
+                    # "AREA_ID_FOOTPRINT",
+                    "SPECIES_CODE", "SEX", "AGE"))
+
+cat(paste0("Finished with AGECOMP for the ", regions[iregion], " Region\n"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  Attach to mismatch objects
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mismatches[[regions[iregion]]] <- 
+  list(cpue = eval_cpue,
+       biomass = eval_biomass,
+       sizecomp = eval_sizecomp,
+       agecomp = eval_agecomp)
+
 } ## Loop over regions -- end
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,25 +233,31 @@ gapindex_version <-
          subset = Package == "gapindex")$Version
 
 detailed_notes <- 
-"gapindex Version
+  "A new version of gapindex [2.2.0](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.2.0) was used for this production run and now accesses taxonomic information from RACEBASE.SPECIES instead of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION. As a result, there will be some SPECIES_CODE values that are supported due to slight differences between the two tables. Discussion in this [github issue #54](https://github.com/afsc-gap-products/gapindex/issues/54). As a result there are new cpue records for SPECIES_CODE values 22290 and 22292 and removed cpue records for SPECIES_CODE values 21345, 22200 and 69326. 
 
-- A new version of gapindex ([v2.1.3](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.1.3)) was used to produced these data.
+- GOA: There are 19 records of unidentified snailfish (22200) that were vouchered to Careproctus sp. cf. melanurus (Orr et al.; 22290)
 
-Biomass removals:
+- NBS: There was one record of Hemilepidotus zapus (21345) that was vouchered and modified to Myoxocephalus scorpius (21368) and a record of unidentified Liparis sp. snailfishes (22201) that were vouchered as Liparis gibbus (22205) and Liparis marmoratus (22265).
 
--  Data for SPECIES_CODE 68590 (Chionoecetes hybrids) are now removed, per this issue (https://github.com/afsc-gap-products/gap_products/issues/3)
+-EBS: There was one record addition for Pagurus rathbuni (69095). 
 
-Age data additions:
+- AREA_ID values for Aleutian Islands Southern Bering Sea INPFC x Depth subareas were renamed to eliminate the historical redundancy of 793 and 794 coding for both strata and INPFC x Depth subareas. Discussion in this [github issue #28](https://github.com/afsc-gap-products/gap_products/issues/28). These changes were made to the GAP_PRODUCTS.AREA and GAP_PRODUCTS.STRATUM_GROUPS table and affects the new/removed records summary for the AI region.
 
-- Aleutian Islands: 2022 otolith data for Atka mackerel were added. 
-- Gulf of Alaska: 2021 otolith data for arrowtooth flounder were added. 
-- Northern Bering Sea: 2022 otolith data walleye pollock were added
+AREA_TYPE	      OLD AREA_ID	  NEW AREA_ID
 
-Size comp modifications:
+INPFC BY DEPTH	791	          7891
 
-- Gulf of Alaska: Depth subareas 995 and 996 were added. 
-- Eastern Bering Sea: size composition for unidentified skates (SPECIES_CODE 400) now included. Two records for Bering skate (SPECIES_CODE 435, strata 50 and 90, Year 2010), were removed. 
+INPFC BY DEPTH	792         	7892
 
+INPFC BY DEPTH	793	          7893
+
+INPFC BY DEPTH	794	          7894
+
+- The SURVEY field was removed from GAP_PRODUCTS.SURVEY_DESIGN
+
+- The 2023 versions of the Bering Slope areas were used to calculate indices and comps. As a result, the GAP_PRODUCTS.SURVEY_DESIGN table was modified to include DESIGN_YEAR = 2023 for all Bering Sea slope survey years. As a result, the Bering Sea slope biomass values for all SPECIES_CODE values will be slightly modified.  
+
+- The EBS Standard Area agecomps are now added to the GAP_PRODUCTS.AGECOMP table. To distinguish these agecomps from those from the EBS Standard + NW area, an additional field called AREA_ID_FOOTPRINT has been created to distinguish the two EBS survey footprints. Unique values for this field will be 'GOA', 'AI', 'BSS', 'EBS STANDARD', 'EBS STANDARD PLUS NW', 'NBS'.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
