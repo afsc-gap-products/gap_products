@@ -177,6 +177,95 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     rbind(production_agecomp_region,
           production_agecomp_stratum$age_comp[, names(production_agecomp_region)])
   
+  production_agecomp$AREA_ID_FOOTPRINT <- 
+    c("52" = "AI", "47" = "GOA", "78" = "BSS", 
+      "98" = "EBS STANDARD PLUS NW", "143" = "NBS" )[paste(regions[iregion])]
+  
+  ## if EBS, recalculate agecomps using only the EBS Standard Region (sans
+  ## strata 82 and 90) and then append to production_agecomp.
+  if (regions[iregion] == 98) {
+    ## Remove hauls and data associated with hauls in strata 82 and 90
+    production_data_ebsstand <- production_data
+    ebs_standard_hauls <- 
+      with(production_data_ebsstand$haul, HAULJOIN[!(STRATUM %in% c(82, 90))])
+    
+    production_data_ebsstand$haul <- 
+      subset(x = production_data_ebsstand$haul, 
+             subset = HAULJOIN %in% ebs_standard_hauls)
+    production_data_ebsstand$catch <- 
+      subset(x = production_data_ebsstand$catch, 
+             subset = HAULJOIN %in% ebs_standard_hauls)
+    production_data_ebsstand$size <- 
+      subset(x = production_data_ebsstand$size, 
+             subset = HAULJOIN %in% ebs_standard_hauls)
+    production_data_ebsstand$specimen <- 
+      subset(x = production_data_ebsstand$specimen, 
+             subset = HAULJOIN %in% ebs_standard_hauls)
+    production_data_ebsstand$strata <- 
+      subset(x = production_data_ebsstand$strata, 
+             subset = !(STRATUM %in% c(82, 90)))
+    
+    ## Remove subareas associated with the EBS + NW region
+    production_data_ebsstand$subarea <- 
+      subset(x = production_data_ebsstand$subarea, 
+             subset = !(AREA_ID %in% c(7, 8, 9, 100, 200, 300, 99900)))
+    
+    ## Calculate and zero-fill CPUE
+    production_cpue_ebsstand <-
+      gapindex::calc_cpue(racebase_tables = production_data_ebsstand)
+    
+    ## Calculate biomass/abundance (w/variance), mean/variance CPUE across strata
+    production_biomass_stratum_ebsstand <-
+      gapindex::calc_biomass_stratum(
+        racebase_tables = production_data_ebsstand,
+        cpue = production_cpue_ebsstand)
+    
+    ## Calculate size composition by stratum. Since the two regions have
+    ## different functions, sizecomp_fn toggles which function to use
+    ## and then it is called in the do.call function.
+    production_sizecomp_stratum_ebsstand <- 
+      gapindex::calc_sizecomp_stratum(
+        racebase_tables = production_data_ebsstand,
+        racebase_cpue = production_cpue_ebsstand,
+        racebase_stratum_popn = production_biomass_stratum_ebsstand,
+        spatial_level = "stratum",
+        fill_NA_method = "BS")
+    
+    # Calculate regional ALK only including hauls in the EBS Standard Region
+    production_alk_ebsstand <- 
+      subset(x = gapindex::calc_alk(
+        racebase_tables = production_data_ebsstand,
+        unsex = c("all", "unsex")[1], 
+        global = FALSE),
+        subset = AGE_FRAC > 0)
+    
+    ## Calculate age composition by stratum
+    production_agecomp_stratum_ebsstand <- 
+      gapindex::calc_agecomp_stratum(
+        racebase_tables = production_data_ebsstand,
+        alk = production_alk_ebsstand,
+        size_comp = production_sizecomp_stratum_ebsstand)
+    
+    ## Aggregate `production_agecomp_stratum` to subareas and regions
+    production_agecomp_region_ebsstand <- 
+      gapindex::calc_agecomp_region(
+        racebase_tables = production_data_ebsstand,
+        age_comps_stratum = production_agecomp_stratum_ebsstand)
+    
+    # Change "STRATUM" field name to "AREA_ID"
+    names(x = production_agecomp_stratum_ebsstand$age_comp)[
+      names(x = production_agecomp_stratum_ebsstand$age_comp) == "STRATUM"] <- 
+      "AREA_ID"
+    production_agecomp_stratum_ebsstand$age_comp$AREA_ID_FOOTPRINT <- "EBS STANDARD"
+    production_agecomp_region_ebsstand$AREA_ID_FOOTPRINT <- "EBS STANDARD"
+    
+    production_agecomp <- 
+      rbind(production_agecomp,
+            production_agecomp_region_ebsstand,
+            production_agecomp_stratum_ebsstand$age_comp[, names(x = production_agecomp_region_ebsstand)])
+
+  }
+  
   ## For certain SPECIES_CODEs, constrain all of the data tables to only the
   ## years when we feel confident about their taxonomic accuracy, e.g., remove
   ## northern rock sole values prior to 1996.
@@ -205,10 +294,12 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   ## The EBS agecomp only applies to the Standard + NW area and thus should only
   ## go back to 1987.
   if (names(x = regions[iregion]) == "EBS") {
+    
     production_agecomp <- subset(x = production_agecomp,
-                                 subset = YEAR >= 1987)
+                                 subset = (YEAR >= 1987 & AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW") |
+                                   (YEAR >= 1982 & AREA_ID_FOOTPRINT == "EBS STANDARD"))
     production_agecomp <- subset(x = production_agecomp,
-                                 subset = AREA_ID != 99901)
+                                 subset = !(AREA_ID == 99901 & AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW"))
   }
 
   ## Save to the temp/ folder 
