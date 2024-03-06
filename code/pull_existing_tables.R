@@ -19,7 +19,8 @@ sql_channel <- gapindex::get_connected()
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 data_tables <- c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP")
-support_tables <- c("METADATA_COLUMN", "METADATA_TABLE", "AREA")
+support_tables <- c("METADATA_COLUMN", "METADATA_TABLE", "AREA", 
+                    "STRATUM_GROUPS")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull GAP_PRODUCTS data tables. Separate the data tables by region for 

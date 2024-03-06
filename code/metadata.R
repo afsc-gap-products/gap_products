@@ -39,7 +39,8 @@ AREA <- readxl::read_xlsx(path = "temp/future_oracle.xlsx",
                           sheet = "AREA") 
 STRATUM_GROUPS <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
                                     sheet = "STRATUM_GROUPS") 
-
+SURVEY_DESIGN <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+                                    sheet = "SURVEY_DESIGN") 
 shared_metadata_comment <-
   with(metadata_table, 
        paste(
@@ -71,6 +72,12 @@ STRATUM_GROUPS_comment <- paste(
   "These tables are created", shared_metadata_comment
 )
 
+SURVEY_DESIGN_comment <- paste(
+  "This table contains for a given survey (via SURVEY_DEFINITION_ID) and",
+  "survey year (YEAR), which version (DESIGN_YEAR) of the AREA_IDs that were",
+  "used to calculate the various standard data products.",
+  "These tables are created", shared_metadata_comment
+)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Clean up metadata_column: df that houses metadata column info
@@ -112,7 +119,8 @@ metadata_column_comment <- paste0(
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (isql_table in c("metadata_table", 
                      "metadata_column",
-                     "AREA", "STRATUM_GROUPS")) { ## loop over tables -- start
+                     "AREA", "STRATUM_GROUPS", 
+                     "SURVEY_DESIGN")) { ## loop over tables -- start
   
   ## Temporary dataframe that houses comment on each field The 
   ## field names in get(x = isql_table) should match those in 
@@ -142,3 +150,21 @@ for (isql_table in c("metadata_table",
                           share_with_all_users = TRUE)
   
 } ## loop over tables -- end
+
+## Set up primary key for AREA table
+RODBC::sqlQuery(channel = chl,
+                query = "ALTER TABLE GAP_PRODUCTS.AREA 
+                ADD CONSTRAINT AREA_CONTRAINT 
+                PRIMARY KEY (SURVEY_DEFINITION_ID, DESIGN_YEAR, AREA_ID); ")
+
+## Set up primary key for STRATUM_GROUPS table
+RODBC::sqlQuery(channel = chl,
+                query = "ALTER TABLE GAP_PRODUCTS.STRATUM_GROUPS
+                ADD CONSTRAINT STRATUM_GROUPS_CONTRAINT
+                PRIMARY KEY (SURVEY_DEFINITION_ID, DESIGN_YEAR, AREA_ID, STRATUM); ")
+
+## Set up primary key for SURVEY_DESIGN table
+RODBC::sqlQuery(channel = chl,
+                query = "ALTER TABLE SURVEY_DESIGN
+                ADD CONSTRAINT SURVEY_DESIGN_CONTRAINT
+                PRIMARY KEY (SURVEY_DEFINITION_ID, YEAR); ")
