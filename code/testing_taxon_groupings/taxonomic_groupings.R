@@ -1,7 +1,10 @@
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Project:     DRAFT--taxonomic groupings for production run
 ## Author:        
-## Description: 
+## Description: Create the taxon groupings for major invertebrate taxa 
+##              Currently, this leaves out shrimps, stony corals, sea urchins,
+##              bivalves, octopuses, and snails, misc. groups like fish eggs,
+##              shab, empty shells.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
@@ -49,15 +52,15 @@ for (irow in 1:nrow(x = GROUPED_TAXA)) {
                                    GROUPED_TAXA$LOWEST_TAXONOMIC_NAME[irow], 
                                    "'"))
   
-  temp_grab$GROUP <- GROUPED_TAXA$SPECIES_CODE[irow]
+  temp_grab$GROUP_CODE <- GROUPED_TAXA$SPECIES_CODE[irow]
   grouped_taxa_df <- rbind(grouped_taxa_df, temp_grab)
 }
 
 
 ## Separate sea pens from Octocorallia 
-grouped_taxa_df$GROUP[grouped_taxa_df$SUPERFAMILY_TAXON == 'Pennatuloidea'] <- 42000
+grouped_taxa_df$GROUP_CODE[grouped_taxa_df$SUPERFAMILY_TAXON == 'Pennatuloidea'] <- 42000
 ## Separate basket stars from brittle stars
-grouped_taxa_df$GROUP[grouped_taxa_df$SUBORDER_TAXON == "Euryalina"] <- 83020
+grouped_taxa_df$GROUP_CODE[grouped_taxa_df$SUBORDER_TAXON == "Euryalina"] <- 83020
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Stage Two: All fish species_codes and invertebrates where the minimum
@@ -69,7 +72,7 @@ fish_taxa <-
                   query = "SELECT *
                            FROM RACEBASE.SPECIES_CLASSIFICATION 
                            WHERE SUBPHYLUM_TAXON = 'Vertebrata'")
-fish_taxa$GROUP = fish_taxa$SPECIES_CODE
+fish_taxa$GROUP_CODE = fish_taxa$SPECIES_CODE
 
 # Remove Myctophids
 fish_taxa <- subset(fish_taxa,
@@ -77,8 +80,9 @@ fish_taxa <- subset(fish_taxa,
 
 ## Separate Lycodapus eelpouts and group into Lycodapus sp. (24230), then
 ## remove from fish_taxa
-lycodapus <- subset(x = fish_taxa, subset = GENUS_TAXON == "Lycodapus")
-lycodapus$GROUP <- 24230
+lycodapus <- subset(x = fish_taxa, 
+                    subset = GENUS_TAXON == "Lycodapus")
+lycodapus$GROUP_CODE <- 24230
 fish_taxa <- subset(fish_taxa,
                     subset = GENUS_TAXON != "Lycodapus" | is.na(x = GENUS_TAXON))
 
@@ -88,10 +92,10 @@ fish_taxa <- subset(fish_taxa,
 ## Extract all squids
 squids <- 
   RODBC::sqlQuery(channel = chl,
-                  query = paste0("SELECT *
-                                  FROM RACEBASE.SPECIES_CLASSIFICATION
-                                  WHERE SUPERORDER_TAXON = 'Decapodiformes'"))  
-squids$GROUP <- squids$SPECIES_CODE
+                  query = "SELECT *
+                           FROM RACEBASE.SPECIES_CLASSIFICATION
+                           WHERE SUPERORDER_TAXON = 'Decapodiformes'")  
+squids$GROUP_CODE <- squids$SPECIES_CODE
 
 ## Extract hermit crabs
 hermit_crabs <-
@@ -99,7 +103,7 @@ hermit_crabs <-
                   query = "SELECT *
                            FROM RACEBASE.SPECIES_CLASSIFICATION 
                            WHERE FAMILY_TAXON = 'Paguridae'")
-hermit_crabs$GROUP <- hermit_crabs$SPECIES_CODE
+hermit_crabs$GROUP_CODE <- hermit_crabs$SPECIES_CODE
 
 ## Extract true crabs minus the commercial ones
 true_crabs <-
@@ -108,7 +112,7 @@ true_crabs <-
                            FROM RACEBASE.SPECIES_CLASSIFICATION 
                            WHERE INFRAORDER_TAXON = 'Brachyura'
                            AND GENUS_TAXON != 'Chionoecetes'")  
-true_crabs$GROUP <- true_crabs$SPECIES_CODE
+true_crabs$GROUP_CODE <- true_crabs$SPECIES_CODE
 
 ## Extract sand dollar SPECIES_CODEs
 sand_dollars <-
@@ -116,7 +120,7 @@ sand_dollars <-
                   query = "SELECT *
                            FROM RACEBASE.SPECIES_CLASSIFICATION 
                            WHERE SUPERORDER_TAXON = 'Gnathostomata'")
-sand_dollars$GROUP <- sand_dollars$SPECIES_CODE
+sand_dollars$GROUP_CODE <- sand_dollars$SPECIES_CODE
 
 ## Extract sea star SPECIES_CODEs
 sea_stars <- 
@@ -124,11 +128,11 @@ sea_stars <-
                   query = "SELECT *
                            FROM RACEBASE.SPECIES_CLASSIFICATION 
                            WHERE CLASS_TAXON = 'Asteroidea'")
-sea_stars$GROUP <- sea_stars$SPECIES_CODE
+sea_stars$GROUP_CODE <- sea_stars$SPECIES_CODE
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Which SPECIES_CODEs in RACEBASE.SPECIES_CLASSIFICATION belong to a 
-##   GROUP (i.e., either in a complex or presented individually) and which
+##   GROUP_CODE (i.e., either in a complex or presented individually) and which
 ##   SPECIES_CODEs are left out for now. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 all_spp_codes <- 
@@ -140,9 +144,10 @@ all_taxa <- rbind(grouped_taxa_df, fish_taxa, lycodapus, squids, hermit_crabs,
                   true_crabs, sand_dollars, sea_stars)
 all_taxa <- merge(x = all_spp_codes,
                   all.x = TRUE,
-                  y = all_taxa[, c("SPECIES_CODE", "GROUP")],
+                  y = all_taxa[, c("SPECIES_CODE", "GROUP_CODE")],
                   by = "SPECIES_CODE")
-all_taxa[, names(all_taxa)[c(ncol(x = all_taxa), 1:(ncol(x = all_taxa) - 1))]]
+all_taxa <- 
+  all_taxa[, names(all_taxa)[c(ncol(x = all_taxa), 1:(ncol(x = all_taxa) - 1))]]
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Upload to Oracle
@@ -161,7 +166,7 @@ names(x = metadata_column_info) <-
        replacement = "")
 
 metadata_column_info <- 
-  rbind(data.frame(colname = "GROUP",
+  rbind(data.frame(colname = "GROUP_CODE",
                    colname_long = "SPECIES_CODE or COMPLEX_CODE",
                    units = "ID key code",
                    datatype = "NUMBER(38,0)",
@@ -172,7 +177,7 @@ metadata_column_info <-
 gapindex::upload_oracle(x = all_taxa,
                         table_name = "TAXON_GROUPS", 
                         metadata_column = metadata_column_info, 
-                        table_metadata = "This lookup table is a copy of RACEBASE.SPECIES_CLASSIFICATION but with an added field GROUP to identify species complexes. To be used in the production of the GAP_PRODUCTS tables.", 
+                        table_metadata = "This lookup table is a copy of RACEBASE.SPECIES_CLASSIFICATION but with an added field GROUP_CODE to identify species complexes. To be used in the production of the GAP_PRODUCTS tables.", 
                         channel = chl, 
                         schema = "GAP_PRODUCTS", 
                         share_with_all_users = TRUE)
