@@ -332,8 +332,8 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="foss_catch" class="level3">
 <h3 class="anchored" data-anchor-id="foss_catch">FOSS_CATCH</h3>
-<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated February 10, 2024.</p>
-<p>Number of rows: 928,931</p>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated March 04, 2024.</p>
+<p>Number of rows: 939,197</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -416,7 +416,7 @@ HAULJOIN
 Haul ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -433,7 +433,7 @@ SPECIES_CODE
 Taxon code
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -482,8 +482,8 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </section>
 <section id="foss_haul" class="level3">
 <h3 class="anchored" data-anchor-id="foss_haul">FOSS_HAUL</h3>
-<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated February 10, 2024.</p>
-<p>Number of rows: 32,626</p>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated March 04, 2024.</p>
+<p>Number of rows: 33,334</p>
 <p>Number of columns: 27</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -529,7 +529,7 @@ The area the net covered while the net was fishing (kilometers squared), defined
 BOTTOM_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Bottom temperature (degrees celsius)
+Bottom temperature (degrees Celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -546,10 +546,10 @@ Bottom temperature (tenths of a degree Celsius); NA indicates removed or missing
 CRUISE
 </td>
 <td style="text-align:left;">
-Cruise ID
+Cruise Name
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -566,7 +566,7 @@ CRUISEJOIN
 Cruise ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -651,7 +651,7 @@ HAUL
 Haul number
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -668,7 +668,7 @@ HAULJOIN
 Haul ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -801,7 +801,7 @@ This denotes what, if any, issues arose during the haul. For more information, r
 SRVY
 </td>
 <td style="text-align:left;">
-Survey
+Survey abbreviation
 </td>
 <td style="text-align:left;">
 text abbreviated
@@ -821,7 +821,7 @@ STATION
 Station ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 VARCHAR2(255 BYTE)
@@ -838,7 +838,7 @@ STRATUM
 Stratum ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(10,0)
@@ -852,7 +852,7 @@ RACE database statistical area for analyzing data. Strata were designed using ba
 SURFACE_TEMPERATURE_C
 </td>
 <td style="text-align:left;">
-Surface temperature (Degrees Celsius)
+Surface temperature (degrees Celsius)
 </td>
 <td style="text-align:left;">
 degrees Celsius
@@ -869,7 +869,7 @@ Surface temperature (tenths of a degree Celsius); NA indicates removed or missin
 SURVEY
 </td>
 <td style="text-align:left;">
-Survey Name
+Survey name
 </td>
 <td style="text-align:left;">
 text
@@ -889,13 +889,13 @@ SURVEY_DEFINITION_ID
 Survey ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -903,7 +903,7 @@ The survey definition ID code uniquely identifies a survey/survey design. The co
 SURVEY_NAME
 </td>
 <td style="text-align:left;">
-Survey name
+Survey name official
 </td>
 <td style="text-align:left;">
 text
@@ -923,13 +923,13 @@ VESSEL_ID
 Vessel ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-ID number of the vessel used to collect data for that haul. The column ‘vessel_id’ is associated with the ‘vessel_name’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+ID number of the vessel used to collect data for that haul. The column ‘vessel_id’ is associated with the ‘vessel_name’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -946,7 +946,7 @@ text
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Name of the vessel used to collect data for that haul. The column ‘vessel_name’ is associated with the ‘vessel_id’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+Name of the vessel used to collect data for that haul. The column ‘vessel_name’ is associated with the ‘vessel_id’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -972,8 +972,8 @@ Year the observation (survey) was collected.
 </section>
 <section id="foss_species" class="level3">
 <h3 class="anchored" data-anchor-id="foss_species">FOSS_SPECIES</h3>
-<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated February 10, 2024.</p>
-<p>Number of rows: 1,890</p>
+<p>These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and FOSS_SPECIES, when full joined by the HAULJOIN variable, includes zero-filled (presence and absence) observations and catch-per-unit-effort (CPUE) estimates for all identified species at for index stations. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated March 04, 2024.</p>
+<p>Number of rows: 1,894</p>
 <p>Number of columns: 6</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1036,10 +1036,10 @@ Lowest taxonomic rank of a given species entry.
 ITIS
 </td>
 <td style="text-align:left;">
-ITIS taxonomic serial number
+Integrated taxonomic information system (ITIS) serial number
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -1073,7 +1073,7 @@ SPECIES_CODE
 Taxon code
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -1087,10 +1087,10 @@ The species code of the organism associated with the ‘common_name’ and ‘sc
 WORMS
 </td>
 <td style="text-align:left;">
-World Register of Marine Species Taxonomic Serial Number
+World register of marine species (WoRMS) taxonomic serial number
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -1105,8 +1105,8 @@ Species code as identified in the World Register of Marine Species (WoRMS) (http
 </section>
 <section id="foss_survey_species" class="level3">
 <h3 class="anchored" data-anchor-id="foss_survey_species">FOSS_SURVEY_SPECIES</h3>
-<p>This reference dataset contains the full list of species by survey to be used to zero-fill FOSS_CATCH and FOSS_HAUL for each survey. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated February 10, 2024.</p>
-<p>Number of rows: 5,025</p>
+<p>This reference dataset contains the full list of species by survey to be used to zero-fill FOSS_CATCH and FOSS_HAUL for each survey. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated March 04, 2024.</p>
+<p>Number of rows: 5,030</p>
 <p>Number of columns: 2</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1138,7 +1138,7 @@ SPECIES_CODE
 Taxon code
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
@@ -1155,13 +1155,13 @@ SURVEY_DEFINITION_ID
 Survey ID
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code uniquely identifies a survey/survey design. The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -1170,7 +1170,7 @@ The survey definition ID code uniquely identifies a survey/survey design. The co
 </section>
 <section id="foss_taxon_group" class="level3">
 <h3 class="anchored" data-anchor-id="foss_taxon_group">FOSS_TAXON_GROUP</h3>
-<p>This reference dataset contains suggested search groups for simplifying species selection in the FOSS data platform so users can better search through FOSS_CATCH. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated February 10, 2024.</p>
+<p>This reference dataset contains suggested search groups for simplifying species selection in the FOSS data platform so users can better search through FOSS_CATCH. These tables were created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated March 04, 2024.</p>
 <p>Number of rows: 33,721</p>
 <p>Number of columns: 3</p>
 
@@ -1237,7 +1237,7 @@ SPECIES_CODE
 Taxon code
 </td>
 <td style="text-align:left;">
-ID code
+ID key code
 </td>
 <td style="text-align:left;">
 NUMBER(38,0)
