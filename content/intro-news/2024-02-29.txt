@@ -1,0 +1,110 @@
+GAP_PRODUCTS ChangeLog (last produced on 2024-02-29) using gapindex v2.2.0
+A new version of gapindex [2.2.0](https://github.com/afsc-gap-products/gapindex/releases/tag/v2.2.0) was used for this production run and now accesses taxonomic information from RACEBASE.SPECIES instead of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION. As a result, there will be some SPECIES_CODE values that are supported due to slight differences between the two tables. Discussion in this [github issue #54](https://github.com/afsc-gap-products/gapindex/issues/54). As a result there are new cpue records for SPECIES_CODE values 22290 and 22292 and removed cpue records for SPECIES_CODE values 21345, 22200 and 69326. 
+
+- GOA: There are 19 records of unidentified snailfish (22200) that were vouchered to Careproctus sp. cf. melanurus (Orr et al.; 22290)
+
+- NBS: There was one record of Hemilepidotus zapus (21345) that was vouchered and modified to Myoxocephalus scorpius (21368) and a record of unidentified Liparis sp. snailfishes (22201) that were vouchered as Liparis gibbus (22205) and Liparis marmoratus (22265).
+
+-EBS: There was one record addition for Pagurus rathbuni (69095). 
+
+- AREA_ID values for Aleutian Islands Southern Bering Sea INPFC x Depth subareas were renamed to eliminate the historical redundancy of 793 and 794 coding for both strata and INPFC x Depth subareas. Discussion in this [github issue #28](https://github.com/afsc-gap-products/gap_products/issues/28). These changes were made to the GAP_PRODUCTS.AREA and GAP_PRODUCTS.STRATUM_GROUPS table and affects the new/removed records summary for the AI region.
+
+AREA_TYPE	      OLD AREA_ID	  NEW AREA_ID
+
+INPFC BY DEPTH	791	          7891
+
+INPFC BY DEPTH	792         	7892
+
+INPFC BY DEPTH	793	          7893
+
+INPFC BY DEPTH	794	          7894
+
+- The SURVEY field was removed from GAP_PRODUCTS.SURVEY_DESIGN
+
+- The 2023 versions of the Bering Slope areas were used to calculate indices and comps. As a result, the GAP_PRODUCTS.SURVEY_DESIGN table was modified to include DESIGN_YEAR = 2023 for all Bering Sea slope survey years. As a result, the Bering Sea slope biomass values for all SPECIES_CODE values will be slightly modified.  
+
+- The EBS Standard Area agecomps are now added to the GAP_PRODUCTS.AGECOMP table. To distinguish these agecomps from those from the EBS Standard + NW area, an additional field called AREA_ID_FOOTPRINT has been created to distinguish the two EBS survey footprints. Unique values for this field will be 'GOA', 'AI', 'BSS', 'EBS STANDARD', 'EBS STANDARD PLUS NW', 'NBS'.
+
+
+
+ AI Region: 
+
+ cpue : 
+ There are 10402 new cpue records.  There are 5201 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 74006 new biomass records.  There are 37014 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 30024 new sizecomp records.  There are 20468 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ There are 10948 new cpue records.  There are 0 cpue records that were removed.  There are 19 modified cpue records.
+
+ biomass : 
+ There are 1382 new biomass records.  There are 0 biomass records that were removed.  There are 58 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 13 sizecomp records that were removed.  There are 6 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ There are 15217 new cpue records.  There are 30434 cpue records that were removed.  There are 1 modified cpue records.
+
+ biomass : 
+ There are 1108 new biomass records.  There are 2216 biomass records that were removed.  There are 6 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ There are 832 new cpue records.  There are 1664 cpue records that were removed.  There are 4 modified cpue records.
+
+ biomass : 
+ There are 24 new biomass records.  There are 48 biomass records that were removed.  There are 8 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 294 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 6 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ There are 1136 new cpue records.  There are 1136 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 221 new biomass records.  There are 221 biomass records that were removed.  There are 5242 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 18251 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 3036 modified agecomp records.
+
+
+
+
