@@ -143,11 +143,11 @@ flowchart LR
   A([Catch data\ndeck tablet]) --> B1[METIS Biological\ndata editing\nsoftware]
   A1([Length data\ndeck tablets]) --> B1
   A2([Specimen data\ndeck tablet]) --> B1
-  A3([Haul performance w/ marport sensors]) --> B2[Wheelhouse &\nCalyposo \nhaul data] 
+  A3([Haul performance w/ Marport sensors]) --> B2[Wheelhouse &\nCalyposo \nhaul data] 
   A4([CTD]) --> B2
   A5([sea state\nobersvations]) --> B2
   A6([HOBO bottom\ncontact sensor]) --> B2
-  A7{{NavMap\nR package\nfor navigation}} --> B2
+  A7{{navmaps\nR package\nfor navigation}} --> B2
   B1 --> C[GIDES &\nRACE_EDIT\nOracle schema\n& whole-survey\nreview &\ndata checking]
   B2 --> C
   C --> D[RACEBASE\nand RACE_DATA\nOracle schemata]
