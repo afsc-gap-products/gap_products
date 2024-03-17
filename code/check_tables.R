@@ -203,52 +203,43 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   ##  Age Composition Table
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ## Pull SIZECOMP tables from the GAP_PRODUCTS schema and the most recent run
-  # gp_agecomp <- 
-  #   subset(x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_AGECOMP",
-  #                                     "_", regions[iregion], ".csv")))
-  # if (regions[iregion] == "EBS") {
-  #   production_agecomp <- 
-  #     subset(x = read.csv(file = paste0("temp/production/production_agecomp", 
-  #                                       "_", regions[iregion], ".csv")),
-  #            subset = AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW",
-  #            select = -AREA_ID_FOOTPRINT)
-  # } else (
-  #   production_agecomp <- 
-  #     read.csv(file = paste0("temp/production/production_agecomp", 
-  #                            "_", regions[iregion], ".csv"))
-  # )
+  gp_agecomp <-
+    subset(x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_AGECOMP",
+                                      "_", regions[iregion], ".csv")))
   
-  
+  production_agecomp <-
+    read.csv(file = paste0("temp/production/production_agecomp",
+                           "_", regions[iregion], ".csv"))
   
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND AGE as a composite key
-  # test_agecomp <- merge(x = subset(x = gp_agecomp,
-  #                                  ## Don't compare mock GOA 2025 data
-  #                                  subset = YEAR != 2025),
-  #                       y = subset(x = production_agecomp,
-  #                                  ## Don't compare mock GOA 2025 data
-  #                                  subset = YEAR != 2025),
-  #                       all = TRUE,
-  #                       suffixes = c("_CURRENT", "_UPDATE"),
-  #                       by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
-  #                              # "AREA_ID_FOOTPRINT",
-  #                              "SPECIES_CODE", "SEX", "AGE"))
+  test_agecomp <- merge(x = subset(x = gp_agecomp,
+                                   ## Don't compare mock GOA 2025 data
+                                   subset = YEAR != 2025),
+                        y = subset(x = production_agecomp,
+                                   ## Don't compare mock GOA 2025 data
+                                   subset = YEAR != 2025),
+                        all = TRUE,
+                        suffixes = c("_CURRENT", "_UPDATE"),
+                        by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
+                               "AREA_ID_FOOTPRINT",
+                               "SPECIES_CODE", "SEX", "AGE"))
   
   ## Evaluate the new, removed, and modified records between the two tables
-  # eval_agecomp <- 
-  #   compare_tables(
-  #     x = test_agecomp,
-  #     cols_to_check = data.frame(
-  #       colname = c("POPULATION_COUNT", "LENGTH_MM_MEAN", "LENGTH_MM_SD"),
-  #       percent = c(F, T, T),
-  #       decplaces = c(0, 2, 2)),
-  #     base_table_suffix = "_CURRENT",
-  #     update_table_suffix = "_UPDATE",
-  #     key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
-  #                     # "AREA_ID_FOOTPRINT",
-  #                     "SPECIES_CODE", "SEX", "AGE"))
-  # 
-  # cat(paste0("Finished with AGECOMP for the ", regions[iregion], " Region\n"))
+  eval_agecomp <-
+    compare_tables(
+      x = test_agecomp,
+      cols_to_check = data.frame(
+        colname = c("POPULATION_COUNT", "LENGTH_MM_MEAN", "LENGTH_MM_SD"),
+        percent = c(T, T, T),
+        decplaces = c(0, 2, 2)),
+      base_table_suffix = "_CURRENT",
+      update_table_suffix = "_UPDATE",
+      key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
+                      "AREA_ID_FOOTPRINT",
+                      "SPECIES_CODE", "SEX", "AGE"))
+
+  cat(paste0("Finished with AGECOMP for the ", regions[iregion], " Region\n"))
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##  Attach to mismatch objects
@@ -256,8 +247,8 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   mismatches[[regions[iregion]]] <- 
     list(cpue = eval_cpue,
          biomass = eval_biomass,
-         sizecomp = eval_sizecomp#,
-         # agecomp = eval_agecomp
+         sizecomp = eval_sizecomp,
+         agecomp = eval_agecomp
     )
   
 } ## Loop over regions -- end
@@ -267,5 +258,4 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 saveRDS(object = mismatches, file = "temp/mismatches.RDS")
 
-mismatches$AI$cpue
-mismatches$GOA$biomass$new_records
+
