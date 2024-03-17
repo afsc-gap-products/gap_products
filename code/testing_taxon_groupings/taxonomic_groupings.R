@@ -239,8 +239,6 @@ all_spp_codes <-
                   query = "SELECT *
                            FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
                            WHERE SURVEY_SPECIES = 1
-                           -- REMOVE CERTAIN COMMERCIAL CRABS FOR SAP
-                           AND SPECIES_CODE NOT IN (69323, 69322, 68580, 68560, 68590)
                   ")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

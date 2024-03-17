@@ -125,7 +125,6 @@ for (iregion in (1) ) { ## Loop over regions -- start
   
   # ## Aggregate `production_sizecomp_stratum` to subareas and regions
   # cat("\nCalculate regional ALK\n")
-  # start_time <- Sys.time()
   # production_alk <- 
   #   subset(x = gapindex::calc_alk(
   #     racebase_tables = production_data,
