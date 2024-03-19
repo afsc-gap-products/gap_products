@@ -405,30 +405,47 @@ Northern and Southern rock sole size composition data from 1991 – 2022 for the
 #| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
-                       query = 
-                         "
--- Manipulate data to join to
-WITH FILTERED_STRATA AS (
+                       query = "
 SELECT 
-AREA_ID, 
-DESCRIPTION
+YEAR,
+LENGTH_MM / 10 AS LENGTH_CM, 
+SUM(POPULATION_COUNT) AS POPULATION_COUNT
 
 -- Identify what tables to pull data from
-FROM GAP_PRODUCTS.AKFIN_AREA
-WHERE AREA_TYPE = 'REGION' 
-AND SURVEY_DEFINITION_ID = 52)
+FROM GAP_PRODUCTS.AKFIN_SIZECOMP 
 
--- Select columns for output data
-SELECT 
-LENGTH_MM, 
-YEAR
-FROM GAP_PRODUCTS.AKFIN_SIZECOMP SIZECOMP
-JOIN FILTERED_STRATA STRATA 
-ON STRATA.AREA_ID = SIZECOMP.AREA_ID
+-- 99904 is the AREA_ID that codes for the whole AI survey region
+WHERE AREA_ID = 99904
+-- including northern rock sole, southern rock sole, and rock sole unid.
+AND SPECIES_CODE IN (10260, 10261, 10262)
+-- remove the -9 LENGTH_MM code
+AND LENGTH_MM > 0
+-- sum over species_codes and sexes
+GROUP BY (YEAR, LENGTH_MM)")
 
--- Filter data results
-WHERE SIZECOMP.SURVEY_DEFINITION_ID IN 52 
-AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
+# # I embedded the CI calculations into the SQL call for the POP 7.0.10 example:
+# 
+# dat_bio <- RODBC::sqlQuery(channel = channel, 
+#                        query = "
+# -- Select columns for output data
+# SELECT 
+# SURVEY_DEFINITION_ID, 
+# BIOMASS_MT / 1000 AS BIOMASS_KMT, 
+# (BIOMASS_MT - 2 * SQRT(BIOMASS_VAR)) / 1000 AS BIOMASS_KCI_DW,
+# (BIOMASS_MT + 2 * SQRT(BIOMASS_VAR)) / 1000 AS BIOMASS_KCI_UP,
+# YEAR
+# 
+# -- Identify what tables to pull data from
+# FROM GAP_PRODUCTS.AKFIN_BIOMASS
+# 
+# -- Filter data results
+# WHERE SPECIES_CODE = 30060 
+# AND SURVEY_DEFINITION_ID = 47 
+# AND AREA_ID = 99903 
+# AND YEAR BETWEEN 1990 AND 2023" )
+# 
+# dat <- dplyr::full_join(dat_size, dat_bio)
+
 ```
 
 ```{r}
@@ -440,7 +457,6 @@ AND SIZECOMP.SPECIES_CODE IN (10261, 10262)")
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
-  dplyr::mutate(length_cm = length_mm/10) %>% 
   head() %>% 
   flextable::flextable() %>% 
   flextable::fit_to_width(max_width = 6) %>% 
@@ -459,16 +475,16 @@ dat0
 
 # install.packages("ggridges")
 library(ggridges)
-figure <- 
-  ggplot2::ggplot(
-    data = dat, 
-    mapping = aes(x = LENGTH_MM, y = as.factor(YEAR), fill = stat(x))) +
-  ggridges::theme_ridges(center_axis_labels = TRUE) + 
-  ggridges::geom_density_ridges_gradient(scale = 4, show.legend = FALSE) + 
-  ggplot2::scale_y_discrete(name = "Year", expand = c(0.01, 0)) +
+figure <- ggplot(dat, aes(x = LENGTH_CM, y = YEAR, height = POPULATION_COUNT, 
+                          group = YEAR, fill = factor(YEAR))) +
+  ggridges::geom_ridgeline_gradient() +
+  ggridges::theme_ridges(center_axis_labels = TRUE, grid = TRUE) + 
+  ggplot2::scale_fill_viridis_d(direction = -1, alpha = .25, name = "Year") +
+  # ggplot2::theme(legend.position = 'none') + 
+  ggplot2::scale_y_discrete(name = "Population", expand = c(0.01, 0)) +
   ggplot2::scale_x_continuous(name = "Length (cm)", expand = c(0.01, 0)) +
-  # ggplot2::scale_fill_grey() +
-  ggplot2::labs(title = 'AI Rock sole Size Compositions 1991 – 2022') 
+  ggplot2::labs(title = paste0('Aleutian Islands Rock sole Size Compositions'), 
+                subtitle = paste0(min(dat$YEAR), ' – ', max(dat$YEAR))) 
 
 figure
 ```
