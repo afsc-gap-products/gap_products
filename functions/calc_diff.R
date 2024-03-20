@@ -9,15 +9,13 @@
 
 calc_diff <- function(v1, v2, percent = T) {
   
-  ## Calculate absolute differences between v1 and v2
-  difference <- abs(x = v1 - v2)
+  df <- data.table::data.table("v1" = v1, 
+                               "v2" = v2,
+                               "DIFF" = v1 - v2)
+  data.table::setnames(x = df, c("v1", "v2", "DIFF"))
   
-  if (percent) # Calculate percent difference
-    difference <- 100 * difference / 
-      # To avoid a NaN from dividing by zero, the ifelse statement is added. 
-      ifelse(test = v2 == 0, 
-             yes = 1,
-             no = v2)
+  df[, v2 := ifelse(test = v2 == 0, 1, v2)]
+  df[, PERC_DIFF := DIFF / v2]
   
-  return(difference)
+  return(df[, ifelse(percent == T, "PERC_DIFF", "DIFF"), with = F])
 }
