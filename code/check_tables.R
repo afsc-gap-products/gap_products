@@ -60,12 +60,12 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
   ## Pull CPUE tables from the GAP_PRODUCTS schema and the most recent run. 
-  gp_cpue <- 
-    data.table::fread(file = paste0("temp/cloned_gp/GAP_PRODUCTS_CPUE", 
-                                    "_", regions[iregion], ".csv"))
-  production_cpue <- 
-    data.table::fread(file = paste0("temp/production/production_cpue", 
-                                    "_", regions[iregion], ".csv"))
+  gp_cpue <- data.table::as.data.table(
+    x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_CPUE", 
+                               "_", regions[iregion], ".csv")))
+  production_cpue <- data.table::as.data.table(
+    x = read.csv(file = paste0("temp/production/production_cpue", 
+                               "_", regions[iregion], ".csv")))
   
   ## Temporary: filter out species that are affected by the aggregating
   gp_cpue <- 
@@ -111,14 +111,12 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   
   ## Pull BIOMASS tables from the GAP_PRODUCTS schema and the most recent ruN
   gp_biomass <- data.table::as.data.table(
-    read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_BIOMASS",
-                           "_", regions[iregion], ".csv"))
-  )
+    x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_BIOMASS",
+                               "_", regions[iregion], ".csv")))
   
   production_biomass <- data.table::as.data.table(
-    read.csv(file = paste0("temp/production/production_biomass", 
-                           "_", regions[iregion], ".csv"))
-  )
+    x = read.csv(file = paste0("temp/production/production_biomass", 
+                               "_", regions[iregion], ".csv")))
   
   ## Temporary: filter out species that are affected by the aggregating
   gp_biomass <- 
@@ -130,6 +128,16 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
                                             affected_spp$SPECIES_CODE, 
                                             omitted_spp$SPECIES_CODE)]
   
+  for (icol in c("CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR", 
+                 "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
+                 "BIOMASS_MT", "BIOMASS_VAR"))
+    production_biomass[
+      , 
+      paste(icol) := round(x = production_biomass[, paste(icol), with = F],
+                           digits = 6)]
+  production_biomass[
+    , POPULATION_COUNT := round(x = production_biomass[, POPULATION_COUNT],
+                                digits = 0)]
   
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## SPECIES_CODE, and YEAR as a composite key
@@ -163,12 +171,12 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   ##  SIZECOMP TABLE
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ## Pull SIZECOMP tables from the GAP_PRODUCTS schema and the most recent run
-  gp_sizecomp <- 
-    data.table::fread(file = paste0("temp/cloned_gp/GAP_PRODUCTS_SIZECOMP",
-                                    "_", regions[iregion], ".csv"))
-  production_sizecomp <- 
-    data.table::fread(file = paste0("temp/production/production_sizecomp", 
-                                    "_", regions[iregion], ".csv"))
+  gp_sizecomp <- data.table::as.data.table(
+    x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_SIZECOMP",
+                               "_", regions[iregion], ".csv")))
+  production_sizecomp <- data.table::as.data.table(
+    x = read.csv(file = paste0("temp/production/production_sizecomp", 
+                               "_", regions[iregion], ".csv")))
   
   ## Temporary: filter out species that are affected by the aggregating
   gp_sizecomp <- 
@@ -212,13 +220,13 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   ##  Age Composition Table
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ## Pull SIZECOMP tables from the GAP_PRODUCTS schema and the most recent run
-  gp_agecomp <-
-    data.table::fread(file = paste0("temp/cloned_gp/GAP_PRODUCTS_AGECOMP",
-                                    "_", regions[iregion], ".csv"))
+  gp_agecomp <- data.table::as.data.table(
+    x = read.csv(file = paste0("temp/cloned_gp/GAP_PRODUCTS_AGECOMP",
+                               "_", regions[iregion], ".csv")))
   
-  production_agecomp <-
-    data.table::fread(file = paste0("temp/production/production_agecomp",
-                                    "_", regions[iregion], ".csv"))
+  production_agecomp <- data.table::as.data.table(
+    x = read.csv(file = paste0("temp/production/production_agecomp",
+                               "_", regions[iregion], ".csv")))
   
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND AGE as a composite key
@@ -266,5 +274,3 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
 ##   Save mismatch object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 saveRDS(object = mismatches, file = "temp/mismatches.RDS")
-
-
