@@ -80,9 +80,7 @@ compare_tables <- function(x = NULL,
                   collapse = "|"), 
            "]")
   new_records <- eval(parse(text = new_records_stmt))
-  data.table::setcolorder(x = new_records, 
-                          neworder = order(c(key_columns, col_order)))
-  # new_records <- new_records[order(c(key_columns, col_order))]
+  new_records <- new_records[, c(key_columns, col_order), with = F]
   
   if (nrow(x = new_records) > 0) new_records$NOTE <- ""
   
@@ -96,8 +94,8 @@ compare_tables <- function(x = NULL,
                   collapse = "|"), 
            "]")
   removed_records <- eval(parse(text = removed_records_stmt))
-  data.table::setcolorder(x = removed_records, 
-                          neworder = order(c(key_columns, col_order)))
+  removed_records <- removed_records[, c(key_columns, col_order), with = F]
+
   if (nrow(x = removed_records) > 0) removed_records$NOTE <- ""
   
   modified_records_stmt <- 
@@ -108,8 +106,7 @@ compare_tables <- function(x = NULL,
                   collapse = " | "), 
            "]")
   modified_records <- eval(parse(text = modified_records_stmt))
-  data.table::setcolorder(x = modified_records, 
-                          neworder = order(c(key_columns, col_order)))
+  modified_records <- modified_records[, c(key_columns, col_order), with = F]
   
   if (nrow(x = modified_records) > 0) modified_records$NOTE <- ""
 
