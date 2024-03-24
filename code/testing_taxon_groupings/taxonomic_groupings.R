@@ -74,14 +74,14 @@ grouped_taxa_df$GROUP_CODE[grouped_taxa_df$SUBCLASS_TAXON == "Echiura"] <- 94500
 ##   Query all SPECIES_ records for all fishes except for Myctophids and
 ##   Lycodapus
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fish_taxa <-
-  RODBC::sqlQuery(channel = chl,
-                  query = "SELECT *
-                           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-                           WHERE SURVEY_SPECIES = 1
-                           AND SUBPHYLUM_TAXON = 'Vertebrata'
-                           AND NOT (FAMILY_TAXON = 'Myctophidae' 
-                                    OR GENUS_TAXON = 'Lycodapus')")
+fish_taxa <- RODBC::sqlQuery(
+  channel = chl,
+  query = "SELECT *
+           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+           WHERE SURVEY_SPECIES = 1
+           AND SUBPHYLUM_TAXON = 'Vertebrata'
+           AND NOT (FAMILY_TAXON IN ('Myctophidae', 'Liparidae') 
+                    OR GENUS_TAXON = 'Lycodapus')")
 fish_taxa$GROUP_CODE = fish_taxa$SPECIES_CODE
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,7 +97,7 @@ JOIN
 (SELECT SPECIES_CODE AS GROUP_CODE, SPECIES_NAME, COMMON_NAME, GENUS_TAXON
 FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
 WHERE SURVEY_SPECIES = 1 
-AND (FAMILY_TAXON = 'Myctophidae' OR GENUS_TAXON = 'Lycodapus')
+AND (FAMILY_TAXON in ('Myctophidae', 'Liparidae') OR GENUS_TAXON = 'Lycodapus')
 AND ID_RANK = 'genus')
 
 USING (GENUS_TAXON)
@@ -151,15 +151,35 @@ sand_dollars <-
 sand_dollars$GROUP_CODE <- sand_dollars$SPECIES_CODE
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query all sea star records
+##   Query all sea star species_code records except for Henricia spp. which
+##   are grouped at the genus Henricia. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 sea_stars <- 
   RODBC::sqlQuery(channel = chl, 
                   query = "SELECT *
                            FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
                            WHERE SURVEY_SPECIES = 1
-                           AND CLASS_TAXON = 'Asteroidea'")
+                           AND CLASS_TAXON = 'Asteroidea'
+                           AND GENUS_TAXON != 'Henricia'")
 sea_stars$GROUP_CODE <- sea_stars$SPECIES_CODE
+
+henricia <- 
+  RODBC::sqlQuery(channel = chl, 
+                  query = "SELECT *
+FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+
+JOIN 
+
+(SELECT SPECIES_CODE AS GROUP_CODE, SPECIES_NAME, COMMON_NAME, GENUS_TAXON
+FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+WHERE SURVEY_SPECIES = 1 
+AND GENUS_TAXON = 'Henricia'
+AND ID_RANK = 'genus')
+
+USING (GENUS_TAXON)
+
+WHERE SURVEY_SPECIES = 1
+ORDER BY GROUP_CODE")[, names(x = sea_stars)]
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Aggregate taxa to genus for: sea urchins, bivalves, octopuses, and shrimps
@@ -245,8 +265,8 @@ all_spp_codes <-
 ##  rbind all taxa gorups together and merge taxonomic information 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 all_taxa <- rbind(grouped_taxa_df, fish_taxa, fish_genera, squids, hermit_crabs, 
-                  true_crabs, sand_dollars, sea_stars, snails, stony_corals, 
-                  genera_taxa)
+                  true_crabs, sand_dollars, sea_stars, henricia, snails, 
+                  stony_corals, genera_taxa)
 all_taxa <- merge(x = all_spp_codes,
                   all.x = TRUE,
                   y = all_taxa[, c("SPECIES_CODE", "GROUP_CODE")],
