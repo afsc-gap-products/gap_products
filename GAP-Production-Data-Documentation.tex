@@ -519,7 +519,7 @@ Team~nmfs.afsc.gap.metadata@noaa.gov
 \setcounter{page}{1}
 \end{frontmatter}
 
-%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced]}{\end{tcolorbox}}\fi
+%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -5346,30 +5346,46 @@ for the Aleutian Islands, with Ridge plot from
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ RODBC}\SpecialCharTok{::}\FunctionTok{sqlQuery}\NormalTok{(}\AttributeTok{channel =}\NormalTok{ channel, }
-                       \AttributeTok{query =} 
-                         \StringTok{"}
-\StringTok{{-}{-} Manipulate data to join to}
-\StringTok{WITH FILTERED\_STRATA AS (}
+                       \AttributeTok{query =} \StringTok{"}
 \StringTok{SELECT }
-\StringTok{AREA\_ID, }
-\StringTok{DESCRIPTION}
+\StringTok{YEAR,}
+\StringTok{LENGTH\_MM / 10 AS LENGTH\_CM, }
+\StringTok{SUM(POPULATION\_COUNT) AS POPULATION\_COUNT}
 
 \StringTok{{-}{-} Identify what tables to pull data from}
-\StringTok{FROM GAP\_PRODUCTS.AKFIN\_AREA}
-\StringTok{WHERE AREA\_TYPE = \textquotesingle{}REGION\textquotesingle{} }
-\StringTok{AND SURVEY\_DEFINITION\_ID = 52)}
+\StringTok{FROM GAP\_PRODUCTS.AKFIN\_SIZECOMP }
 
-\StringTok{{-}{-} Select columns for output data}
-\StringTok{SELECT }
-\StringTok{LENGTH\_MM, }
-\StringTok{YEAR}
-\StringTok{FROM GAP\_PRODUCTS.AKFIN\_SIZECOMP SIZECOMP}
-\StringTok{JOIN FILTERED\_STRATA STRATA }
-\StringTok{ON STRATA.AREA\_ID = SIZECOMP.AREA\_ID}
+\StringTok{{-}{-} 99904 is the AREA\_ID that codes for the whole AI survey region}
+\StringTok{WHERE AREA\_ID = 99904}
+\StringTok{{-}{-} including northern rock sole, southern rock sole, and rock sole unid.}
+\StringTok{AND SPECIES\_CODE IN (10260, 10261, 10262)}
+\StringTok{{-}{-} remove the {-}9 LENGTH\_MM code}
+\StringTok{AND LENGTH\_MM \textgreater{} 0}
+\StringTok{{-}{-} sum over species\_codes and sexes}
+\StringTok{GROUP BY (YEAR, LENGTH\_MM)"}\NormalTok{)}
 
-\StringTok{{-}{-} Filter data results}
-\StringTok{WHERE SIZECOMP.SURVEY\_DEFINITION\_ID IN 52 }
-\StringTok{AND SIZECOMP.SPECIES\_CODE IN (10261, 10262)"}\NormalTok{)}
+\CommentTok{\# \# I embedded the CI calculations into the SQL call for the POP 7.0.10 example:}
+\CommentTok{\# }
+\CommentTok{\# dat\_bio \textless{}{-} RODBC::sqlQuery(channel = channel, }
+\CommentTok{\#                        query = "}
+\CommentTok{\# {-}{-} Select columns for output data}
+\CommentTok{\# SELECT }
+\CommentTok{\# SURVEY\_DEFINITION\_ID, }
+\CommentTok{\# BIOMASS\_MT / 1000 AS BIOMASS\_KMT, }
+\CommentTok{\# (BIOMASS\_MT {-} 2 * SQRT(BIOMASS\_VAR)) / 1000 AS BIOMASS\_KCI\_DW,}
+\CommentTok{\# (BIOMASS\_MT + 2 * SQRT(BIOMASS\_VAR)) / 1000 AS BIOMASS\_KCI\_UP,}
+\CommentTok{\# YEAR}
+\CommentTok{\# }
+\CommentTok{\# {-}{-} Identify what tables to pull data from}
+\CommentTok{\# FROM GAP\_PRODUCTS.AKFIN\_BIOMASS}
+\CommentTok{\# }
+\CommentTok{\# {-}{-} Filter data results}
+\CommentTok{\# WHERE SPECIES\_CODE = 30060 }
+\CommentTok{\# AND SURVEY\_DEFINITION\_ID = 47 }
+\CommentTok{\# AND AREA\_ID = 99903 }
+\CommentTok{\# AND YEAR BETWEEN 1990 AND 2023" )}
+\CommentTok{\# }
+\CommentTok{\# dat \textless{}{-} dplyr::full\_join(dat\_size, dat\_bio)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5377,7 +5393,6 @@ for the Aleutian Islands, with Ridge plot from
 \begin{Highlighting}[]
 \NormalTok{dat0 }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}\AttributeTok{length\_cm =}\NormalTok{ length\_mm}\SpecialCharTok{/}\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{head}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{fit\_to\_width}\NormalTok{(}\AttributeTok{max\_width =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
@@ -5407,7 +5422,7 @@ for the Aleutian Islands, with Ridge plot from
 
 \hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
 
-\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{length\_mm}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{length\_cm}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{length\_cm}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{population\_count}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5415,7 +5430,7 @@ for the Aleutian Islands, with Ridge plot from
 
 \hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
 
-\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{length\_mm}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{length\_cm}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{length\_cm}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{population\_count}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5423,7 +5438,7 @@ for the Aleutian Islands, with Ridge plot from
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{110}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1997}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{11}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1991}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{23}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4,625,236}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5431,7 +5446,7 @@ for the Aleutian Islands, with Ridge plot from
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{130}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1997}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{13}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1991}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{38}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2,254,964}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5439,7 +5454,7 @@ for the Aleutian Islands, with Ridge plot from
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{140}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1997}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{14}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1991}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{42}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{820,614}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5447,7 +5462,7 @@ for the Aleutian Islands, with Ridge plot from
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{150}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1997}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{15}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1991}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{11,225}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5455,7 +5470,7 @@ for the Aleutian Islands, with Ridge plot from
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{160}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1997}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1994}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{741,246}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5463,7 +5478,7 @@ for the Aleutian Islands, with Ridge plot from
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{170}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1997}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{17}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1994}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{26}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{9,762,322}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5487,16 +5502,15 @@ for the Aleutian Islands, with Ridge plot from
 \begin{Highlighting}[]
 \CommentTok{\# install.packages("ggridges")}
 \FunctionTok{library}\NormalTok{(ggridges)}
-\NormalTok{figure }\OtherTok{\textless{}{-}} 
-\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{ggplot}\NormalTok{(}
-    \AttributeTok{data =}\NormalTok{ dat, }
-    \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ LENGTH\_MM, }\AttributeTok{y =} \FunctionTok{as.factor}\NormalTok{(YEAR), }\AttributeTok{fill =} \FunctionTok{stat}\NormalTok{(x))) }\SpecialCharTok{+}
-\NormalTok{  ggridges}\SpecialCharTok{::}\FunctionTok{theme\_ridges}\NormalTok{(}\AttributeTok{center\_axis\_labels =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+} 
-\NormalTok{  ggridges}\SpecialCharTok{::}\FunctionTok{geom\_density\_ridges\_gradient}\NormalTok{(}\AttributeTok{scale =} \DecValTok{4}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+} 
-\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{scale\_y\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Year"}\NormalTok{, }\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+\NormalTok{figure }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ LENGTH\_CM, }\AttributeTok{y =}\NormalTok{ YEAR, }\AttributeTok{height =}\NormalTok{ POPULATION\_COUNT, }
+                          \AttributeTok{group =}\NormalTok{ YEAR, }\AttributeTok{fill =} \FunctionTok{factor}\NormalTok{(YEAR))) }\SpecialCharTok{+}
+\NormalTok{  ggridges}\SpecialCharTok{::}\FunctionTok{geom\_ridgeline\_gradient}\NormalTok{() }\SpecialCharTok{+}
+\NormalTok{  ggridges}\SpecialCharTok{::}\FunctionTok{theme\_ridges}\NormalTok{(}\AttributeTok{center\_axis\_labels =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{grid =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+} 
+\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{direction =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{25}\NormalTok{, }\AttributeTok{name =} \StringTok{"Year"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{scale\_y\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Population"}\NormalTok{, }\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
 \NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Length (cm)"}\NormalTok{, }\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
-  \CommentTok{\# ggplot2::scale\_fill\_grey() +}
-\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}AI Rock sole Size Compositions 1991 – 2022\textquotesingle{}}\NormalTok{) }
+\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Aleutian Islands Rock sole Size Compositions\textquotesingle{}}\NormalTok{), }
+                \AttributeTok{subtitle =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{min}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{YEAR), }\StringTok{\textquotesingle{} – \textquotesingle{}}\NormalTok{, }\FunctionTok{max}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{YEAR))) }
 
 \NormalTok{figure}
 \end{Highlighting}
