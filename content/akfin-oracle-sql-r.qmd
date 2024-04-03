@@ -488,9 +488,9 @@ figure <- ggplot(dat, aes(x = LENGTH_CM, y = YEAR, height = POPULATION_COUNT,
 figure
 ```
 
-### Ex. EBS Walleye Pollock Age Compositions and Age Pyramid
+### Ex. 2023 EBS Walleye Pollock Age Compositions and Age Pyramid
 
-Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and the EBS + NW Area from 1987 – 2022, with age pyramid plot. 
+Walleye pollock age composition for the EBS standard + NW Area from 2023, with age pyramid plot. 
 
 ```{r}
 #| label: test-3
@@ -499,8 +499,7 @@ Walleye pollock age composition for the EBS Standard Area from 1982 – 2022 and
 #| echo: true
 
 dat <- RODBC::sqlQuery(channel = channel, 
-                       query = 
-                         "
+                       query = "
 -- Manipulate data to join to
 WITH FILTERED_STRATA AS (
 SELECT 
@@ -523,6 +522,7 @@ ON STRATA.AREA_ID = AGECOMP.AREA_ID
 
 -- Filter data results
 WHERE SPECIES_CODE = 21740
+AND YEAR = 2023
 AND AGE >= 0")
 ```
 
@@ -549,7 +549,7 @@ flextable::flextable(head(dat)) %>%
 
 ```{r}
 #| label: test-3-plot
-#| fig-cap: "Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid. "
+#| fig-cap: "Ex. 3: 2023 EBS Walleye Pollock Age Compositions and Age Pyramid. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -565,7 +565,7 @@ figure <- ggplot2::ggplot(
   ggplot2::coord_flip() +
   ggplot2::scale_x_continuous(name = "Age") +
   ggplot2::scale_y_continuous(name = "Population (billions)", labels = abs) +
-  ggplot2::ggtitle(label = "EBS Walleye Pollock Age Compositions 1982 – 2022")  + 
+  ggplot2::ggtitle(label = "2023 EBS Walleye Pollock Age Compositions")  + 
   ggplot2::guides(fill = guide_legend(title = "Sex"))+
   ggplot2::theme_bw()
 
