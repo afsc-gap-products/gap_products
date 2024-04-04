@@ -29,8 +29,9 @@
 rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 0 Setup ----
-##   Make sure temp file is created, save R version data
+##   etup ----
+##   Make sure temp file is created, save R version data, and install packages
+##   if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (!dir.exists(paths = "temp/"))
   dir.create(path = "temp/")
@@ -44,8 +45,16 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
           file = "temp/installed_packages.csv", 
           row.names = F)
 
+# devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
+# devtools::install_github("afsc-gap-products/gapindex")
+# install.packages("data.table")
+# install.packages("rmarkdown")
+library(gapindex)
+library(data.table)
+library(rmarkdown)
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 2 Pull Exisiting GAP_PRODUCTS Tables and Views ----
+##   Pull Exisiting GAP_PRODUCTS Tables and Views ----
 ##   Import the current version of the tables in GAP_PRODUCTS locally within 
 ##   the gap_products repository in the temporary (temp/) folder that was just
 ##   created. The local versions of these tables are used to compare the 
@@ -55,22 +64,7 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
 file.edit("code/pull_existing_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 3 Update Metadata Tables ----
-##   This script updates the metadata tables in GAP_PRODUCTS used to create the
-##   metadata for the tables and views in GAP_PRODUCTS. The contents of these 
-##   tables are maintained in a shared googlesheets document. These tables are 
-##   then uploaded to the GAP_PRODUCTS Oracle schema. A future goal of this 
-##   step is to move away from making changes to the googlesheet and instead 
-##   setting up triggers in Oracle to provide an audit record any time a change
-##   is made to these metadata tables. In this way, changes are arguably 
-##   better documented and the upkeep of the tables are fully contained within
-##   Oracle instead of the current workflow which is Google Sheets --> R (via 
-##   the googledrive R package) --> Oracle. 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/metadata.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 4 Create Production Tables ----
+##   Create Production Tables ----
 ##   Calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, 
 ##   AGECOMP for all taxa, survey years, survey regions. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,7 +83,7 @@ file.edit("code/check_tables.R")
 file.edit("code/push_oracle.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Upload Production Tables ----
+##   Upload Production Tables ----
 ##   Set up queries for the various materialized views created for AKFIN
 ##   and FOSS.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,14 +125,3 @@ utils::zip(files = readLines(con = "temp/timestamp.txt"),
 fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
               new_path = "Y:/RACE_GF/GAP_PRODUCTS_Archives/")
 fs::file_delete(path = readLines(con = "temp/timestamp.txt"))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Create Citations ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# file.edit("code/CITATION.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Create README ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# rmarkdown::render("code/README.Rmd",
-#                   output_file = "README.md")

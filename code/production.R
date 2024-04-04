@@ -15,9 +15,6 @@ rm(list = ls())
 ##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
-# devtools::install_github("afsc-gap-products/gapindex")
-# install.packages("C:/Users/zack.oyafuso/Work/GitHub/gapindex_2.2.0.tar.gz")
 library(gapindex)
 sql_channel <- gapindex::get_connected(check_access = F)
 
