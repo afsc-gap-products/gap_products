@@ -87,23 +87,23 @@ library(RODBC)
 library(dbplyr)
 
 my_spp_codes <- c(
-30010, #	Sebastolobus sp.	thornyhead unid.
-30020, #	Sebastolobus alascanus	shortspine thornyhead
-30025, #	Sebastolobus macrochir	broadfin thornyhead
-30330, #	Sebastes melanops	black rockfish
-30430, #	Sebastes proriger	redstripe rockfish
-30470, #	Sebastes ruberrimus	yelloweye rockfish
-30475, #	Sebastes babcocki	redbanded rockfish
-30535, #	Sebastes variegatus	harlequin rockfish
-30560, # Sebastes zacentrus	sharpchin rockfish
-30600, # Sebastes reedi	yellowmouth rockfish
-30030, # Sebastolobus altivelis	longspine thornyhead
-30040, # Sebastes sp.	rockfish unid.
-30100, # Sebastes brevispinis	silvergray rockfish
-30150, # NA	dusky and dark rockfishes unid.
-30152, # Sebastes variabilis	dusky rockfish
-30170, # Sebastes crameri	darkblotched rockfish
-30270) # Sebastes helvomaculatus	rosethorn rockfish
+  30010, #	Sebastolobus sp.	thornyhead unid.
+  30020, #	Sebastolobus alascanus	shortspine thornyhead
+  30025, #	Sebastolobus macrochir	broadfin thornyhead
+  30330, #	Sebastes melanops	black rockfish
+  30430, #	Sebastes proriger	redstripe rockfish
+  30470, #	Sebastes ruberrimus	yelloweye rockfish
+  30475, #	Sebastes babcocki	redbanded rockfish
+  30535, #	Sebastes variegatus	harlequin rockfish
+  30560, # Sebastes zacentrus	sharpchin rockfish
+  30600, # Sebastes reedi	yellowmouth rockfish
+  30030, # Sebastolobus altivelis	longspine thornyhead
+  30040, # Sebastes sp.	rockfish unid.
+  30100, # Sebastes brevispinis	silvergray rockfish
+  30150, # NA	dusky and dark rockfishes unid.
+  30152, # Sebastes variabilis	dusky rockfish
+  30170, # Sebastes crameri	darkblotched rockfish
+  30270) # Sebastes helvomaculatus	rosethorn rockfish
 
 a <- dplyr::tbl(channel, dplyr::sql('gap_products.akfin_biomass')) %>% 
   dplyr::rename_all(tolower) %>% 
@@ -422,30 +422,6 @@ AND SPECIES_CODE IN (10260, 10261, 10262)
 AND LENGTH_MM > 0
 -- sum over species_codes and sexes
 GROUP BY (YEAR, LENGTH_MM)")
-
-# # I embedded the CI calculations into the SQL call for the POP 7.0.10 example:
-# 
-# dat_bio <- RODBC::sqlQuery(channel = channel, 
-#                        query = "
-# -- Select columns for output data
-# SELECT 
-# SURVEY_DEFINITION_ID, 
-# BIOMASS_MT / 1000 AS BIOMASS_KMT, 
-# (BIOMASS_MT - 2 * SQRT(BIOMASS_VAR)) / 1000 AS BIOMASS_KCI_DW,
-# (BIOMASS_MT + 2 * SQRT(BIOMASS_VAR)) / 1000 AS BIOMASS_KCI_UP,
-# YEAR
-# 
-# -- Identify what tables to pull data from
-# FROM GAP_PRODUCTS.AKFIN_BIOMASS
-# 
-# -- Filter data results
-# WHERE SPECIES_CODE = 30060 
-# AND SURVEY_DEFINITION_ID = 47 
-# AND AREA_ID = 99903 
-# AND YEAR BETWEEN 1990 AND 2023" )
-# 
-# dat <- dplyr::full_join(dat_size, dat_bio)
-
 ```
 
 ```{r}
@@ -475,15 +451,17 @@ dat0
 
 # install.packages("ggridges")
 library(ggridges)
-figure <- ggplot(dat, aes(x = LENGTH_CM, y = YEAR, height = POPULATION_COUNT, 
-                          group = YEAR, fill = factor(YEAR))) +
-  ggridges::geom_ridgeline_gradient() +
-  ggridges::theme_ridges(center_axis_labels = TRUE, grid = TRUE) + 
-  ggplot2::scale_fill_viridis_d(direction = -1, alpha = .25, name = "Year") +
-  ggplot2::scale_y_discrete(name = "Population", expand = c(0.01, 0)) +
-  ggplot2::scale_x_continuous(name = "Length (cm)", expand = c(0.01, 0)) +
+figure <- ggplot(dat, 
+                 mapping = aes(x = LENGTH_CM, 
+                               y = YEAR, 
+                               height = POPULATION_COUNT, 
+                               group = YEAR)) +
+  ggridges::geom_density_ridges(stat = "identity", scale = 1) +
+  ggplot2::ylab(label = "Year") +
+  ggplot2::scale_x_continuous(name = "Length (cm)") +
   ggplot2::labs(title = paste0('Aleutian Islands Rock sole Size Compositions'), 
-                subtitle = paste0(min(dat$YEAR), ' – ', max(dat$YEAR))) 
+                subtitle = paste0(min(dat$YEAR), ' – ', max(dat$YEAR))) +
+  ggplot2::theme_bw()
 
 figure
 ```
@@ -669,29 +647,25 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.
 #| warning: false
 #| echo: true
 
-dat <- RODBC::sqlQuery(channel = channel, 
-                       query = 
-                         "
+dat <- RODBC::sqlQuery(channel = channel,
+                       query = "
 -- Select columns for output data
-SELECT 
-SURVEY_DEFINITION_ID, 
-BIOMASS_MT, 
-BIOMASS_VAR, 
+SELECT
+SURVEY_DEFINITION_ID,
+BIOMASS_MT / 1000 AS BIOMASS_KMT,
+(BIOMASS_MT - 2 * SQRT(BIOMASS_VAR)) / 1000 AS BIOMASS_KCI_DW,
+(BIOMASS_MT + 2 * SQRT(BIOMASS_VAR)) / 1000 AS BIOMASS_KCI_UP,
 YEAR
 
 -- Identify what tables to pull data from
 FROM GAP_PRODUCTS.AKFIN_BIOMASS
 
 -- Filter data results
-WHERE SPECIES_CODE = 30060 
-AND SURVEY_DEFINITION_ID = 47 
-AND AREA_ID = 99903 
-AND YEAR BETWEEN 1984 AND 2023;") %>% 
-  janitor::clean_names() %>% 
-  dplyr::mutate(biomass_kmt = biomass_mt/1000, 
-                # **approximate** 95% confidence interval
-                biomass_kci_up = (biomass_mt + (2*sqrt(biomass_var)))/1000, 
-                biomass_kci_dw = (biomass_mt - (2*sqrt(biomass_var)))/1000) 
+WHERE SPECIES_CODE = 30060
+AND SURVEY_DEFINITION_ID = 47
+AND AREA_ID = 99903
+AND YEAR BETWEEN 1990 AND 2023" ) %>% 
+  janitor::clean_names()
 ```
 
 ```{r}
