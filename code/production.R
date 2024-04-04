@@ -14,8 +14,10 @@ rm(list = ls())
 ##   Connect to Oracle (Make sure to connect to network or VPN)
 ##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
 # devtools::install_github("afsc-gap-products/gapindex")
+# install.packages("C:/Users/zack.oyafuso/Work/GitHub/gapindex_2.2.0.tar.gz")
 library(gapindex)
 sql_channel <- gapindex::get_connected(check_access = F)
 
@@ -41,7 +43,6 @@ if (!dir.exists(paths = "temp/production/"))
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   ## Pull data for all years and species from Oracle
   start_time <- Sys.time()
@@ -77,7 +78,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   start_time <- Sys.time()
   production_biomass_stratum <-
     gapindex::calc_biomass_stratum(
-      racebase_tables = production_data,
+      gapdata = production_data,
       cpue = production_cpue)
   end_time <- Sys.time()
   print(end_time - start_time)
@@ -87,8 +88,8 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   start_time <- Sys.time()
   production_biomass_subarea <-
     gapindex::calc_biomass_subarea(
-      racebase_tables = production_data,
-      biomass_strata = production_biomass_stratum)
+      gapdata = production_data,
+      biomass_stratum = production_biomass_stratum)
   end_time <- Sys.time()
   print(end_time - start_time)
   
@@ -136,9 +137,9 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   start_time <- Sys.time()
   production_agecomp_stratum <-
     gapindex::calc_agecomp_stratum(
-      racebase_tables = production_data,
+      gapdata = production_data,
       alk = production_alk,
-      size_comp = production_sizecomp_stratum)
+      sizecomp_stratum = production_sizecomp_stratum)
   end_time <- Sys.time()
   print(end_time - start_time)
   
@@ -194,10 +195,10 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     
     production_data_ebsstand$catch <-
       production_data_ebsstand$catch[HAULJOIN %in% ebs_standard_hauls]
-
+    
     production_data_ebsstand$size <-
       production_data_ebsstand$size[HAULJOIN %in% ebs_standard_hauls]
- 
+    
     production_data_ebsstand$specimen <-
       production_data_ebsstand$specimen[HAULJOIN %in% ebs_standard_hauls]
     
@@ -206,11 +207,8 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     
     ## Remove subareas associated with the EBS + NW region
     production_data_ebsstand$subarea <- 
-      production_data_ebsstand$subarea[!(AREA_ID %in% c(7, 8, 9, 
-                                                        100, 200, 300, 
-                                                        99900))]
-    # subset(x = production_data_ebsstand$subarea,
-    #        subset = !(AREA_ID %in% c(7, 8, 9, 100, 200, 300, 99900)))
+      subset(x = production_data_ebsstand$subarea,
+             subset = !(AREA_ID %in% c(7, 8, 9, 100, 200, 300, 99900)))
     
     ## Calculate and zero-fill CPUE
     production_cpue_ebsstand <-
@@ -287,7 +285,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   ## Remove commercial crab data from biomass table
   production_biomass <- 
     production_biomass[!(SPECIES_CODE %in% c(69323,69322,68580,68560,68590))]
-
+  
   ## The EBS agecomp only applies to the Standard + NW area and thus should only
   ## go back to 1987.
   if (names(x = regions[iregion]) == "EBS") {
