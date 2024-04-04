@@ -274,3 +274,37 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
 ##   Save mismatch object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 saveRDS(object = mismatches, file = "temp/mismatches.RDS")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Look at the mismatch object and write a quick paragraph about the changes
+##   in the data tables. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gapindex_version <- 
+  subset(x = read.csv(file = "temp/installed_packages.csv"),
+         subset = Package == "gapindex")$Version
+
+detailed_notes <- 
+  "A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
+  
+Major changes to the GAP_PRODUCTS.* tables:
+
+- Updating ABUNDANCE_HAUL designations for AI and GOA hauls before 1991 and 1990, respectively (i.e., turning those 1980s AI/GOA hauls from 'Y' to 'N').
+
+- Addition of deeper (> 500 m) INPFC x DEPTH subarea AREA_ID values for the GOA, as addressed in this [GitHub issue](https://github.com/afsc-gap-products/gap_products/issues/35).
+
+- First draft attempts at higher taxon aggregations (most inverts, some fish genera). These aggregations can be found in a newly created tabled called GAP_PRODUCTS.TAXON_GROUPS, where records with the same GROUP_CODE are now aggregated. The GROUP_CODE in this table is then transferred to the SPECIES_CODE field in GAP_PRODUCTS.CPUE/BIOMASS/SIZECOMP/AGECOMP. The GAP_PRODUCTS.TAXON_GROUPS table would be used if a user wanted to know what SPECIES_CODE values were contained in a particular taxon aggregation GROUP_CODE, or whether a SPECIES_CODE that codes for a taxonomic aggregation (e.g., Lycodapus sp. Sebastes sp.).  
+
+- Removal of commercial crab species (69323, 69322, 68580, 68560, 68590) from the GAP_PRODUCTS.BIOMASS table for all regions. Initially this was done only for the Bering Sea regions.
+
+"
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Create report changelogs
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+timestamp <- readLines(con = "temp/timestamp.txt")
+rmarkdown::render(input = "code/report_changes.RMD",
+                  output_format = "html_document",
+                  output_file = paste0("../temp/report_changes.html"),
+                  params = list("detailed_notes" = detailed_notes,
+                                "gapindex_version" = gapindex_version,
+                                "timestamp" = timestamp))
