@@ -519,7 +519,7 @@ Team~nmfs.afsc.gap.metadata@noaa.gov
 \setcounter{page}{1}
 \end{frontmatter}
 
-%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, boxrule=0pt, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners]}{\end{tcolorbox}}\fi
+%%%%% end titlepage extension code\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -532,7 +532,7 @@ Team~nmfs.afsc.gap.metadata@noaa.gov
 \part{Welcome}
 
 \begin{quote}
-Report run date: Wednesday, March 13, 2024
+Report run date: Monday, April 08, 2024
 \end{quote}
 
 \hypertarget{afsc-bottom-trawl-surveys}{%
@@ -833,7 +833,7 @@ research is conducted on fishing industry contract vessels.
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -1089,7 +1089,7 @@ products are produced through fall and late winter.
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -1730,7 +1730,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -1756,14 +1760,14 @@ Conservation Engineering Division (RACE) Groundfish Assessment Program
 (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub
 repository for the scripts that created this code can be found at
 https://github.com/afsc-gap-products/gap\_products. These data were last
-updated February 29, 2024. There are no legal restrictions on access to
-the data. For more information about codes used in the tables, please
-refer to the survey code books
+updated April 02, 2024. There are no legal restrictions on access to the
+data. For more information about codes used in the tables, please refer
+to the survey code books
 (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).
 
-Number of rows: 385
+Number of rows: 395
 
-Number of columns: 10
+Number of columns: 9
 
 Column name from data
 
@@ -1821,18 +1825,6 @@ The type of stratum that AREA\_ID represents. Types include: STRATUM
 DEPTH, SUBAREA, INPFC BY DEPTH, INPFC, SUBAREA BY DEPTH, REGULATORY
 AREA, NMFS STATISTICAL AREA.
 
-CRS
-
-Coordinate reference system
-
-ID key code
-
-VARCHAR2(255 BYTE)
-
-The coordinate reference system (CRS) that shapefiles were created in or
-areas (like AREA\_KM2) are calculated in, as defined by
-https://spatialreference.org/ (e.g., ``+proj=longlat'', ``EPSG:3338'').
-
 DEPTH\_MAX\_M
 
 Area ID maximum depth (m)
@@ -1883,7 +1875,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -2068,7 +2064,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -2190,9 +2190,9 @@ Division (RACE) Groundfish Assessment Program (GAP) of the Alaska
 Fisheries Science Center (AFSC). The GitHub repository for the scripts
 that created this code can be found at
 https://github.com/afsc-gap-products/gap\_products. These data were last
-updated February 29, 2024. There are no legal restrictions on access to
-the data. For more information about codes used in the tables, please
-refer to the survey code books
+updated April 02, 2024. There are no legal restrictions on access to the
+data. For more information about codes used in the tables, please refer
+to the survey code books
 (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).
 
 Number of rows: 87
@@ -2229,7 +2229,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -2253,7 +2257,7 @@ and Conservation Engineering Division (RACE) Groundfish Assessment
 Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub
 repository for the scripts that created this code can be found at
 https://github.com/afsc-gap-products/gap\_products. These data were last
-updated March 03, 2024. There are no legal restrictions on access to the
+updated April 02, 2024. There are no legal restrictions on access to the
 data. For more information about codes used in the tables, please refer
 to the survey code books
 (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).
@@ -2313,9 +2317,9 @@ Conservation Engineering Division (RACE) Groundfish Assessment Program
 (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub
 repository for the scripts that created this code can be found at
 https://github.com/afsc-gap-products/gap\_products. These data were last
-updated February 29, 2024. There are no legal restrictions on access to
-the data. For more information about codes used in the tables, please
-refer to the survey code books
+updated April 02, 2024. There are no legal restrictions on access to the
+data. For more information about codes used in the tables, please refer
+to the survey code books
 (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).
 
 Number of rows: 768
@@ -2377,7 +2381,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -2478,7 +2486,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -2746,7 +2758,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -2897,7 +2913,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -3090,7 +3110,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -3383,7 +3407,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -4011,7 +4039,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -4256,7 +4288,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -4309,7 +4345,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -6064,6 +6104,408 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from
 
 \end{figure}
 
+\hypertarget{ex.-2022-ai-atka-mackerel-age-specimen-summary}{%
+\subsection{Ex. 2022 AI Atka mackerel age specimen
+summary}\label{ex.-2022-ai-atka-mackerel-age-specimen-summary}}
+
+\hypertarget{all-ages-determined}{%
+\subsubsection{All ages determined:}\label{all-ages-determined}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ RODBC}\SpecialCharTok{::}\FunctionTok{sqlQuery}\NormalTok{(}\AttributeTok{channel =}\NormalTok{ channel,}
+                       \AttributeTok{query =} \StringTok{"}
+\StringTok{{-}{-} Select columns for output data}
+\StringTok{SELECT SURVEY\_DEFINITION\_ID, YEAR, SPECIES\_CODE, AGE}
+
+\StringTok{{-}{-} Identify what tables to pull data from}
+\StringTok{FROM GAP\_PRODUCTS.AKFIN\_SPECIMEN}
+\StringTok{JOIN (SELECT HAULJOIN, CRUISEJOIN FROM GAP\_PRODUCTS.AKFIN\_HAUL)}
+\StringTok{USING (HAULJOIN)}
+\StringTok{JOIN (SELECT CRUISEJOIN, YEAR, SURVEY\_DEFINITION\_ID FROM GAP\_PRODUCTS.AKFIN\_CRUISE)}
+\StringTok{USING (CRUISEJOIN)}
+
+\StringTok{{-}{-} Filter data results}
+\StringTok{WHERE GAP\_PRODUCTS.AKFIN\_SPECIMEN.SPECIMEN\_SAMPLE\_TYPE = 1}
+\StringTok{AND SPECIES\_CODE = 21921}
+\StringTok{AND YEAR = 2022}
+\StringTok{AND SURVEY\_DEFINITION\_ID = 52"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(dat)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{fit\_to\_width}\NormalTok{(}\AttributeTok{max\_width =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{theme\_zebra}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{colformat\_num}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ., }\AttributeTok{j =} \StringTok{"year"}\NormalTok{, }\AttributeTok{big.mark =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+\caption{Ex.: 2022 AI Atka mackerel age specimen summary: all ages determined.}\tabularnewline
+
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{survey\_definition\_id}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{species\_code}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{age}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\endfirsthead 
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{survey\_definition\_id}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{species\_code}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{age}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\endhead
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{3}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{6}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\hypertarget{how-many-of-each-age-was-found}{%
+\subsubsection{How many of each age was
+found:}\label{how-many-of-each-age-was-found}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ RODBC}\SpecialCharTok{::}\FunctionTok{sqlQuery}\NormalTok{(}\AttributeTok{channel =}\NormalTok{ channel,}
+                       \AttributeTok{query =} \StringTok{"}
+\StringTok{{-}{-} Select columns for output data}
+\StringTok{SELECT SURVEY\_DEFINITION\_ID, YEAR, SPECIES\_CODE, AGE, }
+\StringTok{COUNT(AGE) AS COUNTAGE}
+
+\StringTok{{-}{-} Identify what tables to pull data from}
+\StringTok{FROM GAP\_PRODUCTS.AKFIN\_SPECIMEN}
+\StringTok{JOIN (SELECT HAULJOIN, CRUISEJOIN FROM GAP\_PRODUCTS.AKFIN\_HAUL)}
+\StringTok{USING (HAULJOIN)}
+\StringTok{JOIN (SELECT CRUISEJOIN, YEAR, SURVEY\_DEFINITION\_ID FROM GAP\_PRODUCTS.AKFIN\_CRUISE)}
+\StringTok{USING (CRUISEJOIN)}
+
+\StringTok{{-}{-} Filter data results}
+\StringTok{WHERE GAP\_PRODUCTS.AKFIN\_SPECIMEN.SPECIMEN\_SAMPLE\_TYPE = 1}
+\StringTok{AND SPECIES\_CODE = 21921}
+\StringTok{AND YEAR = 2022}
+\StringTok{AND SURVEY\_DEFINITION\_ID = 52}
+\StringTok{GROUP BY (YEAR, SURVEY\_DEFINITION\_ID, SPECIES\_CODE, AGE)"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(dat)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{fit\_to\_width}\NormalTok{(}\AttributeTok{max\_width =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{theme\_zebra}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{colformat\_num}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ., }\AttributeTok{j =} \StringTok{"year"}\NormalTok{, }\AttributeTok{big.mark =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+\caption{Ex.: 2022 AI Atka mackerel age specimen summary: how many of each age
+were determined.}\tabularnewline
+
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{survey\_definition\_id}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{species\_code}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{age}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{countage}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\endfirsthead 
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{survey\_definition\_id}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{species\_code}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{age}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{countage}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\endhead
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{6}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{116}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{7}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{108}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{8}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{61}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{40}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{12}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{9}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\hypertarget{how-many-otoliths-were-aged}{%
+\subsubsection{How many otoliths were
+aged:}\label{how-many-otoliths-were-aged}}
+
+Using \texttt{SQL}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ RODBC}\SpecialCharTok{::}\FunctionTok{sqlQuery}\NormalTok{(}\AttributeTok{channel =}\NormalTok{ channel,}
+                       \AttributeTok{query =} \StringTok{"}
+\StringTok{{-}{-} Select columns for output data}
+\StringTok{SELECT SURVEY\_DEFINITION\_ID, YEAR, SPECIES\_CODE, }
+\StringTok{COUNT(AGE) AS COUNTAGE}
+
+\StringTok{{-}{-} Identify what tables to pull data from}
+\StringTok{FROM GAP\_PRODUCTS.AKFIN\_SPECIMEN}
+\StringTok{JOIN (SELECT HAULJOIN, CRUISEJOIN FROM GAP\_PRODUCTS.AKFIN\_HAUL)}
+\StringTok{USING (HAULJOIN)}
+\StringTok{JOIN (SELECT CRUISEJOIN, YEAR, SURVEY\_DEFINITION\_ID FROM GAP\_PRODUCTS.AKFIN\_CRUISE)}
+\StringTok{USING (CRUISEJOIN)}
+
+\StringTok{{-}{-} Filter data results}
+\StringTok{WHERE GAP\_PRODUCTS.AKFIN\_SPECIMEN.SPECIMEN\_SAMPLE\_TYPE = 1}
+\StringTok{AND SPECIES\_CODE = 21921}
+\StringTok{AND YEAR = 2022}
+\StringTok{AND SURVEY\_DEFINITION\_ID = 52}
+\StringTok{GROUP BY (YEAR, SURVEY\_DEFINITION\_ID, SPECIES\_CODE)"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Using \texttt{dbplyr}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(odbc)}
+\FunctionTok{library}\NormalTok{(keyring)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(dbplyr)}
+
+\NormalTok{channel }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(odbc}\SpecialCharTok{::}\FunctionTok{odbc}\NormalTok{(), }\StringTok{"akfin"}\NormalTok{, }\AttributeTok{uid =}\NormalTok{ keyring}\SpecialCharTok{::}\FunctionTok{key\_list}\NormalTok{(}\StringTok{"akfin"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{username,}
+                        \AttributeTok{pwd =}\NormalTok{ keyring}\SpecialCharTok{::}\FunctionTok{key\_get}\NormalTok{(}\StringTok{"akfin"}\NormalTok{, keyring}\SpecialCharTok{::}\FunctionTok{key\_list}\NormalTok{(}\StringTok{"akfin"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{username))}
+
+\NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{tbl}\NormalTok{(}\AttributeTok{src =}\NormalTok{ channel, dplyr}\SpecialCharTok{::}\FunctionTok{sql}\NormalTok{(}\StringTok{\textquotesingle{}gap\_products.akfin\_specimen\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{rename\_all}\NormalTok{(tolower) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(hauljoin, }\AttributeTok{specimen =}\NormalTok{ specimen\_id, species\_code, }\AttributeTok{length =}\NormalTok{ length\_mm, }
+                  \AttributeTok{weight =}\NormalTok{ weight\_g, age, sex, }\AttributeTok{age\_method =}\NormalTok{ age\_determination\_method) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{left\_join}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{tbl}\NormalTok{(akfin, dplyr}\SpecialCharTok{::}\FunctionTok{sql}\NormalTok{(}\StringTok{\textquotesingle{}gap\_products.akfin\_haul\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{                       dplyr}\SpecialCharTok{::}\FunctionTok{rename\_all}\NormalTok{(tolower) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{                       dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(cruisejoin, hauljoin, haul, }\AttributeTok{date\_collected =}\NormalTok{ date\_time\_start, }
+                                     \AttributeTok{latitude =}\NormalTok{ latitude\_dd\_start, }\AttributeTok{longitude =}\NormalTok{ longitude\_dd\_start),}
+                     \AttributeTok{by =} \FunctionTok{join\_by}\NormalTok{(hauljoin)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{left\_join}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{tbl}\NormalTok{(akfin, dplyr}\SpecialCharTok{::}\FunctionTok{sql}\NormalTok{(}\StringTok{\textquotesingle{}gap\_products.akfin\_cruise\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{                       dplyr}\SpecialCharTok{::}\FunctionTok{rename\_all}\NormalTok{(tolower) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{                       dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(cruisejoin, year, }\AttributeTok{vessel =}\NormalTok{ vessel\_id, survey\_definition\_id),}
+                     \AttributeTok{by =} \FunctionTok{join\_by}\NormalTok{(cruisejoin)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{==}\NormalTok{ YEAR }\SpecialCharTok{\&}
+\NormalTok{             survey\_definition\_id }\SpecialCharTok{==} \DecValTok{52} \SpecialCharTok{\&} 
+\NormalTok{             species\_code }\SpecialCharTok{\%in\%}\NormalTok{ spp\_codes }\SpecialCharTok{\&}
+             \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(age)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{collect}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Both scripts will produce this table:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(}\FunctionTok{head}\NormalTok{(dat)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{fit\_to\_width}\NormalTok{(}\AttributeTok{max\_width =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{theme\_zebra}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  flextable}\SpecialCharTok{::}\FunctionTok{colformat\_num}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ., }\AttributeTok{j =} \StringTok{"year"}\NormalTok{, }\AttributeTok{big.mark =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+\caption{Ex.: 2022 AI Atka mackerel age specimen summary: how many otoliths were
+aged. This quiery was created using SQL.}\tabularnewline
+
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{survey\_definition\_id}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{species\_code}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{countage}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\endfirsthead 
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=0pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{survey\_definition\_id}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{year}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{species\_code}}}} & \multicolumn{1}{>{\cellcolor[HTML]{CFCFCF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{countage}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\endhead
+
+
+
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{52}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2022}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,921}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,061}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
 \hypertarget{access-api-data-using-r}{%
 \chapter{Access API data using R}\label{access-api-data-using-r}}
 
@@ -6175,7 +6617,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -6207,7 +6649,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,626}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-374,397}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{189.590}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{450}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,678}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,183}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{852.063}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,814}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6215,7 +6657,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,632}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-374,643}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{134.830}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{151}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,679}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,226}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{482.079}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{725}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6223,7 +6665,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,501}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-370,283}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{32.060}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{44}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,680}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,266}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,130.462}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,446}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6231,7 +6673,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,545}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-371,701}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,154.024}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,345}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,681}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,293}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2,601.498}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{3,663}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6239,7 +6681,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,577}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-372,795}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{963.070}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,273}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,682}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,325}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,338.774}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,878}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6247,7 +6689,7 @@ package:}\label{ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttp
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,677}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,146}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,618.589}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2,814}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-611}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-13,683}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-376,381}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21,740}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{296.131}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{531}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6831,7 +7273,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -7044,7 +7490,11 @@ ID key code
 NUMBER(38,0)
 
 The survey definition ID key code uniquely identifies a survey/survey
-design. The column `survey\_definition\_id' is associated with the
+design. Integer code that uniquely identifies survey. Full list of
+survey definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS. IDs used in
+GAP\_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78
+(Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering
+Sea Shelf). The column `survey\_definition\_id' is associated with the
 `srvy' and `survey' columns. For a complete list of surveys, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
@@ -7333,7 +7783,7 @@ data}\label{ex.-1-load-the-first-25-rows-default-of-data}}
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -7444,7 +7894,7 @@ Show all the data greater than the year 2020.
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -7545,7 +7995,7 @@ reserved character in a URL, you have to replace \texttt{\%} with
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -7643,7 +8093,7 @@ contains pollock
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -7740,7 +8190,7 @@ equal to 81
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -7848,7 +8298,7 @@ constructed using
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -8426,7 +8876,7 @@ data more accessible and straightforward.
 
 \global\setlength{\Oldtabcolsep}{\tabcolsep}
 
-\setlength{\tabcolsep}{0pt}
+\setlength{\tabcolsep}{2pt}
 
 \renewcommand*{\arraystretch}{1.5}
 
@@ -8786,7 +9236,7 @@ For questions, comments, and concerns specifically about the
 \chapter{R Version Metadata}\label{r-version-metadata}}
 
 \begin{verbatim}
-R version 4.3.1 (2023-06-16 ucrt)
+R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 19045)
 
@@ -8807,10 +9257,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] compiler_4.3.1    fastmap_1.1.1     cli_3.6.1         tools_4.3.1      
- [5] htmltools_0.5.7   rstudioapi_0.15.0 yaml_2.3.8        rmarkdown_2.25   
- [9] knitr_1.45        jsonlite_1.8.8    xfun_0.41         digest_0.6.33    
-[13] rlang_1.1.2       evaluate_0.23    
+ [1] compiler_4.3.2    fastmap_1.1.1     cli_3.6.2         tools_4.3.2      
+ [5] htmltools_0.5.8.1 rstudioapi_0.16.0 yaml_2.3.8        rmarkdown_2.26   
+ [9] knitr_1.46        jsonlite_1.8.8    xfun_0.43         digest_0.6.35    
+[13] rlang_1.1.3       evaluate_0.23    
 \end{verbatim}
 
 \hypertarget{noaa-readme-1}{%
