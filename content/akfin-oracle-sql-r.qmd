@@ -72,8 +72,6 @@ for (i in 1:length(locations)) {
 }
 ```
 
-
-
 ```{r}
 #| label: test-11
 #| message: false
@@ -731,6 +729,177 @@ figure <-
 
 figure
 ```
+
+### Ex. 2022 AI Atka mackerel age specimen summary
+
+#### All ages determined:
+
+```{r}
+#| label: test-10a
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- RODBC::sqlQuery(channel = channel,
+                       query = "
+-- Select columns for output data
+SELECT SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, AGE
+
+-- Identify what tables to pull data from
+FROM GAP_PRODUCTS.AKFIN_SPECIMEN
+JOIN (SELECT HAULJOIN, CRUISEJOIN FROM GAP_PRODUCTS.AKFIN_HAUL)
+USING (HAULJOIN)
+JOIN (SELECT CRUISEJOIN, YEAR, SURVEY_DEFINITION_ID FROM GAP_PRODUCTS.AKFIN_CRUISE)
+USING (CRUISEJOIN)
+
+-- Filter data results
+WHERE GAP_PRODUCTS.AKFIN_SPECIMEN.SPECIMEN_SAMPLE_TYPE = 1
+AND SPECIES_CODE = 21921
+AND YEAR = 2022
+AND SURVEY_DEFINITION_ID = 52") %>% 
+  janitor::clean_names()
+```
+
+```{r}
+#| label: test-10a-tbl
+#| tbl-cap: "Ex.: 2022 AI Atka mackerel age specimen summary: all ages determined. "
+#| message: false
+#| warning: false
+#| echo: true
+
+flextable::flextable(head(dat)) %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = "year", big.mark = "")
+```
+
+#### How many of each age was found:
+
+```{r}
+#| label: test-10b
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- RODBC::sqlQuery(channel = channel,
+                       query = "
+-- Select columns for output data
+SELECT SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, AGE, 
+COUNT(AGE) AS COUNTAGE
+
+-- Identify what tables to pull data from
+FROM GAP_PRODUCTS.AKFIN_SPECIMEN
+JOIN (SELECT HAULJOIN, CRUISEJOIN FROM GAP_PRODUCTS.AKFIN_HAUL)
+USING (HAULJOIN)
+JOIN (SELECT CRUISEJOIN, YEAR, SURVEY_DEFINITION_ID FROM GAP_PRODUCTS.AKFIN_CRUISE)
+USING (CRUISEJOIN)
+
+-- Filter data results
+WHERE GAP_PRODUCTS.AKFIN_SPECIMEN.SPECIMEN_SAMPLE_TYPE = 1
+AND SPECIES_CODE = 21921
+AND YEAR = 2022
+AND SURVEY_DEFINITION_ID = 52
+GROUP BY (YEAR, SURVEY_DEFINITION_ID, SPECIES_CODE, AGE)") %>% 
+  janitor::clean_names()
+```
+
+```{r}
+#| label: test-10b-tbl
+#| tbl-cap: "Ex.: 2022 AI Atka mackerel age specimen summary: how many of each age were determined. "
+#| message: false
+#| warning: false
+#| echo: true
+
+flextable::flextable(head(dat)) %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = "year", big.mark = "")
+```
+
+#### How many otoliths were aged: 
+
+Using `SQL`
+
+```{r}
+#| label: test-10c1
+#| message: false
+#| warning: false
+#| echo: true
+
+dat <- RODBC::sqlQuery(channel = channel,
+                       query = "
+-- Select columns for output data
+SELECT SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, 
+COUNT(AGE) AS COUNTAGE
+
+-- Identify what tables to pull data from
+FROM GAP_PRODUCTS.AKFIN_SPECIMEN
+JOIN (SELECT HAULJOIN, CRUISEJOIN FROM GAP_PRODUCTS.AKFIN_HAUL)
+USING (HAULJOIN)
+JOIN (SELECT CRUISEJOIN, YEAR, SURVEY_DEFINITION_ID FROM GAP_PRODUCTS.AKFIN_CRUISE)
+USING (CRUISEJOIN)
+
+-- Filter data results
+WHERE GAP_PRODUCTS.AKFIN_SPECIMEN.SPECIMEN_SAMPLE_TYPE = 1
+AND SPECIES_CODE = 21921
+AND YEAR = 2022
+AND SURVEY_DEFINITION_ID = 52
+GROUP BY (YEAR, SURVEY_DEFINITION_ID, SPECIES_CODE)") %>% 
+  janitor::clean_names()
+```
+
+Using `dbplyr`:
+
+```{r}
+#| label: test-10c2
+#| message: false
+#| warning: false
+#| echo: true
+#| eval: false
+
+library(odbc)
+library(keyring)
+library(dplyr)
+library(dbplyr)
+
+channel <- DBI::dbConnect(odbc::odbc(), "akfin", uid = keyring::key_list("akfin")$username,
+                        pwd = keyring::key_get("akfin", keyring::key_list("akfin")$username))
+
+dat <- dplyr::tbl(src = channel, dplyr::sql('gap_products.akfin_specimen')) %>% 
+    dplyr::rename_all(tolower) %>% 
+    dplyr::select(hauljoin, specimen = specimen_id, species_code, length = length_mm, 
+                  weight = weight_g, age, sex, age_method = age_determination_method) %>% 
+    dplyr::left_join(dplyr::tbl(akfin, dplyr::sql('gap_products.akfin_haul')) %>%
+                       dplyr::rename_all(tolower) %>% 
+                       dplyr::select(cruisejoin, hauljoin, haul, date_collected = date_time_start, 
+                                     latitude = latitude_dd_start, longitude = longitude_dd_start),
+                     by = join_by(hauljoin)) %>% 
+    dplyr::left_join(dplyr::tbl(akfin, dplyr::sql('gap_products.akfin_cruise')) %>%
+                       dplyr::rename_all(tolower) %>% 
+                       dplyr::select(cruisejoin, year, vessel = vessel_id, survey_definition_id),
+                     by = join_by(cruisejoin)) %>% 
+    dplyr::filter(year == YEAR &
+             survey_definition_id == 52 & 
+             species_code %in% spp_codes &
+             !is.na(age)) %>% 
+    dplyr::collect()
+```
+
+Both scripts will produce this table: 
+
+```{r}
+#| label: test-10c1-tbl
+#| tbl-cap: "Ex.: 2022 AI Atka mackerel age specimen summary: how many otoliths were aged. This quiery was created using SQL. "
+#| message: false
+#| warning: false
+#| echo: true
+
+flextable::flextable(head(dat)) %>%
+  flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = "year", big.mark = "")
+```
+
 
 ```{r rodbc-close}
 RODBC::odbcCloseAll()
