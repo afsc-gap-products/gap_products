@@ -284,9 +284,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#select-and-filter" id="toc-select-and-filter" class="nav-link active" data-scroll-target="#select-and-filter">Select and filter</a></li>
-  <li><a href="#select-data-format" id="toc-select-data-format" class="nav-link" data-scroll-target="#select-data-format">Select data format</a></li>
+  <li><a href="#select-and-filter" id="toc-select-and-filter" class="nav-link active" data-scroll-target="#select-and-filter">Select and filter</a>
+  <ul class="collapse">
+  <li><a href="#catch-and-haul" id="toc-catch-and-haul" class="nav-link" data-scroll-target="#catch-and-haul">Catch and haul</a></li>
+  <li><a href="#haul" id="toc-haul" class="nav-link" data-scroll-target="#haul">Haul</a></li>
+  <li><a href="#species" id="toc-species" class="nav-link" data-scroll-target="#species">Species</a></li>
+  </ul></li>
   <li><a href="#run-report" id="toc-run-report" class="nav-link" data-scroll-target="#run-report">Run report</a></li>
+  <li><a href="#api" id="toc-api" class="nav-link" data-scroll-target="#api">API</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-platform.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-platform.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -319,20 +324,67 @@ function googleTranslateElementInit() {
 
 </header>
 
+<section id="select-and-filter" class="level2">
+<h2 class="anchored" data-anchor-id="select-and-filter">Select and filter</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/foss_1_interface.png" class="img-fluid figure-img" width="936"></p>
+<p><img src="../img/foss_1_interface.png" class="img-fluid figure-img" width="430"></p>
 <figcaption class="figure-caption">AFSC Groundfish and Crab Assessment Program Bottom Trawl Survey data interface on the Fisheries One Stop Shop platform.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="select-and-filter" class="level2">
-<h2 class="anchored" data-anchor-id="select-and-filter">Select and filter</h2>
-<p>Select, filter, and package this and other NOAA Fisheries data from the <a href="https://www.fisheries.noaa.gov/foss">Fisheries One Stop Shop (FOSS)</a> platform. A user guide for the FOSS platform can be found <a href="https://www.fisheries.noaa.gov/foss/f?p=215:7:7542600605674:::::">here</a>. To begin a report, select options from the boxes what you need data for.</p>
-<p>For a given box, select one or a few options from the “options box” (list on the left) to query by highlighting them. To select multiple options, hold down the CTRL key while clicking on the options of interest, or click and drag down the list. Once the options you wish to be included in your query are highlighted, click the right-pointing arrow (<code>&gt;</code>) to move them into the “selection box” (list on the right). If you accidentally select an option that you do not want to query, simply select the unwanted option from the selection box and click the left-pointing arrow (<code>&lt;</code>).</p>
+<p>Select, filter, and download this and other NOAA Fisheries data from the <a href="https://www.fisheries.noaa.gov/foss">Fisheries One Stop Shop (FOSS)</a> platform. A user guide for the FOSS platform can be found <a href="https://www.fisheries.noaa.gov/foss/f?p=215:7:7542600605674:::::">here</a>. To begin a report, select the kind of data you need: <code>Haul and catch data</code>, <code>Haul data only</code>, <code>All observed species</code>.</p>
+<blockquote class="blockquote">
+<p>In this example, we’ll select for 2023 eastern Bering Sea Arctic cod data. Here, we used the <code>Search Species</code> box to search for species with the term “cod” in their common names and selected “Pacific cod” from that shortened list.</p>
+</blockquote>
+<section id="catch-and-haul" class="level3">
+<h3 class="anchored" data-anchor-id="catch-and-haul">Catch and haul</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/foss_1_interface_catch.png" class="img-fluid figure-img" width="409"></p>
+<figcaption class="figure-caption">Catch data on the AFSC Groundfish and Crab Assessment Program Bottom Trawl Survey data interface on the Fisheries One Stop Shop platform.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="haul" class="level3">
+<h3 class="anchored" data-anchor-id="haul">Haul</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/foss_1_interface_haul.png" class="img-fluid figure-img" width="541"></p>
+<figcaption class="figure-caption">Haul data on the AFSC Groundfish and Crab Assessment Program Bottom Trawl Survey data interface on the Fisheries One Stop Shop platform.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="species" class="level3">
+<h3 class="anchored" data-anchor-id="species">Species</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/foss_1_interface_species.png" class="img-fluid figure-img" width="468"></p>
+<figcaption class="figure-caption">All species observed by survey on the AFSC Groundfish and Crab Assessment Program Bottom Trawl Survey data interface on the Fisheries One Stop Shop platform.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The user must select a option in each of the three <code>option boxes</code>:</p>
+<ul>
+<li><code>Survey</code>: Each survey has different in design, time series, and history. More information on each survey and their designs can be found in our <a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#data-products">annual data reports</a>.</li>
+<li><code>Year</code>: Surveys are not conducted in all years, so only data from the years for which the survey was conducted will be returned.</li>
+<li><code>Species</code>: Common name of all species ever encountered in the survey. Find more information about these species in our <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">survey code books</a>.</li>
+</ul>
+<p>For a given box, select one or a few options from the <code>options box</code> (list on the left) to query. To select multiple options, hold down the <code>CTRL</code> key while clicking on the options of interest, or click and drag down the list. Once the options you wish to be included in your query are highlighted, click the right-pointing arrow (<code>&gt;</code>) to move them into the “selection box” (list on the right). This can also be achieved by double clicking the option item of interest. If you accidentally select an option that you do not want to query, simply select the unwanted option from the selection box and click the left-pointing arrow (<code>&lt;</code>).</p>
 <p>If you wish to select all options from the options box and send them to the selection box, simply click the double right-pointing arrow (<code>&gt;&gt;</code>). If you want to unselect all options from the selection box, use the double left-pointing arrow (<code>&lt;&lt;</code>) or the reset icon.</p>
 <p>To find a specific species or group more quickly you can use the <code>Search Species</code> option to quickly narrow the options. Search for parts of species common names in the <code>Search Species</code> box by entering a term and clicking the <code>search</code> button. The platform will return a shorter list in the <code>Speices</code> options box of only species that contain a match to that search term.</p>
 <p>Use the <code>Reset All Parameters</code> button to reset all parameters for entire form.</p>
@@ -340,55 +392,13 @@ function googleTranslateElementInit() {
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/foss_2_select.png" class="img-fluid figure-img" width="1000"></p>
+<p><img src="../img/foss_2_catch_select_species.png" class="img-fluid figure-img" width="1008"></p>
 <figcaption class="figure-caption">Diagram of selection and search tools available on the FOSS platfrom.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Filter options:</p>
-<ul>
-<li><code>Survey</code>: Each survey has different in design, time series, and history. More information on each survey and their designs can be found in our <a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#data-products">annual data reports</a>.</li>
-<li><code>Year</code>: Surveys are not conducted in all years, so only data from the years for which the survey was conducted will be returned.</li>
-<li><code>Species</code>: Common name of all species ever encountered in the survey. Find more information about these species in our <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">survey code books</a>.</li>
-</ul>
-<blockquote class="blockquote">
-<p>In this example, we’ll select for 2022 eastern Bering Sea Pacific cod data. Here, we used the <code>Search Species</code> box to search for species with the term “cod” in their common names and selected “Pacific cod” from that shortened list.</p>
-</blockquote>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../img/foss_3_selected.png" class="img-fluid figure-img" width="640"></p>
-<figcaption class="figure-caption">Diagram of selection and search tools available on the FOSS platofrom.</figcaption>
-</figure>
-</div>
-</div>
-</div>
 </section>
-<section id="select-data-format" class="level2">
-<h2 class="anchored" data-anchor-id="select-data-format">Select data format</h2>
-<p>Select from the below radio list of pre-designed output tables. Once you run the report, the user can further specify filter data and select columns of interest. The tables below will only include data from the selections made in the previous step.</p>
-<ul>
-<li><code>All Data Fields: Presence and Absence (zero-filled)</code>: The most complete version of the data, including species, catch, haul, and environmental data. This data will include catch data for where species were caught and zeros for where the species were not caught. This is important for calculating catch-per-unit-effort data, preparing distribution plots (e.g., <a href="https://github.com/afsc-gap-products/akgfmaps">using the akgfmaps R package</a>), and many statistical analyses.</li>
-<li><code>All Data Fields: Presence-only (non-zero)</code>: The second most complete version of the data, including species, catch, haul, and environmental data. However, this data only includes catch data for where species were caught and does not include zeros for where the species were not caught. This will return smaller, more focused data and can be useful for quickly assessing how many species were caught or how many stations species were caught at.</li>
-<li><code>Catch data: Presence and Absence (zero-filled)</code>: This data set is similar to <code>All Data Fields: Presence and Absence (zero-filled)</code>, but only includes catch and species data columns.</li>
-<li><code>Catch data: Presence-only (non-zero)</code>: This data set is similar to <code>All Data Fields: Presence-only (non-zero)</code>, but only includes catch and species data columns.</li>
-<li><code>Haul Data</code>: This data set only includes haul and environmental data collected from the survey. This data will only include one observation per haul event/station.</li>
-</ul>
-<blockquote class="blockquote">
-<p>In this example, we’ll select <code>All Data Fields: Presence and Absence (zero-filled).</code></p>
-</blockquote>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../img/foss_4_data_format.png" class="img-fluid figure-img" width="552"></p>
-<figcaption class="figure-caption">Diagram of the pre-set data format options.</figcaption>
-</figure>
-</div>
-</div>
-</div>
 </section>
 <section id="run-report" class="level2">
 <h2 class="anchored" data-anchor-id="run-report">Run report</h2>
@@ -397,12 +407,16 @@ function googleTranslateElementInit() {
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/foss_5_run_report.png" class="img-fluid figure-img" width="636"></p>
+<p><img src="../img/foss_3_run_report.png" class="img-fluid figure-img" width="896"></p>
 <figcaption class="figure-caption">Example data returned from running the report.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="api" class="level2">
+<h2 class="anchored" data-anchor-id="api">API</h2>
+<p>APIs, or Application Programming Interfaces, allows users to pull data through a IDE, or integrated development environment, like RStudio or VS Code. Explore the API pages for each of the data pages (<code>Haul and catch data</code>, <code>Haul data only</code>, <code>All observed species</code>).</p>
 
 
 </section>
