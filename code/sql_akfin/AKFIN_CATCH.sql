@@ -1,6 +1,7 @@
--- SQL Command to Create Materilized View GAP_PRODUCTS.CATCH
+-- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_CATCH
 --
--- Catch records from hauls in RACEBASE.HAULS where ABUNDANCE_HAUL = 'Y'.  
+-- Non-zero catch records from hauls in RACEBASE.HAUL 
+-- where ABUNDANCE_HAUL = 'Y'. 
 --
 -- Contributors: Ned Laman (ned.laman@noaa.gov), 
 --               Zack Oyafuso (zack.oyafuso@noaa.gov), 
@@ -8,11 +9,8 @@
 --
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_CATCH AS
-select C.CRUISEJOIN, C.HAULJOIN, C.CATCHJOIN, SPECIES_CODE, WEIGHT WEIGHT_KG, NUMBER_FISH COUNT
-from RACEBASE.HAUL H, RACEBASE.CATCH C
-where C.HAULJOIN = H.HAULJOIN
-and ( 
-(C.REGION = 'AI' and H.ABUNDANCE_HAUL = 'Y')
-or (C.REGION = 'BS' and H.ABUNDANCE_HAUL = 'Y')
-or (C.REGION = 'GOA' and H.ABUNDANCE_HAUL = 'Y')
-)
+SELECT CRUISEJOIN, HAULJOIN, CATCHJOIN, SPECIES_CODE, 
+WEIGHT WEIGHT_KG, NUMBER_FISH COUNT
+FROM RACEBASE.CATCH
+JOIN RACEBASE.HAUL USING (CRUISEJOIN, HAULJOIN)
+WHERE RACEBASE.HAUL.ABUNDANCE_HAUL = 'Y'
