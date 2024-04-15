@@ -13,7 +13,7 @@ rm(list = ls())
 ##   Import metadata constants and commonly used functions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
-sql_channel <- gapindex::get_connected()
+sql_channel <- gapindex::get_connected(check_access = F)
 source("code/functions.R"); source("code/constants.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
