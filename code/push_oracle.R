@@ -11,7 +11,7 @@ rm(list = ls())
 ##  GAP_PRODUCTS credentials. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
-sql_channel <- gapindex::get_connected()
+sql_channel <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Constants and Table Descriptions
@@ -19,7 +19,6 @@ sql_channel <- gapindex::get_connected()
 regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 quantity <- c("agecomp", "sizecomp", "biomass", "cpue")
 source("code/constants.R")
-# source("code/functions.R")
 
 table_metadata_info <- 
   RODBC::sqlQuery(channel = sql_channel, 
@@ -67,13 +66,13 @@ for (idata in quantity) { ## Loop over data types -- start
   } ## Loop over regions -- end
   
   ## Some final data column cleaning
-  if (idata %in%  c("agecomp", "biomass"))
-    data_table <- subset(x = data_table, select = -SURVEY)
   if (idata == "cpue") 
     data_table <- subset(x = data_table,
                          select = c(HAULJOIN, SPECIES_CODE, WEIGHT_KG, COUNT,
                                     AREA_SWEPT_KM2, CPUE_KGKM2, CPUE_NOKM2) )
-  
+  if (idata == "biomass") 
+    data_table <- subset(x = data_table,
+                         select = -SURVEY )
   ## Pull table description
   table_metadata <- table_comments$comment[table_comments$datatable == idata]
   
