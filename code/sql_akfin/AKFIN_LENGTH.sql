@@ -11,25 +11,17 @@
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_LENGTH AS
 SELECT 
-a.hauljoin,
-species_code, 
-sex, 
-frequency, 
-length as length_mm, 
-length_type, 
-sample_type 
---select count(*)
-from racebase.length a, 
-race_data.cruises b, 
-race_data.surveys c, 
-race_data.survey_definitions d, 
-racebase.haul f
--- where abs(a.cruisejoin) = b.cruise_id -- can't use because mismatches
-where A.CRUISE = B.CRUISE -- added by N. Laman 2/2024 to replace where abs(a.cruisejoin) = b.cruise_id 
-AND A.VESSEL = B.VESSEL_ID -- added by N. Laman 2/2024 to replace where abs(a.cruisejoin) = b.cruise_id 
-and a.hauljoin = f.hauljoin
-and c.survey_id =  b.survey_id 
-and c.survey_definition_id = d.survey_definition_id 
-and d.survey_definition_id in (143, 98, 47, 52, 78)
-and f.abundance_haul = 'Y'
-
+A.HAULJOIN, SPECIES_CODE, SEX, FREQUENCY, LENGTH AS LENGTH_MM,
+LENGTH_TYPE, SAMPLE_TYPE 
+FROM RACEBASE.LENGTH A, 
+RACE_DATA.CRUISES B, 
+RACE_DATA.SURVEYS C, 
+RACE_DATA.SURVEY_DEFINITIONS D, 
+RACEBASE.HAUL F
+WHERE A.CRUISE = B.CRUISE 
+AND A.VESSEL = B.VESSEL_ID
+AND A.HAULJOIN = F.HAULJOIN
+AND C.SURVEY_ID =  B.SURVEY_ID 
+AND C.SURVEY_DEFINITION_ID = D.SURVEY_DEFINITION_ID 
+AND D.SURVEY_DEFINITION_ID IN (143, 98, 47, 52, 78)
+AND F.ABUNDANCE_HAUL = 'Y'

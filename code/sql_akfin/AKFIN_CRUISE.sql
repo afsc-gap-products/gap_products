@@ -1,5 +1,8 @@
 -- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_CRUISE
 --
+-- Note: the five survey areas w/ survey_definition_id:
+-- "AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143
+--
 -- Contributors: Ned Laman (ned.laman@noaa.gov), 
 --               Zack Oyafuso (zack.oyafuso@noaa.gov), 
 --               Emily Markowitz (emily.markowitz@noaa.gov)
@@ -7,28 +10,28 @@
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_CRUISE AS
 
-select distinct 
-a.cruisejoin, 
-b.cruise, 
-floor(b.cruise/100) year, 
-d.survey_definition_id, 
-d.survey_name, 
-b.vessel_id, 
-e.name vessel_name,
-f.acronym sponsor_acronym, 
-c.start_date date_start, 
-c.END_DATE date_end
-from racebase.haul a, 
-race_data.cruises b, 
-race_data.surveys c, 
-race_data.survey_definitions d, 
-race_data.vessels e, 
-race_data.organizations f
-where a.vessel = b.vessel_id
-and b.vessel_id = e.vessel_id
-and a.cruise = b.cruise 
-and c.survey_id =  b.survey_id 
-and c.survey_definition_id = d.survey_definition_id 
-and d.survey_definition_id in (143,98,47,52,78)
-and a.abundance_haul = 'Y'
-and f.organization_id = c.sponsor_organization_id
+SELECT DISTINCT 
+A.CRUISEJOIN, 
+B.CRUISE, 
+FLOOR(B.CRUISE/100) YEAR, 
+D.SURVEY_DEFINITION_ID, 
+D.SURVEY_NAME, 
+B.VESSEL_ID, 
+E.NAME VESSEL_NAME,
+F.ACRONYM SPONSOR_ACRONYM, 
+C.START_DATE DATE_START, 
+C.END_DATE DATE_END
+FROM RACEBASE.HAUL A, 
+RACE_DATA.CRUISES B, 
+RACE_DATA.SURVEYS C, 
+RACE_DATA.SURVEY_DEFINITIONS D, 
+RACE_DATA.VESSELS E, 
+RACE_DATA.ORGANIZATIONS F
+WHERE A.VESSEL = B.VESSEL_ID
+AND B.VESSEL_ID = E.VESSEL_ID
+AND A.CRUISE = B.CRUISE 
+AND C.SURVEY_ID =  B.SURVEY_ID 
+AND C.SURVEY_DEFINITION_ID = D.SURVEY_DEFINITION_ID 
+AND D.SURVEY_DEFINITION_ID IN (143,98,47,52,78)
+AND A.ABUNDANCE_HAUL = 'Y'
+AND F.ORGANIZATION_ID = C.SPONSOR_ORGANIZATION_ID
