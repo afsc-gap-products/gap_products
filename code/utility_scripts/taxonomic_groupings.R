@@ -115,13 +115,29 @@ grouped_taxa_df$GROUP_CODE[
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fish_taxa <- RODBC::sqlQuery(
   channel = chl,
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND SUBPHYLUM_TAXON = 'Vertebrata'
-           AND NOT (FAMILY_TAXON IN ('Myctophidae', 'Liparidae') 
-                    OR GENUS_TAXON = 'Lycodapus')"
+  query = "
+SELECT SPECIES_CODE AS GROUP_CODE, 
+GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
+FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+WHERE SURVEY_SPECIES = 1
+AND SUBPHYLUM_TAXON = 'Vertebrata'
+AND CLASS_TAXON != 'Mammalia'
+
+-- Remove Lycodapus spp.
+MINUS 
+SELECT SPECIES_CODE AS GROUP_CODE, 
+GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
+FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+WHERE SURVEY_SPECIES = 1
+AND GENUS_TAXON = 'Lycodapus'
+
+-- Remove myctophids and snailfishes
+MINUS
+SELECT SPECIES_CODE AS GROUP_CODE, 
+GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
+FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+WHERE SURVEY_SPECIES = 1
+AND FAMILY_TAXON IN ('Myctophidae', 'Liparidae') "
 )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -449,6 +465,15 @@ all_taxa <- rbind(subset(x = all_taxa,
                          subset = !(SPECIES_CODE %in% 
                                       taxon_changes$SPECIES_CODE)),
                   taxon_changes)
+
+## Any remaining SPECIES_CODE records that don't belong to a group is reported
+## as the are
+all_taxa$GROUP_CODE[is.na(x = all_taxa$GROUP_CODE)] <- 
+  all_taxa$SPECIES_CODE[is.na(x = all_taxa$GROUP_CODE)]
+
+## Sort and remove SURVEY_SPECIES column
+all_taxa <- all_taxa[order(all_taxa$GROUP_CODE), ]
+all_taxa <- subset(x = all_taxa, select = -SURVEY_SPECIES)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Upload to Oracle
