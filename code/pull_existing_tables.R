@@ -2,7 +2,8 @@
 ## Project:       Pull Existing GAP_PRODUCTS production tables
 ## Author:        Zack Oyafuso (zack.oyafuso@noaa.gov)
 ## Description:   Pull existing CPUE, BIOMASS, SIZECOMP, and AGECOMP tables
-##                from the GAP_PRODUCTS schema for comparison. Save to temp/
+##                from the GAP_PRODUCTS schema for comparison. 
+##                Save to temp/cloned_gp/
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
@@ -13,15 +14,13 @@ rm(list = ls())
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
 library(data.table)
-sql_channel <- gapindex::get_connected()
+sql_channel <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Constants
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 data_tables <- c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP")
-support_tables <- c("METADATA_COLUMN", "METADATA_TABLE", "AREA", 
-                    "STRATUM_GROUPS")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull GAP_PRODUCTS data tables. Separate the data tables by region for 
@@ -57,13 +56,3 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
     
   } ## Loop over data types -- end
 } ## Loop over regions -- end
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Pull GAP_PRODUCTS support tables
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (idata in support_tables)
-  write.csv(x = RODBC::sqlQuery(channel = sql_channel,
-                                query = paste0("SELECT * FROM GAP_PRODUCTS.", 
-                                               idata)), 
-            file = paste0("temp/cloned_gp/", idata, ".csv"),
-            row.names = F)
