@@ -26,27 +26,6 @@ library(data.table)
 mismatches <- list() 
 regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 
-sql_channel <- gapindex::get_connected(check_access = F)
-taxon_groups <-  
-  RODBC::sqlQuery(channel = sql_channel, 
-                  query = "WITH A AS 
-                  (SELECT GROUP_CODE, COUNT(SPECIES_CODE) AS COUNTS 
-                  FROM GAP_PRODUCTS.TAXON_GROUPS 
-                  WHERE GROUP_CODE IS NOT NULL
-                  GROUP BY GROUP_CODE) 
-                  
-                  SELECT * FROM A WHERE COUNTS > 1")
-affected_spp <-   
-  RODBC::sqlQuery(channel = sql_channel, 
-                  query = "SELECT GROUP_CODE, SPECIES_CODE
-                  FROM GAP_PRODUCTS.TAXON_GROUPS 
-                  WHERE GROUP_CODE != SPECIES_CODE")
-omitted_spp <- 
-  RODBC::sqlQuery(channel = sql_channel, 
-                  query = "SELECT GROUP_CODE, SPECIES_CODE
-                  FROM GAP_PRODUCTS.TAXON_GROUPS 
-                  WHERE GROUP_CODE IS NULL")
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions, Pull in the current version of each data table, the 
 ##   updated version of the data table, Full join the two tables, evaluate
@@ -66,16 +45,6 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   production_cpue <- data.table::as.data.table(
     x = read.csv(file = paste0("temp/production/production_cpue", 
                                "_", regions[iregion], ".csv")))
-  
-  ## Temporary: filter out species that are affected by the aggregating
-  gp_cpue <- 
-    gp_cpue[!SPECIES_CODE %in% c(taxon_groups$GROUP_CODE, 
-                                 affected_spp$SPECIES_CODE, 
-                                 omitted_spp$SPECIES_CODE)]
-  production_cpue <- 
-    production_cpue[!SPECIES_CODE %in% c(taxon_groups$GROUP_CODE, 
-                                         affected_spp$SPECIES_CODE, 
-                                         omitted_spp$SPECIES_CODE)]
   
   ## Full join the two tables together using HAULJOIN AND SPECIES_CODE as a 
   ## composite key
@@ -117,16 +86,6 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   production_biomass <- data.table::as.data.table(
     x = read.csv(file = paste0("temp/production/production_biomass", 
                                "_", regions[iregion], ".csv")))
-  
-  ## Temporary: filter out species that are affected by the aggregating
-  gp_biomass <- 
-    gp_biomass[!SPECIES_CODE %in% c(taxon_groups$GROUP_CODE, 
-                                    affected_spp$SPECIES_CODE, 
-                                    omitted_spp$SPECIES_CODE)]
-  production_biomass <- 
-    production_biomass[!SPECIES_CODE %in% c(taxon_groups$GROUP_CODE, 
-                                            affected_spp$SPECIES_CODE, 
-                                            omitted_spp$SPECIES_CODE)]
   
   for (icol in c("CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR", 
                  "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
@@ -177,16 +136,6 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   production_sizecomp <- data.table::as.data.table(
     x = read.csv(file = paste0("temp/production/production_sizecomp", 
                                "_", regions[iregion], ".csv")))
-  
-  ## Temporary: filter out species that are affected by the aggregating
-  gp_sizecomp <- 
-    gp_sizecomp[!SPECIES_CODE %in% c(taxon_groups$GROUP_CODE, 
-                                     affected_spp$SPECIES_CODE, 
-                                     omitted_spp$SPECIES_CODE)]
-  production_sizecomp <- 
-    production_sizecomp[!SPECIES_CODE %in% c(taxon_groups$GROUP_CODE, 
-                                             affected_spp$SPECIES_CODE, 
-                                             omitted_spp$SPECIES_CODE)]
   
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND LENGTH_MM as a composite key
@@ -292,7 +241,7 @@ Major changes to the GAP_PRODUCTS.* tables:
 
 - Addition of deeper (> 500 m) INPFC x DEPTH subarea AREA_ID values for the GOA, as addressed in this [GitHub issue](https://github.com/afsc-gap-products/gap_products/issues/35).
 
-- First draft attempts at higher taxon aggregations (most inverts, some fish genera). These aggregations can be found in a newly created tabled called GAP_PRODUCTS.TAXON_GROUPS, where records with the same GROUP_CODE are now aggregated. The GROUP_CODE in this table is then transferred to the SPECIES_CODE field in GAP_PRODUCTS.CPUE/BIOMASS/SIZECOMP/AGECOMP. The GAP_PRODUCTS.TAXON_GROUPS table would be used if a user wanted to know what SPECIES_CODE values were contained in a particular taxon aggregation GROUP_CODE, or whether a SPECIES_CODE that codes for a taxonomic aggregation (e.g., Lycodapus sp. Sebastes sp.).  
+- First draft attempts at higher taxon aggregations (most inverts, some fish genera). These aggregations can be found in a newly created table called GAP_PRODUCTS.TAXON_GROUPS, where records with the same GROUP_CODE are now aggregated. The GROUP_CODE in this table is then transferred to the SPECIES_CODE field in GAP_PRODUCTS.CPUE/BIOMASS/SIZECOMP/AGECOMP. The GAP_PRODUCTS.TAXON_GROUPS table would be used if a user wanted to know what SPECIES_CODE values were contained in a particular taxon aggregation GROUP_CODE, or whether a SPECIES_CODE that codes for a taxonomic aggregation (e.g., Lycodapus sp. Sebastes sp.).  
 
 - Removal of commercial crab species (69323, 69322, 68580, 68560, 68590) from the GAP_PRODUCTS.BIOMASS table for all regions. Initially this was done only for the Bering Sea regions.
 
