@@ -26,90 +26,220 @@ Scientists from the Alaska Fisheries Science Center conduct these bottom trawl s
 
 ## Bottom trawl surveys and regions
 
-```{r survey-map, echo=FALSE, results='asis'}
+```{r survey-map, echo=FALSE, results='asis', eval = TRUE}
+library(ggplot2)
+library(viridis)
+# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+library(akgfmaps)
+library(sf)
 
-# library(ggplot2)
-# library(viridis)
-# library(akgfmaps)
-# library(sf)
-# 
-# shp_ebs <- akgfmaps::get_base_layers(select.region = "bs.south", set.crs = "auto")
-# shp_nbs <- akgfmaps::get_base_layers(select.region = "bs.north", set.crs = "auto")
-# shp_ai <- akgfmaps::get_base_layers(select.region = "ai", set.crs = "auto")
-# shp_goa <- akgfmaps::get_base_layers(select.region = "goa", set.crs = "auto")
-# shp_bss <- akgfmaps::get_base_layers(select.region = "ebs.slope", set.crs = "auto")
-# 
-# shp <- dplyr::bind_rows(list(
-#   shp_ebs$survey.area %>% 
-#     sf::st_transform(crs = "EPSG:3338") %>% 
-#     dplyr::mutate(SURVEY = "EBS"), 
-#   shp_nbs$survey.area  %>% 
-#     sf::st_transform(crs = "EPSG:3338") %>% 
-#     dplyr::mutate(SURVEY = "NBS"), 
-#   shp_ai$survey.area %>% 
-#     sf::st_transform(crs = "EPSG:3338") %>% 
-#     dplyr::mutate(SURVEY = "AI"), 
-#   shp_goa$survey.area %>% 
-#     sf::st_transform(crs = "EPSG:3338") %>% 
-#     dplyr::mutate(SURVEY = "GOA"), 
-#   shp_bss$survey.area %>% 
-#     sf::st_transform(crs = "EPSG:3338") %>% 
-#     dplyr::mutate(SURVEY = "BSS"))) %>% 
-#   dplyr::select(Survey = SURVEY, geometry)
-# 
-# gg <- ggplot() +
-#   ggplot2::geom_sf(data = shp_bss$akland, 
-#                    fill = "dark grey", 
-#                    color = "transparent") + 
-#   ggplot2::geom_sf(data = shp_nbs$graticule,
-#                    color = "grey90", 
-#                    size = 0.5, 
-#                    alpha = 0.5) +
-#   ggplot2::geom_sf(data = shp_ai$graticule,
-#                    color = "grey90",
-#                    size = 0.5, 
-#                    alpha = 0.5) +
-#   ggplot2::geom_sf(data = shp_goa$graticule,
-#                    color = "grey90",
-#                    size = 0.5, 
-#                    alpha = 0.5) +
-#   ggplot2::scale_x_continuous(name = "Longitude",
-#                               breaks = c(-180, -170, -160, -150, -140)) + # shp_bss$lon.breaks) +
-#   # ggplot2::scale_y_continuous(name = "Latitude", breaks = shp_bss$lat.breaks) +
-#   ggplot2::ggtitle(label = "Bottom Trawl Survey Regions",
-#                    subtitle = "AFSC RACE Groundfish and Shellfish Public Data Coverage") +
-#   ggplot2::theme_classic() + 
-#   ggplot2::theme(
-#     panel.background = element_rect(fill = "transparent"), #grey95
-#     plot.title = element_text(size = 20, face = "bold"), 
-#     plot.subtitle = element_text(size=14), 
-#     legend.text=element_text(size=8), 
-#     legend.position="right",
-#     legend.direction="vertical",
-#     legend.justification="left",
-#     legend.background = element_blank(),
-#     legend.title=element_text(size=14),
-#     axis.text = element_text(size=10), 
-#     legend.box.background = element_blank(),
-#     legend.key = element_blank(), 
-#     legend.key.size=(unit(.3,"cm")), 
-#     axis.title=element_text(size=14), 
-#     plot.margin = margin(0,0,0,0,unit = "cm")) +
-#   ggplot2::geom_sf(data = shp, 
-#                    mapping = aes(fill = Survey),
-#                    color = "grey20", 
-#                    show.legend = TRUE) +
-#   ggplot2::scale_fill_viridis_d(option = "G", end = 0.9, begin = 0.1) +
-#   ggplot2::coord_sf(xlim = c(-1394658,  2566293), # range(shp_ai$plot.boundary$x, shp_bs$plot.boundary$x, shp_goa$plot.boundary$x, shp_bss$plot.boundary$x),
-#                     ylim = c(-1028565.1,  1125549.7)) # range(shp_ai$plot.boundary$y, shp_bs$plot.boundary$y, shp_goa$plot.boundary$y, shp_bss$plot.boundary$y))
-# 
-# ggsave(filename = "survey_plot.png", 
-#        plot = gg,
-#        path = here::here("img"), 
-#        width = 7, 
-#        height = 3)
+shp_ebs <- akgfmaps::get_base_layers(select.region = "bs.south", set.crs = "auto")
+shp_nbs <- akgfmaps::get_base_layers(select.region = "bs.north", set.crs = "auto")
+shp_ai <- akgfmaps::get_base_layers(select.region = "ai", set.crs = "auto")
+shp_ai$survey.strata$Stratum <- shp_ai$survey.strata$STRATUM
+shp_goa <- akgfmaps::get_base_layers(select.region = "goa", set.crs = "auto")
+shp_goa$survey.strata$Stratum <- shp_goa$survey.strata$STRATUM
+shp_bss <- akgfmaps::get_base_layers(select.region = "ebs.slope", set.crs = "auto")
 
-knitr::include_graphics(path = here::here("img", "survey_plot.png"))
+shp_all <- shp <- dplyr::bind_rows(list(
+  shp_ebs$survey.area %>%
+    sf::st_transform(crs = "EPSG:3338") %>%
+    dplyr::mutate(SURVEY = "EBS"),
+  shp_nbs$survey.area  %>%
+    sf::st_transform(crs = "EPSG:3338") %>%
+    dplyr::mutate(SURVEY = "NBS"),
+  shp_ai$survey.area %>%
+    sf::st_transform(crs = "EPSG:3338") %>%
+    dplyr::mutate(SURVEY = "AI"),
+  shp_goa$survey.area %>%
+    sf::st_transform(crs = "EPSG:3338") %>%
+    dplyr::mutate(SURVEY = "GOA"),
+  shp_bss$survey.area %>%
+    sf::st_transform(crs = "EPSG:3338") %>%
+    dplyr::mutate(SURVEY = "BSS"))) %>%
+  dplyr::select(Survey = SURVEY, geometry)
+
+
+plot_survey <- function(srvy = "ebs", print_plot = FALSE) {
+  
+  if (srvy == "all") {
+    shp <- shp_ebs
+    survey <- "All"
+  } else if (srvy == "ebs") {
+    shp <- shp_ebs
+    survey <- "Eastern Bering Sea"
+    stn_col <- "STATIONID"    
+  } else if (srvy == "nbs") {
+    shp <- shp_nbs
+    survey <- "Northern Bering Sea"
+    stn_col <- "STATIONID"    
+  } else if (srvy == "bss") {
+    shp <- shp_bss
+    survey <- "Bering Sea Slope"  
+    stn_col <- NULL
+  } else if (srvy == "ai") {
+    shp <- shp_ai
+    survey <- "Aleutian Islands"
+    stn_col <- "ID"    
+  } else if (srvy == "goa") {
+    shp <- shp_goa
+    survey <- "Gulf of Alaska"
+    stn_col <- "ID"
+  }
+  
+gg <- ggplot() +
+  ggplot2::geom_sf(data = shp$akland,
+                   fill = "grey10",
+                   color = "transparent") 
+if (srvy == "all") {
+  gg <- gg + 
+      ggplot2::geom_sf(data = shp_nbs$graticule,
+                   color = "grey90",
+                   size = 0.5,
+                   alpha = 0.5) +
+  ggplot2::geom_sf(data = shp_ai$graticule,
+                   color = "grey90",
+                   size = 0.5,
+                   alpha = 0.5) +
+  ggplot2::geom_sf(data = shp_goa$graticule,
+                   color = "grey90",
+                   size = 0.5,
+                   alpha = 0.5) +
+  ggplot2::scale_x_continuous(name = "Longitude",
+                              breaks = c(-180, -170, -160, -150, -140)) +
+  ggplot2::scale_y_continuous(name = "Latitude") 
+} else {
+  gg <- gg + 
+  ggplot2::geom_sf(data = shp$graticule,
+                   color = "grey90",
+                   size = 0.5,
+                   alpha = 0.5) + 
+  ggplot2::scale_x_continuous(name = "Longitude",
+                              breaks = shp$lon.breaks) +
+  ggplot2::scale_y_continuous(name = "Latitude", 
+                              breaks = shp$lat.breaks) 
+}
+
+gg <- gg +
+  ggplot2::ggtitle(label = paste0(survey, " Bottom Trawl Survey Regions"),
+                   subtitle = "AFSC RACE Groundfish and Shellfish Public Data Coverage") +
+  ggplot2::theme_classic() +
+  ggplot2::theme(
+    panel.background = element_rect(fill = "transparent"), #grey95
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size=12),
+    legend.text=element_text(size=8),
+    legend.position="right",
+    legend.direction="vertical",
+    legend.justification="left",
+    legend.background = element_blank(),
+    legend.title=element_text(size=10),
+    axis.text = element_text(size=8),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.key.size=(unit(.3,"cm")),
+    axis.title=element_text(size=14),
+    plot.margin = margin(0,0,0,0,unit = "cm"))
+  
+if (srvy == "all") {
+  gg <- gg  +
+  ggplot2::geom_sf(data = shp_all,
+                   mapping = aes(fill = Survey),
+                   # color = "grey50",
+                   show.legend = TRUE) +
+  ggplot2::scale_fill_viridis_d(option = "G", end = 0.9, begin = 0.1) +
+    ggplot2::coord_sf(xlim = c(-1394658,  2566293), # range(shp_ai$plot.boundary$x, shp_bs$plot.boundary$x, shp_goa$plot.boundary$x, shp_bss$plot.boundary$x),
+                    ylim = c(-1028565.1,  1125549.7)) # range(shp_ai$plot.boundary$y, shp_bs$plot.boundary$y, shp_goa$plot.boundary$y, shp_bss$plot.boundary$y))
+} else {
+    
+# Station centroid data -------------------------------------------------------
+gg <- gg  +
+  ggplot2::geom_sf(data = shp$survey.strata,
+                   fill = "grey80", 
+                   color = "grey30",
+                   alpha = .75,
+                   show.legend = TRUE) 
+
+if (!is.null(stn_col)) {
+
+station_center <- shp$survey.grid |>
+    sf::st_make_valid() |>
+    sf::st_centroid() 
+
+station_center <- data.frame(station = station_center[,stn_col]) |>
+    dplyr::bind_cols(sf::st_coordinates(station_center)) |>
+    dplyr::rename(longitude_dd = X, 
+                  latitude_dd = Y, 
+                  geometry = station.geometry) %>%
+  dplyr::filter(!is.na(srvy)) %>%
+  # dplyr::filter(!is.na(station)) %>%
+  dplyr::filter(!is.na(longitude_dd)) %>%
+  dplyr::filter(!is.na(latitude_dd))
+
+gg <- gg  +
+  ggplot2::geom_point(data = station_center, 
+                   mapping = aes(x = longitude_dd, 
+                                 y = latitude_dd), 
+                   color = "grey20",
+                   size = .1, 
+                   alpha = .5,
+                   show.legend = FALSE) 
+}
+  
+gg <- gg  +
+      # geom_sf(data = shp$bathymetry, 
+      #         fill = NA, 
+      #         color = "grey50")  +
+      ggplot2::geom_text(data = subset(shp$place.labels, 
+                              type == "mainland"), 
+                aes(x = x, y = y, label = lab), 
+                size = 3, group = 99) + 
+      shadowtext::geom_shadowtext(data = subset(shp$place.labels, 
+                                    type == "peninsula"), 
+                      aes(x = x, y = y, label = lab), size = 4, angle = 30, 
+                      bg.color = "white", color = "black", group = 99) + 
+      shadowtext::geom_shadowtext(
+        data = subset(shp$place.labels, 
+                      type %in% c("bathymetry", "islands")),
+        aes(x = x, y = y, label = lab), 
+        bg.color = "white", color = "black", 
+        size = 2, group = 99) 
+if (srvy %in% c("nbs", "ebs")) {
+gg <- gg  +
+      ggplot2::geom_sf_text(data = shp$survey.strata, 
+                   lineheight = 0.7,
+                   mapping = aes(label = shp$survey.strata$Stratum),
+                   color = "black",
+                   size = 2,
+                   show.legend = FALSE) 
+}
+gg <- gg  +
+   ggplot2::coord_sf(xlim = range(shp$plot.boundary$x), 
+                    ylim = range(shp$plot.boundary$y)) 
+} 
+  
+ggsave(filename = paste0("survey_plot_",srvy,".png"),
+       plot = gg,
+       path = here::here("img"),
+       width = 7,
+       height = 3)
+
+if (print_plot){
+  return(gg)
+}
+
+}
+```
+
+```{r survey-map-all-display}
+#| label: srvy-bg-all
+#| fig-cap: "Strata used in the all surveys. "
+#| eval: true
+#| echo: false
+#| results: 'asis'
+ 
+plot_survey(srvy = "all") 
+knitr::include_graphics(path = here::here("img", "survey_plot_all.png"))
 ```
 
 ```{r source-current-tm, echo=FALSE}
@@ -224,58 +354,117 @@ table_print <- table_raw %>%
 table_print 
 ```
 
-
 ### **Aleutian Islands** 
-[@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
+Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
 
 - Upper Continental Slope of the Aleutian Islands from Unimak Pass to Stalemate Bank
 - Triennial (1990s)/Biennial since 2000 in even years, since 1992
 - Modified Index-Stratified Random of Successful Stations Survey Design
 - Important commercial fish species include Atka mackerel, [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [sablefish](https://www.fisheries.noaa.gov/species/sablefish), and other rockfish species. 
 
+```{r survey-map-ai-display}
+#| label: srvy-bg-ai
+#| fig-cap: "Strata used in the Aleutian Islands bottom trawl survey. "
+#| eval: true
+#| echo: false
+#| results: 'asis'
+#| error: false
+#| message: false
+ 
+plot_survey(srvy = "ai") 
+knitr::include_graphics(path = here::here("img", "survey_plot_ai.png"))
+```
+
 ### **Gulf of Alaska** 
-[@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
+Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
 
 - Continental Shelf and Upper Slope of the Gulf of Alaska extending from the Islands of Four Mountains 2,300 km east to Dixon Entrance
 - Triennial (1990s)/Biennial since 2001 in odd years, since 1991
 - Stratified Random Survey Design
 - Important commercial species in the Gulf of Alaska include [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), flatfish, and other rockfish species. 
 
+```{r survey-map-goa-display}
+#| label: srvy-bg-goa
+#| fig-cap: "Strata used in the Gulf of Alaska bottom trawl survey. "
+#| eval: true
+#| echo: false
+#| results: 'asis'
+#| error: false
+#| message: false
+  
+plot_survey(srvy = "goa") 
+knitr::include_graphics(path = here::here("img", "survey_plot_goa.png"))
+```
+
 ### **Eastern Bering Sea Shelf** 
-[@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
+Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
 
 - The continental shelf of the eastern Bering Sea from the Aleutian Islands to the Bering Strait
 - Conducted annually since 1982. 
 - Uses a stratified systematic sampling survey design with fixed stations at center of 20 x 20 nm grid. 
 - Similar in design to the northern Bering Sea shelf bottom trawl survey. 
-- Focus species for the Bering Sea include [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [Greenland turbot](https://www.fisheries.noaa.gov/species/greenland-turbot), [yellowfin sole](https://www.fisheries.noaa.gov/species/yellowfin-sole), [northern rock sole](https://www.fisheries.noaa.gov/species/rock-sole), [red king crab](https://www.fisheries.noaa.gov/species/red-king-crab), and [snow](https://www.fisheries.noaa.gov/species/alaska-snow-crab) and Tanner crabs. 
+- Focus species for the Bering Sea include [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), [Pacific cod](https://www.fisheries.noaa.gov/species/pacific-cod), [Greenland turbot](https://www.fisheries.noaa.gov/species/greenland-turbot), [yellowfin sole](https://www.fisheries.noaa.gov/species/yellowfin-sole), [northern rock sole](https://www.fisheries.noaa.gov/species/rock-sole), [red king crab](https://www.fisheries.noaa.gov/species/red-king-crab), and [snow](https://www.fisheries.noaa.gov/species/alaska-snow-crab) and Tanner crabs.
 
-```{r srvy-bg-ebs, echo=FALSE}
+```{r survey-map-ebs-display}
 #| label: srvy-bg-ebs
-#| fig-cap: "Strata used in the Eastern Bering Sea Survey. "
+#| fig-cap: "Strata used in the Eastern Bering Sea bottom trawl survey. "
+#| eval: true
+#| echo: false
+#| results: 'asis'
+#| error: false
+#| message: false
+  
+# knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
 
-knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
+plot_survey(srvy = "ebs") 
+knitr::include_graphics(path = here::here("img", "survey_plot_ebs.png"))
+```
+
+```{r survey-map-ebs-display, echo=FALSE, results='asis'}
+knitr::include_graphics(path = here::here("img", "survey_plot_ebs.png"))
 ```
 
 ### **Northern Bering Sea** 
-[@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
+Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
 
 - The continental shelf of the northern Bering Sea, including the area north of St. Lawrence Island and Norton Sound
 - Biennial/Annual; conducted intermittently since 2010
 - Uses a stratified systematic sampling survey design with fixed stations at center of 20 x 20 nm grid. 
 - Similar in design to the eastern Bering Sea shelf bottom trawl survey. 
 
+```{r survey-map-nbs-display}
+#| label: srvy-bg-nbs
+#| fig-cap: "Strata used in the Northern Bering Sea bottom trawl survey. "
+#| eval: true
+#| echo: false
+#| results: 'asis'
+#| error: false
+#| message: false
+
+plot_survey(srvy = "nbs") 
+knitr::include_graphics(path = here::here("img", "survey_plot_nbs.png"))
+```
+
 ### **Eastern Bering Sea Upper Continental Slope** 
-[@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
+Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
 
 - The eastern Bering Sea upper continental slope survey area extends from Unalaska and Akutan Islands to the U.S.-Russian Maritime Boundary at 61° N near the International Date Line (166° E to 180° W) at depths from 200 to 1,200 m
 - Conducted intermittently since 2002 (funding dependent)
 - Modified Index-Stratified Random of Successful Stations Survey Design
 - Focus species for the Bering Sea slope include giant grenadier, [Pacific ocean perch](https://www.fisheries.noaa.gov/species/pacific-ocean-perch), popeye grenadier, [walleye pollock](https://www.fisheries.noaa.gov/species/alaska-pollock), and [arrowtooth flounder](https://www.fisheries.noaa.gov/species/arrowtooth-flounder). 
 
-```{r srvy-bg-bss, echo=FALSE}
-#| label: srvy-bg-bss
-#| fig-cap: "Strata used in the Bering Sea Slope Survey. "
 
+```{r survey-map-bss-display}
+#| label: srvy-bg-bss
+#| fig-cap: "Strata used in the Bering Sea Slope bottom trawl survey. "
+#| eval: true
+#| echo: false
+#| results: 'asis'
+#| error: false
+#| message: false
+  
 knitr::include_graphics(path = here::here("img", "bss-strata.png"))
+
+# plot_survey(srvy = "bss") 
+# knitr::include_graphics(path = here::here("img", "survey_plot_bss.png"))
 ```

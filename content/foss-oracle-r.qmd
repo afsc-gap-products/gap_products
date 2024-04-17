@@ -1,5 +1,6 @@
 ---
 title: Access via Oracle and R (AFSC only)
+number-sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -19,11 +20,100 @@ library(gapindex)
 channel <- gapindex::get_connected()
 ```
 
-### Ex. 1: Join data
+
+### Ex. Wholesale download data and join data in R
+
+```{r}
+#| label: test-1a
+#| tbl-cap: "Wholesale download data and join data in R. "
+#| message: false
+#| warning: false
+#| echo: true
+#| eval: false
+
+locations <- c(
+  "GAP_PRODUCTS.FOSS_CATCH",
+  "GAP_PRODUCTS.FOSS_HAUL",
+  "GAP_PRODUCTS.FOSS_SPECIES"
+)
+
+print(Sys.Date())
+
+error_loading <- c() # log if any tables are unable to download 
+for (i in 1:length(locations)){
+  print(locations[i])
+  a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i], "; "))
+  if (is.null(nrow(a))) { # if an error in downloading has occurred
+    error_loading <- c(error_loading, locations[i])
+  } else { # if no error in downloading has occurred
+    write.csv(x = a, 
+              # change file name to be more computer file storage friendly
+              here::here(paste0(tolower(gsub(
+                pattern = '.', 
+                replacement = "_", 
+                x = locations[i], 
+                fixed = TRUE)),
+                ".csv")))
+  }
+}
+error_loading
+```
+
+Join downloaded files
+
+```{r}
+#| label: test-1b
+#| tbl-cap: "Wholesale download data and join data in R. "
+#| message: false
+#| warning: false
+#| echo: true
+#| eval: false
+
+# Load data
+library(dplyr)
+library(here)
+library(readr)
+catch <- readr::read_csv(file = here::here("data/gap_products_foss_catch.csv"))[,-1] # remove "row number" column
+haul <- readr::read_csv(file = here::here("data/gap_products_foss_haul.csv"))[,-1] # remove "row number" column
+species <- readr::read_csv(file = here::here("data/gap_products_foss_species.csv"))[,-1] # remove "row number" column
+
+# come up with full combination of what species should be listed for what hauls/surveys
+# for zero-filled data, all species caught in a survey need to have zero or non-zero row entries for a haul
+comb <- dplyr::full_join(
+  x = dplyr::left_join(catch, haul, by = "HAULJOIN") %>%
+    dplyr::select(SURVEY_DEFINITION_ID, SPECIES_CODE) %>%
+    dplyr::distinct(),
+  y = haul %>%
+    dplyr::select(SURVEY_DEFINITION_ID, HAULJOIN) %>%
+    dplyr::distinct(), 
+  by = "SURVEY_DEFINITION_ID", 
+  relationship = "many-to-many"
+)
+
+# Join data to make a full zero-filled CPUE dataset
+dat <- comb %>% 
+  # add species data to unique species by survey table
+  dplyr::left_join(species, "SPECIES_CODE") %>% 
+  # add catch data
+  dplyr::full_join(catch, c("SPECIES_CODE", "HAULJOIN")) %>% 
+  # add haul data
+  dplyr::full_join(haul) %>% # , c("SURVEY_DEFINITION_ID", "HAULJOIN")
+  # modify zero-filled rows
+  dplyr::mutate(
+    CPUE_KGKM2 = ifelse(is.null(CPUE_KGKM2), 0, CPUE_KGKM2),
+    CPUE_KGHA = CPUE_KGKM2/100, # Hectares
+    CPUE_NOKM2 = ifelse(is.null(CPUE_NOKM2), 0, CPUE_NOKM2),
+    CPUE_NOHA = CPUE_NOKM2/100, # Hectares
+    COUNT = ifelse(is.null(COUNT), 0, COUNT),
+    WEIGHT_KG = ifelse(is.null(WEIGHT_KG), 0, WEIGHT_KG) ) 
+```
+
+### Ex. Join data using Oracle
 
 To join these tables in Oracle, you may use a variant of the following code: 
 
-```{sql foss-oracle-r-1, eval = FALSE, echo = TRUE}
+```{sql test-4, eval = FALSE, echo = TRUE}
+
 SELECT 
 hh.YEAR,
 hh.SRVY,                 
@@ -73,11 +163,11 @@ ON sv.SPECIES_CODE = cc.SPECIES_CODE
 AND hh.HAULJOIN = cc.HAULJOIN
 ```
 
-### Ex. 2: Subset data
+### Ex. Subset data
 
 Here, we are pulling EBS Pacific cod from 2010 - 2021: 
 
-```{r foss-oracle-r-2, echo = TRUE, eval = TRUE}
+```{r test-2, echo = TRUE, eval = TRUE}
 # Pull data
 a <- RODBC::sqlQuery(
 channel = channel, 
@@ -93,9 +183,9 @@ AND YEAR < 2021")
 head(a)
 ```
 
-### Ex. 3: Find all species found in the eastern Bering Sea (EBS) survey in 2023
+### Ex. Find all species found in the eastern Bering Sea (EBS) survey in 2023
 
-```{r foss-oracle-r-3, echo = TRUE, eval = TRUE}
+```{r test-3, echo = TRUE, eval = TRUE}
 # Pull data
 a <- RODBC::sqlQuery(
 channel = channel, 

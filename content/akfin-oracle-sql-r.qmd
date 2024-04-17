@@ -1,5 +1,5 @@
 ---
-title: Access data
+title: Access data via Oracle and R
 number-sections: true
 number-depth: 3
 ---
@@ -78,7 +78,7 @@ for (i in 1:length(locations)) {
 #| warning: false
 #| echo: true
 #| eval: false
-#| tbl-cap: "Ex.: Pull AI rockfish with {dbplyr}. "
+#| tbl-cap: "Pull AI rockfish with {dbplyr}. "
 
 library(odbc)
 library(RODBC)
@@ -124,7 +124,7 @@ flextable::flextable(head(a)) %>%
 #| message: false
 #| warning: false
 #| echo: true
-#| tbl-cap: "Ex.: CPUE for all EBS and NBS stations with associated haul, cruise, and species information. "
+#| tbl-cap: "CPUE for all EBS and NBS stations with associated haul, cruise, and species information. "
 
 a <- RODBC::sqlQuery(channel = channel, # NOT RACEBASE.HAUL
                      query = paste0(
@@ -212,7 +212,7 @@ WHERE AREA_ID = 919
 
 ```{r}
 #| label: test-8-tbl
-#| tbl-cap: "Ex. 8: CPUE for all stations contained in the Shumagin region (AREA_ID = 919). "
+#| tbl-cap: "CPUE for all stations contained in the Shumagin region (AREA_ID = 919). "
 #| message: false
 #| warning: false
 #| echo: true
@@ -264,7 +264,7 @@ AND cc.YEAR = 2021;")
 
 ```{r}
 #| label: test-6-tbl
-#| tbl-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| tbl-cap: "EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -280,7 +280,7 @@ dat %>%
 
 ```{r}
 #| label: test-6-fig
-#| fig-cap: "Ex. 6: EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
+#| fig-cap: "EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. "
 #| message: false
 #| echo: true
 #| warning: false
@@ -339,7 +339,7 @@ WHERE BIOMASS.SPECIES_CODE = 30060")
 
 ```{r}
 #| label: test-1-tbl
-#| tbl-cap: "Ex. 1: GOA Pacific Ocean perch biomass and abundance. "
+#| tbl-cap: "GOA Pacific Ocean perch biomass and abundance. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -368,7 +368,7 @@ flextable::flextable(head(dat)) %>%
 
 ```{r}
 #| label: test-1-plot
-#| fig-cap: "Ex. 1: GOA Pacific Ocean perch biomass and abundance. "
+#| fig-cap: "GOA Pacific Ocean perch biomass and abundance. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -424,7 +424,7 @@ GROUP BY (YEAR, LENGTH_MM)")
 
 ```{r}
 #| label: test-2-tbl
-#| tbl-cap: "Ex. 2: AI Rock sole size compositions and ridge plot. "
+#| tbl-cap: "AI Rock sole size compositions and ridge plot. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -442,7 +442,7 @@ dat0
 
 ```{r}
 #| label: test-2-plot
-#| fig-cap: "Ex. 2: AI Rock sole size compositions and ridge plot. "
+#| fig-cap: "AI Rock sole size compositions and ridge plot. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -504,7 +504,7 @@ AND AGE >= 0")
 
 ```{r}
 #| label: test-3-tbl
-#| tbl-cap: "Ex. 3: EBS Walleye Pollock Age Compositions and Age Pyramid. "
+#| tbl-cap: "EBS Walleye Pollock Age Compositions and Age Pyramid. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -525,7 +525,7 @@ flextable::flextable(head(dat)) %>%
 
 ```{r}
 #| label: test-3-plot
-#| fig-cap: "Ex. 3: 2023 EBS Walleye Pollock Age Compositions and Age Pyramid. "
+#| fig-cap: "2023 EBS Walleye Pollock Age Compositions and Age Pyramid. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -590,7 +590,7 @@ AND BIOMASS.SPECIES_CODE = 21720")
 
 ```{r}
 #| label: test-4-tbl
-#| tbl-cap: "Ex. 4: NBS Pacific cod biomass and abundance. "
+#| tbl-cap: "NBS Pacific cod biomass and abundance. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -613,7 +613,7 @@ flextable::flextable(head(dat)) %>%
 
 ```{r}
 #| label: test-4-fig
-#| fig-cap: "Ex. 4: NBS Pacific cod biomass and abundance. "
+#| fig-cap: "NBS Pacific cod biomass and abundance. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -668,7 +668,7 @@ AND YEAR BETWEEN 1990 AND 2023" ) %>%
 
 ```{r}
 #| label: test-5-tbl
-#| tbl-cap: "Ex. 5: GOA Pacific Ocean perch biomass and line plot. "
+#| tbl-cap: "GOA Pacific Ocean perch biomass and line plot. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -681,7 +681,7 @@ flextable::flextable(head(dat)) %>%
 
 ```{r}
 #| label: test-5-fig
-#| fig-cap: "Ex. 5: GOA Pacific Ocean perch biomass and line plot. "
+#| fig-cap: "GOA Pacific Ocean perch biomass and line plot. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -762,7 +762,7 @@ AND SURVEY_DEFINITION_ID = 52") %>%
 
 ```{r}
 #| label: test-10a-tbl
-#| tbl-cap: "Ex.: 2022 AI Atka mackerel age specimen summary: all ages determined. "
+#| tbl-cap: "2022 AI Atka mackerel age specimen summary: all ages determined. "
 #| message: false
 #| warning: false
 #| echo: true
@@ -891,7 +891,7 @@ Both scripts will produce this table:
 
 ```{r}
 #| label: test-10c1-tbl
-#| tbl-cap: "Ex.: 2022 AI Atka mackerel age specimen summary: how many otoliths were aged. This quiery was created using SQL. "
+#| tbl-cap: "2022 AI Atka mackerel age specimen summary: how many otoliths were aged. This quiery was created using SQL. "
 #| message: false
 #| warning: false
 #| echo: true

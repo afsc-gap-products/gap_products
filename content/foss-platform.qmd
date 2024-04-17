@@ -106,12 +106,21 @@ knitr::include_graphics(path = here::here("img", "foss_3_run_report.png"))
 
 APIs, or Application Programming Interfaces, allows users to pull data through a IDE, or integrated development environment, like RStudio or VS Code. Explore the API pages for each of the data pages (`Haul and catch data`, `Haul data only`, `All observed species`). 
 
-```{r foss-4-api-gif, echo=FALSE, eval = FALSE}
+```{r foss-4-api-gif}
 #| label: foss-4-api-gif
-#| fig-cap: "haul and catch data, haul data only, all observed species API pages. "
+#| fig-cap: "Haul and catch data, haul data only, all observed species API pages. "
+#| echo: false
+#| eval: false
 
 knitr::include_graphics(path = here::here("img", "foss_4_report_api.gif"))
 ```
+
+# Use data
+
+Learn how to pull and use this data through the 
+ * [API and R programming language](https://afsc-gap-products.github.io/gap_products/content/foss-api-r.html)
+ * [API and python programming language using the `afscgap` python package](https://afsc-gap-products.github.io/gap_products/content/foss-api-py.html)
+ * [Oracle and R programming language (AFSC scientists only)](https://afsc-gap-products.github.io/gap_products/content/foss-oracle-r.html)
 
 ```{r rodbc-close}
 RODBC::odbcCloseAll()

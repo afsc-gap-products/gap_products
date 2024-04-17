@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - Access via Oracle and R (AFSC only)</title>
+<title>GAP Production Data Documentation - 13&nbsp; Access via Oracle and R (AFSC only)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access data</span></a>
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access data via Oracle and R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -318,10 +318,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link active" data-scroll-target="#connect-to-oracle-from-r">Connect to Oracle from R</a></li>
-  <li><a href="#ex.-1-join-data" id="toc-ex.-1-join-data" class="nav-link" data-scroll-target="#ex.-1-join-data">Ex. 1: Join data</a></li>
-  <li><a href="#ex.-2-subset-data" id="toc-ex.-2-subset-data" class="nav-link" data-scroll-target="#ex.-2-subset-data">Ex. 2: Subset data</a></li>
-  <li><a href="#ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" id="toc-ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="nav-link" data-scroll-target="#ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023">Ex. 3: Find all species found in the eastern Bering Sea (EBS) survey in 2023</a></li>
+  <li><a href="#connect-to-oracle-from-r" id="toc-connect-to-oracle-from-r" class="nav-link active" data-scroll-target="#connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</a></li>
+  <li><a href="#ex.-wholesale-download-data-and-join-data-in-r" id="toc-ex.-wholesale-download-data-and-join-data-in-r" class="nav-link" data-scroll-target="#ex.-wholesale-download-data-and-join-data-in-r"><span class="header-section-number">13.0.2</span> Ex. Wholesale download data and join data in R</a></li>
+  <li><a href="#ex.-join-data-using-oracle" id="toc-ex.-join-data-using-oracle" class="nav-link" data-scroll-target="#ex.-join-data-using-oracle"><span class="header-section-number">13.0.3</span> Ex. Join data using Oracle</a></li>
+  <li><a href="#ex.-subset-data" id="toc-ex.-subset-data" class="nav-link" data-scroll-target="#ex.-subset-data"><span class="header-section-number">13.0.4</span> Ex. Subset data</a></li>
+  <li><a href="#ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" id="toc-ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="nav-link" data-scroll-target="#ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023"><span class="header-section-number">13.0.5</span> Ex. Find all species found in the eastern Bering Sea (EBS) survey in 2023</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -355,8 +356,8 @@ function googleTranslateElementInit() {
 </header>
 
 <p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the FOSS public data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
-<section id="connect-to-oracle-from-r" class="level3">
-<h3 class="anchored" data-anchor-id="connect-to-oracle-from-r">Connect to Oracle from R</h3>
+<section id="connect-to-oracle-from-r" class="level3" data-number="13.0.1">
+<h3 data-number="13.0.1" class="anchored" data-anchor-id="connect-to-oracle-from-r"><span class="header-section-number">13.0.1</span> Connect to Oracle from R</h3>
 <p>Many users will want to access the data from <code>Oracle</code> using <code>R</code>. The user will need to install the <code>RODBC</code> <code>R</code> package and ask OFIS (IT) connect <code>R</code> to <code>Oracle</code>. Then, use the following code in <code>R</code> to establish a connection from <code>R</code> to <code>Oracle</code>:</p>
 <p>Here, the user can write in their username and password directly into the <code>RODBC</code> connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password.</p>
 <div class="cell">
@@ -364,76 +365,148 @@ function googleTranslateElementInit() {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>channel <span class="ot">&lt;-</span> gapindex<span class="sc">::</span><span class="fu">get_connected</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ex.-1-join-data" class="level3">
-<h3 class="anchored" data-anchor-id="ex.-1-join-data">Ex. 1: Join data</h3>
-<p>To join these tables in Oracle, you may use a variant of the following code:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>hh.<span class="dt">YEAR</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>hh.SRVY,                 </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>hh.SURVEY,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>hh.SURVEY_DEFINITION_ID,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>hh.SURVEY_NAME,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>hh.CRUISE,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>hh.CRUISEJOIN,           </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>hh.HAUL,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>hh.HAULJOIN,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>hh.STRATUM,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>hh.STATION,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>hh.VESSEL_ID,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>hh.VESSEL_NAME,          </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>hh.DATE_TIME,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>hh.LATITUDE_DD_START, </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>hh.LONGITUDE_DD_START, </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>hh.LATITUDE_DD_END,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>hh.LONGITUDE_DD_END, </span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>hh.BOTTOM_TEMPERATURE_C,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>hh.SURFACE_TEMPERATURE_C,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>hh.DEPTH_M,</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>cc.SPECIES_CODE,</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ss.ITIS,</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ss.WORMS,</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ss.COMMON_NAME,     </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ss.SCIENTIFIC_NAME,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ss.ID_RANK,</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.CPUE_KGKM2 <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.CPUE_KGKM2 <span class="cf">END</span> <span class="kw">AS</span> CPUE_KGKM2,</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.CPUE_NOKM2 <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.CPUE_NOKM2 <span class="cf">END</span> <span class="kw">AS</span> CPUE_NOKM2,</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.<span class="fu">COUNT</span> <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.<span class="fu">COUNT</span> <span class="cf">END</span> <span class="kw">AS</span> <span class="fu">COUNT</span>,</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.WEIGHT_KG <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.WEIGHT_KG <span class="cf">END</span> <span class="kw">AS</span> WEIGHT_KG,</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.TAXON_CONFIDENCE <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="kw">NULL</span> <span class="cf">ELSE</span> cc.TAXON_CONFIDENCE <span class="cf">END</span> <span class="kw">AS</span> TAXON_CONFIDENCE,</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>hh.AREA_SWEPT_KM2,       </span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>hh.DISTANCE_FISHED_KM,</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>hh.DURATION_HR,          </span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>hh.NET_WIDTH_M,</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>hh.NET_HEIGHT_M,</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>hh.PERFORMANCE </span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> GAP_PRODUCTS.FOSS_SURVEY_SPECIES sv</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="kw">FULL</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> GAP_PRODUCTS.FOSS_SPECIES ss</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> sv.SPECIES_CODE <span class="op">=</span> ss.SPECIES_CODE</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="kw">FULL</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> GAP_PRODUCTS.FOSS_HAUL hh</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> sv.SURVEY_DEFINITION_ID <span class="op">=</span> hh.SURVEY_DEFINITION_ID</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="kw">FULL</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> GAP_PRODUCTS.FOSS_CATCH cc</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> sv.SPECIES_CODE <span class="op">=</span> cc.SPECIES_CODE</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> hh.HAULJOIN <span class="op">=</span> cc.HAULJOIN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="ex.-wholesale-download-data-and-join-data-in-r" class="level3" data-number="13.0.2">
+<h3 data-number="13.0.2" class="anchored" data-anchor-id="ex.-wholesale-download-data-and-join-data-in-r"><span class="header-section-number">13.0.2</span> Ex. Wholesale download data and join data in R</h3>
+<div class="cell" data-tbl-cap="Wholesale download data and join data in R. ">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.FOSS_CATCH"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.FOSS_HAUL"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GAP_PRODUCTS.FOSS_SPECIES"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.Date</span>())</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>error_loading <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># log if any tables are unable to download </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(locations)){</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(locations[i])</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(channel, <span class="fu">paste0</span>(<span class="st">"SELECT * FROM "</span>, locations[i], <span class="st">"; "</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(<span class="fu">nrow</span>(a))) { <span class="co"># if an error in downloading has occurred</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    error_loading <span class="ot">&lt;-</span> <span class="fu">c</span>(error_loading, locations[i])</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># if no error in downloading has occurred</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(<span class="at">x =</span> a, </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>              <span class="co"># change file name to be more computer file storage friendly</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>              here<span class="sc">::</span><span class="fu">here</span>(<span class="fu">paste0</span>(<span class="fu">tolower</span>(<span class="fu">gsub</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">pattern =</span> <span class="st">'.'</span>, </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">replacement =</span> <span class="st">"_"</span>, </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">x =</span> locations[i], </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">fixed =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                <span class="st">".csv"</span>)))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>error_loading</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Join downloaded files</p>
+<div class="cell" data-tbl-cap="Wholesale download data and join data in R. ">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>catch <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/gap_products_foss_catch.csv"</span>))[,<span class="sc">-</span><span class="dv">1</span>] <span class="co"># remove "row number" column</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>haul <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/gap_products_foss_haul.csv"</span>))[,<span class="sc">-</span><span class="dv">1</span>] <span class="co"># remove "row number" column</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>species <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/gap_products_foss_species.csv"</span>))[,<span class="sc">-</span><span class="dv">1</span>] <span class="co"># remove "row number" column</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># come up with full combination of what species should be listed for what hauls/surveys</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># for zero-filled data, all species caught in a survey need to have zero or non-zero row entries for a haul</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>comb <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">full_join</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(catch, haul, <span class="at">by =</span> <span class="st">"HAULJOIN"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(SURVEY_DEFINITION_ID, SPECIES_CODE) <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">distinct</span>(),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> haul <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(SURVEY_DEFINITION_ID, HAULJOIN) <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">distinct</span>(), </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"SURVEY_DEFINITION_ID"</span>, </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">relationship =</span> <span class="st">"many-to-many"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Join data to make a full zero-filled CPUE dataset</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> comb <span class="sc">%&gt;%</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add species data to unique species by survey table</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(species, <span class="st">"SPECIES_CODE"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add catch data</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(catch, <span class="fu">c</span>(<span class="st">"SPECIES_CODE"</span>, <span class="st">"HAULJOIN"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add haul data</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(haul) <span class="sc">%&gt;%</span> <span class="co"># , c("SURVEY_DEFINITION_ID", "HAULJOIN")</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># modify zero-filled rows</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">CPUE_KGKM2 =</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(CPUE_KGKM2), <span class="dv">0</span>, CPUE_KGKM2),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">CPUE_KGHA =</span> CPUE_KGKM2<span class="sc">/</span><span class="dv">100</span>, <span class="co"># Hectares</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">CPUE_NOKM2 =</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(CPUE_NOKM2), <span class="dv">0</span>, CPUE_NOKM2),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">CPUE_NOHA =</span> CPUE_NOKM2<span class="sc">/</span><span class="dv">100</span>, <span class="co"># Hectares</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">COUNT =</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(COUNT), <span class="dv">0</span>, COUNT),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">WEIGHT_KG =</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(WEIGHT_KG), <span class="dv">0</span>, WEIGHT_KG) ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ex.-2-subset-data" class="level3">
-<h3 class="anchored" data-anchor-id="ex.-2-subset-data">Ex. 2: Subset data</h3>
+<section id="ex.-join-data-using-oracle" class="level3" data-number="13.0.3">
+<h3 data-number="13.0.3" class="anchored" data-anchor-id="ex.-join-data-using-oracle"><span class="header-section-number">13.0.3</span> Ex. Join data using Oracle</h3>
+<p>To join these tables in Oracle, you may use a variant of the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>hh.<span class="dt">YEAR</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>hh.SRVY,                 </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>hh.SURVEY,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>hh.SURVEY_DEFINITION_ID,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>hh.SURVEY_NAME,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>hh.CRUISE,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>hh.CRUISEJOIN,           </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>hh.HAUL,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>hh.HAULJOIN,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>hh.STRATUM,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>hh.STATION,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>hh.VESSEL_ID,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>hh.VESSEL_NAME,          </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>hh.DATE_TIME,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>hh.LATITUDE_DD_START, </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>hh.LONGITUDE_DD_START, </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>hh.LATITUDE_DD_END,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>hh.LONGITUDE_DD_END, </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>hh.BOTTOM_TEMPERATURE_C,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>hh.SURFACE_TEMPERATURE_C,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>hh.DEPTH_M,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>cc.SPECIES_CODE,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>ss.ITIS,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>ss.WORMS,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>ss.COMMON_NAME,     </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>ss.SCIENTIFIC_NAME,</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>ss.ID_RANK,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.CPUE_KGKM2 <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.CPUE_KGKM2 <span class="cf">END</span> <span class="kw">AS</span> CPUE_KGKM2,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.CPUE_NOKM2 <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.CPUE_NOKM2 <span class="cf">END</span> <span class="kw">AS</span> CPUE_NOKM2,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.<span class="fu">COUNT</span> <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.<span class="fu">COUNT</span> <span class="cf">END</span> <span class="kw">AS</span> <span class="fu">COUNT</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.WEIGHT_KG <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="dv">0</span> <span class="cf">ELSE</span> cc.WEIGHT_KG <span class="cf">END</span> <span class="kw">AS</span> WEIGHT_KG,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="cf">CASE</span> <span class="cf">WHEN</span> cc.TAXON_CONFIDENCE <span class="kw">IS</span> <span class="kw">NULL</span> <span class="cf">THEN</span> <span class="kw">NULL</span> <span class="cf">ELSE</span> cc.TAXON_CONFIDENCE <span class="cf">END</span> <span class="kw">AS</span> TAXON_CONFIDENCE,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>hh.AREA_SWEPT_KM2,       </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>hh.DISTANCE_FISHED_KM,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>hh.DURATION_HR,          </span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>hh.NET_WIDTH_M,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>hh.NET_HEIGHT_M,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>hh.PERFORMANCE </span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> GAP_PRODUCTS.FOSS_SURVEY_SPECIES sv</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="kw">FULL</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> GAP_PRODUCTS.FOSS_SPECIES ss</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> sv.SPECIES_CODE <span class="op">=</span> ss.SPECIES_CODE</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="kw">FULL</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> GAP_PRODUCTS.FOSS_HAUL hh</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> sv.SURVEY_DEFINITION_ID <span class="op">=</span> hh.SURVEY_DEFINITION_ID</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="kw">FULL</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> GAP_PRODUCTS.FOSS_CATCH cc</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> sv.SPECIES_CODE <span class="op">=</span> cc.SPECIES_CODE</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> hh.HAULJOIN <span class="op">=</span> cc.HAULJOIN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-subset-data" class="level3" data-number="13.0.4">
+<h3 data-number="13.0.4" class="anchored" data-anchor-id="ex.-subset-data"><span class="header-section-number">13.0.4</span> Ex. Subset data</h3>
 <p>Here, we are pulling EBS Pacific cod from 2010 - 2021:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">channel =</span> channel, </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">query =</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN GAP_PRODUCTS.FOSS_HAUL hh</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.HAULJOIN = hh.HAULJOIN</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SRVY = 'EBS' </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND SPECIES_CODE = 21720 -- 'Pacific cod' </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &gt;= 2010 </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &lt; 2021"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">channel =</span> channel, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">query =</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">JOIN GAP_PRODUCTS.FOSS_HAUL hh</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.HAULJOIN = hh.HAULJOIN</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE SRVY = 'EBS' </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND SPECIES_CODE = 21720 -- 'Pacific cod' </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &gt;= 2010 </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR &lt; 2021"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  HAULJOIN SPECIES_CODE CPUE_KGKM2 CPUE_NOKM2 COUNT WEIGHT_KG TAXON_CONFIDENCE
 1   -19288        21720   449.8301  1876.1759    83     19.90                1
@@ -487,28 +560,28 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="level3">
-<h3 class="anchored" data-anchor-id="ex.-3-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023">Ex. 3: Find all species found in the eastern Bering Sea (EBS) survey in 2023</h3>
+<section id="ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="level3" data-number="13.0.5">
+<h3 data-number="13.0.5" class="anchored" data-anchor-id="ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023"><span class="header-section-number">13.0.5</span> Ex. Find all species found in the eastern Bering Sea (EBS) survey in 2023</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">channel =</span> channel, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">query =</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT DISTINCT </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">ss.COMMON_NAME,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">ss.SCIENTIFIC_NAME, </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">ss.ID_RANK, </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">ss.WORMS</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.FOSS_CATCH cc -- get species codes</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.FOSS_SPECIES ss -- get species info</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.SPECIES_CODE = ss.SPECIES_CODE</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.FOSS_HAUL hh -- filter by year and survey</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.HAULJOIN = hh.HAULJOIN</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE hh.YEAR = 2023</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">AND hh.SURVEY_DEFINITION_ID = 98 -- EBS survey</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY COMMON_NAME"</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">channel =</span> channel, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">query =</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">"SELECT DISTINCT </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">ss.COMMON_NAME,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">ss.SCIENTIFIC_NAME, </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">ss.ID_RANK, </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">ss.WORMS</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="st">FROM GAP_PRODUCTS.FOSS_CATCH cc -- get species codes</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.FOSS_SPECIES ss -- get species info</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.SPECIES_CODE = ss.SPECIES_CODE</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN GAP_PRODUCTS.FOSS_HAUL hh -- filter by year and survey</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="st">ON cc.HAULJOIN = hh.HAULJOIN</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE hh.YEAR = 2023</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="st">AND hh.SURVEY_DEFINITION_ID = 98 -- EBS survey</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY COMMON_NAME"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            COMMON_NAME                 SCIENTIFIC_NAME ID_RANK   WORMS
 1   Alaska great-tellin               Megangulus luteus species  423511

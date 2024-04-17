@@ -1,5 +1,6 @@
 ---
 title: Access via API and R
+number-sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -10,11 +11,11 @@ An application programming interface (API) is a way for two or more computer pro
 
 More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
 
-## Ex. 1: Load the first 25 rows (default) of data
+## Ex. Load the first 25 rows (default) of data
 
 ```{r}
-#| label: test-1
-#| tbl-cap: "Ex. 1: Load the first 25 rows (default) of data. "
+#| label: test-foss-api-1
+#| tbl-cap: "Load the first 25 rows (default) of data. "
 
 # install.packages(c("httr", "jsonlite"))
 library(httr)
@@ -37,11 +38,37 @@ tibble::as_tibble(data$items) %>%
   flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
 ```
 
-## Ex. 2: Load the first 10000 rows of data
 
 ```{r}
-#| label: test-2
-#| tbl-cap: "Ex. 2: Load the first 10000 rows of data. "
+#| label: test-foss-api-1a
+#| tbl-cap: "Load the first 25 rows (default) of data. "
+
+# install.packages(c("httr", "jsonlite"))
+library(httr)
+library(jsonlite)
+library(dplyr)
+
+# link to the API
+api_link <- "https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey/"
+
+res <- httr::GET(url = api_link)
+# res # Test connection
+data <- jsonlite::fromJSON(base::rawToChar(res$content))
+# names(data)
+tibble::as_tibble(data$items) %>% 
+  dplyr::mutate_if(is.character, type.convert, as.is = TRUE) %>%
+  dplyr::mutate(across(where(is.numeric), round, 3)) %>%
+  head(3) %>%
+  flextable::flextable() %>%
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
+```
+
+## Ex. Load the first 10000 rows of data
+
+```{r}
+#| label: test-foss-api-2
+#| tbl-cap: "Load the first 10000 rows of data. "
 
 # Not run because too big:
 res <- httr::GET(url = paste0(api_link, "?offset=0&limit=10000"))
@@ -49,13 +76,13 @@ data <- jsonlite::fromJSON(base::rawToChar(res$content))
 print(paste0("rows: ", dim(data$items)[1], "; cols: ", dim(data$items)[2]))
 ```
 
-## Ex. 3: Filter by Year
+## Ex. Filter by Year
 
 Show all the data greater than the year 2020. 
 
 ```{r}
-#| label: test-3
-#| tbl-cap: "Ex. 3: Filter by Year. "
+#| label: test-foss-api-3
+#| tbl-cap: "Filter by Year. "
 
 res <- httr::GET(url = paste0(api_link, '?q={"year":{"$gt":2020}}'))
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
@@ -71,15 +98,15 @@ as_tibble(data$items) %>%
   flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
-## Ex. 4: Filter by species name
+## Ex. Filter by species name
 
 Show all the data where the product name contains pollock Please note that here the word pollock is case sensitive.
 
 The notation for finding a string is to use % around it. Since % is a reserved character in a URL, you have to replace `%` with `%25`. 
 
 ```{r}
-#| label: test-4
-#| tbl-cap: "Ex. 4: Filter by species name. "
+#| label: test-foss-api-4
+#| tbl-cap: "Filter by species name. "
 
 res <- httr::GET(
   url = paste0(api_link, '?q={"common_name":{"$like":"%25pollock%25"}}'))
@@ -96,13 +123,13 @@ as_tibble(data$items) %>%
   flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
-## Ex. 5: Combination of year and name filters
+## Ex. Combination of year and name filters
 
 Show all the data where years > 2020 and the product name contains pollock
 
 ```{r}
-#| label: test-5
-#| tbl-cap: "Ex. 5: Combination of year and name filters. "
+#| label: test-foss-api-5
+#| tbl-cap: "Combination of year and name filters. "
 
 res <- httr::GET(
   url = paste0(api_link, 
@@ -120,13 +147,13 @@ as_tibble(data$items) %>%
   flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
-## Ex. 6: Combination of year, srvy, stratum
+## Ex. Combination of year, srvy, stratum
 
 Show all the data where year = 1989, srvy = "EBS", and stratum is not equal to 81
 
 ```{r}
-#| label: test-6
-#| tbl-cap: "Ex. 6: Combination of year, srvy, stratum. "
+#| label: test-foss-api-6
+#| tbl-cap: "Combination of year, srvy, stratum. "
 
 res <- httr::GET(
   url = paste0(api_link, '?q={"year":1989,"srvy":"EBS","stratum":{"$ne":"81"}}'))
@@ -143,13 +170,13 @@ as_tibble(data$items) %>%
   flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "") 
 ```
 
-## Ex. 7: Visualize CPUE data in distribution map
+## Ex. Visualize CPUE data in distribution map
 
 Pacific cod catch-per-unit-effort estimates for NBS in 2021 and map constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). 
 
 ```{r}
-#| label: test-7
-#| tbl-cap: "Ex. 7: Visualize CPUE data in distribution map. "
+#| label: test-foss-api-7
+#| tbl-cap: "Visualize CPUE data in distribution map. "
 
 # res <- httr::GET(
 #   url = paste0(api_link, "?offset=0&limit=10000"), 
@@ -177,8 +204,8 @@ flextable::flextable(data[1:3,]) %>%
 ```
 
 ```{r}
-#| label: test-7-fig
-#| fig-cap: "Ex. 7: Visualize CPUE data in distribution map. "
+#| label: test-foss-api-7-fig
+#| fig-cap: "Visualize CPUE data in distribution map. "
 #| message: false
 #| warning: false
 
