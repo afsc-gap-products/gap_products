@@ -767,10 +767,11 @@ AND SURVEY_DEFINITION_ID = 52") %>%
 #| warning: false
 #| echo: true
 
-flextable::flextable(head(dat)) %>%
+flextable::flextable(head(dat) %>% 
+                       dplyr::arrange(age)) %>%
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
-  flextable::colformat_num(x = ., j = "year", big.mark = "")
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "")
 ```
 
 #### How many of each age was found:
@@ -810,10 +811,11 @@ GROUP BY (YEAR, SURVEY_DEFINITION_ID, SPECIES_CODE, AGE)") %>%
 #| warning: false
 #| echo: true
 
-flextable::flextable(head(dat)) %>%
+flextable::flextable(head(dat) %>% 
+                       dplyr::arrange(age)) %>%
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
-  flextable::colformat_num(x = ., j = "year", big.mark = "")
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "")
 ```
 
 #### How many otoliths were aged: 
@@ -897,8 +899,9 @@ Both scripts will produce this table:
 flextable::flextable(head(dat)) %>%
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
-  flextable::colformat_num(x = ., j = "year", big.mark = "")
+  flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "")
 ```
+
 
 
 ```{r rodbc-close}
