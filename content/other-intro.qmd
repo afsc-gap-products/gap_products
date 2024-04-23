@@ -15,10 +15,12 @@ library(flextable)
 googledrive::drive_auth()
 2
 
-googledrive::drive_download(file = googledrive::as_id("1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs"), 
-                            type = "csv",
-                            overwrite = TRUE,
-                            path = here::here("temp", "other_products.csv"))
+# PLEASE UPDATE THIS GOOGLE DRIVE TO UPDATE CONTENT
+googledrive::drive_download(
+  file = googledrive::as_id("1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs"), 
+  type = "csv",
+  overwrite = TRUE,
+  path = here::here("temp", "other_products.csv"))
 ```
 
 ```{r prod-table}

@@ -126,14 +126,14 @@ gg <- gg +
   ggplot2::theme_classic() +
   ggplot2::theme(
     panel.background = element_rect(fill = "transparent"), #grey95
-    plot.title = element_text(size = 16, face = "bold"),
-    plot.subtitle = element_text(size=12),
+    plot.title = element_text(size = 12, face = "bold"),
+    plot.subtitle = element_text(size=10),
     legend.text=element_text(size=8),
     legend.position="right",
     legend.direction="vertical",
     legend.justification="left",
     legend.background = element_blank(),
-    legend.title=element_text(size=10),
+    legend.title=element_text(size=8),
     axis.text = element_text(size=8),
     legend.box.background = element_blank(),
     legend.key = element_blank(),
@@ -148,8 +148,8 @@ if (srvy == "all") {
                    # color = "grey50",
                    show.legend = TRUE) +
   ggplot2::scale_fill_viridis_d(option = "G", end = 0.9, begin = 0.1) +
-    ggplot2::coord_sf(xlim = c(-1394658,  2566293), # range(shp_ai$plot.boundary$x, shp_bs$plot.boundary$x, shp_goa$plot.boundary$x, shp_bss$plot.boundary$x),
-                    ylim = c(-1028565.1,  1125549.7)) # range(shp_ai$plot.boundary$y, shp_bs$plot.boundary$y, shp_goa$plot.boundary$y, shp_bss$plot.boundary$y))
+    ggplot2::coord_sf(xlim = c(-1394658,  2566293), # c(range(shp_ai$plot.boundary$x, shp_nbs$plot.boundary$x, shp_ebs$plot.boundary$x, shp_goa$plot.boundary$x, shp_bss$plot.boundary$x)),
+                    ylim = c(-1028565.1,  1125549.7)) # range(shp_ai$plot.boundary$y, shp_nbs$plot.boundary$y, shp_ebs$plot.boundary$y, shp_goa$plot.boundary$y, shp_bss$plot.boundary$y))
 } else {
     
 # Station centroid data -------------------------------------------------------
@@ -216,7 +216,7 @@ gg <- gg  +
 gg <- gg  +
    ggplot2::coord_sf(xlim = range(shp$plot.boundary$x), 
                     ylim = range(shp$plot.boundary$y)) 
-} 
+}
   
 ggsave(filename = paste0("survey_plot_",srvy,".png"),
        plot = gg,
@@ -417,10 +417,6 @@ Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
 # knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
 
 plot_survey(srvy = "ebs") 
-knitr::include_graphics(path = here::here("img", "survey_plot_ebs.png"))
-```
-
-```{r survey-map-ebs-display, echo=FALSE, results='asis'}
 knitr::include_graphics(path = here::here("img", "survey_plot_ebs.png"))
 ```
 

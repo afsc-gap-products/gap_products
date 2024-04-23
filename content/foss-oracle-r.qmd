@@ -169,7 +169,7 @@ Here, we are pulling EBS Pacific cod from 2010 - 2021:
 
 ```{r test-2, echo = TRUE, eval = TRUE}
 # Pull data
-a <- RODBC::sqlQuery(
+data <- RODBC::sqlQuery(
 channel = channel, 
 query = 
 "SELECT * FROM GAP_PRODUCTS.FOSS_CATCH cc
@@ -180,14 +180,15 @@ AND SPECIES_CODE = 21720 -- 'Pacific cod'
 AND YEAR >= 2010 
 AND YEAR < 2021")
 
-head(a)
+flextable::flextable(data[1:3,]) %>% 
+  flextable::theme_zebra() 
 ```
 
 ### Ex. Find all species found in the eastern Bering Sea (EBS) survey in 2023
 
 ```{r test-3, echo = TRUE, eval = TRUE}
 # Pull data
-a <- RODBC::sqlQuery(
+data <- RODBC::sqlQuery(
 channel = channel, 
 query = 
 "SELECT DISTINCT 
@@ -204,7 +205,9 @@ WHERE hh.YEAR = 2023
 AND hh.SURVEY_DEFINITION_ID = 98 -- EBS survey
 ORDER BY COMMON_NAME")
 
-head(a)
+flextable::flextable(data[1:3,]) %>% 
+  # flextable::fit_to_width(max_width = 6) %>% 
+  flextable::theme_zebra() 
 ```
 
 ```{r rodbc-close}

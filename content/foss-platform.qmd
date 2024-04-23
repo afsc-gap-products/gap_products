@@ -118,9 +118,10 @@ knitr::include_graphics(path = here::here("img", "foss_4_report_api.gif"))
 # Use data
 
 Learn how to pull and use this data through the 
- * [API and R programming language](https://afsc-gap-products.github.io/gap_products/content/foss-api-r.html)
- * [API and python programming language using the `afscgap` python package](https://afsc-gap-products.github.io/gap_products/content/foss-api-py.html)
- * [Oracle and R programming language (AFSC scientists only)](https://afsc-gap-products.github.io/gap_products/content/foss-oracle-r.html)
+
+- [API and R programming language](https://afsc-gap-products.github.io/gap_products/content/foss-api-r.html)
+- [API and python programming language using the `afscgap` python package](https://afsc-gap-products.github.io/gap_products/content/foss-api-py.html)
+- [Oracle and R programming language (AFSC scientists only)](https://afsc-gap-products.github.io/gap_products/content/foss-oracle-r.html)
 
 ```{r rodbc-close}
 RODBC::odbcCloseAll()

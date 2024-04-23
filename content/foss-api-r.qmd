@@ -64,11 +64,11 @@ tibble::as_tibble(data$items) %>%
   flextable::colformat_num(x = ., j = c("year", "cruise", "species_code", "tsn", "ak_survey_id"), big.mark = "")
 ```
 
-## Ex. Load the first 10000 rows of data
+## Ex. Load the first 10,000 rows of data
 
 ```{r}
 #| label: test-foss-api-2
-#| tbl-cap: "Load the first 10000 rows of data. "
+#| tbl-cap: "Load the first 10,000 rows of data. "
 
 # Not run because too big:
 res <- httr::GET(url = paste0(api_link, "?offset=0&limit=10000"))
