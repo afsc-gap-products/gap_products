@@ -59,11 +59,45 @@ for (i in 1:length(locations)){
 error_loading
 ```
 
-Join downloaded files
+Join downloaded files into presence-only table
 
 ```{r}
 #| label: test-1b
-#| tbl-cap: "Wholesale download data and join data in R. "
+#| tbl-cap: "Presence-only join data in R. "
+#| message: false
+#| warning: false
+#| echo: true
+#| eval: false
+
+# Load data
+library(dplyr)
+library(here)
+library(readr)
+catch <- readr::read_csv(file = here::here("data/gap_products_foss_catch.csv"))[,-1] # remove "row number" column
+haul <- readr::read_csv(file = here::here("data/gap_products_foss_haul.csv"))[,-1] # remove "row number" column
+species <- readr::read_csv(file = here::here("data/gap_products_foss_species.csv"))[,-1] # remove "row number" column
+
+dat <- 
+  # join haul and catch data to unique species by survey table
+  dplyr::left_join(haul, catch) %>% 
+  # join species data to unique species by survey table
+  dplyr::left_join(species) %>% 
+  # modify zero-filled rows
+  dplyr::mutate(
+    CPUE_KGKM2 = ifelse(is.null(CPUE_KGKM2), 0, CPUE_KGKM2), # just in case
+    CPUE_KGHA = CPUE_KGKM2/100, # Hectares
+    CPUE_NOKM2 = ifelse(is.null(CPUE_NOKM2), 0, CPUE_NOKM2), # just in case
+    CPUE_NOHA = CPUE_NOKM2/100, # Hectares
+    COUNT = ifelse(is.null(COUNT), 0, COUNT),
+    WEIGHT_KG = ifelse(is.null(WEIGHT_KG), 0, WEIGHT_KG) )
+```
+
+
+Join downloaded files into zero-filled table
+
+```{r}
+#| label: test-1c
+#| tbl-cap: "Zero-fill join data in R. "
 #| message: false
 #| warning: false
 #| echo: true
