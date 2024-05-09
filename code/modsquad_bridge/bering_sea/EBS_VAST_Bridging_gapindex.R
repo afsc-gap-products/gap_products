@@ -262,32 +262,21 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                 CRUISE >= start_year_age * 100 & CRUISE != 201801)
   }
   
-  # ebs_alk <- gapindex::calc_alk(gapdata = ebs_data, 
-  #                               unsex = "unsex", 
-  #                               global = TRUE)
-  
-  ebs_alk <- calc_alk(gapdata = ebs_data, 
-                      unsex = "unsex", 
-                      global = TRUE)
+  ebs_alk <- gapindex::calc_alk(gapdata = ebs_data,
+                                unsex = "unsex",
+                                global = TRUE)
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate Age-Length Key (ALK) for NBS. First calculate the non-global 
   ##   ALK. Then fill in the missing ALKs with the globally filled EBS ALK.
   ##   Then fill in any remaining missing ALKs with the globally filled NBS ALK. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # nbs_alk_non_global <- gapindex::calc_alk(gapdata = nbs_data, 
-  #                                          unsex = "unsex", 
-  #                                          global = FALSE)
-  # nbs_alk_global <-  gapindex::calc_alk(gapdata = nbs_data, 
-  #                                       unsex = "unsex", 
-  #                                       global = TRUE)
-  
-  nbs_alk_non_global <- calc_alk(gapdata = nbs_data, 
-                                 unsex = "unsex", 
-                                 global = FALSE)
-  nbs_alk_global <-  calc_alk(gapdata = nbs_data, 
-                              unsex = "unsex", 
-                              global = TRUE)
+  nbs_alk_non_global <- gapindex::calc_alk(gapdata = nbs_data,
+                                           unsex = "unsex",
+                                           global = FALSE)
+  nbs_alk_global <-  gapindex::calc_alk(gapdata = nbs_data,
+                                        unsex = "unsex",
+                                        global = TRUE)
   
   ## By right merging with the globally filled NBS ALK. The missing ALK values 
   ## are denoted by NA AGE_FRAC values.
@@ -385,12 +374,17 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     cbind(AGE = plus_group,
           ebs_nbs_alk[AGE >= plus_group,
                       .(AGE_CPUE_NOKM2 = sum(AGE_CPUE_NOKM2, na.rm = T)),
-                      by = c("HAULJOIN", "SPECIES_CODE")])
+                      by = c("HAULJOIN", "SPECIES_CODE")]),
+    data.table::CJ(AGE = 1:plus_group,
+                   HAULJOIN = ebs_nbs_cpue$HAULJOIN[ebs_nbs_cpue$COUNT == 0], 
+                   SPECIES_CODE = species_code,
+                   AGE_CPUE_NOKM2 = 0)
   )
   
+
   ## Append the latitude and longitude information from the `ebs_nbs_cpue` df
   ## using "HAULJOIN" as a key. 
-  age_cpue <- merge(x = every_combo_of_ages,
+  age_cpue <- merge(x = age_cpue,
                     y = ebs_nbs_cpue[, c("HAULJOIN", "SURVEY", "YEAR",
                                          "LATITUDE_DD_START",
                                          "LONGITUDE_DD_START")],
