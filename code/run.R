@@ -29,10 +29,20 @@
 rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   etup ----
+##   Setup ----
 ##   Make sure temp file is created, save R version data, and install packages
 ##   if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# devtools::install_github("afsc-gap-products/gapindex@using_datatable", 
+# force = TRUE)
+# devtools::install_github("afsc-gap-products/gapindex")
+# install.packages("data.table")
+# install.packages("rmarkdown")
+library(gapindex)
+library(data.table)
+library(rmarkdown)
+
 if (!dir.exists(paths = "temp/"))
   dir.create(path = "temp/")
 
@@ -44,14 +54,6 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
                             row.names = F), 
           file = "temp/installed_packages.csv", 
           row.names = F)
-
-# devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
-# devtools::install_github("afsc-gap-products/gapindex")
-# install.packages("data.table")
-# install.packages("rmarkdown")
-library(gapindex)
-library(data.table)
-library(rmarkdown)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull Exisiting GAP_PRODUCTS Tables and Views ----

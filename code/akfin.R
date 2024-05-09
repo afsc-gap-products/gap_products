@@ -13,7 +13,7 @@ rm(list = ls())
 ##   Import metadata constants and commonly used functions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
-sql_channel <- gapindex::get_connected(check_access = F)
+channel <- gapindex::get_connected(check_access = F)
 source("code/functions.R"); source("code/constants.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,6 +77,10 @@ akfin_views$desc[akfin_views$table_name == "AKFIN_TAXONOMY"] <-
   paste0("This table is a copy of GAP_PRODUCTS.SPECIES_CLASSIFICATION ",
          "filtered for values where SURVEY_SPECIES = 1 ",
          "and does not have any other object dependencies. ")
+# akfin_views$desc[akfin_views$table_name == "AKFIN_TAXONOMIC_GROUPS"] <-
+#   paste0("This table is a copy of GAP_PRODUCTS.TAXONOMIC_GROUPS ",
+#          "filtered for values where SURVEY_SPECIES = 1 ",
+#          "and does not have any other object dependencies. ")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Assemble the basic text that states that GAP produced the tables, the
@@ -84,7 +88,7 @@ akfin_views$desc[akfin_views$table_name == "AKFIN_TAXONOMY"] <-
 ##   table was created. This will be appended to each table description.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 metadata_table <- 
-  RODBC::sqlQuery(channel = sql_channel, 
+  RODBC::sqlQuery(channel = channel, 
                   query = "SELECT * FROM GAP_PRODUCTS.METADATA_TABLE")
 
 table_metadata_text <- 
@@ -108,7 +112,7 @@ table_metadata_text <-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 metadata_fields <- 
-  RODBC::sqlQuery(channel = sql_channel, 
+  RODBC::sqlQuery(channel = channel, 
                   query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")
 
 for (isql_script in 1:nrow(x = akfin_views))  {
@@ -118,14 +122,14 @@ for (isql_script in 1:nrow(x = akfin_views))  {
   cat("Creating", temp_table_name, "...")
   
   available_views <-
-    subset(x = RODBC::sqlTables(channel = sql_channel, 
+    subset(x = RODBC::sqlTables(channel = channel, 
                                 schema = "GAP_PRODUCTS"))
   
   if (akfin_views$table_name[isql_script] %in% available_views$TABLE_NAME)
-    RODBC::sqlQuery(channel = sql_channel, 
+    RODBC::sqlQuery(channel = channel, 
                     query = paste("DROP MATERIALIZED VIEW", temp_table_name))
   
-  RODBC::sqlQuery(channel = sql_channel,
+  RODBC::sqlQuery(channel = channel,
                   query = getSQL(filepath = paste0(
                     "code/sql_akfin/",
                     akfin_views$table_name[isql_script],
@@ -134,13 +138,13 @@ for (isql_script in 1:nrow(x = akfin_views))  {
   temp_field_metadata <- 
     subset(x = metadata_fields,
            subset =  METADATA_COLNAME %in% 
-             RODBC::sqlColumns(channel = sql_channel,
+             RODBC::sqlColumns(channel = channel,
                                sqtable = temp_table_name)$COLUMN_NAME)
   
   update_metadata(schema = "GAP_PRODUCTS", 
                   table_name = akfin_views$table_name[isql_script], 
                   table_type = "MATERIALIZED VIEW",
-                  channel = sql_channel, 
+                  channel = channel, 
                   metadata_column = temp_field_metadata, 
                   table_metadata = paste0(akfin_views$desc[isql_script], 
                                           table_metadata_text))
