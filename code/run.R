@@ -132,4 +132,3 @@ fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
               new_path = "G:/GAP_PRODUCTS_Archives/"
                 #"Y:/RACE_GF/GAP_PRODUCTS_Archives/"
                 )
-fs::file_delete(path = readLines(con = "temp/timestamp.txt"))
