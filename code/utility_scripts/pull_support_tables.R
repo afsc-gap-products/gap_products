@@ -51,10 +51,6 @@ STRATUM_GROUPS <-
   as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
                                    sheet = "STRATUM_GROUPS"))
 
-SHAPE <- 
-  as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
-                                   sheet = "SHAPE"))
-
 SPECIES_YEAR <- 
   as.data.frame(readxl::read_excel(path = "temp/data.xlsx", 
                                    sheet = "SPECIES_YEAR"))

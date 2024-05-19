@@ -4,48 +4,65 @@
 ## PoC:           Zack Oyafuso (zack.oyafuso@noaa.gov)
 ##                Emily Markowitz (emily.markowitz@noaa.gov)
 ##                
-## Description:   This script houses the sequence of programs that calculate
+## Description:   This script houses a sequence of programs that calculates
 ##                the standard data products resulting from the NOAA AFSC 
-##                Groundfish Assessment Program bottom trawl surveys.
+##                Groundfish Assessment Program bottom trawl surveys and 
+##                Standard GAP survey data products in this repository include
+##                CPUE, Biomass, Size Composition, and Age Composition. Tables
+##                that are served to the Alaksa Fisheries Information Network
+##                (AKFIN) and Fisheries One Stop Shop (FOSS) data portals are
+##                also housed here as materialized views that are often 
+##                mirrors of these standard data tables or queries of tables in 
+##                RACEBASE/RACE_DATA. 
 ##                
-##                The GAP_PRODUCTS Oracle schema houses the standard data
-##                product tables and views and will be updated twice a year,
-##                once after the survey season following finalization of that
-##                summer's bottom trawl survey data to incorporate the new 
-##                catch, size, and effort data and once prior to an upcoming
-##                survey to incorporate new age data that were processed after
-##                the prior summer's survey season ended. This second 
-##                pre-survey production run will also incorporate changes in 
-##                the data due to the specimen voucher process, as well as 
-##                other post hoc changes to the survey data. 
+##                The GAP_PRODUCTS Oracle schema houses the four standard data
+##                product tables and views and will be updated at least twice a
+##                year: once prior to the survey season to incorporate new age
+##                data and vouchered specimens that were processed after the 
+##                prior year's survey and at least once after the survey season
+##                following the conclusion of each region's survey. 
 ##                
 ##                **DISCLAIMER**: Each script is self-contained. Do not source 
-##                this script. The script for each step needs to be run 
+##                this script. Each of the following scripts needs to be run 
 ##                line-by-line with caution. The file.edit() function simply
-##                opens the script in a new tab within RStudio. 
+##                opens the script in a new tab within RStudio.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Restart R Session before running
 rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 0 Setup ----
-##   Make sure temp file is created, save R version data
+##   Setup ----
+##   Make sure a local temp/ directory is created, save R version data, 
+##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (!dir.exists(paths = "temp/"))
-  dir.create(path = "temp/")
 
+# devtools::install_github("afsc-gap-products/gapindex@using_datatable", 
+# force = TRUE)
+# install.packages("data.table")
+# install.packages("rmarkdown")
+library(gapindex)
+library(data.table)
+library(rmarkdown)
+
+if (!dir.exists(paths = "temp/")) dir.create(path = "temp/")
+
+## Output time stamp at the start of production
 writeLines(text = as.character(Sys.Date()), 
            con = "temp/timestamp.txt")
+
+## Output R session information (R version, package versions, etc.)
 writeLines(text = capture.output(sessionInfo()), 
            con = "temp/sessionInfo.txt")
+
+## Output more detailed information on package versions
 write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")], 
                             row.names = F), 
           file = "temp/installed_packages.csv", 
           row.names = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 2 Pull Exisiting GAP_PRODUCTS Tables and Views ----
+##   Pull Existing GAP_PRODUCTS Tables and Views ----
 ##   Import the current version of the tables in GAP_PRODUCTS locally within 
 ##   the gap_products repository in the temporary (temp/) folder that was just
 ##   created. The local versions of these tables are used to compare the 
@@ -55,22 +72,7 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
 file.edit("code/pull_existing_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 3 Update Metadata Tables ----
-##   This script updates the metadata tables in GAP_PRODUCTS used to create the
-##   metadata for the tables and views in GAP_PRODUCTS. The contents of these 
-##   tables are maintained in a shared googlesheets document. These tables are 
-##   then uploaded to the GAP_PRODUCTS Oracle schema. A future goal of this 
-##   step is to move away from making changes to the googlesheet and instead 
-##   setting up triggers in Oracle to provide an audit record any time a change
-##   is made to these metadata tables. In this way, changes are arguably 
-##   better documented and the upkeep of the tables are fully contained within
-##   Oracle instead of the current workflow which is Google Sheets --> R (via 
-##   the googledrive R package) --> Oracle. 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/metadata.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step 4 Create Production Tables ----
+##   Create Production Tables ----
 ##   Calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, 
 ##   AGECOMP for all taxa, survey years, survey regions. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,18 +86,16 @@ file.edit("code/production.R")
 file.edit("code/check_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Upload Production Tables ----
+##   Update Production Tables ----
+##   Removed, new, and modified records are updated in GAP_PRODUCTS.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/push_oracle.R")
+file.edit("code/update_production_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Upload Production Tables ----
-##   Set up queries for the various materialized views created for AKFIN
-##   and FOSS.
+##   Update Derivative Tables ----
+##   Run queries for the materialized views created for AKFIN and FOSS.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/akfin.R")
-file.edit("code/taxonomics.R")
-file.edit("code/foss.R")
+file.edit("code/akfin_foss.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Archive GAP_PRODUCTS  ----
@@ -129,16 +129,7 @@ utils::zip(files = readLines(con = "temp/timestamp.txt"),
                             readLines(con = "temp/timestamp.txt"), ".zip") )
 
 fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
-              new_path = "Y:/RACE_GF/GAP_PRODUCTS_Archives/")
+              new_path = "G:/GAP_PRODUCTS_Archives/"
+                #"Y:/RACE_GF/GAP_PRODUCTS_Archives/"
+                )
 fs::file_delete(path = readLines(con = "temp/timestamp.txt"))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Create Citations ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# file.edit("code/CITATION.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Step Create README ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# rmarkdown::render("code/README.Rmd",
-#                   output_file = "README.md")

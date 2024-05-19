@@ -12,12 +12,13 @@ options(scipen = 99999)
 
 ## Import gapindex and connect to Oracle.
 library(gapindex)
-chl <- gapindex::get_connected()
+library(data.table)
+chl <- gapindex::get_connected(check_access = F)
 
 ## Import comparison functions
 source("functions/calc_diff.R"); source("functions/compare_tables.R")
 
-ispp = c("yellowfin_sole", "Pacific_cod")[2]
+ispp = c("yellowfin_sole", "Pacific_cod")[1]
 
 wcpue_gp <- subset(x = readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
                                              ispp, "_gp/data_geostat_biomass_index.RDS")),
@@ -32,7 +33,7 @@ wcpue_merge <- merge(x = wcpue_gp, y = wcpue_sf,
                      all = T, suffixes = c("_gp", "_sf"))
 
 
-compare_tables(x = wcpue_merge, 
+compare_tables(x = data.table::data.table(wcpue_merge), 
                key_columns = c("Hauljoin"), 
                cols_to_check = data.frame(colname = "Catch_KG", 
                                           percent = F, 
@@ -57,22 +58,22 @@ ncpue_merge <- merge(x = ncpue_gp, y = ncpue_sf,
                      all = T, suffixes = c("_gp", "_sf"))
 head(ncpue_merge)
 
-ncpue_test <- compare_tables(x = ncpue_merge, 
-                             key_columns = c("Hauljoin"), 
-                             cols_to_check = data.frame(colname = "Catch_KG", 
-                                                        percent = F, 
-                                                        decplaces = 4),
-                             base_table_suffix = "_sf", 
-                             update_table_suffix = "_gp")
-ncpue_test
-na_recs <- RODBC::sqlQuery(channel = chl, 
-                query = paste("SELECT * 
+(ncpue_test <- compare_tables(x = data.table::data.table(ncpue_merge), 
+               key_columns = c("Hauljoin"), 
+               cols_to_check = data.frame(colname = "Catch_KG", 
+                                          percent = F, 
+                                          decplaces = 4),
+               base_table_suffix = "_sf", 
+               update_table_suffix = "_gp"))
+
+RODBC::sqlQuery(channel = chl, 
+                           query = paste("SELECT * 
                               FROM RACEBASE.CATCH 
                               WHERE SPECIES_CODE = ",
-                              c("Pacific_cod" = 21720, 
-                                "yellowfin_sole" = 10210)[ispp], 
-                              "AND HAULJOIN IN ", 
-                              gapindex::stitch_entries(ncpue_test$removed_records$Hauljoin)))
+                                         c("Pacific_cod" = 21720, 
+                                           "yellowfin_sole" = 10210)[ispp], 
+                                         "AND HAULJOIN IN ", 
+                                         gapindex::stitch_entries(ncpue_test$removed_records$Hauljoin)))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   
@@ -94,23 +95,13 @@ agecpue_merge <- merge(x = agecpue_gp, y = agecpue_sf,
                        all = T, suffixes = c("_gp", "_sf"))
 head(agecpue_merge)
 
-age_test <- compare_tables(x = agecpue_merge, 
-               key_columns = c("Hauljoin", "Year", "Age"), 
-               cols_to_check = data.frame(colname = "Catch_KG", 
-                                          percent = F, 
-                                          decplaces = 4),
-               base_table_suffix = "_sf", 
-               update_table_suffix = "_gp")
-
-RODBC::sqlQuery(channel = chl, 
-                query = paste("SELECT * 
-                              FROM RACEBASE.CATCH
-                              JOIN (SELECT * FROM RACEBASE.HAUL) USING (HAULJOIN)
-                              WHERE SPECIES_CODE = ",
-                              c("Pacific_cod" = 21720, 
-                                "yellowfin_sole" = 10210)[ispp], 
-                              "AND HAULJOIN IN ", 
-                              gapindex::stitch_entries(sort(unique(age_test$removed_records$Hauljoin)))))
+age_test <- compare_tables(x = data.table::data.table(agecpue_merge), 
+                           key_columns = c("Hauljoin", "Year", "Age"), 
+                           cols_to_check = data.frame(colname = "Catch_KG", 
+                                                      percent = F, 
+                                                      decplaces = 4),
+                           base_table_suffix = "_sf", 
+                           update_table_suffix = "_gp")
 
 RODBC::sqlQuery(channel = chl, 
                 query = paste("SELECT * 
@@ -120,19 +111,6 @@ RODBC::sqlQuery(channel = chl,
                                 "yellowfin_sole" = 10210)[ispp], 
                               "AND HAULJOIN IN ", 
                               gapindex::stitch_entries(sort(unique(age_test$removed_records$Hauljoin)))))
-
-merge(x = aggregate(Catch_KG ~ Hauljoin,
-                    data = agecpue_sf,
-                    FUN = sum,
-                    subset = Hauljoin %in% age_test$modified_records$Hauljoin),
-      y = ncpue_sf,
-      by = "Hauljoin")
-merge(x = aggregate(Catch_KG ~ Hauljoin,
-                    data = agecpue_gp,
-                    FUN = sum,
-                    subset = Hauljoin %in% age_test$modified_records$Hauljoin),
-      y = ncpue_gp,
-      by = "Hauljoin")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare ALKs
@@ -151,13 +129,13 @@ alk_merge <- merge(x = alk_gp, y = alk_sf,
 head(alk_merge)
 
 alk_test <- compare_tables(x = alk_merge, 
-               key_columns = c("SURVEY", "YEAR", "SPECIES_CODE", 
-                               "SEX", "LENGTH_MM", "AGE"), 
-               cols_to_check = data.frame(colname = "AGE_FRAC", 
-                                          percent = F, 
-                                          decplaces = 4),
-               base_table_suffix = "_sf", 
-               update_table_suffix = "_gp")
+                           key_columns = c("SURVEY", "YEAR", "SPECIES_CODE", 
+                                           "SEX", "LENGTH_MM", "AGE"), 
+                           cols_to_check = data.frame(colname = "AGE_FRAC", 
+                                                      percent = F, 
+                                                      decplaces = 4),
+                           base_table_suffix = "_sf", 
+                           update_table_suffix = "_gp")
 
 subset(alk_test$new, SURVEY == "EBS")
 
@@ -165,9 +143,9 @@ subset(alk_test$new, SURVEY == "EBS")
 ##   
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 data_gp <- readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
-                                       ispp, "_gp/ebs_data.RDS"))
+                                 ispp, "_gp/ebs_data.RDS"))
 data_sf <- readRDS(file = paste0("code/modsquad_bridge/bering_sea/",
-                                ispp, "_sumfish/raw_data.RDS"))
+                                 ispp, "_sumfish/raw_data.RDS"))
 
 unique_hauls_cpue_sf <- data_sf$NBS$haul$HAULJOIN
 unique_hauls_otos_sf <- sort(unique(data_sf$NBS$specimen$HAULJOIN[!is.na(x = data_sf$NBS$specimen$AGE)]))

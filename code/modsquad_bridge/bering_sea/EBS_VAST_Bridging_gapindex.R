@@ -11,7 +11,8 @@ rm(list = ls())
 ##   Import gapindex package, connect to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
-sql_channel <- gapindex::get_connected()
+library(data.table)
+channel <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Species-Specific Constants
@@ -47,8 +48,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                           pull_lengths = TRUE, 
                                           haul_type = 3, 
                                           abundance_haul = "Y",
-                                          sql_channel = sql_channel,
-                                          na_rm_strata = TRUE)
+                                          channel = channel,
+                                          remove_na_strata = TRUE)
   
   ## Next, pull data from hauls that are not included in the design-based index
   ## production (abundance_haul == "N") but are included in VAST. By default, 
@@ -60,13 +61,14 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                        pull_lengths = TRUE, 
                                        haul_type = 3, 
                                        abundance_haul = "N",
-                                       sql_channel = sql_channel, 
-                                       na_rm_strata = TRUE)
+                                       channel = channel, 
+                                       remove_na_strata = TRUE)
   
   ## Combine the EBS standard and EBS other data into one list. 
   ebs_data <- list(
     ## Some cruises are shared between the standard and other EBS cruises, 
     ## so the unique() wrapper is there to remove duplicate cruise records. 
+    survey_design = ebs_standard_data$survey_design,
     cruise = unique(rbind(ebs_standard_data$cruise,
                           ebs_other_data$cruise)),
     haul = rbind(ebs_standard_data$haul,
@@ -90,7 +92,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                           pull_lengths = TRUE, 
                                           haul_type = 3, 
                                           abundance_haul = "Y",
-                                          sql_channel = sql_channel)
+                                          channel = channel)
   
   ## Pull data from miscellaneous stations in 1985, 1988, and 1991 that were 
   ## sampled in the NBS but are not a part of the standard stations used in the
@@ -100,12 +102,14 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ## hard-coded SQL pulls from RACEBASE.
   nbs_other <- list()
   
+  nbs_other$survey_design <- nbs_standard_data$survey_design
+  
   nbs_other$cruise <-
     data.frame(YEAR = c(1988, 1985, 1991),
                SURVEY_DEFINITION_ID = 112,
                SURVEY = "NBS",
                RODBC::sqlQuery(
-                 channel = sql_channel,
+                 channel = channel,
                  query = "SELECT CRUISEJOIN, CRUISE
                           FROM RACEBASE.CRUISE 
                           WHERE CRUISE IN (198502, 198808, 199102) 
@@ -115,7 +119,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                DESIGN_YEAR = 2022)
   
   nbs_other$haul <- 
-    RODBC::sqlQuery(channel = sql_channel,
+    RODBC::sqlQuery(channel = channel,
                     query = "SELECT *
                              FROM RACEBASE.HAUL 
                              WHERE CRUISE IN (198502, 198808, 199102) 
@@ -124,7 +128,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                              AND ABUNDANCE_HAUL = 'Y'")
   nbs_other$catch <- 
     RODBC::sqlQuery(
-      channel = sql_channel,
+      channel = channel,
       query = paste("SELECT HAULJOIN, SPECIES_CODE, WEIGHT, NUMBER_FISH
                      FROM RACEBASE.CATCH 
                      WHERE SPECIES_CODE IN", 
@@ -134,7 +138,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   
   nbs_other$size <-
     RODBC::sqlQuery(
-      channel = sql_channel,
+      channel = channel,
       query = paste("SELECT CRUISEJOIN, HAULJOIN, SPECIES_CODE, LENGTH, 
                      SEX, FREQUENCY 
                      FROM RACEBASE.LENGTH 
@@ -143,16 +147,16 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                     "AND HAULJOIN IN",
                     gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
-  nbs_other$specimen <-
-    RODBC::sqlQuery(
-      channel = sql_channel,
-      query = paste("SELECT SPECIES_CODE, CRUISEJOIN, HAULJOIN, REGION,
-                     VESSEL, CRUISE, HAUL, SPECIMENID, LENGTH, SEX, WEIGHT, AGE
-                     FROM RACEBASE.SPECIMEN 
-                     WHERE SPECIES_CODE IN", 
-                    gapindex::stitch_entries(species_code),
-                    "AND HAULJOIN IN",
-                    gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
+  # nbs_other$specimen <-
+  #   RODBC::sqlQuery(
+  #     channel = channel,
+  #     query = paste("SELECT SPECIES_CODE, CRUISEJOIN, HAULJOIN, REGION,
+  #                    VESSEL, CRUISE, HAUL, SPECIMENID, LENGTH, SEX, WEIGHT, AGE
+  #                    FROM RACEBASE.SPECIMEN 
+  #                    WHERE SPECIES_CODE IN", 
+  #                   gapindex::stitch_entries(species_code),
+  #                   "AND HAULJOIN IN",
+  #                   gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
   ## Pull data from a 2018 NBS survey that is defined as an EBS survey but just
   ## with a different haul_type value. ABUNDANCE_TYPE for these hauls is 'N' 
@@ -164,35 +168,37 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                    pull_lengths = TRUE, 
                                    haul_type = 13, 
                                    abundance_haul = "N",
-                                   sql_channel = sql_channel)
+                                   channel = channel)
   nbs18_data$cruise$SURVEY <- "NBS"
   nbs18_data$cruise$SURVEY_DEFINITION_ID <- 143
   
   ## Combine all the NBS data into one list. 
-  nbs_data <- 
-    list(cruise = rbind(nbs_standard_data$cruise[,names(x = nbs18_data$cruise)],
-                        nbs_other$cruise,
-                        nbs18_data$cruise),
-         catch = rbind(nbs_standard_data$catch,
-                       nbs_other$catch,
-                       nbs18_data$catch),
-         haul = rbind(nbs_standard_data$haul,
-                      nbs_other$haul,
-                      nbs18_data$haul),
-         size = rbind(nbs_standard_data$size,
-                      nbs_other$size,
-                      nbs18_data$size),
-         specimen = rbind(nbs_standard_data$specimen,
-                          nbs_other$specimen,
-                          nbs18_data$specimen),
-         species = nbs_standard_data$species,
-         strata = nbs_standard_data$strata)
+  nbs_data <- list(
+    survey_design = nbs_standard_data$survey_design,
+    cruise = rbind(nbs_standard_data$cruise[,
+                                            names(x = nbs18_data$cruise),
+                                            with = F],
+                   nbs_other$cruise,
+                   nbs18_data$cruise),
+    catch = rbind(nbs_standard_data$catch,
+                  nbs_other$catch,
+                  nbs18_data$catch),
+    haul = rbind(nbs_standard_data$haul,
+                 nbs_other$haul,
+                 nbs18_data$haul),
+    size = rbind(nbs_standard_data$size,
+                 nbs_other$size,
+                 nbs18_data$size),
+    specimen = rbind(nbs_standard_data$specimen,
+                     nbs18_data$specimen),
+    species = nbs_standard_data$species,
+    strata = nbs_standard_data$strata)
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate CPUE for EBS and NBS, rbind, and reorder columns
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ebs_cpue <- gapindex::calc_cpue(racebase_tables = ebs_data)
-  nbs_cpue <- gapindex::calc_cpue(racebase_tables = nbs_data)
+  ebs_cpue <- gapindex::calc_cpue(gapdata = ebs_data)
+  nbs_cpue <- gapindex::calc_cpue(gapdata = nbs_data)
   
   ebs_nbs_cpue <- 
     subset(x = rbind(ebs_cpue, nbs_cpue),
@@ -205,24 +211,24 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate Total Abundance 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ebs_popn_stratum <- gapindex::calc_biomass_stratum(racebase_tables = ebs_data,
+  ebs_popn_stratum <- gapindex::calc_biomass_stratum(gapdata = ebs_data,
                                                      cpue = ebs_cpue)
-  nbs_popn_stratum <- gapindex::calc_biomass_stratum(racebase_tables = nbs_data,
+  nbs_popn_stratum <- gapindex::calc_biomass_stratum(gapdata = nbs_data,
                                                      cpue = nbs_cpue)
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate numerical CPUE for a given haul/sex/length bin
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   sizecomp <- rbind(gapindex::calc_sizecomp_stratum(
-    racebase_tables = ebs_data,
-    racebase_cpue = ebs_cpue,
-    racebase_stratum_popn = ebs_popn_stratum,
+    gapdata = ebs_data,
+    cpue = ebs_cpue,
+    abundance_stratum = ebs_popn_stratum,
     spatial_level = "haul",
     fill_NA_method = "BS"),
     gapindex::calc_sizecomp_stratum(
-      racebase_tables = nbs_data,
-      racebase_cpue = nbs_cpue,
-      racebase_stratum_popn = nbs_popn_stratum,
+      gapdata = nbs_data,
+      cpue = nbs_cpue,
+      abundance_stratum = nbs_popn_stratum,
       spatial_level = "haul",
       fill_NA_method = "BS"))
   
@@ -236,6 +242,9 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     ebs_data$size <- subset(x = ebs_data$size, 
                             CRUISE >= start_year_age * 100)
     
+    ebs_data$specimen <- merge(x = ebs_data$specimen,
+                               y = ebs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
+                               by = "CRUISEJOIN")
     ebs_data$specimen <- subset(x = ebs_data$specimen, 
                                 CRUISE >= start_year_age * 100)
     
@@ -245,11 +254,15 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     nbs_data$size <- subset(x = nbs_data$size, 
                             CRUISE >= start_year_age * 100)
     
+    nbs_data$specimen <- merge(x = nbs_data$specimen,
+                               y = nbs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
+                               by = "CRUISEJOIN")
     nbs_data$specimen <- subset(x = nbs_data$specimen, 
-                                CRUISE >= start_year_age * 100 & CRUISE != 201801)
+                                CRUISE >= start_year_age * 100 & 
+                                  CRUISE != 201801)
   }
   
-  ebs_alk <- gapindex::calc_alk(racebase_tables = ebs_data, 
+  ebs_alk <- gapindex::calc_alk(gapdata = ebs_data, 
                                 unsex = "unsex", 
                                 global = TRUE)
   
@@ -258,10 +271,10 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##   ALK. Then fill in the missing ALKs with the globally filled EBS ALK.
   ##   Then fill in any remaining missing ALKs with the globally filled NBS ALK. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  nbs_alk_non_global <- gapindex::calc_alk(racebase_tables = nbs_data, 
+  nbs_alk_non_global <- gapindex::calc_alk(gapdata = nbs_data, 
                                            unsex = "unsex", 
                                            global = FALSE)
-  nbs_alk_global <-  gapindex::calc_alk(racebase_tables = nbs_data, 
+  nbs_alk_global <-  gapindex::calc_alk(gapdata = nbs_data, 
                                         unsex = "unsex", 
                                         global = TRUE)
   
@@ -271,7 +284,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     merge(x = nbs_alk_non_global,
           y = subset(x = nbs_alk_global, select = -AGE_FRAC),
           all.y = TRUE,
-          by = c("SURVEY", "YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM", "AGE"))
+          by = c("SURVEY", "SURVEY_DEFINITION_ID","YEAR", "SPECIES_CODE", 
+                 "SEX", "LENGTH_MM", "AGE"))
   
   ## Calculate which ALK records are missing, i.e., the combinations of 
   ## year/sex/length that don't have probabilities across ages. 
@@ -301,18 +315,20 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
            subset = !(YEAR == missing_alk$YEAR[irow] & 
                         SPECIES_CODE == missing_alk$SPECIES_CODE[irow] & 
                         SEX == missing_alk$SEX[irow] & 
-                        LENGTH_MM == missing_alk$LENGTH_MM[irow]) ) 
+                        LENGTH_MM == missing_alk$LENGTH_MM[irow])) 
   
   ## Fill in missing alk values using the global EBS alk
   nbs_alk_fill <-
     merge(x = missing_alk,
-          y = subset(x = ebs_alk, select = -SURVEY),
+          y = subset(x = ebs_alk, select = -c(SURVEY, SURVEY_DEFINITION_ID)),
           all.x = TRUE, suffixes = c("_NG", "_EBS_G"),
           by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM"))
   
   ## Append the EBS-filled alks to nbs_alk
   nbs_alk <- rbind(nbs_alk,
-                   data.frame(SURVEY = "NBS", nbs_alk_fill))
+                   cbind(SURVEY = "NBS", 
+                         SURVEY_DEFINITION_ID = 143, 
+                         nbs_alk_fill))
   
   ## Repeat the process of right merging with the global NBS ALK. The missing 
   ## ALK values are denoted by NA AGE_FRAC values.
@@ -320,7 +336,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     merge(x = nbs_alk,
           y = subset(x = nbs_alk_global, select = -AGE_FRAC),
           all = TRUE,
-          by = c("SURVEY", "YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM", "AGE"))
+          by = c("SURVEY", "SURVEY_DEFINITION_ID", "YEAR", "SPECIES_CODE",
+                 "SEX", "LENGTH_MM", "AGE"))
   
   ## Find missing ALK values again
   missing_alk <-
@@ -359,10 +376,10 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
           by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM"))
   
   nbs_alk <- rbind(nbs_alk,
-                   nbs_alk_fill[, names(nbs_alk)])
+                   nbs_alk_fill[, names(x = nbs_alk)])
   
   ## Combine EBS and NBS ALKs
-  alk <- rbind(ebs_alk, nbs_alk)
+  alk <- rbind(ebs_alk, nbs_alk)[, names(x = nbs_alk), with = F]
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Decompose the numerical CPUE (S_ijklm) for a given haul and sex/length 
@@ -372,7 +389,7 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ebs_nbs_alk <- merge(x = sizecomp,
                        y = alk,
                        by = c("SURVEY", "YEAR", "SPECIES_CODE", 
-                              "SEX", "LENGTH_MM"))
+                              "SEX", "LENGTH_MM"), allow.cartesian = T)
   ebs_nbs_alk$AGE_CPUE_NOKM2 <- 
     ebs_nbs_alk$S_ijklm_NOKM2 * ebs_nbs_alk$AGE_FRAC
   
@@ -381,14 +398,14 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   age_cpue <- rbind(
     ## Aggregate ages younger than the `plus_group`
-    stats::aggregate(formula = AGE_CPUE_NOKM2 ~ AGE + HAULJOIN + SPECIES_CODE,
+    stats::aggregate(AGE_CPUE_NOKM2 ~ AGE + HAULJOIN + SPECIES_CODE,
                      data = ebs_nbs_alk,
                      FUN = sum,
                      drop = F,
                      subset = AGE < plus_group),
     ## Aggregate ages at or older than the `plus_group` as one age
     cbind(AGE = plus_group,
-          stats::aggregate(formula = AGE_CPUE_NOKM2 ~ HAULJOIN + SPECIES_CODE,
+          stats::aggregate(AGE_CPUE_NOKM2 ~ HAULJOIN + SPECIES_CODE,
                            data = ebs_nbs_alk,
                            FUN = sum,
                            drop = F,

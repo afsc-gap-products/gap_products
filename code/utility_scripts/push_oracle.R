@@ -11,46 +11,19 @@ rm(list = ls())
 ##  GAP_PRODUCTS credentials. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
-sql_channel <- gapindex::get_connected()
+channel <- gapindex::get_connected(db = "AFSC", check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Constants and Table Descriptions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 quantity <- c("agecomp", "sizecomp", "biomass", "cpue")
-source("code/constants.R")
-# source("code/functions.R")
+source("code/functions.R")
 
-table_metadata_info <- 
-  RODBC::sqlQuery(channel = sql_channel, 
-                  query = "SELECT * FROM GAP_PRODUCTS.METADATA_TABLE")
-table_metadata_bits <- table_metadata_info$METADATA_SENTENCE
-names(x = table_metadata_bits) <- table_metadata_info$METADATA_SENTENCE_NAME
+table_comments <- subset(x = read.csv(file = "code/table_comments.csv"),
+                         subset = table_type == "PRODUCTION")
 
-legal_disclaimer <- paste(table_metadata_bits["survey_institution"],
-                          table_metadata_bits["legal_restrict"],
-                          gsub(x = table_metadata_bits["github"],
-                               pattern = "INSERT_REPO",
-                               replacement = link_repo),
-                          table_metadata_bits["codebook"],
-                          gsub(x = table_metadata_bits["last_updated"],
-                               pattern = "INSERT_DATE",
-                               replacement = pretty_date))
-
-table_comments <- data.frame(
-  datatable = quantity,
-  comment = c(paste("Region-level age compositions by sex/length bin.",
-                    "This table was created", legal_disclaimer),
-              paste("Stratum/subarea/region-level size compositions by sex.",
-                    "This table was created ", legal_disclaimer),
-              paste("Stratum/subarea/region-level mean CPUE (weight and",
-                    "numbers), total biomass, and total abundance with",
-                    "associated variances. This table was created", 
-                    legal_disclaimer),
-              paste("Haul-level zero-filled weight and numerical",
-                    "catch-per-unit-effort.", "This table was created", 
-                    legal_disclaimer))
-)
+legal_disclaimer <- create_disclaimer_text(channel = channel)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Upload Tables to GAP_PRODUCTS
@@ -67,19 +40,21 @@ for (idata in quantity) { ## Loop over data types -- start
   } ## Loop over regions -- end
   
   ## Some final data column cleaning
-  if (idata %in%  c("agecomp", "biomass"))
-    data_table <- subset(x = data_table, select = -SURVEY)
   if (idata == "cpue") 
     data_table <- subset(x = data_table,
                          select = c(HAULJOIN, SPECIES_CODE, WEIGHT_KG, COUNT,
                                     AREA_SWEPT_KM2, CPUE_KGKM2, CPUE_NOKM2) )
-  
+  if (idata == "biomass") 
+    data_table <- subset(x = data_table,
+                         select = -SURVEY )
   ## Pull table description
-  table_metadata <- table_comments$comment[table_comments$datatable == idata]
+  table_metadata <- table_comments$table_comment[
+    table_comments$table_name == toupper(x = idata)
+    ]
   
   ## Pull field descriptions from GAP_PRODUCTS.METADATA_COLUMN
   metadata_column <- 
-    RODBC::sqlQuery(channel = sql_channel,
+    RODBC::sqlQuery(channel = channel,
                     query = paste(
                       "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
                        WHERE METADATA_COLNAME IN",
@@ -93,7 +68,7 @@ for (idata in quantity) { ## Loop over data types -- start
          replacement = "")
   
   ## Upload to Oracle
-  gapindex::upload_oracle(channel = sql_channel,
+  gapindex::upload_oracle(channel = channel,
                           x = data_table,
                           schema = "GAP_PRODUCTS",
                           table_name = toupper(x = idata),

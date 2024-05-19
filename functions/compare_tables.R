@@ -61,57 +61,58 @@ compare_tables <- function(x = NULL,
                        simplify = T)))
   
   for (icol in 1:nrow(x = cols_to_check)) {
-    x[, paste0(cols_to_check$colname[icol], "_DIFF")] <- 
+    x[, paste0(cols_to_check$colname[icol], "_DIFF") := 
       round(x = calc_diff(v1 = x[, paste0(cols_to_check$colname[icol], 
-                                          base_table_suffix)],
+                                          base_table_suffix), with = F],
                           v2 = x[, paste0(cols_to_check$colname[icol], 
-                                          update_table_suffix)],
+                                          update_table_suffix), with = F],
                           percent = cols_to_check$percent[icol]) ,
-            digits = cols_to_check$decplaces[icol])
+            digits = cols_to_check$decplaces[icol])]
   }
-  
+
   new_records_stmt <- 
-    paste0("subset(x = x, subset = ",
+    paste0("x[",
            paste0(sapply(X = cols_to_check$colname, 
                          FUN = function(x) 
                            paste0("(is.na(x = ", x, base_table_suffix, 
                                   ") & !is.na(x = ", x, update_table_suffix, 
                                   "))")), 
                   collapse = "|"), 
-           ")")
+           "]")
   new_records <- eval(parse(text = new_records_stmt))
-  new_records <- new_records[, c(key_columns, col_order)]
+  new_records <- new_records[, c(key_columns, col_order), with = F]
   
   if (nrow(x = new_records) > 0) new_records$NOTE <- ""
   
-  
   removed_records_stmt <- 
-    paste0("subset(x = x, subset = ",
+    paste0("x[",
            paste0(sapply(X = cols_to_check$colname, 
                          FUN = function(x) 
                            paste0("(!is.na(x = ", x, base_table_suffix, 
                                   ") & is.na(x = ", x, update_table_suffix, 
                                   "))")), 
                   collapse = "|"), 
-           ")")
+           "]")
   removed_records <- eval(parse(text = removed_records_stmt))
-  removed_records <- removed_records[, c(key_columns, col_order)]
+  removed_records <- removed_records[, c(key_columns, col_order), with = F]
+
   if (nrow(x = removed_records) > 0) removed_records$NOTE <- ""
   
   modified_records_stmt <- 
-    paste0("subset(x = x, subset = ",
+    paste0("x[",
            paste0(sapply(X = cols_to_check$colname, 
                          FUN = function(x) 
                            paste0(x, "_DIFF != 0")), 
                   collapse = " | "), 
-           ")")
+           "]")
   modified_records <- eval(parse(text = modified_records_stmt))
-  modified_records <- modified_records[, c(key_columns, col_order)]
+  modified_records <- modified_records[, c(key_columns, col_order), with = F]
+  
   if (nrow(x = modified_records) > 0) modified_records$NOTE <- ""
 
     
-  return(list(new_records = new_records, 
-              removed_records = removed_records, 
-              modified_records = modified_records))
-  
+  return(do.call(what = list,
+                 args = list(new_records = new_records, 
+                             removed_records = removed_records, 
+                             modified_records = modified_records)))
 }

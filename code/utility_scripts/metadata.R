@@ -15,7 +15,7 @@ library(janitor)
 library(dplyr)
 source(file = "code/constants.R")
 
-sql_channel <- gapindex::get_connected()
+chl <- gapindex::get_connected()
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Download the most recent version of the future_oracle.xlsx 
@@ -35,8 +35,9 @@ metadata_table <- readxl::read_xlsx(path = "temp/future_oracle.xlsx",
 metadata_table$metadata_sentence <- gsub(x = metadata_table$metadata_sentence,
                                          pattern = "INSERT_CODE_BOOK", 
                                          replacement = link_code_books)
-AREA <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
-                          sheet = "AREA") 
+AREA <- subset(x = readxl::read_xlsx(path = "temp/future_oracle.xlsx",
+                                     sheet = "AREA"),
+               select = -AREAJOIN)
 STRATUM_GROUPS <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
                                     sheet = "STRATUM_GROUPS") 
 SURVEY_DESIGN <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
@@ -145,7 +146,7 @@ for (isql_table in c("metadata_table",
                           table_name = toupper(x = isql_table), 
                           metadata_column = temp_metadata_column, 
                           table_metadata = temp_metadata_comment, 
-                          channel = sql_channel, 
+                          channel = chl, 
                           schema = "GAP_PRODUCTS", 
                           share_with_all_users = TRUE)
   

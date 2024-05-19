@@ -59,8 +59,6 @@
 #' @param schema string. Oracle schema where the table/view is contained. 
 #' @param table_name string Oracle table name. Should be in all-caps
 #'                   however the function will automatically do that. 
-#' @param table_type string. One of three options: "TABLE", "VIEW",
-#'                   or "MATERIALIZED VIEW".
 #' @param table_metadata string Description of what the table is. 
 #' @param metadata_column data.frame describing the metadata for each of the 
 #'                        fields in the table. Must contain these columns: 
@@ -75,14 +73,13 @@
 #'                             Oracle view permissions. 
 #' 
 update_metadata <- function(schema, 
-                            table_name, 
-                            table_type, 
+                            table_name,
                             channel, 
                             metadata_column, 
                             table_metadata,
                             share_with_all_users = TRUE) {
   
-  cat("Updating Metadata ...\n")
+  cat("Updating column and table metadata ...\n")
   
   ## Add column metadata 
   if (nrow(x = metadata_column) > 0) {
@@ -112,7 +109,7 @@ update_metadata <- function(schema,
   ## Add table metadata 
   RODBC::sqlQuery(
     channel = channel,
-    query = paste0('COMMENT ON ', table_type, " ", schema, '.', table_name, 
+    query = paste0("COMMENT ON TABLE ", schema, '.', table_name, 
                    " IS '", table_metadata, "';"))
   
   
@@ -121,7 +118,7 @@ update_metadata <- function(schema,
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (share_with_all_users) {
     
-    cat("Granting select access to all users ... ")
+    cat("Granting select access to all users ...\n")
     all_schemas <- RODBC::sqlQuery(channel = channel,
                                    query = paste0('SELECT * FROM all_users;'))
     
@@ -208,3 +205,42 @@ getSQL <- function(filepath){
 #   }
 #   return(str00)
 # }
+
+
+#' Links to various references
+link_foss <- "https://www.fisheries.noaa.gov/foss"  
+link_repo <- "https://github.com/afsc-gap-products/gap_products" # paste0(shell("git config --get remote.origin.url")) 
+link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
+link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
+
+#' Today's date
+pretty_date <- format(Sys.Date(), "%B %d, %Y")
+
+#' Create disclaimer text
+#' 
+create_disclaimer_text <- function(channel = NULL) {
+  if (is.null(x = channel)) 
+    stop("Must provide an Oracle connection using a function 
+         like `gapindex::get_connected()`. ")
+  
+  metadata_table <- 
+    RODBC::sqlQuery(channel = channel, 
+                    query = "SELECT * FROM GAP_PRODUCTS.METADATA_TABLE")
+  
+  table_metadata_text <- 
+    with(metadata_table,
+         paste(
+           "These data are produced",
+           METADATA_SENTENCE[METADATA_SENTENCE_NAME == "survey_institution"],
+           METADATA_SENTENCE[METADATA_SENTENCE_NAME == "legal_restrict"],
+           gsub(x = METADATA_SENTENCE[METADATA_SENTENCE_NAME == "github"], 
+                pattern = "INSERT_REPO", 
+                replacement = link_repo),
+           gsub(x = METADATA_SENTENCE[METADATA_SENTENCE_NAME == "last_updated"], 
+                pattern = "INSERT_DATE", 
+                replacement = pretty_date),
+           collapse = " ", sep = " ")
+    )
+  
+  return(table_metadata_text)
+}

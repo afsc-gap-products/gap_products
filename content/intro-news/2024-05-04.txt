@@ -1,0 +1,86 @@
+GAP_PRODUCTS ChangeLog (last produced on 2024-05-04) using gapindex v2.2.0
+A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package. The only major change from this run was the addition of GOA 2023 Pacific Ocean perch read otolith data. 
+
+
+
+ AI Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 3041 new agecomp records.  There are 83 agecomp records that were removed.  There are 19 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+
