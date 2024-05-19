@@ -1,0 +1,25 @@
+table_name,table_type,table_comment
+AKFIN_AGECOMP,akfin,AKFIN_AGECOMP is a copy of GAP_PRODUCTS.AGECOMP and does not have any other object dependencies.
+AKFIN_AREA,akfin,AKFIN_AREA is a copy of GAP_PRODUCTS.AREA and does not have any other object dependencies.
+AKFIN_BIOMASS,akfin,AKFIN_BIOMASS is a copy of GAP_PRODUCTS.BIOMASS and does not have any other object dependencies.
+AKFIN_CATCH,akfin,AKFIN_CATCH is a copy of RACEBASE.CATCH from hauls in RACEBASE.HAULS where ABUNDANCE_HAUL = 'Y'.
+AKFIN_CPUE,akfin,AKFIN_CPUE is a copy of GAP_PRODUCTS.CPUE and does not have any other object dependencies.
+AKFIN_CRUISE,akfin,"AKFIN_CRUISE contains cruise, year, vessel, and survey data for cruises used in the standard data product tables."
+AKFIN_HAUL,akfin,AKFIN_HAUL is created by subsetting the RACEBASE.HAUL table to only hauls with ABUNDANCE_HAUL = 'Y' and modifying some of the field names. These are the hauls that are used for the standard data product tables in the GAP_PRODUCTS schema.
+AKFIN_LENGTH,akfin,AKFIN_LENGTH is created by subsetting the RACEBASE.LENGTH table to only hauls with ABUNDANCE_HAUL = 'Y' and modifying some of the field names. These are the hauls that are used for the standard data product tables in GAP_PRODUCTS.
+AKFIN_METADATA_COLUMN,akfin,AKFIN_METADATA_COLUMN is a copy of GAP_PRODUCTS.METADATA_COLUMN and does not have any other object dependencies.
+AKFIN_SIZECOMP,akfin,AKFIN_SIZECOMP is a copy of GAP_PRODUCTS.SIZECOMP and does not have any other object dependencies.
+AKFIN_SPECIMEN,akfin,AKFIN_SPECIMEN is created by subsetting the RACEBASE.SPECIMEN table to only hauls with ABUNDANCE_HAUL = 'Y' and modifying some of the field names. These are the hauls that are used for the standard data products table in GAP_PRODUCTS.
+AKFIN_STRATUM_GROUPS,akfin,AKFIN_STRATUM_GROUPS is a copy of GAP_PRODUCTS.STRATUM_GROUPS and does not have any other object dependencies.
+AKFIN_SURVEY_DESIGN,akfin,AKFIN_SURVEY_DESIGN is a copy of GAP_PRODUCTS.SURVEY_DESIGN and does not have any other object dependencies.
+AKFIN_TAXONOMIC_CLASSIFICATION,akfin,AKFIN_TAXONOMIC_CLASSIFICATION is a copy of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION where SURVEY_SPECIES = 1 and does not have any other object dependencies.
+AKFIN_TAXONOMIC_GROUPS,akfin,AKFIN_TAXONOMIC_GROUPS is a copy of GAP_PRODUCTS.TAXONOMIC_GROUPS where SURVEY_SPECIES = 1 with an additional GROUP_CODE field that denotes whether a SPECIES_CODE value is aggregated into a higher taxonomic grouping. This table does not have any other object dependencies.
+FOSS_TAXON_GROUP,foss,FOSS_TAXON_GROUP contains suggested search groups for simplifying species selection in the FOSS data platform so users can better search through FOSS_CATCH
+FOSS_SURVEY_SPECIES,foss,FOSS_SURVEY_SPECIES contains the full list of species by survey to be used to zero-fill FOSS_CATCH and FOSS_HAUL for each survey.
+FOSS_HAUL,foss,FOSS_HAUL is created by subsetting the RACEBASE.HAUL table to only hauls with ABUNDANCE_HAUL = 'Y' and modifying some of the field names. These are the hauls that are used for the standard data product tables in the GAP_PRODUCTS schema.
+FOSS_SPECIES,foss,"FOSS_SPECIES is a copy of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION where SURVEY_SPECIES = 1. The classification fields (e.g., PHYLUM_TAXON, CLASS_TAXON, etc.) from GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION have been removed. "
+FOSS_CATCH,foss,FOSS_CATCH is a copy of GAP_PRODUCTS.CPUE filtered on positive catch records.
+CPUE,production,CPUE contains haul-level zero-filled weight and numerical catch-per-unit-effort.
+BIOMASS,production,"BIOMASS contains stratum/subarea/region-level mean CPUE (weight and numbers), total biomass, and total abundance with associated variances."
+SIZECOMP,production,SIZECOMP contains stratum/subarea/region-level size compositions by sex.
+AGECOMP,production,AGECOMP contains stratum and region-level age compositions by sex/length bin.
