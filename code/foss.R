@@ -14,7 +14,6 @@ rm(list = ls())
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
 sql_channel <- gapindex::get_connected()
-source("code/constants.R")
 source("code/functions.R")
 
 table_metadata_info <- 
