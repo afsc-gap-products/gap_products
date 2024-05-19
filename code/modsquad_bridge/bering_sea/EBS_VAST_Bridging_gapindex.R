@@ -66,9 +66,9 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   
   ## Combine the EBS standard and EBS other data into one list. 
   ebs_data <- list(
-    survey_design  = ebs_standard_data$survey_design,
     ## Some cruises are shared between the standard and other EBS cruises, 
     ## so the unique() wrapper is there to remove duplicate cruise records. 
+    survey_design = ebs_standard_data$survey_design,
     cruise = unique(rbind(ebs_standard_data$cruise,
                           ebs_other_data$cruise)),
     haul = rbind(ebs_standard_data$haul,
@@ -101,6 +101,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ## come up in gapindex::get_data(). Thus, the next set of code consists of
   ## hard-coded SQL pulls from RACEBASE.
   nbs_other <- list()
+  
+  nbs_other$survey_design <- nbs_standard_data$survey_design
   
   nbs_other$cruise <-
     data.frame(YEAR = c(1988, 1985, 1991),
@@ -145,18 +147,16 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                     "AND HAULJOIN IN",
                     gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
-  nbs_other$specimen <-
-    RODBC::sqlQuery(
-      channel = channel,
-      query = paste("SELECT SPECIES_CODE, CRUISEJOIN, HAULJOIN, REGION,
-                     VESSEL, CRUISE, HAUL, SPECIMENID, LENGTH, SEX, WEIGHT, AGE
-                     FROM RACEBASE.SPECIMEN 
-                     WHERE SPECIES_CODE IN", 
-                    gapindex::stitch_entries(species_code),
-                    "AND HAULJOIN IN",
-                    gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
-  
-  if( nrow(x = nbs_other$specimen) == 0 )  nbs_other$specimen <- NULL
+  # nbs_other$specimen <-
+  #   RODBC::sqlQuery(
+  #     channel = channel,
+  #     query = paste("SELECT SPECIES_CODE, CRUISEJOIN, HAULJOIN, REGION,
+  #                    VESSEL, CRUISE, HAUL, SPECIMENID, LENGTH, SEX, WEIGHT, AGE
+  #                    FROM RACEBASE.SPECIMEN 
+  #                    WHERE SPECIES_CODE IN", 
+  #                   gapindex::stitch_entries(species_code),
+  #                   "AND HAULJOIN IN",
+  #                   gapindex::stitch_entries(nbs_other$haul$HAULJOIN)))
   
   ## Pull data from a 2018 NBS survey that is defined as an EBS survey but just
   ## with a different haul_type value. ABUNDANCE_TYPE for these hauls is 'N' 
@@ -173,27 +173,26 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   nbs18_data$cruise$SURVEY_DEFINITION_ID <- 143
   
   ## Combine all the NBS data into one list. 
-  nbs_data <- 
-    list(survey_design = nbs_standard_data$survey_design,
-         cruise = rbind(nbs_standard_data$cruise[,
-                                                 names(x = nbs18_data$cruise), 
-                                                 with = F],
-                        nbs_other$cruise,
-                        nbs18_data$cruise),
-         catch = rbind(nbs_standard_data$catch,
-                       nbs_other$catch,
-                       nbs18_data$catch),
-         haul = rbind(nbs_standard_data$haul,
-                      nbs_other$haul,
-                      nbs18_data$haul),
-         size = rbind(nbs_standard_data$size,
-                      nbs_other$size,
-                      nbs18_data$size),
-         specimen = rbind(nbs_standard_data$specimen,
-                          nbs_other$specimen,
-                          nbs18_data$specimen),
-         species = nbs_standard_data$species,
-         strata = nbs_standard_data$strata)
+  nbs_data <- list(
+    survey_design = nbs_standard_data$survey_design,
+    cruise = rbind(nbs_standard_data$cruise[,
+                                            names(x = nbs18_data$cruise),
+                                            with = F],
+                   nbs_other$cruise,
+                   nbs18_data$cruise),
+    catch = rbind(nbs_standard_data$catch,
+                  nbs_other$catch,
+                  nbs18_data$catch),
+    haul = rbind(nbs_standard_data$haul,
+                 nbs_other$haul,
+                 nbs18_data$haul),
+    size = rbind(nbs_standard_data$size,
+                 nbs_other$size,
+                 nbs18_data$size),
+    specimen = rbind(nbs_standard_data$specimen,
+                     nbs18_data$specimen),
+    species = nbs_standard_data$species,
+    strata = nbs_standard_data$strata)
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Calculate CPUE for EBS and NBS, rbind, and reorder columns
@@ -244,8 +243,8 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                             CRUISE >= start_year_age * 100)
     
     ebs_data$specimen <- merge(x = ebs_data$specimen,
-                           y = ebs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
-                           by = "CRUISEJOIN")
+                               y = ebs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
+                               by = "CRUISEJOIN")
     ebs_data$specimen <- subset(x = ebs_data$specimen, 
                                 CRUISE >= start_year_age * 100)
     
@@ -259,11 +258,12 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
                                y = nbs_data$cruise[, c("CRUISEJOIN", "CRUISE")],
                                by = "CRUISEJOIN")
     nbs_data$specimen <- subset(x = nbs_data$specimen, 
-                                CRUISE >= start_year_age * 100 & CRUISE != 201801)
+                                CRUISE >= start_year_age * 100 & 
+                                  CRUISE != 201801)
   }
   
-  ebs_alk <- gapindex::calc_alk(gapdata = ebs_data,
-                                unsex = "unsex",
+  ebs_alk <- gapindex::calc_alk(gapdata = ebs_data, 
+                                unsex = "unsex", 
                                 global = TRUE)
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -271,11 +271,11 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ##   ALK. Then fill in the missing ALKs with the globally filled EBS ALK.
   ##   Then fill in any remaining missing ALKs with the globally filled NBS ALK. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  nbs_alk_non_global <- gapindex::calc_alk(gapdata = nbs_data,
-                                           unsex = "unsex",
+  nbs_alk_non_global <- gapindex::calc_alk(gapdata = nbs_data, 
+                                           unsex = "unsex", 
                                            global = FALSE)
-  nbs_alk_global <-  gapindex::calc_alk(gapdata = nbs_data,
-                                        unsex = "unsex",
+  nbs_alk_global <-  gapindex::calc_alk(gapdata = nbs_data, 
+                                        unsex = "unsex", 
                                         global = TRUE)
   
   ## By right merging with the globally filled NBS ALK. The missing ALK values 
@@ -284,34 +284,51 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     merge(x = nbs_alk_non_global,
           y = subset(x = nbs_alk_global, select = -AGE_FRAC),
           all.y = TRUE,
-          by = c("SURVEY", "SURVEY_DEFINITION_ID", "YEAR", "SPECIES_CODE", 
+          by = c("SURVEY", "SURVEY_DEFINITION_ID","YEAR", "SPECIES_CODE", 
                  "SEX", "LENGTH_MM", "AGE"))
   
   ## Calculate which ALK records are missing, i.e., the combinations of 
   ## year/sex/length that don't have probabilities across ages. 
-  
   missing_alk <-
-    nbs_alk[,
-            (function (df) {
-              if (sum(df$AGE_FRAC, na.rm = TRUE) == 0)
-                return(1)
-            })(.SD),
-            by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM")]
+    do.call(what = rbind,
+            args = lapply(X = split(x = nbs_alk,
+                                    f = with(nbs_alk,
+                                             list(YEAR,
+                                                  SPECIES_CODE,
+                                                  SEX,
+                                                  LENGTH_MM))),
+                          FUN = function(df) {
+                            if (sum(df$AGE_FRAC, na.rm = TRUE) == 0)
+                              return(data.frame(
+                                YEAR =  unique(df$YEAR),
+                                SPECIES_CODE = unique(df$SPECIES_CODE),
+                                SEX = unique(df$SEX),
+                                LENGTH_MM = unique(df$LENGTH_MM)))
+                          }
+            )
+    )
   
-  ## Remove the records in nbs_alk with the missing alk values via an anti-join
-  nbs_alk <- 
-    nbs_alk[!missing_alk, on = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM")]
+  ## Remove the records in nbs_alk with the missing alk values
+  for (irow in 1:nrow(x = missing_alk)) 
+    nbs_alk <- 
+    subset(x = nbs_alk,
+           subset = !(YEAR == missing_alk$YEAR[irow] & 
+                        SPECIES_CODE == missing_alk$SPECIES_CODE[irow] & 
+                        SEX == missing_alk$SEX[irow] & 
+                        LENGTH_MM == missing_alk$LENGTH_MM[irow])) 
   
   ## Fill in missing alk values using the global EBS alk
   nbs_alk_fill <-
-    merge(x = missing_alk[, -"V1"],
-          y = subset(x = ebs_alk, select = -SURVEY),
+    merge(x = missing_alk,
+          y = subset(x = ebs_alk, select = -c(SURVEY, SURVEY_DEFINITION_ID)),
           all.x = TRUE, suffixes = c("_NG", "_EBS_G"),
           by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM"))
   
   ## Append the EBS-filled alks to nbs_alk
   nbs_alk <- rbind(nbs_alk,
-                   data.frame(SURVEY = "NBS", nbs_alk_fill))
+                   cbind(SURVEY = "NBS", 
+                         SURVEY_DEFINITION_ID = 143, 
+                         nbs_alk_fill))
   
   ## Repeat the process of right merging with the global NBS ALK. The missing 
   ## ALK values are denoted by NA AGE_FRAC values.
@@ -319,21 +336,37 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
     merge(x = nbs_alk,
           y = subset(x = nbs_alk_global, select = -AGE_FRAC),
           all = TRUE,
-          by = c("SURVEY", "SURVEY_DEFINITION_ID", "YEAR", "SPECIES_CODE", 
+          by = c("SURVEY", "SURVEY_DEFINITION_ID", "YEAR", "SPECIES_CODE",
                  "SEX", "LENGTH_MM", "AGE"))
   
   ## Find missing ALK values again
   missing_alk <-
-    nbs_alk[,
-            (function (df) {
-              if (sum(df$AGE_FRAC, na.rm = TRUE) == 0)
-                return(1)
-            })(.SD),
-            by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM")]
+    do.call(what = rbind,
+            args = lapply(X = split(x = nbs_alk,
+                                    f = with(nbs_alk,
+                                             list(YEAR,
+                                                  SPECIES_CODE,
+                                                  SEX,
+                                                  LENGTH_MM))),
+                          FUN = function(df) {
+                            if (sum(df$AGE_FRAC, na.rm = TRUE) == 0)
+                              return(data.frame(
+                                YEAR =  unique(df$YEAR),
+                                SPECIES_CODE = unique(df$SPECIES_CODE),
+                                SEX = unique(df$SEX),
+                                LENGTH_MM = unique(df$LENGTH_MM)))
+                          }
+            )
+    )
   
-  ## Remove the records in nbs_alk with the missing alk values via an anti-join
-  nbs_alk <- 
-    nbs_alk[!missing_alk, on = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM")]
+  ## Remove the records in nbs_alk with the missing alk values
+  for (irow in 1:nrow(x = missing_alk)) 
+    nbs_alk <- 
+    subset(x = nbs_alk,
+           subset = !(YEAR == missing_alk$YEAR[irow] & 
+                        SPECIES_CODE == missing_alk$SPECIES_CODE[irow] & 
+                        SEX == missing_alk$SEX[irow] & 
+                        LENGTH_MM == missing_alk$LENGTH_MM[irow]) ) 
   
   ## Fill in missing alk values using the global NBS ALK
   nbs_alk_fill <- 
@@ -343,10 +376,10 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
           by = c("YEAR", "SPECIES_CODE", "SEX", "LENGTH_MM"))
   
   nbs_alk <- rbind(nbs_alk,
-                   nbs_alk_fill[, names(x = nbs_alk), with = F])
+                   nbs_alk_fill[, names(x = nbs_alk)])
   
   ## Combine EBS and NBS ALKs
-  alk <- rbind(ebs_alk, nbs_alk)
+  alk <- rbind(ebs_alk, nbs_alk)[, names(x = nbs_alk), with = F]
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Decompose the numerical CPUE (S_ijklm) for a given haul and sex/length 
@@ -356,35 +389,57 @@ for (ispp in 1:nrow(x = species_info)) { ## Loop over species -- start
   ebs_nbs_alk <- merge(x = sizecomp,
                        y = alk,
                        by = c("SURVEY", "YEAR", "SPECIES_CODE", 
-                              "SEX", "LENGTH_MM"), 
-                       allow.cartesian = TRUE)
+                              "SEX", "LENGTH_MM"), allow.cartesian = T)
   ebs_nbs_alk$AGE_CPUE_NOKM2 <- 
     ebs_nbs_alk$S_ijklm_NOKM2 * ebs_nbs_alk$AGE_FRAC
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##   Aggregate numerical CPUE across lengths for a given age/sex/haul. 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
   age_cpue <- rbind(
-    ## Aggregate CPUE across lengths for ages younger than the `plus_group`
-    ebs_nbs_alk[AGE < plus_group,
-                .(AGE_CPUE_NOKM2 = sum(AGE_CPUE_NOKM2, na.rm = T)),
-                by = c("AGE", "HAULJOIN", "SPECIES_CODE")],
-    ## Aggregate CPUE across lengths for ages at or older than the `plus_group`
+    ## Aggregate ages younger than the `plus_group`
+    stats::aggregate(AGE_CPUE_NOKM2 ~ AGE + HAULJOIN + SPECIES_CODE,
+                     data = ebs_nbs_alk,
+                     FUN = sum,
+                     drop = F,
+                     subset = AGE < plus_group),
+    ## Aggregate ages at or older than the `plus_group` as one age
     cbind(AGE = plus_group,
-          ebs_nbs_alk[AGE >= plus_group,
-                      .(AGE_CPUE_NOKM2 = sum(AGE_CPUE_NOKM2, na.rm = T)),
-                      by = c("HAULJOIN", "SPECIES_CODE")]),
-    data.table::CJ(AGE = 1:plus_group,
-                   HAULJOIN = ebs_nbs_cpue$HAULJOIN[ebs_nbs_cpue$COUNT == 0], 
-                   SPECIES_CODE = species_code,
-                   AGE_CPUE_NOKM2 = 0)
+          stats::aggregate(AGE_CPUE_NOKM2 ~ HAULJOIN + SPECIES_CODE,
+                           data = ebs_nbs_alk,
+                           FUN = sum,
+                           drop = F,
+                           subset = AGE >= plus_group))
   )
   
-
+  ## Zero-fill CPUEs for missing ages. First we create a grid of all possible
+  ## HAULJOINs and ages
+  unique_hauls_cpue_zeros <- sort(unique(x = ebs_nbs_cpue$HAULJOIN[ebs_nbs_cpue$CPUE_NOKM2 == 0]))
+  unique_hauls_cpue_pos <- sort(unique(x = ebs_nbs_cpue$HAULJOIN[ebs_nbs_cpue$CPUE_NOKM2 > 0]))
+  unique_hauls_sizecomp <- sort(unique(x = sizecomp$HAULJOIN))
+  
+  every_combo_of_ages <- 
+    expand.grid(HAULJOIN = c(unique_hauls_cpue_zeros,
+                             unique_hauls_cpue_pos[unique_hauls_cpue_pos %in% unique_hauls_sizecomp]),
+                SPECIES_CODE = species_code,
+                AGE = min(age_cpue$AGE, na.rm = TRUE):plus_group)
+  
+  ## Merge the age_cpue onto the `every_combo_of_ages` df using "HAULJOIN", 
+  ## "SPECIES_CODE", and "AGE" as a composite key. all.x = TRUE will reveal
+  ## missing ages denoted by an NA AGE_CPUE_NOKM2 value
+  every_combo_of_ages <- merge(x = every_combo_of_ages,
+                               y = age_cpue,
+                               by = c("HAULJOIN", "SPECIES_CODE", "AGE"),
+                               all.x = TRUE)
+  
+  ## Turn NA AGE_CPUE_NOKM2 values to zero
+  every_combo_of_ages$AGE_CPUE_NOKM2[
+    is.na(x = every_combo_of_ages$AGE_CPUE_NOKM2)
+  ] <- 0
+  
   ## Append the latitude and longitude information from the `ebs_nbs_cpue` df
   ## using "HAULJOIN" as a key. 
-  age_cpue <- merge(x = age_cpue,
+  age_cpue <- merge(x = every_combo_of_ages,
                     y = ebs_nbs_cpue[, c("HAULJOIN", "SURVEY", "YEAR",
                                          "LATITUDE_DD_START",
                                          "LONGITUDE_DD_START")],
