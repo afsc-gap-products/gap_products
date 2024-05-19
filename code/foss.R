@@ -39,8 +39,7 @@ for (isql_script in c("FOSS_HAUL",
                       "FOSS_CATCH",
                       "FOSS_TAXON_GROUP", 
                       "FOSS_SPECIES", 
-                      "FOSS_SURVEY_SPECIES",
-                      "FOSS_CPUE_PRESONLY")) { ## Loop over foss sql -- start
+                      "FOSS_SURVEY_SPECIES")) { ## Loop over foss sql -- start
   
   temp_table_name <- paste0("GAP_PRODUCTS.", isql_script)
   cat("Creating", temp_table_name, "...\n")
@@ -61,7 +60,7 @@ for (isql_script in c("FOSS_HAUL",
       legal_disclaimer)      
   } else {
     metadata_table <- paste(
-      "These datasets, FOSS_CATCH, FOSS_CPUE_PRESONLY, FOSS_HAUL, and",
+      "These datasets, FOSS_CATCH, FOSS_HAUL, and",
           "FOSS_SPECIES, when full joined by the HAULJOIN variable,",
           "includes zero-filled (presence and absence)",
           "observations and catch-per-unit-effort (CPUE)",

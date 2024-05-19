@@ -17,11 +17,10 @@ channel <- gapindex::get_connected(db = "AFSC", check_access = F)
 source("code/functions.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Set up which AKFIN tables will be created based on which sql scripts are
-##   in code/sql.
+##   Import AKFIN and FOSS table names and table descriptions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-akfin_views <- subset(x = read.csv(file = "code/table_comments.csv"),
-                      subset = table_type == "AKFIN")
+views <- subset(x = read.csv(file = "code/table_comments.csv"),
+                subset = table_type %in% c("AKFIN", "FOSS")[1])
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Assemble the basic text that states that GAP produced the tables, the
@@ -30,19 +29,18 @@ akfin_views <- subset(x = read.csv(file = "code/table_comments.csv"),
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 disclaimer_text <- create_disclaimer_text(channel = channel)
 
+## Pull metadata fields from GAP_PRODUCTS.METADATA_COLUMN
+metadata_fields <- RODBC::sqlQuery(channel = channel, 
+                                   query = "SELECT * 
+                                            FROM GAP_PRODUCTS.METADATA_COLUMN")
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over SQL scripts, upload to Oracle, and add field and table comments
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Pull metadata fields from GAP_PRODUCTS
-metadata_fields <- 
-  RODBC::sqlQuery(channel = channel, 
-                  query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")
-
-for (isql_script in 1:nrow(x = akfin_views)) { ## Loop over tables -- start
+for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
   start_time <- Sys.time()
-  temp_table_name <- paste0("GAP_PRODUCTS.", 
-                            akfin_views$table_name[isql_script])
+  temp_table_name <- paste0("GAP_PRODUCTS.", views$table_name[isql_script])
   cat("Creating", temp_table_name, "...\n")
   
   ## Extract tables already in GAP_PRODUCTS
@@ -50,16 +48,19 @@ for (isql_script in 1:nrow(x = akfin_views)) { ## Loop over tables -- start
                                                  schema = "GAP_PRODUCTS"))
   
   ## If the temp_table_name already exists, drop before recreating
-  if (akfin_views$table_name[isql_script] %in% available_views$TABLE_NAME)
+  if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
     RODBC::sqlQuery(channel = channel, 
                     query = paste("DROP MATERIALIZED VIEW", temp_table_name))
   
-  ## Run the SQL query for the materialized view
-  RODBC::sqlQuery(channel = channel,
-                  query = getSQL(filepath = paste0(
-                    "code/sql_akfin/",
-                    akfin_views$table_name[isql_script],
-                    ".sql")))
+  ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
+  ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
+  ## caled code/sql_foss.
+  RODBC::sqlQuery(
+    channel = channel,
+    query = getSQL(filepath = paste0("code/sql_", views$table_type[isql_script], "/", 
+      views$table_name[isql_script], ".sql")
+    )
+  )
   
   ## Subset field information for the fields in temp_table_name
   temp_field_metadata <- 
@@ -70,10 +71,10 @@ for (isql_script in 1:nrow(x = akfin_views)) { ## Loop over tables -- start
   
   ## Add Field and Table Comments 
   update_metadata(schema = "GAP_PRODUCTS", 
-                  table_name = akfin_views$table_name[isql_script],
+                  table_name = views$table_name[isql_script],
                   channel = channel, 
                   metadata_column = temp_field_metadata, 
-                  table_metadata = paste0(akfin_views$table_comment[isql_script], 
+                  table_metadata = paste0(views$table_comment[isql_script], 
                                           disclaimer_text))
   
   end_time <- Sys.time()
