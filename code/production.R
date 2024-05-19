@@ -194,10 +194,10 @@ for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
   ## strata 82 and 90) and then append to production_agecomp.
   if (regions[iregion] == 98) {
     
-    cat("\nFor the EBS region: reformat data to exclude data from strata
-82 and 90 to calculate production indices and compositions for the 
+    cat("\nFor the EBS region: reformatting data to exclude data from strata
+82 and 90 to recalculate production indices and compositions for the 
 EBS Standard Area.\n\n")
-    start_time <- Sys.time()
+    
     ## Create a copy of the production data to start from
     production_data_ebsstand <- production_data
     
@@ -227,8 +227,6 @@ EBS Standard Area.\n\n")
     production_data_ebsstand$subarea <- 
       subset(x = production_data_ebsstand$subarea,
              subset = !(AREA_ID %in% c(7, 8, 9, 100, 200, 300, 99900)))
-    end_time <- Sys.time()
-    print(round(end_time - start_time, 2))
     
     ## Calculate and zero-fill CPUE
     cat("\nRecalculating CPUE for the EBS Standard Area...")
@@ -264,7 +262,7 @@ EBS Standard Area.\n\n")
     print(round(end_time - start_time, 2))
     
     # Calculate regional ALK only including hauls in the EBS Standard Region
-    cat("\nRecalculating the age-length key for the EBS Standard Area...")
+    cat("\nRecalculating age-length key for the EBS Standard Area...")
     start_time <- Sys.time()
     production_alk_ebsstand <-
       subset(x = gapindex::calc_alk(
