@@ -17,7 +17,7 @@ gapproducts_channel <- gapindex::get_connected(check_access = F)
 ##   Import Production Updates
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 updates <- readRDS(file = "temp/mismatches.RDS")
-regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
+regions <- c("AI", "GOA", "EBS", "BSS", "NBS")[3]
 quantity <- c("agecomp", "sizecomp", "biomass", "cpue")
 
 for (iregion in regions) {

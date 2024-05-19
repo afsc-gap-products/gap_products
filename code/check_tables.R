@@ -24,7 +24,7 @@ library(data.table)
 ##   Main result object
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 mismatches <- list() 
-regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
+regions <- c("AI", "GOA", "EBS", "BSS", "NBS")[3]
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions, Pull in the current version of each data table, the 

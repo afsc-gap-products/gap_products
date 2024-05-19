@@ -23,8 +23,8 @@ channel <- gapindex::get_connected(check_access = F)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 current_year <- as.integer(format(x = Sys.Date(), format = "%Y"))
 start_year <- 
-  c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 2002, "NBS" = 2010)
-regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
+  c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 2002, "NBS" = 2010)[3]
+regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)[3]
 
 spp_start_year <-
   RODBC::sqlQuery(channel = channel, 
@@ -214,7 +214,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
       subset(x = production_data_ebsstand$subarea,
              subset = !(AREA_ID %in% c(7, 8, 9, 100, 200, 300, 99900)))
     
-    ## Calculate and zero-fill CPUE
+    # Calculate and zero-fill CPUE
     production_cpue_ebsstand <-
       gapindex::calc_cpue(gapdata = production_data_ebsstand)
     
@@ -260,7 +260,7 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     names(x = production_agecomp_stratum_ebsstand$age_comp)[
       names(x = production_agecomp_stratum_ebsstand$age_comp) == "STRATUM"] <-
       "AREA_ID"
-    production_agecomp_stratum_ebsstand$age_comp$AREA_ID_FOOTPRINT <- 
+    production_agecomp_stratum_ebsstand$age_comp$AREA_ID_FOOTPRINT <-
       "EBS STANDARD"
     production_agecomp_region_ebsstand$AREA_ID_FOOTPRINT <-
       "EBS STANDARD"
