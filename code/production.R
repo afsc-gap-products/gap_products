@@ -14,7 +14,6 @@ rm(list = ls())
 ##   Connect to Oracle (Make sure to connect to network or VPN)
 ##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 library(gapindex)
 channel <- gapindex::get_connected(check_access = F)
 
@@ -40,7 +39,7 @@ if (!dir.exists(paths = "temp/production/"))
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
+for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
   
   ## Pull data for all years and species from Oracle
   start_time <- Sys.time()
@@ -48,53 +47,55 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     year_set = start_year[iregion]:current_year,
     survey_set = names(regions)[iregion],
     spp_codes = NULL,
-    pull_lengths = TRUE, 
-    haul_type = 3, 
+    pull_lengths = TRUE,
+    haul_type = 3,
     abundance_haul = "Y",
     channel = channel)
   end_time <- Sys.time()
-  print(end_time - start_time)
-  
+  print(round(end_time - start_time, 2))
+
+
+  ## Save production data object
   saveRDS(object = production_data,
-          file = paste0("temp/production/production_data_", 
+          file = paste0("temp/production/production_data_",
                         names(regions)[iregion], ".RDS"))
-  
-  ## Extract stratum and subarea information
+
+  ## Extract stratum and subarea information to be saved later
   production_strata <- production_data$strata
   production_subarea <- production_data$subarea
   
   ## Calculate and zero-fill CPUE
-  cat("\nCalculating and zero-filling CPUE\n")
+  cat("\nCalculating and zero-filling CPUE...")
   start_time <- Sys.time()
   production_cpue <-
     gapindex::calc_cpue(gapdata = production_data)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
   ## Calculate biomass/abundance (w/variance), mean/variance CPUE across strata
-  cat("\nCalculating biomass/abundance across strata\n")
+  cat("\nCalculating biomass/abundance across strata...")
   start_time <- Sys.time()
   production_biomass_stratum <-
     gapindex::calc_biomass_stratum(
       gapdata = production_data,
       cpue = production_cpue)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
   ## Aggregate `production_biomass_stratum` to subareas and regions
-  cat("\nAggregate biomass/abundance to subareas and regions\n")
+  cat("\nAggregate biomass/abundance to subareas and regions...")
   start_time <- Sys.time()
   production_biomass_subarea <-
     gapindex::calc_biomass_subarea(
       gapdata = production_data,
       biomass_stratum = production_biomass_stratum)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
   ## Calculate size composition by stratum. Since the two regions have
   ## different functions, sizecomp_fn toggles which function to use
   ## and then it is called in the do.call function.
-  cat("\nCalculate size composition across strata\n")
+  cat("\nCalculate size composition across strata...")
   
   start_time <- Sys.time()
   production_sizecomp_stratum <- 
@@ -108,19 +109,19 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
                               yes = "AIGOA",
                               no = "BS"))
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
   ## Aggregate `production_sizecomp_stratum` to subareas and regions
-  cat("\nAggregate size composition to subareas and regions\n")
+  cat("\nAggregate size composition to subareas and regions...")
   start_time <- Sys.time()
   production_sizecomp_subarea <- gapindex::calc_sizecomp_subarea(
     gapdata = production_data, 
     sizecomp_stratum = production_sizecomp_stratum)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
-  ## Aggregate `production_sizecomp_stratum` to subareas and regions
-  cat("\nCalculate regional ALK\n")
+  ## Calculate age-length key
+  cat("\nCalculate regional ALK...")
   start_time <- Sys.time()
   production_alk <-
     subset(x = gapindex::calc_alk(
@@ -129,9 +130,10 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
       global = FALSE),
       subset = AGE_FRAC > 0)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
-  cat("\nCalculate age composition by stratum\n")
+  ## Calculate age composition by stratum
+  cat("\nCalculate age composition by stratum...")
   start_time <- Sys.time()
   production_agecomp_stratum <-
     gapindex::calc_agecomp_stratum(
@@ -139,17 +141,17 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
       alk = production_alk,
       sizecomp_stratum = production_sizecomp_stratum)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
   ## Aggregate `production_agecomp_stratum` to subareas and regions
-  cat("\nAggregate age composition to regions\n\n")
+  cat("\nAggregate age composition to regions...")
   start_time <- Sys.time()
   production_agecomp_region <-
     gapindex::calc_agecomp_region(
       gapdata = production_data, 
       agecomp_stratum = production_agecomp_stratum)
   end_time <- Sys.time()
-  print(end_time - start_time)
+  print(round(end_time - start_time, 2))
   
   # Change "STRATUM" field name to "AREA_ID"
   names(x = production_biomass_stratum)[
@@ -182,6 +184,8 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
                                           names(x = production_agecomp_region),
                                           with = F])
   
+  ## AREA_ID_FOOTPRINT denotes survey footprint and distinguishes the EBS
+  ## STANDARD area vs EBS STANDARD PLUS NW 
   production_agecomp$AREA_ID_FOOTPRINT <-
     c("52" = "AI", "47" = "GOA", "78" = "BSS",
       "98" = "EBS STANDARD PLUS NW", "143" = "NBS" )[paste(regions[iregion])]
@@ -189,11 +193,20 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   ## if EBS, recalculate agecomps using only the EBS Standard Region (sans
   ## strata 82 and 90) and then append to production_agecomp.
   if (regions[iregion] == 98) {
-    ## Remove hauls and data associated with hauls in strata 82 and 90
+    
+    cat("\nFor the EBS region: reformat data to exclude data from strata
+82 and 90 to calculate production indices and compositions for the 
+EBS Standard Area.\n\n")
+    start_time <- Sys.time()
+    ## Create a copy of the production data to start from
     production_data_ebsstand <- production_data
+    
+    ## Remove hauls and data associated with hauls in strata 82 and 90
     ebs_standard_hauls <- 
       production_data_ebsstand$haul[!(STRATUM %in% c(82, 90))]$HAULJOIN
     
+    ## Filter haul, catch, size, and specimen to only hauls within the 
+    ## EBS Standard Area survey footprint
     production_data_ebsstand$haul <-
       production_data_ebsstand$haul[HAULJOIN %in% ebs_standard_hauls]
     
@@ -206,27 +219,40 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
     production_data_ebsstand$specimen <-
       production_data_ebsstand$specimen[HAULJOIN %in% ebs_standard_hauls]
     
+    ## Remove strata 82 and 90 from the strata slot
     production_data_ebsstand$strata <-
       production_data_ebsstand$strata[!(STRATUM %in% c(82, 90))]
     
-    ## Remove subareas associated with the EBS + NW region
+    ## Remove subareas associated w/ the EBS + NW region from the subarea slot
     production_data_ebsstand$subarea <- 
       subset(x = production_data_ebsstand$subarea,
              subset = !(AREA_ID %in% c(7, 8, 9, 100, 200, 300, 99900)))
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     ## Calculate and zero-fill CPUE
+    cat("\nRecalculating CPUE for the EBS Standard Area...")
+    start_time <- Sys.time()
     production_cpue_ebsstand <-
       gapindex::calc_cpue(gapdata = production_data_ebsstand)
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     ## Calculate stratum biomass/abundance (w/var), mean, and var of wt/no.-CPUE
+    cat("\nRecalculating stratum-level Biomass for the EBS Standard Area...")
+    start_time <- Sys.time()
     production_biomass_stratum_ebsstand <-
       gapindex::calc_biomass_stratum(
         gapdata = production_data_ebsstand,
         cpue = production_cpue_ebsstand)
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     ## Calculate size composition by stratum. Since the two regions have
     ## different functions, sizecomp_fn toggles which function to use
     ## and then it is called in the do.call function.
+    cat("\nRecalculating size composition for the EBS Standard Area...")
+    start_time <- Sys.time()
     production_sizecomp_stratum_ebsstand <-
       gapindex::calc_sizecomp_stratum(
         gapdata = production_data_ebsstand,
@@ -234,27 +260,41 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
         abundance_stratum = production_biomass_stratum_ebsstand,
         spatial_level = "stratum",
         fill_NA_method = "BS")
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     # Calculate regional ALK only including hauls in the EBS Standard Region
+    cat("\nRecalculating the age-length key for the EBS Standard Area...")
+    start_time <- Sys.time()
     production_alk_ebsstand <-
       subset(x = gapindex::calc_alk(
         gapdata = production_data_ebsstand,
         unsex = c("all", "unsex")[1],
         global = FALSE),
         subset = AGE_FRAC > 0)
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     ## Calculate age composition by stratum
+    cat("\nRecalculating stratum-level age composition for the EBS Standard Area...")
+    start_time <- Sys.time()
     production_agecomp_stratum_ebsstand <-
       gapindex::calc_agecomp_stratum(
         gapdata = production_data_ebsstand,
         alk = production_alk_ebsstand,
         sizecomp_stratum = production_sizecomp_stratum_ebsstand)
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     ## Aggregate `production_agecomp_stratum` to subareas and regions
+    cat("\nReaggregating agecomps to region for the EBS Standard Area...")
+    start_time <- Sys.time()
     production_agecomp_region_ebsstand <-
       gapindex::calc_agecomp_region(
         gapdata = production_data_ebsstand,
         agecomp_stratum = production_agecomp_stratum_ebsstand)
+    end_time <- Sys.time()
+    print(round(end_time - start_time, 2))
     
     # Change "STRATUM" field name to "AREA_ID"
     names(x = production_agecomp_stratum_ebsstand$age_comp)[
@@ -312,10 +352,15 @@ for (iregion in (length(x = regions):1) ) { ## Loop over regions -- start
   }
   
   ## Save to the temp/ folder 
+  cat("\nSaving output to temp/production/...")
+  start_time <- Sys.time()
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
                   "strata", "subarea")) 
     write.csv(x = get(paste0("production_", idata)),
               file = paste0("temp/production/production_", idata, "_", 
                             names(regions)[iregion], ".csv"),
               row.names = F)
+  end_time <- Sys.time()
+  print(round(end_time - start_time, 2))
+  cat("\n")
 }
