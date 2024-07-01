@@ -16,9 +16,9 @@ Scientists from the Alaska Fisheries Science Center’s Groundfish Assessment Pr
 
 Learn more about the [program](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys). The objectives of these surveys are to:
 
- - monitor the population and environmental trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska, 
- - produce fishery-independent biomass (weight) and abundance (number) estimates for commercially important fish and crab species, and 
- - collect other biological and environmental data for use in ecosystem-based fishery management.
+- monitor the population and environmental trends in the marine ecosystem of the Bering Sea, Aleutian Islands, and Gulf of Alaska, 
+- produce fishery-independent biomass (weight) and abundance (number) estimates for commercially important fish and crab species, and 
+- collect other biological and environmental data for use in ecosystem-based fishery management.
 
 ## Who is conducting the research?
 
@@ -33,6 +33,49 @@ library(viridis)
 library(akgfmaps)
 library(sf)
 
+world_coordinates <- maps::map("world", plot = FALSE, fill = TRUE) %>% 
+sf::st_as_sf() %>%
+# sf::st_union() %>% 
+sf::st_transform(crs = "EPSG:3338") %>% 
+dplyr::filter(ID %in% c("USA", "Russia", "Canada")) %>% 
+dplyr::mutate(ID = ifelse(ID == "USA", "Alaska", ID))
+
+place_labels <- data.frame(
+type = c("islands", "islands", "islands", "islands", 
+"mainland", "mainland", "mainland", 
+"convention line", "peninsula", 
+"survey", "survey", "survey", "survey", "survey"), 
+lab = c("Pribilof Isl.", "Nunivak", "St. Matthew", "St. Lawrence", 
+"Alaska", "Russia", "Canada", 
+"U.S.-Russia Maritime Boundary", "Alaska Peninsula", 
+"Aleutian Islands", "Gulf of Alaska", 
+"Bering\nSea\nSlope", "Eastern\nBering Sea", "Northern\nBering Sea"), 
+angle = c(0, 0, 0, 0, 0, 0, 0, 30, 45, 0, 0, 0, 0, 0), 
+lat = c(57.033348, 60.7, 61, 64.2, 
+62.296686, 62.798276, 63.722890, 
+62.319419, 56.352495, 
+53.25, 54.720787, 
+57, 57.456912, 63.905936), 
+lon = c(-167.767168, -168, -174, -170.123016, 
+-157.377210, 173.205231, -136.664024, 
+-177.049063, -159.029430, 
+-173, -154.794131, 
+-176, -162, -165)) %>%
+dplyr::filter(type != "peninsula") %>% 
+# dplyr::mutate(
+#   color = dplyr::case_when(
+#     type == "mainland" ~ "grey80", 
+#     TRUE ~ "grey30"), 
+#   fontface = dplyr::case_when(
+#     type == "mainland" ~ "bold", 
+#     TRUE ~ "regular"),
+#   size = dplyr::case_when(
+#     type == "mainland" ~ 3, 
+#     TRUE ~ 2) ) %>% 
+sf::st_as_sf(coords = c("lon", "lat"),
+crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0") %>%
+sf::st_transform(crs = "EPSG:3338") 
+
 shp_ebs <- akgfmaps::get_base_layers(select.region = "bs.south", set.crs = "auto")
 shp_nbs <- akgfmaps::get_base_layers(select.region = "bs.north", set.crs = "auto")
 shp_ai <- akgfmaps::get_base_layers(select.region = "ai", set.crs = "auto")
@@ -42,192 +85,109 @@ shp_goa$survey.strata$Stratum <- shp_goa$survey.strata$STRATUM
 shp_bss <- akgfmaps::get_base_layers(select.region = "ebs.slope", set.crs = "auto")
 
 shp_all <- shp <- dplyr::bind_rows(list(
-  shp_ebs$survey.area %>%
-    sf::st_transform(crs = "EPSG:3338") %>%
-    dplyr::mutate(SURVEY = "EBS"),
-  shp_nbs$survey.area  %>%
-    sf::st_transform(crs = "EPSG:3338") %>%
-    dplyr::mutate(SURVEY = "NBS"),
-  shp_ai$survey.area %>%
-    sf::st_transform(crs = "EPSG:3338") %>%
-    dplyr::mutate(SURVEY = "AI"),
-  shp_goa$survey.area %>%
-    sf::st_transform(crs = "EPSG:3338") %>%
-    dplyr::mutate(SURVEY = "GOA"),
-  shp_bss$survey.area %>%
-    sf::st_transform(crs = "EPSG:3338") %>%
-    dplyr::mutate(SURVEY = "BSS"))) %>%
-  dplyr::select(Survey = SURVEY, geometry)
+shp_ebs$survey.area %>%
+sf::st_transform(crs = "EPSG:3338") %>%
+dplyr::mutate(SURVEY = "EBS"),
+shp_nbs$survey.area  %>%
+sf::st_transform(crs = "EPSG:3338") %>%
+dplyr::mutate(SURVEY = "NBS"),
+shp_ai$survey.area %>%
+sf::st_transform(crs = "EPSG:3338") %>%
+dplyr::mutate(SURVEY = "AI"),
+shp_goa$survey.area %>%
+sf::st_transform(crs = "EPSG:3338") %>%
+dplyr::mutate(SURVEY = "GOA"),
+shp_bss$survey.area %>%
+sf::st_transform(crs = "EPSG:3338") %>%
+dplyr::mutate(SURVEY = "BSS"))) %>%
+dplyr::select(Survey = SURVEY, geometry)
 
+figure_print <- ggplot2::ggplot() +
+ggplot2::geom_sf(data = world_coordinates,
+fill = "grey10",
+color = "grey20")  + 
+# Survey area shapefile
+ggplot2::geom_sf(data = shp_all,
+mapping = aes(fill = Survey),
+color = "grey50",
+alpha = 0.5,
+show.legend = FALSE) +
+ggplot2::scale_fill_manual(
+values =  c("gray90",
+viridis::viridis(
+option = "mako",
+# direction = -1,
+n = nrow(shp_all),
+begin = 0.20,
+end = 0.80))) + 
+# Manage Axis extents (limits) and breaks
+ggplot2::scale_x_continuous(name = "Longitude °W",
+breaks = c(seq(150, 175, 5), seq(-180, -120, 5))) +
+ggplot2::scale_y_continuous(name = "Latitude °N",
+breaks = seq(50, 65, 5)) + # seq(52, 62, 2)
+ggplot2::coord_sf(xlim = sf::st_bbox(shp_all)[c(1,3)],
+ylim = sf::st_bbox(shp_all)[c(2,4)]) +
+ggplot2::geom_sf_text(
+data = place_labels %>% dplyr::filter(type == "mainland"),
+mapping = aes(label = lab, angle = angle), 
+color = "grey60", 
+size = 3, 
+show.legend = FALSE) + 
+ggplot2::geom_sf_text(
+data = place_labels %>% dplyr::filter(type == "survey"),
+mapping = aes(label = lab, angle = angle), 
+color = "black",
+fontface = "bold",
+size = 2, 
+show.legend = FALSE) + 
+ggplot2::geom_sf_text(
+data = place_labels %>% dplyr::filter(!(type %in% c("mainland", "survey"))),
+mapping = aes(label = lab, angle = angle), 
+color = "grey10", 
+fontface = "italic", 
+size = 2, 
+show.legend = FALSE) + 
+ggplot2::theme_bw() +
+ggplot2::theme(
+plot.margin=unit(c(0,0,0,0), "cm"), 
+strip.background = element_rect(fill = "transparent", colour = "white"), 
+strip.text = element_text(face = "bold"), # , family = font0
+panel.border = element_rect(colour = "grey20", linewidth = .25, fill = NA),
+panel.background = element_rect(fill = "white"), 
+panel.grid = element_line(colour="grey80", size=0.5), 
+plot.title = element_text(face = "bold"), # , size = 12, family = font0
+axis.text = element_text(face = "bold"), # , size = 12 , family = font0
+legend.key = element_blank(), 
+legend.key.width = unit(0.6, "cm"),
+legend.key.size = unit(0.6, "cm"),
+legend.title = element_text(face = "bold"), # size = 10, , family = font0
+legend.title.position = "top", 
+legend.background = element_blank(),
+# legend.text = element_text(size = 10, angle = 90),
+legend.key.spacing = unit(0.0010, 'cm'), 
+legend.position = "right", # "bottom",
+legend.text.position = "right"# "bottom"
+) + 
+ggplot2::ggtitle(label = paste0("Bottom Trawl Survey Regions"),
+subtitle = "AFSC RACE Groundfish and Shellfish Public Data Coverage") 
 
-plot_survey <- function(srvy = "ebs", print_plot = FALSE) {
-  
-  if (srvy == "all") {
-    shp <- shp_ebs
-    survey <- "All"
-  } else if (srvy == "ebs") {
-    shp <- shp_ebs
-    survey <- "Eastern Bering Sea"
-    stn_col <- "STATIONID"    
-  } else if (srvy == "nbs") {
-    shp <- shp_nbs
-    survey <- "Northern Bering Sea"
-    stn_col <- "STATIONID"    
-  } else if (srvy == "bss") {
-    shp <- shp_bss
-    survey <- "Bering Sea Slope"  
-    stn_col <- NULL
-  } else if (srvy == "ai") {
-    shp <- shp_ai
-    survey <- "Aleutian Islands"
-    stn_col <- "ID"    
-  } else if (srvy == "goa") {
-    shp <- shp_goa
-    survey <- "Gulf of Alaska"
-    stn_col <- "ID"
-  }
-  
-gg <- ggplot() +
-  ggplot2::geom_sf(data = shp$akland,
-                   fill = "grey10",
-                   color = "transparent") 
-if (srvy == "all") {
-  gg <- gg + 
-      ggplot2::geom_sf(data = shp_nbs$graticule,
-                   color = "grey90",
-                   size = 0.5,
-                   alpha = 0.5) +
-  ggplot2::geom_sf(data = shp_ai$graticule,
-                   color = "grey90",
-                   size = 0.5,
-                   alpha = 0.5) +
-  ggplot2::geom_sf(data = shp_goa$graticule,
-                   color = "grey90",
-                   size = 0.5,
-                   alpha = 0.5) +
-  ggplot2::scale_x_continuous(name = "Longitude",
-                              breaks = c(-180, -170, -160, -150, -140)) +
-  ggplot2::scale_y_continuous(name = "Latitude") 
-} else {
-  gg <- gg + 
-  ggplot2::geom_sf(data = shp$graticule,
-                   color = "grey90",
-                   size = 0.5,
-                   alpha = 0.5) + 
-  ggplot2::scale_x_continuous(name = "Longitude",
-                              breaks = shp$lon.breaks) +
-  ggplot2::scale_y_continuous(name = "Latitude", 
-                              breaks = shp$lat.breaks) 
-}
+ggsave(filename = paste0("survey_plot.png"),
+plot = figure_print,
+path = here::here("img"),
+width = 7,
+height = 3)
 
-gg <- gg +
-  ggplot2::ggtitle(label = paste0(survey, " Bottom Trawl Survey Regions"),
-                   subtitle = "AFSC RACE Groundfish and Shellfish Public Data Coverage") +
-  ggplot2::theme_classic() +
-  ggplot2::theme(
-    panel.background = element_rect(fill = "transparent"), #grey95
-    plot.title = element_text(size = 12, face = "bold"),
-    plot.subtitle = element_text(size=10),
-    legend.text=element_text(size=8),
-    legend.position="right",
-    legend.direction="vertical",
-    legend.justification="left",
-    legend.background = element_blank(),
-    legend.title=element_text(size=8),
-    axis.text = element_text(size=8),
-    legend.box.background = element_blank(),
-    legend.key = element_blank(),
-    legend.key.size=(unit(.3,"cm")),
-    axis.title=element_text(size=14),
-    plot.margin = margin(0,0,0,0,unit = "cm"))
-  
-if (srvy == "all") {
-  gg <- gg  +
-  ggplot2::geom_sf(data = shp_all,
-                   mapping = aes(fill = Survey),
-                   # color = "grey50",
-                   show.legend = TRUE) +
-  ggplot2::scale_fill_viridis_d(option = "G", end = 0.9, begin = 0.1) +
-    ggplot2::coord_sf(xlim = c(-1394658,  2566293), # c(range(shp_ai$plot.boundary$x, shp_nbs$plot.boundary$x, shp_ebs$plot.boundary$x, shp_goa$plot.boundary$x, shp_bss$plot.boundary$x)),
-                    ylim = c(-1028565.1,  1125549.7)) # range(shp_ai$plot.boundary$y, shp_nbs$plot.boundary$y, shp_ebs$plot.boundary$y, shp_goa$plot.boundary$y, shp_bss$plot.boundary$y))
-} else {
-    
-# Station centroid data -------------------------------------------------------
-gg <- gg  +
-  ggplot2::geom_sf(data = shp$survey.strata,
-                   fill = "grey80", 
-                   color = "grey30",
-                   alpha = .75,
-                   show.legend = TRUE) 
-
-if (!is.null(stn_col)) {
-
-station_center <- shp$survey.grid |>
-    sf::st_make_valid() |>
-    sf::st_centroid() 
-
-station_center <- data.frame(station = station_center[,stn_col]) |>
-    dplyr::bind_cols(sf::st_coordinates(station_center)) |>
-    dplyr::rename(longitude_dd = X, 
-                  latitude_dd = Y, 
-                  geometry = station.geometry) %>%
-  dplyr::filter(!is.na(srvy)) %>%
-  # dplyr::filter(!is.na(station)) %>%
-  dplyr::filter(!is.na(longitude_dd)) %>%
-  dplyr::filter(!is.na(latitude_dd))
-
-gg <- gg  +
-  ggplot2::geom_point(data = station_center, 
-                   mapping = aes(x = longitude_dd, 
-                                 y = latitude_dd), 
-                   color = "grey20",
-                   size = .1, 
-                   alpha = .5,
-                   show.legend = FALSE) 
-}
-  
-gg <- gg  +
-      # geom_sf(data = shp$bathymetry, 
-      #         fill = NA, 
-      #         color = "grey50")  +
-      ggplot2::geom_text(data = subset(shp$place.labels, 
-                              type == "mainland"), 
-                aes(x = x, y = y, label = lab), 
-                size = 3, group = 99) + 
-      shadowtext::geom_shadowtext(data = subset(shp$place.labels, 
-                                    type == "peninsula"), 
-                      aes(x = x, y = y, label = lab), size = 4, angle = 30, 
-                      bg.color = "white", color = "black", group = 99) + 
-      shadowtext::geom_shadowtext(
-        data = subset(shp$place.labels, 
-                      type %in% c("bathymetry", "islands")),
-        aes(x = x, y = y, label = lab), 
-        bg.color = "white", color = "black", 
-        size = 2, group = 99) 
-if (srvy %in% c("nbs", "ebs")) {
-gg <- gg  +
-      ggplot2::geom_sf_text(data = shp$survey.strata, 
-                   lineheight = 0.7,
-                   mapping = aes(label = shp$survey.strata$Stratum),
-                   color = "black",
-                   size = 2,
-                   show.legend = FALSE) 
-}
-gg <- gg  +
-   ggplot2::coord_sf(xlim = range(shp$plot.boundary$x), 
-                    ylim = range(shp$plot.boundary$y)) 
-}
-  
+for (i in 1:length(shp_all)) {
+srvy <- shp_all$Survey[i]
 ggsave(filename = paste0("survey_plot_",srvy,".png"),
-       plot = gg,
-       path = here::here("img"),
-       width = 7,
-       height = 3)
-
-if (print_plot){
-  return(gg)
-}
-
+plot = figure_print  + 
+ggplot2::coord_sf(xlim = sf::st_bbox(shp_all[shp_all$Survey == srvy])[c(1,3)],
+ylim = sf::st_bbox(shp_all[shp_all$Survey == srvy])[c(2,4)]) +
+ggplot2::ggtitle(label = paste0(srvy, " Bottom Trawl Survey Regions"),
+subtitle = "AFSC RACE Groundfish and Shellfish Public Data Coverage") ,
+path = here::here("img"),
+width = 7,
+height = 3)
 }
 ```
 
@@ -237,8 +197,7 @@ if (print_plot){
 #| eval: true
 #| echo: false
 #| results: 'asis'
- 
-plot_survey(srvy = "all") 
+
 knitr::include_graphics(path = here::here("img", "survey_plot_all.png"))
 ```
 
@@ -255,25 +214,25 @@ Each survey conducted by the [Groundfish Assessment Program](https://www.fisheri
 #| echo: false
 
 dat_cruise <- RODBC::sqlQuery(channel = channel, 
-                       query = 
+query = 
 "SELECT 
 SURVEY_DEFINITION_ID, 
 SURVEY_NAME, 
 YEAR
 FROM GAP_PRODUCTS.AKFIN_CRUISE cc") %>% 
-  dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
-                                  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
-  dplyr::filter(!is.na(SRVY)) %>% 
-  dplyr::distinct() %>%
-                     dplyr::group_by(SRVY, SURVEY_DEFINITION_ID, SURVEY_NAME) %>% 
-                     dplyr::summarise(YEARS = n(), 
-                                      YEAR_S = max(YEAR, na.rm = T), 
-                                      YEAR_E = min(YEAR, na.rm = T)) %>% 
-                     unique()#)
+dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
+SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
+dplyr::filter(!is.na(SRVY)) %>% 
+dplyr::distinct() %>%
+dplyr::group_by(SRVY, SURVEY_DEFINITION_ID, SURVEY_NAME) %>% 
+dplyr::summarise(YEARS = n(), 
+YEAR_S = max(YEAR, na.rm = T), 
+YEAR_E = min(YEAR, na.rm = T)) %>% 
+unique()#)
 
 
 dat_stratum <- RODBC::sqlQuery(channel = channel, 
-                       query = 
+query = 
 "SELECT 
 SURVEY_DEFINITION_ID, 
 AREA_KM2, 
@@ -281,75 +240,70 @@ DESIGN_YEAR,
 DEPTH_MIN_M, 
 DEPTH_MAX_M 
 FROM GAP_PRODUCTS.AREA ss")  %>% 
-  dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
-                                  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
-  dplyr::filter(!is.na(SRVY)) %>% 
-      dplyr::group_by(SRVY, DESIGN_YEAR) %>%
-      dplyr::summarise(STRATUM = n(), 
-                       AREA_KM2 = sum(AREA_KM2, na.rm = TRUE), 
-                       DEPTH_MIN_M = min(DEPTH_MIN_M, na.rm = TRUE), 
-                       DEPTH_MAX_M = max(DEPTH_MAX_M, na.rm = TRUE)) %>% 
-  dplyr::filter(!is.na(SRVY) & 
-                  DESIGN_YEAR %in% max(DESIGN_YEAR)) %>% 
-  dplyr::select(-DESIGN_YEAR)
+dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
+SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
+dplyr::filter(!is.na(SRVY)) %>% 
+dplyr::group_by(SRVY, DESIGN_YEAR) %>%
+dplyr::summarise(STRATUM = n(), 
+AREA_KM2 = sum(AREA_KM2, na.rm = TRUE), 
+DEPTH_MIN_M = min(DEPTH_MIN_M, na.rm = TRUE), 
+DEPTH_MAX_M = max(DEPTH_MAX_M, na.rm = TRUE)) %>% 
+dplyr::filter(!is.na(SRVY) & 
+DESIGN_YEAR %in% max(DESIGN_YEAR)) %>% 
+dplyr::select(-DESIGN_YEAR)
 
 
 dat_station <- RODBC::sqlQuery(channel = channel, 
-                       query = 
+query = 
 "SELECT 
 SRVY, 
 STATION, 
 DESIGN_YEAR
 FROM GAP_PRODUCTS.OLD_STATION ss")  %>% 
-  dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
-                                  SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
-  dplyr::filter(!is.na(SURVEY_DEFINITION_ID)) %>% 
-      dplyr::group_by(SRVY, DESIGN_YEAR) %>%
-      dplyr::summarise(STATION = n()) %>% 
-    dplyr::select(-DESIGN_YEAR)
+dplyr::left_join(y = data.frame(SURVEY_DEFINITION_ID = c(98, 143, 47, 52, 78), 
+SRVY = c("EBS", "NBS", "GOA", "AI", "BSS"))) %>% 
+dplyr::filter(!is.na(SURVEY_DEFINITION_ID)) %>% 
+dplyr::group_by(SRVY, DESIGN_YEAR) %>%
+dplyr::summarise(STATION = n()) %>% 
+dplyr::select(-DESIGN_YEAR)
 
 table_raw <- dplyr::full_join(dat_stratum, dat_station) %>% 
-  dplyr::full_join(dat_cruise) %>% 
-    dplyr::ungroup()  %>% 
-  dplyr::left_join(y = srvy_cite, 
-                   by = "SRVY")%>%
-  dplyr::mutate(Years = paste0(YEAR_S, " - ", YEAR_E, " (", YEARS, ")"), 
-                area = paste0(formatC(x = AREA_KM2, format = "f", big.mark = ",", digits = 1)), 
-                depth = paste0(formatC(x = DEPTH_MIN_M, format = "f", big.mark = ",", digits = 0), 
-                               " - ", 
-                               formatC(x = DEPTH_MAX_M, format = "f", big.mark = ",", digits = 0))#, 
-                # Design = dplyr::case_when(
-                #   SRVY == "AI" ~ "Triennial (1990s)/Biennial since 2000 in even years; Modified Index-Stratified Random of Successful Stations Survey Design", 
-                # SRVY == "BSS" ~ "Intermittent (funding dependent); Modified Index-Stratified Random of Successful Stations Survey Design", 
-                # SRVY == "EBS" ~ "Annual; Fixed stations at center of 20 x 20 nm grid", 
-                # SRVY == "NBS" ~ "Biennial/Annual; Fixed stations at center of 20 x 20 nm grid", 
-                # SRVY == "GOA" ~ "Triennial (1990s)/Biennial since 2001 in odd years; Stratified Random Survey Design"), 
-                # CITE = paste0("@", CITE)
-                ) %>% 
-  dplyr::select(SURVEY_NAME, SURVEY_DEFINITION_ID, Years, depth, area, STRATUM, STATION) # , Citation = CITE, Design
+dplyr::full_join(dat_cruise) %>% 
+dplyr::ungroup()  %>% 
+dplyr::left_join(y = srvy_cite, 
+by = "SRVY")%>%
+dplyr::mutate(Years = paste0(YEAR_S, " - ", YEAR_E, " (", YEARS, ")"), 
+area = paste0(formatC(x = AREA_KM2, format = "f", big.mark = ",", digits = 1)), 
+depth = paste0(formatC(x = DEPTH_MIN_M, format = "f", big.mark = ",", digits = 0), 
+" - ", 
+formatC(x = DEPTH_MAX_M, format = "f", big.mark = ",", digits = 0))#, 
+# Design = dplyr::case_when(
+#   SRVY == "AI" ~ "Triennial (1990s)/Biennial since 2000 in even years; Modified Index-Stratified Random of Successful Stations Survey Design", 
+# SRVY == "BSS" ~ "Intermittent (funding dependent); Modified Index-Stratified Random of Successful Stations Survey Design", 
+# SRVY == "EBS" ~ "Annual; Fixed stations at center of 20 x 20 nm grid", 
+# SRVY == "NBS" ~ "Biennial/Annual; Fixed stations at center of 20 x 20 nm grid", 
+# SRVY == "GOA" ~ "Triennial (1990s)/Biennial since 2001 in odd years; Stratified Random Survey Design"), 
+# CITE = paste0("@", CITE)
+) %>% 
+dplyr::select(SURVEY_NAME, SURVEY_DEFINITION_ID, Years, depth, area, STRATUM, STATION) # , Citation = CITE, Design
 
 library(ftExtra)
 
 table_print <- table_raw %>% 
-  flextable::flextable() %>% 
-  flextable::set_header_labels(
-    SURVEY_NAME = "Survey", 
-    SURVEY_DEFINITION_ID = "Survey Definition ID", 
-    depth = "Depth (m)", 
-    area = "Area (km2)", 
-    STRATUM = "# Statistical Areas", 
-    STATION = "# Possible Stations" ) %>% 
-  theme_flextable_nmfstm(x = ., 
-                           font0 = "Arial", 
-                           pad = 0, 
-                           row_lines = FALSE, 
-                           pgwidth = 8) %>% 
-  flextable::fit_to_width(x = ., max_width = 11) %>%
-  flextable::padding(padding = 5) %>% 
-  flextable::theme_zebra() %>% 
-  flextable::align(x = ., part = "body", align = "center", j = "SURVEY_DEFINITION_ID") %>% 
-  flextable::width(j = "SURVEY_NAME", width = 1.5) %>%
-  ftExtra::colformat_md()
+flextable::flextable() %>% 
+flextable::set_header_labels(
+SURVEY_NAME = "Survey", 
+SURVEY_DEFINITION_ID = "Survey Definition ID", 
+depth = "Depth (m)", 
+area = "Area (km2)", 
+STRATUM = "# Statistical Areas", 
+STATION = "# Possible Stations" ) %>% 
+flextable::fit_to_width(x = ., max_width = 11) %>%
+flextable::padding(padding = 5) %>% 
+flextable::theme_zebra() %>% 
+flextable::align(x = ., part = "body", align = "center", j = "SURVEY_DEFINITION_ID") %>% 
+flextable::width(j = "SURVEY_NAME", width = 1.5) %>%
+ftExtra::colformat_md()
 
 table_print 
 ```
@@ -370,8 +324,7 @@ Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "AI"]`]
 #| results: 'asis'
 #| error: false
 #| message: false
- 
-plot_survey(srvy = "ai") 
+
 knitr::include_graphics(path = here::here("img", "survey_plot_ai.png"))
 ```
 
@@ -391,8 +344,7 @@ Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "GOA"]`]
 #| results: 'asis'
 #| error: false
 #| message: false
-  
-plot_survey(srvy = "goa") 
+
 knitr::include_graphics(path = here::here("img", "survey_plot_goa.png"))
 ```
 
@@ -413,10 +365,9 @@ Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "EBS"]`]
 #| results: 'asis'
 #| error: false
 #| message: false
-  
+
 # knitr::include_graphics(path = here::here("img", "ebs-strata.png"))
 
-plot_survey(srvy = "ebs") 
 knitr::include_graphics(path = here::here("img", "survey_plot_ebs.png"))
 ```
 
@@ -437,7 +388,6 @@ Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "NBS"]`]
 #| error: false
 #| message: false
 
-plot_survey(srvy = "nbs") 
 knitr::include_graphics(path = here::here("img", "survey_plot_nbs.png"))
 ```
 
@@ -458,9 +408,6 @@ Most recent data report: [@`r srvy_cite$CITE[srvy_cite$SRVY == "BSS"]`]
 #| results: 'asis'
 #| error: false
 #| message: false
-  
-knitr::include_graphics(path = here::here("img", "bss-strata.png"))
 
-# plot_survey(srvy = "bss") 
-# knitr::include_graphics(path = here::here("img", "survey_plot_bss.png"))
+knitr::include_graphics(path = here::here("img", "bss-strata.png"))
 ```
