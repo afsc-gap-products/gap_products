@@ -25,9 +25,9 @@ test0 <- TRUE
 **An application programming interface (API) is a way for two or more computer programs to communicate with each other.** More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
 
 There are three tables the user can pull from the API. Learn more about them on the [FOSS data description page](https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html). Here, you can see them in their raw JSON format:
-* haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/]
-* catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/]
-* species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]
+ -  haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/]
+ - catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/]
+ - species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]
 
 Here are some examples of how to use the data with R:
 
@@ -102,7 +102,7 @@ head(dat, 3)
 
 ```{r b, echo = FALSE}
 #| label: print-haul
-#| tbl-cap: "Haul data. "
+#| tbl-cap: "First few rows of haul data. "
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_haul <- function(dat0){
@@ -110,11 +110,11 @@ pretty_print_haul <- function(dat0){
     # dplyr::select(-links) %>%
     head() %>%
     flextable::flextable() %>%
-    flextable::theme_zebra() %>%
     flextable::colformat_num(
       x = ., 
       j = c("year", "cruise", "cruisejoin"), 
-      big.mark = "")
+      big.mark = "") %>%
+    flextable::theme_zebra()
   return(dat)
 }
 pretty_print_haul(dat0 = head(dat, 3))
@@ -185,7 +185,7 @@ head(dat_catch_api, 3)
 
 ```{r d, echo = FALSE}
 #| label: print-catch
-#| tbl-cap: "Catch data. "
+#| tbl-cap: "First few rows of catch data. "
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_catch <- function(dat0){
@@ -193,11 +193,11 @@ pretty_print_catch <- function(dat0){
     # dplyr::select(-links) %>%
     head() %>%
     flextable::flextable() %>%
-    flextable::theme_zebra() %>%
     flextable::colformat_num(
       x = ., 
       j = c("species_code"), 
-      big.mark = "")
+      big.mark = "") %>%
+    flextable::theme_zebra()
   return(dat)
 }
 pretty_print_catch(dat0 = head(dat_catch_api, 3))
@@ -242,7 +242,7 @@ head(data$items, 3)
 
 ```{r f, echo = FALSE}
 #| label: print-species
-#| tbl-cap: "Species data. "
+#| tbl-cap: "First few rows of species data. "
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_species <- function(dat0){
@@ -250,17 +250,17 @@ pretty_print_species <- function(dat0){
     # dplyr::select(-links) %>%
     head() %>%
     flextable::flextable() %>%
-    flextable::theme_zebra() %>%
     flextable::colformat_num(
       x = ., 
       j = c("species_code", "worms", "itis"), 
-      big.mark = "")
+      big.mark = "") %>%
+    flextable::theme_zebra()
   return(dat)
 }
 pretty_print_species(dat0 = head(data$items, 3))
 ```
 
-## Ex. Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot
+### Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot
 
 It is important to create and have access to zero-fill (presence and absence) so you can do simple analyses and plot data. 
 
@@ -309,7 +309,7 @@ head(dat, 3) %>%
   flextable::flextable() %>% flextable::theme_zebra()
 ```
 
-## Ex. Visualize CPUE data in distribution map
+### Visualize CPUE data in distribution map
 
 Using the zero-filled data from the previous example, we can make a few plots! 
 
@@ -341,7 +341,7 @@ ggplot2::ggplot(data = dat0 %>% dplyr::filter(cpue_kgkm2 != 0),
                       color = "red", 
                       shape = 17,
                       alpha = .75,
-                      size = 5) +
+                      size = 3) +
   ggplot2::xlab("Longitude *W") +
   ggplot2::ylab("Latitude *N") +
   ggplot2::ggtitle(label = "Catches of walleye pollock (Weight CPUE; kg/km2)", 
@@ -356,7 +356,7 @@ ggplot2::ggplot(data = dat0 %>% dplyr::filter(cpue_kgkm2 != 0),
 
 This map is constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). To make IDW plots, you must have data from all stations surveyed, even if no fish of interest were found there. 
 
-```{r j}
+```{r j, fig.height=8, fig.width=6}
 #| label: pollock-multi-idw
 #| tbl-cap: "CPUE of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. "
 
@@ -497,9 +497,9 @@ head(dat_haul_ex, 3)
 pretty_print_haul(dat0 = head(dat_haul_ex, 3))
 ```
 
-### Identify walleye pollock's species code
+### Identify `species_code` for walleye pollock
 
-In the catch data, we itemize species catches by `species_code`. To find out which `species_code` to use, you can check variations on the following code. Note that here the word `pollock` is case sensitive. All species `common_name` enteries are lower case except for proper nouns (.e.g, "Pacific"). The notation for finding a string is to use `%` around the phrase. Since `%` is a reserved character in a URL, you have to replace `%` with `%25`. 
+In the catch data, we itemize species catches by `species_code`. To find out which `species_code` to use, you can check variations on the following code. Note that here the word `pollock` is case sensitive. All species `common_name` entries are lower case except for proper nouns (e.g., "Pacific"). The notation for finding a string is to use `%` around the phrase. Since `%` is a reserved character in a URL, you have to replace `%` with `%25`. Similarly, `%20` needs to be used in place of a space (e.g., between "walleye" and "pollock": `"walleye%20pollock"}'`).  
 
 ```{r n}
 ## query the API link. Use: 
@@ -687,7 +687,7 @@ print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
 dat
 ```
 
-## Ex. Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot
+### Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot
 
 It is important to create and have access to zero-fill (presence and absence) so you can do simple analyses and plot data. 
 
@@ -716,7 +716,7 @@ head(dat, 3) %>%
   flextable::flextable()
 ```
 
-## Ex. Visualize CPUE data in distribution map
+### Visualize CPUE data in distribution map
 
 Using the zero-filled data from the previous example, we can make a few plots! 
 
@@ -737,7 +737,7 @@ ggplot2::ggplot(data = dat %>% dplyr::filter(cpue_kgkm2 != 0),
                       color = "red", 
                       shape = 17,
                       alpha = .75,
-                      size = 5) +
+                      size = 3) +
   ggplot2::xlab("Longitude *W") +
   ggplot2::ylab("Latitude *N") +
   ggplot2::ggtitle(label = "Catches of walleye pollock (Weight CPUE; kg/km2)", 
@@ -784,7 +784,9 @@ res <- httr::GET(
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 dat <- data$items %>% 
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset)
+```
 
+```{r ff, eval = FALSE, include = FALSE, echo = FALSE}
 summary(dat)
 
 # Find how many rows and columns are in the data pull
@@ -792,12 +794,12 @@ print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
 ```
 
 
-```{r dd, eval = FALSE}
+```{r dd, eval = FALSE, include = FALSE, echo = FALSE}
 # Print the first few lines of the data 
 head(dat, 3)
 ```
 
-```{r ee, echo = FALSE}
+```{r ee, echo = FALSE, include = FALSE, echo = FALSE}
 #| label: test-foss-api-6
 #| tbl-cap: 'Haul data where year is less than 1989, srvy is "EBS", and stratum is not equal to 81.'
 
