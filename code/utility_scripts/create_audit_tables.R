@@ -195,7 +195,7 @@ all_schemas <- RODBC::sqlQuery(channel = gapproducts_channel,
 for (iquantity in quantity) {
   for (iname in sort(all_schemas$USERNAME)) {
     RODBC::sqlQuery(channel = gaparchive_channel,
-                    query = paste0('GRANT SELECT ON GAP_ARCHIVES.AUDIT_',
+                    query = paste0('GRANT SELECT ON GAP_ARCHIVE.AUDIT_',
                                    toupper(iquantity), ' TO ', iname, ';'))
   }
 
