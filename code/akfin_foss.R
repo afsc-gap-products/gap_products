@@ -20,7 +20,7 @@ source("code/functions.R")
 ##   Import AKFIN and FOSS table names and table descriptions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 views <- subset(x = read.csv(file = "code/table_comments.csv"),
-                subset = table_type %in% c("AKFIN", "FOSS")[1])
+                subset = table_type %in% c("akfin", "foss")[1])
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Assemble the basic text that states that GAP produced the tables, the

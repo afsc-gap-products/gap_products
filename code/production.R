@@ -12,7 +12,6 @@ rm(list = ls())
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import Libraries
 ##   Connect to Oracle (Make sure to connect to network or VPN)
-##   Be sure to use the username and password for the GAP_PRODUCTS schema
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
 channel <- gapindex::get_connected(check_access = F)
@@ -53,13 +52,13 @@ for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
     channel = channel)
   end_time <- Sys.time()
   print(round(end_time - start_time, 2))
-
-
+  
+  
   ## Save production data object
   saveRDS(object = production_data,
           file = paste0("temp/production/production_data_",
                         names(regions)[iregion], ".RDS"))
-
+  
   ## Extract stratum and subarea information to be saved later
   production_strata <- production_data$strata
   production_subarea <- production_data$subarea
@@ -92,9 +91,9 @@ for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
   end_time <- Sys.time()
   print(round(end_time - start_time, 2))
   
-  ## Calculate size composition by stratum. Since the two regions have
-  ## different functions, sizecomp_fn toggles which function to use
-  ## and then it is called in the do.call function.
+  ## Calculate size composition by stratum. Since the Bering and AIGOA regions
+  ## slightly calculate size compositions differently, the fill_NA_method
+  ## argument is used to specify region
   cat("\nCalculate size composition across strata...")
   
   start_time <- Sys.time()
@@ -348,6 +347,68 @@ EBS Standard Area.\n\n")
              subset = !(AREA_ID == 99901 & 
                           AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW"))
   }
+  
+  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##   
+  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  historical_taxonomic_groups <- 
+    read.csv(file = "data/historical_group_ids.csv")
+  historical_taxonomic_species <- 
+    read.csv(file = "data/historical_group_id_composition.csv")
+  
+  all_groups_cpue <- all_groups_biomass <- data.frame()
+  
+  for (igroup in 1:nrow(x = historical_taxonomic_groups)) {
+    years_to_pull <- 
+      with(historical_taxonomic_groups, YEAR_START[igroup]:YEAR_END[igroup])
+    
+    if (all(start_year[iregion] > years_to_pull)) next
+    
+    species_in_group_code <- 
+      data.frame(GROUP_CODE = historical_taxonomic_groups$GROUP_CODE[igroup],
+                 subset(historical_taxonomic_species,
+                        subset = GROUP_CODE_ID == igroup,
+                        select = SPECIES_CODE))
+    
+    ## Pull data for all years and species from Oracle
+    group_data <- gapindex::get_data(
+      year_set = years_to_pull,
+      survey_set = names(regions)[iregion],
+      spp_codes = species_in_group_code,
+      pull_lengths = T,
+      haul_type = 3,
+      abundance_haul = "Y",
+      channel = channel)
+    
+    ## Calculate and zero-fill CPUE
+    group_cpue <- gapindex::calc_cpue(gapdata = group_data)
+    
+    ## Calculate biomass/abundance (w/variance), mean/variance CPUE across strata
+    group_biomass_stratum <- 
+      gapindex::calc_biomass_stratum(
+        gapdata = group_data,
+        cpue = group_cpue)
+    
+    ## Aggregate `group_biomass_stratum` to subareas and regions
+    group_biomass_subarea <-
+      gapindex::calc_biomass_subarea(
+        gapdata = group_data,
+        biomass_stratum = group_biomass_stratum)
+    
+    all_groups_cpue <- rbind(all_groups_cpue,
+                             group_cpue)
+    
+    names(x = group_biomass_stratum)[
+      names(x = group_biomass_stratum) == "STRATUM"
+    ] <- "AREA_ID"
+    all_groups_biomass <- rbind(all_groups_biomass,
+                                group_biomass_stratum,
+                                group_biomass_subarea)
+  }
+  
+  ## Append to cpue and biomass
+  production_cpue <- rbind(production_cpue, all_groups_cpue)
+  production_biomass <- rbind(production_biomass, all_groups_biomass)
   
   ## Save to the temp/ folder 
   cat("\nSaving output to temp/production/...")

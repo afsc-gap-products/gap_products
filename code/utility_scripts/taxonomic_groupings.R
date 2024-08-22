@@ -295,7 +295,8 @@ invert_genera <- RODBC::sqlQuery(
            (SELECT SPECIES_CODE AS GROUP_CODE, COMMON_NAME, GENUS_TAXON
            FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
            WHERE SURVEY_SPECIES = 1 
-           AND (CLASS_TAXON IN('Echinoidea', 'Bivalvia') 
+           AND (CLASS_TAXON IN 'Bivalvia'
+               OR ORDER_TAXON IN ('Camarodonta', 'Spatangoida')
                OR INFRAORDER_TAXON = 'Caridea' 
                OR ORDER_TAXON = 'Octopoda')
            AND ID_RANK = 'genus')
@@ -318,7 +319,8 @@ invert_genera <-
          GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
          FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
          WHERE SURVEY_SPECIES = 1 
-         AND (CLASS_TAXON IN('Echinoidea', 'Bivalvia') 
+         AND (CLASS_TAXON IN 'Bivalvia'
+              OR ORDER_TAXON IN ('Camarodonta', 'Spatangoida')
               OR INFRAORDER_TAXON = 'Caridea' 
               OR ORDER_TAXON = 'Octopoda')
          AND ID_RANK = 'species'
@@ -507,3 +509,9 @@ gapindex::upload_oracle(x = all_taxa,
                         channel = chl, 
                         schema = "GAP_PRODUCTS", 
                         share_with_all_users = TRUE)
+
+gp_groups <- RODBC::sqlQuery(channel = chl, query = "select * from gap_products.taxon_groups")
+akfin_groups <- RODBC::sqlQuery(channel = chl, query = "select * from gap_products.akfin_taxonomic_groups")
+
+nrow(gp_groups)
+nrow(akfin_groups)

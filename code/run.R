@@ -9,7 +9,7 @@
 ##                Groundfish Assessment Program bottom trawl surveys and 
 ##                Standard GAP survey data products in this repository include
 ##                CPUE, Biomass, Size Composition, and Age Composition. Tables
-##                that are served to the Alaksa Fisheries Information Network
+##                that are served to the Alaska Fisheries Information Network
 ##                (AKFIN) and Fisheries One Stop Shop (FOSS) data portals are
 ##                also housed here as materialized views that are often 
 ##                mirrors of these standard data tables or queries of tables in 
@@ -37,7 +37,7 @@ rm(list = ls())
 ##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# devtools::install_github("afsc-gap-products/gapindex@using_datatable", 
+# devtools::install_github("afsc-gap-products/gapindex@using_datatable",
 # force = TRUE)
 # install.packages("data.table")
 # install.packages("rmarkdown")
@@ -63,11 +63,10 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull Existing GAP_PRODUCTS Tables and Views ----
-##   Import the current version of the tables in GAP_PRODUCTS locally within 
-##   the gap_products repository in the temporary (temp/) folder that was just
-##   created. The local versions of these tables are used to compare the 
-##   updated production tables that we create in a later step to what is 
-##   currently in the GAP_PRODUCTS schema.
+##   Import current versions of the data tables in GAP_PRODUCTS locally within 
+##   the gap_products repository in temp/ folder. These local versions of the 
+##   tables are used to compare against the updated production tables that we 
+##   create in a later step to what is currently in the GAP_PRODUCTS schema.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/pull_existing_tables.R")
 
@@ -79,6 +78,7 @@ file.edit("code/pull_existing_tables.R")
 file.edit("code/production.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Compare Data Tables ---- 
 ##   These tables are compared and checked to their respective locally saved 
 ##   copies in the temp/ folder, and any changes to the tables are tabulated 
 ##   and documented in a text file outputted to the temp/ folder.  
@@ -99,21 +99,22 @@ file.edit("code/akfin_foss.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Archive GAP_PRODUCTS  ----
-##   Only archive the bits that would allow one to reproduce the 
-##   Standard Data tables. The session info and package versions are also 
-##   csv files in the temp/folder. The NEWS html is currently the way that 
-##   changes are reported. 
+##   Archive the bits that would allow one to reproduce the standard data 
+##   tables. The session info and package versions are also .csv files in the 
+##   temp/folder. The NEWS html is currently the way that changes are reported. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Copy report changes to news section
+## Copy changelog to news section
 fs::file_copy(path = "temp/report_changes.txt",
               new_path = paste0("content/intro-news/", 
                                 readLines(con = "temp/timestamp.txt"), 
                                 ".txt") )
 
-## Create a new directory with the timestamp as the title
+## Create a new directory with the timestamp as the title. This is the directory
+## that will store the archive.
 dir.create(path = readLines(con = "temp/timestamp.txt"))
 
-## Copy the necessary items into the directory
+## Copy the contents in the code/, functions/, and temp/ directories into the 
+## archive directory
 file.copy(from = "gap_products.Rproj", 
           to = readLines(con = "temp/timestamp.txt"))
 fs::dir_copy(path = "code/", 
