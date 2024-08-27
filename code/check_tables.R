@@ -238,7 +238,25 @@ gapindex_version <-
          subset = Package == "gapindex")$Version
 
 detailed_notes <- 
-  "A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package. The only major change from this run was the addition of GOA 2023 Pacific Ocean perch read otolith data. 
+  "Initial 2024 post-survey run with new ages since last run and all of EBS Shelf 2024 survey data but none of AI 2024 survey data. 
+  
+A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package. 
+
+ EBS Region: 
+
+ cpue : New CPUE information for the 2024 EBS shelf survey (350 hauls) added.
+
+ biomass : New biomass information for the 2024 EBS shelf survey (350 hauls) added.
+
+ sizecomp : New sizecomp information for the 2024 EBS shelf survey (350 hauls) added.
+
+ agecomp : New age data added for Alaska plaice (2021), Greenland turbot (2022), flathead sole (2022, 2023), Kamchatka flounder (2023), yellowfin sole (2023), northern rock sole (2023), and Pacific cod (2023)
+
+
+ NBS Region: 
+ 
+ agecomp : New age data added for Pacific cod (2023). There are 74 new agecomp records.  There are 1 agecomp records that were removed.  There are 10 modified agecomp records.
+
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
