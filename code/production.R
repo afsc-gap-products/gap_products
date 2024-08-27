@@ -22,7 +22,7 @@ channel <- gapindex::get_connected(check_access = F)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 current_year <- as.integer(format(x = Sys.Date(), format = "%Y"))
 start_year <- 
-  c("AI" = 2010, "GOA" = 2010, "EBS" = 2010, "BSS" = 2010, "NBS" = 2010)
+  c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 2002, "NBS" = 2010)
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 
 spp_start_year <-
