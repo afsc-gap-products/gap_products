@@ -1,0 +1,86 @@
+GAP_PRODUCTS ChangeLog (last produced on 2024-08-26) using gapindex v2.2.0
+While trying to update the records in the GAP_PRODUCTS table, the connection was terminated, partially uploading records in the agecomp tables and outputting NA to the N_HAUL and N_LENGTH fields in the biomass tables. At this point, the GAP_PRODUCTS tables are incomplete. The AKFIN and FOSS tables were NOT updated in this run.
+
+
+
+ AI Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 2788 new agecomp records.  There are 133 agecomp records that were removed.  There are 85 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 2098 new agecomp records.  There are 172 agecomp records that were removed.  There are 81 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ There are 247418 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 19216 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 29971 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 7004 new agecomp records.  There are 112 agecomp records that were removed.  There are 318 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 74 new agecomp records.  There are 1 agecomp records that were removed.  There are 10 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+
