@@ -59,9 +59,10 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
     compare_tables(
       x = test_cpue,
       cols_to_check = data.frame(
-        colname = c("WEIGHT_KG", "COUNT", "CPUE_KGKM2", "CPUE_NOKM2"),
-        percent = c(F, F, F, F),
-        decplaces = c(2, 0, 2, 2)),
+        colname = c("WEIGHT_KG", "COUNT", "AREA_SWEPT_KM2",
+                    "CPUE_KGKM2", "CPUE_NOKM2"),
+        percent = c(F, F, F, F, F),
+        decplaces = c(2, 0, 2, 2, 2)),
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("HAULJOIN", "SPECIES_CODE"))
@@ -112,13 +113,13 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
     compare_tables(
       x = test_biomass,
       cols_to_check = data.frame(
-        colname = c("N_WEIGHT", "N_COUNT", 
+        colname = c("N_HAUL", "N_WEIGHT", "N_COUNT", "N_LENGTH",
                     "CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR", 
                     "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
                     "BIOMASS_MT", "BIOMASS_VAR", 
                     "POPULATION_COUNT", "POPULATION_VAR"),
-        percent = c(F, F, T, T, T, T, T, T, T, T),
-        decplaces = c(0, 0, 2, 2, 2, 2, 2, 2, 0, 2)),
+        percent = c(F, F, F, F, T, T, T, T, T, T, T, T),
+        decplaces = c(0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 2)),
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
