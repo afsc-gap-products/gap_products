@@ -14,7 +14,7 @@ rm(list = ls())
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex)
 library(data.table)
-sql_channel <- gapindex::get_connected(check_access = F)
+chl <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Constants
@@ -50,9 +50,10 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
     )
     
     ## Query Oracle and write to csv in the temp folder
-    data.table::fwrite(x = RODBC::sqlQuery(channel = sql_channel, query = query),
+    data.table::fwrite(x = RODBC::sqlQuery(channel = chl, query = query),
               file = paste0("temp/cloned_gp/GAP_PRODUCTS_", idata, "_",
-                            names(regions[iregion]), ".csv"))
+                            names(x = regions[iregion]), ".csv"))
     
   } ## Loop over data types -- end
 } ## Loop over regions -- end
+
