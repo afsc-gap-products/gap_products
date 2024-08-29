@@ -56,16 +56,16 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   
   ## Evaluate the new, removed, and modified records between the two tables
   eval_cpue <- 
-    compare_tables(
-      x = test_cpue,
-      cols_to_check = data.frame(
-        colname = c("WEIGHT_KG", "COUNT", "AREA_SWEPT_KM2",
-                    "CPUE_KGKM2", "CPUE_NOKM2"),
-        percent = c(F, F, F, F, F),
-        decplaces = c(2, 0, 2, 2, 2)),
-      base_table_suffix = "_CURRENT",
-      update_table_suffix = "_UPDATE",
-      key_columns = c("HAULJOIN", "SPECIES_CODE"))
+      compare_tables(
+        x = test_cpue,
+        cols_to_check = data.frame(
+          colname = c("WEIGHT_KG", "COUNT", "AREA_SWEPT_KM2",
+                      "CPUE_KGKM2", "CPUE_NOKM2"),
+          percent = c(F, F, F, F, F),
+          decplaces = c(2, 0, 2, 2, 2)),
+        base_table_suffix = "_CURRENT",
+        update_table_suffix = "_UPDATE",
+        key_columns = c("HAULJOIN", "SPECIES_CODE"))
   
   ## Ignore very, very small cpue discrepancies when the weight or count of the
   ## record has not changed.
@@ -114,15 +114,15 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
       x = test_biomass,
       cols_to_check = data.frame(
         colname = c("N_HAUL", "N_WEIGHT", "N_COUNT", "N_LENGTH",
-                    "CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR", 
-                    "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR", 
-                    "BIOMASS_MT", "BIOMASS_VAR", 
+                    "CPUE_KGKM2_MEAN", "CPUE_KGKM2_VAR",
+                    "CPUE_NOKM2_MEAN", "CPUE_NOKM2_VAR",
+                    "BIOMASS_MT", "BIOMASS_VAR",
                     "POPULATION_COUNT", "POPULATION_VAR"),
         percent = c(F, F, F, F, T, T, T, T, T, T, T, T),
         decplaces = c(0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 2)),
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
-      key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', 
+      key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID',
                       "SPECIES_CODE", "YEAR"))
   
   cat(paste0("Finished with BIOMASS for the ", regions[iregion], " Region\n"))
@@ -239,25 +239,7 @@ gapindex_version <-
          subset = Package == "gapindex")$Version
 
 detailed_notes <- 
-  "Initial 2024 post-survey run with new ages since last run and all of EBS Shelf 2024 survey data but none of AI 2024 survey data. 
-  
-A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package. 
-
- EBS Region: 
-
- cpue : New CPUE information for the 2024 EBS shelf survey (350 hauls) added.
-
- biomass : New biomass information for the 2024 EBS shelf survey (350 hauls) added.
-
- sizecomp : New sizecomp information for the 2024 EBS shelf survey (350 hauls) added.
-
- agecomp : New age data added for Alaska plaice (2021), Greenland turbot (2022), flathead sole (2022, 2023), Kamchatka flounder (2023), yellowfin sole (2023), northern rock sole (2023), and Pacific cod (2023)
-
-
- NBS Region: 
- 
- agecomp : New age data added for Pacific cod (2023). There are 74 new agecomp records.  There are 1 agecomp records that were removed.  There are 10 modified agecomp records.
-
+  "While trying to update the records in the GAP_PRODUCTS table, the connection was terminated, partially uploading records in the agecomp tables and outputting NA to the N_HAUL and N_LENGTH fields in the biomass tables. At this point, the GAP_PRODUCTS tables are incomplete. The AKFIN and FOSS tables were NOT updated in this run.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
