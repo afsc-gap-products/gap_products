@@ -5,7 +5,11 @@ number-depth: 3
 ---
 
 ```{r setup, include=FALSE}
+#| file: functions.R
+
 knitr::opts_chunk$set(eval = TRUE, echo = TRUE)
+# tell R to not use scientific notation
+options(scipen=999)
 ```
 
 AKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.
@@ -21,9 +25,8 @@ library(dplyr)
 library(magrittr)
 library(httr)
 library(flextable)
-
-# tell R to not use scientific notation
-options(scipen=999)
+# devtools::install_github("MattCallahan-NOAA/akfingapdata")
+library(akfingapdata)
 
 # function for pulling data from the api using the httr package
 get_gap_biomass<-function(area_id, species_code) {
@@ -59,8 +62,12 @@ con <- dbConnect(odbc::odbc(), "akfin", UID=getPass(msg="USER NAME"), PWD=getPas
 
 ```{r}
 #| label: test-2b
-#| eval: false
+#| eval: true
 #| echo: false
+
+library(odbc)
+library(getPass)
+library(tidyverse)
 
 con <- channel_akfin
 ```
@@ -71,31 +78,37 @@ con <- channel_akfin
 #| tbl-cap: "Ex. 2: Load data with {akfingapdata}. "
 #| eval: false
 
+library(DBI)
+library(magrittr)
+
 # define species code for pollock
 my_species <- 21740
 
 #query database
-data<- dbFetch(dbSendQuery(con,
+data<- DBI::dbFetch(dbSendQuery(conn = con,
+                                statement = 
                            paste0("select * from gap_products.akfin_biomass 
 where species_name = ", my_species, 
 " and survey_definition_id = 98, 
 and area_id = 10"))) %>%
-rename_with(tolower) # everyone likes lower case letters better
+dplyr::rename_with(tolower) # everyone likes lower case letters better
 
 head(data)
 ```
 ## Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
+
+Sign into akfin with token (need to request token from AKFIN)
+
+```{r}
+library(akfingapdata)
+token <- akfingapdata::create_token(x = paste0(dirname(here::here()), "/akfin_token.txt"))
+```
 
 ```{r}
 #| label: test-3
 #| tbl-cap: "Ex. 2: Load catch data with {akfingapdata}. "
 #| eval: true
 #| echo: true
-
-library(akfingapdata)
-
-# Sign into akfin with token (need to request token from AKFIN)
-token <- akfingapdata::create_token(file = paste0(dirname(here::here()), "/akfin_token.txt"))
 
 akfingapdata::get_gap_catch()[,1:6] %>% 
   head() %>% 

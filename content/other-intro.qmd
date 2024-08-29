@@ -17,7 +17,7 @@ googledrive::drive_auth()
 
 # PLEASE UPDATE THIS GOOGLE DRIVE TO UPDATE CONTENT
 googledrive::drive_download(
-  file = googledrive::as_id("1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs"), 
+  file = googledrive::as_id("1fBNElCcrLTWkSAbjEoShsduuyMfHEisJDyyumCpCSAw"), #1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs
   type = "csv",
   overwrite = TRUE,
   path = here::here("temp", "other_products.csv"))
@@ -63,11 +63,6 @@ table_print <-
     i = ~ !is.na(product_type),
     j = "product",
     value = as_paragraph(as_chunk(product_type))) %>%
-  theme_flextable_nmfstm(x = ., 
-                         font0 = "Arial", 
-                         pad = 0, 
-                         row_lines = FALSE, 
-                         pgwidth = 8) %>% 
   flextable::theme_zebra()  %>% 
   flextable::set_header_labels(
     product = "Product", 
