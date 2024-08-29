@@ -454,8 +454,7 @@ taxon_changes <-
                   query = "SELECT OLD_SPECIES_CODE AS SPECIES_CODE, 
                            NEW_SPECIES_CODE 
                            FROM GAP_PRODUCTS.TAXONOMIC_CHANGES
-                           WHERE YEAR_CHANGED = 2024
-                           AND OLD_SPECIES_CODE != NEW_SPECIES_CODE")
+                           WHERE OLD_SPECIES_CODE != NEW_SPECIES_CODE")
 
 ## attach updated taxonomic information to the old species codes
 taxon_changes <- merge(x = taxon_changes, by.x = "NEW_SPECIES_CODE",
