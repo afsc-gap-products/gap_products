@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -47,13 +47,7 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -62,7 +56,6 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -72,9 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
-
 <script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
-
 
 
 </head>
@@ -85,12 +76,12 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-workflow.html"><span class="chapter-title">Workflow</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-workflow.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Workflow</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -100,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -108,8 +99,8 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -291,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -302,30 +293,21 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#data-workflow-from-boat-to-production" id="toc-data-workflow-from-boat-to-production" class="nav-link" data-scroll-target="#data-workflow-from-boat-to-production">Data workflow from boat to production</a></li>
   <li><a href="#data-levels" id="toc-data-levels" class="nav-link" data-scroll-target="#data-levels">Data levels</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-workflow.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-workflow.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-workflow.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-workflow.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <div id="google_translate_element"></div>
 
-
-
 <script type="text/javascript">
-
 function googleTranslateElementInit() {
-
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-
 }
-
 </script>
-
-
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-workflow.html"><span class="chapter-title">Workflow</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Workflow</span></h1>
 </div>
@@ -340,28 +322,27 @@ function googleTranslateElementInit() {
   </div>
   
 
-
 </header>
-
 
 <section id="operational-product-development-timeline" class="level2">
 <h2 class="anchored" data-anchor-id="operational-product-development-timeline">Operational Product Development Timeline</h2>
 <p>Over the course of the year, the survey team is developing a variety of different data products. Planning and preparation for surveys happens in the late winter and spring, surveys occur in the summer, data validation takes place over the course of the survey and after the survey, and data products are produced through fall and late winter.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-2600b4c4{}.cl-25ec6e9c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-25ec6ea6{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(56, 42, 84, 1.00);background-color:transparent;}.cl-25ec6eb0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(65, 64, 129, 1.00);background-color:transparent;}.cl-25ec6eb1{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(57, 93, 156, 1.00);background-color:transparent;}.cl-25ec6ec4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(53, 123, 162, 1.00);background-color:transparent;}.cl-25ec6ec5{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(52, 151, 169, 1.00);background-color:transparent;}.cl-25ec6ece{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(61, 180, 173, 1.00);background-color:transparent;}.cl-25ec6ecf{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(96, 206, 172, 1.00);background-color:transparent;}.cl-25f43ca8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-25f48e1a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e2e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e38{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e39{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e42{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e4c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e4d{width:0.75in;background-color:rgba(56, 42, 84, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e56{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e57{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e60{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e6a{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e74{width:0.75in;background-color:rgba(53, 123, 162, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e75{width:0.75in;background-color:rgba(52, 151, 169, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e7e{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e7f{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e88{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e92{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-25f48e93{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-2600b4c4"><caption><p>Operational product development timeline.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-25f48e1a"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"> </span></p></th><th class="cl-25f48e2e"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">January</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">February</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">March</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">April</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">May</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">June</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">July</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">August</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">September</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">October</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">November</span></p></th><th class="cl-25f48e38"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">December</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-25f48e39"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">Surveys</span></p></td><td class="cl-25f48e42"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4d"><p class="cl-25f43ca8"><span class="cl-25ec6ea6">1</span></p></td><td class="cl-25f48e4d"><p class="cl-25f43ca8"><span class="cl-25ec6ea6">1</span></p></td><td class="cl-25f48e4d"><p class="cl-25f43ca8"><span class="cl-25ec6ea6">1</span></p></td><td class="cl-25f48e4d"><p class="cl-25f43ca8"><span class="cl-25ec6ea6">1</span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-25f48e39"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">Planning</span></p></td><td class="cl-25f48e56"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td><td class="cl-25f48e57"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td><td class="cl-25f48e57"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e57"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td><td class="cl-25f48e57"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td><td class="cl-25f48e57"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td><td class="cl-25f48e57"><p class="cl-25f43ca8"><span class="cl-25ec6eb0">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-25f48e39"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">Development</span></p></td><td class="cl-25f48e60"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td><td class="cl-25f48e6a"><p class="cl-25f43ca8"><span class="cl-25ec6eb1">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-25f48e39"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">Deployment (survey deliverables)</span></p></td><td class="cl-25f48e42"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e74"><p class="cl-25f43ca8"><span class="cl-25ec6ec4">1</span></p></td><td class="cl-25f48e74"><p class="cl-25f43ca8"><span class="cl-25ec6ec4">1</span></p></td><td class="cl-25f48e74"><p class="cl-25f43ca8"><span class="cl-25ec6ec4">1</span></p></td><td class="cl-25f48e74"><p class="cl-25f43ca8"><span class="cl-25ec6ec4">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-25f48e39"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">Deployment (survey operations)</span></p></td><td class="cl-25f48e42"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e75"><p class="cl-25f43ca8"><span class="cl-25ec6ec5">1</span></p></td><td class="cl-25f48e75"><p class="cl-25f43ca8"><span class="cl-25ec6ec5">1</span></p></td><td class="cl-25f48e75"><p class="cl-25f43ca8"><span class="cl-25ec6ec5">1</span></p></td><td class="cl-25f48e75"><p class="cl-25f43ca8"><span class="cl-25ec6ec5">1</span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td><td class="cl-25f48e4c"><p class="cl-25f43ca8"><span class="cl-25ec6e9c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-25f48e39"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">Triage (fixing bugs and errors)</span></p></td><td class="cl-25f48e7e"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td><td class="cl-25f48e7f"><p class="cl-25f43ca8"><span class="cl-25ec6ece">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-25f48e88"><p class="cl-25f43ca8"><span class="cl-25ec6e9c">User feedback and brainstorming</span></p></td><td class="cl-25f48e92"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td><td class="cl-25f48e93"><p class="cl-25f43ca8"><span class="cl-25ec6ecf">1</span></p></td></tr></tbody></table></div>
+
+<div class="tabwid"><style>.cl-ea105882{}.cl-e9f03ea8{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e9f03ebc{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(56, 42, 84, 1.00);background-color:transparent;}.cl-e9f03ed0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(65, 64, 129, 1.00);background-color:transparent;}.cl-e9f03ed1{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(57, 93, 156, 1.00);background-color:transparent;}.cl-e9f03eda{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(53, 123, 162, 1.00);background-color:transparent;}.cl-e9f03ee4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(52, 151, 169, 1.00);background-color:transparent;}.cl-e9f03eee{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(61, 180, 173, 1.00);background-color:transparent;}.cl-e9f03eef{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(96, 206, 172, 1.00);background-color:transparent;}.cl-e9fbe140{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e9fc341a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc342e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3438{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3439{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3442{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc344c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3456{width:0.75in;background-color:rgba(56, 42, 84, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3457{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3460{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc346a{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3474{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3475{width:0.75in;background-color:rgba(53, 123, 162, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc347e{width:0.75in;background-color:rgba(52, 151, 169, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3488{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3489{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc3492{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc349c{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e9fc349d{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-ea105882"><caption><p>Operational product development timeline.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-e9fc341a"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"> </span></p></th><th class="cl-e9fc342e"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">January</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">February</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">March</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">April</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">May</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">June</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">July</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">August</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">September</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">October</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">November</span></p></th><th class="cl-e9fc3438"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">December</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3439"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">Surveys</span></p></td><td class="cl-e9fc3442"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc3456"><p class="cl-e9fbe140"><span class="cl-e9f03ebc">1</span></p></td><td class="cl-e9fc3456"><p class="cl-e9fbe140"><span class="cl-e9f03ebc">1</span></p></td><td class="cl-e9fc3456"><p class="cl-e9fbe140"><span class="cl-e9f03ebc">1</span></p></td><td class="cl-e9fc3456"><p class="cl-e9fbe140"><span class="cl-e9f03ebc">1</span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3439"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">Planning</span></p></td><td class="cl-e9fc3457"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td><td class="cl-e9fc3460"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td><td class="cl-e9fc3460"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc3460"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td><td class="cl-e9fc3460"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td><td class="cl-e9fc3460"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td><td class="cl-e9fc3460"><p class="cl-e9fbe140"><span class="cl-e9f03ed0">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3439"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">Development</span></p></td><td class="cl-e9fc346a"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td><td class="cl-e9fc3474"><p class="cl-e9fbe140"><span class="cl-e9f03ed1">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3439"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">Deployment (survey deliverables)</span></p></td><td class="cl-e9fc3442"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc3475"><p class="cl-e9fbe140"><span class="cl-e9f03eda">1</span></p></td><td class="cl-e9fc3475"><p class="cl-e9fbe140"><span class="cl-e9f03eda">1</span></p></td><td class="cl-e9fc3475"><p class="cl-e9fbe140"><span class="cl-e9f03eda">1</span></p></td><td class="cl-e9fc3475"><p class="cl-e9fbe140"><span class="cl-e9f03eda">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3439"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">Deployment (survey operations)</span></p></td><td class="cl-e9fc3442"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc347e"><p class="cl-e9fbe140"><span class="cl-e9f03ee4">1</span></p></td><td class="cl-e9fc347e"><p class="cl-e9fbe140"><span class="cl-e9f03ee4">1</span></p></td><td class="cl-e9fc347e"><p class="cl-e9fbe140"><span class="cl-e9f03ee4">1</span></p></td><td class="cl-e9fc347e"><p class="cl-e9fbe140"><span class="cl-e9f03ee4">1</span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td><td class="cl-e9fc344c"><p class="cl-e9fbe140"><span class="cl-e9f03ea8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3439"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">Triage (fixing bugs and errors)</span></p></td><td class="cl-e9fc3488"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td><td class="cl-e9fc3489"><p class="cl-e9fbe140"><span class="cl-e9f03eee">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e9fc3492"><p class="cl-e9fbe140"><span class="cl-e9f03ea8">User feedback and brainstorming</span></p></td><td class="cl-e9fc349c"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td><td class="cl-e9fc349d"><p class="cl-e9fbe140"><span class="cl-e9f03eef">1</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
 <section id="data-workflow-from-boat-to-production" class="level2">
 <h2 class="anchored" data-anchor-id="data-workflow-from-boat-to-production">Data workflow from boat to production</h2>
 <p>Organisms first need to be collected aboard the vessel before data can be entered into tablets.</p>
-<div class="cell" data-layout-align="default">
+<div class="cell">
 <div class="cell-output-display">
-<div id="fig-deck-bio-workflow" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-deck-bio-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-deck-bio-workflow" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <div>
+
 <pre class="mermaid mermaid-js" data-label="fig-deck-bio-workflow">flowchart 
   A1[Net and catch\ntotal weight/volume] --&gt; A2
   A1 --&gt; |Catch tablet|BB
@@ -425,10 +406,7 @@ function googleTranslateElementInit() {
   style VV fill:white,::
 </pre>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deck-bio-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: Simplified boat deck processing workflow.
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Simplified boat deck processing workflow.</figcaption>
 </figure>
 </div>
 </div>
@@ -438,12 +416,12 @@ Figure&nbsp;2.1: Simplified boat deck processing workflow.
 <blockquote class="blockquote">
 <p>The data from these surveys constitute a <strong>living data set</strong> so we can continue to <strong>provide the best available data to all partners, stakeholders, and fellow scientists</strong>.</p>
 </blockquote>
-<div class="cell" data-layout-align="default">
+<div class="cell">
 <div class="cell-output-display">
-<div id="fig-workflow" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-workflow" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <div>
+
 <pre class="mermaid mermaid-js" data-label="fig-workflow">flowchart LR
   A([Catch data\ndeck tablet]) --&gt; B1[METIS Biological\ndata editing\nsoftware]
   A1([Length data\ndeck tablets]) --&gt; B1
@@ -488,10 +466,7 @@ Figure&nbsp;2.1: Simplified boat deck processing workflow.
   style FF fill:white,::
 </pre>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: Simplified data workflow from boat to production.
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2.2: Simplified data workflow from boat to production.</figcaption>
 </figure>
 </div>
 </div>
@@ -502,12 +477,12 @@ Figure&nbsp;2.2: Simplified data workflow from boat to production.
 <li><p>Use the <code>gapindex</code> R package to calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are compared and checked to their respective locally saved copies and any changes to the tables are vetted and documented. These tables are then uploaded to the GAP_PRODUCTS Oracle schema.</p></li>
 <li><p>Calculate the various materialized views for AKFIN and FOSS purposes. Since these are derivative of the tables in GAP_PRODUCTS as well as other base tables in RACEBASE and RACE_DATA, it is not necessary to check these views in addition to the data checks done in the previous steps.</p></li>
 </ol>
-<div class="cell" data-layout-align="default">
+<div class="cell">
 <div class="cell-output-display">
-<div id="fig-data-used" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-data-used-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-data-used" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <div>
+
 <pre class="mermaid mermaid-js" data-label="fig-data-used">flowchart
   subgraph AA[Data Level 4]
   A[GAP_PRODUCTS\nOracle data\nproduct tables] --&gt; C[Data process\nreports &amp;\npresentations]
@@ -534,10 +509,7 @@ Figure&nbsp;2.2: Simplified data workflow from boat to production.
 
 </pre>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-data-used-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3: Major end-users of the GAP data product tables.
-</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2.3: Major end-users of the GAP data product tables.</figcaption>
 </figure>
 </div>
 </div>
@@ -638,27 +610,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/afsc-gap-products\.github\.io\/gap_products");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -668,17 +623,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -690,130 +636,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
+      return note.innerHTML;
     });
   }
       let selectedAnnoteEl;
@@ -857,7 +680,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -883,32 +705,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -970,12 +766,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/intro-survey-background.html" class="pagination-link" aria-label="Survey Background">
+      <a href="../content/intro-survey-background.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Survey Background</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/intro-news.html" class="pagination-link" aria-label="News">
+      <a href="../content/intro-news.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-title">News</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -983,18 +779,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>© CC-1.0</p>
-</div>   
+    <div class="nav-footer-left">© CC-1.0</div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-workflow.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-workflow.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
-    <div class="nav-footer-right">
-<p><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></p>
-</div>
+    </div>
+    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
   </div>
 </footer>
-
 
 
 
