@@ -53,4 +53,6 @@ temp/
 # Modsquad bridging RDS objects
 code/modsquad_bridge/**/*.RDS
 
-notforgit/
+output/
+temp/
+data/

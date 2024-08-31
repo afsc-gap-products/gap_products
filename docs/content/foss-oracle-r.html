@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,13 +96,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
 <script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
 
 
 </head>
@@ -107,12 +116,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Access via Oracle and R (AFSC only)</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -122,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -130,8 +139,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -313,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -326,21 +335,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ex.-subset-data" id="toc-ex.-subset-data" class="nav-link" data-scroll-target="#ex.-subset-data"><span class="header-section-number">13.0.4</span> Ex. Subset data</a></li>
   <li><a href="#ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" id="toc-ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023" class="nav-link" data-scroll-target="#ex.-find-all-species-found-in-the-eastern-bering-sea-ebs-survey-in-2023"><span class="header-section-number">13.0.5</span> Ex. Find all species found in the eastern Bering Sea (EBS) survey in 2023</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <div id="google_translate_element"></div>
 
+
+
 <script type="text/javascript">
+
 function googleTranslateElementInit() {
+
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+
 }
+
 </script>
+
+
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<header id="title-block-header" class="quarto-title-block default">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/foss-intro.html">Public Data (FOSS)</a></li><li class="breadcrumb-item"><a href="../content/foss-oracle-r.html"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></h1>
 </div>
@@ -355,7 +373,9 @@ function googleTranslateElementInit() {
   </div>
   
 
+
 </header>
+
 
 <p>If the user has access to the AFSC <code>Oracle</code> database, the user can use <code>SQL developer</code> to view and pull the FOSS public data directly from the <code>GAP_PRODUCTS</code> <code>Oracle</code> schema.</p>
 <section id="connect-to-oracle-from-r" class="level3" data-number="13.0.1">
@@ -535,8 +555,7 @@ function googleTranslateElementInit() {
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(data[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,]) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div class="tabwid"><style>.cl-96a8e6dc{}.cl-969e3e3a{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-969e3e44{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-96a225fe{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-96a22608{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-96a23e86{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96a23e90{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96a23e91{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96a23e9a{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96a23e9b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96a23ea4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-96a8e6dc"><thead><tr style="overflow-wrap:break-word;"><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">HAULJOIN</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">SPECIES_CODE</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">CPUE_KGKM2</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">CPUE_NOKM2</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">COUNT</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">WEIGHT_KG</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">TAXON_CONFIDENCE</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">YEAR</span></p></th><th class="cl-96a23e90"><p class="cl-96a22608"><span class="cl-969e3e3a">SRVY</span></p></th><th class="cl-96a23e90"><p class="cl-96a22608"><span class="cl-969e3e3a">SURVEY</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">SURVEY_DEFINITION_ID</span></p></th><th class="cl-96a23e90"><p class="cl-96a22608"><span class="cl-969e3e3a">SURVEY_NAME</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">CRUISE</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">CRUISEJOIN</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">HAULJOIN.1</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">HAUL</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">STRATUM</span></p></th><th class="cl-96a23e90"><p class="cl-96a22608"><span class="cl-969e3e3a">STATION</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">VESSEL_ID</span></p></th><th class="cl-96a23e90"><p class="cl-96a22608"><span class="cl-969e3e3a">VESSEL_NAME</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">DATE_TIME</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">LATITUDE_DD_START</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">LONGITUDE_DD_START</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">LATITUDE_DD_END</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">LONGITUDE_DD_END</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">BOTTOM_TEMPERATURE_C</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">SURFACE_TEMPERATURE_C</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">DEPTH_M</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">DISTANCE_FISHED_KM</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">DURATION_HR</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">NET_WIDTH_M</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">NET_HEIGHT_M</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">AREA_SWEPT_KM2</span></p></th><th class="cl-96a23e86"><p class="cl-96a225fe"><span class="cl-969e3e3a">PERFORMANCE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-19,288</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">21,720</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">449.8301</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">1,876.1759</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">83</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">19.90</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">1</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2,019</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">EBS</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">eastern Bering Sea</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">98</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">201,901</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-727</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-19,288</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">96</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">20</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">O-18</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">162</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">ALASKA KNIGHT</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2019-06-29 06:54:00</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">59.68079</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-168.6144</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">59.65546</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-168.6178</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">5.1</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">7.8</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">39</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2.821</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">0.505</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">15.682</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2.227</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">0.044239</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">-19,252</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">21,720</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">413.4828</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">248.0897</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">12</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">20.00</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">1</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">2,019</span></p></td><td class="cl-96a23ea4"><p class="cl-96a22608"><span class="cl-969e3e44">EBS</span></p></td><td class="cl-96a23ea4"><p class="cl-96a22608"><span class="cl-969e3e44">eastern Bering Sea</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">98</span></p></td><td class="cl-96a23ea4"><p class="cl-96a22608"><span class="cl-969e3e44">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">201,901</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">-727</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">-19,252</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">76</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">31</span></p></td><td class="cl-96a23ea4"><p class="cl-96a22608"><span class="cl-969e3e44">G-03</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">162</span></p></td><td class="cl-96a23ea4"><p class="cl-96a22608"><span class="cl-969e3e44">ALASKA KNIGHT</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">2019-06-24 15:52:02</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">57.01591</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">-166.4752</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">56.99137</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">-166.4601</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">4.1</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">9.7</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">74</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">2.880</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">0.528</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">16.795</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">2.126</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">0.048370</span></p></td><td class="cl-96a23e9b"><p class="cl-96a225fe"><span class="cl-969e3e44">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-18,731</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">21,720</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">946.3481</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2,592.1327</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">118</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">43.08</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">1</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2,019</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">EBS</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">eastern Bering Sea</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">98</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">201,901</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-726</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-18,731</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">11</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">31</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">I-13</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">94</span></p></td><td class="cl-96a23e9a"><p class="cl-96a22608"><span class="cl-969e3e44">VESTERAALEN</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2019-06-04 13:15:57</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">57.69052</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-160.2580</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">57.66518</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">-160.2640</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">5.5</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">7.5</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">54</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2.840</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">0.520</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">16.029</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">2.200</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">0.045522</span></p></td><td class="cl-96a23e91"><p class="cl-96a225fe"><span class="cl-969e3e44">0</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-4b864428{}.cl-4b72c114{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4b72c132{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4b79e07a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4b79e08e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4b7a1cde{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4b7a1cf2{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4b7a1cfc{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4b7a1d10{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4b7a1d11{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4b7a1d1a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-4b864428"><thead><tr style="overflow-wrap:break-word;"><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">HAULJOIN</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">SPECIES_CODE</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">CPUE_KGKM2</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">CPUE_NOKM2</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">COUNT</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">WEIGHT_KG</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">TAXON_CONFIDENCE</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">YEAR</span></p></th><th class="cl-4b7a1cf2"><p class="cl-4b79e08e"><span class="cl-4b72c114">SRVY</span></p></th><th class="cl-4b7a1cf2"><p class="cl-4b79e08e"><span class="cl-4b72c114">SURVEY</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">SURVEY_DEFINITION_ID</span></p></th><th class="cl-4b7a1cf2"><p class="cl-4b79e08e"><span class="cl-4b72c114">SURVEY_NAME</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">CRUISE</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">CRUISEJOIN</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">HAULJOIN.1</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">HAUL</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">STRATUM</span></p></th><th class="cl-4b7a1cf2"><p class="cl-4b79e08e"><span class="cl-4b72c114">STATION</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">VESSEL_ID</span></p></th><th class="cl-4b7a1cf2"><p class="cl-4b79e08e"><span class="cl-4b72c114">VESSEL_NAME</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">DATE_TIME</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">LATITUDE_DD_START</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">LONGITUDE_DD_START</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">LATITUDE_DD_END</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">LONGITUDE_DD_END</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">BOTTOM_TEMPERATURE_C</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">SURFACE_TEMPERATURE_C</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">DEPTH_M</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">DISTANCE_FISHED_KM</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">DURATION_HR</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">NET_WIDTH_M</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">NET_HEIGHT_M</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">AREA_SWEPT_KM2</span></p></th><th class="cl-4b7a1cde"><p class="cl-4b79e07a"><span class="cl-4b72c114">PERFORMANCE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-19,288</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">21,720</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">449.8301</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">1,876.1759</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">83</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">19.90</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">1</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2,019</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">EBS</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">eastern Bering Sea</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">98</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">201,901</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-727</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-19,288</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">96</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">20</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">O-18</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">162</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">ALASKA KNIGHT</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2019-06-29 06:54:00</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">59.68079</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-168.6144</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">59.65546</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-168.6178</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">5.1</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">7.8</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">39</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2.821</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">0.505</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">15.682</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2.227</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">0.044239</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">-19,252</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">21,720</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">413.4828</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">248.0897</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">12</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">20.00</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">1</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">2,019</span></p></td><td class="cl-4b7a1d1a"><p class="cl-4b79e08e"><span class="cl-4b72c132">EBS</span></p></td><td class="cl-4b7a1d1a"><p class="cl-4b79e08e"><span class="cl-4b72c132">eastern Bering Sea</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">98</span></p></td><td class="cl-4b7a1d1a"><p class="cl-4b79e08e"><span class="cl-4b72c132">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">201,901</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">-727</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">-19,252</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">76</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">31</span></p></td><td class="cl-4b7a1d1a"><p class="cl-4b79e08e"><span class="cl-4b72c132">G-03</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">162</span></p></td><td class="cl-4b7a1d1a"><p class="cl-4b79e08e"><span class="cl-4b72c132">ALASKA KNIGHT</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">2019-06-24 15:52:02</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">57.01591</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">-166.4752</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">56.99137</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">-166.4601</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">4.1</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">9.7</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">74</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">2.880</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">0.528</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">16.795</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">2.126</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">0.048370</span></p></td><td class="cl-4b7a1d11"><p class="cl-4b79e07a"><span class="cl-4b72c132">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-18,731</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">21,720</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">946.3481</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2,592.1327</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">118</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">43.08</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">1</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2,019</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">EBS</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">eastern Bering Sea</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">98</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">201,901</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-726</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-18,731</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">11</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">31</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">I-13</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">94</span></p></td><td class="cl-4b7a1d10"><p class="cl-4b79e08e"><span class="cl-4b72c132">VESTERAALEN</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2019-06-04 13:15:57</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">57.69052</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-160.2580</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">57.66518</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">-160.2640</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">5.5</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">7.5</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">54</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2.840</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">0.520</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">16.029</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">2.200</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">0.045522</span></p></td><td class="cl-4b7a1cfc"><p class="cl-4b79e07a"><span class="cl-4b72c132">0</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
@@ -565,8 +584,7 @@ function googleTranslateElementInit() {
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># flextable::fit_to_width(max_width = 6) %&gt;% </span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div class="tabwid"><style>.cl-96e87144{}.cl-96debf6e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-96debf78{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-96e246fc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-96e24706{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-96e25f34{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96e25f3e{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96e25f48{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96e25f49{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96e25f4a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-96e25f52{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-96e87144"><thead><tr style="overflow-wrap:break-word;"><th class="cl-96e25f34"><p class="cl-96e246fc"><span class="cl-96debf6e">COMMON_NAME</span></p></th><th class="cl-96e25f34"><p class="cl-96e246fc"><span class="cl-96debf6e">SCIENTIFIC_NAME</span></p></th><th class="cl-96e25f34"><p class="cl-96e246fc"><span class="cl-96debf6e">ID_RANK</span></p></th><th class="cl-96e25f3e"><p class="cl-96e24706"><span class="cl-96debf6e">WORMS</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-96e25f48"><p class="cl-96e246fc"><span class="cl-96debf78">Alaska great-tellin</span></p></td><td class="cl-96e25f48"><p class="cl-96e246fc"><span class="cl-96debf78">Megangulus luteus</span></p></td><td class="cl-96e25f48"><p class="cl-96e246fc"><span class="cl-96debf78">species</span></p></td><td class="cl-96e25f49"><p class="cl-96e24706"><span class="cl-96debf78">423,511</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-96e25f4a"><p class="cl-96e246fc"><span class="cl-96debf78">Alaska plaice</span></p></td><td class="cl-96e25f4a"><p class="cl-96e246fc"><span class="cl-96debf78">Pleuronectes quadrituberculatus</span></p></td><td class="cl-96e25f4a"><p class="cl-96e246fc"><span class="cl-96debf78">species</span></p></td><td class="cl-96e25f52"><p class="cl-96e24706"><span class="cl-96debf78">254,564</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-96e25f48"><p class="cl-96e246fc"><span class="cl-96debf78">Alaska razor</span></p></td><td class="cl-96e25f48"><p class="cl-96e246fc"><span class="cl-96debf78">Siliqua alta</span></p></td><td class="cl-96e25f48"><p class="cl-96e246fc"><span class="cl-96debf78">species</span></p></td><td class="cl-96e25f49"><p class="cl-96e24706"><span class="cl-96debf78">413,689</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-4bc95e5c{}.cl-4bb750d6{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4bb750ea{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4bbe2a96{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4bbe2aaa{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4bbe66be{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bbe66d2{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bbe66d3{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bbe66dc{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bbe66e6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bbe66f0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-4bc95e5c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-4bbe66be"><p class="cl-4bbe2a96"><span class="cl-4bb750d6">COMMON_NAME</span></p></th><th class="cl-4bbe66be"><p class="cl-4bbe2a96"><span class="cl-4bb750d6">SCIENTIFIC_NAME</span></p></th><th class="cl-4bbe66be"><p class="cl-4bbe2a96"><span class="cl-4bb750d6">ID_RANK</span></p></th><th class="cl-4bbe66d2"><p class="cl-4bbe2aaa"><span class="cl-4bb750d6">WORMS</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4bbe66d3"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">Alaska great-tellin</span></p></td><td class="cl-4bbe66d3"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">Megangulus luteus</span></p></td><td class="cl-4bbe66d3"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">species</span></p></td><td class="cl-4bbe66dc"><p class="cl-4bbe2aaa"><span class="cl-4bb750ea">423,511</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4bbe66e6"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">Alaska plaice</span></p></td><td class="cl-4bbe66e6"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">Pleuronectes quadrituberculatus</span></p></td><td class="cl-4bbe66e6"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">species</span></p></td><td class="cl-4bbe66f0"><p class="cl-4bbe2aaa"><span class="cl-4bb750ea">254,564</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4bbe66d3"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">Alaska razor</span></p></td><td class="cl-4bbe66d3"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">Siliqua alta</span></p></td><td class="cl-4bbe66d3"><p class="cl-4bbe2a96"><span class="cl-4bb750ea">species</span></p></td><td class="cl-4bbe66dc"><p class="cl-4bbe2aaa"><span class="cl-4bb750ea">413,689</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 
@@ -653,10 +671,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/afsc-gap-products\.github\.io\/gap_products");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -666,8 +701,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -679,7 +723,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -723,6 +890,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -748,6 +916,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -809,12 +1003,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/foss-api-py.html" class="pagination-link">
+      <a href="../content/foss-api-py.html" class="pagination-link" aria-label="Access via API and Python">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access via API and Python</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/other-intro.html" class="pagination-link">
+      <a href="../content/other-intro.html" class="pagination-link" aria-label="Data Products &amp; Tools">
         <span class="nav-page-text">Data Products &amp; Tools</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -822,13 +1016,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© CC-1.0</div>   
+    <div class="nav-footer-left">
+<p>© CC-1.0</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-oracle-r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-oracle-r.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></p>
+</div>
   </div>
 </footer>
+
 
 
 

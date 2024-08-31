@@ -45,7 +45,7 @@ api_link_haul <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_su
 ```
 
 ```{r api_link_haul-test, echo = FALSE, eval = test0}
-api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
+# api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
 ```
 
 **Load first 25 rows of data:** 
@@ -127,8 +127,8 @@ pretty_print_haul(dat0 = head(dat, 3))
 api_link_catch <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/'
 ```
 
-```{r api_link_catch-test, echo = FALSE, eval = test0}
-api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
+```{r api_link_catch-test, echo = TRUE, eval = test0}
+# api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
 ```
 
 **Load first 25 rows of data:**
@@ -213,7 +213,7 @@ api_link_species <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish
 ```
 
 ```{r api_link_species-test, echo = FALSE, eval = test0}
-api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
+# api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
 ```
 
 ```{r load-species}

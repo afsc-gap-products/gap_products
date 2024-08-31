@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,6 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -66,7 +67,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -75,13 +82,16 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
 <script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
 
 
 </head>
@@ -92,12 +102,12 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-survey-background.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Survey Background</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-survey-background.html"><span class="chapter-title">Survey Background</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -107,7 +117,7 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -115,8 +125,8 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -298,7 +308,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -318,21 +328,30 @@ div.csl-indent {
   <li><a href="#eastern-bering-sea-upper-continental-slope" id="toc-eastern-bering-sea-upper-continental-slope" class="nav-link" data-scroll-target="#eastern-bering-sea-upper-continental-slope"><strong>Eastern Bering Sea Upper Continental Slope</strong></a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-survey-background.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-survey-background.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-survey-background.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-survey-background.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <div id="google_translate_element"></div>
 
+
+
 <script type="text/javascript">
+
 function googleTranslateElementInit() {
+
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+
 }
+
 </script>
+
+
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<header id="title-block-header" class="quarto-title-block default">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-survey-background.html"><span class="chapter-title">Survey Background</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Survey Background</span></h1>
 </div>
@@ -347,7 +366,9 @@ function googleTranslateElementInit() {
   </div>
   
 
+
 </header>
+
 
 <section id="what-we-do" class="level2">
 <h2 class="anchored" data-anchor-id="what-we-do">What we do</h2>
@@ -374,19 +395,18 @@ function googleTranslateElementInit() {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/survey_plot_all.png" class="img-fluid figure-img" width="1050"></p>
-<figcaption class="figure-caption">Strata used in the all surveys.</figcaption>
+<figcaption>Strata used in the all surveys.</figcaption>
 </figure>
 </div>
 <p>Each survey conducted by the <a href="https://www.fisheries.noaa.gov/alaska/population-assessments/north-pacific-groundfish-stock-assessments-and-fishery-evaluation">Groundfish Assessment Program</a> are multispecies bottom trawl surveys. We collect environmental and biological data to assess how climate variability and <a href="https://www.fisheries.noaa.gov/alaska/ecosystems/habitat-and-ecological-processes-research-regarding-loss-sea-ice">loss of sea</a> ice are affecting bottom-dwelling marine life on the Bering Sea shelf. We monitor trends in the distribution (location and movement patterns) and abundance of groundfish and crab species as well as oceanographic data (e.g., water temperature, depth). We collect biological information such as organism weight, length, stomachs to learn about diets, and <a href="https://www.fisheries.noaa.gov/alaska/science-data/alaska-age-and-growth-procedures-otolith-examination">otoliths</a> to <a href="https://www.fisheries.noaa.gov/alaska/science-data/fish-otolith-chronologies">determine fish ages</a>. We use this information in <a href="https://www.fisheries.noaa.gov/alaska/population-assessments/north-pacific-groundfish-stock-assessments-and-fishery-evaluation">annual stock assessments</a> and to assess the state of the ecosystem. This research is conducted on fishing industry contract vessels.</p>
 <div class="cell">
 <div class="cell-output-display">
-
-<div class="tabwid"><style>.cl-ffef3e6c{}.cl-ffdf30ee{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ffdf30f8{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ffe5731e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ffe57328{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ffe57332{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ffe59876{width:1.5in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe59880{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe5988a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe5988b{width:1.5in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe59894{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe59895{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe5989e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe5989f{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe598a8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe598b2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ffe598b3{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-ffef3e6c"><caption><p>Survey summary stats</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-ffe59876"><p class="cl-ffe5731e"><span class="cl-ffdf30ee">Survey</span></p></th><th class="cl-ffe59880"><p class="cl-ffe57328"><span class="cl-ffdf30ee">Survey Definition ID</span></p></th><th class="cl-ffe5988a"><p class="cl-ffe5731e"><span class="cl-ffdf30ee">Years</span></p></th><th class="cl-ffe5988a"><p class="cl-ffe5731e"><span class="cl-ffdf30ee">Depth (m)</span></p></th><th class="cl-ffe5988a"><p class="cl-ffe5731e"><span class="cl-ffdf30ee">Area (km2)</span></p></th><th class="cl-ffe59880"><p class="cl-ffe57328"><span class="cl-ffdf30ee"># Statistical Areas</span></p></th><th class="cl-ffe59880"><p class="cl-ffe57328"><span class="cl-ffdf30ee"># Possible Stations</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-ffe5988b"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">Aleutian</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Islands</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bottom</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Trawl</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Survey</span></p></td><td class="cl-ffe59894"><p class="cl-ffe57332"><span class="cl-ffdf30f8">52</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">2022</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">1991</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">(13)</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">1</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">500</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">64,415.0</span></p></td><td class="cl-ffe5989e"><p class="cl-ffe57328"><span class="cl-ffdf30f8">80</span></p></td><td class="cl-ffe5989e"><p class="cl-ffe57328"><span class="cl-ffdf30f8">1,312</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ffe5989f"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">Eastern</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bering</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Sea</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Slope</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bottom</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Trawl</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Survey</span></p></td><td class="cl-ffe598a8"><p class="cl-ffe57332"><span class="cl-ffdf30f8">78</span></p></td><td class="cl-ffe598b2"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">2016</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">2002</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">(6)</span></p></td><td class="cl-ffe598b2"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">201</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">1,200</span></p></td><td class="cl-ffe598b2"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">32,861.3</span></p></td><td class="cl-ffe598b3"><p class="cl-ffe57328"><span class="cl-ffdf30f8">37</span></p></td><td class="cl-ffe598b3"><p class="cl-ffe57328"><span class="cl-ffdf30f8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ffe5988b"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">Eastern</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bering</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Sea</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Crab/Groundfish</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bottom</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Trawl</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Survey</span></p></td><td class="cl-ffe59894"><p class="cl-ffe57332"><span class="cl-ffdf30f8">98</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">2023</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">1982</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">(41)</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">1</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">200</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">492,989.9</span></p></td><td class="cl-ffe5989e"><p class="cl-ffe57328"><span class="cl-ffdf30f8">28</span></p></td><td class="cl-ffe5989e"><p class="cl-ffe57328"><span class="cl-ffdf30f8">515</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ffe5989f"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">Gulf</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">of</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Alaska</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bottom</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Trawl</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Survey</span></p></td><td class="cl-ffe598a8"><p class="cl-ffe57332"><span class="cl-ffdf30f8">47</span></p></td><td class="cl-ffe598b2"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">2023</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">1990</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">(16)</span></p></td><td class="cl-ffe598b2"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">1</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">1,000</span></p></td><td class="cl-ffe598b2"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">313,784.9</span></p></td><td class="cl-ffe598b3"><p class="cl-ffe57328"><span class="cl-ffdf30f8">37</span></p></td><td class="cl-ffe598b3"><p class="cl-ffe57328"><span class="cl-ffdf30f8">6,939</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ffe5988b"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">Northern</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bering</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Sea</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Crab/Groundfish</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Survey</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Eastern</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Bering</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Sea</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Shelf</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Survey</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">Extension</span></p></td><td class="cl-ffe59894"><p class="cl-ffe57332"><span class="cl-ffdf30f8">143</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">2023</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">2010</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">(6)</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">1</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">-</span><span class="cl-ffdf30f8"> </span><span class="cl-ffdf30f8">100</span></p></td><td class="cl-ffe59895"><p class="cl-ffe5731e"><span class="cl-ffdf30f8">198,866.8</span></p></td><td class="cl-ffe5989e"><p class="cl-ffe57328"><span class="cl-ffdf30f8">4</span></p></td><td class="cl-ffe5989e"><p class="cl-ffe57328"><span class="cl-ffdf30f8">144</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-a903a242{}.cl-a8f0674a{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a8f0675e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a8f7e9f2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a8f7ea10{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a8f7ea11{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a8f82e6c{width:1.5in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82e76{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82e80{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82e8a{width:1.5in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82e9e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82ea8{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82eb2{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82eb3{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82ebc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82ed0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a8f82eda{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-a903a242"><caption><p>Survey summary stats</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-a8f82e6c"><p class="cl-a8f7e9f2"><span class="cl-a8f0674a">Survey</span></p></th><th class="cl-a8f82e76"><p class="cl-a8f7ea10"><span class="cl-a8f0674a">Survey Definition ID</span></p></th><th class="cl-a8f82e80"><p class="cl-a8f7e9f2"><span class="cl-a8f0674a">Years</span></p></th><th class="cl-a8f82e80"><p class="cl-a8f7e9f2"><span class="cl-a8f0674a">Depth (m)</span></p></th><th class="cl-a8f82e80"><p class="cl-a8f7e9f2"><span class="cl-a8f0674a">Area (km2)</span></p></th><th class="cl-a8f82e76"><p class="cl-a8f7ea10"><span class="cl-a8f0674a"># Statistical Areas</span></p></th><th class="cl-a8f82e76"><p class="cl-a8f7ea10"><span class="cl-a8f0674a"># Possible Stations</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-a8f82e8a"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">Aleutian</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Islands</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bottom</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Trawl</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Survey</span></p></td><td class="cl-a8f82e9e"><p class="cl-a8f7ea11"><span class="cl-a8f0675e">52</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">2022</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">1991</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">(13)</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">1</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">500</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">64,415.0</span></p></td><td class="cl-a8f82eb2"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">80</span></p></td><td class="cl-a8f82eb2"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">1,312</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a8f82eb3"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">Eastern</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bering</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Sea</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Slope</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bottom</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Trawl</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Survey</span></p></td><td class="cl-a8f82ebc"><p class="cl-a8f7ea11"><span class="cl-a8f0675e">78</span></p></td><td class="cl-a8f82ed0"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">2016</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">2002</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">(6)</span></p></td><td class="cl-a8f82ed0"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">201</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">1,200</span></p></td><td class="cl-a8f82ed0"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">32,861.3</span></p></td><td class="cl-a8f82eda"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">37</span></p></td><td class="cl-a8f82eda"><p class="cl-a8f7ea10"><span class="cl-a8f0675e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a8f82e8a"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">Eastern</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bering</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Sea</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Crab/Groundfish</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bottom</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Trawl</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Survey</span></p></td><td class="cl-a8f82e9e"><p class="cl-a8f7ea11"><span class="cl-a8f0675e">98</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">2024</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">1982</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">(42)</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">1</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">200</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">492,989.9</span></p></td><td class="cl-a8f82eb2"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">28</span></p></td><td class="cl-a8f82eb2"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">515</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a8f82eb3"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">Gulf</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">of</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Alaska</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bottom</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Trawl</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Survey</span></p></td><td class="cl-a8f82ebc"><p class="cl-a8f7ea11"><span class="cl-a8f0675e">47</span></p></td><td class="cl-a8f82ed0"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">2023</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">1990</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">(16)</span></p></td><td class="cl-a8f82ed0"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">1</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">1,000</span></p></td><td class="cl-a8f82ed0"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">313,784.9</span></p></td><td class="cl-a8f82eda"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">37</span></p></td><td class="cl-a8f82eda"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">6,939</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a8f82e8a"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">Northern</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bering</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Sea</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Crab/Groundfish</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Survey</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Eastern</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Bering</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Sea</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Shelf</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Survey</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">Extension</span></p></td><td class="cl-a8f82e9e"><p class="cl-a8f7ea11"><span class="cl-a8f0675e">143</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">2023</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">2010</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">(6)</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">1</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">-</span><span class="cl-a8f0675e"> </span><span class="cl-a8f0675e">100</span></p></td><td class="cl-a8f82ea8"><p class="cl-a8f7e9f2"><span class="cl-a8f0675e">198,866.8</span></p></td><td class="cl-a8f82eb2"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">4</span></p></td><td class="cl-a8f82eb2"><p class="cl-a8f7ea10"><span class="cl-a8f0675e">144</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <section id="aleutian-islands" class="level3">
 <h3 class="anchored" data-anchor-id="aleutian-islands"><strong>Aleutian Islands</strong></h3>
-<p>Most recent data report: <span class="citation" data-cites="AI2022">(<a href="end-refs.html#ref-AI2022" role="doc-biblioref">Von Szalay et al., 2023</a>)</span></p>
+<p>Most recent data report: <span class="citation" data-cites="AI2022">(<a href="#ref-AI2022" role="doc-biblioref">Von Szalay et al., 2023</a>)</span></p>
 <ul>
 <li>Upper Continental Slope of the Aleutian Islands from Unimak Pass to Stalemate Bank</li>
 <li>Triennial (1990s)/Biennial since 2000 in even years, since 1992</li>
@@ -396,13 +416,13 @@ function googleTranslateElementInit() {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/survey_plot_ai.png" class="img-fluid figure-img" width="1050"></p>
-<figcaption class="figure-caption">Strata used in the Aleutian Islands bottom trawl survey.</figcaption>
+<figcaption>Strata used in the Aleutian Islands bottom trawl survey.</figcaption>
 </figure>
 </div>
 </section>
 <section id="gulf-of-alaska" class="level3">
 <h3 class="anchored" data-anchor-id="gulf-of-alaska"><strong>Gulf of Alaska</strong></h3>
-<p>Most recent data report: <span class="citation" data-cites="GOA2018">(<a href="end-refs.html#ref-GOA2018" role="doc-biblioref">Von Szalay and Raring, 2018</a>)</span></p>
+<p>Most recent data report: <span class="citation" data-cites="GOA2023">(<a href="#ref-GOA2023" role="doc-biblioref"><strong>GOA2023?</strong></a>)</span></p>
 <ul>
 <li>Continental Shelf and Upper Slope of the Gulf of Alaska extending from the Islands of Four Mountains 2,300 km east to Dixon Entrance</li>
 <li>Triennial (1990s)/Biennial since 2001 in odd years, since 1991</li>
@@ -412,13 +432,13 @@ function googleTranslateElementInit() {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/survey_plot_goa.png" class="img-fluid figure-img" width="1050"></p>
-<figcaption class="figure-caption">Strata used in the Gulf of Alaska bottom trawl survey.</figcaption>
+<figcaption>Strata used in the Gulf of Alaska bottom trawl survey.</figcaption>
 </figure>
 </div>
 </section>
 <section id="eastern-bering-sea-shelf" class="level3">
 <h3 class="anchored" data-anchor-id="eastern-bering-sea-shelf"><strong>Eastern Bering Sea Shelf</strong></h3>
-<p>Most recent data report: <span class="citation" data-cites="2022NEBS2023">(<a href="end-refs.html#ref-2022NEBS2023" role="doc-biblioref">Markowitz et al., 2023</a>)</span></p>
+<p>Most recent data report: <span class="citation" data-cites="2023NEBS">(<a href="#ref-2023NEBS" role="doc-biblioref">Markowitz et al., In prep</a>)</span></p>
 <ul>
 <li>The continental shelf of the eastern Bering Sea from the Aleutian Islands to the Bering Strait</li>
 <li>Conducted annually since 1982.</li>
@@ -429,13 +449,13 @@ function googleTranslateElementInit() {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/survey_plot_ebs.png" class="img-fluid figure-img" width="1050"></p>
-<figcaption class="figure-caption">Strata used in the Eastern Bering Sea bottom trawl survey.</figcaption>
+<figcaption>Strata used in the Eastern Bering Sea bottom trawl survey.</figcaption>
 </figure>
 </div>
 </section>
 <section id="northern-bering-sea" class="level3">
 <h3 class="anchored" data-anchor-id="northern-bering-sea"><strong>Northern Bering Sea</strong></h3>
-<p>Most recent data report: <span class="citation" data-cites="2022NEBS2023">(<a href="end-refs.html#ref-2022NEBS2023" role="doc-biblioref">Markowitz et al., 2023</a>)</span></p>
+<p>Most recent data report: <span class="citation" data-cites="2023NEBS">(<a href="#ref-2023NEBS" role="doc-biblioref">Markowitz et al., In prep</a>)</span></p>
 <ul>
 <li>The continental shelf of the northern Bering Sea, including the area north of St.&nbsp;Lawrence Island and Norton Sound</li>
 <li>Biennial/Annual; conducted intermittently since 2010</li>
@@ -445,13 +465,13 @@ function googleTranslateElementInit() {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/survey_plot_nbs.png" class="img-fluid figure-img" width="1050"></p>
-<figcaption class="figure-caption">Strata used in the Northern Bering Sea bottom trawl survey.</figcaption>
+<figcaption>Strata used in the Northern Bering Sea bottom trawl survey.</figcaption>
 </figure>
 </div>
 </section>
 <section id="eastern-bering-sea-upper-continental-slope" class="level3">
 <h3 class="anchored" data-anchor-id="eastern-bering-sea-upper-continental-slope"><strong>Eastern Bering Sea Upper Continental Slope</strong></h3>
-<p>Most recent data report: <span class="citation" data-cites="RN979">(<a href="end-refs.html#ref-RN979" role="doc-biblioref">Hoff, 2016</a>)</span></p>
+<p>Most recent data report: <span class="citation" data-cites="RN979">(<a href="#ref-RN979" role="doc-biblioref">Hoff, 2016</a>)</span></p>
 <ul>
 <li>The eastern Bering Sea upper continental slope survey area extends from Unalaska and Akutan Islands to the U.S.-Russian Maritime Boundary at 61° N near the International Date Line (166° E to 180° W) at depths from 200 to 1,200 m</li>
 <li>Conducted intermittently since 2002 (funding dependent)</li>
@@ -461,20 +481,17 @@ function googleTranslateElementInit() {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/bss-strata.png" class="img-fluid figure-img" width="1100"></p>
-<figcaption class="figure-caption">Strata used in the Bering Sea Slope bottom trawl survey.</figcaption>
+<figcaption>Strata used in the Bering Sea Slope bottom trawl survey.</figcaption>
 </figure>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-RN979" class="csl-entry" role="listitem">
 Hoff, G. R. (2016). <em>Results of the 2016 eastern <span>Bering Sea</span> upper continental slope survey of groundfishes and invertebrate resources</em> (NOAA Tech. Memo. NOAA-AFSC-339). <span>U.S. Dep. Commer.</span> <a href="https://doi.org/10.7289/V5/TM-AFSC-339">https://doi.org/10.7289/V5/TM-AFSC-339</a>
 </div>
-<div id="ref-2022NEBS2023" class="csl-entry" role="listitem">
-Markowitz, E. H., Dawson, E. J., Anderson, A. B., Rohan, S. K., Charriere, N. E., Prohaska, B. K., and Stevenson, D. E. (2023). <em>Results of the 2022 eastern and northern <span>Bering Sea</span> continental shelf bottom trawl survey of groundfish and invertebrate fauna</em> (NOAA Tech. Memo. NMFS-AFSC-469; p. 213). <span>U.S. Dep. Commer.</span>
-</div>
-<div id="ref-GOA2018" class="csl-entry" role="listitem">
-Von Szalay, P. G., and Raring, N. W. (2018). <em>Data report: 2017 <span class="nocase">Gulf of Alaska</span> bottom trawl survey</em> (NOAA Tech. Memo. NMFS-AFSC-374). <span>U.S. Dep. Commer.</span> <a href="https://doi.org/10.7289/V5/TM-AFSC-374">https://doi.org/10.7289/V5/TM-AFSC-374</a>
+<div id="ref-2023NEBS" class="csl-entry" role="listitem">
+Markowitz, E. H., Dawson, E. J., Wassermann, S., Anderson, A. B., Rohan, S. K., Charriere, B. K., and Stevenson, D. E. (In prep). <em>Results of the 2023 eastern and northern <span>Bering Sea</span> continental shelf bottom trawl survey of groundfish and invertebrate fauna</em> [NOAA Tech. Memo.]. <span>U.S. Dep. Commer.</span>
 </div>
 <div id="ref-AI2022" class="csl-entry" role="listitem">
 Von Szalay, P. G., Raring, N. W., Siple, M. C., Dowlin, A. N., Riggle, B. C., and Laman, E. A. and. (2023). <em>Data report: 2022 <span>Aleutian Islands</span> bottom trawl survey</em> (AFSC Processed Rep. No. 2023-07; p. 230). <span>U.S. Dep. Commer.</span> <a href="https://doi.org/10.25923/85cy-g225">https://doi.org/10.25923/85cy-g225</a>
@@ -563,10 +580,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/afsc-gap-products\.github\.io\/gap_products");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -576,8 +610,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -589,7 +632,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -633,6 +799,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -658,6 +825,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -719,12 +912,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link">
+      <a href="../index.html" class="pagination-link" aria-label="Welcome">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/intro-workflow.html" class="pagination-link">
+      <a href="../content/intro-workflow.html" class="pagination-link" aria-label="Workflow">
         <span class="nav-page-text"><span class="chapter-title">Workflow</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -732,13 +925,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© CC-1.0</div>   
+    <div class="nav-footer-left">
+<p>© CC-1.0</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-survey-background.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-survey-background.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></p>
+</div>
   </div>
 </footer>
+
 
 
 
