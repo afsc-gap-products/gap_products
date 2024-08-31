@@ -1,9 +1,0 @@
-ReadMe 082024
-
-Running the gapindex package
-
-First off, I was getting a bunch of errors that were path-related; Zack had me reinstall gapindex from github to overwrite the old version I was running and that solved those problems.
-
-Secondly, I was right that from the gap_products local repo, I stepwise run the code in the order that it comes up when running the "run.R" code
-
-At the check_tables script, user needs to investigate the "mismatches.RDS" list that results to determine if they "believe" the outcomes make sense for updating the production tables
