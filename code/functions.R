@@ -117,16 +117,9 @@ update_metadata <- function(schema,
   ##   Grant select access to all users
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (share_with_all_users) {
-    
-    cat("Granting select access to all users ...\n")
-    all_schemas <- RODBC::sqlQuery(channel = channel,
-                                   query = paste0('SELECT * FROM all_users;'))
-    
-    for (iname in sort(all_schemas$USERNAME)) {
       RODBC::sqlQuery(channel = channel,
-                      query = paste0('grant select on ', schema,'.', table_name,
-                                     ' to ', iname))
-    }
+                      query = paste0('grant select on ', schema, '.', table_name,
+                                     ' to PUBLIC'))
   }
 }
 

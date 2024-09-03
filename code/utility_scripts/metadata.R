@@ -13,9 +13,9 @@ library(gapindex)
 library(readxl)
 library(janitor)
 library(dplyr)
-source(file = "code/constants.R")
+source(file = "code/functions.R")
 
-chl <- gapindex::get_connected()
+chl <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Download the most recent version of the future_oracle.xlsx 
@@ -119,9 +119,10 @@ metadata_column_comment <- paste0(
 ##  Upload the two tables to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (isql_table in c("metadata_table", 
-                     "metadata_column",
-                     "AREA", "STRATUM_GROUPS", 
-                     "SURVEY_DESIGN")) { ## loop over tables -- start
+                     "metadata_column"#,
+                    # "AREA", "STRATUM_GROUPS", 
+                     #"SURVEY_DESIGN")
+                     )) { ## loop over tables -- start
   
   ## Temporary dataframe that houses comment on each field The 
   ## field names in get(x = isql_table) should match those in 
