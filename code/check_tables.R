@@ -239,7 +239,15 @@ gapindex_version <-
          subset = Package == "gapindex")$Version
 
 detailed_notes <- 
-  "While trying to update the records in the GAP_PRODUCTS table, the connection was terminated, partially uploading records in the agecomp tables and outputting NA to the N_HAUL and N_LENGTH fields in the biomass tables. At this point, the GAP_PRODUCTS tables are incomplete. The AKFIN and FOSS tables were NOT updated in this run.
+  "Run completed by: Ned Laman, Zack Oyafuso
+
+A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
+
+2024 Aleutian Island catch, effort, and size data have been added to RACEBASE. 
+
+Aged otolith data for EBS Kamchatka flounder (2022) and Greenland turbot (2023) have been updated in RACEBASE.SPECIMEN. 
+
+Species complexes for Kamchatka flounder/arrowtooth flounder (10111) as well as Bathyraja sp. (405) have been properly grouped in the production script run to account for historical identification issues as discussed in this (GitHub Issue)[ https://github.com/afsc-gap-products/gap_products/issues/38].
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

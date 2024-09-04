@@ -1,0 +1,94 @@
+GAP_PRODUCTS ChangeLog (last produced on 2024-09-03) using gapindex v2.2.0
+Run completed by: Ned Laman, Zack Oyafuso
+
+A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
+
+2024 Aleutian Island catch, effort, and size data have been added to RACEBASE. 
+
+Aged otolith data for EBS Kamchatka flounder (2022) and Greenland turbot (2023) have been updated in RACEBASE.SPECIMEN. 
+
+Species complexes for Kamchatka flounder/arrowtooth flounder (10111) as well as Bathyraja sp. (405) have been properly grouped in the production script run to account for historical identification issues as discussed in this (GitHub Issue)[ https://github.com/afsc-gap-products/gap_products/issues/38].
+
+
+
+ AI Region: 
+
+ cpue : 
+ There are 239966 new cpue records.  There are 0 cpue records that were removed.  There are 604 modified cpue records.
+
+ biomass : 
+ There are 60320 new biomass records.  There are 0 biomass records that were removed.  There are 282 modified biomass records.
+
+ sizecomp : 
+ There are 45118 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 902 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ There are 708 new cpue records.  There are 0 cpue records that were removed.  There are 361 modified cpue records.
+
+ biomass : 
+ There are 80 new biomass records.  There are 0 biomass records that were removed.  There are 235 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 10 cpue records that were removed.  There are 3500 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 475 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 68 new agecomp records.  There are 5 agecomp records that were removed.  There are 334 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+
