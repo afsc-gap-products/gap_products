@@ -340,7 +340,7 @@ function googleTranslateElementInit() {
 <section id="akfin_agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_agecomp">AKFIN_AGECOMP</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_AGECOMP</p>
-<p>Number of rows: 679,129</p>
+<p>Number of rows: 678,785</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -378,7 +378,7 @@ integer
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate.
+Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate. Age -9 indicates unaged lengths for a particular sex because no otoliths were collected for that sex/length combination. Age -99 indicates a case where no lengths were collected within a stratum for a species/year even though catch numbers were recorded.
 </td>
 </tr>
 <tr>
@@ -497,7 +497,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -514,7 +514,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 <tr>
@@ -715,7 +715,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 </tbody>
@@ -725,7 +725,7 @@ The survey definition ID key code uniquely identifies a survey/survey design. In
 <section id="akfin_biomass" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_biomass">AKFIN_BIOMASS</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_BIOMASS</p>
-<p>Number of rows: 2,596,082</p>
+<p>Number of rows: 2,656,482</p>
 <p>Number of columns: 16</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -984,7 +984,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1001,7 +1001,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 <tr>
@@ -1028,7 +1028,7 @@ Year the observation (survey) was collected.
 <section id="akfin_catch" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_catch">AKFIN_CATCH</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_CATCH</p>
-<p>Number of rows: 966,107</p>
+<p>Number of rows: 973,540</p>
 <p>Number of columns: 6</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1134,7 +1134,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1161,7 +1161,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 <section id="akfin_cpue" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cpue">AKFIN_CPUE</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_CPUE</p>
-<p>Number of rows: 21,607,756</p>
+<p>Number of rows: 21,848,430</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1284,7 +1284,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1311,7 +1311,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 <section id="akfin_cruise" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cruise">AKFIN_CRUISE</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_CRUISE</p>
-<p>Number of rows: 172</p>
+<p>Number of rows: 174</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1434,7 +1434,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 <tr>
@@ -1468,7 +1468,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-ID number of the vessel used to collect data for that haul. The column ‘vessel_id’ is associated with the ‘vessel_name’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+ID number of the vessel used to collect data for that haul. The column vessel_id is associated with the vessel_name column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1485,7 +1485,7 @@ text
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-Name of the vessel used to collect data for that haul. The column ‘vessel_name’ is associated with the ‘vessel_id’ column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+Name of the vessel used to collect data for that haul. The column vessel_name is associated with the vessel_id column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -1512,7 +1512,7 @@ Year the observation (survey) was collected.
 <section id="akfin_haul" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_haul">AKFIN_HAUL</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_HAUL</p>
-<p>Number of rows: 33,956</p>
+<p>Number of rows: 34,263</p>
 <p>Number of columns: 25</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1968,7 +1968,7 @@ Length of wire deployed during a given haul in meters.
 <section id="akfin_length" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_length">AKFIN_LENGTH</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_LENGTH</p>
-<p>Number of rows: 4,427,532</p>
+<p>Number of rows: 4,456,403</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2040,7 +2040,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length bin in millimeters.
+Length bin in millimeters. A length of -9 indicates cases where no lengths were collected within a stratum for a species/year, even though catch numbers were recorded.
 </td>
 </tr>
 <tr>
@@ -2108,7 +2108,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -2289,7 +2289,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length bin in millimeters.
+Length bin in millimeters. A length of -9 indicates cases where no lengths were collected within a stratum for a species/year, even though catch numbers were recorded.
 </td>
 </tr>
 <tr>
@@ -2340,7 +2340,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2357,7 +2357,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 <tr>
@@ -2384,7 +2384,7 @@ Year the observation (survey) was collected.
 <section id="akfin_specimen" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_specimen">AKFIN_SPECIMEN</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_SPECIMEN</p>
-<p>Number of rows: 582,905</p>
+<p>Number of rows: 589,317</p>
 <p>Number of columns: 12</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2422,7 +2422,7 @@ integer
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate.
+Age bin of taxon. Age bin of a taxon in years estimated by the age comp estimate. Age -9 indicates unaged lengths for a particular sex because no otoliths were collected for that sex/length combination. Age -99 indicates a case where no lengths were collected within a stratum for a species/year even though catch numbers were recorded.
 </td>
 </tr>
 <tr>
@@ -2490,7 +2490,7 @@ millimeters
 NUMBER(10,0)
 </td>
 <td style="text-align:left;">
-Length bin in millimeters.
+Length bin in millimeters. A length of -9 indicates cases where no lengths were collected within a stratum for a species/year, even though catch numbers were recorded.
 </td>
 </tr>
 <tr>
@@ -2541,7 +2541,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -2708,7 +2708,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 </tbody>
@@ -2773,7 +2773,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The survey definition ID key code uniquely identifies a survey/survey design. Integer code that uniquely identifies survey. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS. IDs used in GAP_PRODUCTS are: 47 (Gulf of Alaska); 52 (Aleutian Islands); 78 (Bering Sea Slope); 98 (Eastern Bering Sea Shelf); 143 (Northern Bering Sea Shelf). The column ‘survey_definition_id’ is associated with the ‘srvy’ and ‘survey’ columns. For a complete list of surveys, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The survey definition ID key code is an integer that uniquely identifies a survey region/survey design. The column survey_definition_id is associated with the srvy and survey columns. Full list of survey definition IDs are in RACE_DATA.SURVEY_DEFINITIONS and in the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.?
 </td>
 </tr>
 <tr>
@@ -2800,7 +2800,7 @@ Year the observation (survey) was collected.
 <section id="akfin_taxonomic_classification" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_taxonomic_classification">AKFIN_TAXONOMIC_CLASSIFICATION</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_TAXONOMIC_CLASSIFICATION</p>
-<p>Number of rows: 2,699</p>
+<p>Number of rows: 2,718</p>
 <p>Number of columns: 19</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2855,7 +2855,7 @@ text
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-The common name of the marine organism associated with the ‘scientific_name’ and ‘species_code’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The common name of the marine organism associated with the scientific_name and species_code columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -3008,7 +3008,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -3209,7 +3209,7 @@ text
 VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-The common name of the marine organism associated with the ‘scientific_name’ and ‘species_code’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The common name of the marine organism associated with the scientific_name and species_code columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
@@ -3319,16 +3319,16 @@ Lowest taxonomic rank of a given species entry.
 INFRAORDER_TAXON
 </td>
 <td style="text-align:left;">
-NA
+Infraorder phylogenetic rank
 </td>
 <td style="text-align:left;">
-NA
+category
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Infraorder phylogenetic rank. Phylogenetic latin rank of infraorder of a given speices.
 </td>
 </tr>
 <tr>
@@ -3396,7 +3396,7 @@ ID key code
 NUMBER(38,0)
 </td>
 <td style="text-align:left;">
-The species code of the organism associated with the ‘common_name’ and ‘scientific_name’ columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 <tr>
