@@ -18,15 +18,64 @@ library(gapindex)
 chl <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   The taxa in GROUPED_TAXA are those invertebrate groups that are minimally
+##  Query all records from GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+current_gp_taxonomic_classification <- 
+  RODBC::sqlQuery(channel = chl, 
+                  query = "SELECT *
+                           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+                           WHERE SURVEY_SPECIES = 1")
+current_gp_taxonomic_changes <- 
+  RODBC::sqlQuery(channel = chl, 
+                  query = "SELECT OLD_SPECIES_CODE, NEW_SPECIES_CODE
+                           FROM GAP_PRODUCTS.TAXONOMIC_CHANGES
+                           WHERE OLD_SPECIES_CODE != NEW_SPECIES_CODE
+                           ORDER BY NEW_SPECIES_CODE")
+current_gp_taxon_groups <- 
+  RODBC::sqlQuery(channel = chl, 
+                  query = "select * from gap_products.taxon_groups 
+                           order by GROUP_CODE, SPECIES_CODE")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   For SPECIES_CODE values that have changed, append the updated taxonomic
+##   classification information to the OLD_SPECIES_CODE. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Subset the corrected classification information for the new species codes
+taxon_changes_classification <- 
+  subset(x = current_gp_taxonomic_classification,
+         subset = SPECIES_CODE %in% current_gp_taxonomic_changes$NEW_SPECIES_CODE)
+
+## Merge the OLD_SPECIES_CODE field from taxon changes to 
+## taxon_changes_classification 
+taxon_changes_classification <- 
+  merge(x = taxon_changes_classification, by.x = "SPECIES_CODE",
+        y = current_gp_taxonomic_changes, by.y = "NEW_SPECIES_CODE")
+
+taxon_changes_classification$SPECIES_CODE <- 
+  taxon_changes_classification$OLD_SPECIES_CODE
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Remove the classification information for the old species codes from
+##   gp_taxon_class and tehn append the classification information of the 
+##   updated SPECIES_CODES
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+updated_gp_taxonomic_classification <- 
+  rbind(
+    subset(x = current_gp_taxonomic_classification, 
+           subset = !SPECIES_CODE %in% 
+             taxon_changes_classification$SPECIES_CODE),
+    taxon_changes_classification[, names(x = current_gp_taxonomic_classification)])
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   The taxa in grouped_taxa are those invertebrate groups that are minimally
 ##   identified at the same taxonomic resolution that defines the taxon, e.g., 
-##   the Phylum Porifera which is also minimally identified to phylum. These 
+##    Phylum Porifera which is also minimally field-identified to phylum. These 
 ##   coarse aggregations mask many of the varieties in the levels of taxonomic 
 ##   confidence for individual species codes and thus is a conservative approach
-##   to reporting data products for many of the invertebrate taxa recorded in 
+##   to reporting data products for many of the invertebrate taxa observed in 
 ##   our bottom trawl surveys. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-GROUPED_TAXA <- 
+grouped_taxa <- 
   RODBC::sqlQuery(
     channel = chl, 
     query = paste(
@@ -35,482 +84,252 @@ GROUPED_TAXA <-
        WHERE SURVEY_SPECIES = 1 
        AND SPECIES_CODE IN", 
       gapindex::stitch_entries(
-        c(59100, ## leaches (Subclass Hirudinea)
+        c(
+          ## Phylum Athropoda
           60100, ## amphipods (Order Amphipoda)
           65000, ## cirripedia (Subclass Cirripedia)
           63000, ## cumacea (Order Cumacea)
           62000, ## isopods (Order Isopoda)
           64100, ## mysids (Family Mysidae)
-          69900, ## pycnogonida (Class Pycnogonida)
-          97000, ## brachiopods (Phylum Brachiopoda)
+          69900, ## sea spiders (Class Pycnogonida)
+          
+          ## Phylum Byrozoa 
           95000, ## byozoans (Phylum Bryozoa)
-          98070, ## salps (Class Thaliacea)
-          98000, ## tunicates (Class Ascidiacea)
+          
+          ## Phylum Brachiopoda
+          97000, ## brachiopods (Phylum Brachiopoda)
+          
+          ## Phylum Cnidaria
           43000, ## anemones (Order Actiniaria)
-          45000, ## comb jellies (Phylum ctenophora)
-          44004, ## cup corals (Family Caryophylliidae)
+          
           40011, ## hydroids (Subclass Hydroidolina)
-          40500, ## jellyfish (Class Scyphozoa)
           41099, ## octocorals (Class Octocorallia but includes sea whips)
+          44000, ## stony corals (Order Scleractinia but includes cup corals)
+          40500, ## jellyfish (Class Scyphozoa)
+          
+          ## Phylum Ctenophora
+          45000, ## comb jellies (Phylum ctenophora)
+          
+          ## Phylum Echinodermata
           83000, ## brittle stars (Class Ophiuroidea but includes basket stars)
           85000, ## sea cucumbers (Class Holothuroidea)
-          70100, ## chitons (Class Polyplacophora)
-          70049, ## neomaniids (Superclass Aplacophora)
+          82750, ## Crinoids (Class Crinoidea)
+          
+          ## Phylum Hirudinea
+          59100, ## sea leaches (Subclass Hirudinea)
+          
+          ## Phylum Mollusca
+          70049, ## Solenogastres (Superclass Aplacophora)
           71010, ## nudibranchs (Order Nudibranchia)
+          70100, ## chitons (Class Polyplacophora)
+          
+          ## Phylum Polychaeta
           50000, ## polychaetes (Class Polychaeta but includes echiuroid worms)
+          
+          ## Phylum Porifera
           91000, ## sponges (Phylum Porifera)
+          
+          ## Phylum Sipuncula
           94000, ## peanut worms (Order Sipuncula)
-          92500  ## ribbon worms (Phylum Nemertea)
+          
+          ## Phylum Urochordata, 
+          98000, ## tunicates (Class Ascidiacea)
+          98070, ## salps (Class Thaliacea)
+          
+          ## Genera Henricia and Lycodapus,
+          ## Genera in families Myctophidae and Liparidae,
+          ## and genera within bivalves, sea urchins, octopuses, shrimps
+          RODBC::sqlQuery(channel = chl,
+                          query = "SELECT SPECIES_CODE
+          FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+          WHERE SURVEY_SPECIES = 1 
+          AND (FAMILY_TAXON in ('Myctophidae', -- nyctophids
+                                'Liparidae'   -- snailfishes
+                                ) 
+               OR GENUS_TAXON IN ('Lycodapus', 'Henricia', 'Pteraster')
+               OR CLASS_TAXON IN 'Bivalvia' -- bivalves
+               OR ORDER_TAXON IN ('Camarodonta', 'Spatangoida') -- sea urchins
+               OR INFRAORDER_TAXON = 'Caridea' -- shrimps
+               OR ORDER_TAXON = 'Octopoda' -- octopuses
+               OR (CLASS_TAXON = 'Gastropoda'             -- snails
+                   AND ORDER_TAXON != 'Nudibranchia') -- excl. nudibranchs
+              )
+          AND ID_RANK = 'genus'")$SPECIES_CODE
         )
       )
     )
   )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   For each taxon record in GROUPED_TAXA, query the species codes that are 
+##   For each taxon record in grouped_taxa, query the species codes that are 
 ##   contained in that taxon by using the taxonomic classification information 
-##   contained in GROUPED_TAXA, and then assign it the group code of the taxon 
-##   in GROUPED_TAXA, e.g., assign all records where PHYLUM_TAXON = 'Porifera' 
+##   contained in grouped_taxa, and then assign it the group code of the taxon 
+##   in grouped_taxa, e.g., assign all records where PHYLUM_TAXON = 'Porifera' 
 ##   a GROUP_CODE value of 91000, the code for Porifera.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 grouped_taxa_df <- data.frame()
-
-for (irow in 1:nrow(x = GROUPED_TAXA)) {
-  if (!is.na(x = GROUPED_TAXA$SPECIES_NAME[irow])) {
-    temp_grab <- 
-      RODBC::sqlQuery(
-        channel = chl,
-        query = paste0("SELECT *
-                        FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-                        WHERE SURVEY_SPECIES = 1 AND ", 
-                       GROUPED_TAXA$ID_RANK[irow], "_TAXON = '",
-                       GROUPED_TAXA$SPECIES_NAME[irow], "'"))
-    
-    temp_grab$GROUP_CODE <- GROUPED_TAXA$SPECIES_CODE[irow]
-    grouped_taxa_df <- rbind(grouped_taxa_df, temp_grab)
-  }
-}
+for (irow in 1:nrow(x = grouped_taxa)) { ## Loop through grouped taxa -- start
+  
+  ## Pull the name of the taxon 
+  temporary_taxon_name <- 
+    grouped_taxa[irow, paste0(toupper(x = grouped_taxa$ID_RANK[irow]), 
+                              "_TAXON")]
+  
+  ## String together the text used in the subset
+  subset_text <- paste0(toupper(x = grouped_taxa$ID_RANK[irow]), "_TAXON == '", 
+                        temporary_taxon_name, "'")
+  
+  ## Subset records from the updated taxonomic classification
+  subsetted_records <- subset(x = updated_gp_taxonomic_classification,
+                              subset = eval(parse(text = subset_text)))
+  
+  ## Append to grouped_taxa_df
+  grouped_taxa_df <- 
+    rbind(grouped_taxa_df, 
+          data.frame(GROUP_CODE = grouped_taxa$SPECIES_CODE[irow], 
+                     subsetted_records)
+    )
+} ## Loop through grouped taxa -- end
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Separate sea pens from Octocorallia 
+##   There are some grouped taxa that are paraphyletic to the groups formed
+##   in the previous step. Reassign the GROUP_CODE values of these paraphyllia.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Sea pens (Family Pennatuloidea, 42000) is a paraphyly within CLass 
+## Octocorallia (41099).
 grouped_taxa_df$GROUP_CODE[
   grouped_taxa_df$SUPERFAMILY_TAXON == 'Pennatuloidea'] <- 42000
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Separate basket stars from brittle stars
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Basketstars (Gorgonocephalus eucnemis, 83020) is a paraphyly within 
+## Class Ophiuroidea (83000). 
 grouped_taxa_df$GROUP_CODE[
-  grouped_taxa_df$SUBORDER_TAXON == "Euryalina"] <- 83020
+  grouped_taxa_df$SPECIES_CODE == 83020
+] <- 83020
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Separate echiuroid worm unid. from Polychaeta
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Spoon worms (Subclass Echiura, 94500) is a paraphyly within Phylum 
+## Polychaeta (50000).
 grouped_taxa_df$GROUP_CODE[
   grouped_taxa_df$SUBCLASS_TAXON == "Echiura"] <- 94500
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query taxon records for all fishes except for Myctophids, 
-##   Lycodapus spp. and snailfishes which will be grouped to genus
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fish_taxa <- RODBC::sqlQuery(
-  channel = chl,
-  query = "
-SELECT SPECIES_CODE AS GROUP_CODE, 
-GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-WHERE SURVEY_SPECIES = 1
-AND SUBPHYLUM_TAXON = 'Vertebrata'
-AND CLASS_TAXON != 'Mammalia'
-
--- Remove Lycodapus spp.
-MINUS 
-SELECT SPECIES_CODE AS GROUP_CODE, 
-GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-WHERE SURVEY_SPECIES = 1
-AND GENUS_TAXON = 'Lycodapus'
-
--- Remove myctophids and snailfishes
-MINUS
-SELECT SPECIES_CODE AS GROUP_CODE, 
-GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-WHERE SURVEY_SPECIES = 1
-AND FAMILY_TAXON IN ('Myctophidae', 'Liparidae') "
-)
+## Cup corals (Family Caryophylliidae, 44004) is a paraphyly within Order
+## Scleractinia (44000).
+grouped_taxa_df$GROUP_CODE[
+  grouped_taxa_df$FAMILY_TAXON == "Caryophylliidae"] <- 44004
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Group Myctophids, Lycodapus spp., and Liparidae records to genus where
-##   a SPECIES_CODE for those genus-level codes exist
+##  Merge the GROUP_CODE field from grouped_taxa_df to gp_taxon_class using
+##  SPECIES_CODE as the key
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fish_genera <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT *
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-
-           JOIN 
-
-           (SELECT SPECIES_CODE AS GROUP_CODE, SPECIES_NAME, 
-            COMMON_NAME, GENUS_TAXON
-            
-            FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-            
-            WHERE SURVEY_SPECIES = 1 
-            AND (FAMILY_TAXON in ('Myctophidae', 'Liparidae') 
-            OR GENUS_TAXON = 'Lycodapus')
-            AND ID_RANK = 'genus')
-
-           USING (GENUS_TAXON)
-
-           WHERE SURVEY_SPECIES = 1
-           
-           ORDER BY GROUP_CODE")[, names(x = fish_taxa)]
-
-## Query individual species codes for myctophids and snailfishes that do not 
-## have genus-level species codes and append to the fish_genera df.
-fish_genera <- 
-  rbind(fish_genera,
-        RODBC::sqlQuery(
-          channel = chl, 
-          query = paste("SELECT 
-                         SPECIES_CODE AS GROUP_CODE, 
-                         GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-                         FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-
-                         WHERE SPECIES_CODE NOT IN", 
-                        gapindex::stitch_entries(fish_genera$SPECIES_CODE),
-                        "AND (FAMILY_TAXON in ('Myctophidae', 'Liparidae') 
-                         OR GENUS_TAXON = 'Lycodapus')
-                         AND ID_RANK = 'species'
-                         AND SURVEY_SPECIES = 1
-                         
-                         ORDER BY GROUP_CODE"))[, names(x = fish_taxa)])
+updated_gp_taxon_groups <- 
+  merge(x = subset(x = updated_gp_taxonomic_classification, 
+                   select = -SURVEY_SPECIES),
+        y = grouped_taxa_df[, c("SPECIES_CODE", "GROUP_CODE")],
+        all.x = TRUE,
+        by = "SPECIES_CODE")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query all squid records
+##   
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-squids <- RODBC::sqlQuery(
-  channel = chl,
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND SUPERORDER_TAXON = 'Decapodiformes'"
-)
+## Any SPECIES_CODES that are not a part of a larger taxon group
+single_spp_codes <- 
+  current_gp_taxonomic_changes$OLD_SPECIES_CODE[!current_gp_taxonomic_changes$OLD_SPECIES_CODE %in% grouped_taxa_df$SPECIES_CODE] 
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query all crinoid records (Class Crinoidea)
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-crinoids <- RODBC::sqlQuery(
-  channel = chl,
-  query = "SELECT 82750 AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND CLASS_TAXON = 'Crinoidea'"
-)
+synonyms <- 
+  merge(x = subset(updated_gp_taxon_groups, 
+                   subset = SPECIES_CODE %in% single_spp_codes, 
+                   select = SPECIES_CODE), by.x = "SPECIES_CODE",
+        y = current_gp_taxonomic_changes, by.y = "OLD_SPECIES_CODE")
+
+## For these species codes that do not belong to a larger group, 
+## set the GROUP_CODE of these records to the updated species code
+updated_gp_taxon_groups[
+  match(x = synonyms$SPECIES_CODE, 
+        table = updated_gp_taxon_groups$SPECIES_CODE), "GROUP_CODE"
+  ]<- synonyms$NEW_SPECIES_CODE
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query hermit crab records
+##   Any records that don't have a GROUP_CODE are assigned the SPECIES_CODE
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-hermit_crabs <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND SUPERFAMILY_TAXON = 'Paguroidea'"
-)
+single_taxon <- is.na(x = updated_gp_taxon_groups$GROUP_CODE)
+updated_gp_taxon_groups$GROUP_CODE[single_taxon] <-
+  updated_gp_taxon_groups$SPECIES_CODE[single_taxon]
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query "true" crab records
+##   Check this newly created gp_groups with the current version of 
+##   GAP_PRODUCTS.TAXON_GROUPS
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-true_crabs <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND INFRAORDER_TAXON = 'Brachyura'"
-) 
+## Check that the number of rows are the same
+nrow(current_gp_taxon_groups) == nrow(updated_gp_taxon_groups)
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query sand dollar records
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sand_dollars <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND SUPERORDER_TAXON = 'Luminacea'"
-)
+## Check that SPECIES_CODEs are unique
+table(table(updated_gp_taxon_groups$SPECIES_CODE))
+table(table(current_gp_taxon_groups$SPECIES_CODE))
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query all sea star records except for Henricia spp. which will be grouped
-##   to the genus Henricia
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sea_stars <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND CLASS_TAXON = 'Asteroidea'
-           AND GENUS_TAXON != 'Henricia'")
+## Merge the two tables together using SPECIES_CODE as the key, and using the 
+## suffixes _OLD as the current version and _NEW as the update. 
+test_check <- merge(x = updated_gp_taxon_groups, 
+                    y = current_gp_taxon_groups,
+                    by = "SPECIES_CODE", 
+                    suffixes = c("_UPDATE", "_CURRENT"))
 
-## Query Henricia spp. and assign GROUP_CODE for the genus-level Henricia code
-henricia <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT *
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+## Reorder columns
+test_check <- 
+  test_check[, c("SPECIES_CODE", 
+                 as.vector(sapply(X = names(updated_gp_taxon_groups)[-1], 
+                                  FUN = function(x) 
+                                    paste0(x, c("_UPDATE", "_CURRENT")))))]
+## Check for differences in each non-key field
+for (icol in names(updated_gp_taxon_groups)[-1]) {
+  test_check[, paste0(icol, "_DIFF")] <- 
+    test_check[, paste0(icol, "_UPDATE")] != 
+    test_check[, paste0(icol, "_CURRENT")]
+}
 
-           JOIN 
+## Reorder columns
+test_check <- 
+  test_check[, c("SPECIES_CODE", 
+                 as.vector(sapply(X = names(updated_gp_taxon_groups)[-1], 
+                                  FUN = function(x) 
+                                    paste0(x, c("_UPDATE", 
+                                                "_CURRENT",
+                                                "_DIFF")))))]
 
-           (SELECT SPECIES_CODE AS GROUP_CODE, SPECIES_NAME, 
-            COMMON_NAME, GENUS_TAXON
-                            
-            FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-            WHERE SURVEY_SPECIES = 1 
-            AND GENUS_TAXON = 'Henricia'
-            AND ID_RANK = 'genus')
+## Print any differences
+any_differences <- 
+  which(eval(parse(text = paste0("test_check$", names(updated_gp_taxon_groups)[-1], 
+                                 "_DIFF == T", collapse = " | "))) == T)
+test_check[any_differences, ]
 
-           USING (GENUS_TAXON)
- 
-           WHERE SURVEY_SPECIES = 1
-           ORDER BY GROUP_CODE")[, names(x = sea_stars)]
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Aggregate taxa to genus for: sea urchins, bivalves, octopuses, and shrimps
-##   where genus-level codes exist
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-invert_genera <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT *
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-
-           JOIN 
-
-           (SELECT SPECIES_CODE AS GROUP_CODE, COMMON_NAME, GENUS_TAXON
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1 
-           AND (CLASS_TAXON IN 'Bivalvia'
-               OR ORDER_TAXON IN ('Camarodonta', 'Spatangoida')
-               OR INFRAORDER_TAXON = 'Caridea' 
-               OR ORDER_TAXON = 'Octopoda')
-           AND ID_RANK = 'genus')
-
-           USING (GENUS_TAXON)
-
-           WHERE SURVEY_SPECIES = 1
-
-           ORDER BY GROUP_CODE")[, names(x = fish_taxa)]
-
-## Query individual species codes for the taxa in invert_genera that do not have 
-## genus-level species codes and append to the invert_genera df
-invert_genera <- 
-  rbind(
-    invert_genera,
-    RODBC::sqlQuery(
-      channel = chl,
-      query = paste(
-        "SELECT SPECIES_CODE AS GROUP_CODE, 
-         GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-         FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-         WHERE SURVEY_SPECIES = 1 
-         AND (CLASS_TAXON IN 'Bivalvia'
-              OR ORDER_TAXON IN ('Camarodonta', 'Spatangoida')
-              OR INFRAORDER_TAXON = 'Caridea' 
-              OR ORDER_TAXON = 'Octopoda')
-         AND ID_RANK = 'species'
-         AND SPECIES_CODE NOT IN", 
-        gapindex::stitch_entries(invert_genera$SPECIES_CODE)))[
-          , names(x = invert_genera)]
-  )
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query snail records that are Class Gastropoda except for nudibranchs 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-snails <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "
-SELECT *
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-
-JOIN 
-
-(SELECT SPECIES_CODE AS GROUP_CODE, SPECIES_NAME, COMMON_NAME, GENUS_TAXON
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-WHERE SURVEY_SPECIES = 1 
-AND CLASS_TAXON = 'Gastropoda'
-AND ORDER_TAXON != 'Nudibranchia'
-AND ID_RANK = 'genus')
-
-USING (GENUS_TAXON)
-
-WHERE SURVEY_SPECIES = 1
-ORDER BY GROUP_CODE
-")[, names(x = fish_taxa)]
-
-## Query individual species codes for snails that do not have genus-level 
-## species codes and append to the snails df
-snails <- rbind(
-  snails,
-  RODBC::sqlQuery(
-    channel = chl,
-    query = paste("SELECT SPECIES_CODE AS GROUP_CODE, 
-                   GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-                   FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-                   WHERE SURVEY_SPECIES = 1 
-                   AND CLASS_TAXON = 'Gastropoda'
-                   AND ORDER_TAXON != 'Nudibranchia'
-                   AND ID_RANK = 'species'
-                   AND SPECIES_CODE NOT IN", 
-                  gapindex::stitch_entries(snails$SPECIES_CODE)))[
-                    , names(x = snails)]
-)
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query stony coral records minus cup corals
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-stony_corals <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT *
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-
-JOIN 
-
-(SELECT SPECIES_CODE AS GROUP_CODE, SPECIES_NAME, COMMON_NAME, GENUS_TAXON
-FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-WHERE SURVEY_SPECIES = 1 
-AND ORDER_TAXON = 'Scleractinia'
-AND FAMILY_TAXON != 'Caryophylliidae'
-AND ID_RANK = 'genus')
-
-USING (GENUS_TAXON)
-
-WHERE SURVEY_SPECIES = 1
-ORDER BY GROUP_CODE"
-)[, names(x = fish_taxa)]
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query pinch bug records
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-pinch_bugs <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND FAMILY_TAXON IN ('Munidopsidae', 'Sternostylidae')"
-)
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Query black corals records
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-black_coral <-RODBC::sqlQuery(
-  channel = chl,
-  query = "SELECT SPECIES_CODE AS GROUP_CODE, 
-           GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION.*
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1
-           AND ORDER_TAXON = 'Antipatharia'"
-)
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##  Query all records from GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-##  except for certain commercial crabs that SAP are responsible for. 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-all_spp_codes <- RODBC::sqlQuery(
-  channel = chl, 
-  query = "SELECT *
-           FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-           WHERE SURVEY_SPECIES = 1"
-)
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##  rbind all taxa gorups together and merge taxonomic information 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-all_taxa <- rbind(grouped_taxa_df, 
-                  fish_taxa, 
-                  fish_genera, invert_genera,
-                  squids, hermit_crabs, true_crabs, sand_dollars, black_coral, 
-                  snails, pinch_bugs, stony_corals, crinoids,
-                  sea_stars, henricia)
-all_taxa <- merge(x = all_spp_codes,
-                  y = all_taxa[, c("SPECIES_CODE", "GROUP_CODE")],
-                  by = "SPECIES_CODE",
-                  all.x = TRUE)
-all_taxa <- 
-  all_taxa[, names(all_taxa)[c(ncol(x = all_taxa), 1:(ncol(x = all_taxa) - 1))]]
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Attach any old SPECIES_CODES that were synonymized with SPECIES currently
-##   in GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-taxon_changes <- 
-  RODBC::sqlQuery(channel = chl, 
-                  query = "SELECT OLD_SPECIES_CODE AS SPECIES_CODE, 
-                           NEW_SPECIES_CODE 
-                           FROM GAP_PRODUCTS.TAXONOMIC_CHANGES
-                           WHERE OLD_SPECIES_CODE != NEW_SPECIES_CODE")
-
-## attach updated taxonomic information to the old species codes
-taxon_changes <- merge(x = taxon_changes, by.x = "NEW_SPECIES_CODE",
-                       y = all_taxa, by.y = "SPECIES_CODE")
-taxon_changes <- taxon_changes[!is.na(x = taxon_changes$GROUP_CODE), 
-                               names(x = all_taxa)]
-
-all_taxa <- rbind(subset(x = all_taxa, 
-                         subset = !(SPECIES_CODE %in% 
-                                      taxon_changes$SPECIES_CODE)),
-                  taxon_changes)
-
-## Any remaining SPECIES_CODE records that don't belong to a group is reported
-## as the are
-all_taxa$GROUP_CODE[is.na(x = all_taxa$GROUP_CODE)] <- 
-  all_taxa$SPECIES_CODE[is.na(x = all_taxa$GROUP_CODE)]
-
-## Sort and remove SURVEY_SPECIES column
-all_taxa <- all_taxa[order(all_taxa$GROUP_CODE), ]
-all_taxa <- subset(x = all_taxa, select = -SURVEY_SPECIES)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Upload to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Assemble column metadata
-metadata_column_info <-   
-  RODBC::sqlQuery(channel = chl, 
-                  query = paste0("SELECT *
-                                  FROM GAP_PRODUCTS.METADATA_COLUMN
-                                  WHERE METADATA_COLNAME IN ",
-                                 gapindex::stitch_entries(names(x = all_taxa))))
-names(x = metadata_column_info) <- 
-  gsub(x = tolower(x = names(x = metadata_column_info) ),
-       pattern = "metadata_", 
-       replacement = "")
-
-metadata_column_info <- 
-  rbind(data.frame(colname = "GROUP_CODE",
-                   colname_long = "SPECIES_CODE or COMPLEX_CODE",
-                   units = "ID key code",
-                   datatype = "NUMBER(38,0)",
-                   colname_desc = "Code that is either associated with an indivdual species code or the complex to which that taxon belongs."),
-        metadata_column_info)
+# metadata_column_info <-   
+#   RODBC::sqlQuery(channel = chl, 
+#                   query = paste0("SELECT *
+#                                   FROM GAP_PRODUCTS.METADATA_COLUMN
+#                                   WHERE METADATA_COLNAME IN ",
+#                                  gapindex::stitch_entries(names(x = all_taxa))))
+# names(x = metadata_column_info) <- 
+#   gsub(x = tolower(x = names(x = metadata_column_info) ),
+#        pattern = "metadata_", 
+#        replacement = "")
+# 
+# metadata_column_info <- 
+#   rbind(data.frame(colname = "GROUP_CODE",
+#                    colname_long = "SPECIES_CODE or COMPLEX_CODE",
+#                    units = "ID key code",
+#                    datatype = "NUMBER(38,0)",
+#                    colname_desc = "Code that is either associated with an indivdual species code or the complex to which that taxon belongs."),
+#         metadata_column_info)
 
 ## Upload to Oracle
-gapindex::upload_oracle(x = all_taxa,
-                        table_name = "TAXON_GROUPS", 
-                        metadata_column = metadata_column_info, 
-                        table_metadata = "This lookup table is based on GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION but with an added field GROUP_CODE to identify species complexes. To be used in the production of the GAP_PRODUCTS tables.", 
-                        channel = chl, 
-                        schema = "GAP_PRODUCTS", 
-                        share_with_all_users = TRUE)
-
-gp_groups <- RODBC::sqlQuery(channel = chl, query = "select * from gap_products.taxon_groups")
-akfin_groups <- RODBC::sqlQuery(channel = chl, query = "select * from gap_products.akfin_taxonomic_groups")
-
-nrow(gp_groups)
-nrow(akfin_groups)
+# gapindex::upload_oracle(x = all_taxa,
+#                         table_name = "TAXON_GROUPS", 
+#                         metadata_column = metadata_column_info, 
+#                         table_metadata = "This lookup table is based on GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION but with an added field GROUP_CODE to identify species complexes. To be used in the production of the GAP_PRODUCTS tables.", 
+#                         channel = chl, 
+#                         schema = "GAP_PRODUCTS", 
+#                         share_with_all_users = TRUE)
