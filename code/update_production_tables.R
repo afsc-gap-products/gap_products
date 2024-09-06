@@ -24,7 +24,7 @@ rm(list = ls())
 ##  Load libraries and connect to Oracle. Make sure to connect using the 
 ##  GAP_PRODUCTS credentials. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-library(gapindex)#; library(data.table)
+library(gapindex); library(data.table)
 gapproducts_channel <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,7 +38,7 @@ keys <- list(cpue = c("HAULJOIN", "SPECIES_CODE"),
              biomass = c("SURVEY_DEFINITION_ID", "YEAR", 
                          "SPECIES_CODE", "AREA_ID"),
              sizecomp = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", 
-                          "SPECIES_CODE", "LENGTH_MM"),
+                          "SPECIES_CODE", "SEX", "LENGTH_MM"),
              agecomp = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", 
                          "SPECIES_CODE", "SEX", "AGE"))
 
