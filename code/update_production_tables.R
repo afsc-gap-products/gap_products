@@ -39,7 +39,7 @@ keys <- list(cpue = c("HAULJOIN", "SPECIES_CODE"),
                          "SPECIES_CODE", "AREA_ID"),
              sizecomp = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", 
                           "SPECIES_CODE", "SEX", "LENGTH_MM"),
-             agecomp = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", 
+             agecomp = c("SURVEY_DEFINITION_ID", "YEAR", "AREA_ID", "AREA_ID_FOOTPRINT",
                          "SPECIES_CODE", "SEX", "AGE"))
 
 for (iregion in regions) {
@@ -167,3 +167,8 @@ for (iregion in regions) {
     }
   }
 }
+
+
+RODBC::sqlQuery(
+  channel = gapproducts_channel,
+  query = "commit;")
