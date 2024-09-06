@@ -243,11 +243,8 @@ detailed_notes <-
 
 A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
 
-2024 Aleutian Island catch, effort, and size data have been added to RACEBASE. 
+There was a minor issue with how the 9/4/2024 run uploaded records to Oracle from R that has been remedied. This run was a redo of the previous run and all changes in this run are summarized in the 9/4/2024 version of the changelog.
 
-Aged otolith data for EBS Kamchatka flounder (2022) and Greenland turbot (2023) have been updated in RACEBASE.SPECIMEN. 
-
-Species complexes for Kamchatka flounder/arrowtooth flounder (10111) as well as Bathyraja sp. (405) have been properly grouped in the production script run to account for historical identification issues as discussed in this (GitHub Issue)[ https://github.com/afsc-gap-products/gap_products/issues/38].
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
