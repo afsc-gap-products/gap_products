@@ -21,7 +21,7 @@ channel <- gapindex::get_connected(check_access = F)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 current_year <- as.integer(format(x = Sys.Date(), format = "%Y"))
 start_year <- 
-c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 2002, "NBS" = 2010)
+  c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 2002, "NBS" = 2010)
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 
 spp_start_year <-
@@ -404,6 +404,23 @@ EBS Standard Area.\n\n")
     all_groups_biomass <- rbind(all_groups_biomass,
                                 group_biomass_stratum,
                                 group_biomass_subarea)
+    
+    ## Removed these new grouped_taxa data from the production cpue and
+    ## biomass tables so that when they are all appended outside the loop
+    ## in the next step, there are no duplications.
+    
+    production_cpue <- production_cpue[
+      !(production_cpue$HAULJOIN %in% group_cpue$HAULJOIN &
+          production_cpue$SPECIES_CODE == 
+          historical_taxonomic_groups$GROUP_CODE[igroup])
+    ]
+    
+    production_biomass <- production_biomass[
+      !(production_biomass$SPECIES_CODE == 
+          historical_taxonomic_groups$GROUP_CODE[igroup] &
+          production_biomass$YEAR %in% years_to_pull), 
+    ]
+    
   }
   
   ## Append to cpue and biomass
