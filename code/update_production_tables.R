@@ -255,3 +255,11 @@ for (iregion in regions) {
 RODBC::sqlQuery(
   channel = gapproducts_channel,
   query = "commit;")
+
+## Update Table Comments to reflect updated DDL timestamp
+RODBC::sqlQuery(
+  channel = gapproducts_channel,
+  query = "BEGIN
+	UPDATE_TABLE_COMMENTS;
+	UPDATE_FIELD_COMMENTS;
+END;")
