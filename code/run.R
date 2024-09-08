@@ -37,24 +37,9 @@ rm(list = ls())
 ##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex) # devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
-library(data.table) # install.packages("data.table")
-library(rmarkdown) # install.packages("rmarkdown")
-
-if (!dir.exists(paths = "temp/")) dir.create(path = "temp/")
-
-## Output time stamp at the start of production
-writeLines(text = as.character(Sys.Date()), 
-           con = "temp/timestamp.txt")
-
-## Output R session information (R version, package versions, etc.)
-writeLines(text = capture.output(sessionInfo()), 
-           con = "temp/sessionInfo.txt")
-
-## Output more detailed information on package versions
-write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")], 
-                            row.names = F), 
-          file = "temp/installed_packages.csv", 
-          row.names = F)
+source("functions/output_r_session.R")
+source("functions/archive_gap_products.R") 
+output_r_session(path = "temp/") ## sets up temp/ folder
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull Existing GAP_PRODUCTS Tables and Views ----
@@ -96,34 +81,6 @@ file.edit("code/akfin_foss.R")
 ##   Archive GAP_PRODUCTS  ----
 ##   Archive the bits that would allow one to reproduce the standard data 
 ##   tables. The session info and package versions are also .csv files in the 
-##   temp/folder. The NEWS html is currently the way that changes are reported. 
+##   temp/folder.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Copy changelog to news section
-fs::file_copy(path = "temp/report_changes.txt",
-              new_path = paste0("content/intro-news/", 
-                                readLines(con = "temp/timestamp.txt"), 
-                                ".txt") )
-
-## Create a new directory with the timestamp as the title. This is the directory
-## that will store the archive.
-dir.create(path = readLines(con = "temp/timestamp.txt"))
-
-## Copy the contents in the code/, functions/, and temp/ directories into the 
-## archive directory
-file.copy(from = "gap_products.Rproj", 
-          to = readLines(con = "temp/timestamp.txt"))
-fs::dir_copy(path = "code/", 
-         new_path = readLines(con = "temp/timestamp.txt"))
-fs::dir_copy(path = "functions/", 
-             new_path = readLines(con = "temp/timestamp.txt"))
-fs::dir_copy(path = "temp/", 
-             new_path = readLines(con = "temp/timestamp.txt"))
-
-## Zip folder and move to G: drive
-utils::zip(files = readLines(con = "temp/timestamp.txt"),
-           zipfile = paste0(getwd(), "/", 
-                            readLines(con = "temp/timestamp.txt"), ".zip") )
-
-fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
-              new_path = "G:/GAP_PRODUCTS_Archives/")
-fs::file_delete(path = readLines(con = "temp/timestamp.txt"))
+archive_gap_products(path = "temp/", archive_path = "G:/GAP_PRODUCTS_Archives/")
