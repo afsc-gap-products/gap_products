@@ -32,94 +32,67 @@ googledrive::drive_download(
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 metadata_table <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
                                     sheet = "METADATA_TABLE") 
-metadata_table$metadata_sentence <- gsub(x = metadata_table$metadata_sentence,
-                                         pattern = "INSERT_CODE_BOOK", 
-                                         replacement = link_code_books)
-AREA <- subset(x = readxl::read_xlsx(path = "temp/future_oracle.xlsx",
-                                     sheet = "AREA"),
-               select = -AREAJOIN)
-STRATUM_GROUPS <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
-                                    sheet = "STRATUM_GROUPS") 
-SURVEY_DESIGN <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
-                                    sheet = "SURVEY_DESIGN") 
+# metadata_table$metadata_sentence <- gsub(x = metadata_table$metadata_sentence,
+#                                          pattern = "INSERT_CODE_BOOK", 
+#                                          replacement = link_code_books)
+# AREA <- subset(x = readxl::read_xlsx(path = "temp/future_oracle.xlsx",
+#                                      sheet = "AREA"),
+#                select = -AREAJOIN)
+# STRATUM_GROUPS <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+#                                     sheet = "STRATUM_GROUPS") 
+# SURVEY_DESIGN <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+#                                     sheet = "SURVEY_DESIGN") 
 shared_metadata_comment <-
-  with(metadata_table, 
+  with(metadata_table,
        paste(
-         metadata_sentence[metadata_sentence_name == "survey_institution"], 
-         gsub(pattern = "INSERT_REPO", replacement = link_repo, 
-              x = metadata_sentence[metadata_sentence_name == "github"]), 
-         gsub(pattern = "INSERT_DATE", replacement = pretty_date, 
-              x = metadata_sentence[metadata_sentence_name == "last_updated"]), 
-         metadata_sentence[metadata_sentence_name == "legal_restrict_none"], 
+         metadata_sentence[metadata_sentence_name == "survey_institution"],
+         gsub(pattern = "INSERT_REPO", replacement = link_repo,
+              x = metadata_sentence[metadata_sentence_name == "github"]),
+         gsub(pattern = "INSERT_DATE", replacement = pretty_date,
+              x = metadata_sentence[metadata_sentence_name == "last_updated"]),
+         metadata_sentence[metadata_sentence_name == "legal_restrict_none"],
          metadata_sentence[metadata_sentence_name == "codebook"])
   )
 
 metadata_table_comment <- paste(
-  "These columns provide the table metadata for all of the tables and ",
-  "views in GAP_PRODUCTS. These tables are created", shared_metadata_comment
-)
-
-AREA_comment <- paste(
-  "This table contains all of the information related to the various strata,",
-  "subareas, INPFC and NMFS management areas, and regions for the Aleutian",
-  "Islands, Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys.",
-  "These tables are created", shared_metadata_comment
-)
-
-STRATUM_GROUPS_comment <- paste(
-  "This table contains all of strata that are contained within a given",
-  "subarea, INPFC or NMFS management area, or region for the Aleutian Islands,",
-  "Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys.",
-  "These tables are created", shared_metadata_comment
-)
-
-SURVEY_DESIGN_comment <- paste(
-  "This table contains for a given survey (via SURVEY_DEFINITION_ID) and",
-  "survey year (YEAR), which version (DESIGN_YEAR) of the AREA_IDs that were",
-  "used to calculate the various standard data products.",
-  "These tables are created", shared_metadata_comment
+  "This table is used to string together the various table comments for the tables in GAP_PRODUCTS. These tables are created", shared_metadata_comment
 )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Clean up metadata_column: df that houses metadata column info
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 metadata_column <- readxl::read_xlsx( ## import spreadsheet
-  path = "temp/future_oracle.xlsx", 
-  sheet = "METADATA_COLUMN", 
+  path = "temp/future_oracle.xlsx",
+  sheet = "METADATA_COLUMN",
   skip = 1) %>%
   janitor::clean_names() %>% ## clean field names
   ## select fields that start with "metadata_"
   dplyr::select(dplyr::starts_with("metadata_")) %>%
   ## filter out true NAs, "", "NA", and nulls in field "metadata_colname"
-  dplyr::filter(!is.na(metadata_colname)) %>%  
-  dplyr::filter(!is.null(metadata_colname)) %>% 
-  dplyr::filter(!(metadata_colname %in% c("", "NA"))) %>% 
+  dplyr::filter(!is.na(metadata_colname)) %>%
+  dplyr::filter(!is.null(metadata_colname)) %>%
+  dplyr::filter(!(metadata_colname %in% c("", "NA"))) %>%
   dplyr::mutate(
     ## input the links to the codebook
-    metadata_colname_desc = gsub(pattern = "INSERT_CODE_BOOK", 
-                                 replacement = link_code_books, 
-                                 x = metadata_colname_desc), 
+    metadata_colname_desc = gsub(pattern = "INSERT_CODE_BOOK",
+                                 replacement = link_code_books,
+                                 x = metadata_colname_desc),
     ## remove extra spaces?
-    metadata_colname_desc = gsub(pattern = "  ", 
-                                 replacement = " ", 
-                                 x = metadata_colname_desc, 
-                                 fixed = TRUE), 
+    metadata_colname_desc = gsub(pattern = "  ",
+                                 replacement = " ",
+                                 x = metadata_colname_desc,
+                                 fixed = TRUE),
     ## remove extra periods?
-    metadata_colname_desc = gsub(pattern = "..", 
-                                 replacement = ".", 
-                                 x = metadata_colname_desc, 
+    metadata_colname_desc = gsub(pattern = "..",
+                                 replacement = ".",
+                                 x = metadata_colname_desc,
                                  fixed = TRUE))
-
-metadata_column_comment <- paste0(
-  "These tables provide the column metadata for all of the tables and ",
-  "views in GAP_PRODUCTS. These tables are created ",
-  shared_metadata_comment)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  Upload the two tables to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (isql_table in c("metadata_table", 
-                     "metadata_column"#,
+for (isql_table in c("metadata_table"#, 
+                     #"metadata_column",
                     # "AREA", "STRATUM_GROUPS", 
                      #"SURVEY_DESIGN")
                      )) { ## loop over tables -- start
@@ -152,21 +125,3 @@ for (isql_table in c("metadata_table",
                           share_with_all_users = TRUE)
   
 } ## loop over tables -- end
-
-## Set up primary key for AREA table
-RODBC::sqlQuery(channel = chl,
-                query = "ALTER TABLE GAP_PRODUCTS.AREA 
-                ADD CONSTRAINT AREA_CONTRAINT 
-                PRIMARY KEY (SURVEY_DEFINITION_ID, DESIGN_YEAR, AREA_ID); ")
-
-## Set up primary key for STRATUM_GROUPS table
-RODBC::sqlQuery(channel = chl,
-                query = "ALTER TABLE GAP_PRODUCTS.STRATUM_GROUPS
-                ADD CONSTRAINT STRATUM_GROUPS_CONTRAINT
-                PRIMARY KEY (SURVEY_DEFINITION_ID, DESIGN_YEAR, AREA_ID, STRATUM); ")
-
-## Set up primary key for SURVEY_DESIGN table
-RODBC::sqlQuery(channel = chl,
-                query = "ALTER TABLE SURVEY_DESIGN
-                ADD CONSTRAINT SURVEY_DESIGN_CONTRAINT
-                PRIMARY KEY (SURVEY_DEFINITION_ID, YEAR); ")
