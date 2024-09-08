@@ -234,10 +234,6 @@ saveRDS(object = mismatches, file = "temp/mismatches.RDS")
 ##   vouchered data, ad hoc decisions about taxon aggregations, updated stratum
 ##   areas, updated gapindex package, etc.) 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-gapindex_version <- 
-  subset(x = read.csv(file = "temp/installed_packages.csv"),
-         subset = Package == "gapindex")$Version
-
 detailed_notes <- 
   "Run completed by: Ned Laman, Zack Oyafuso
 
@@ -250,6 +246,9 @@ There was a minor issue with how the 9/4/2024 run uploaded records to Oracle fro
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Create report changelog
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gapindex_version <- 
+  subset(x = read.csv(file = "temp/installed_packages.csv"),
+         subset = Package == "gapindex")$Version
 timestamp <- readLines(con = "temp/timestamp.txt")
 rmarkdown::render(input = "code/report_changes.RMD",
                   output_format = "html_document",
