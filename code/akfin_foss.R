@@ -19,7 +19,7 @@ source("code/functions.R")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import AKFIN and FOSS table names and table descriptions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-views <- subset(x = read.csv(file = "code/table_comments.csv"),
+views <- subset(x = read.csv(file = "data/table_comments.csv"),
                 subset = table_type %in% c("akfin", "foss")[1])
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,27 +57,12 @@ for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
   ## caled code/sql_foss.
   RODBC::sqlQuery(
     channel = channel,
-    query = getSQL(filepath = paste0("code/sql_", views$table_type[isql_script], "/", 
-      views$table_name[isql_script], ".sql")
+    query = getSQL(filepath = paste0("code/sql_", 
+                                     views$table_type[isql_script], "/", 
+                                     views$table_name[isql_script], ".sql")
     )
   )
   
-  ## Subset field information for the fields in temp_table_name
-  temp_field_metadata <- 
-    subset(x = metadata_fields,
-           subset =  METADATA_COLNAME %in% 
-             RODBC::sqlColumns(channel = channel,
-                               sqtable = temp_table_name)$COLUMN_NAME)
-  
-  ## Add Field and Table Comments 
-  update_metadata(schema = "GAP_PRODUCTS", 
-                  table_name = views$table_name[isql_script],
-                  channel = channel, 
-                  metadata_column = temp_field_metadata, 
-                  table_metadata = paste0(views$table_comment[isql_script], 
-                                          disclaimer_text))
-  
   end_time <- Sys.time()
   cat(names(print(end_time - start_time)), "\n")
-  
 } ## Loop over tables -- end
