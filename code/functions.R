@@ -72,56 +72,56 @@
 #' @param share_with_all_users boolean. Default = TRUE. Gives all users in 
 #'                             Oracle view permissions. 
 #' 
-update_metadata <- function(schema, 
-                            table_name,
-                            channel, 
-                            metadata_column, 
-                            table_metadata,
-                            share_with_all_users = TRUE) {
-  
-  cat("Updating column and table metadata ...\n")
-  
-  ## Add column metadata 
-  if (nrow(x = metadata_column) > 0) {
-    
-    for (i in 1:nrow(x = metadata_column)) {
-      
-      desc <- gsub(pattern = "<sup>2</sup>",
-                   replacement = "2",
-                   x = metadata_column$METADATA_COLNAME_LONG[i], 
-                   fixed = TRUE)
-      short_colname <- gsub(pattern = "<sup>2</sup>", 
-                            replacement = "2",
-                            x = metadata_column$METADATA_COLNAME [i], 
-                            fixed = TRUE)
-      
-      RODBC::sqlQuery(
-        channel = channel,
-        query = paste0('COMMENT ON COLUMN ', 
-                       schema, '.', table_name,'.',
-                       short_colname,' is \'',
-                       desc, ". ", # remove markdown/html code
-                       gsub(pattern = "'", replacement ='\"',
-                            x = metadata_column$METADATA_COLNAME_DESC[i]),'\';'))
-      
-    }
-  }
-  ## Add table metadata 
-  RODBC::sqlQuery(
-    channel = channel,
-    query = paste0("COMMENT ON TABLE ", schema, '.', table_name, 
-                   " IS '", table_metadata, "';"))
-  
-  
-  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ##   Grant select access to all users
-  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  if (share_with_all_users) {
-      RODBC::sqlQuery(channel = channel,
-                      query = paste0('grant select on ', schema, '.', table_name,
-                                     ' to PUBLIC'))
-  }
-}
+# update_metadata <- function(schema, 
+#                             table_name,
+#                             channel, 
+#                             metadata_column, 
+#                             table_metadata,
+#                             share_with_all_users = TRUE) {
+#   
+#   cat("Updating column and table metadata ...\n")
+#   
+#   ## Add column metadata 
+#   if (nrow(x = metadata_column) > 0) {
+#     
+#     for (i in 1:nrow(x = metadata_column)) {
+#       
+#       desc <- gsub(pattern = "<sup>2</sup>",
+#                    replacement = "2",
+#                    x = metadata_column$METADATA_COLNAME_LONG[i], 
+#                    fixed = TRUE)
+#       short_colname <- gsub(pattern = "<sup>2</sup>", 
+#                             replacement = "2",
+#                             x = metadata_column$METADATA_COLNAME [i], 
+#                             fixed = TRUE)
+#       
+#       RODBC::sqlQuery(
+#         channel = channel,
+#         query = paste0('COMMENT ON COLUMN ', 
+#                        schema, '.', table_name,'.',
+#                        short_colname,' is \'',
+#                        desc, ". ", # remove markdown/html code
+#                        gsub(pattern = "'", replacement ='\"',
+#                             x = metadata_column$METADATA_COLNAME_DESC[i]),'\';'))
+#       
+#     }
+#   }
+#   ## Add table metadata 
+#   RODBC::sqlQuery(
+#     channel = channel,
+#     query = paste0("COMMENT ON TABLE ", schema, '.', table_name, 
+#                    " IS '", table_metadata, "';"))
+#   
+#   
+#   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   ##   Grant select access to all users
+#   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   if (share_with_all_users) {
+#       RODBC::sqlQuery(channel = channel,
+#                       query = paste0('grant select on ', schema, '.', table_name,
+#                                      ' to PUBLIC'))
+#   }
+# }
 
 getSQL <- function(filepath){
   con = file(filepath, "r")
@@ -201,39 +201,39 @@ getSQL <- function(filepath){
 
 
 #' Links to various references
-link_foss <- "https://www.fisheries.noaa.gov/foss"  
-link_repo <- "https://github.com/afsc-gap-products/gap_products" # paste0(shell("git config --get remote.origin.url")) 
-link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
-link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
+# link_foss <- "https://www.fisheries.noaa.gov/foss"  
+# link_repo <- "https://github.com/afsc-gap-products/gap_products" # paste0(shell("git config --get remote.origin.url")) 
+# link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
+# link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
 
 #' Today's date
-pretty_date <- format(Sys.Date(), "%B %d, %Y")
+# pretty_date <- format(Sys.Date(), "%B %d, %Y")
 
 #' Create disclaimer text
 #' 
 create_disclaimer_text <- function(channel = NULL) {
-  if (is.null(x = channel)) 
-    stop("Must provide an Oracle connection using a function 
+  if (is.null(x = channel))
+    stop("Must provide an Oracle connection using a function
          like `gapindex::get_connected()`. ")
-  
-  metadata_table <- 
-    RODBC::sqlQuery(channel = channel, 
+
+  metadata_table <-
+    RODBC::sqlQuery(channel = channel,
                     query = "SELECT * FROM GAP_PRODUCTS.METADATA_TABLE")
-  
-  table_metadata_text <- 
+
+  table_metadata_text <-
     with(metadata_table,
          paste(
            "These data are produced",
            METADATA_SENTENCE[METADATA_SENTENCE_NAME == "survey_institution"],
            METADATA_SENTENCE[METADATA_SENTENCE_NAME == "legal_restrict"],
-           gsub(x = METADATA_SENTENCE[METADATA_SENTENCE_NAME == "github"], 
-                pattern = "INSERT_REPO", 
+           gsub(x = METADATA_SENTENCE[METADATA_SENTENCE_NAME == "github"],
+                pattern = "INSERT_REPO",
                 replacement = link_repo),
-           gsub(x = METADATA_SENTENCE[METADATA_SENTENCE_NAME == "last_updated"], 
-                pattern = "INSERT_DATE", 
+           gsub(x = METADATA_SENTENCE[METADATA_SENTENCE_NAME == "last_updated"],
+                pattern = "INSERT_DATE",
                 replacement = pretty_date),
            collapse = " ", sep = " ")
     )
-  
+
   return(table_metadata_text)
 }

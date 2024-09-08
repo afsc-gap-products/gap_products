@@ -23,18 +23,6 @@ views <- subset(x = read.csv(file = "data/table_comments.csv"),
                 subset = table_type %in% c("akfin", "foss")[1])
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Assemble the basic text that states that GAP produced the tables, the
-##   repo that houses the code to maintain the tables, and the data the 
-##   table was created. This will be appended to each table description.
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-disclaimer_text <- create_disclaimer_text(channel = channel)
-
-## Pull metadata fields from GAP_PRODUCTS.METADATA_COLUMN
-metadata_fields <- RODBC::sqlQuery(channel = channel, 
-                                   query = "SELECT * 
-                                            FROM GAP_PRODUCTS.METADATA_COLUMN")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over SQL scripts, upload to Oracle, and add field and table comments
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
