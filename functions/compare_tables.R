@@ -82,8 +82,6 @@ compare_tables <- function(x = NULL,
   new_records <- eval(parse(text = new_records_stmt))
   new_records <- new_records[, c(key_columns, col_order), with = F]
   
-  if (nrow(x = new_records) > 0) new_records$NOTE <- ""
-  
   removed_records_stmt <- 
     paste0("x[",
            paste0(sapply(X = cols_to_check$colname, 
@@ -95,8 +93,6 @@ compare_tables <- function(x = NULL,
            "]")
   removed_records <- eval(parse(text = removed_records_stmt))
   removed_records <- removed_records[, c(key_columns, col_order), with = F]
-
-  if (nrow(x = removed_records) > 0) removed_records$NOTE <- ""
   
   modified_records_stmt <- 
     paste0("x[",
@@ -107,10 +103,7 @@ compare_tables <- function(x = NULL,
            "]")
   modified_records <- eval(parse(text = modified_records_stmt))
   modified_records <- modified_records[, c(key_columns, col_order), with = F]
-  
-  if (nrow(x = modified_records) > 0) modified_records$NOTE <- ""
 
-    
   return(do.call(what = list,
                  args = list(new_records = new_records, 
                              removed_records = removed_records, 
