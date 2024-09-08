@@ -36,14 +36,9 @@ rm(list = ls())
 ##   Make sure a local temp/ directory is created, save R version data, 
 ##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# devtools::install_github("afsc-gap-products/gapindex@using_datatable",
-# force = TRUE)
-# install.packages("data.table")
-# install.packages("rmarkdown")
-library(gapindex)
-library(data.table)
-library(rmarkdown)
+library(gapindex) # devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
+library(data.table) # install.packages("data.table")
+library(rmarkdown) # install.packages("rmarkdown")
 
 if (!dir.exists(paths = "temp/")) dir.create(path = "temp/")
 
@@ -130,6 +125,5 @@ utils::zip(files = readLines(con = "temp/timestamp.txt"),
                             readLines(con = "temp/timestamp.txt"), ".zip") )
 
 fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
-              new_path = "G:/GAP_PRODUCTS_Archives/"
-                #"Y:/RACE_GF/GAP_PRODUCTS_Archives/"
-                )
+              new_path = "G:/GAP_PRODUCTS_Archives/")
+fs::file_delete(path = readLines(con = "temp/timestamp.txt"))
