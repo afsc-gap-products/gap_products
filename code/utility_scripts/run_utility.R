@@ -34,7 +34,6 @@
 ##   Oracle instead of the current workflow which is Google Sheets --> R (via 
 ##   the googledrive R package) --> Oracle. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/utility_scripts/metadata.R")
 file.edit("code/utility_scripts/pull_support_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,5 +56,5 @@ file.edit("code/utility_scripts/taxonomic_groupings.R")
 ##   table constraints, audit tables and triggers. 
 ##   Frequency: As Needed (mostly in case of emergency)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/push_oracle.R")
+file.edit("code/utility_scripts/push_oracle.R")
 file.edit("code/utility_scripts/create_audit_tables.R")
