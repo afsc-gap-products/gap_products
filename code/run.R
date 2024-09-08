@@ -38,7 +38,6 @@ rm(list = ls())
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex) # devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
 source("functions/output_r_session.R")
-source("functions/archive_gap_products.R") 
 output_r_session(path = "temp/") ## sets up temp/ folder
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,4 +82,5 @@ file.edit("code/akfin_foss.R")
 ##   tables. The session info and package versions are also .csv files in the 
 ##   temp/folder.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+source("functions/archive_gap_products.R") 
 archive_gap_products(path = "temp/", archive_path = "G:/GAP_PRODUCTS_Archives/")
