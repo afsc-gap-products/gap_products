@@ -263,3 +263,11 @@ RODBC::sqlQuery(
 	UPDATE_TABLE_COMMENTS;
 	UPDATE_FIELD_COMMENTS;
 END;")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Use summarize_gp_updates to quickly check audit tables
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# source("functions/summarize_gp_updates.R")
+# summarize_gp_updates(channel = chl,
+#                      time_start = "08-SEP-24 05.00.00 PM",
+#                      time_end = "08-SEP-24 05.30.00 PM" )
