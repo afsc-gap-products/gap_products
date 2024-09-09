@@ -339,8 +339,8 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="akfin_agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_agecomp">AKFIN_AGECOMP</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_AGECOMP</p>
-<p>Number of rows: 678,785</p>
+<p>Mirror of GAP_PRODUCTS.AGECOMP.</p>
+<p>Number of rows: 680,094</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -403,16 +403,16 @@ Area ID key code for each statistical area used to produce production estimates 
 AREA_ID_FOOTPRINT
 </td>
 <td style="text-align:left;">
-NA
+Survey Footprint
 </td>
 <td style="text-align:left;">
-NA
+text
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Survey footprint, usually equivalent to the SURVEY_DEFINITION_ID with the exception of the Standard and Standard +NW survey footprints in the Eastern Bering Sea shelf bottom trawl survey
 </td>
 </tr>
 <tr>
@@ -540,7 +540,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_area" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_area">AKFIN_AREA</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_AREA</p>
+<p>Mirror of GAP_PRODUCTS.AREA.</p>
 <p>Number of rows: 395</p>
 <p>Number of columns: 9</p>
 
@@ -724,7 +724,7 @@ The survey definition ID key code is an integer that uniquely identifies a surve
 </section>
 <section id="akfin_biomass" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_biomass">AKFIN_BIOMASS</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_BIOMASS</p>
+<p>Mirror of GAP_PRODUCTS.BIOMASS.</p>
 <p>Number of rows: 2,656,482</p>
 <p>Number of columns: 16</p>
 
@@ -1027,7 +1027,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_catch" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_catch">AKFIN_CATCH</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_CATCH</p>
+<p>Catch subsetted for standard GAP bottom trawl stations (i.e., HAULJOIN values associated with ABUNDANCE_HAUL = Y in RACEBASE.HAUL).</p>
 <p>Number of rows: 973,540</p>
 <p>Number of columns: 6</p>
 
@@ -1160,7 +1160,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </section>
 <section id="akfin_cpue" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cpue">AKFIN_CPUE</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_CPUE</p>
+<p>Mirror of GAP_PRODUCTS.CPUE</p>
 <p>Number of rows: 21,848,430</p>
 <p>Number of columns: 7</p>
 
@@ -1310,7 +1310,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </section>
 <section id="akfin_cruise" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_cruise">AKFIN_CRUISE</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_CRUISE</p>
+<p>Cruise data for the following five standard GAP bottom trawl regions.</p>
 <p>Number of rows: 174</p>
 <p>Number of columns: 10</p>
 
@@ -1511,7 +1511,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_haul" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_haul">AKFIN_HAUL</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_HAUL</p>
+<p>Standard GAP bottom trawl haul (station) data.</p>
 <p>Number of rows: 34,263</p>
 <p>Number of columns: 25</p>
 
@@ -1967,7 +1967,7 @@ Length of wire deployed during a given haul in meters.
 </section>
 <section id="akfin_length" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_length">AKFIN_LENGTH</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_LENGTH</p>
+<p>Length data subsetted for standard GAP bottom trawl stations (i.e., HAULJOIN values associated with ABUNDANCE_HAUL = Y in RACEBASE.HAUL).</p>
 <p>Number of rows: 4,456,403</p>
 <p>Number of columns: 7</p>
 
@@ -2117,8 +2117,8 @@ The species code of the organism associated with the common_name and scientific_
 </section>
 <section id="akfin_metadata_column" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_metadata_column">AKFIN_METADATA_COLUMN</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_METADATA_COLUMN</p>
-<p>Number of rows: 161</p>
+<p>Mirror of GAP_PRODUCTS.METADATA_COLUMN.</p>
+<p>Number of rows: 170</p>
 <p>Number of columns: 5</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2233,8 +2233,8 @@ Units of the column.
 </section>
 <section id="akfin_sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_sizecomp">AKFIN_SIZECOMP</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_SIZECOMP</p>
-<p>Number of rows: 3,239,488</p>
+<p>Mirror of GAP_PRODUCTS.SIZECOMP.</p>
+<p>Number of rows: 3,284,606</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -2383,7 +2383,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_specimen" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_specimen">AKFIN_SPECIMEN</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_SPECIMEN</p>
+<p>Specimen data subsetted for standard GAP bottom trawl stations (i.e., HAULJOIN values associated with ABUNDANCE_HAUL = Y in RACEBASE.HAUL).</p>
 <p>Number of rows: 589,317</p>
 <p>Number of columns: 12</p>
 
@@ -2618,7 +2618,7 @@ Weight of specimen (grams).
 </section>
 <section id="akfin_stratum_groups" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_stratum_groups">AKFIN_STRATUM_GROUPS</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_STRATUM_GROUPS</p>
+<p>Mirror of GAP_PRODUCTS.STRATUM_GROUPS.</p>
 <p>Number of rows: 768</p>
 <p>Number of columns: 4</p>
 
@@ -2799,7 +2799,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="akfin_taxonomic_classification" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_taxonomic_classification">AKFIN_TAXONOMIC_CLASSIFICATION</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_TAXONOMIC_CLASSIFICATION</p>
+<p>Mirror of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION, subsetting for SURVEY_SPECIES = 1 includes taxonomic classification information accepted by the AFSC GAP bottom trawl survey.</p>
 <p>Number of rows: 2,718</p>
 <p>Number of columns: 19</p>
 
@@ -3153,7 +3153,7 @@ Phylogenetic latin rank of superorder of a given species.
 </section>
 <section id="akfin_taxonomic_groups" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_taxonomic_groups">AKFIN_TAXONOMIC_GROUPS</h3>
-<p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_TAXONOMIC_GROUPS</p>
+<p>Mirror of GAP_PRODUCTS.TAXON_GROUPS.</p>
 <p>Number of rows: 2,758</p>
 <p>Number of columns: 21</p>
 

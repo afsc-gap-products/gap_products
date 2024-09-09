@@ -331,8 +331,8 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="agecomp">AGECOMP</h3>
-<p>Region-level age compositions by sex/length bin.</p>
-<p>Number of rows: 678,785</p>
+<p>Stratum- and region-level age compositions by sex.</p>
+<p>Number of rows: 672,956</p>
 <p>Number of columns: 10</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -395,16 +395,16 @@ Area ID key code for each statistical area used to produce production estimates 
 AREA_ID_FOOTPRINT
 </td>
 <td style="text-align:left;">
-NA
+Survey Footprint
 </td>
 <td style="text-align:left;">
-NA
+text
 </td>
 <td style="text-align:left;">
-NA
+VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
-NA
+Survey footprint, usually equivalent to the SURVEY_DEFINITION_ID with the exception of the Standard and Standard +NW survey footprints in the Eastern Bering Sea shelf bottom trawl survey
 </td>
 </tr>
 <tr>
@@ -532,7 +532,7 @@ Year the observation (survey) was collected.
 </section>
 <section id="area" class="level3">
 <h3 class="anchored" data-anchor-id="area">AREA</h3>
-<p>This table contains all of the information related to the various strata, subareas, INPFC and NMFS management areas, and regions for the Aleutian Islands, Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated April 02, 2024. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
+<p>Information related to the various strata, subareas, INPFC and NMFS management areas, and regions for the Aleutian Islands, Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys.</p>
 <p>Number of rows: 395</p>
 <p>Number of columns: 9</p>
 
@@ -717,7 +717,7 @@ The survey definition ID key code is an integer that uniquely identifies a surve
 <section id="biomass" class="level3">
 <h3 class="anchored" data-anchor-id="biomass">BIOMASS</h3>
 <p>Stratum/subarea/region-level mean CPUE (weight and numbers), total biomass, and total abundance with associated variances.</p>
-<p>Number of rows: 2,656,482</p>
+<p>Number of rows: 2,580,501</p>
 <p>Number of columns: 16</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1020,7 +1020,7 @@ Year the observation (survey) was collected.
 <section id="cpue" class="level3">
 <h3 class="anchored" data-anchor-id="cpue">CPUE</h3>
 <p>Haul-level zero-filled weight and numerical catch-per-unit-effort.</p>
-<p>Number of rows: 21,848,430</p>
+<p>Number of rows: 21,416,058</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1169,7 +1169,7 @@ Weight (thousandths of a kilogram) of individuals in a haul by taxon.
 </section>
 <section id="survey_design" class="level3">
 <h3 class="anchored" data-anchor-id="survey_design">SURVEY_DESIGN</h3>
-<p>This table contains for a given survey (via SURVEY_DEFINITION_ID) and survey year (YEAR), which version (DESIGN_YEAR) of the AREA_IDs that were used to calculate the various standard data products. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated April 02, 2024. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
+<p>This table contains for a given survey (via SURVEY_DEFINITION_ID) and survey year (YEAR), which version (DESIGN_YEAR) of the AREA_IDs that were used to calculate the various standard data products.</p>
 <p>Number of rows: 87</p>
 <p>Number of columns: 3</p>
 
@@ -1251,8 +1251,8 @@ Year the observation (survey) was collected.
 </section>
 <section id="metadata_table" class="level3">
 <h3 class="anchored" data-anchor-id="metadata_table">METADATA_TABLE</h3>
-<p>These columns provide the table metadata for all of the tables and views in GAP_PRODUCTS. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated September 04, 2024. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
-<p>Number of rows: 8</p>
+<p>This table is used to string together the various table comments for the tables in GAP_PRODUCTS.</p>
+<p>Number of rows: 21</p>
 <p>Number of columns: 3</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1333,7 +1333,7 @@ Type of sentence to have in table metadata.
 </section>
 <section id="stratum_groups" class="level3">
 <h3 class="anchored" data-anchor-id="stratum_groups">STRATUM_GROUPS</h3>
-<p>This table contains all of strata that are contained within a given subarea, INPFC or NMFS management area, or region for the Aleutian Islands, Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys. These tables are created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. These data were last updated April 02, 2024. There are no legal restrictions on access to the data. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual).</p>
+<p>Lookup table for which strata are contained within a given subarea, INPFC or NMFS management area, or region for the Aleutian Islands, Gulf of Alaska, and Bering Sea shelf and slope bottom trawl surveys.</p>
 <p>Number of rows: 768</p>
 <p>Number of columns: 4</p>
 
@@ -1432,8 +1432,8 @@ The survey definition ID key code is an integer that uniquely identifies a surve
 </section>
 <section id="sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="sizecomp">SIZECOMP</h3>
-<p>Stratum/subarea/region-level size compositions by sex. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). There are legal restrictions on access to the data. These data are not intended for public dissemination and should not be shared without the explicit written consent of the data managers and owners (NOAA Fisheries). The GitHub repository for the scripts that created this code can be found at https://github.com/afsc-gap-products/gap_products. For more information about codes used in the tables, please refer to the survey code books (https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual). These data were last updated April 10, 2024.</p>
-<p>Number of rows: 3,239,488</p>
+<p>Stratum/subarea/region-level size compositions by sex.</p>
+<p>Number of rows: 3,216,121</p>
 <p>Number of columns: 7</p>
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
