@@ -50,31 +50,20 @@ output_r_session(path = "temp/") ## sets up temp/ folder
 file.edit("code/pull_existing_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Create Production Tables ----
+##   Create Production Tables and Compare Data Table----
 ##   Calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, 
-##   AGECOMP for all taxa, survey years, survey regions. 
+##   AGECOMP for all taxa, survey years, survey regions and compare to what
+##   is on GAP_PRODUCTS currently 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/production.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare Data Tables ---- 
-##   These tables are compared and checked to their respective locally saved 
-##   copies in the temp/ folder, and any changes to the tables are tabulated 
-##   and documented in a text file outputted to the temp/ folder.  
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/check_tables.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Update Production Tables ----
+##   Update Production Tables and Update AKFIN and FOSS Tables----
 ##   Removed, new, and modified records are updated in GAP_PRODUCTS.
+##   Once GAP_PRODUCTS tables are updated, run queries for the materialized 
+##   views created for AKFIN and FOSS.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/update_production_tables.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Update Derivative Tables ----
-##   Run queries for the materialized views created for AKFIN and FOSS.
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/akfin_foss.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Archive GAP_PRODUCTS  ----
