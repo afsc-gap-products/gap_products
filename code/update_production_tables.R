@@ -310,7 +310,7 @@ END;")
 ##   Import AKFIN and FOSS table names and table descriptions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 views <- subset(x = read.csv(file = "data/table_comments.csv"),
-                subset = table_type %in% c("akfin", "foss")[1])
+                subset = table_type %in% c("akfin", "foss"))
 source("functions/getSQL.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
