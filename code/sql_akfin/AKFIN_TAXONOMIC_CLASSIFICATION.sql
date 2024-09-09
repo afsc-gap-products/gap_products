@@ -1,7 +1,6 @@
--- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_TAXONOMY
+-- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_TAXONOMIC_CLASSIFICATION
 --
--- [Enter description.]
--- (github.com/afsc-gap-products/gap_products). 
+-- Mirror of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION, subsetting for SURVEY_SPECIES = 1 includes taxonomic classification information accepted by the AFSC GAP bottom trawl survey.
 --
 -- Contributors: Ned Laman (ned.laman@noaa.gov), 
 --               Zack Oyafuso (zack.oyafuso@noaa.gov), 

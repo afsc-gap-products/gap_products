@@ -36,30 +36,9 @@ rm(list = ls())
 ##   Make sure a local temp/ directory is created, save R version data, 
 ##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# devtools::install_github("afsc-gap-products/gapindex@using_datatable",
-# force = TRUE)
-# install.packages("data.table")
-# install.packages("rmarkdown")
-library(gapindex)
-library(data.table)
-library(rmarkdown)
-
-if (!dir.exists(paths = "temp/")) dir.create(path = "temp/")
-
-## Output time stamp at the start of production
-writeLines(text = as.character(Sys.Date()), 
-           con = "temp/timestamp.txt")
-
-## Output R session information (R version, package versions, etc.)
-writeLines(text = capture.output(sessionInfo()), 
-           con = "temp/sessionInfo.txt")
-
-## Output more detailed information on package versions
-write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")], 
-                            row.names = F), 
-          file = "temp/installed_packages.csv", 
-          row.names = F)
+library(gapindex) # devtools::install_github("afsc-gap-products/gapindex@using_datatable", force = TRUE)
+source("functions/output_r_session.R")
+output_r_session(path = "temp/") ## sets up temp/ folder
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull Existing GAP_PRODUCTS Tables and Views ----
@@ -71,65 +50,26 @@ write.csv(x = as.data.frame(installed.packages()[, c("Package", "Version")],
 file.edit("code/pull_existing_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Create Production Tables ----
+##   Create Production Tables and Compare Data Table----
 ##   Calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, 
-##   AGECOMP for all taxa, survey years, survey regions. 
+##   AGECOMP for all taxa, survey years, survey regions and compare to what
+##   is on GAP_PRODUCTS currently 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/production.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Compare Data Tables ---- 
-##   These tables are compared and checked to their respective locally saved 
-##   copies in the temp/ folder, and any changes to the tables are tabulated 
-##   and documented in a text file outputted to the temp/ folder.  
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/check_tables.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Update Production Tables ----
+##   Update Production Tables and Update AKFIN and FOSS Tables----
 ##   Removed, new, and modified records are updated in GAP_PRODUCTS.
+##   Once GAP_PRODUCTS tables are updated, run queries for the materialized 
+##   views created for AKFIN and FOSS.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 file.edit("code/update_production_tables.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Update Derivative Tables ----
-##   Run queries for the materialized views created for AKFIN and FOSS.
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-file.edit("code/akfin_foss.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Archive GAP_PRODUCTS  ----
 ##   Archive the bits that would allow one to reproduce the standard data 
 ##   tables. The session info and package versions are also .csv files in the 
-##   temp/folder. The NEWS html is currently the way that changes are reported. 
+##   temp/folder.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Copy changelog to news section
-fs::file_copy(path = "temp/report_changes.txt",
-              new_path = paste0("content/intro-news/", 
-                                readLines(con = "temp/timestamp.txt"), 
-                                ".txt") )
-
-## Create a new directory with the timestamp as the title. This is the directory
-## that will store the archive.
-dir.create(path = readLines(con = "temp/timestamp.txt"))
-
-## Copy the contents in the code/, functions/, and temp/ directories into the 
-## archive directory
-file.copy(from = "gap_products.Rproj", 
-          to = readLines(con = "temp/timestamp.txt"))
-fs::dir_copy(path = "code/", 
-         new_path = readLines(con = "temp/timestamp.txt"))
-fs::dir_copy(path = "functions/", 
-             new_path = readLines(con = "temp/timestamp.txt"))
-fs::dir_copy(path = "temp/", 
-             new_path = readLines(con = "temp/timestamp.txt"))
-
-## Zip folder and move to G: drive
-utils::zip(files = readLines(con = "temp/timestamp.txt"),
-           zipfile = paste0(getwd(), "/", 
-                            readLines(con = "temp/timestamp.txt"), ".zip") )
-
-fs::file_move(path = paste0(readLines(con = "temp/timestamp.txt"), ".zip"),
-              new_path = "G:/GAP_PRODUCTS_Archives/"
-                #"Y:/RACE_GF/GAP_PRODUCTS_Archives/"
-                )
+source("functions/archive_gap_products.R") 
+archive_gap_products(path = "temp/", archive_path = "G:/GAP_PRODUCTS_Archives/")

@@ -1,159 +1,127 @@
-#' -----------------------------------------------------------------------------
-#' title: Create public data 
-#' author: EH Markowitz
-#' start date: 2022-01-01
-#' Notes: 
-#' -----------------------------------------------------------------------------
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Project:       Update Metadata Tables in Oracle
+## Description:   Pull the most recent version of the future oracle spreadsheet
+##                google sheet, save locally, then upload to GAP_PRODUCTS. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rm(list = ls())
 
-# Table Metadata canned sentences ----------------------------------------------
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Import Libraries and constants, connect to Oracle
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(googledrive)
+library(gapindex)
+library(readxl)
+library(janitor)
+library(dplyr)
+source(file = "code/functions.R")
 
-bibfiletext <- readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib")
-find_start <- grep(pattern = "FOSSAFSCData", x = bibfiletext, fixed = TRUE)
-find_end <- which(bibfiletext == "}")
-find_end <- find_end[find_end>find_start][1]
-a <- bibfiletext[find_start:find_end]
+chl <- gapindex::get_connected(check_access = F)
 
-link_foss <- a[grep(pattern = "howpublished = {", x = a, fixed = TRUE)]
-link_foss <- gsub(pattern = "howpublished = {", replacement = "", x = link_foss, fixed = TRUE)
-link_foss <- gsub(pattern = "},", replacement = "", x = link_foss, fixed = TRUE)
-link_foss <- trimws(link_foss)
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Download the most recent version of the future_oracle.xlsx 
+##   google sheet and save locally in the temp folder. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+googledrive::drive_download(
+  file = googledrive::as_id("1wgAJPPWif1CC01iT2S6ZtoYlhOM0RSGFXS9LUggdLLA"), 
+  path = "temp/future_oracle.xlsx", 
+  overwrite = TRUE)
 
-link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
-link_repo <- "https://github.com/afsc-gap-products/gap_public_data"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Clean up metadata_table: the table that houses the shared sentence 
+##   fragments that will describe each table. 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+metadata_table <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+                                    sheet = "METADATA_TABLE") 
+# metadata_table$metadata_sentence <- gsub(x = metadata_table$metadata_sentence,
+#                                          pattern = "INSERT_CODE_BOOK", 
+#                                          replacement = link_code_books)
+# AREA <- subset(x = readxl::read_xlsx(path = "temp/future_oracle.xlsx",
+#                                      sheet = "AREA"),
+#                select = -AREAJOIN)
+# STRATUM_GROUPS <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+#                                     sheet = "STRATUM_GROUPS") 
+# SURVEY_DESIGN <- readxl::read_xlsx(path = "temp/future_oracle.xlsx", 
+#                                     sheet = "SURVEY_DESIGN") 
+shared_metadata_comment <-
+  with(metadata_table,
+       paste(
+         metadata_sentence[metadata_sentence_name == "survey_institution"],
+         gsub(pattern = "INSERT_REPO", replacement = link_repo,
+              x = metadata_sentence[metadata_sentence_name == "github"]),
+         gsub(pattern = "INSERT_DATE", replacement = pretty_date,
+              x = metadata_sentence[metadata_sentence_name == "last_updated"]),
+         metadata_sentence[metadata_sentence_name == "legal_restrict_none"],
+         metadata_sentence[metadata_sentence_name == "codebook"])
+  )
 
-metadata_sentence_survey_institution <- paste0("in the ", paste0(surveys$SRVY_long, " (", surveys$SRVY, ")", collapse = ", "), " Surveys conducted by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). ")
-metadata_sentence_legal_restrict <- paste0("There are no legal restrictions on access to the data. ")
-metadata_sentence_foss <- paste0("The data from this dataset are shared on the Fisheries One Stop Stop (FOSS) platform (",link_foss,"). ") 
-metadata_sentence_github <- paste0("The GitHub repository for the scripts that created this code can be found at ",
-                                   "INSERT_REPO", # link_repo
-                                   ". ")
-metadata_sentence_last_updated <- paste0("These data were last updated ", 
-                                         "INSERT_DATE", # format(x = as.Date(strsplit(x = dir_out, split = "/", fixed = TRUE)[[1]][length(strsplit(x = dir_out, split = "/", fixed = TRUE)[[1]])]), "%B %d, %Y"), 
-                                         ". ")
-metadata_sentence_codebook <- paste0("For more information about codes used in the tables, please refer to the survey code books (", link_code_books, "). ")
+metadata_table_comment <- paste(
+  "This table is used to string together the various table comments for the tables in GAP_PRODUCTS. These tables are created", shared_metadata_comment
+)
 
-metadata_table <- data.frame(matrix(
-  ncol = 2, byrow = TRUE, 
-  data = c(
-  "survey_institution", metadata_sentence_survey_institution, 
-  "legal_restrict", metadata_sentence_legal_restrict, 
-  "foss", metadata_sentence_foss, 
-  "github", metadata_sentence_github, 
-  "last_updated", metadata_sentence_last_updated, 
-  "codebook", metadata_sentence_codebook) 
-) )
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Clean up metadata_column: df that houses metadata column info
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+metadata_column <- readxl::read_xlsx( ## import spreadsheet
+  path = "temp/future_oracle.xlsx",
+  sheet = "METADATA_COLUMN",
+  skip = 1) %>%
+  janitor::clean_names() %>% ## clean field names
+  ## select fields that start with "metadata_"
+  dplyr::select(dplyr::starts_with("metadata_")) %>%
+  ## filter out true NAs, "", "NA", and nulls in field "metadata_colname"
+  dplyr::filter(!is.na(metadata_colname)) %>%
+  dplyr::filter(!is.null(metadata_colname)) %>%
+  dplyr::filter(!(metadata_colname %in% c("", "NA"))) %>%
+  dplyr::mutate(
+    ## input the links to the codebook
+    metadata_colname_desc = gsub(pattern = "INSERT_CODE_BOOK",
+                                 replacement = link_code_books,
+                                 x = metadata_colname_desc),
+    ## remove extra spaces?
+    metadata_colname_desc = gsub(pattern = "  ",
+                                 replacement = " ",
+                                 x = metadata_colname_desc,
+                                 fixed = TRUE),
+    ## remove extra periods?
+    metadata_colname_desc = gsub(pattern = "..",
+                                 replacement = ".",
+                                 x = metadata_colname_desc,
+                                 fixed = TRUE))
 
-names(metadata_table) <- c("metadata_sentence_type", "metadata_sentence")
-
-readr::write_csv(x = metadata_table, 
-                 file = paste0(dir_out, "metadata_table.csv"))
-
-# Column Metadata --------------------------------------------------------------
-
-metadata_column <- data.frame(matrix(
-  ncol = 4, byrow = TRUE, 
-  data = c(
-    "year", "Year", "numeric", "Year the survey was conducted in.", 
-    
-    "srvy", "Survey", "Abbreviated text", "Abbreviated survey names. The column 'srvy' is associated with the 'survey' and 'survey_id' columns. Northern Bering Sea (NBS), Southeastern Bering Sea (EBS), Bering Sea Slope (BSS), Gulf of Alaska (GOA), Aleutian Islands (AI). ", 
-    
-    "survey", "Survey Name", "text", "Name and description of survey. The column 'survey' is associated with the 'srvy' and 'survey_id' columns. ", 
-    
-    "survey_id", "Survey ID", "ID code", paste0("This number uniquely identifies a survey. Name and description of survey. The column 'survey_id' is associated with the 'srvy' and 'survey' columns. For a complete list of surveys, review the [code books](", link_code_books ,"). "), 
-    
-    "cruise", "Cruise ID", "ID code", "This is a six-digit number identifying the cruise number of the form: YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is sequential; 01 denotes the first cruise that vessel made in this year, 02 is the second, etc.). ", 
-    
-    "haul", "Haul Number", "ID code", "This number uniquely identifies a sampling event (haul) within a cruise. It is a sequential number, in chronological order of occurrence. ", 
-    
-    "hauljoin", "hauljoin", "ID Code", "This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.", 
-    
-    "stratum", "Stratum ID", "ID Code", "RACE database statistical area for analyzing data. Strata were designed using bathymetry and other geographic and habitat-related elements. The strata are unique to each survey series. Stratum of value 0 indicates experimental tows.", 
-    
-    "station", "Station ID", "ID code", "Alpha-numeric designation for the station established in the design of a survey. ", 
-    
-    "vessel_id", "Vessel ID", "ID Code", paste0("ID number of the vessel used to collect data for that haul. The column 'vessel_id' is associated with the 'vessel_name' column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID codes, review the [code books](", link_code_books ,")."), 
-    
-    "vessel_name", "Vessel Name", "text", paste0("Name of the vessel used to collect data for that haul. The column 'vessel_name' is associated with the 'vessel_id' column. Note that it is possible for a vessel to have a new name but the same vessel id number. For a complete list of vessel ID codes, review the [code books](", link_code_books ,"). "), 
-    
-    "date_time", "Date and Time of Haul", "MM/DD/YYYY HH::MM", "The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul. ", 
-    
-    "longitude_dd_start", "Start Longitude (decimal degrees)", "decimal degrees, 1e-05 resolution", "Longitude (one hundred thousandth of a decimal degree) of the start of the haul. ", 
-    
-    "latitude_dd_start", "Start Latitude (decimal degrees)", "decimal degrees, 1e-05 resolution", "Latitude (one hundred thousandth of a decimal degree) of the start of the haul. ",
-    
-    "longitude_dd_end", "End Longitude (decimal degrees)", "decimal degrees, 1e-05 resolution", "Longitude (one hundred thousandth of a decimal degree) of the end of the haul. ", 
-    
-    "latitude_dd_end", "End Latitude (decimal degrees)", "decimal degrees, 1e-05 resolution", "Latitude (one hundred thousandth of a decimal degree) of the end of the haul. ",
-    
-    "species_code", "Taxon Code", "ID code", paste0("The species code of the organism associated with the 'common_name' and 'scientific_name' columns. For a complete species list, review the [code books](", link_code_books ,")."), 
-    
-    "common_name", "Taxon Common Name", "text", paste0("The common name of the marine organism associated with the 'scientific_name' and 'species_code' columns. For a complete species list, review the [code books](", link_code_books ,")."), 
-    
-    "scientific_name", "Taxon Scientific Name", "text", paste0("The scientific name of the organism associated with the 'common_name' and 'species_code' columns. For a complete taxon list, review the [code books](", link_code_books ,")."), 
-    
-    "taxon_confidence", "Taxon Confidence Rating", "rating", "Confidence in the ability of the survey team to correctly identify the taxon to the specified level, based solely on identification skill (e.g., not likelihood of a taxon being caught at that station on a location-by-location basis). Quality codes follow: **'High'**: High confidence and consistency. Taxonomy is stable and reliable at this level, and field identification characteristics are well known and reliable. **'Moderate'**: Moderate confidence. Taxonomy may be questionable at this level, or field identification characteristics may be variable and difficult to assess consistently. **'Low'**: Low confidence. Taxonomy is incompletely known, or reliable field identification characteristics are unknown. Documentation: [Species identification confidence in the eastern Bering Sea shelf survey (1982-2008)](http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2009-04.pdf), [Species identification confidence in the eastern Bering Sea slope survey (1976-2010)](http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-05.pdf), and [Species identification confidence in the Gulf of Alaska and Aleutian Islands surveys (1980-2011)](http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-01.pdf). ", 
-    
-    "taxon_confidence0", "Taxon Confidence Rating", "numeric rating", "Confidence in the ability of the survey team to correctly identify the taxon to the specified level, based solely on identification skill (e.g., not likelihood of a taxon being caught at that station on a location-by-location basis). Quality codes follow: **'High'**: High confidence and consistency. Taxonomy is stable and reliable at this level, and field identification characteristics are well known and reliable. **'Moderate'**: Moderate confidence. Taxonomy may be questionable at this level, or field identification characteristics may be variable and difficult to assess consistently. **'Low'**: Low confidence. Taxonomy is incompletely known, or reliable field identification characteristics are unknown. Documentation: [Species identification confidence in the eastern Bering Sea shelf survey (1982-2008)](http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2009-04.pdf), [Species identification confidence in the eastern Bering Sea slope survey (1976-2010)](http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-05.pdf), and [Species identification confidence in the Gulf of Alaska and Aleutian Islands surveys (1980-2011)](http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-01.pdf). ", 
-    
-    "cpue_kgha", "Weight CPUE (kg/ha)", "kilograms/hectare", "Relative Density. Catch weight (kilograms) divided by area (hectares) swept by the net.", 
-    
-    "cpue_kgkm2", "Weight CPUE (kg/km<sup>2</sup>)", "kilograms/kilometers<sup>2</sup>", "Relative Density. Catch weight (kilograms) divided by area (squared kilometers) swept by the net. ", 
-    
-    # "cpue_kg1000km2", "Weight CPUE (kg/1,000 km<sup>2</sup>)", "kilograms/1000 kilometers<sup>2</sup>", "Relative Density. Catch weight (kilograms) divided by area (thousand square kilometers) swept by the net. ", 
-    
-    "cpue_noha", "Number CPUE (no./ha)", "count/hectare", "Relative Abundance. Catch number (in number of organisms) per area (hectares) swept by the net. ", 
-    
-    "cpue_nokm2", "Number CPUE (no./km<sup>2</sup>)", "count/kilometers<sup>2</sup>", "Relative Abundance. Catch number (in number of organisms) per area (squared kilometers) swept by the net. ", 
-    
-    # "cpue_no1000km2", "Number CPUE (no./1,000 km<sup>2</sup>)", "count/1000 kilometers<sup>2</sup>", "Relative Abundance. Catch weight (in number of organisms) divided by area (thousand square kilometers) swept by the net. ", 
-    
-    "weight_kg", "Taxon Weight (kg)", "kilograms, thousandth resolution", "Weight (thousandths of a kilogram) of individuals in a haul by taxon. ",
-    
-    "count", "Taxon Count", "count, whole number resolution", "Total number of individuals caught in haul by taxon, represented in whole numbers. ", 
-    
-    "bottom_temperature_c", "Bottom Temperature (Degrees Celsius)", "degrees Celsius, tenths of a degree resolution", "Bottom temperature (tenths of a degree Celsius); NA indicates removed or missing values. ", 
-    
-    "surface_temperature_c", "Surface Temperature (Degrees Celsius)", "degrees Celsius, tenths of a degree resolution", "Surface temperature (tenths of a degree Celsius); NA indicates removed or missing values. ", 
-    
-    "bottom_temperature_c", "Bottom Temperature (Degrees Celsius)", "degrees Celsius, tenths of a degree resolution", "Bottom temperature (tenths of a degree Celsius); NA indicates removed or missing values. ", 
-    
-    "depth_m", "Depth (m)", "meters, tenths of a meter resolution", "Bottom depth (tenths of a meter). ", 
-    
-    "distance_fished_km", "Distance Fished (km)", "kilometers, thousandths of kilometer resolution", "Distance the net fished (thousandths of kilometers). ", 
-    
-    "net_width_m", "Net Width (m)", "meters", "Measured or estimated distance (meters) between wingtips of the trawl. ", 
-    
-    "net_height_m", "Net Height (m)", "meters", "Measured or estimated distance (meters) between footrope and headrope of the trawl. ", 
-    
-    "area_swept_ha", "Area Swept (ha)", "hectares", "The area the net covered while the net was fishing (hectares), defined as the distance fished times the net width.", 
-    
-    "duration_hr", "Tow Duration (decimal hr)", "decimal hours", "This is the elapsed time between start and end of a haul (decimal hours).", 
-    
-    "performance", "Haul Performance Code (rating)", "rating", paste0("This denotes what, if any, issues arose during the haul. For more information, review the [code books](", link_code_books ,")."), 
-    
-    "itis", "ITIS Taxonomic Serial Number", "ID code", paste0("Species code as identified in the Integrated Taxonomic Information System (https://itis.gov/). Codes were last updated ", file.info(paste0("./data/AFSC_ITIS_WORMS.csv"))$ctime, "."), 
-    
-    "worms", "World Register of Marine Species Taxonomic Serial Number", "ID code", paste0("Species code as identified in the World Register of Marine Species (WoRMS) (https://www.marinespecies.org/). Codes were last updated ", file.info(paste0("./data/AFSC_ITIS_WORMS.csv"))$ctime, "."), 
-    
-    
-    
-    # metadata tables:
-    "metadata_colname", "Column name", "text", "Name of the column in a table", 
-    "metadata_colname_long", "Column name spelled out", "text", "Long name for the column", 
-    "metadata_units", "Units", "text", "units the column is in", 
-    "metadata_colname_desc", "column description", "text", "Descritpion of the column", 
-    "metadata_sentence_type", "Sentence type", "text", "Type of sentence to have in table metadata",  
-    "metadata_sentence", "Sentence", "text", "Table metadata sentence", 
-    
-    "dummy", "dummy", "dummy", "dummy"
-    
-    
-    
-  )))
-
-names(metadata_column) <- c("metadata_colname", "metadata_colname_long", "metadata_units", "metadata_colname_desc")
-readr::write_csv(x = metadata_column, 
-                 file = paste0(dir_out, "metadata_column.csv"))
-
-
-
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  Upload the two tables to Oracle
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (isql_table in c("metadata_table"#, 
+                     #"metadata_column",
+                    # "AREA", "STRATUM_GROUPS", 
+                     #"SURVEY_DESIGN")
+                     )) { ## loop over tables -- start
+  
+  ## Temporary dataframe that houses comment on each field The 
+  ## field names in get(x = isql_table) should match those in 
+  ## `metadata_column$metadata_colname`. If they don't, modify the future_oracle
+  ## spreadsheet and reimport. 
+  temp_metadata_column <- subset(x = metadata_column, 
+                                 subset = metadata_colname %in% 
+                                   toupper(names(x = get(x = isql_table))))
+  
+  ## In gapindex::upload_oracle, the `table_metadata` argument requires 
+  ## specific field names
+  names(x = temp_metadata_column) <- gsub(x = names(x = temp_metadata_column),
+                                          pattern = "metadata_",
+                                          replacement = "")
+  
+  ## Temporary comment on the table itself
+  temp_metadata_comment <- get(x = paste0(isql_table, "_comment"))
+  
+  ## Upload table: gapindex function will drop the table if it already exists,
+  ## saves the table, then adds the comment on the table and each column.
+  gapindex::upload_oracle(x = get(x = isql_table), 
+                          table_name = toupper(x = isql_table), 
+                          metadata_column = temp_metadata_column, 
+                          table_metadata = temp_metadata_comment, 
+                          channel = chl, 
+                          schema = "GAP_PRODUCTS", 
+                          share_with_all_users = TRUE)
+  
+} ## loop over tables -- end
