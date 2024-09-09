@@ -22,17 +22,48 @@ rm(list = ls())
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  Load libraries and connect to Oracle. Make sure to connect using the 
-##  GAP_PRODUCTS credentials. 
-##  Import Production Updates.
+##  GAP_PRODUCTS credentials. Import mismatches.RDS and constants
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-library(gapindex); library(data.table)
+library(gapindex); library(data.table); library(rmarkdown)
 gapproducts_channel <- gapindex::get_connected(check_access = F)
 updates <- readRDS(file = "temp/mismatches.RDS")
 regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import all field names
+##   Look at temp/mismatches.RDS and write a quick paragraph about the changes
+##   in the data tables. Include your name and gapindex version used to produce
+##   these data. In the next step, a summary of how many records were 
+##   new/removed/modified are already provided so you don't need to tabulate 
+##   these, just the reasons why these changes occurred (new data, new 
+##   vouchered data, ad hoc decisions about taxon aggregations, updated stratum
+##   areas, updated gapindex package, etc.) 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+detailed_notes <- 
+  "Run completed by: Ned Laman, Zack Oyafuso
+
+A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
+
+There was a minor issue with how the 9/4/2024 run uploaded records to Oracle from R that has been remedied. This run was a redo of the previous run and all changes in this run are summarized in the 9/4/2024 version of the changelog.
+
+"
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Create report changelog
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gapindex_version <- 
+  subset(x = read.csv(file = "temp/installed_packages.csv"),
+         subset = Package == "gapindex")$Version
+timestamp <- readLines(con = "temp/timestamp.txt")
+rmarkdown::render(input = "code/report_changes.RMD",
+                  output_format = "html_document",
+                  output_file = paste0("../temp/report_changes.html"),
+                  params = list("detailed_notes" = detailed_notes,
+                                "gapindex_version" = gapindex_version,
+                                "timestamp" = timestamp))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Import all field names to aid with uploading to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 all_field_names <- 
   RODBC::sqlQuery(
@@ -74,7 +105,7 @@ ORDER BY TABLE_NAME, FIELD_TYPE, COLUMN_NAME
   )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   
+##   Loop over regions and table and upload updates
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (iregion in regions) {
   for (iquantity in all_tables) {
@@ -271,3 +302,45 @@ END;")
 # summarize_gp_updates(channel = chl,
 #                      time_start = "08-SEP-24 05.00.00 PM",
 #                      time_end = "08-SEP-24 05.30.00 PM" )
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Update FOSS and AKFIN Tables
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Import AKFIN and FOSS table names and table descriptions
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+views <- subset(x = read.csv(file = "data/table_comments.csv"),
+                subset = table_type %in% c("akfin", "foss")[1])
+source("functions/getSQL.R")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Loop over SQL scripts, upload to Oracle, and add field and table comments
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
+  start_time <- Sys.time()
+  temp_table_name <- paste0("GAP_PRODUCTS.", views$table_name[isql_script])
+  cat("Creating", temp_table_name, "...\n")
+  
+  ## Extract tables already in GAP_PRODUCTS
+  available_views <- subset(x = RODBC::sqlTables(channel = channel, 
+                                                 schema = "GAP_PRODUCTS"))
+  
+  ## If the temp_table_name already exists, drop before recreating
+  if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
+    RODBC::sqlQuery(channel = channel, 
+                    query = paste("DROP MATERIALIZED VIEW", temp_table_name))
+  
+  ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
+  ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
+  ## caled code/sql_foss.
+  RODBC::sqlQuery(
+    channel = channel,
+    query = getSQL(filepath = paste0("code/sql_", 
+                                     views$table_type[isql_script], "/", 
+                                     views$table_name[isql_script], ".sql")
+    )
+  )
+  
+  end_time <- Sys.time()
+  cat(names(print(end_time - start_time)), "\n")
+} ## Loop over tables -- end
