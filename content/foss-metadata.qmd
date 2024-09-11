@@ -3,7 +3,7 @@ title: Data description
 ---
 
 ```{r setup, include=FALSE}
-#| file: functions.R
+#| file: functions.R 
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
 ```
 

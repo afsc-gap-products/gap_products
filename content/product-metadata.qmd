@@ -13,7 +13,7 @@ title: Data description
 locations <- c("AGECOMP", "AREA",
                    "BIOMASS", "CPUE",
                    "SURVEY_DESIGN", "METADATA_TABLE",
-                   "STRATUM_GROUPS", "SIZECOMP")
+                   "STRATUM_GROUPS", "SIZECOMP") 
 
 str00 <- print_table_metadata(channel, locations)
 ```
