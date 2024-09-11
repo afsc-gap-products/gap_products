@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.3.450" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation – 2  Workflow</title>
+<title>GAP Production Data Documentation - Workflow</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,14 +22,38 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/intro-news.html" rel="next">
+<link href="../content/intro-survey-background.html" rel="prev">
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -40,37 +62,35 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
-<script  src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script  src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link  href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet" />
-<link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
 <script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
 
 
 </head>
 
-<body>
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn"
-      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
-      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
-      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <h1 class="quarto-secondary-nav-title"></h1>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
-      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
-      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-workflow.html"><span class="chapter-title">Workflow</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -80,29 +100,27 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
-      <a href="/index.html" class="sidebar-logo-link">
-      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none"/>
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="/">
-      GAP Production Data Documentation
-      </a> 
+      <a href="../">GAP Production Data Documentation</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/afsc-gap-products" rel="" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/afsc-gap-products/gap_products" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/afsc-gap-products" title="AFSC GAP Survey Data Products" class="quarto-navigation-tool px-1" aria-label="AFSC GAP Survey Data Products"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="/GAP-Production-Data-Documentation.pdf">
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.pdf">
               <i class="bi bi-bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="/GAP-Production-Data-Documentation.docx">
+            <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.docx">
               <i class="bi bi-bi-file-word pe-1"></i>
             Download Docx
             </a>
@@ -121,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -130,33 +148,29 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-survey-background.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Survey Background</span></span></a>
+  <a href="../content/intro-survey-background.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Survey Background</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-workflow.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>Workflow</span></span></a>
+  <a href="../content/intro-workflow.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Workflow</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-news.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>News</span></span></a>
+  <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">News</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/intro-code-of-conduct.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>4</span>  <span class='chapter-title'>Code of Conduct</span></span></a>
+  <a href="../content/intro-code-of-conduct.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Code of Conduct</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/product-intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GAP Production Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -165,15 +179,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/product-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Data description</span></span></a>
+  <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/akfin-intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/akfin-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AKFIN</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -182,27 +195,24 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/akfin-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>6</span>  <span class='chapter-title'>Data description</span></span></a>
+  <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>7</span>  <span class='chapter-title'>Access data via Oracle and R</span></span></a>
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access data via Oracle and R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/akfin-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>8</span>  <span class='chapter-title'>Access API data using R</span></span></a>
+  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access API data using R</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/foss-intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/foss-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Public Data (FOSS)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -211,40 +221,35 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-metadata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>9</span>  <span class='chapter-title'>Data description</span></span></a>
+  <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-platform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>10</span>  <span class='chapter-title'>Using the FOSS platform</span></span></a>
+  <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using the FOSS platform</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-api-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>11</span>  <span class='chapter-title'>Access via API and R</span></span></a>
+  <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via API and R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-api-py.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>12</span>  <span class='chapter-title'>Access via API and Python</span></span></a>
+  <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via API and Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/foss-oracle-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>13</span>  <span class='chapter-title'>Access via Oracle and R (AFSC only)</span></span></a>
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/other-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data Products & Tools</span></a>
+            <a href="../content/other-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Products &amp; Tools</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -252,15 +257,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/other-pkgs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>14</span>  <span class='chapter-title'>Open source code</span></span></a>
+  <a href="../content/other-pkgs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open source code</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="/content/end-contact-us.html" class="sidebar-item-text sidebar-link">
+            <a href="../content/end-contact-us.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contact us</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -269,20 +273,17 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-run-notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>15</span>  <span class='chapter-title'>Production run notes</span></span></a>
+  <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Production run notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>16</span>  <span class='chapter-title'>Acknowledgments</span></span></a>
+  <a href="../content/end-acknowledgements.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/content/end-refs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>17</span>  <span class='chapter-title'>References</span></span></a>
+  <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
   </div>
 </li>
       </ul>
@@ -290,26 +291,43 @@ ul.task-list li input[type="checkbox"] {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#operational-product-development-timeline" id="toc-operational-product-development-timeline" class="nav-link active" data-scroll-target="#operational-product-development-timeline">Operational Product Development Timeline</a></li>
+  <li><a href="#data-workflow-from-boat-to-production" id="toc-data-workflow-from-boat-to-production" class="nav-link" data-scroll-target="#data-workflow-from-boat-to-production">Data workflow from boat to production</a></li>
+  <li><a href="#data-levels" id="toc-data-levels" class="nav-link" data-scroll-target="#data-levels">Data levels</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-workflow.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-workflow.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <div id="google_translate_element"></div>
 
+
+
 <script type="text/javascript">
+
 function googleTranslateElementInit() {
+
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+
 }
+
 </script>
+
+
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<header id="title-block-header" class="quarto-title-block default">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../content/intro-workflow.html"><span class="chapter-title">Workflow</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>  <span class="chapter-title">Workflow</span></h1>
+<h1 class="title"><span class="chapter-title">Workflow</span></h1>
 </div>
 
 
@@ -322,37 +340,29 @@ function googleTranslateElementInit() {
   </div>
   
 
+
 </header>
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#operational-product-development-timeline" id="toc-operational-product-development-timeline">Operational Product Development Timeline</a></li>
-  <li><a href="#data-workflow-from-boat-to-production" id="toc-data-workflow-from-boat-to-production">Data workflow from boat to production</a></li>
-  <li><a href="#data-levels" id="toc-data-levels">Data levels</a></li>
-  </ul>
-</nav>
+
+
 <section id="operational-product-development-timeline" class="level2">
-<h2>Operational Product Development Timeline</h2>
+<h2 class="anchored" data-anchor-id="operational-product-development-timeline">Operational Product Development Timeline</h2>
 <p>Over the course of the year, the survey team is developing a variety of different data products. Planning and preparation for surveys happens in the late winter and spring, surveys occur in the summer, data validation takes place over the course of the survey and after the survey, and data products are produced through fall and late winter.</p>
 <div class="cell">
 <div class="cell-output-display">
-
-<div class="tabwid"><style>.cl-196ed126{}.cl-19584604{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-19584618{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(56, 42, 84, 1.00);background-color:transparent;}.cl-19584622{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(65, 64, 129, 1.00);background-color:transparent;}.cl-1958462c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(57, 93, 156, 1.00);background-color:transparent;}.cl-1958462d{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(53, 123, 162, 1.00);background-color:transparent;}.cl-19584636{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(52, 151, 169, 1.00);background-color:transparent;}.cl-19584637{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(61, 180, 173, 1.00);background-color:transparent;}.cl-19584640{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(96, 206, 172, 1.00);background-color:transparent;}.cl-1960d44a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1961102c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611040{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1961104a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1961104b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611054{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1961105e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611068{width:0.75in;background-color:rgba(56, 42, 84, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611069{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611072{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611073{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1961107c{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1961107d{width:0.75in;background-color:rgba(53, 123, 162, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611086{width:0.75in;background-color:rgba(52, 151, 169, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611090{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-19611091{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1961109a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-196110a4{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-196110a5{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-196ed126'><caption><p>Operational product development timeline.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-1961102c"><p class="cl-1960d44a"><span class="cl-19584604"> </span></p></th><th class="cl-19611040"><p class="cl-1960d44a"><span class="cl-19584604">January</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">February</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">March</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">April</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">May</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">June</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">July</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">August</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">September</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">October</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">November</span></p></th><th class="cl-1961104a"><p class="cl-1960d44a"><span class="cl-19584604">December</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1961104b"><p class="cl-1960d44a"><span class="cl-19584604">Surveys</span></p></td><td class="cl-19611054"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-19611068"><p class="cl-1960d44a"><span class="cl-19584618">1</span></p></td><td class="cl-19611068"><p class="cl-1960d44a"><span class="cl-19584618">1</span></p></td><td class="cl-19611068"><p class="cl-1960d44a"><span class="cl-19584618">1</span></p></td><td class="cl-19611068"><p class="cl-1960d44a"><span class="cl-19584618">1</span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1961104b"><p class="cl-1960d44a"><span class="cl-19584604">Planning</span></p></td><td class="cl-19611069"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td><td class="cl-19611072"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td><td class="cl-19611072"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-19611072"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td><td class="cl-19611072"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td><td class="cl-19611072"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td><td class="cl-19611072"><p class="cl-1960d44a"><span class="cl-19584622">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1961104b"><p class="cl-1960d44a"><span class="cl-19584604">Development</span></p></td><td class="cl-19611073"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td><td class="cl-1961107c"><p class="cl-1960d44a"><span class="cl-1958462c">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1961104b"><p class="cl-1960d44a"><span class="cl-19584604">Deployment (survey deliverables)</span></p></td><td class="cl-19611054"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961107d"><p class="cl-1960d44a"><span class="cl-1958462d">1</span></p></td><td class="cl-1961107d"><p class="cl-1960d44a"><span class="cl-1958462d">1</span></p></td><td class="cl-1961107d"><p class="cl-1960d44a"><span class="cl-1958462d">1</span></p></td><td class="cl-1961107d"><p class="cl-1960d44a"><span class="cl-1958462d">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1961104b"><p class="cl-1960d44a"><span class="cl-19584604">Deployment (survey operations)</span></p></td><td class="cl-19611054"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-19611086"><p class="cl-1960d44a"><span class="cl-19584636">1</span></p></td><td class="cl-19611086"><p class="cl-1960d44a"><span class="cl-19584636">1</span></p></td><td class="cl-19611086"><p class="cl-1960d44a"><span class="cl-19584636">1</span></p></td><td class="cl-19611086"><p class="cl-1960d44a"><span class="cl-19584636">1</span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td><td class="cl-1961105e"><p class="cl-1960d44a"><span class="cl-19584604"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1961104b"><p class="cl-1960d44a"><span class="cl-19584604">Triage (fixing bugs and errors)</span></p></td><td class="cl-19611090"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td><td class="cl-19611091"><p class="cl-1960d44a"><span class="cl-19584637">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1961109a"><p class="cl-1960d44a"><span class="cl-19584604">User feedback and brainstorming</span></p></td><td class="cl-196110a4"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td><td class="cl-196110a5"><p class="cl-1960d44a"><span class="cl-19584640">1</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-9cfb81ac{}.cl-9ce993c0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9ce993d4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(56, 42, 84, 1.00);background-color:transparent;}.cl-9ce993d5{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(65, 64, 129, 1.00);background-color:transparent;}.cl-9ce993de{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(57, 93, 156, 1.00);background-color:transparent;}.cl-9ce993df{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(53, 123, 162, 1.00);background-color:transparent;}.cl-9ce993e8{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(52, 151, 169, 1.00);background-color:transparent;}.cl-9ce993f2{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(61, 180, 173, 1.00);background-color:transparent;}.cl-9ce993f3{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(96, 206, 172, 1.00);background-color:transparent;}.cl-9cf0762c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9cf0b844{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b858{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b862{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b863{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b864{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b86c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b86d{width:0.75in;background-color:rgba(56, 42, 84, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b876{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b877{width:0.75in;background-color:rgba(65, 64, 129, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b880{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b881{width:0.75in;background-color:rgba(57, 93, 156, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b88a{width:0.75in;background-color:rgba(53, 123, 162, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b894{width:0.75in;background-color:rgba(52, 151, 169, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b895{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b896{width:0.75in;background-color:rgba(61, 180, 173, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b8a8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b8a9{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9cf0b8b2{width:0.75in;background-color:rgba(96, 206, 172, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-9cfb81ac"><caption><p>Operational product development timeline.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-9cf0b844"><p class="cl-9cf0762c"><span class="cl-9ce993c0"> </span></p></th><th class="cl-9cf0b858"><p class="cl-9cf0762c"><span class="cl-9ce993c0">January</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">February</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">March</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">April</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">May</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">June</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">July</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">August</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">September</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">October</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">November</span></p></th><th class="cl-9cf0b862"><p class="cl-9cf0762c"><span class="cl-9ce993c0">December</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b863"><p class="cl-9cf0762c"><span class="cl-9ce993c0">Surveys</span></p></td><td class="cl-9cf0b864"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86d"><p class="cl-9cf0762c"><span class="cl-9ce993d4">1</span></p></td><td class="cl-9cf0b86d"><p class="cl-9cf0762c"><span class="cl-9ce993d4">1</span></p></td><td class="cl-9cf0b86d"><p class="cl-9cf0762c"><span class="cl-9ce993d4">1</span></p></td><td class="cl-9cf0b86d"><p class="cl-9cf0762c"><span class="cl-9ce993d4">1</span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b863"><p class="cl-9cf0762c"><span class="cl-9ce993c0">Planning</span></p></td><td class="cl-9cf0b876"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td><td class="cl-9cf0b877"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td><td class="cl-9cf0b877"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b877"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td><td class="cl-9cf0b877"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td><td class="cl-9cf0b877"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td><td class="cl-9cf0b877"><p class="cl-9cf0762c"><span class="cl-9ce993d5">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b863"><p class="cl-9cf0762c"><span class="cl-9ce993c0">Development</span></p></td><td class="cl-9cf0b880"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td><td class="cl-9cf0b881"><p class="cl-9cf0762c"><span class="cl-9ce993de">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b863"><p class="cl-9cf0762c"><span class="cl-9ce993c0">Deployment (survey deliverables)</span></p></td><td class="cl-9cf0b864"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b88a"><p class="cl-9cf0762c"><span class="cl-9ce993df">1</span></p></td><td class="cl-9cf0b88a"><p class="cl-9cf0762c"><span class="cl-9ce993df">1</span></p></td><td class="cl-9cf0b88a"><p class="cl-9cf0762c"><span class="cl-9ce993df">1</span></p></td><td class="cl-9cf0b88a"><p class="cl-9cf0762c"><span class="cl-9ce993df">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b863"><p class="cl-9cf0762c"><span class="cl-9ce993c0">Deployment (survey operations)</span></p></td><td class="cl-9cf0b864"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b894"><p class="cl-9cf0762c"><span class="cl-9ce993e8">1</span></p></td><td class="cl-9cf0b894"><p class="cl-9cf0762c"><span class="cl-9ce993e8">1</span></p></td><td class="cl-9cf0b894"><p class="cl-9cf0762c"><span class="cl-9ce993e8">1</span></p></td><td class="cl-9cf0b894"><p class="cl-9cf0762c"><span class="cl-9ce993e8">1</span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td><td class="cl-9cf0b86c"><p class="cl-9cf0762c"><span class="cl-9ce993c0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b863"><p class="cl-9cf0762c"><span class="cl-9ce993c0">Triage (fixing bugs and errors)</span></p></td><td class="cl-9cf0b895"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td><td class="cl-9cf0b896"><p class="cl-9cf0762c"><span class="cl-9ce993f2">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9cf0b8a8"><p class="cl-9cf0762c"><span class="cl-9ce993c0">User feedback and brainstorming</span></p></td><td class="cl-9cf0b8a9"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td><td class="cl-9cf0b8b2"><p class="cl-9cf0762c"><span class="cl-9ce993f3">1</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
 <section id="data-workflow-from-boat-to-production" class="level2">
-<h2>Data workflow from boat to production</h2>
+<h2 class="anchored" data-anchor-id="data-workflow-from-boat-to-production">Data workflow from boat to production</h2>
 <p>Organisms first need to be collected aboard the vessel before data can be entered into tablets.</p>
-<div class="cell">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
-<div id="fig-deck-bio-workflow" class="quarto-figure quarto-figure-center">
-<figure>
+<div id="fig-deck-bio-workflow" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deck-bio-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-
-<pre class="mermaid mermaid-js" data-label="fig-deck-bio-workflow">
-flowchart 
+<pre class="mermaid mermaid-js" data-label="fig-deck-bio-workflow">flowchart 
   A1[Net and catch\ntotal weight/volume] --&gt; A2
   A1 --&gt; |Catch tablet|BB
   A2[Fish are collected and\ndumped on the table] --&gt; A3[Initial on deck\nsampling decisions\n and sort by\nspecies and mix]
@@ -415,24 +425,26 @@ flowchart
   style VV fill:white,::
 </pre>
 </div>
-<figcaption>Figure 2.1: Simplified boat deck processing workflow.</figcaption>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deck-bio-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Simplified boat deck processing workflow.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The objective of this process is to take raw data, QA/QC and clean these data, curate standard data products for these survey. Please note, through this process we are not providing “data” (what we consider lower level data material; see the data levels section below) but “data products”, which is intended to facilitate the most fool-proof standard interpretation of the data. These data products only use data from standard and validated hauls, and has undergone careful review.</p>
 <p><strong>Once survey data collected on the vessel has been checked and validated</strong>, the <a href="https://github.com/afsc-gap-products/gap_products/blob/main/code/run.R"><code>gap_products/code/run.R</code></a> script is used to orchestrate a sequence of programs that calculate the standard data products resulting from the NOAA AFSC GAP bottom trawl surveys. Standard data products are the CPUE, BIOMASS, SIZECOMP, and AGECOMP tables in the <code>GAP_PRODUCTS</code> Oracle schema. The tables are slated to be updated twice a year: once after the survey season following finalization of that summer’s bottom trawl survey data to incorporate the new catch, size, and effort data and once prior to an upcoming survey to incorporate new age data that were processed after the prior summer’s survey season ended. This second pre-survey production run will also incorporate changes in the data due to the specimen voucher process as well as other post-hoc changes in the survey data.</p>
-<blockquote>
+<blockquote class="blockquote">
 <p>The data from these surveys constitute a <strong>living data set</strong> so we can continue to <strong>provide the best available data to all partners, stakeholders, and fellow scientists</strong>.</p>
 </blockquote>
-<div class="cell">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
-<div id="fig-workflow" class="quarto-figure quarto-figure-center">
-<figure>
+<div id="fig-workflow" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-
-<pre class="mermaid mermaid-js" data-label="fig-workflow">
-flowchart LR
+<pre class="mermaid mermaid-js" data-label="fig-workflow">flowchart LR
   A([Catch data\ndeck tablet]) --&gt; B1[METIS Biological\ndata editing\nsoftware]
   A1([Length data\ndeck tablets]) --&gt; B1
   A2([Specimen data\ndeck tablet]) --&gt; B1
@@ -459,7 +471,7 @@ flowchart LR
   A6
   A7
   end
-  subgraph BB[Data Level 1:\nQA/QC&#39;ed data]
+  subgraph BB[Data Level 1:\nQA/QC'ed data]
   B1
   B2
   end
@@ -476,7 +488,10 @@ flowchart LR
   style FF fill:white,::
 </pre>
 </div>
-<figcaption>Figure 2.2: Simplified data workflow from boat to production.</figcaption>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Simplified data workflow from boat to production.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -487,14 +502,13 @@ flowchart LR
 <li><p>Use the <code>gapindex</code> R package to calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are compared and checked to their respective locally saved copies and any changes to the tables are vetted and documented. These tables are then uploaded to the GAP_PRODUCTS Oracle schema.</p></li>
 <li><p>Calculate the various materialized views for AKFIN and FOSS purposes. Since these are derivative of the tables in GAP_PRODUCTS as well as other base tables in RACEBASE and RACE_DATA, it is not necessary to check these views in addition to the data checks done in the previous steps.</p></li>
 </ol>
-<div class="cell">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
-<div id="fig-data-used" class="quarto-figure quarto-figure-center">
-<figure>
+<div id="fig-data-used" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-data-used-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-
-<pre class="mermaid mermaid-js" data-label="fig-data-used">
-flowchart
+<pre class="mermaid mermaid-js" data-label="fig-data-used">flowchart
   subgraph AA[Data Level 4]
   A[GAP_PRODUCTS\nOracle data\nproduct tables] --&gt; C[Data process\nreports &amp;\npresentations]
   A --&gt; G3{{esrindex R package}}
@@ -520,14 +534,17 @@ flowchart
 
 </pre>
 </div>
-<figcaption>Figure 2.3: Major end-users of the GAP data product tables.</figcaption>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-data-used-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: Major end-users of the GAP data product tables.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="data-levels" class="level2">
-<h2>Data levels</h2>
+<h2 class="anchored" data-anchor-id="data-levels">Data levels</h2>
 <p>GAP produces numerous data products that are subjected to different levels of processing, ranging from raw to highly-derived. The suitability of these data products for analysis varies and there is ambiguity about which data products can be used for which purpose. This ambiguity can create challenges in communicating about data products and potentially lead to misunderstanding and misuse of data. One approach to communicating about the level of processing applied to data products and their suitability for analysis is to describe data products using a Data Processing Level system. Data Processing Level systems are widely used in earth system sciences to characterize the extent of processing that has been applied to data products. For example, the NOAA National Centers for Environmental Information (NCEI) Satellite Program uses a Data Processing Level system to describe data on a scale of 0-4, where Level 0 is raw data and Level 4 is model output or results from analysis. Example of how <a href="https://ladsweb.modaps.eosdis.nasa.gov/search/">NASA remote sensing data products</a> are shared through a public data portal with levels of data processing and documentation.</p>
 <p>For more information, see <a href="https://docs.google.com/presentation/d/1rWSZpeghWJqzWMIa5oBc4BCoy-zy1Yue86RoTw58u6M/edit?usp=sharing">Sean Rohan’s October 2022 SCRUGS presentation</a> on the topic.</p>
 <ul>
@@ -537,16 +554,12 @@ flowchart
 <li><strong>Level 3</strong>: Data products that are synthesized across a standardized extent, often inputs in a higher-level analytical product. Ex: Abundance indices, some data products in public-facing archives and repositories</li>
 <li><strong>Level 4</strong>: Analytically generated data products that are derived from lower-level data, often to inform management. Ex: Biological reference points from stock assessments, Essential Fish Habitat layers, indicators in Ecosystem Status Reports and Ecosystem and Socioeconomic Profiles</li>
 </ul>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden" data-render-id="quarto-int-sidebar-title">GAP Production Data Documentation</span> <span class="hidden" data-render-id="quarto-int-navbar-title">GAP Production Data Documentation</span> <span class="hidden" data-render-id="quarto-int-next"><span class="chapter-number">3</span>  <span class="chapter-title">News</span></span> <span class="hidden" data-render-id="quarto-int-prev"><span class="chapter-number">1</span>  <span class="chapter-title">Survey Background</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-1">Welcome</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-survey-background.html"><span class="chapter-number">1</span>  <span class="chapter-title">Survey Background</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-workflow.html"><span class="chapter-number">2</span>  <span class="chapter-title">Workflow</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-news.html"><span class="chapter-number">3</span>  <span class="chapter-title">News</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/intro-code-of-conduct.html"><span class="chapter-number">4</span>  <span class="chapter-title">Code of Conduct</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-2">GAP Production Data</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/product-metadata.html"><span class="chapter-number">5</span>  <span class="chapter-title">Data description</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-3">AKFIN</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/akfin-metadata.html"><span class="chapter-number">6</span>  <span class="chapter-title">Data description</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/akfin-oracle-sql-r.html"><span class="chapter-number">7</span>  <span class="chapter-title">Access data via Oracle and R</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/akfin-api-r.html"><span class="chapter-number">8</span>  <span class="chapter-title">Access API data using R</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-4">Public Data (FOSS)</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-metadata.html"><span class="chapter-number">9</span>  <span class="chapter-title">Data description</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-platform.html"><span class="chapter-number">10</span>  <span class="chapter-title">Using the FOSS platform</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-api-r.html"><span class="chapter-number">11</span>  <span class="chapter-title">Access via API and R</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-api-py.html"><span class="chapter-number">12</span>  <span class="chapter-title">Access via API and Python</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/foss-oracle-r.html"><span class="chapter-number">13</span>  <span class="chapter-title">Access via Oracle and R (AFSC only)</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-5">Data Products &amp; Tools</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/other-pkgs.html"><span class="chapter-number">14</span>  <span class="chapter-title">Open source code</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-6">Contact us</span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-run-notes.html"><span class="chapter-number">15</span>  <span class="chapter-title">Production run notes</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-acknowledgements.html"><span class="chapter-number">16</span>  <span class="chapter-title">Acknowledgments</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/content/end-refs.html"><span class="chapter-number">17</span>  <span class="chapter-title">References</span></span> <span class="hidden" data-render-id="footer-left">© CC-1.0</span> <span class="hidden" data-render-id="footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></span> <span class="hidden" data-render-id="quarto-breadcrumbs-83218ac34c1834c26781fe4bde918ee4">Welcome</span> <span class="hidden" data-render-id="quarto-breadcrumbs-ae6e0c94c626d815baafce6a15a8e02e"><span class="chapter-number">2</span>  <span class="chapter-title">Workflow</span></span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden" data-render-id="quarto-metatitle">GAP Production Data Documentation - <span class="chapter-number">2</span>  <span class="chapter-title">Workflow</span></span> <span class="hidden" data-render-id="quarto-twittercardtitle">GAP Production Data Documentation - <span class="chapter-number">2</span>  <span class="chapter-title">Workflow</span></span> <span class="hidden" data-render-id="quarto-ogcardtitle">GAP Production Data Documentation - <span class="chapter-number">2</span>  <span class="chapter-title">Workflow</span></span> <span class="hidden" data-render-id="quarto-metasitename">GAP Production Data Documentation</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
+
+
 </section>
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -625,10 +638,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/afsc-gap-products\.github\.io\/gap_products");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -638,8 +668,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -651,7 +690,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -695,6 +857,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -720,6 +883,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -781,13 +970,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a  href="/content/intro-survey-background.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Survey Background</span></span>
+      <a href="../content/intro-survey-background.html" class="pagination-link" aria-label="Survey Background">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Survey Background</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a  href="/content/intro-news.html" class="pagination-link">
-        <span class="nav-page-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>News</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../content/intro-news.html" class="pagination-link" aria-label="News">
+        <span class="nav-page-text"><span class="chapter-title">News</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -795,17 +984,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-      <div class='footer-contents'>&copy; CC-1.0</div>  
-    </div>   
+<p>© CC-1.0</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/intro-workflow.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/intro-workflow.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
-      <div class='footer-contents'>[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)</div>  
-    </div>
+<p><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></p>
+</div>
   </div>
 </footer>
 
-</body>
 
-</html>
+
+
+</body></html>
