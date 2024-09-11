@@ -37,13 +37,14 @@ current_gp_taxon_groups <-
                            order by GROUP_CODE, SPECIES_CODE")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   For SPECIES_CODE values that have changed, append the updated taxonomic
-##   classification information to the OLD_SPECIES_CODE. 
+##   Append updated taxonomic classification info to the OLD_SPECIES_CODE
+##   in current_gp_taxonomic_changes 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Subset the corrected classification information for the new species codes
 taxon_changes_classification <- 
   subset(x = current_gp_taxonomic_classification,
-         subset = SPECIES_CODE %in% current_gp_taxonomic_changes$NEW_SPECIES_CODE)
+         subset = SPECIES_CODE %in% 
+           current_gp_taxonomic_changes$NEW_SPECIES_CODE)
 
 ## Merge the OLD_SPECIES_CODE field from taxon changes to 
 ## taxon_changes_classification 
@@ -228,11 +229,15 @@ updated_gp_taxon_groups <-
         by = "SPECIES_CODE")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   
+##   For SPECIES_CODES that have been changed and are not a part of the
+##   grouped_taxa_df, set the value of the GROUP_CODE to the updated SPECIES_CODE
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Any SPECIES_CODES that are not a part of a larger taxon group
 single_spp_codes <- 
-  current_gp_taxonomic_changes$OLD_SPECIES_CODE[!current_gp_taxonomic_changes$OLD_SPECIES_CODE %in% grouped_taxa_df$SPECIES_CODE] 
+  current_gp_taxonomic_changes$OLD_SPECIES_CODE[
+    !current_gp_taxonomic_changes$OLD_SPECIES_CODE %in% 
+      grouped_taxa_df$SPECIES_CODE
+  ] 
 
 synonyms <- 
   merge(x = subset(updated_gp_taxon_groups, 
@@ -245,10 +250,11 @@ synonyms <-
 updated_gp_taxon_groups[
   match(x = synonyms$SPECIES_CODE, 
         table = updated_gp_taxon_groups$SPECIES_CODE), "GROUP_CODE"
-  ]<- synonyms$NEW_SPECIES_CODE
+]<- synonyms$NEW_SPECIES_CODE
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Any records that don't have a GROUP_CODE are assigned the SPECIES_CODE
+##   Any remaining records that do not have a GROUP_CODE value are 
+##   assigned the SPECIES_CODE
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 single_taxon <- is.na(x = updated_gp_taxon_groups$GROUP_CODE)
 updated_gp_taxon_groups$GROUP_CODE[single_taxon] <-
@@ -275,11 +281,11 @@ test_check <- merge(x = updated_gp_taxon_groups,
 ## Reorder columns
 test_check <- 
   test_check[, c("SPECIES_CODE", 
-                 as.vector(sapply(X = names(updated_gp_taxon_groups)[-1], 
+                 as.vector(sapply(X = names(current_gp_taxon_groups)[-2], 
                                   FUN = function(x) 
                                     paste0(x, c("_UPDATE", "_CURRENT")))))]
 ## Check for differences in each non-key field
-for (icol in names(updated_gp_taxon_groups)[-1]) {
+for (icol in names(current_gp_taxon_groups)[-2]) {
   test_check[, paste0(icol, "_DIFF")] <- 
     test_check[, paste0(icol, "_UPDATE")] != 
     test_check[, paste0(icol, "_CURRENT")]
@@ -288,48 +294,38 @@ for (icol in names(updated_gp_taxon_groups)[-1]) {
 ## Reorder columns
 test_check <- 
   test_check[, c("SPECIES_CODE", 
-                 as.vector(sapply(X = names(updated_gp_taxon_groups)[-1], 
+                 as.vector(sapply(X = names(current_gp_taxon_groups)[-2], 
                                   FUN = function(x) 
                                     paste0(x, c("_UPDATE", 
                                                 "_CURRENT",
                                                 "_DIFF")))))]
 
 ## Print any differences
-any_differences <- 
-  which(eval(parse(text = paste0("test_check$", names(updated_gp_taxon_groups)[-1], 
-                                 "_DIFF == T", collapse = " | "))) == T)
-test_check[any_differences, ]
+any_differences <- test_check$GROUP_CODE_DIFF
 
+test_check[any_differences, ]
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Upload to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Assemble column metadata
-# metadata_column_info <-   
-#   RODBC::sqlQuery(channel = chl, 
-#                   query = paste0("SELECT *
-#                                   FROM GAP_PRODUCTS.METADATA_COLUMN
-#                                   WHERE METADATA_COLNAME IN ",
-#                                  gapindex::stitch_entries(names(x = all_taxa))))
-# names(x = metadata_column_info) <- 
-#   gsub(x = tolower(x = names(x = metadata_column_info) ),
-#        pattern = "metadata_", 
-#        replacement = "")
-# 
-# metadata_column_info <- 
-#   rbind(data.frame(colname = "GROUP_CODE",
-#                    colname_long = "SPECIES_CODE or COMPLEX_CODE",
-#                    units = "ID key code",
-#                    datatype = "NUMBER(38,0)",
-#                    colname_desc = "Code that is either associated with an indivdual species code or the complex to which that taxon belongs."),
-#         metadata_column_info)
+metadata_column_info <- RODBC::sqlQuery(
+  channel = chl,
+  query = paste0("SELECT *
+                  FROM GAP_PRODUCTS.METADATA_COLUMN
+                  WHERE METADATA_COLNAME IN ",
+                 gapindex::stitch_entries(names(x = updated_gp_taxon_groups))))
+names(x = metadata_column_info) <-
+  gsub(x = tolower(x = names(x = metadata_column_info) ),
+       pattern = "metadata_",
+       replacement = "")
 
 ## Upload to Oracle
-# gapindex::upload_oracle(x = all_taxa,
-#                         table_name = "TAXON_GROUPS", 
-#                         metadata_column = metadata_column_info, 
-#                         table_metadata = "This lookup table is based on GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION but with an added field GROUP_CODE to identify species complexes. To be used in the production of the GAP_PRODUCTS tables.", 
-#                         channel = chl, 
-#                         schema = "GAP_PRODUCTS", 
-#                         share_with_all_users = TRUE)
+gapindex::upload_oracle(x = updated_gp_taxon_groups,
+                        table_name = "TAXON_GROUPS",
+                        metadata_column = metadata_column_info,
+                        table_metadata = "",
+                        channel = chl,
+                        schema = "GAP_PRODUCTS",
+                        share_with_all_users = TRUE)
