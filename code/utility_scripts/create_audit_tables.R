@@ -22,7 +22,8 @@ gaparchive_channel <- gapindex::get_connected(db = "AFSC", check_access = F)
 
 for (itable in c("AGECOMP", "AREA", "BIOMASS", "CPUE", "SIZECOMP",
                  "SPECIES_YEAR", "SURVEY_DESIGN", "STRATUM_GROUPS",
-                 "METADATA_COLUMN")) { ## Loop over table -- start
+                 "METADATA_COLUMN", "METADATA_TABLE"
+                 )) { ## Loop over table -- start
   
   ## Retrieve the primary key columns that make up the itable.
   key_columns <- RODBC::sqlQuery(channel = gaparchive_channel,
