@@ -1,11 +1,14 @@
 create or replace PROCEDURE UPDATE_TABLE_COMMENTS AS
 
   CURSOR GP_TABLES IS 
-    SELECT DISTINCT TABLE_NAME
-    FROM ALL_TABLES  
-    WHERE OWNER = 'GAP_PRODUCTS'
-    AND TABLE_NAME != 'VOUCHERS';
-    --AND TABLE_NAME = 'AGECOMP';  -- Adjust your condition as needed
+    SELECT MVIEW_NAME AS TABLE_NAME, 'MATERIALIZED VIEW' TABLE_TYPE 
+    FROM USER_MVIEW_COMMENTS
+    
+        UNION
+    
+    SELECT TABLE_NAME, TABLE_TYPE 
+    FROM ALL_TAB_COMMENTS 
+    WHERE OWNER = 'GAP_PRODUCTS' AND TABLE_TYPE = 'TABLE' AND TABLE_NAME != 'VOUCHERS';
 
   v_comment_text VARCHAR2(4000);  -- Variable to store the concatenated string
   v_noaa_text VARCHAR2(4000);  -- Variable to store the concatenated string
@@ -50,10 +53,10 @@ BEGIN
       v_noaa_text := 'This table was created ' || v_noaa_text || ' Last updated on ' || v_last_ddl_time || '.';
 
       -- Debug output to verify comment text
-      DBMS_OUTPUT.PUT_LINE('COMMENT ON TABLE GAP_PRODUCTS.' || REC.TABLE_NAME || ' IS ''' || v_comment_text || ' ' || v_noaa_text || '''');
+      DBMS_OUTPUT.PUT_LINE('COMMENT ON ' || REC.TABLE_TYPE || ' GAP_PRODUCTS.' || REC.TABLE_NAME || ' IS ''' || v_comment_text || ' ' || v_noaa_text || '''');
 
       -- Step 5: Use the concatenated string with last DDL time as a comment for a table
-      EXECUTE IMMEDIATE 'COMMENT ON TABLE GAP_PRODUCTS.' || REC.TABLE_NAME || ' IS ''' || v_comment_text || ' ' || v_noaa_text || '''';
+      EXECUTE IMMEDIATE 'COMMENT ON ' || REC.TABLE_TYPE || ' GAP_PRODUCTS.' || REC.TABLE_NAME || ' IS ''' || v_comment_text || ' ' || v_noaa_text || '''';
 
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
