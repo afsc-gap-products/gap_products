@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 8&nbsp; Access API data using R</title>
+<title>GAP Production Data Documentation - 9&nbsp; Access API data via R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-api-r.html"><span class="chapter-title">Access API data using R</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-api-r.html"><span class="chapter-title">Access API data via R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -209,6 +209,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Universal Column Metadata</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -232,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Access API data using R</span></a>
+  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Access API data via R</span></a>
   </div>
 </li>
       </ul>
@@ -268,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></a>
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC Staff only)</span></a>
   </div>
 </li>
       </ul>
@@ -325,8 +330,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package" id="toc-ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package" class="nav-link active" data-scroll-target="#ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package"><span class="header-section-number">8.1</span> Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</a></li>
-  <li><a href="#ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package-1" id="toc-ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package-1" class="nav-link" data-scroll-target="#ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package-1"><span class="header-section-number">8.2</span> Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</a></li>
+  <li><a href="#load-packages-and-helpful-functions" id="toc-load-packages-and-helpful-functions" class="nav-link active" data-scroll-target="#load-packages-and-helpful-functions"><span class="header-section-number">9.0.1</span> Load packages and helpful functions</a></li>
+  <li><a href="#ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" id="toc-ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" class="nav-link" data-scroll-target="#ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">9.1</span> Ex. Direct database query in R using the akfingapdata R package README:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/akfin-api-r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/akfin-api-r.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -351,9 +356,9 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-api-r.html"><span class="chapter-title">Access API data using R</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/akfin-intro.html">AKFIN</a></li><li class="breadcrumb-item"><a href="../content/akfin-api-r.html"><span class="chapter-title">Access API data via R</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Access API data using R</span></h1>
+<h1 class="title"><span class="chapter-title">Access API data via R</span></h1>
 </div>
 
 
@@ -372,12 +377,12 @@ function googleTranslateElementInit() {
 
 <p>AKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.</p>
 <p>The url structure is “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]” . For example “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass” is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&amp;area_id=10&amp;species_code=21740&amp;start_year=2022&amp;end_year=2022”.</p>
-<p>If you’re using R to pull data through web services you might find the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/tree/main">akfingapdata</a> (pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.</p>
-<section id="ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package"><span class="header-section-number">8.1</span> Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</h2>
+<p>If you’re using R to pull data through web services you might find the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/tree/main">akfingapdata</a> (pronounced <strong>akfin-gap-data</strong> not <strong>ak-eff-ing-app-data</strong>) R package helpful.</p>
+<section id="load-packages-and-helpful-functions" class="level3" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="load-packages-and-helpful-functions"><span class="header-section-number">9.0.1</span> Load packages and helpful functions</h3>
 </section>
-<section id="ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package-1" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="ex.-direct-database-query-in-r-using-the-akfingapdata-readmehttpsgithub.commattcallahan-noaaakfingapdatablobmainreadme.rmd-r-package-1"><span class="header-section-number">8.2</span> Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:</h2>
+<section id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">9.1</span> Ex. Direct database query in R using the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd">akfingapdata R package README</a>:</h2>
 <p>Sign into akfin with token (need to request token from AKFIN)</p>
 <div class="cell" data-tbl-cap="Ex. 2: Load catch data with {akfingapdata}. ">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>akfingapdata<span class="sc">::</span><span class="fu">get_gap_catch</span>()[,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="sc">%&gt;%</span> </span>

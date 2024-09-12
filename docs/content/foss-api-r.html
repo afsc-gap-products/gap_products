@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 11&nbsp; Access via API and R</title>
+<title>GAP Production Data Documentation - 12&nbsp; Access via API and R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -213,6 +213,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Universal Column Metadata</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -236,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access API data using R</span></a>
+  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access API data via R</span></a>
   </div>
 </li>
       </ul>
@@ -272,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></a>
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC Staff only)</span></a>
   </div>
 </li>
       </ul>
@@ -329,34 +334,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#examples-of-all-species-in-all-survey-regions-in-all-years" id="toc-examples-of-all-species-in-all-survey-regions-in-all-years" class="nav-link active" data-scroll-target="#examples-of-all-species-in-all-survey-regions-in-all-years"><span class="header-section-number">12</span> Examples of all species in all survey regions in all years</a>
+  <li><a href="#examples-of-all-species-in-all-survey-regions-in-all-years" id="toc-examples-of-all-species-in-all-survey-regions-in-all-years" class="nav-link active" data-scroll-target="#examples-of-all-species-in-all-survey-regions-in-all-years"><span class="header-section-number">13</span> Examples of all species in all survey regions in all years</a>
   <ul class="collapse">
-  <li><a href="#ex.-load-all-rows-of-the-catch-haul-and-species-data-tables" id="toc-ex.-load-all-rows-of-the-catch-haul-and-species-data-tables" class="nav-link" data-scroll-target="#ex.-load-all-rows-of-the-catch-haul-and-species-data-tables"><span class="header-section-number">12.1</span> Ex. Load all rows of the catch, haul, and species data tables</a>
+  <li><a href="#ex.-load-all-rows-of-the-catch-haul-and-species-data-tables" id="toc-ex.-load-all-rows-of-the-catch-haul-and-species-data-tables" class="nav-link" data-scroll-target="#ex.-load-all-rows-of-the-catch-haul-and-species-data-tables"><span class="header-section-number">13.1</span> Ex. Load all rows of the catch, haul, and species data tables</a>
   <ul class="collapse">
-  <li><a href="#haul-data" id="toc-haul-data" class="nav-link" data-scroll-target="#haul-data"><span class="header-section-number">12.1.1</span> Haul data:</a></li>
-  <li><a href="#catch-data" id="toc-catch-data" class="nav-link" data-scroll-target="#catch-data"><span class="header-section-number">12.1.2</span> Catch data:</a></li>
-  <li><a href="#species-data" id="toc-species-data" class="nav-link" data-scroll-target="#species-data"><span class="header-section-number">12.1.3</span> Species data:</a></li>
-  <li><a href="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot" id="toc-create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot" class="nav-link" data-scroll-target="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot"><span class="header-section-number">12.1.4</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</a></li>
-  <li><a href="#visualize-cpue-data-in-distribution-map" id="toc-visualize-cpue-data-in-distribution-map" class="nav-link" data-scroll-target="#visualize-cpue-data-in-distribution-map"><span class="header-section-number">12.1.5</span> Visualize CPUE data in distribution map</a></li>
-  <li><a href="#plot-locations" id="toc-plot-locations" class="nav-link" data-scroll-target="#plot-locations"><span class="header-section-number">12.1.6</span> Plot locations</a></li>
-  <li><a href="#plot-inverse-distance-weighted-modeled-product-of-locations" id="toc-plot-inverse-distance-weighted-modeled-product-of-locations" class="nav-link" data-scroll-target="#plot-inverse-distance-weighted-modeled-product-of-locations"><span class="header-section-number">12.1.7</span> Plot inverse-distance weighted modeled product of locations</a></li>
+  <li><a href="#haul-data" id="toc-haul-data" class="nav-link" data-scroll-target="#haul-data"><span class="header-section-number">13.1.1</span> Haul data:</a></li>
+  <li><a href="#catch-data" id="toc-catch-data" class="nav-link" data-scroll-target="#catch-data"><span class="header-section-number">13.1.2</span> Catch data:</a></li>
+  <li><a href="#species-data" id="toc-species-data" class="nav-link" data-scroll-target="#species-data"><span class="header-section-number">13.1.3</span> Species data:</a></li>
+  <li><a href="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot" id="toc-create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot" class="nav-link" data-scroll-target="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot"><span class="header-section-number">13.1.4</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</a></li>
+  <li><a href="#visualize-cpue-data-in-distribution-map" id="toc-visualize-cpue-data-in-distribution-map" class="nav-link" data-scroll-target="#visualize-cpue-data-in-distribution-map"><span class="header-section-number">13.1.5</span> Visualize CPUE data in distribution map</a></li>
+  <li><a href="#plot-locations" id="toc-plot-locations" class="nav-link" data-scroll-target="#plot-locations"><span class="header-section-number">13.1.6</span> Plot locations</a></li>
+  <li><a href="#plot-inverse-distance-weighted-modeled-product-of-locations" id="toc-plot-inverse-distance-weighted-modeled-product-of-locations" class="nav-link" data-scroll-target="#plot-inverse-distance-weighted-modeled-product-of-locations"><span class="header-section-number">13.1.7</span> Plot inverse-distance weighted modeled product of locations</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#examples-or-one-species-in-one-survey-region-in-one-year" id="toc-examples-or-one-species-in-one-survey-region-in-one-year" class="nav-link" data-scroll-target="#examples-or-one-species-in-one-survey-region-in-one-year"><span class="header-section-number">13</span> Examples or one species in one survey region in one year</a>
+  <li><a href="#examples-or-one-species-in-one-survey-region-in-one-year" id="toc-examples-or-one-species-in-one-survey-region-in-one-year" class="nav-link" data-scroll-target="#examples-or-one-species-in-one-survey-region-in-one-year"><span class="header-section-number">14</span> Examples or one species in one survey region in one year</a>
   <ul class="collapse">
-  <li><a href="#ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock" id="toc-ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock" class="nav-link" data-scroll-target="#ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock"><span class="header-section-number">13.1</span> Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock</a>
+  <li><a href="#ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock" id="toc-ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock" class="nav-link" data-scroll-target="#ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock"><span class="header-section-number">14.1</span> Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock</a>
   <ul class="collapse">
-  <li><a href="#identify-species_code-for-walleye-pollock" id="toc-identify-species_code-for-walleye-pollock" class="nav-link" data-scroll-target="#identify-species_code-for-walleye-pollock"><span class="header-section-number">13.1.1</span> Identify <code>species_code</code> for walleye pollock</a></li>
-  <li><a href="#then-apply-the-hauljoins-and-species_code-to-catch-query" id="toc-then-apply-the-hauljoins-and-species_code-to-catch-query" class="nav-link" data-scroll-target="#then-apply-the-hauljoins-and-species_code-to-catch-query"><span class="header-section-number">13.1.2</span> Then, apply the <code>hauljoins</code> and <code>species_code</code> to catch query</a></li>
-  <li><a href="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1" id="toc-create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1" class="nav-link" data-scroll-target="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1"><span class="header-section-number">13.1.3</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</a></li>
-  <li><a href="#visualize-cpue-data-in-distribution-map-1" id="toc-visualize-cpue-data-in-distribution-map-1" class="nav-link" data-scroll-target="#visualize-cpue-data-in-distribution-map-1"><span class="header-section-number">13.1.4</span> Visualize CPUE data in distribution map</a></li>
-  <li><a href="#plot-locations-1" id="toc-plot-locations-1" class="nav-link" data-scroll-target="#plot-locations-1"><span class="header-section-number">13.1.5</span> Plot locations</a></li>
-  <li><a href="#plot-inverse-distance-weighted-modeled-product-of-locations-1" id="toc-plot-inverse-distance-weighted-modeled-product-of-locations-1" class="nav-link" data-scroll-target="#plot-inverse-distance-weighted-modeled-product-of-locations-1"><span class="header-section-number">13.1.6</span> Plot inverse-distance weighted modeled product of locations</a></li>
+  <li><a href="#identify-species_code-for-walleye-pollock" id="toc-identify-species_code-for-walleye-pollock" class="nav-link" data-scroll-target="#identify-species_code-for-walleye-pollock"><span class="header-section-number">14.1.1</span> Identify <code>species_code</code> for walleye pollock</a></li>
+  <li><a href="#then-apply-the-hauljoins-and-species_code-to-catch-query" id="toc-then-apply-the-hauljoins-and-species_code-to-catch-query" class="nav-link" data-scroll-target="#then-apply-the-hauljoins-and-species_code-to-catch-query"><span class="header-section-number">14.1.2</span> Then, apply the <code>hauljoins</code> and <code>species_code</code> to catch query</a></li>
+  <li><a href="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1" id="toc-create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1" class="nav-link" data-scroll-target="#create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1"><span class="header-section-number">14.1.3</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</a></li>
+  <li><a href="#visualize-cpue-data-in-distribution-map-1" id="toc-visualize-cpue-data-in-distribution-map-1" class="nav-link" data-scroll-target="#visualize-cpue-data-in-distribution-map-1"><span class="header-section-number">14.1.4</span> Visualize CPUE data in distribution map</a></li>
+  <li><a href="#plot-locations-1" id="toc-plot-locations-1" class="nav-link" data-scroll-target="#plot-locations-1"><span class="header-section-number">14.1.5</span> Plot locations</a></li>
+  <li><a href="#plot-inverse-distance-weighted-modeled-product-of-locations-1" id="toc-plot-inverse-distance-weighted-modeled-product-of-locations-1" class="nav-link" data-scroll-target="#plot-inverse-distance-weighted-modeled-product-of-locations-1"><span class="header-section-number">14.1.6</span> Plot inverse-distance weighted modeled product of locations</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#other-query-examples" id="toc-other-query-examples" class="nav-link" data-scroll-target="#other-query-examples"><span class="header-section-number">14</span> Other query examples</a>
+  <li><a href="#other-query-examples" id="toc-other-query-examples" class="nav-link" data-scroll-target="#other-query-examples"><span class="header-section-number">15</span> Other query examples</a>
   <ul class="collapse">
-  <li><a href="#ex.-combination-of-year-srvy-stratum" id="toc-ex.-combination-of-year-srvy-stratum" class="nav-link" data-scroll-target="#ex.-combination-of-year-srvy-stratum"><span class="header-section-number">14.1</span> Ex. Combination of year, srvy, stratum</a></li>
+  <li><a href="#ex.-combination-of-year-srvy-stratum" id="toc-ex.-combination-of-year-srvy-stratum" class="nav-link" data-scroll-target="#ex.-combination-of-year-srvy-stratum"><span class="header-section-number">15.1</span> Ex. Combination of year, srvy, stratum</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/foss-api-r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/foss-api-r.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -404,13 +409,13 @@ function googleTranslateElementInit() {
 <p><strong>An application programming interface (API) is a way for two or more computer programs to communicate with each other.</strong> More information about how to amend API links can be found <a href="https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/">here</a>. Useful introductions to using APIs in <code>R</code> can be found <a href="https://www.dataquest.io/blog/r-api-tutorial/">here</a>.</p>
 <p>There are three tables the user can pull from the API. Learn more about them on the <a href="https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html">FOSS data description page</a>. Here, you can see them in their raw JSON format: - haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/] - catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/] - species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]</p>
 <p>Here are some examples of how to use the data with R:</p>
-<section id="examples-of-all-species-in-all-survey-regions-in-all-years" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Examples of all species in all survey regions in all years</h1>
-<section id="ex.-load-all-rows-of-the-catch-haul-and-species-data-tables" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="ex.-load-all-rows-of-the-catch-haul-and-species-data-tables"><span class="header-section-number">12.1</span> Ex. Load all rows of the catch, haul, and species data tables</h2>
+<section id="examples-of-all-species-in-all-survey-regions-in-all-years" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Examples of all species in all survey regions in all years</h1>
+<section id="ex.-load-all-rows-of-the-catch-haul-and-species-data-tables" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="ex.-load-all-rows-of-the-catch-haul-and-species-data-tables"><span class="header-section-number">13.1</span> Ex. Load all rows of the catch, haul, and species data tables</h2>
 <p>Note that without specifying, a basic query to the API will only return 25 entries.</p>
-<section id="haul-data" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="haul-data"><span class="header-section-number">12.1.1</span> Haul data:</h3>
+<section id="haul-data" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="haul-data"><span class="header-section-number">13.1.1</span> Haul data:</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># link to the API</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>api_link_haul <span class="ot">&lt;-</span> <span class="st">'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -535,8 +540,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="catch-data" class="level3" data-number="12.1.2">
-<h3 data-number="12.1.2" class="anchored" data-anchor-id="catch-data"><span class="header-section-number">12.1.2</span> Catch data:</h3>
+<section id="catch-data" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="catch-data"><span class="header-section-number">13.1.2</span> Catch data:</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># link to the API</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>api_link_catch <span class="ot">&lt;-</span> <span class="st">'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -714,8 +719,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="species-data" class="level3" data-number="12.1.3">
-<h3 data-number="12.1.3" class="anchored" data-anchor-id="species-data"><span class="header-section-number">12.1.3</span> Species data:</h3>
+<section id="species-data" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="species-data"><span class="header-section-number">13.1.3</span> Species data:</h3>
 <p>Since there are less than 10,000 rows of species data (and the maxim number of rows a user can pull from this API is 10,000 rows in a query), we can simply call <code>?offset=0&amp;limit=10000</code> in our query call.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># link to the API</span></span>
@@ -768,8 +773,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot" class="level3" data-number="12.1.4">
-<h3 data-number="12.1.4" class="anchored" data-anchor-id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot"><span class="header-section-number">12.1.4</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</h3>
+<section id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot" class="level3" data-number="13.1.4">
+<h3 data-number="13.1.4" class="anchored" data-anchor-id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot"><span class="header-section-number">13.1.4</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</h3>
 <p>It is important to create and have access to zero-fill (presence and absence) so you can do simple analyses and plot data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># come up with full combination of what species should be listed for what hauls/surveys</span></span>
@@ -825,8 +830,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="visualize-cpue-data-in-distribution-map" class="level3" data-number="12.1.5">
-<h3 data-number="12.1.5" class="anchored" data-anchor-id="visualize-cpue-data-in-distribution-map"><span class="header-section-number">12.1.5</span> Visualize CPUE data in distribution map</h3>
+<section id="visualize-cpue-data-in-distribution-map" class="level3" data-number="13.1.5">
+<h3 data-number="13.1.5" class="anchored" data-anchor-id="visualize-cpue-data-in-distribution-map"><span class="header-section-number">13.1.5</span> Visualize CPUE data in distribution map</h3>
 <p>Using the zero-filled data from the previous example, we can make a few plots!</p>
 <p>Here is some example data of 2023 through 2019 (<code>year %in% 2019:2023</code>) eastern and northern Bering Sea (<code>srvy == c("EBS", "NBS)</code>) walleye pollock (<code>species_code == 21740</code>).</p>
 <div class="cell">
@@ -844,8 +849,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="plot-locations" class="level3" data-number="12.1.6">
-<h3 data-number="12.1.6" class="anchored" data-anchor-id="plot-locations"><span class="header-section-number">12.1.6</span> Plot locations</h3>
+<section id="plot-locations" class="level3" data-number="13.1.6">
+<h3 data-number="13.1.6" class="anchored" data-anchor-id="plot-locations"><span class="header-section-number">13.1.6</span> Plot locations</h3>
 <div class="cell" data-tbl-cap="CPUE (kg/km^2) of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Red triangles denote stations where walleye pollock were not caught. ">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -875,8 +880,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="plot-inverse-distance-weighted-modeled-product-of-locations" class="level3" data-number="12.1.7">
-<h3 data-number="12.1.7" class="anchored" data-anchor-id="plot-inverse-distance-weighted-modeled-product-of-locations"><span class="header-section-number">12.1.7</span> Plot inverse-distance weighted modeled product of locations</h3>
+<section id="plot-inverse-distance-weighted-modeled-product-of-locations" class="level3" data-number="13.1.7">
+<h3 data-number="13.1.7" class="anchored" data-anchor-id="plot-inverse-distance-weighted-modeled-product-of-locations"><span class="header-section-number">13.1.7</span> Plot inverse-distance weighted modeled product of locations</h3>
 <p>This map is constructed using <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>. To make IDW plots, you must have data from all stations surveyed, even if no fish of interest were found there.</p>
 <div class="cell" data-tbl-cap="CPUE of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. ">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>idw <span class="ot">&lt;-</span> akgfmaps<span class="sc">::</span><span class="fu">make_idw_stack</span>(</span>
@@ -992,10 +997,10 @@ function googleTranslateElementInit() {
 </section>
 </section>
 </section>
-<section id="examples-or-one-species-in-one-survey-region-in-one-year" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Examples or one species in one survey region in one year</h1>
-<section id="ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock"><span class="header-section-number">13.1</span> Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock</h2>
+<section id="examples-or-one-species-in-one-survey-region-in-one-year" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Examples or one species in one survey region in one year</h1>
+<section id="ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="ex.-show-catch-data-for-2023-eastern-bering-sea-walleye-pollock"><span class="header-section-number">14.1</span> Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock</h2>
 <p>Data downloads and joins for just one species, survey, and year are much faster and easier to do.</p>
 <p>First, because <code>year</code> is identified in the haul table, we need to identify all of the hauls (or more specifically, <code>hauljoin</code> codes) that were completed in the eastern Bering Sea (<code>"srvy":"EBS"</code>) in 2023 (<code>"year":2023</code>).</p>
 <div class="cell">
@@ -1080,8 +1085,8 @@ function googleTranslateElementInit() {
 <code>SRVY = 'EBS'</code>.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">year</span></p></th><th class="cl-8a70be5a"><p class="cl-8a7074b8"><span class="cl-8a695638">srvy</span></p></th><th class="cl-8a70be5a"><p class="cl-8a7074b8"><span class="cl-8a695638">survey</span></p></th><th class="cl-8a70be5a"><p class="cl-8a7074b8"><span class="cl-8a695638">survey_name</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">survey_definition_id</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">cruise</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">cruisejoin</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">hauljoin</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">haul</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">stratum</span></p></th><th class="cl-8a70be5a"><p class="cl-8a7074b8"><span class="cl-8a695638">station</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">vessel_id</span></p></th><th class="cl-8a70be5a"><p class="cl-8a7074b8"><span class="cl-8a695638">vessel_name</span></p></th><th class="cl-8a70be5a"><p class="cl-8a7074b8"><span class="cl-8a695638">date_time</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">latitude_dd_start</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">longitude_dd_start</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">latitude_dd_end</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">longitude_dd_end</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">bottom_temperature_c</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">surface_temperature_c</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">depth_m</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">distance_fished_km</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">duration_hr</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">net_width_m</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">net_height_m</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">area_swept_km2</span></p></th><th class="cl-8a70be50"><p class="cl-8a7074a4"><span class="cl-8a695638">performance</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">2023</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">EBS</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">eastern Bering Sea</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">98</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">202301</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-760</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-22,950</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">194</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">41</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">S-26</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">134</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">NORTHWEST EXPLORER</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">2023-07-25T10:20:59Z</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">60.99106</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-174.1873</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">61.01197</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-174.1552</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-0.8</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">9.1</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">83</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">2.902</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">0.507</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">18.427</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">1.890</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">0.053475</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">2023</span></p></td><td class="cl-8a70be82"><p class="cl-8a7074b8"><span class="cl-8a695642">EBS</span></p></td><td class="cl-8a70be82"><p class="cl-8a7074b8"><span class="cl-8a695642">eastern Bering Sea</span></p></td><td class="cl-8a70be82"><p class="cl-8a7074b8"><span class="cl-8a695642">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">98</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">202301</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">-760</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">-22,621</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">124</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">42</span></p></td><td class="cl-8a70be82"><p class="cl-8a7074b8"><span class="cl-8a695642">J-22</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">134</span></p></td><td class="cl-8a70be82"><p class="cl-8a7074b8"><span class="cl-8a695642">NORTHWEST EXPLORER</span></p></td><td class="cl-8a70be82"><p class="cl-8a7074b8"><span class="cl-8a695642">2023-06-30T08:19:37Z</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">57.98877</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">-170.9448</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">57.98921</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">-170.9935</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">2.3</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">7.1</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">86</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">2.887</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">0.508</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">17.772</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">1.945</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">0.051308</span></p></td><td class="cl-8a70be78"><p class="cl-8a7074a4"><span class="cl-8a695642">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">2023</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">EBS</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">eastern Bering Sea</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">98</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">202301</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-759</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-22,710</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">155</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">61</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">G-25</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">162</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">ALASKA KNIGHT</span></p></td><td class="cl-8a70be6e"><p class="cl-8a7074b8"><span class="cl-8a695642">2023-07-08T15:09:48Z</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">56.98981</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-172.6523</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">57.01371</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">-172.6623</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">3.6</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">8.4</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">122</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">2.726</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">0.498</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">17.692</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">1.653</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">0.048228</span></p></td><td class="cl-8a70be64"><p class="cl-8a7074a4"><span class="cl-8a695642">0</span></p></td></tr></tbody></table></div>
 </div>
 </div>
-<section id="identify-species_code-for-walleye-pollock" class="level3" data-number="13.1.1">
-<h3 data-number="13.1.1" class="anchored" data-anchor-id="identify-species_code-for-walleye-pollock"><span class="header-section-number">13.1.1</span> Identify <code>species_code</code> for walleye pollock</h3>
+<section id="identify-species_code-for-walleye-pollock" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="identify-species_code-for-walleye-pollock"><span class="header-section-number">14.1.1</span> Identify <code>species_code</code> for walleye pollock</h3>
 <p>In the catch data, we itemize species catches by <code>species_code</code>. To find out which <code>species_code</code> to use, you can check variations on the following code. Note that here the word <code>pollock</code> is case sensitive. All species <code>common_name</code> entries are lower case except for proper nouns (e.g., “Pacific”). The notation for finding a string is to use <code>%</code> around the phrase. Since <code>%</code> is a reserved character in a URL, you have to replace <code>%</code> with <code>%25</code>. Similarly, <code>%20</code> needs to be used in place of a space (e.g., between “walleye” and “pollock”: <code>"walleye%20pollock"}'</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## query the API link. Use: </span></span>
@@ -1106,8 +1111,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="then-apply-the-hauljoins-and-species_code-to-catch-query" class="level3" data-number="13.1.2">
-<h3 data-number="13.1.2" class="anchored" data-anchor-id="then-apply-the-hauljoins-and-species_code-to-catch-query"><span class="header-section-number">13.1.2</span> Then, apply the <code>hauljoins</code> and <code>species_code</code> to catch query</h3>
+<section id="then-apply-the-hauljoins-and-species_code-to-catch-query" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="then-apply-the-hauljoins-and-species_code-to-catch-query"><span class="header-section-number">14.1.2</span> Then, apply the <code>hauljoins</code> and <code>species_code</code> to catch query</h3>
 <p>We’ll use the data from the haul and species table we collected before to select 2023 eastern Bering Sea walleye pollock catch data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## query the API link</span></span>
@@ -1180,8 +1185,8 @@ function googleTranslateElementInit() {
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">'?offset='</span>,i,<span class="st">'&amp;limit=10000&amp;q={"species_code":21740}'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1" class="level3" data-number="13.1.3">
-<h3 data-number="13.1.3" class="anchored" data-anchor-id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1"><span class="header-section-number">13.1.3</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</h3>
+<section id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1" class="level3" data-number="14.1.3">
+<h3 data-number="14.1.3" class="anchored" data-anchor-id="create-zero-filled-data-for-2023-eastern-bering-sea-walleye-pollock-and-plot-1"><span class="header-section-number">14.1.3</span> Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot</h3>
 <p>It is important to create and have access to zero-fill (presence and absence) so you can do simple analyses and plot data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">full_join</span>(</span>
@@ -1294,12 +1299,12 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="visualize-cpue-data-in-distribution-map-1" class="level3" data-number="13.1.4">
-<h3 data-number="13.1.4" class="anchored" data-anchor-id="visualize-cpue-data-in-distribution-map-1"><span class="header-section-number">13.1.4</span> Visualize CPUE data in distribution map</h3>
+<section id="visualize-cpue-data-in-distribution-map-1" class="level3" data-number="14.1.4">
+<h3 data-number="14.1.4" class="anchored" data-anchor-id="visualize-cpue-data-in-distribution-map-1"><span class="header-section-number">14.1.4</span> Visualize CPUE data in distribution map</h3>
 <p>Using the zero-filled data from the previous example, we can make a few plots!</p>
 </section>
-<section id="plot-locations-1" class="level3" data-number="13.1.5">
-<h3 data-number="13.1.5" class="anchored" data-anchor-id="plot-locations-1"><span class="header-section-number">13.1.5</span> Plot locations</h3>
+<section id="plot-locations-1" class="level3" data-number="14.1.5">
+<h3 data-number="14.1.5" class="anchored" data-anchor-id="plot-locations-1"><span class="header-section-number">14.1.5</span> Plot locations</h3>
 <div class="cell" data-tbl-cap="Amount of catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Red triangles denote stations where walleye pollock were not caught. ">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1328,8 +1333,8 @@ function googleTranslateElementInit() {
 </div>
 </div>
 </section>
-<section id="plot-inverse-distance-weighted-modeled-product-of-locations-1" class="level3" data-number="13.1.6">
-<h3 data-number="13.1.6" class="anchored" data-anchor-id="plot-inverse-distance-weighted-modeled-product-of-locations-1"><span class="header-section-number">13.1.6</span> Plot inverse-distance weighted modeled product of locations</h3>
+<section id="plot-inverse-distance-weighted-modeled-product-of-locations-1" class="level3" data-number="14.1.6">
+<h3 data-number="14.1.6" class="anchored" data-anchor-id="plot-inverse-distance-weighted-modeled-product-of-locations-1"><span class="header-section-number">14.1.6</span> Plot inverse-distance weighted modeled product of locations</h3>
 <p>This map is constructed using <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a></p>
 <div class="cell" data-tbl-cap="Amount of catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Red triangles denote stations where walleye pollock were not caught. ">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)</span></span>
@@ -1361,10 +1366,10 @@ function googleTranslateElementInit() {
 </section>
 </section>
 </section>
-<section id="other-query-examples" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Other query examples</h1>
-<section id="ex.-combination-of-year-srvy-stratum" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="ex.-combination-of-year-srvy-stratum"><span class="header-section-number">14.1</span> Ex. Combination of year, srvy, stratum</h2>
+<section id="other-query-examples" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Other query examples</h1>
+<section id="ex.-combination-of-year-srvy-stratum" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="ex.-combination-of-year-srvy-stratum"><span class="header-section-number">15.1</span> Ex. Combination of year, srvy, stratum</h2>
 <p>Show haul data where year is less than 1989, srvy = “EBS”, and stratum is not equal to 81.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(</span>

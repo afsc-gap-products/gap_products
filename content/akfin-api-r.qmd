@@ -1,5 +1,5 @@
 ---
-title: Access API data using R
+title: Access API data via R
 number-sections: true
 number-depth: 3
 ---
@@ -7,7 +7,7 @@ number-depth: 3
 ```{r setup, include=FALSE}
 #| file: functions.R
 
-knitr::opts_chunk$set(eval = TRUE, echo = TRUE)
+knitr::opts_chunk$set(eval = TRUE, echo = TRUE, include = TRUE)
 # tell R to not use scientific notation
 options(scipen=999)
 ```
@@ -16,8 +16,10 @@ AKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRO
 
 The url structure is "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]" . For example "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass" is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&area_id=10&species_code=21740&start_year=2022&end_year=2022”.
 
-If you’re using R to pull data through web services you might find the [akfingapdata](https://github.com/MattCallahan-NOAA/akfingapdata/tree/main) (pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.
+If you’re using R to pull data through web services you might find the [akfingapdata](https://github.com/MattCallahan-NOAA/akfingapdata/tree/main) (pronounced **akfin-gap-data** not **ak-eff-ing-app-data**) R package helpful.
 
+
+### Load packages and helpful functions
 
 ```{r akfin-api-fn}
 # load libraries
@@ -45,7 +47,7 @@ get_gap_biomass<-function(area_id, species_code) {
 }
 ```
 
-## Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
+## Ex. Direct database query in R using the [akfingapdata R package README](https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd):
 
 ```{r}
 #| label: test-2a
@@ -75,7 +77,7 @@ con <- channel_akfin
 
 ```{r}
 #| label: test-2c
-#| tbl-cap: "Ex. 2: Load data with {akfingapdata}. "
+#| tbl-cap: "Ex. Load data with {akfingapdata}. "
 #| eval: false
 
 library(DBI)
@@ -95,8 +97,6 @@ dplyr::rename_with(tolower) # everyone likes lower case letters better
 
 head(data)
 ```
-
-## Ex. Direct database query in R using the (akfingapdata readme)[https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd] R package:
 
 Sign into akfin with token (need to request token from AKFIN)
 

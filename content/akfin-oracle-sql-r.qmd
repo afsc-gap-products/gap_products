@@ -243,7 +243,7 @@ dat <- RODBC::sqlQuery(channel = channel,
                          "
 -- Select columns for output data
 SELECT 
-(cp.CPUE_KGKM2/100) CPUE_KGHA, -- akgfmaps is expecting hectares
+(cp.CPUE_KGKM2/100) CPUE_KGHA, -- akgfmaps is expecting hectares, but can take any units
 hh.LATITUDE_DD_START LATITUDE,
 hh.LONGITUDE_DD_START LONGITUDE
 
@@ -297,9 +297,7 @@ figure <- akgfmaps::make_idw_map(
   grid.cell = c(20000, 20000), # 20x20km grid
   key.title = "Pacific Ocean perch") # Include in the legend title
 
-figure$plot + 
-  ggplot2::guides(fill=guide_legend(title = "Pacific Ocean perch\nCPUE (kg/km2)"))  |>   
-  change_fill_color(new.scheme = "grey", show.plot = FALSE)
+figure$plot
 ```
 
 ### Ex. GOA Pacific Ocean perch biomass and abundance

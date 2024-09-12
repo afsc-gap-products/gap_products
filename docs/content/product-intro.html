@@ -195,6 +195,11 @@ div.csl-indent {
   <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Universal Column Metadata</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -218,7 +223,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access API data using R</span></a>
+  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access API data via R</span></a>
   </div>
 </li>
       </ul>
@@ -254,7 +259,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC only)</span></a>
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC Staff only)</span></a>
   </div>
 </li>
       </ul>
@@ -312,6 +317,7 @@ div.csl-indent {
    
   <ul>
   <li><a href="#data-description" id="toc-data-description" class="nav-link active" data-scroll-target="#data-description">Data Description</a></li>
+  <li><a href="#gapindex" id="toc-gapindex" class="nav-link" data-scroll-target="#gapindex">gapindex</a></li>
   <li><a href="#cite-this-data" id="toc-cite-this-data" class="nav-link" data-scroll-target="#cite-this-data">Cite this data</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/product-intro.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/product-intro.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -360,6 +366,10 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
 <p>The Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat. These data are created using the <a href="https://afsc-gap-products.github.io/gapindex/index.html">gapindex R package v2.1.0</a>.</p>
 <p>Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.</p>
+</section>
+<section id="gapindex" class="level2">
+<h2 class="anchored" data-anchor-id="gapindex"><a href="https://github.com/afsc-gap-products/gapindex">gapindex</a></h2>
+<p>Code to generate design-based catch-per-unit-effort (CPUE), indices of abundance, biomass, and size and age compositions from survey data is avaialble from <a href="https://github.com/afsc-gap-products/gapindex">gapindex</a>. See the <a href="https://afsc-gap-products.github.io/gapindex/">gapindex documentation</a> for more information. Make sure you have installed R packages devtools, RODBC, and getPass and are connected to the AFSC network or VPN while using this package.</p>
 </section>
 <section id="cite-this-data" class="level2">
 <h2 class="anchored" data-anchor-id="cite-this-data">Cite this data</h2>
