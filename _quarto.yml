@@ -20,12 +20,18 @@ book:
       affiliations:
         - name: NOAA Fisheres Alaska Fisheries Science Center
           department: Groundfish Assessment Program
-    - name: Gulf of Alaska and Aleutian Island Survey Team
+    - name: Gulf of Alaska Survey Team
       email: nmfs.afsc.gap.metadata@noaa.gov 
       note: https://github.com/afsc-gap-products
       affiliations:
         - name: NOAA Fisheres Alaska Fisheries Science Center
           department: Groundfish Assessment Program
+    - name: Aleutian Islands Survey Team
+      email: nmfs.afsc.gap.metadata@noaa.gov 
+      note: https://github.com/afsc-gap-products
+      affiliations:
+        - name: NOAA Fisheres Alaska Fisheries Science Center
+          department: Groundfish Assessment Program          
   chapters:
     - part: index.qmd
       chapters:
@@ -36,8 +42,7 @@ book:
     - part: content/product-intro.qmd
       chapters:
         - content/product-metadata.qmd
-      #  - content/product-metadata-column.qmd
-      #  - content/product-gapindex.qmd
+        - content/product-metadata-column.qmd
     - part: content/akfin-intro.qmd
       chapters:
         - content/akfin-metadata.qmd

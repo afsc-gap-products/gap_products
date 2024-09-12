@@ -13,6 +13,17 @@ The Resource Assessment and Conservation Engineering Division (RACE) Groundfish 
 
 Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.
 
+## [gapindex](https://github.com/afsc-gap-products/gapindex)
+
+Code to generate design-based catch-per-unit-effort (CPUE), indices of abundance, biomass, and size and age compositions from survey data is avaialble from [gapindex](https://github.com/afsc-gap-products/gapindex). See the [gapindex documentation](https://afsc-gap-products.github.io/gapindex/) for more information. Make sure you have installed R packages devtools, RODBC, and getPass and are connected to the AFSC network or VPN while using this package.
+
+```{r gapindex-cite, include=FALSE}
+library(devtools)
+devtools::install_github("afsc-gap-products/gapindex")
+
+library(gapindex)
+```
+
 ## Cite this data
 
 Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/code/CITATION_GAPProducts.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPProducts]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
