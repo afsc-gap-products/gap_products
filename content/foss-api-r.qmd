@@ -150,7 +150,8 @@ Since the maxim number of rows a user can pull is 10,000 rows in a query, the us
 
 ```{r load-catch, eval = TRUE}
 dat <- data.frame()
-for (i in seq(0, 1000000, 10000)){
+for (i in seq(0, 100000, 10000)){
+# for (i in seq(0, 1000000, 10000)){
   ## find how many iterations it takes to cycle through the data
   print(i)
   ## query the API link
