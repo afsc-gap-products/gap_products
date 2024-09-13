@@ -40,7 +40,7 @@ if (file.exists("Z:/Projects/ConnectToOracle.R")) {
   source("Z:/Projects/ConnectToOracle.R")
   channel <- channel_products
 } else {
-  gapindex::get_connected()
+  channel <- gapindex::get_connected()
 }
 
 link_foss <- "https://www.fisheries.noaa.gov/foss"
@@ -51,213 +51,72 @@ pretty_date <- format(Sys.Date(), "%B %d, %Y")
 crs.out <- "EPSG:3338"
 # Functions --------------------------------------------------------------------
 
-fix_metadata_table <- function(metadata_table0, name0, dir_out) {
-  metadata_table0 <- gsub(pattern = "\n", replacement = " ", x = metadata_table0)
-  metadata_table0 <- gsub(pattern = "   ", replacement = " ", x = metadata_table0)
-  metadata_table0 <- gsub(pattern = "  ", replacement = " ", x = metadata_table0)
-  
-  readr::write_lines(
-    x = metadata_table0,
-    file = paste0(dir_out, name0, "_comment.txt")
-  )
-  # readr::write_lines(x = metadata_table,
-  #                    file = paste0(dir_out, a_name, "_metadata_table.txt", collapse="\n"))
-  
-  return(metadata_table0)
-}
-
-
-
-update_metadata <- function(
-    schema,
-    table_name,
-    channel,
-    metadata_column,
-    table_metadata,
-    update_metadata = TRUE,
-    share_with_all_users = TRUE) {
-  cat("Updating Metadata ...\n")
-  
-  ## Add column metadata
-  if (nrow(x = metadata_column) > 0) {
-    for (i in 1:nrow(x = metadata_column)) {
-      desc <- gsub(
-        pattern = "<sup>2</sup>",
-        replacement = "2",
-        x = metadata_column$colname_long[i],
-        fixed = TRUE
-      )
-      short_colname <- gsub(
-        pattern = "<sup>2</sup>",
-        replacement = "2",
-        x = metadata_column$colname[i],
-        fixed = TRUE
-      )
-      
-      RODBC::sqlQuery(
-        channel = channel,
-        query = paste0(
-          "COMMENT ON COLUMN ",
-          schema, ".", table_name, ".",
-          short_colname, " is '",
-          desc, ". ", # remove markdown/html code
-          gsub(
-            pattern = "'", replacement = '\"',
-            x = metadata_column$colname_desc[i]
-          ), "';"
-        )
-      )
-    }
-  }
-  ## Add table metadata
-  RODBC::sqlQuery(
+print_table_metadata <- function(channel, locations) {
+  # Query all table comments for each table in `locations`
+  b <- RODBC::sqlQuery(
     channel = channel,
     query = paste0(
-      "COMMENT ON TABLE ", schema, ".", table_name,
-      " is '",
-      table_metadata, "';"
-    )
-  )
+      "WITH Q_TABLE AS (SELECT MVIEW_NAME AS TABLE_NAME, COMMENTS
+       FROM USER_MVIEW_COMMENTS    
+       UNION
+       SELECT TABLE_NAME, COMMENTS
+       FROM ALL_TAB_COMMENTS 
+       WHERE OWNER = 'GAP_PRODUCTS' AND TABLE_TYPE = 'TABLE')
+       
+       SELECT * FROM Q_TABLE
+       JOIN (SELECT TABLE_NAME, NUM_ROWS 
+             FROM ALL_TABLES WHERE OWNER = 'GAP_PRODUCTS') USING (TABLE_NAME)
+       JOIN (SELECT TABLE_NAME, COUNT(*) AS NUM_COLS
+             FROM ALL_TAB_COLUMNS 
+             WHERE OWNER = 'GAP_PRODUCTS'
+             GROUP BY TABLE_NAME) USING (TABLE_NAME)
+       WHERE TABLE_NAME IN ", gapindex::stitch_entries(locations)))
   
-  
-  ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ##   Grant select access to all users
-  ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  if (share_with_all_users) {
-    cat("Granting select access to all users ... ")
-    all_schemas <- RODBC::sqlQuery(
-      channel = channel,
-      query = paste0("SELECT * FROM all_users;")
-    )
-    
-    for (iname in sort(all_schemas$USERNAME)) {
-      RODBC::sqlQuery(
-        channel = channel,
-        query = paste0(
-          "grant select on ", schema, ".", table_name,
-          " to ", iname, ";"
+  ## Query all fields contained within each table in `locations`
+  b_columns <- 
+    RODBC::sqlQuery(
+      channel = channel, 
+      query = 
+        paste0(
+          "SELECT TABLE_NAME, 
+      COLUMN_NAME AS \"Column name from data\", 
+      GP_META.METADATA_colname_long AS \"Descriptive column Name\" ,
+      GP_META.METADATA_units AS \"Units\",
+      GP_META.METADATA_datatype AS \"Oracle data type\",
+      GP_META.METADATA_colname_desc AS \"Column description\"
+      FROM ALL_TAB_COLS 
+      JOIN (GAP_PRODUCTS.METADATA_COLUMN) GP_META 
+          ON GP_META.METADATA_COLNAME = ALL_TAB_COLS.COLUMN_NAME 
+      WHERE OWNER = 'GAP_PRODUCTS' AND TABLE_NAME IN ",
+          gapindex::stitch_entries(b$TABLE_NAME)
         )
-      )
-    }
-  }
-}
-
-
-print_table_metadata <- function(channel, locations) {
-  # Find all descriptions of all tables in the GAP_PRODUCTS schema
-  b <- dplyr::bind_rows(
-    # tables
-    RODBC::sqlQuery(
-      channel = channel,
-      query = "SELECT table_name, comments
-FROM all_tab_comments
-WHERE owner = 'GAP_PRODUCTS'
-ORDER BY table_name") %>% 
-      data.frame(), 
-    # materialized view
-    RODBC::sqlQuery(
-      channel = channel,
-      query = "SELECT *FROM user_mview_comments") %>% 
-      data.frame() %>% 
-      dplyr::rename(TABLE_NAME = MVIEW_NAME)
-  )
+    )
   
   # Collect all column metadata for all table locations
-  str00 <- c()
+  str00 <- paste0("## Data tables", "\n\n")
+  
   for (i in 1:length(locations)) {
-    metadata_table <- ""
-    if (sum(b$TABLE_NAME == locations[i])>0) {
-      metadata_table <- b$COMMENTS[b$TABLE_NAME == locations[i]]
-    }
-    # strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]]]
-    
-    if (grepl(pattern = "This table was created by", x = metadata_table)) {
-      metadata_table <- str_extract(metadata_table, "^.+(?= This table was created by)")
-    }
-    # Putting universal metadata language at top of page
-    if (i == 1) {
-      if (!is.na(metadata_table) && length(metadata_table) != 0) {
-        data_usage <- str_extract(metadata_table, "This table was created by .+$")
-        if(!is.na(data_usage)){
-          str00 <- paste0(
-            "## Data usage \n\n", data_usage,
-            "\n\n", "## Data tables", "\n\n") %>%
-            str_replace("This table was", "These tables were") %>%
-            str_replace("survey code books \\(https", "[survey code books]\\(https")
-        }
-      }
-      
-      if(is.na(metadata_table) || is.na(data_usage)) {
-        str00 <- paste0("## Data tables", "\n\n")
-      }
-    }
-    
-    metadata_table <- ifelse(is.na(metadata_table) | length(metadata_table) == 0,
-                             "[There is currently no description for this table.]",
-                             metadata_table
-    )
-    
-    # temp <- file.size(here::here("data", paste0(locations[i], ".csv")))
-    temp_rows <- RODBC::sqlQuery(
-      channel = channel,
-      query = paste0("SELECT COUNT(*) FROM GAP_PRODUCTS.", locations[i], ";")
-    )
-    
-    # temp_data <- RODBC::sqlQuery(channel = channel,
-    #                              query = paste0("SELECT *
-    # FROM ", locations[i], "
-    # FETCH FIRST 3 ROWS ONLY;"))
-    #
-    # temp_cols <- temp_data %>%
-    #   ncol()
-    
-    temp_colnames <- RODBC::sqlQuery(
-      channel = channel,
-      query = paste0("SELECT owner, column_name
-FROM all_tab_columns
-WHERE table_name = '", locations[i], "'
-AND owner = 'GAP_PRODUCTS';")
-    )
-    
-    temp_cols <- nrow(temp_colnames)
-    
-    # get metadata
-    temp_data <- RODBC::sqlQuery(
-      channel = channel,
-      query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN"
-    ) %>%
-      dplyr::right_join(temp_colnames, by = c("METADATA_COLNAME" = "COLUMN_NAME")) %>%
-      janitor::clean_names() %>%
-      dplyr::arrange(metadata_colname) %>%
-      dplyr::select(
-        "Column name from data" = metadata_colname,
-        "Descriptive column Name" = metadata_colname_long,
-        "Units" = metadata_units,
-        "Oracle data type" = metadata_datatype,
-        "Column description" = metadata_colname_desc
+    str00 <-
+      paste0(
+        str00,
+        "### ", b$TABLE_NAME[i], "\n\n",
+        b$COMMENTS[i], "\n\n",
+        "Number of rows: ", formatC(x = b$NUM_ROWS[i], 
+                                    digits = 0, 
+                                    format = "f", 
+                                    big.mark = ","),
+        "\n\nNumber of columns: ", formatC(x = b$NUM_COLS, 
+                                           digits = 0, 
+                                           format = "f", 
+                                           big.mark = ","),
+        "\n\n",
+        kableExtra::kable(subset(x = b_columns,
+                                 subset = TABLE_NAME == b$TABLE_NAME[i],
+                                 select = -TABLE_NAME), 
+                          row.names = FALSE, format = "html") %>%
+          kableExtra::kable_styling(bootstrap_options = "striped"),
+        "\n\n\n"
       )
-    
-    str00 <- paste0(
-      str00,
-      "### ", locations[i], "\n\n",
-      metadata_table, "\n\n",
-      "Number of rows: ", formatC(x = unlist(temp_rows), digits = 0, format = "f", big.mark = ","),
-      "\n\nNumber of columns: ", formatC(x = unlist(temp_cols), digits = 0, format = "f", big.mark = ","),
-      # " | ",
-      # formatC(x = temp/ifelse(temp>1e+7, 1e+9, 1),
-      #         digits = 1, format = "f", big.mark = ","),
-      # " ", ifelse(temp>1e+7, "GB", "B"),
-      "\n\n",
-      kableExtra::kable(temp_data, row.names = FALSE, format = "html") %>%
-        kableExtra::kable_styling(bootstrap_options = "striped"),
-      "\n\n\n"
-    )
-    # cat(str0)
-    # # what are the metadata for each column of this table
-    # flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
-    # # print few first lines of this table for show
-    # flextable::flextable(head(a, 3))
   }
   return(str00)
 }
-
