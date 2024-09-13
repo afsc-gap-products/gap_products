@@ -105,7 +105,7 @@ print_table_metadata <- function(channel, locations) {
                                     digits = 0, 
                                     format = "f", 
                                     big.mark = ","),
-        "\n\nNumber of columns: ", formatC(x = b$NUM_COLS, 
+        "\n\nNumber of columns: ", formatC(x = b$NUM_COLS[i], 
                                            digits = 0, 
                                            format = "f", 
                                            big.mark = ","),
