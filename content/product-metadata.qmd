@@ -8,14 +8,12 @@ title: Data description
 
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
- # You can download all of the tables and save them locally. These are all of the new tables for you to look through:
-
-locations <- c("AGECOMP", "AREA",
-                   "BIOMASS", "CPUE",
-                   "SURVEY_DESIGN", "METADATA_TABLE",
-                   "STRATUM_GROUPS", "SIZECOMP") 
-
-str00 <- print_table_metadata(channel, locations)
+str00 <- print_table_metadata(
+  channel, 
+  locations = c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", 
+                "SURVEY_DESIGN", "STRATUM_GROUPS", "SPECIES_YEAR",
+                "TAXON_GROUPS") 
+)
 ```
 
 `r str00`
