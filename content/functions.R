@@ -53,7 +53,7 @@ crs.out <- "EPSG:3338"
 
 print_table_metadata <- function(channel, locations) {
   # Query all table comments for each table in `locations`
-  b <- RODBC::sqlQuery(
+  table_info <- RODBC::sqlQuery(
     channel = channel,
     query = paste0(
       "WITH Q_TABLE AS (SELECT MVIEW_NAME AS TABLE_NAME, COMMENTS
@@ -73,7 +73,7 @@ print_table_metadata <- function(channel, locations) {
        WHERE TABLE_NAME IN ", gapindex::stitch_entries(locations)))
   
   ## Query all fields contained within each table in `locations`
-  b_columns <- 
+  field_info <- 
     RODBC::sqlQuery(
       channel = channel, 
       query = 
@@ -88,32 +88,34 @@ print_table_metadata <- function(channel, locations) {
       JOIN (GAP_PRODUCTS.METADATA_COLUMN) GP_META 
           ON GP_META.METADATA_COLNAME = ALL_TAB_COLS.COLUMN_NAME 
       WHERE OWNER = 'GAP_PRODUCTS' AND TABLE_NAME IN ",
-          gapindex::stitch_entries(b$TABLE_NAME)
+          gapindex::stitch_entries(table_info$TABLE_NAME)
         )
     )
   
   # Collect all column metadata for all table locations
   str00 <- paste0("## Data tables", "\n\n")
   
-  for (i in 1:length(locations)) {
+  for (i in 1:length(x = locations)) {
     str00 <-
       paste0(
         str00,
-        "### ", b$TABLE_NAME[i], "\n\n",
-        b$COMMENTS[i], "\n\n",
-        "Number of rows: ", formatC(x = b$NUM_ROWS[i], 
+        "### ", table_info$TABLE_NAME[i], "\n\n",
+        table_info$COMMENTS[i], "\n\n",
+        "Number of rows: ", formatC(x = table_info$NUM_ROWS[i], 
                                     digits = 0, 
                                     format = "f", 
                                     big.mark = ","),
-        "\n\nNumber of columns: ", formatC(x = b$NUM_COLS[i], 
+        "\n\nNumber of columns: ", formatC(x = table_info$NUM_COLS[i], 
                                            digits = 0, 
                                            format = "f", 
                                            big.mark = ","),
         "\n\n",
-        kableExtra::kable(subset(x = b_columns,
-                                 subset = TABLE_NAME == b$TABLE_NAME[i],
-                                 select = -TABLE_NAME), 
-                          row.names = FALSE, format = "html") %>%
+        kableExtra::kable(
+          subset(x = field_info,
+                 subset = TABLE_NAME == table_info$TABLE_NAME[i],
+                 select = -TABLE_NAME), 
+          row.names = FALSE, format = "html"
+        ) %>%
           kableExtra::kable_styling(bootstrap_options = "striped"),
         "\n\n\n"
       )
