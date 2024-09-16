@@ -542,7 +542,7 @@ figure <- ggplot2::ggplot(
   ggplot2::coord_flip() +
   ggplot2::scale_x_continuous(name = "Age") +
   ggplot2::scale_y_continuous(name = "Population (billions)", labels = abs) +
-  ggplot2::ggtitle(label = "2023 EBS Walleye Pollock Age Compositions")  + 
+  ggplot2::ggtitle(label = "2023 EBS (Standard Area + NW) walleye pollock Age Composition")  + 
   ggplot2::guides(fill = guide_legend(title = "Sex"))+
   ggplot2::theme_bw()
 
@@ -562,31 +562,22 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 dat <- RODBC::sqlQuery(channel = channel, 
                        query = 
                          "
--- Manipulate data to join to
-WITH FILTERED_STRATA AS (
-SELECT 
-AREA_ID, 
-AREA_NAME, 
-DESCRIPTION 
+SELECT YEAR, AREA_ID AS STRATUM, AREA_NAME, BIOMASS_MT, POPULATION_COUNT 
+FROM GAP_PRODUCTS.AKFIN_BIOMASS
+
+JOIN ( -- join with area table
+SELECT AREA_ID, AREA_NAME
 FROM GAP_PRODUCTS.AKFIN_AREA
-WHERE AREA_TYPE in ('STRATUM') AND 
-SURVEY_DEFINITION_ID = 143) 
+WHERE AREA_TYPE = 'STRATUM'
+AND SURVEY_DEFINITION_ID = 143
+AND DESIGN_YEAR = 2022)
 
--- Select columns for output data
-SELECT 
-BIOMASS.BIOMASS_MT, 
-BIOMASS.POPULATION_COUNT, 
-BIOMASS.YEAR, 
-STRATA.AREA_NAME
+USING (AREA_ID)
 
--- Identify what tables to pull data from
-FROM GAP_PRODUCTS.AKFIN_BIOMASS BIOMASS 
-JOIN FILTERED_STRATA STRATA 
-ON STRATA.AREA_ID = BIOMASS.AREA_ID
-
--- Filter data results
-WHERE BIOMASS.SURVEY_DEFINITION_ID IN 143 
-AND BIOMASS.SPECIES_CODE = 21720")
+-- Filter data results to NBS Pacific cod
+WHERE SURVEY_DEFINITION_ID IN 143 
+AND SPECIES_CODE = 21720
+ORDER BY YEAR, STRATUM")
 ```
 
 ```{r}
@@ -598,15 +589,15 @@ AND BIOMASS.SPECIES_CODE = 21720")
 
 dat0 <- dat %>% 
   janitor::clean_names() %>% 
-  dplyr::select(biomass_mt, population_count, year, area = area_name) %>%
+  dplyr::select(year, area_name, biomass_mt, population_count) %>%
   pivot_longer(cols = c("biomass_mt", "population_count"), 
                names_to = "var", 
                values_to = "val") %>% 
   dplyr::mutate(
     val = ifelse(var == "biomass_mt", val/1e6, val/1e9), 
     var = ifelse(var == "biomass_mt", "Biomass (Mmt)", "Population (B)"), 
-    area = factor(area, levels = unique(area), labels = unique(area), ordered = TRUE))
-flextable::flextable(head(dat)) %>% 
+    area = factor(area_name, levels = unique(area_name), labels = unique(area_name), ordered = TRUE))
+flextable::flextable(dat) %>% 
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
   flextable::colformat_num(x = ., j = "YEAR", big.mark = "")
@@ -627,7 +618,7 @@ figure <- ggplot2::ggplot(
   ggplot2::scale_y_continuous(name = "Estimate", labels = comma) +
   ggplot2::scale_x_continuous(name = "Year", breaks = unique(dat0$year)) +
   ggplot2::labs(title = 'NBS Pacific cod biomass and abundance by stratum')  + 
-  ggplot2::guides(fill=guide_legend(title = "Region Type"))+
+  ggplot2::guides(fill=guide_legend(title = "Domain Type "))+
   ggplot2::scale_fill_grey() +
   ggplot2::theme_bw() +
   ggplot2::theme(legend.direction = "horizontal", 
