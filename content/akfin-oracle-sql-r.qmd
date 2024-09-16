@@ -788,11 +788,13 @@ JOIN (SELECT CRUISEJOIN, YEAR, SURVEY_DEFINITION_ID FROM GAP_PRODUCTS.AKFIN_CRUI
 USING (CRUISEJOIN)
 
 -- Filter data results
-WHERE GAP_PRODUCTS.AKFIN_SPECIMEN.SPECIMEN_SAMPLE_TYPE = 1
+WHERE AGE >= 0
 AND SPECIES_CODE = 21921
 AND YEAR = 2022
 AND SURVEY_DEFINITION_ID = 52
-GROUP BY (YEAR, SURVEY_DEFINITION_ID, SPECIES_CODE, AGE)") %>% 
+GROUP BY (YEAR, SURVEY_DEFINITION_ID, SPECIES_CODE, AGE)
+
+ORDER BY AGE") %>% 
   janitor::clean_names()
 ```
 
@@ -803,8 +805,7 @@ GROUP BY (YEAR, SURVEY_DEFINITION_ID, SPECIES_CODE, AGE)") %>%
 #| warning: false
 #| echo: true
 
-flextable::flextable(head(dat) %>% 
-                       dplyr::arrange(age)) %>%
+flextable::flextable(dat) %>% 
   flextable::fit_to_width(max_width = 6) %>% 
   flextable::theme_zebra() %>%
   flextable::colformat_num(x = ., j = c("year", "species_code"), big.mark = "")
