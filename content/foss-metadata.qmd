@@ -15,22 +15,15 @@ These data are zero-filled (presence and absence) observations from surveys cond
 
 Though not included in the public data, these surveys also collect oceanographic and environmental data, and biological data such as length, weight, stomach contents (to learn more about diet), otoliths (fish ear bones to learn about age), and tissue samples for genetic analysis, all of which can be shared upon special request. Also not included in the public data are estimated biomass (average total weight of all fish and crabs sampled) of crabs and groundfish that support the creation of annual stock assessments.
 
-
 ```{r table-locations, eval = TRUE, echo = FALSE}
-
-# You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
 foss_views <- RODBC::sqlQuery(
   channel = channel,
   query = "SELECT table_name 
 FROM all_tables
-WHERE owner = 'GAP_PRODUCTS';") %>% 
-  dplyr::filter(grepl(x = TABLE_NAME, pattern = "FOSS_")) %>% 
-  dplyr::filter(TABLE_NAME != "FOSS_CPUE_PRESONLY")
-  
+WHERE owner = 'GAP_PRODUCTS'
+AND TABLE_NAME LIKE 'FOSS_%'")
 
-locations <- foss_views$TABLE_NAME
-
-str00 <- print_table_metadata(channel, locations) 
+str00 <- print_table_metadata(channel, locations = foss_views$TABLE_NAME) 
 ```
 
 `r str00`
@@ -38,4 +31,3 @@ str00 <- print_table_metadata(channel, locations)
 ```{r rodbc-close}
 RODBC::odbcCloseAll()
 ```
-

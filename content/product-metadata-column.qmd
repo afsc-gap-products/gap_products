@@ -1,7 +1,7 @@
 ---
 title: Universal Column Metadata
 ---
-  
+
 ```{r setup, include=FALSE}
 #| file: functions.R
 ```
@@ -10,17 +10,14 @@ title: Universal Column Metadata
 #| eval: true
 #| echo: false
 
-b <- RODBC::sqlQuery(channel = channel,
-                       query = "SELECT table_name, comments
+metadata_comment <- RODBC::sqlQuery(channel = channel,
+                                    query = "SELECT COMMENTS
 FROM all_tab_comments
 WHERE owner = 'GAP_PRODUCTS'
-ORDER BY table_name")
-str0 <- b$COMMENTS[b$TABLE_NAME ==
-                     strsplit(x = "GAP_PRODUCTS.METADATA_COLUMN",
-                              split = ".", fixed = TRUE)[[1]][2]]
+AND TABLE_NAME = 'METADATA_COLUMN'")$COMMENTS
 ```
 
-`r str0`
+`r metadata_comment`
 
 ```{r}
 #| label: metadata-column
@@ -30,19 +27,17 @@ str0 <- b$COMMENTS[b$TABLE_NAME ==
 
 metadata_column0 <- RODBC::sqlQuery(
   channel = channel, 
-  query = "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN")  %>%
-  janitor::clean_names() %>% 
-  dplyr::arrange(metadata_colname) %>%
-  dplyr::select(
-    "Column name from data" = metadata_colname,
-    "Descriptive column Name" = metadata_colname_long,
-    "Units" = metadata_units,
-    "Units" = metadata_units,
-    "Oracle data type" = metadata_datatype,
-    "Column description" = metadata_colname_desc)
+  query = "SELECT  
+      METADATA_COLNAME AS \"Column name from data\", 
+      METADATA_colname_long AS \"Descriptive column Name\" ,
+      METADATA_units AS \"Units\",
+      METADATA_datatype AS \"Oracle data type\",
+      METADATA_colname_desc AS \"Column description\"
+      FROM GAP_PRODUCTS.METADATA_COLUMN 
+      ORDER BY METADATA_COLNAME"
+)
 
 flextable::flextable(metadata_column0) %>% theme_zebra()
-# knitr::kable(metadata_column0, row.names = FALSE)
 ```
 
 ```{r rodbc-close}

@@ -2,6 +2,8 @@
 title: Production run notes
 ---
 
+> Report run date: `r format(Sys.Date(), format = "%A, %B %d, %Y")`
+
 # R Version Metadata
 
 ```{r session-info}
