@@ -302,10 +302,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#area" id="toc-area" class="nav-link" data-scroll-target="#area">AREA</a></li>
   <li><a href="#biomass" id="toc-biomass" class="nav-link" data-scroll-target="#biomass">BIOMASS</a></li>
   <li><a href="#cpue" id="toc-cpue" class="nav-link" data-scroll-target="#cpue">CPUE</a></li>
-  <li><a href="#metadata_table" id="toc-metadata_table" class="nav-link" data-scroll-target="#metadata_table">METADATA_TABLE</a></li>
   <li><a href="#sizecomp" id="toc-sizecomp" class="nav-link" data-scroll-target="#sizecomp">SIZECOMP</a></li>
+  <li><a href="#species_year" id="toc-species_year" class="nav-link" data-scroll-target="#species_year">SPECIES_YEAR</a></li>
   <li><a href="#stratum_groups" id="toc-stratum_groups" class="nav-link" data-scroll-target="#stratum_groups">STRATUM_GROUPS</a></li>
   <li><a href="#survey_design" id="toc-survey_design" class="nav-link" data-scroll-target="#survey_design">SURVEY_DESIGN</a></li>
+  <li><a href="#taxon_groups" id="toc-taxon_groups" class="nav-link" data-scroll-target="#taxon_groups">TAXON_GROUPS</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/product-metadata.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/product-metadata.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -1182,86 +1183,6 @@ Numerical catch per unit effort (area swept by the net, units square kilometers)
 </tbody>
 </table>
 </section>
-<section id="metadata_table" class="level3">
-<h3 class="anchored" data-anchor-id="metadata_table">METADATA_TABLE</h3>
-<p>This table is used to string together the various table comments for the tables in GAP_PRODUCTS. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 12 September 2024.</p>
-<p>Number of rows: 41</p>
-<p>Number of columns: 3</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Column name from data
-</th>
-<th style="text-align:left;">
-Descriptive column Name
-</th>
-<th style="text-align:left;">
-Units
-</th>
-<th style="text-align:left;">
-Oracle data type
-</th>
-<th style="text-align:left;">
-Column description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-METADATA_SENTENCE_NAME
-</td>
-<td style="text-align:left;">
-Metadata sentence name
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(4000 BYTE)
-</td>
-<td style="text-align:left;">
-Name of table metadata sentence.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-METADATA_SENTENCE_TYPE
-</td>
-<td style="text-align:left;">
-Sentence type
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(4000 BYTE)
-</td>
-<td style="text-align:left;">
-Type of sentence to have in table metadata.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-METADATA_SENTENCE
-</td>
-<td style="text-align:left;">
-Sentence
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(4000 BYTE)
-</td>
-<td style="text-align:left;">
-Table metadata sentence.
-</td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="sizecomp" class="level3">
 <h3 class="anchored" data-anchor-id="sizecomp">SIZECOMP</h3>
 <p>Stratum/subarea/region-level size compositions by sex. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 12 September 2024.</p>
@@ -1405,6 +1326,52 @@ NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 The estimated population caught in the survey for a species, group, or total for a given survey.
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="species_year" class="level3">
+<h3 class="anchored" data-anchor-id="species_year">SPECIES_YEAR</h3>
+<p>This is a table</p>
+<p>Number of rows: 18</p>
+<p>Number of columns: 2</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon code
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
 </td>
 </tr>
 </tbody>
@@ -1582,6 +1549,409 @@ NUMBER(10,0)
 </td>
 <td style="text-align:left;">
 Year ID associated with a given value AREA_ID. This field describes the changes in the survey design over time.
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="taxon_groups" class="level3">
+<h3 class="anchored" data-anchor-id="taxon_groups">TAXON_GROUPS</h3>
+<p>GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION subsetted for taxonomic classifications accepted by the GAP bottom trawl survey and added GROUP_CODE to denote taxonomic aggregations. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 12 September 2024.</p>
+<p>Number of rows: 2,777</p>
+<p>Number of columns: 22</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon code
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIES_NAME
+</td>
+<td style="text-align:left;">
+Scientific name of species
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Scientific name of species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+COMMON_NAME
+</td>
+<td style="text-align:left;">
+Taxon common name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The common name of the marine organism associated with the scientific_name and species_code columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ID_RANK
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank of a given species entry.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DATABASE
+</td>
+<td style="text-align:left;">
+Database source
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Taxonomic database source, either ITIS or WoRMS.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DATABASE_ID
+</td>
+<td style="text-align:left;">
+Species ID in database
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Species ID key code of a species in the taxonomic “DATABASE” source.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GENUS_TAXON
+</td>
+<td style="text-align:left;">
+Genus phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of genus of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBFAMILY_TAXON
+</td>
+<td style="text-align:left;">
+Subfamily phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of subfamily of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FAMILY_TAXON
+</td>
+<td style="text-align:left;">
+Family phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of family of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUPERFAMILY_TAXON
+</td>
+<td style="text-align:left;">
+Superfamily phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of superfamily of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INFRAORDER_TAXON
+</td>
+<td style="text-align:left;">
+Infraorder phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Infraorder phylogenetic rank. Phylogenetic latin rank of infraorder of a given speices.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBORDER_TAXON
+</td>
+<td style="text-align:left;">
+Suborder phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of suborder of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORDER_TAXON
+</td>
+<td style="text-align:left;">
+Order phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of order of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUPERORDER_TAXON
+</td>
+<td style="text-align:left;">
+Superorder phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of superorder of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INFRACLASS_TAXON
+</td>
+<td style="text-align:left;">
+Infraclass phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Infraclass phylogenetic rank. Phylogenetic latin rank of infraclass of a given speices.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBCLASS_TAXON
+</td>
+<td style="text-align:left;">
+Subclass phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of subclass of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CLASS_TAXON
+</td>
+<td style="text-align:left;">
+Class phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of class of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUPERCLASS_TAXON
+</td>
+<td style="text-align:left;">
+Superclass phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of superclass of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBPHYLUM_TAXON
+</td>
+<td style="text-align:left;">
+Subphylum phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of subphylum of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHYLUM_TAXON
+</td>
+<td style="text-align:left;">
+Phylum phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of phylum of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KINGDOM_TAXON
+</td>
+<td style="text-align:left;">
+Kingdom phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of kingdom of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GROUP_CODE
+</td>
+<td style="text-align:left;">
+Species or Complex ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Equivalent to the SPECIES_CODE if the taxon is reported as a single taxon in GAP_PRODUCTS, otherwise denotes a SPECIES_CODE of a higher taxonomic group to which the taxon is aggregated in the GAP_PRODUCTS CPUE and BIOMASS tables.
 </td>
 </tr>
 </tbody>
