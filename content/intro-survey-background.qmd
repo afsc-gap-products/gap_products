@@ -6,7 +6,7 @@
 #| file: functions.R
 ```
 
-## What we do
+## What we do 
 
 ## Who is conducting the research?
 

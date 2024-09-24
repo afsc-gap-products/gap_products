@@ -49,6 +49,17 @@ link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
 link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
 pretty_date <- format(Sys.Date(), "%B %d, %Y")
 crs.out <- "EPSG:3338"
+
+
+# Citations --------------------------------------------------------------------
+
+library(RCurl)
+writeLines(con = here::here("content/references.bib"), 
+           text = paste0(read.csv(text = getURL("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"), 
+                                  row.names = NULL), collapse = "/n"))
+writeLines(con = here::here("content/references.csl"), 
+           text = paste0(read.csv(text = getURL("https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl")), collapse = "/n"))
+
 # Functions --------------------------------------------------------------------
 
 print_table_metadata <- function(channel, locations) {
