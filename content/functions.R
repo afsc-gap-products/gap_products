@@ -53,11 +53,11 @@ crs.out <- "EPSG:3338"
 
 # Citations --------------------------------------------------------------------
 
-# library(RCurl)
-# writeLines(con = here::here("content/references.bib"),
-#            text = getURL("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"))
-# writeLines(con = here::here("content/references.csl"), 
-#            text = getURL("https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"))
+library(RCurl)
+writeLines(con = here::here("content/references.bib"),
+           text = getURL("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"))
+writeLines(con = here::here("content/references.csl"),
+           text = getURL("https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"))
 
 # Functions --------------------------------------------------------------------
 
