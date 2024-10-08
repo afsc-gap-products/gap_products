@@ -89,7 +89,7 @@ compare_tables <- function(x = NULL,
                            paste0("(!is.na(x = ", x, base_table_suffix, 
                                   ") & is.na(x = ", x, update_table_suffix, 
                                   "))")), 
-                  collapse = "|"), 
+                  collapse = " & "), 
            "]")
   removed_records <- eval(parse(text = removed_records_stmt))
   removed_records <- removed_records[, c(key_columns, col_order), with = F]
