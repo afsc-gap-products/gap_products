@@ -281,11 +281,12 @@ test_check <- merge(x = updated_gp_taxon_groups,
 ## Reorder columns
 test_check <- 
   test_check[, c("SPECIES_CODE", 
-                 as.vector(sapply(X = names(current_gp_taxon_groups)[-2], 
+                 as.vector(sapply(X = names(current_gp_taxon_groups)[-1], 
                                   FUN = function(x) 
                                     paste0(x, c("_UPDATE", "_CURRENT")))))]
+
 ## Check for differences in each non-key field
-for (icol in names(current_gp_taxon_groups)[-2]) {
+for (icol in names(current_gp_taxon_groups)[-1]) {
   test_check[, paste0(icol, "_DIFF")] <- 
     test_check[, paste0(icol, "_UPDATE")] != 
     test_check[, paste0(icol, "_CURRENT")]
@@ -294,7 +295,7 @@ for (icol in names(current_gp_taxon_groups)[-2]) {
 ## Reorder columns
 test_check <- 
   test_check[, c("SPECIES_CODE", 
-                 as.vector(sapply(X = names(current_gp_taxon_groups)[-2], 
+                 as.vector(sapply(X = names(current_gp_taxon_groups)[-1], 
                                   FUN = function(x) 
                                     paste0(x, c("_UPDATE", 
                                                 "_CURRENT",
