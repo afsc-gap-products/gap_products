@@ -1,3 +1,13 @@
+---
+title: Citations and References
+---
+
+# Access Constraints
+
+There are no legal restrictions on access to the data. They reside in public domain and can be freely distributed.
+
+**User Constraints:** Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
+
 # References
 
 ::: {#refs}

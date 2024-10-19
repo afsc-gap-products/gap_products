@@ -25,9 +25,9 @@ test0 <- TRUE
 **An application programming interface (API) is a way for two or more computer programs to communicate with each other.** More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
 
 There are three tables the user can pull from the API. Learn more about them on the [FOSS data description page](https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html). Here, you can see them in their raw JSON format:
- -  haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/]
- - catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/]
- - species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]
+-  haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/]
+- catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/]
+- species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]
 
 Here are some examples of how to use the data with R:
 
@@ -151,7 +151,7 @@ Since the maxim number of rows a user can pull is 10,000 rows in a query, the us
 ```{r load-catch, eval = TRUE}
 dat <- data.frame()
 for (i in seq(0, 100000, 10000)){
-# for (i in seq(0, 1000000, 10000)){
+  # for (i in seq(0, 1000000, 10000)){
   ## find how many iterations it takes to cycle through the data
   print(i)
   ## query the API link
@@ -567,11 +567,46 @@ dat_catch_ex <- dat
 ```
 
 ```{r rr, include = FALSE, eval = FALSE}
+dat <- data.frame()
+for (i in seq(0, 100000, 10000)){
+  # for (i in seq(0, 1000000, 10000)){
+  ## find how many iterations it takes to cycle through the data
+  print(i)
+  ## query the API link
+  res <- httr::GET(url = paste0(
+    api_link_catch, 
+    '?offset=',i,'&limit=10000&q=',
+    '{"species_code":', dat_species_ex$species_code,'},',
+    paste0('{"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
+  ## convert from JSON format
+  data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
+  
+  ## if there are no data, stop the loop
+  if (is.null(nrow(data$items))) {
+    break
+  }
+  
+  ## bind sub-pull to dat data.frame
+  dat <- dplyr::bind_rows(dat, 
+                          data$items %>%
+                            dplyr::select(-links)) # necessary for API accounting, but not part of the dataset)
+}
+
+summary(dat)
+
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+
+# save outputs for later comparison
+dat_catch_api <- dat
+
+
+
 # cant get this to work!!! grrrrr
-res <- httr::GET(url = paste0(api_link_catch, 
-                              '?offset=',i,'&limit=10000&q=',
-                              '{"species_code":21740},',
-                              paste0('{"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
+# res <- httr::GET(url = paste0(api_link_catch, 
+#                               '?offset=',i,'&limit=10000&q=',
+#                               '{"species_code":21740},',
+#                               paste0('{"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
 # OR 
 res <- httr::GET(url = paste0(api_link_catch, 
                               '?offset=',i,'&limit=10000&q=',
@@ -579,10 +614,10 @@ res <- httr::GET(url = paste0(api_link_catch,
                               paste0('{"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
 
 
-res <- httr::GET(url = paste0(api_link_catch, 
-                              '?offset=',i,'&limit=10000&q=',
-                              '{"species_code":21740,',
-                              paste0('"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
+# res <- httr::GET(url = paste0(api_link_catch, 
+#                               '?offset=',i,'&limit=10000&q=',
+#                               '{"species_code":21740,',
+#                               paste0('"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
 
 
 

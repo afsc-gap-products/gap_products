@@ -48,7 +48,41 @@ link_repo <- "https://github.com/afsc-gap-products/gap_products" # paste0(shell(
 link_repo_web <- "https://afsc-gap-products.github.io/gap_products/"
 link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"
 pretty_date <- format(Sys.Date(), "%B %d, %Y")
-crs.out <- "EPSG:3338"
+crs_out <- crs.out <- "EPSG:3338"
+
+# # Write README -----------------------------------------------------------------
+# 
+# rmarkdown::render(paste0(here::here("content","README.Rmd")),
+#                   output_dir = here::here(),
+#                   output_file = paste0("README.md"))
+
+# Download citations -----------------------------------------------------------
+
+write.table(x = readLines(con = "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"),
+            file = here::here("content/references.csl"), 
+            row.names = FALSE, 
+            col.names = FALSE, 
+            quote = FALSE)
+
+write.table(x = readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"),
+            file = here::here("content/references.bib"), 
+            row.names = FALSE, 
+            col.names = FALSE, 
+            quote = FALSE)
+
+# Dynamically identify citations of interest ----------------------------------
+
+find_citation_for <- function(bib_ref = "GAPProducts") {
+  bib0 <- readLines(con = here::here("content/references.bib"))
+  citation_start_all <- which(grepl(pattern = "@", x = bib0))
+  citation_start <- which(grepl(pattern = bib_ref, x = bib0))
+  citation_end <- (citation_start_all[citation_start_all>citation_start][1])-1
+  citation_end <- ifelse(is.na(citation_end), length(bib0), citation_end)
+  citation <- bib0[citation_start:citation_end]
+  citation <- citation[citation != ""]
+  return(citation)
+}
+
 # Functions --------------------------------------------------------------------
 
 print_table_metadata <- function(channel, locations) {

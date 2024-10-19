@@ -38,9 +38,13 @@ If you’re using R to pull data through web services you might find the [akfing
 
 ## Cite this data
 
-Use the below [bibtext citations](`r paste0(link_repo, "/blob/main/code/CITATION_GAPakfin.bib")`), as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+Use the below bibtext citation, as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
 
 ```{r load_citation, echo = FALSE}
-# cat(readLines(con = here::here("code", "CITATION_GAPakfin.bib")), sep = "\n") 
+find_citation_for(bib_ref = "GAPakfin")
+```
+
+```{r rodbc-close}
+RODBC::odbcCloseAll()
 ```
 
