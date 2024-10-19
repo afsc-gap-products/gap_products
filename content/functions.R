@@ -50,31 +50,26 @@ link_code_books <- "https://www.fisheries.noaa.gov/resource/document/groundfish-
 pretty_date <- format(Sys.Date(), "%B %d, %Y")
 crs_out <- crs.out <- "EPSG:3338"
 
+# Download citations -----------------------------------------------------------
+
+# library(RCurl)
+write.table(x = readLines(con = "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"),
+            file = here::here("content/references.csl"),
+            row.names = FALSE,
+            col.names = FALSE,
+            quote = FALSE)
+
+write.table(x = readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"),
+            file = here::here("content/references.bib"),
+            row.names = FALSE,
+            col.names = FALSE,
+            quote = FALSE)
+
 # # Write README -----------------------------------------------------------------
 # 
 # rmarkdown::render(paste0(here::here("content","README.Rmd")),
 #                   output_dir = here::here(),
 #                   output_file = paste0("README.md"))
-
-# Download citations -----------------------------------------------------------
-# 
-# write.table(x = readLines(con = "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"),
-#             file = here::here("content/references.csl"), 
-#             row.names = FALSE, 
-#             col.names = FALSE, 
-#             quote = FALSE)
-# 
-# write.table(x = readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"),
-#             file = here::here("content/references.bib"), 
-#             row.names = FALSE, 
-#             col.names = FALSE, 
-#             quote = FALSE)
-
-library(RCurl)
-writeLines(con = here::here("content/references.bib"),
-           text = getURL("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"))
-writeLines(con = here::here("content/references.csl"),
-           text = getURL("https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"))
 
 # Dynamically identify citations of interest ----------------------------------
 
