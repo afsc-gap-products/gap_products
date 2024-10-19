@@ -19,49 +19,54 @@ options(scipen = 999)
 ```
 
 ```{r, include = FALSE, echo = FALSE}
-test0 <- TRUE
+test0 <- FALSE
 ```
 
 **An application programming interface (API) is a way for two or more computer programs to communicate with each other.** More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
 
 There are three tables the user can pull from the API. Learn more about them on the [FOSS data description page](https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html). Here, you can see them in their raw JSON format:
+<<<<<<< HEAD
 -  haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/]
 - catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/]
 - species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]
+=======
+
+* haul: [https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/](https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)
+* catch: [https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/](https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)
+* species: [https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/](https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)
+>>>>>>> 5c2c3fdc65e46657c1aab0e58a8546b9c013f1be
 
 Here are some examples of how to use the data with R:
-
-# Examples of all species in all survey regions in all years
 
 ## Ex. Load all rows of the catch, haul, and species data tables
 
 Note that without specifying, a basic query to the API will only return 25 entries. 
 
-### Haul data: 
+### Load haul data
 
 ```{r api_link_haul}
 # link to the API
 api_link_haul <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/'
 ```
 
-```{r api_link_haul-test, echo = FALSE, eval = test0}
-# api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
+```{r api_link_haul-test, echo = FALSE, inlcude = FALSE, eval = test0}
+api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
 ```
 
-**Load first 25 rows of data:** 
+#### Load first 25 rows of data
 
 ```{r load-25-haul}
 res <- httr::GET(url = api_link_haul)
 # res ## Test connection
 
 ## convert from JSON format
-data <- jsonlite::fromJSON(base::rawToChar(res$content))
+dat <- jsonlite::fromJSON(base::rawToChar(res$content))$items
 
 # Find how many rows and columns are in the data pull
-print(paste0("rows: ", dim(data$items)[1], "; cols: ", dim(data$items)[2]))
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 ```
 
-**Load all data:**
+#### Load all data:
 
 Since the maxim number of rows a user can pull is 10,000 rows in a query, the user needs to cycle through by `offsetting` to the next 10,000 rows (as is shown here). 
 
@@ -85,75 +90,70 @@ for (i in seq(0, 500000, 10000)){
                           data$items %>%
                             dplyr::select(-links)) # necessary for API accounting, but not part of the dataset)
 }
+```
 
+Explore the data contents:
+
+```{r a}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
 summary(dat)
 
-# Find how many rows and columns are in the data pull
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("year", "cruise", "cruisejoin"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 
 # save outputs for later comparison
 dat_haul_api <- dat
 ```
 
-```{r a, eval = FALSE}
-# Print the first few lines of the data 
-head(dat, 3)
-```
-
-```{r b, echo = FALSE}
-#| label: print-haul
-#| tbl-cap: "First few rows of haul data. "
-
-# Print the first few lines of the data, but make it pretty for quarto
-pretty_print_haul <- function(dat0){
-  dat <- dat0 %>%  
-    # dplyr::select(-links) %>%
-    head() %>%
-    flextable::flextable() %>%
-    flextable::colformat_num(
-      x = ., 
-      j = c("year", "cruise", "cruisejoin"), 
-      big.mark = "") %>%
-    flextable::theme_zebra()
-  return(dat)
-}
-pretty_print_haul(dat0 = head(dat, 3))
-```
-
-### Catch data:
+### Load catch data
 
 ```{r api_link_catch}
 # link to the API
 api_link_catch <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/'
 ```
 
-```{r api_link_catch-test, echo = TRUE, eval = test0}
-# api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
+```{r api_link_catch-test, echo = FALSE, inlcude = FALSE, eval = test0}
+api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
 ```
 
-**Load first 25 rows of data:**
+#### Load first 25 rows of data
 
 ```{r load-25-catch}
 res <- httr::GET(url = api_link_catch)
 # res ## Test connection
 
 ## convert from JSON format
-data <- jsonlite::fromJSON(base::rawToChar(res$content))
+dat <- jsonlite::fromJSON(base::rawToChar(res$content))$items
 
 # Find how many rows and columns are in the data pull
-print(paste0("rows: ", dim(data$items)[1], "; cols: ", dim(data$items)[2]))
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 ```
 
-**Load all data:**
+#### Load all data
 
 Since the maxim number of rows a user can pull is 10,000 rows in a query, the user needs to cycle through by `offsetting` to the next 10,000 rows (as is shown here). 
 
 ```{r load-catch, eval = TRUE}
 dat <- data.frame()
+<<<<<<< HEAD
 for (i in seq(0, 100000, 10000)){
   # for (i in seq(0, 1000000, 10000)){
+=======
+# for (i in seq(0, 100000, 10000)){
+for (i in seq(0, 1000000, 10000)){
+>>>>>>> 5c2c3fdc65e46657c1aab0e58a8546b9c013f1be
   ## find how many iterations it takes to cycle through the data
-  print(i)
+  # print(i)
   ## query the API link
   res <- httr::GET(url = paste0(api_link_catch, "?offset=",i,"&limit=10000"))
   ## convert from JSON format
@@ -169,42 +169,33 @@ for (i in seq(0, 100000, 10000)){
                           data$items %>%
                             dplyr::select(-links)) # necessary for API accounting, but not part of the dataset)
 }
+```
 
-summary(dat)
+Explore the data contents:
+
+```{r b}
 
 # Find how many rows and columns are in the data pull
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
+summary(dat)
+
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("species_code"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 
 # save outputs for later comparison
 dat_catch_api <- dat
 ```
 
-```{r c, eval = FALSE}
-# Print the first few lines of the data 
-head(dat_catch_api, 3)
-```
-
-```{r d, echo = FALSE}
-#| label: print-catch
-#| tbl-cap: "First few rows of catch data. "
-
-# Print the first few lines of the data, but make it pretty for quarto
-pretty_print_catch <- function(dat0){
-  dat <- dat0 %>%  
-    # dplyr::select(-links) %>%
-    head() %>%
-    flextable::flextable() %>%
-    flextable::colformat_num(
-      x = ., 
-      j = c("species_code"), 
-      big.mark = "") %>%
-    flextable::theme_zebra()
-  return(dat)
-}
-pretty_print_catch(dat0 = head(dat_catch_api, 3))
-```
-
-### Species data:
+### Load species data
 
 Since there are less than 10,000 rows of species data (and the maxim number of rows a user can pull from this API is 10,000 rows in a query), we can simply call `?offset=0&limit=10000` in our query call. 
 
@@ -213,62 +204,49 @@ Since there are less than 10,000 rows of species data (and the maxim number of r
 api_link_species <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/'
 ```
 
-```{r api_link_species-test, echo = FALSE, eval = test0}
-# api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
+```{r api_link_species-test, echo = FALSE, inlcude = FALSE, eval = test0}
+api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
 ```
 
 ```{r load-species}
 res <- httr::GET(url = paste0(api_link_species, "?offset=0&limit=10000"))
 
-# res ## Test connection
-
 ## convert from JSON format
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 dat <- data$items  %>%
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
+```
 
+Explore the data contents:
+
+```{r c}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
 summary(dat)
 
-# Find how many rows and columns are in the data pull
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("species_code", "worms", "itis"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 
 # save outputs for later comparison
 dat_species_api <- dat
 ```
 
-```{r e, eval = FALSE}
-# Print the first few lines of the data 
-head(data$items, 3)
-```
-
-```{r f, echo = FALSE}
-#| label: print-species
-#| tbl-cap: "First few rows of species data. "
-
-# Print the first few lines of the data, but make it pretty for quarto
-pretty_print_species <- function(dat0){
-  dat <- dat0 %>%  
-    # dplyr::select(-links) %>%
-    head() %>%
-    flextable::flextable() %>%
-    flextable::colformat_num(
-      x = ., 
-      j = c("species_code", "worms", "itis"), 
-      big.mark = "") %>%
-    flextable::theme_zebra()
-  return(dat)
-}
-pretty_print_species(dat0 = head(data$items, 3))
-```
-
-### Create zero-filled data for 2023 eastern Bering Sea walleye pollock and plot
+## Ex. Create zero-filled data using data loaded in last example
 
 It is important to create and have access to zero-fill (presence and absence) so you can do simple analyses and plot data. 
 
-```{r g}
+First prepare a table with all combinations of what species should be listed for what hauls/surveys. For zero-filled data, all species caught in a survey need to have zero or non-zero row entries for a haul
 
-# come up with full combination of what species should be listed for what hauls/surveys
-# for zero-filled data, all species caught in a survey need to have zero or non-zero row entries for a haul
+```{r g, message = TRUE, comment = TRUE, warning = TRUE}
 comb <- dplyr::full_join(
   # find all species that have been caught, by survey
   x = dplyr::left_join(dat_catch_api, dat_haul_api, by = "hauljoin") %>%
@@ -281,88 +259,134 @@ comb <- dplyr::full_join(
   relationship = "many-to-many",
   by = "survey_definition_id"
 ) %>% 
-  dplyr::select(-survey_definition_id) # redundant
+  dplyr::select(-survey_definition_id) # now, redundant
+```
 
-head(comb, 3)
+Explore the data contents:
 
-# Join data to make a full zero-filled CPUE dataset
+```{r gg}
+print(paste0("rows: ", nrow(comb), "; cols: ", ncol(comb)))
 
-dat_zerofill_api <- comb %>%
-  # add species data to unique species by survey table
+comb %>% head(3) %>% 
+  flextable::flextable()  %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("species_code", "hauljoin"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
+```
+
+Now, using that table of combinations (here, called `comb`), join data to make a full zero-filled CPUE dataset. When all of the data have been full joined together, there should be the maximum number of rows in `comb`. 
+
+```{r ggg, message = TRUE, comment = TRUE, warning = TRUE}
+dat <- comb %>%
+  # add species data
   dplyr::left_join(dat_species_api) %>% # , "species_code"
   # add haul data
   dplyr::left_join(dat_haul_api) %>% # , c("hauljoin")
   # add catch data
   dplyr::left_join(dat_catch_api) %>% # , c("species_code", "hauljoin")
-  # modify zero-filled rows
+  # modify/clean up zero-filled rows
   dplyr::mutate(
     cpue_kgkm2 = ifelse(is.na(cpue_kgkm2), 0, cpue_kgkm2),
     cpue_nokm2 = ifelse(is.na(cpue_nokm2), 0, cpue_nokm2),
     count = ifelse(is.na(count), 0, count),
     weight_kg = ifelse(is.na(weight_kg), 0, weight_kg))
-
-## Find how many rows and columns are in the data pull. 
-## Because all of the data have been full joined together, 
-## there should be the maximum number of rows. 
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
-
-head(dat, 3) %>% 
-  flextable::flextable() %>% flextable::theme_zebra()
 ```
 
-### Visualize CPUE data in distribution map
+Explore the data contents:
+
+```{r gggg}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
+summary(dat)
+
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("species_code", "worms", "itis", "hauljoin", "year", "cruise", "cruisejoin"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
+
+# save outputs for later comparison
+dat_zerofill_api <- dat
+```
+
+## Ex. Visualize zero-filled data for 2023 eastern Bering Sea walleye pollock in CPUE data in distribution map
 
 Using the zero-filled data from the previous example, we can make a few plots! 
 
-Here is some example data of 2023 through 2019 (`year %in% 2019:2023`) eastern and northern Bering Sea (`srvy == c("EBS", "NBS)`) walleye pollock (`species_code == 21740`). 
+Here is some example data of 2023 through 2019 (`year %in% 2019:2023`) eastern and northern Bering Sea (`srvy %in% c("EBS", "NBS)`) walleye pollock (`species_code == 21740`). 
 
 ```{r h}
-dat0 <- dat_zerofill_api %>% 
-  dplyr::filter(year %in% c(2019:2023) & 
-                  srvy == c("EBS", "NBS") & 
-                  species_code == 21740)
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
-head(dat0, 3) %>% flextable::flextable() %>% flextable::theme_zebra()
+dat <- dat_zerofill_api %>% 
+  dplyr::filter(year %in% 2019:2023 & 
+                  srvy %in% c("EBS", "NBS") & 
+                  species_code == 21740) %>% 
+  dplyr::select(year, common_name, longitude_dd_start, latitude_dd_start, cpue_kgkm2)
+
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# # learn about the structure of the data
+# summary(dat)
+
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("year"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 ```
 
-### Plot locations
+### Plot locations on map
 
 ```{r i}
 #| label: pollock-multi-loc
-#| tbl-cap: "CPUE (kg/km^2) of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Red triangles denote stations where walleye pollock were not caught. "
+#| tbl-cap: "CPUE (kg/km^2) of walleye pollock catch at each station in the 2019-2023 eastern and northern Bering Sea bottom trawl surveys. Size of black circles denote magnitude of CPUE caught at station and red triangles denote stations where walleye pollock were not caught. "
 
 library(ggplot2)
 
-ggplot2::ggplot(data = dat0 %>% dplyr::filter(cpue_kgkm2 != 0), 
+ggplot2::ggplot(data = dat %>% dplyr::filter(cpue_kgkm2 != 0), 
                 mapping = aes(x = longitude_dd_start, 
                               y = latitude_dd_start, 
                               size = cpue_kgkm2)) + 
   ggplot2::geom_point(alpha = .75) +
-  ggplot2::geom_point(data = dat0 %>% dplyr::filter(cpue_kgkm2 == 0), 
+  ggplot2::geom_point(data = dat %>% dplyr::filter(cpue_kgkm2 == 0), 
                       color = "red", 
                       shape = 17,
                       alpha = .75,
                       size = 3) +
   ggplot2::xlab("Longitude *W") +
   ggplot2::ylab("Latitude *N") +
-  ggplot2::ggtitle(label = "Catches of walleye pollock (Weight CPUE; kg/km2)", 
+  ggplot2::ggtitle(label = "CPUE (kg/km^2) of walleye pollock (Weight CPUE; kg/km2)", 
                    subtitle = "Eastern Bering Sea bottom trawl survey") +
   ggplot2::scale_size_continuous(name = "Weight (kg)") + 
   ggplot2::facet_wrap(facets = vars(year)) + 
   ggplot2::theme_bw()
-
 ```
 
-### Plot inverse-distance weighted modeled product of locations
+### Plot inverse-distance weighted plot of CPUE
 
 This map is constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps). To make IDW plots, you must have data from all stations surveyed, even if no fish of interest were found there. 
 
+These plots are similar to those published in the [annual Bering Sea data reports](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#communications). 
+
 ```{r j, fig.height=8, fig.width=6}
 #| label: pollock-multi-idw
-#| tbl-cap: "CPUE of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. "
-
+#| tbl-cap: "Inverse-distance weight CPUE of walleye pollock catch at each station in the 2019-2023 eastern and northern Bering Sea bottom trawl surveys. "
+# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+library(akgfmaps)
 idw <- akgfmaps::make_idw_stack(
-  x = dat0 %>% 
+  x = dat %>% 
     dplyr::select(COMMON_NAME = common_name, 
                   CPUE_KGHA = cpue_kgkm2, 
                   LATITUDE = latitude_dd_start, 
@@ -380,7 +404,7 @@ shps <- akgfmaps::get_base_layers(
   include.corners = TRUE, 
   set.crs = "EPSG:3338")
 
-# set.breaks <- akgfmaps::eval_plot_breaks(CPUE = dat0$cpue_kgkm2, n.breaks = 5)
+# set.breaks <- akgfmaps::eval_plot_breaks(CPUE = dat$cpue_kgkm2, n.breaks = 5)
 # set.breaks <- as.vector(unlist(set.breaks[set.breaks$style == "pretty", -1]))
 set.breaks <- c(0, 50000, 100000, 150000, 200000, 250000)
 
@@ -456,13 +480,13 @@ figure_print <- ggplot() +
 figure_print
 ```
 
-# Examples or one species in one survey region in one year
-
-## Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock
+## Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock (one species in one survey region in one year)
 
 Data downloads and joins for just one species, survey, and year are much faster and easier to do. 
 
 First, because `year` is identified in the haul table, we need to identify all of the hauls (or more specifically, `hauljoin` codes) that were completed in the eastern Bering Sea (`"srvy":"EBS"`) in 2023 (`"year":2023`). 
+
+Note: Check how many rows and columns are in the data pull. The eastern Bering Sea survey (before 2024) has 376 stations in it, and pollock are often found in throughout the region so this should have a similar number of rows. 
 
 ```{r k}
 ## query the API link
@@ -477,25 +501,26 @@ dat <- data$items %>%
 summary(dat %>% dplyr::mutate(srvy = as.factor(srvy)))
 
 ## Find how many rows and columns are in the data pull. 
-## The eastern Bering Sea survey has 376 stations in it, 
-## so this should have a similar number of rows. 
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
 # save outputs for later comparison
 dat_haul_ex <- dat
 ```
 
-```{r l, eval = FALSE}
-# Print the first few lines of the data 
-head(dat_haul_ex, 3)
-```
 
-```{r m, echo = FALSE}
+```{r m}
 #| label: test-foss-api-3
 #| tbl-cap: "Haul data filtered by `year = 2023` and `SRVY = 'EBS'`. "
 
-# Print the first few lines of the data, but make it pretty for quarto
-pretty_print_haul(dat0 = head(dat_haul_ex, 3))
+# Print the first few lines of the data 
+dat_haul_ex %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("year", "hauljoin", "cruise"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 ```
 
 ### Identify `species_code` for walleye pollock
@@ -517,16 +542,19 @@ data <- jsonlite::fromJSON(base::rawToChar(res$content))
 dat_species_ex <- data$items %>% dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 ```
 
-```{r o, eval = FALSE}
-dat_species_ex
-```
-
-```{r p, echo = FALSE}
+```{r p}
 #| label: wp-spp
 #| tbl-cap: "Walleye pollock species information. "
 
-# Print the first few lines of the data, but make it pretty for quarto
-pretty_print_species(dat0 = dat_species_ex)
+# Print the first few lines of the data
+dat_species_ex %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("species_code"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 ```
 
 ### Then, apply the `hauljoins` and `species_code` to catch query
@@ -552,18 +580,41 @@ for (i in 1:nrow(dat_haul_ex)) {
         dplyr::select(-links)) # necessary for API accounting, but not part of the dataset
   }
 }
+```
 
-## show summary of data to make sure it is subset correctly
+Explore data:
+
+```{r t}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
 summary(dat)
 
-## Find how many rows and columns are in the data pull. 
-## The eastern Bering Sea survey has 376 stations in it, 
-## and pollock are often found in throughout the region
-## so this should have a similar number of rows. 
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("hauljoin", "species_code"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 
 # save outputs for later comparison
 dat_catch_ex <- dat
+```
+
+For reference and to help break down the above query, see these other query examples:
+
+```{r u, eval = FALSE}
+# data for haul -22775 (i.e., one specific haul)?
+res <- httr::GET(url = paste0(api_link_catch, 
+                              '?offset=',i,'&limit=10000&q={"hauljoin":-22775}'))
+
+# data for all walleye pollock (i.e., one species) caught in all years and surveys
+res <- httr::GET(url = paste0(api_link_catch, 
+                              '?offset=',i,'&limit=10000&q={"species_code":21740}'))
 ```
 
 ```{r rr, include = FALSE, eval = FALSE}
@@ -619,49 +670,10 @@ res <- httr::GET(url = paste0(api_link_catch,
 #                               '{"species_code":21740,',
 #                               paste0('"hauljoin":', dat_haul_ex$hauljoin, collapse = ','), '}'))
 
-
-
 ## convert from JSON format
 data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
 dat <- data$items %>% 
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
-
-## show summary of data to make sure it is subset correctly
-summary(dat)
-
-## Find how many rows and columns are in the data pull. 
-## The eastern Bering Sea survey has 376 stations in it, 
-## and pollock are often found in throughout the region
-## so this should have a similar number of rows. 
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
-
-# save outputs for later comparison
-dat_catch_ex <- dat
-```
-
-
-```{r s, eval = FALSE}
-# Print the first few lines of the data 
-head(dat, 3)
-```
-
-```{r t, echo = FALSE}
-#| label: print-catch-2023
-#| tbl-cap: "Catch data for all 2023 eastern Bering Sea Walleye Pollock. "
-
-pretty_print_catch(dat0 = head(dat, 3))
-```
-
-For reference and to help break down the above query, see these other query examples:
-
-```{r u, eval = FALSE}
-# data for haul -22775 (i.e., one specific haul)?
-res <- httr::GET(url = paste0(api_link_catch, 
-                              '?offset=',i,'&limit=10000&q={"hauljoin":-22775}'))
-
-# data for all walleye pollock (i.e., one species) caught in all years and surveys
-res <- httr::GET(url = paste0(api_link_catch, 
-                              '?offset=',i,'&limit=10000&q={"species_code":21740}'))
 ```
 
 
@@ -719,7 +731,9 @@ res = httr::GET(url = api_link_catch,
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
 dat <- data$items %>%
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
 dat
 ```
 
@@ -739,28 +753,37 @@ dat <- dplyr::full_join(
     cpue_nokm2 = ifelse(is.na(cpue_nokm2), 0, cpue_nokm2),
     count = ifelse(is.na(count), 0, count),
     weight_kg = ifelse(is.na(weight_kg), 0, weight_kg))
+```
 
-## show summary of data to make sure it is subset correctly
+Explore data
+
+```{r ww}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
 summary(dat)
 
-## Find how many rows and columns are in the data pull. 
-## Because all of the data have been full joined together, 
-## there should be the maximum number of rows. 
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
-
-head(dat, 3) %>% 
-  flextable::flextable()
+# Print the first few lines of the data 
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("year", "cruise", "cruisejoin", "species_code"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 ```
 
 ### Visualize CPUE data in distribution map
 
 Using the zero-filled data from the previous example, we can make a few plots! 
 
-### Plot locations
+## Plot locations
 
 ```{r x}
 #| label: pollock-multi1-loc
-#| tbl-cap: "Amount of catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Red triangles denote stations where walleye pollock were not caught. "
+#| tbl-cap: "CPUE (kg/km^2) of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Size of black circles denote magnitude of CPUE caught at station and red triangles denote stations where walleye pollock were not caught. "
 
 library(ggplot2)
 
@@ -788,7 +811,7 @@ This map is constructed using [`akgfmaps`](https://github.com/afsc-gap-products/
 
 ```{r y}
 #| label: pollock-multi2-loc
-#| tbl-cap: "Amount of catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Red triangles denote stations where walleye pollock were not caught. "
+#| tbl-cap: "Inverse-distance weight CPUE of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. "
 
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
 library(akgfmaps)
@@ -801,15 +824,15 @@ figure0 <- akgfmaps::make_idw_map(
   set.breaks = "jenks", # Gets Jenks breaks from classint::classIntervals()
   in.crs = "+proj=longlat", # Set input coordinate reference system
   out.crs = "EPSG:3338", # Set output coordinate reference system
-  grid.cell = c(20000, 20000))
+  extrapolation.grid.type = "sf")
 
 figure0$plot + # 20x20km grid
   ggplot2::guides(fill=guide_legend(title = "walleye pollock\nCPUE (kg/km2)"))
 ```
 
-# Other query examples
+## Other query examples
 
-## Ex. Combination of year, srvy, stratum
+### Ex. Combination of year, srvy, stratum
 
 Show haul data where year is less than 1989, srvy = "EBS", and stratum is not equal to 81. 
 
@@ -822,22 +845,22 @@ dat <- data$items %>%
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset)
 ```
 
+Explore data:
+
 ```{r ff, eval = FALSE, include = FALSE, echo = FALSE}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
+
+# learn about the structure of the data
 summary(dat)
 
-# Find how many rows and columns are in the data pull
-print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
-```
-
-
-```{r dd, eval = FALSE, include = FALSE, echo = FALSE}
 # Print the first few lines of the data 
-head(dat, 3)
-```
-
-```{r ee, echo = FALSE, include = FALSE, echo = FALSE}
-#| label: test-foss-api-6
-#| tbl-cap: 'Haul data where year is less than 1989, srvy is "EBS", and stratum is not equal to 81.'
-
-pretty_print_haul(dat0 = head(dat, 3))
+dat %>% 
+  head(3) %>% 
+  flextable::flextable() %>%
+  flextable::colformat_num(
+      x = ., 
+      j = c("year", "cruise", "cruisejoin"), 
+      big.mark = "") %>% 
+  flextable::theme_zebra()
 ```

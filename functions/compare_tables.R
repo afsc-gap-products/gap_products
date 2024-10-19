@@ -62,14 +62,14 @@ compare_tables <- function(x = NULL,
   
   for (icol in 1:nrow(x = cols_to_check)) {
     x[, paste0(cols_to_check$colname[icol], "_DIFF") := 
-      round(x = calc_diff(v1 = x[, paste0(cols_to_check$colname[icol], 
-                                          base_table_suffix), with = F],
-                          v2 = x[, paste0(cols_to_check$colname[icol], 
-                                          update_table_suffix), with = F],
-                          percent = cols_to_check$percent[icol]) ,
-            digits = cols_to_check$decplaces[icol])]
+        round(x = calc_diff(v1 = x[, paste0(cols_to_check$colname[icol], 
+                                            base_table_suffix), with = F],
+                            v2 = x[, paste0(cols_to_check$colname[icol], 
+                                            update_table_suffix), with = F],
+                            percent = cols_to_check$percent[icol]) ,
+              digits = cols_to_check$decplaces[icol])]
   }
-
+  
   new_records_stmt <- 
     paste0("x[",
            paste0(sapply(X = cols_to_check$colname, 
@@ -77,7 +77,7 @@ compare_tables <- function(x = NULL,
                            paste0("(is.na(x = ", x, base_table_suffix, 
                                   ") & !is.na(x = ", x, update_table_suffix, 
                                   "))")), 
-                  collapse = "|"), 
+                  collapse = "&"), 
            "]")
   new_records <- eval(parse(text = new_records_stmt))
   new_records <- new_records[, c(key_columns, col_order), with = F]
@@ -89,21 +89,44 @@ compare_tables <- function(x = NULL,
                            paste0("(!is.na(x = ", x, base_table_suffix, 
                                   ") & is.na(x = ", x, update_table_suffix, 
                                   "))")), 
-                  collapse = "|"), 
+                  collapse = " & "), 
            "]")
   removed_records <- eval(parse(text = removed_records_stmt))
   removed_records <- removed_records[, c(key_columns, col_order), with = F]
   
-  modified_records_stmt <- 
+  ## modified records consist of two types:
+  ## 1) non-zero differences
+  ## 2) instances where 
+  modified_records_stmt1 <- 
     paste0("x[",
            paste0(sapply(X = cols_to_check$colname, 
                          FUN = function(x) 
                            paste0(x, "_DIFF != 0")), 
                   collapse = " | "), 
            "]")
-  modified_records <- eval(parse(text = modified_records_stmt))
-  modified_records <- modified_records[, c(key_columns, col_order), with = F]
-
+  modified_records1 <- eval(parse(text = modified_records_stmt1))
+  
+  modified_records_stmt2 <- 
+    paste0("x[",
+           paste0(sapply(X = cols_to_check$colname, 
+                         FUN = function(x) 
+                           paste0("(is.na(x = ", x, base_table_suffix, 
+                                  ") & !is.na(x = ", x, update_table_suffix, 
+                                  "))")), 
+                  collapse = "|"), 
+           "]")
+  modified_records2 <- eval(parse(text = modified_records_stmt2))
+  modified_records2 <- modified_records2[
+    apply(X = modified_records2[, 
+                                paste0(cols_to_check$colname, "_DIFF"), 
+                                with = F],
+          MARGIN = 1,
+          FUN = function(x) !all(is.na(x)))]
+  
+  
+  modified_records <- rbind(modified_records1, modified_records2)
+  modified_records <- modified_records[, c(key_columns, col_order), with = F]  
+  
   return(do.call(what = list,
                  args = list(new_records = new_records, 
                              removed_records = removed_records, 

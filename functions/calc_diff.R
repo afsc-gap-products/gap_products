@@ -11,11 +11,11 @@ calc_diff <- function(v1, v2, percent = T) {
   
   df <- data.table::data.table("v1" = v1, 
                                "v2" = v2,
-                               "DIFF" = v1 - v2)
+                               "DIFF" = v2 - v1)
   data.table::setnames(x = df, c("v1", "v2", "DIFF"))
   
-  df[, v2 := ifelse(test = v2 == 0, 1, v2)]
-  df[, PERC_DIFF := DIFF / v2]
+  df[, v1 := ifelse(test = v1 == 0, 1, v1)]
+  df[, PERC_DIFF := 100 * DIFF / v1]
   
   return(df[, ifelse(percent == T, "PERC_DIFF", "DIFF"), with = F])
 }
