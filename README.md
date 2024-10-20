@@ -113,10 +113,60 @@ please contact us using the Comments page on the
 source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r") # srvy_cite 
 ```
 
-**Learn more about these surveys** (**2023NEBS?**; **2023NEBS?**;
-**GOA2023?**; **AI2022?**; **RN979?**).
+**Learn more about these surveys** ([Hoff, 2016](#ref-RN979); [Markowitz
+et al., 2024](#ref-2023NEBS), [2024](#ref-2023NEBS); [Siple et al.,
+2024](#ref-GOA2023); [Von Szalay et al., 2023](#ref-AI2022); [Zacher et
+al., 2024](#ref-SAPcrab2024)).
 
-<div id="refs">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0" line-spacing="2">
+
+<div id="ref-RN979" class="csl-entry">
+
+Hoff, G. R. (2016). *Results of the 2016 eastern Bering Sea upper
+continental slope survey of groundfishes and invertebrate resources*
+(NOAA Tech. Memo. NOAA-AFSC-339). U.S. Dep. Commer.
+<https://doi.org/10.7289/V5/TM-AFSC-339>
+
+</div>
+
+<div id="ref-2023NEBS" class="csl-entry">
+
+Markowitz, E. H., Dawson, E. J., Wassermann, S., Anderson, A. B., Rohan,
+S. K., Charriere, B. K., and Stevenson, D. E. (2024). *Results of the
+2023 eastern and northern Bering Sea continental shelf bottom trawl
+survey of groundfish and invertebrate fauna* (NOAA Tech. Memo.
+NMFS-AFSC-487; p. 242). U.S. Dep. Commer.
+<https://doi.org/10.25923/2mry-yx09>
+
+</div>
+
+<div id="ref-GOA2023" class="csl-entry">
+
+Siple, M. C., Szalay, P. G. von, Raring, N. W., Dowlin, A. N., and
+Riggle, B. C. (2024). *Data report: 2023 gulf of alaska bottom trawl
+survey* (NOAA Tech. Memo. AFSC processed report; 2024-09). U.S. Dep.
+Commer. <https://doi.org/10.25923/gbb1-x748>
+
+</div>
+
+<div id="ref-AI2022" class="csl-entry">
+
+Von Szalay, P. G., Raring, N. W., Siple, M. C., Dowlin, A. N., Riggle,
+B. C., and Laman, E. A. and. (2023). *Data report: 2022 Aleutian Islands
+bottom trawl survey* (AFSC Processed Rep. 2023-07; p. 230). U.S. Dep.
+Commer. <https://doi.org/10.25923/85cy-g225>
+
+</div>
+
+<div id="ref-SAPcrab2024" class="csl-entry">
+
+Zacher, L. S., Richar, J. I., Fedewa, E. J., Ryznar, E. R., and Litzow,
+M. A. (2024). *The 2024 eastern Bering Sea continental shelf trawl
+survey: Results for commercial crab species DRAFT* \[NOAA Tech. Memo.\].
+<https://www.fisheries.noaa.gov/resource/document/draft-2024-eastern-bering-sea-crab-technical-memorandum>
+
+</div>
 
 </div>
 
@@ -144,11 +194,8 @@ sessionInfo()
     ## 
     ## 
     ## locale:
-    ## [1] LC_COLLATE=English_United States.utf8 
-    ## [2] LC_CTYPE=English_United States.utf8   
-    ## [3] LC_MONETARY=English_United States.utf8
-    ## [4] LC_NUMERIC=C                          
-    ## [5] LC_TIME=English_United States.utf8    
+    ## [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8    LC_MONETARY=English_United States.utf8
+    ## [4] LC_NUMERIC=C                           LC_TIME=English_United States.utf8    
     ## 
     ## time zone: America/Los_Angeles
     ## tzcode source: internal
@@ -157,10 +204,23 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] compiler_4.4.1    fastmap_1.2.0     cli_3.6.3         tools_4.4.1      
-    ##  [5] htmltools_0.5.8.1 rstudioapi_0.16.0 yaml_2.3.10       rmarkdown_2.28   
-    ##  [9] knitr_1.48        xfun_0.47         digest_0.6.37     rlang_1.1.4      
-    ## [13] evaluate_0.24.0
+    ##  [1] gtable_0.3.5            xfun_0.47               ggplot2_3.5.1           odbc_1.5.0              vctrs_0.6.5            
+    ##  [6] tools_4.4.1             generics_0.1.3          tibble_3.2.1            proxy_0.4-27            fansi_1.0.6            
+    ## [11] blob_1.2.4              pkgconfig_2.0.3         KernSmooth_2.23-24      data.table_1.16.0       ggridges_0.5.6         
+    ## [16] assertthat_0.2.1        uuid_1.2-1              lifecycle_1.0.4         flextable_0.9.6         stringr_1.5.1          
+    ## [21] compiler_4.4.1          textshaping_0.4.0       munsell_0.5.1           janitor_2.2.0           keyring_1.3.2          
+    ## [26] snakecase_0.11.1        fontquiver_0.2.1        fontLiberation_0.1.0    htmltools_0.5.8.1       class_7.3-22           
+    ## [31] yaml_2.3.10             pillar_1.9.0            RODBC_1.3-23            gapindex_2.2.0          openssl_2.2.1          
+    ## [36] classInt_0.4-10         viridis_0.6.5           fontBitstreamVera_0.1.1 tidyselect_1.2.1        zip_2.3.1              
+    ## [41] digest_0.6.37           stringi_1.8.4           sf_1.0-17               dplyr_1.1.4             rprojroot_2.0.4        
+    ## [46] fastmap_1.2.0           grid_4.4.1              here_1.0.1              colorspace_2.1-1        cli_3.6.3              
+    ## [51] magrittr_2.0.3          utf8_1.2.4              e1071_1.7-14            akgfmaps_3.5.3          gdtools_0.4.0          
+    ## [56] scales_1.3.0            bit64_4.0.5             lubridate_1.9.3         timechange_0.3.0        rmarkdown_2.28         
+    ## [61] officer_0.6.6           httr_1.4.7              bit_4.0.5               gridExtra_2.3           hms_1.1.3              
+    ## [66] askpass_1.2.0           ragg_1.3.2              kableExtra_1.4.0        evaluate_0.24.0         knitr_1.48             
+    ## [71] viridisLite_0.4.2       rlang_1.1.4             Rcpp_1.0.13             glue_1.7.0              DBI_1.2.3              
+    ## [76] xml2_1.3.6              svglite_2.1.3           rstudioapi_0.16.0       jsonlite_1.8.8          R6_2.5.1               
+    ## [81] systemfonts_1.1.0       units_0.8-5
 
 ## NOAA README
 

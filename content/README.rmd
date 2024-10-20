@@ -3,7 +3,8 @@ output:
   md_document: 
     variant: gfm
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
-bibliography: "https://raw.githubusercontent.com/EmilyMarkowitz-NOAA/gap_bs_data_report/main/cite/bibliography.bib"
+bibliography: "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}

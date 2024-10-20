@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -301,7 +281,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
+  <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Citations and References</span></a>
   </div>
 </li>
       </ul>
@@ -381,14 +361,21 @@ function googleTranslateElementInit() {
 </section>
 <section id="cite-this-data" class="level2">
 <h2 class="anchored" data-anchor-id="cite-this-data">Cite this data</h2>
-<p>Use the below <a href="https://github.com/afsc-gap-products/gap_products/blob/main/code/CITATION_FOSSAFSCData.bib">bibtext citations</a>, as cited in our group’s <a href="https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib">citation repository</a> for citing the data created and maintained in this repo <span class="citation" data-cites="FOSSAFSCData">(<a href="end-refs.html#ref-FOSSAFSCData" role="doc-biblioref">NOAA Fisheries Alaska Fisheries Science Center, 2024</a>)</span>. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-FOSSAFSCData" class="csl-entry" role="listitem">
-NOAA Fisheries Alaska Fisheries Science Center. (2024). <em>Fisheries one stop shop public data: RACE division bottom trawl survey data query</em>. https://www.fisheries.noaa.gov/foss; <span>U.S. Dep. Commer.</span>
+<p>Use the below bibtext citation, as cited in our group’s <a href="https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib">citation repository</a> for citing the data created and maintained in this repository. Add “note = {Accessed: mm/dd/yyyy}” to append the day this data was accessed.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "@misc{FOSSAFSCData,"                                                                           
+[2] "  author = {{NOAA Fisheries Alaska Fisheries Science Center}},"                                
+[3] "  year = {2024}, "                                                                             
+[4] "  title = {Fisheries One Stop Shop Public Data: RACE Division Bottom Trawl Survey Data Query},"
+[5] "  howpublished = {https://www.fisheries.noaa.gov/foss},"                                       
+[6] "  publisher = {{U.S. Dep. Commer.}},"                                                          
+[7] "  copyright = {Public Domain} "                                                                
+[8] "}"                                                                                             </code></pre>
 </div>
 </div>
+
+
 </section>
 </section>
 
