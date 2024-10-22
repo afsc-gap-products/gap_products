@@ -63,7 +63,9 @@ Changes to the CPUE/Biomass
 4) Basketstars (83020) now removed from brittle star aggregation (83000)
 Muusoctopus leioderma (78012) and Muusoctopus oregonensis (78455) aggregated up to Muusocotpus sp. (78014)
 5) Nemertean worms now disaggregated from Phylum Nemertea (92500)
-6) Error threshold for comparing changes is now to the hundreth of a percent.  
+6) Error threshold for comparing changes is now to the hundreth of a percent.
+
+**Modified records were not updated due to a bug in the code.
 
 "
 
@@ -313,6 +315,11 @@ RODBC::sqlQuery(
 	UPDATE_TABLE_COMMENTS;
 	UPDATE_FIELD_COMMENTS;
 END;")
+
+
+### STOP #####
+
+
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Use summarize_gp_updates to quickly check audit tables
