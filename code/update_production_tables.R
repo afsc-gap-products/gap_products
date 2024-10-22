@@ -40,11 +40,30 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 ##   areas, updated gapindex package, etc.) 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 detailed_notes <- 
-  "Run completed by: Ned Laman, Zack Oyafuso
+  "Run completed by: Duane Stevenson, Ned Laman, Zack Oyafuso
 
 A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
 
-There was a minor issue with how the 9/4/2024 run uploaded records to Oracle from R that has been remedied. This run was a redo of the previous run and all changes in this run are summarized in the 9/4/2024 version of the changelog.
+Changes to the Age Composition
+1) New read otolith data for AI: 2022 (30052) and 2022 (30051)
+2) New read otolith data for GOA: 2023 (30052) and (21921)
+3) New read otolith data for NBS: 2023 (10210)
+4) New read otolith data for EBS: 2024 (21740, 10112, 10115)
+5) Error threshold for comparing changes is now to the hundreth of a percent.  
+
+Changes to the Size Composition
+1) Muusoctopus leioderma (78012) and Muusoctopus oregonensis (78455) aggregated up to Muusocotpus sp. (78014)
+2) Unidentified skates (400) are removed from the 2010 EBS sizecomps.
+3) Erroneous use of the juvenile pollock code for catch processing was corrected for hauls in GOA 2009 (1 haul), 2019 (2), and 2023 (5). Incorrect use of pollock juvenile codes was diagnosed from raw catch data as presence of both 'Species Codes' (21740 & 21741) in a single haul's catch but without a nonsub weight for the juvenile code implying that it was 100% processed in the catch; none of these catches were split. In instances where the juvenile code was also carried into the lengths for that catch, those lengths were reassigned to 21740, length counts were added to adult subsample counts, juvenile subsample weights were added to adult subsample weights, and the juvenile catch record was deleted once the erroneous juvenile counts and weights were merged with the adult catch record. It can be noted that in cases where the adult pollock nonsub weight was also null, given the data constraints just described, juvenile lengths do not get expanded thus alleviating any concern about affecting size- and agecomps in those cases.
+4) Error threshold for comparing changes is now to the hundreth of a percent.
+
+Changes to the CPUE/Biomass
+2) Scleratinia now grouped as those SPECIES_CODE values within Order Scleractinia excluding cup corals
+3) Pteraster spp. now grouped to genus species code 81310
+4) Basketstars (83020) now removed from brittle star aggregation (83000)
+Muusoctopus leioderma (78012) and Muusoctopus oregonensis (78455) aggregated up to Muusocotpus sp. (78014)
+5) Nemertean worms now disaggregated from Phylum Nemertea (92500)
+6) Error threshold for comparing changes is now to the hundreth of a percent.  
 
 "
 
@@ -157,7 +176,7 @@ for (iregion in regions) {
       
       ## Upload a temporary table to GAP_PRODUCTS that holds the removed records
       gapindex::upload_oracle(
-        x = removed_records[, keys[[iquantity]], with = F],
+        x = removed_records[, key_fields, with = F],
         table_name = "GAP_PRODUCTS_TEMP_REMOVED_RECORDS", 
         metadata_column = metadata_column, 
         table_metadata = paste(iquantity, "records to be removed from the", 
