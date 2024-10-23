@@ -1,0 +1,257 @@
+---
+title: "Intro to querying with new Oracle Tables"
+subtitle: "`r paste0(format(Sys.time(), '%B %d, %Y'))`"
+# output: 
+#   pdf_document
+#   word_document
+format: 
+  html: default
+  pdf: 
+    geometry:
+      - top=0.75in
+      - right=0.75in
+      - bottom=0.75in
+      - left=0.75in
+      - heightrounded
+    number-sections: true
+    toc: false
+  # docx:
+  #   reference-doc: "../testing/styles_reference.docx"
+execute:
+  warning: false
+  echo: false
+  message: false
+  error: false
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
+bibliography: "https://raw.githubusercontent.com/EmilyMarkowitz-NOAA/gap_bs_data_report/main/cite/bibliography.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = FALSE, message = FALSE, warning = FALSE, comment = FALSE, eval = TRUE)
+```
+
+```{r load_libraries}
+PKG <- c(
+  "tidyr",
+  "dplyr",
+  "magrittr",
+  "ggplot2",
+  "akgfmaps",
+  "readr",
+  "flextable",
+  "janitor")
+
+PKG <- unique(PKG)
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+```
+
+```{r load_functions, echo = FALSE}
+# source("https://raw.githubusercontent.com/afsc-gap-products/metadata/main/code/functions_oracle.R")
+source("Z:/Projects/ConnectToOracle.R")
+```
+
+# Connect to Oracle from R
+
+## Access data via Oracle
+
+If the user has access to the AFSC `Oracle` database, the user can use `SQL developer` to view and pull the GAP Products data directly from the `GAP_PRODUCTS` `Oracle` schema. 
+
+### Connect to Oracle from R
+
+Many users will want to access the data from `Oracle` using `R`. The user will need to install the `RODBC` `R` package and ask OFIS (IT) connect `R` to `Oracle`. Then, use the following code in `R` to establish a connection from `R` to `Oracle`: 
+
+Here, the user can write in their username and password directly into the `RODBC` connect function. Never save usernames or passwords in scripts that may be intentionally or unintentionally shared with others. If no username and password is entered in the function, pop-ups will appear on the screen asking for the username and password. 
+
+```{r oracle-connect-2, echo = TRUE, eval = FALSE}
+#' Define RODBC connection to ORACLE
+#'
+#' @param schema default = 'AFSC'. 
+#'
+#' @return oracle channel connection
+#' @export
+#'
+#' @examples
+#' # Not run
+#' # channel <- oracle_connect()
+oracle_connect <- function(
+    schema='AFSC', 
+    username = NULL, 
+    passowrd = NULL){(echo=FALSE)
+  
+  library("RODBC")
+  library("getPass")
+  if (is.null(username)) {
+    username <- getPass(msg = "Enter your ORACLE Username: ")
+  }
+  if (is.null(password)) {
+    password <- getPass(msg = "Enter your ORACLE Password: ")
+  }
+  channel  <- RODBC::odbcConnect(
+    paste(schema),
+    paste(username),
+    paste(password), 
+    believeNRows=FALSE)
+  return(channel)
+}
+
+channel <- oracle_connect()
+```
+
+### Select all data
+
+Once connected, pull and save the tables of interest into the `R` environment. 
+
+```{r oracle-data-pull, echo = TRUE, eval = FALSE}
+# Pull table from oracle into R environment
+cpue <- RODBC::sqlQuery(channel, "SELECT * FROM GAP_PRODUCTS.CPUE")
+# Save table to local directory
+write.csv(x = cpue, file = "GAP_PRODUCTS-CPUE.csv")
+```
+
+These are all of the new tables for you to look through:
+
+```{r table-locations}
+locations <- c(
+  # "GAP_PRODUCTS.CPUE",
+   # "GAP_PRODUCTS.BIOMASS",
+   # "GAP_PRODUCTS.AGECOMP",
+   # "GAP_PRODUCTS.SIZECOMP",
+   "GAP_PRODUCTS.STRATUM_GROUPS",
+   "GAP_PRODUCTS.AREA_ID",
+  "GAP_PRODUCTS.METADATA_COLUMN",
+  "GAP_PRODUCTS.DESIGN_TABLE")
+```
+
+For ease in this script, we are downloading all of the tables and saving them to our 'data' folder
+
+```{r table-dl, eval = FALSE}
+for (i in 1:length(locations)) {
+  print(locations[i])
+  a <- RODBC::sqlQuery(channel, paste0("SELECT * FROM ", locations[i]))
+  write.csv(x = a, file = here::here("data", paste0(locations[i], ".csv")))
+}
+```
+
+And here is a quick glance at all of the new tables: 
+
+```{r table-view}
+#| tbl-cap: View new tables. 
+
+# Find all descriptions of all tables in the GAP_PRODUCTS schema
+b <- RODBC::sqlQuery(channel = channel, 
+                     query = paste0("SELECT table_name, comments FROM all_tab_comments WHERE owner = 'GAP_PRODUCTS' ORDER BY table_name")) 
+
+# Collect all column metadata for all tables
+metadata_column <- readr::read_csv(here::here("data", "GAP_PRODUCTS.METADATA_COLUMN.csv"))
+
+for (i in 1:length(locations)) {
+  metadata_table <- b$COMMENTS[b$TABLE_NAME == 
+                                 strsplit(x = locations[i], split = ".", fixed = TRUE)[[1]][2]]
+  metadata_table <- ifelse(is.na(metadata_table), "[There is currently no description for this table.]", metadata_table)
+  a <- readr::read_csv(here::here("data", paste0(locations[i], ".csv")))
+  
+  str0 <- paste0("----", locations[i], "----
+Description: ", metadata_table, "
+rows: ", nrow(a), "
+cols: ", ncol(a), "
+", formatC(x = file.size(here::here("data", paste0(locations[i], ".csv")))/1e+9, 
+           digits = 9, format = "f", big.mark = ","), 
+" GB
+
+")
+  
+  
+  print(str0)
+  # what are the metadata for each column of this table
+  flextable::flextable(metadata_column[metadata_column$METADATA_COLNAME %in% names(a),])
+  # print few first lines of this table for show
+  flextable::flextable(head(a, 3))
+}
+```
+
+### Subset data
+
+To pull a small subset of the data (especially since files can be big and take a long time to download), use a variation of the following code. Here, we query POP biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.BIOMASS`
+
+```{r query-biomass}
+#| tbl-cap: View new POP biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.BIOMASS`. 
+
+a <- RODBC::sqlQuery(channel, 
+                     "SELECT * FROM GAP_PRODUCTS.BIOMASS
+WHERE SPECIES_CODE = 30060 
+AND SURVEY_DEFINITION_ID = 47 
+AND AREA_ID = 99903 
+AND YEAR BETWEEN 1984 AND 2021;") %>% 
+  janitor::clean_names()
+
+dim(a)
+flextable::flextable(a)
+```
+
+```{r r-plot-biomass}
+#| fig-cap: View new POP biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.BIOMASS`. 
+
+a_mean <- a %>% 
+  dplyr::group_by(survey_definition_id) %>% 
+  dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
+                   minyr = min(year, na.rm = TRUE), 
+                   maxyr = max(year, na.rm = TRUE)) 
+
+figure <-
+  ggplot(data = a, 
+         mapping = aes(x = year, 
+                       y = biomass_mt)) +
+  geom_point(size = 1.5) + 
+  ggplot2::scale_x_continuous(labels = scales::label_number(
+    accuracy = 1, big.mark = ""))   +
+  geom_segment(data = a_mean,
+               mapping = aes(x = minyr, 
+                             xend = maxyr, 
+                             y = biomass_mt, 
+                             yend = biomass_mt),
+               linetype = "dashed", size = 1) +
+  ggplot2::ggtitle(label = "GOA Pacific Ocean Perch Biomass 1984-2021", 
+                   subtitle = paste0("Mean = ", 
+                                     formatC(x = a_mean$biomass_mt, digits = 2, big.mark = ",", format = "f"), " mt")) +
+  ggplot2::xlab(label = "Year") +
+  ggplot2::ylab(label = "Biomass (mt)") +
+  ggplot2::theme_bw()
+
+```
+
+## Join tables
+
+## Query Biomass of POP by GOA regulatory area from 1984-2021 from `GAP_PRODUCTS.BIOMASS`
+
+```{r r-q-biomass-area}
+# a <- RODBC::sqlQuery(channel, 
+#                      "SELECT * FROM GAP_PRODUCTS.BIOMASS
+# INNER JOIN GAP_PRODUCTS.STRATUM_GROUPINGS
+# WHERE SPECIES_CODE = 30060 
+# AND SURVEY_DEFINITION_ID = 47 
+# AND AREA_ID = 99903 
+# AND YEAR BETWEEN 1984 AND 2021;") %>% 
+#   janitor::clean_names()
+# 
+# dim(a)
+# flextable::flextable(a)
+```
+
+```{r r-plot-biomass-area}
+
+```
+
+# Query and plot CPUE
+
+Query CPUE of Walleye Pollock in EBS 1984-2021 from `GAP_PRODUCTS.CPUE`
+
+[coming soon]
+
+Use {akgfmaps} R package to plot CPUE 
+
+[coming soon]
+
