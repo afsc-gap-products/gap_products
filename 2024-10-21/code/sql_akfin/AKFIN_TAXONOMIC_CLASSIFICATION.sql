@@ -1,0 +1,32 @@
+-- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_TAXONOMIC_CLASSIFICATION
+--
+-- Mirror of GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION, subsetting for SURVEY_SPECIES = 1 includes taxonomic classification information accepted by the AFSC GAP bottom trawl survey.
+--
+-- Contributors: Ned Laman (ned.laman@noaa.gov), 
+--               Zack Oyafuso (zack.oyafuso@noaa.gov), 
+--               Emily Markowitz (emily.markowitz@noaa.gov)
+--
+
+CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_TAXONOMIC_CLASSIFICATION AS
+SELECT 
+SPECIES_NAME, 
+COMMON_NAME, 
+SPECIES_CODE, 
+ID_RANK, 
+DATABASE_ID, 
+DATABASE, 
+GENUS_TAXON, 
+SUBFAMILY_TAXON, 
+FAMILY_TAXON, 
+SUPERFAMILY_TAXON, 
+SUBORDER_TAXON, 
+ORDER_TAXON, 
+SUPERORDER_TAXON, 
+SUBCLASS_TAXON, 
+CLASS_TAXON, 
+SUPERCLASS_TAXON, 
+SUBPHYLUM_TAXON, 
+PHYLUM_TAXON, 
+KINGDOM_TAXON
+FROM GAP_PRODUCTS.TAXONOMIC_CLASSIFICATION
+WHERE SURVEY_SPECIES = 1

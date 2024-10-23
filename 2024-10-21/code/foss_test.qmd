@@ -1,0 +1,395 @@
+---
+title: Oracle vs API
+number-sections: true
+format: pdf
+date: "`r paste0('DRAFT: ', format(Sys.time(), '%B %d, %Y'))`"
+---
+
+```{r setup, include=FALSE}
+#| file: functions.R
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE, eval = TRUE, comment = FALSE)
+
+# install.packages(c("httr", "jsonlite"))
+library(httr)
+library(jsonlite)
+library(dplyr)
+options(scipen = 999)
+
+api_link <- "https://apps-st.fisheries.noaa.gov/ods/foss/" # prod
+# api_link <- "https://test-www.fisheries.noaa.gov/foss/f?p=215:28/" # test
+api_link <- "https://dev-apps-st.fisheries.noaa.gov/ods/foss/" # test
+```
+
+## Here is what the API currently returns:
+
+Haul data: 
+
+```{r load-haul}
+
+# link to the Haul API
+api_link_haul <- paste0(api_link, "afsc_groundfish_survey_haul/")
+
+dat <- data.frame()
+for (i in seq(0, 500000, 10000)){
+  ## find how many iterations it takes to cycle through the data
+  print(i)
+  ## query the API link
+  res <- httr::GET(url = paste0(api_link_haul, "?offset=",i,"&limit=10000"))
+  ## convert from JSON format
+  data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
+  
+  ## if there are no data, stop the loop
+  if (is.null(nrow(data$items))) {
+    break
+  }
+  
+  ## bind sub-pull to dat data.frame
+  dat <- dplyr::bind_rows(dat, data$items)
+}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+
+# save outputs for later comparison
+dat_haul_api <- dat
+```
+
+```{r, echo = FALSE}
+#| label: load-haul-print
+#| tbl-cap: "Load haul data. "
+
+# Print the first few lines of the data, but make it pretty for quarto
+pretty_print_haul <- function(dat0){
+dat <- dat0 %>%  
+  dplyr::select(-links) %>%
+  head() %>%
+  flextable::flextable() %>%
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(
+    x = ., 
+    j = c("year", "cruise", "cruisejoin"), 
+    big.mark = "")
+return(dat)
+}
+pretty_print_haul(dat0 = dat)
+```
+
+Notes: 
+- survey_definition_id and survey_name column names are switched
+- there is no hauljoin column, so this cant be joined with any other tables
+
+Catch data:
+
+```{r load-catch}
+
+# link to the Catch API
+api_link_catch <- paste0(api_link, "afsc_groundfish_survey_catch/")
+
+dat <- data.frame()
+for (i in seq(0, 1000000, 10000)){
+  ## find how many iterations it takes to cycle through the data
+  print(i)
+  ## query the API link
+  res <- httr::GET(url = paste0(api_link_catch, "?offset=",i,"&limit=10000"))
+  ## convert from JSON format
+  data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
+  
+  ## if there are no data, stop the loop
+  if (is.null(nrow(data$items))) {
+    break
+  }
+  
+  ## bind sub-pull to dat data.frame
+  dat <- dplyr::bind_rows(dat, data$items)
+}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+
+# save outputs for later comparison
+dat_catch_api <- dat
+```
+
+```{r, echo = FALSE}
+#| label: load-catch-print
+#| tbl-cap: "Load catch data. "
+
+# Print the first few lines of the data, but make it pretty for quarto
+pretty_print_catch <- function(dat0){
+dat <- dat0 %>%  
+  dplyr::select(-links) %>%
+  head() %>%
+  flextable::flextable() %>%
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(
+    x = ., 
+    j = c("species_code"), 
+    big.mark = "")
+return(dat)
+}
+pretty_print_catch(dat0 = dat)
+```
+
+Catch taxon data:
+
+```{r load-catch-taxon, eval = FALSE}
+
+# link to the Catch API
+api_link_catch <- paste0(api_link, "afsc_groundfish_survey_catch_taxon/")
+
+dat <- data.frame()
+for (i in seq(0, 1000000, 10000)){
+  ## find how many iterations it takes to cycle through the data
+  print(i)
+  ## query the API link
+  res <- httr::GET(url = paste0(api_link_catch, "?offset=",i,"&limit=10000"))
+  ## convert from JSON format
+  data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
+  
+  ## if there are no data, stop the loop
+  if (is.null(nrow(data$items))) {
+    break
+  }
+  
+  ## bind sub-pull to dat data.frame
+  dat <- dplyr::bind_rows(dat, data$items)
+}
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+
+# save outputs for later comparison
+dat_catch_taxon_api <- dat
+```
+
+```{r, echo = FALSE, eval = FALSE}
+#| label: load-catch-taxon-print
+#| tbl-cap: "Load catch taxon data. "
+
+# Print the first few lines of the data, but make it pretty for quarto
+pretty_print_catch <- function(dat0){
+dat <- dat0 %>%  
+  dplyr::select(-links) %>%
+  head() %>%
+  flextable::flextable() %>%
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(
+    x = ., 
+    j = c("year", "cruise", "species_code"), 
+    big.mark = "")
+return(dat)
+}
+pretty_print_catch(dat0 = dat)
+```
+
+Species data:
+
+```{r load-species}
+## link to the API
+api_link_species <- paste0(api_link, "afsc_groundfish_survey_species/")
+
+res <- httr::GET(url = paste0(api_link_species, "?offset=0&limit=10000"))
+
+## Test connection
+# res 
+
+## convert from JSON format
+data <- jsonlite::fromJSON(base::rawToChar(res$content))
+dat <- data$items
+
+# Find how many rows and columns are in the data pull
+print(paste0("rows: ", dim(dat)[1], "; cols: ", dim(dat)[2]))
+
+# save outputs for later comparison
+dat_species_api <- dat
+```
+
+```{r, echo = FALSE}
+#| label: load-species-print
+#| tbl-cap: "Load species data. "
+
+# Print the first few lines of the data, but make it pretty for quarto
+pretty_print_species <- function(dat0){
+dat <- dat0 %>%  
+  dplyr::select(-links) %>%
+  head() %>%
+  flextable::flextable() %>%
+  flextable::theme_zebra() %>%
+  flextable::colformat_num(
+    x = ., 
+    j = c("species_code", "worms", "itis"), 
+    big.mark = "")
+return(dat)
+}
+pretty_print_species(dat0 = dat)
+```
+
+
+## Here is what I expected 
+
+The code to pull these tables from the AFSC oracle data base is simply as below. Please do not modify, join, filter, or change column names. 
+
+```{sql, eval = FALSE}
+
+# https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/
+SELECT *
+FROM GAP_PRODUCTS.FOSS_CATCH
+
+# https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/
+SELECT *
+FROM GAP_PRODUCTS.FOSS_SPECIES
+
+# https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/
+SELECT *
+FROM GAP_PRODUCTS.FOSS_HAUL
+
+```
+
+```{r}
+#| label: load-catch-oracle
+#| tbl-cap: "Wholesale download data and join data in R. "
+#| message: false
+#| warning: false
+#| echo: true
+#| eval: true
+
+dat_catch_oracle <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.FOSS_CATCH; "))
+dat_haul_oracle <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.FOSS_HAUL; "))
+dat_species_oracle <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.FOSS_SPECIES; "))
+dat_survey_species_oracle <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.FOSS_SURVEY_SPECIES; "))
+dat_taxon_group_oracle <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.FOSS_TAXON_GROUP; "))
+```
+
+```{r table-locations, eval = TRUE, echo = FALSE}
+
+# You can download all of the tables and saving them locally. These are all of the new tables for you to look through:
+foss_views <- RODBC::sqlQuery(
+  channel = channel,
+  query = "SELECT table_name 
+FROM all_tables
+WHERE owner = 'GAP_PRODUCTS';") %>% 
+  dplyr::filter(grepl(x = TABLE_NAME, pattern = "FOSS_")) %>% 
+  dplyr::filter(TABLE_NAME != "FOSS_CPUE_PRESONLY")
+  
+locations <- foss_views$TABLE_NAME
+
+# str00 <- print_table_metadata(channel, locations)
+```
+
+<!-- `r str00` -->
+
+# Comparison
+
+```{r}
+data.frame(table = c("catch", # "catch_taxon", 
+                     "haul", "species"), 
+           oracle_c = c(ncol(dat_catch_oracle), #ncol(dat_catch_oracle), 
+                      ncol(dat_haul_oracle), ncol(dat_species_oracle)), 
+           foss_c = c(ncol(dat_catch_api), #ncol(dat_catch_taxon_api), 
+                    ncol(dat_haul_api), ncol(dat_species_api)), 
+           oracle_r = c(nrow(dat_catch_oracle), #nrow(dat_catch_oracle), 
+                      nrow(dat_haul_oracle), nrow(dat_species_oracle)), 
+           foss_r = c(nrow(dat_catch_api), #nrow(dat_catch_taxon_api), 
+                    nrow(dat_haul_api), nrow(dat_species_api))) %>% 
+  dplyr::mutate(difference_r = oracle_r - foss_r, 
+                difference_c = oracle_c - foss_c)
+```
+
+```{r}
+print("--------------------- catch ---------------------")
+summary(dat_catch_oracle)
+summary(dat_catch_api %>% dplyr::select(-links))
+
+print("--------------------- haul ---------------------")
+summary(dat_haul_oracle)
+summary(dat_haul_api %>% dplyr::select(-links))
+
+print("--------------------- species ---------------------")
+summary(dat_species_oracle)
+summary(dat_species_api %>% dplyr::select(-links))
+
+```
+
+
+
+
+```{r, echo = false}
+print_diff_summary <- function(foss, oracle){
+  names(oracle) <- tolower(names(oracle))
+  names(foss) <- tolower(names(foss))
+str0 <- paste0("The ", var, " table in FOSS (", ncol(foss), 
+       " columns) and AFSC GAP_PRODUCTS Oracle (", ncol(oracle), 
+       " columns) do not have the same number of columns. The FOSS table is missing the ", paste(setdiff(tolower(names(oracle)), names(foss)), collapse = ", "), 
+       " column(s) from the original AFSC GAP_PRODUCTS table (of which all columns are critical to include). The FOSS table has the following additional columns which should be removed from the table as they are represented in other tables that can be joined to: ", paste(setdiff(tolower(names(foss)), names(oracle)), collapse = ", "), ". ")
+       
+if (nrow(foss) != nrow(oracle)) {       
+str0 <- paste0(str0, "Additionally, the ", var, " table in FOSS (", formatC(nrow(foss), big.mark = ","), 
+       " rows) and AFSC GAP_PRODUCTS Oracle (", formatC(nrow(oracle), big.mark = ","), 
+       " rows) do not have the same number of rows. ")
+} else {
+  str0 <- paste0(str0, "\n\nThe ", var, " table in FOSS and AFSC GAP_PRODUCTS Oracle (", formatC(nrow(oracle), big.mark = ","), 
+       " rows) have the same number of rows. ")
+}
+
+return(str0)
+}
+```
+
+```{r}
+var <- "catch"
+foss <- dat_catch_api %>% 
+  dplyr::select(-links)
+oracle <- dat_catch_oracle
+
+print_diff_summary(foss, oracle)
+```
+
+```{r, eval = FALSE}
+var <- "catch (vs. catch_taxon)"
+foss <- dat_catch_taxon_api %>% 
+  dplyr::select(-links)
+oracle <- dat_catch_oracle
+
+print_diff_summary(foss, oracle)
+```
+
+
+```{r, eval = FALSE}
+var <- "API catch (vs. catch_taxon)"
+foss <- dat_catch_taxon_api
+oracle <- dat_catch_api
+
+print_diff_summary(foss, oracle)
+```
+
+```{r}
+var <- "haul"
+foss <- dat_haul_api %>% 
+  dplyr::select(-links)
+oracle <- dat_haul_oracle
+
+print_diff_summary(foss, oracle)
+```
+
+```{r}
+var <- "species"
+foss <- dat_species_api %>% 
+  dplyr::select(-links)
+oracle <- dat_species_oracle
+
+print_diff_summary(foss, oracle)
+```
+
+```{r}
+var <- "species"
+foss <- dat_species_api %>% 
+  dplyr::select(-links)
+oracle <- dat_survey_species_oracle
+
+print_diff_summary(foss, oracle)
+```
+```{r}
+var <- "species"
+foss <- dat_species_api %>% 
+  dplyr::select(-links)
+oracle <- dat_taxon_group_oracle
+
+print_diff_summary(foss, oracle)
+```
