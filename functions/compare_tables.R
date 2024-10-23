@@ -125,7 +125,8 @@ compare_tables <- function(x = NULL,
   
   
   modified_records <- rbind(modified_records1, modified_records2)
-  modified_records <- modified_records[, c(key_columns, col_order), with = F]  
+  modified_records <- unique(modified_records[, c(key_columns, col_order), 
+                                              with = F])  
   
   return(do.call(what = list,
                  args = list(new_records = new_records, 
