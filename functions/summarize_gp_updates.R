@@ -57,7 +57,7 @@ FROM GAP_ARCHIVE.AUDIT_AGECOMP
 WHERE OPERATION_TIMESTAMP BETWEEN '", time_start, "' AND '", time_end, "'",
     "\nGROUP BY OPERATION_TYPE, SURVEY_DEFINITION_ID, YEAR")
   
-  return(RODBC::sqlQuery(channel = chl,
+  return(RODBC::sqlQuery(channel = channel,
                          query = sql_query))
 }
 

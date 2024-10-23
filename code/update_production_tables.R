@@ -40,33 +40,13 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 ##   areas, updated gapindex package, etc.) 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 detailed_notes <- 
-  "Run completed by: Duane Stevenson, Ned Laman, Zack Oyafuso
+  "Run completed by: Zack Oyafuso
 
 A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
 
-Changes to the Age Composition
-1) New read otolith data for AI: 2022 (30052) and 2022 (30051)
-2) New read otolith data for GOA: 2023 (30052) and (21921)
-3) New read otolith data for NBS: 2023 (10210)
-4) New read otolith data for EBS: 2024 (21740, 10112, 10115)
-5) Error threshold for comparing changes is now to the hundreth of a percent.  
+Modified records were not updated due to a bug in the code during th 10/21/2024 run have now been recitfied.
 
-Changes to the Size Composition
-1) Muusoctopus leioderma (78012) and Muusoctopus oregonensis (78455) aggregated up to Muusocotpus sp. (78014)
-2) Unidentified skates (400) are removed from the 2010 EBS sizecomps.
-3) Erroneous use of the juvenile pollock code for catch processing was corrected for hauls in GOA 2009 (1 haul), 2019 (2), and 2023 (5). Incorrect use of pollock juvenile codes was diagnosed from raw catch data as presence of both 'Species Codes' (21740 & 21741) in a single haul's catch but without a nonsub weight for the juvenile code implying that it was 100% processed in the catch; none of these catches were split. In instances where the juvenile code was also carried into the lengths for that catch, those lengths were reassigned to 21740, length counts were added to adult subsample counts, juvenile subsample weights were added to adult subsample weights, and the juvenile catch record was deleted once the erroneous juvenile counts and weights were merged with the adult catch record. It can be noted that in cases where the adult pollock nonsub weight was also null, given the data constraints just described, juvenile lengths do not get expanded thus alleviating any concern about affecting size- and agecomps in those cases.
-4) Error threshold for comparing changes is now to the hundreth of a percent.
-
-Changes to the CPUE/Biomass
-2) Scleratinia now grouped as those SPECIES_CODE values within Order Scleractinia excluding cup corals
-3) Pteraster spp. now grouped to genus species code 81310
-4) Basketstars (83020) now removed from brittle star aggregation (83000)
-Muusoctopus leioderma (78012) and Muusoctopus oregonensis (78455) aggregated up to Muusocotpus sp. (78014)
-5) Nemertean worms now disaggregated from Phylum Nemertea (92500)
-6) Error threshold for comparing changes is now to the hundreth of a percent.
-
-**Modified records were not updated due to a bug in the code.
-
+Two Bering skate (435) lengths were converted to unid. skate (400).
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -256,7 +236,7 @@ for (iregion in regions) {
       
       ## Upload a temporary table to GAP_PRODUCTS that holds the new records
       gapindex::upload_oracle(
-        x = new_records,
+        x = modified_records,
         table_name = "GAP_PRODUCTS_TEMP_MODIFIED_RECORDS", 
         metadata_column = metadata_column, 
         table_metadata = paste(iquantity, "records to be modified in the", 
@@ -316,18 +296,13 @@ RODBC::sqlQuery(
 	UPDATE_FIELD_COMMENTS;
 END;")
 
-
-### STOP #####
-
-
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Use summarize_gp_updates to quickly check audit tables
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # source("functions/summarize_gp_updates.R")
-# summarize_gp_updates(channel = chl,
-#                      time_start = "08-SEP-24 05.00.00 PM",
-#                      time_end = "08-SEP-24 05.30.00 PM" )
+# summarize_gp_updates(channel = gapproducts_channel,
+#                      time_start = "22-OCT-24 11.00.00 PM",
+#                      time_end = "22-OCT-24 11.59.00 PM" )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Update FOSS and AKFIN Tables
@@ -348,19 +323,19 @@ for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
   cat("Creating", temp_table_name, "...\n")
   
   ## Extract tables already in GAP_PRODUCTS
-  available_views <- subset(x = RODBC::sqlTables(channel = channel, 
+  available_views <- subset(x = RODBC::sqlTables(channel = gapproducts_channel, 
                                                  schema = "GAP_PRODUCTS"))
   
   ## If the temp_table_name already exists, drop before recreating
   if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
-    RODBC::sqlQuery(channel = channel, 
+    RODBC::sqlQuery(channel = gapproducts_channel, 
                     query = paste("DROP MATERIALIZED VIEW", temp_table_name))
   
   ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
   ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
   ## caled code/sql_foss.
   RODBC::sqlQuery(
-    channel = channel,
+    channel = gapproducts_channel,
     query = getSQL(filepath = paste0("code/sql_", 
                                      views$table_type[isql_script], "/", 
                                      views$table_name[isql_script], ".sql")
