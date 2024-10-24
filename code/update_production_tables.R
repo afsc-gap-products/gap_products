@@ -342,6 +342,11 @@ for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
     )
   )
   
+  RODBC::sqlQuery(channel = gapproducts_channel,
+                  query = paste0("GRANT SELECT ON GAP_PRODUCTS.", 
+                                 views$table_name[isql_script],
+                                 " TO PUBLIC;"))
+  
   end_time <- Sys.time()
   cat(names(print(end_time - start_time)), "\n")
 } ## Loop over tables -- end
