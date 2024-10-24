@@ -25,16 +25,10 @@ test0 <- FALSE
 **An application programming interface (API) is a way for two or more computer programs to communicate with each other.** More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
 
 There are three tables the user can pull from the API. Learn more about them on the [FOSS data description page](https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html). Here, you can see them in their raw JSON format:
-<<<<<<< HEAD
--  haul: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/]
-- catch: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/]
-- species: (https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)[https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/]
-=======
 
 * haul: [https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/](https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/)
 * catch: [https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/](https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/)
 * species: [https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/](https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/)
->>>>>>> 5c2c3fdc65e46657c1aab0e58a8546b9c013f1be
 
 Here are some examples of how to use the data with R:
 
