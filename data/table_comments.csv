@@ -2,7 +2,7 @@ table_name,table_type,table_comment
 AKFIN_AGECOMP,akfin,AKFIN_AGECOMP is a copy of GAP_PRODUCTS.AGECOMP and does not have any other object dependencies.
 AKFIN_AREA,akfin,AKFIN_AREA is a copy of GAP_PRODUCTS.AREA and does not have any other object dependencies.
 AKFIN_BIOMASS,akfin,AKFIN_BIOMASS is a copy of GAP_PRODUCTS.BIOMASS and does not have any other object dependencies.
-AKFIN_CATCH,akfin,AKFIN_CATCH is a copy of RACEBASE.CATCH from hauls in RACEBASE.HAULS where ABUNDANCE_HAUL = 'Y'.
+AKFIN_CATCH,akfin,AKFIN_CATCH is a copy of RACEBASE.CATCH (positive catch records) from hauls in RACEBASE.HAULS where ABUNDANCE_HAUL = 'Y'.
 AKFIN_CPUE,akfin,AKFIN_CPUE is a copy of GAP_PRODUCTS.CPUE and does not have any other object dependencies.
 AKFIN_CRUISE,akfin,"AKFIN_CRUISE contains cruise, year, vessel, and survey data for cruises used in the standard data product tables."
 AKFIN_HAUL,akfin,AKFIN_HAUL is created by subsetting the RACEBASE.HAUL table to only hauls with ABUNDANCE_HAUL = 'Y' and modifying some of the field names. These are the hauls that are used for the standard data product tables in the GAP_PRODUCTS schema.
