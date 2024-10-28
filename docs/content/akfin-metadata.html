@@ -2133,40 +2133,6 @@ Column description
 <tbody>
 <tr>
 <td style="text-align:left;">
-METADATA_COLNAME
-</td>
-<td style="text-align:left;">
-Column name
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(4000 BYTE)
-</td>
-<td style="text-align:left;">
-Name of the column in a table.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-METADATA_COLNAME_LONG
-</td>
-<td style="text-align:left;">
-Column name spelled out
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(4000 BYTE)
-</td>
-<td style="text-align:left;">
-Long name for the column.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 METADATA_UNITS
 </td>
 <td style="text-align:left;">
@@ -2214,6 +2180,40 @@ VARCHAR2(4000 BYTE)
 </td>
 <td style="text-align:left;">
 Description of the column.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+METADATA_COLNAME
+</td>
+<td style="text-align:left;">
+Column name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(4000 BYTE)
+</td>
+<td style="text-align:left;">
+Name of the column in a table.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+METADATA_COLNAME_LONG
+</td>
+<td style="text-align:left;">
+Column name spelled out
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(4000 BYTE)
+</td>
+<td style="text-align:left;">
+Long name for the column.
 </td>
 </tr>
 </tbody>
@@ -3157,6 +3157,142 @@ Column description
 <tbody>
 <tr>
 <td style="text-align:left;">
+INFRACLASS_TAXON
+</td>
+<td style="text-align:left;">
+Infraclass phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Infraclass phylogenetic rank. Phylogenetic latin rank of infraclass of a given speices.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBCLASS_TAXON
+</td>
+<td style="text-align:left;">
+Subclass phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of subclass of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CLASS_TAXON
+</td>
+<td style="text-align:left;">
+Class phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of class of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUPERCLASS_TAXON
+</td>
+<td style="text-align:left;">
+Superclass phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of superclass of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBPHYLUM_TAXON
+</td>
+<td style="text-align:left;">
+Subphylum phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of subphylum of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHYLUM_TAXON
+</td>
+<td style="text-align:left;">
+Phylum phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of phylum of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KINGDOM_TAXON
+</td>
+<td style="text-align:left;">
+Kingdom phylogenetic rank
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Phylogenetic latin rank of kingdom of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GROUP_CODE
+</td>
+<td style="text-align:left;">
+Species or Complex ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Equivalent to the SPECIES_CODE if the taxon is reported as a single taxon in GAP_PRODUCTS, otherwise denotes a SPECIES_CODE of a higher taxonomic group to which the taxon is aggregated in the GAP_PRODUCTS CPUE and BIOMASS tables.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 SPECIES_CODE
 </td>
 <td style="text-align:left;">
@@ -3391,142 +3527,6 @@ VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
 Phylogenetic latin rank of superorder of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-INFRACLASS_TAXON
-</td>
-<td style="text-align:left;">
-Infraclass phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Infraclass phylogenetic rank. Phylogenetic latin rank of infraclass of a given speices.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SUBCLASS_TAXON
-</td>
-<td style="text-align:left;">
-Subclass phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of subclass of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CLASS_TAXON
-</td>
-<td style="text-align:left;">
-Class phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of class of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SUPERCLASS_TAXON
-</td>
-<td style="text-align:left;">
-Superclass phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of superclass of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SUBPHYLUM_TAXON
-</td>
-<td style="text-align:left;">
-Subphylum phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of subphylum of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PHYLUM_TAXON
-</td>
-<td style="text-align:left;">
-Phylum phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of phylum of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-KINGDOM_TAXON
-</td>
-<td style="text-align:left;">
-Kingdom phylogenetic rank
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Phylogenetic latin rank of kingdom of a given species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GROUP_CODE
-</td>
-<td style="text-align:left;">
-Species or Complex ID
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-Equivalent to the SPECIES_CODE if the taxon is reported as a single taxon in GAP_PRODUCTS, otherwise denotes a SPECIES_CODE of a higher taxonomic group to which the taxon is aggregated in the GAP_PRODUCTS CPUE and BIOMASS tables.
 </td>
 </tr>
 </tbody>
