@@ -75,7 +75,7 @@ Included here are AFSC RACE Groundfish and Shellfish Assessment
 Program’s:
 
 - Design-Based Production Data (NOAA Fisheries Alaska Fisheries Science
-  Center, Goundfish Assessment Program, 2024).  
+  Center, Groundfish Assessment Program, 2024).  
 - Public Data hosted on the Fisheries One Stop Shop (FOSS) Data Platform
   (NOAA Fisheries Alaska Fisheries Science Center, 2024).
 
