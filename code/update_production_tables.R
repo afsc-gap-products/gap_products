@@ -296,6 +296,19 @@ RODBC::sqlQuery(
 	UPDATE_FIELD_COMMENTS;
 END;")
 
+## Purge dropped temporary tables to free up space
+RODBC::sqlQuery(channel = channel,
+                  query = "
+BEGIN
+  FOR obj IN (
+    SELECT OBJECT_NAME 
+    FROM RECYCLEBIN
+    WHERE ORIGINAL_NAME LIKE 'GAP_PRODUCTS_TEMP_%'
+  ) LOOP
+    EXECUTE IMMEDIATE 'PURGE TABLE \"' || obj.OBJECT_NAME || '\"';
+  END LOOP;
+END;")
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Use summarize_gp_updates to quickly check audit tables
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
