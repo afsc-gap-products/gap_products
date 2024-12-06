@@ -38,7 +38,20 @@ current_gp_taxon_groups <-
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Append updated taxonomic classification info to the OLD_SPECIES_CODE
-##   in current_gp_taxonomic_changes 
+##   in current_gp_taxonomic_changes: There are taxa that have changed species 
+##   names and codes. Examples include:
+##   
+##   In 2023, Lycodapus grossidens (24233) was changed to Lycodapus fierasfer
+##   (24160) in 2023. The names are synonyms.
+##   In 2023, Sebastes (Sebastomus) sp. (20530) was changed to Sebastes sp. 
+##   (30040) in 2023. The names are synonyms.
+##   
+##   The old species code still exists in RACEBASE.CATCH. To combine the catch
+##   of the old species code with the new species code, we will have two records
+##   with the old and new species codes in the SPECIES_CODE field but they will
+##   both have the new species code in the GROUP_CODE field. That way, both
+##   species codes get pulled from RACEBASE, and then are combined using the
+##   GROUP_CODE field.  
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Subset the corrected classification information for the new species codes
 taxon_changes_classification <- 
@@ -67,14 +80,20 @@ updated_gp_taxonomic_classification <-
              taxon_changes_classification$SPECIES_CODE),
     taxon_changes_classification[, names(x = current_gp_taxonomic_classification)])
 
+# subset(x = updated_gp_taxonomic_classification, 
+#        subset = SPECIES_NAME == "Lycodapus fierasfer")
+# subset(x = updated_gp_taxonomic_classification, 
+#        subset = SPECIES_NAME == "Sebastes sp.")
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   The taxa in grouped_taxa are those invertebrate groups that are minimally
-##   identified at the same taxonomic resolution that defines the taxon, e.g., 
-##    Phylum Porifera which is also minimally field-identified to phylum. These 
-##   coarse aggregations mask many of the varieties in the levels of taxonomic 
+##   The taxa in grouped_taxa are those taxa that are minimally identified at 
+##   the same taxonomic resolution that defines the taxa, e.g., Phylum Porifera 
+##   which is also minimally field-identified to phylum. These coarse 
+##   aggregations mask many of the nuances in the levels of taxonomic 
 ##   confidence for individual species codes and thus is a conservative approach
 ##   to reporting data products for many of the invertebrate taxa observed in 
-##   our bottom trawl surveys. 
+##   our bottom trawl surveys. These aggregations are set by the minimum
+##   identification standards on deck, available on the RACE Survey App. 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 grouped_taxa <- 
   RODBC::sqlQuery(
