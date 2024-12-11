@@ -1,0 +1,87 @@
+GAP_PRODUCTS ChangeLog (last produced on 2024-12-10) using gapindex v3.0.2
+Run completed by: Sean Rooney
+
+A count for neptunia sp.(species code 71800) from 2024(from haul join -23506) was modified 
+
+
+ AI Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 1 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 6 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+
