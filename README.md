@@ -33,8 +33,7 @@ Seattle, WA 98195
 
 > - [*User Resources*](#user-resources)
 > - [*Cite this data*](#cite-this-data)
->   - [*Bottom trawl surveys and
->     regions*](#bottom-trawl-surveys-and-regions)
+>   - [*Bottom trawl surveys and regions*](#bottom-trawl-surveys-and-regions)
 >   - [*Access Constraints*](#access-constraints)
 > - [*Suggestions and comments*](#suggestions-and-comments)
 > - [*R Version Metadata*](#r-version-metadata)
