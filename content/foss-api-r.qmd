@@ -44,7 +44,7 @@ api_link_haul <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_su
 ```
 
 ```{r api_link_haul-test, echo = FALSE, inlcude = FALSE, eval = test0}
-api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
+# api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
 ```
 
 #### Load first 25 rows of data
@@ -117,7 +117,7 @@ api_link_catch <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_s
 ```
 
 ```{r api_link_catch-test, echo = FALSE, inlcude = FALSE, eval = test0}
-api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
+# api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
 ```
 
 #### Load first 25 rows of data
@@ -194,7 +194,7 @@ api_link_species <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish
 ```
 
 ```{r api_link_species-test, echo = FALSE, inlcude = FALSE, eval = test0}
-api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
+# api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
 ```
 
 ```{r load-species}
@@ -221,7 +221,7 @@ dat %>%
   flextable::flextable() %>%
   flextable::colformat_num(
       x = ., 
-      j = c("species_code", "worms", "itis"), 
+      j = c("species_code", "worms", "itis"), # 
       big.mark = "") %>% 
   flextable::theme_zebra()
 
@@ -298,7 +298,7 @@ dat %>%
   flextable::flextable() %>%
   flextable::colformat_num(
       x = ., 
-      j = c("species_code", "worms", "itis", "hauljoin", "year", "cruise", "cruisejoin"), 
+      j = c("species_code", "hauljoin", "year", "cruise", "cruisejoin", "worms", "itis"), #
       big.mark = "") %>% 
   flextable::theme_zebra()
 
@@ -392,6 +392,9 @@ shps <- akgfmaps::get_base_layers(
   select.region = "bs.all", 
   include.corners = TRUE, 
   set.crs = "EPSG:3338")
+
+shps$survey.area$SRVY <- c("EBS", "NBS")
+shps$survey.area$SURVEY <- c("EBS", "NBS")
 
 # set.breaks <- akgfmaps::eval_plot_breaks(CPUE = dat$cpue_kgkm2, n.breaks = 5)
 # set.breaks <- as.vector(unlist(set.breaks[set.breaks$style == "pretty", -1]))
@@ -825,7 +828,7 @@ figure0$plot + # 20x20km grid
 
 Show haul data where year is less than 1989, srvy = "EBS", and stratum is not equal to 81. 
 
-```{r cc, eval = FALSE}
+```{r cc}
 res <- httr::GET(
   url = paste0(api_link_haul, 
                '?&limit=10000&q={"year":{"$lt":1989},"stratum":{"$ne":"81"},"srvy":"EBS"}}'))
@@ -836,7 +839,7 @@ dat <- data$items %>%
 
 Explore data:
 
-```{r ff, eval = FALSE, include = FALSE, echo = FALSE}
+```{r ff}
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 

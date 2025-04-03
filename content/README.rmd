@@ -54,20 +54,24 @@ National Oceanic and Atmospheric Administration,
 
 Seattle, WA 98195
 
-> The code in this repository is regularly being updated and improved.
-> Please refer to
-> [releases](https://github.com/afsc-gap-products/gap_products/releases)
-> for finalized products and project milestones.
-
 ## Table of contents
 
-> - [*User Resources*](#user-resources)
-> - [*Cite this data*](#cite-this-data)
->   - [*Bottom trawl surveys and
->     regions*](#bottom-trawl-surveys-and-regions)
->   - [*Access Constraints*](#access-constraints)
-> - [*Suggestions and comments*](#suggestions-and-comments)
-> - [*R Version Metadata*](#r-version-metadata)
+```{r toc, echo = FALSE, eval = TRUE, warning=FALSE}
+toc <- strsplit(x = readtext::readtext(file = "./README.Rmd", verbosity = 0)[[2]], split = "\n")
+toc <- toc[[1]][substr(x = toc[[1]], start = 1, stop = 1) == "#"]
+toc <- toc[-c(1:3)]
+toc_list <- toc
+toc_list <- gsub(pattern = "### ", replacement = ">      - [*", x = toc_list, fixed = TRUE)
+toc_list <- gsub(pattern = "## ", replacement = ">    - [*", x = toc_list, fixed = TRUE)
+toc_list <- gsub(pattern = "# ", replacement = ">  - [*", x = toc_list, fixed = TRUE)
+toc_link <- tolower(gsub(pattern = " ", replacement = "-", 
+                          x = gsub(pattern = "#", replacement = "", 
+                                   x = gsub(pattern = "# ", replacement = "", 
+                                            x = toc, fixed = TRUE), fixed = TRUE)))
+toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
+```
+
+`r toc`
 
 ## User Resources
 
