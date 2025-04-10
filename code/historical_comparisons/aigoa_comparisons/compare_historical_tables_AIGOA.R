@@ -207,8 +207,7 @@ production_biomass <-
                            ROUND(POPULATION_VAR) AS POPULATION_VAR
                            FROM GAP_PRODUCTS.BIOMASS 
                             
-                           WHERE SURVEY_DEFINITION_ID IN (47, 52)
-                           AND YEAR != 2025")
+                           WHERE SURVEY_DEFINITION_ID IN (47, 52)")
 
 production_biomass[production_biomass$N_HAUL == 1, 
                    c("CPUE_KGKM2_MEAN", "CPUE_NOKM2_MEAN", 
@@ -658,8 +657,7 @@ production_sizecomp <-
                            SPECIES_CODE, SEX, LENGTH_MM, POPULATION_COUNT
                            FROM GAP_PRODUCTS.SIZECOMP 
                             
-                           WHERE SURVEY_DEFINITION_ID IN (47, 52)
-                           AND YEAR != 2025")
+                           WHERE SURVEY_DEFINITION_ID IN (47, 52)")
 
 ## Import Biomass tables from historical AI/GOA schemata
 historical_sizecomp <- 

@@ -522,8 +522,8 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## SPECIES_CODE, and YEAR as a composite key
   test_biomass <- 
-    merge(x = production_biomass[YEAR != 2025, -"SURVEY"],
-          y = gp_biomass[YEAR != 2025],
+    merge(x = production_biomass[, -"SURVEY"],
+          y = gp_biomass,
           all = TRUE,
           suffixes = c("_UPDATE", "_CURRENT"),
           by = c("SURVEY_DEFINITION_ID", 'AREA_ID', "SPECIES_CODE", "YEAR"))
@@ -561,12 +561,8 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND LENGTH_MM as a composite key
-  test_sizecomp <- merge(x = subset(x = gp_sizecomp,
-                                    ## Don't compare mock GOA 2025 data
-                                    subset = YEAR != 2025),
-                         y = subset(x = production_sizecomp,
-                                    ## Don't compare mock GOA 2025 data
-                                    subset = YEAR != 2025),
+  test_sizecomp <- merge(x = gp_sizecomp,
+                         y = production_sizecomp,
                          all = TRUE,
                          suffixes = c("_CURRENT", "_UPDATE"),
                          by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
@@ -602,12 +598,8 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
   
   ## Full join the two tables together using SURVEY_DEFINITION_ID, AREA_ID, 
   ## YEAR, and SPECIES_CODE, SEX, AND AGE as a composite key
-  test_agecomp <- merge(x = subset(x = gp_agecomp,
-                                   ## Don't compare mock GOA 2025 data
-                                   subset = YEAR != 2025),
-                        y = subset(x = production_agecomp,
-                                   ## Don't compare mock GOA 2025 data
-                                   subset = YEAR != 2025),
+  test_agecomp <- merge(x = gp_agecomp,
+                        y = production_agecomp,
                         all = TRUE,
                         suffixes = c("_CURRENT", "_UPDATE"),
                         by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
