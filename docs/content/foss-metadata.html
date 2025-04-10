@@ -355,7 +355,7 @@ function googleTranslateElementInit() {
 <h2 class="anchored" data-anchor-id="data-tables">Data tables</h2>
 <section id="foss_catch" class="level3">
 <h3 class="anchored" data-anchor-id="foss_catch">FOSS_CATCH</h3>
-<p>Positive catch and effort from GAP_PRODUCTS.CPUE with associated taxonomic confidence. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 10 January 2025.</p>
+<p>snapshot table for snapshot GAP_PRODUCTS.FOSS_CATCH</p>
 <p>Number of rows: 891,144</p>
 <p>Number of columns: 7</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -379,23 +379,6 @@ Column description
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-HAULJOIN
-</td>
-<td style="text-align:left;">
-Haul ID
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
-</td>
-</tr>
 <tr>
 <td style="text-align:left;">
 SPECIES_CODE
@@ -498,12 +481,29 @@ VARCHAR2(255 BYTE)
 Confidence in the ability of the survey team to correctly identify the taxon to the specified level, based solely on identification skill (e.g., not likelihood of a taxon being caught at that station on a location-by-location basis). Quality codes follow: <strong>High</strong>: High confidence and consistency. Taxonomy is stable and reliable at this level, and field identification characteristics are well known and reliable. <strong>Moderate</strong>: Moderate confidence. Taxonomy may be questionable at this level, or field identification characteristics may be variable and difficult to assess consistently. <strong>Low</strong>: Low confidence. Taxonomy is incompletely known, or reliable field identification characteristics are unknown. Documentation: <a href="http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2009-04.pdf">Species identification confidence in the eastern Bering Sea shelf survey (1982-2008)</a>, <a href="http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-05.pdf">Species identification confidence in the eastern Bering Sea slope survey (1976-2010)</a>, and <a href="http://apps-afsc.fisheries.noaa.gov/Publications/ProcRpt/PR2014-01.pdf">Species identification confidence in the Gulf of Alaska and Aleutian Islands surveys (1980-2011)</a>.
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+HAULJOIN
+</td>
+<td style="text-align:left;">
+Haul ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
+</td>
+</tr>
 </tbody>
 </table>
 </section>
 <section id="foss_haul" class="level3">
 <h3 class="anchored" data-anchor-id="foss_haul">FOSS_HAUL</h3>
-<p>Mirror of GAP_PRODUCTS.HAUL with additional year and survey data. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 10 January 2025.</p>
+<p>snapshot table for snapshot GAP_PRODUCTS.FOSS_HAUL</p>
 <p>Number of rows: 33,991</p>
 <p>Number of columns: 27</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -991,7 +991,7 @@ This denotes what, if any, issues arose during the haul. For more information, r
 </section>
 <section id="foss_species" class="level3">
 <h3 class="anchored" data-anchor-id="foss_species">FOSS_SPECIES</h3>
-<p>List of GAP SPECIES_CODE values with associated WORMS and ITIS database values. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 10 January 2025.</p>
+<p>snapshot table for snapshot GAP_PRODUCTS.FOSS_SPECIES</p>
 <p>Number of rows: 1,014</p>
 <p>Number of columns: 6</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1122,7 +1122,7 @@ Species code as identified in the Integrated Taxonomic Information System (https
 </section>
 <section id="foss_survey_species" class="level3">
 <h3 class="anchored" data-anchor-id="foss_survey_species">FOSS_SURVEY_SPECIES</h3>
-<p>List of observed SPECIES_CODE values for each survey region. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 10 January 2025.</p>
+<p>snapshot table for snapshot GAP_PRODUCTS.FOSS_SURVEY_SPECIES</p>
 <p>Number of rows: 2,754</p>
 <p>Number of columns: 2</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1185,7 +1185,7 @@ The survey definition ID key code is an integer that uniquely identifies a surve
 </section>
 <section id="foss_taxon_group" class="level3">
 <h3 class="anchored" data-anchor-id="foss_taxon_group">FOSS_TAXON_GROUP</h3>
-<p>This reference table will allow for easier searching and sorting of species in FOSS. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 10 January 2025.</p>
+<p>snapshot table for snapshot GAP_PRODUCTS.FOSS_TAXON_GROUP</p>
 <p>Number of rows: 10,309</p>
 <p>Number of columns: 3</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">

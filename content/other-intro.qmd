@@ -20,7 +20,7 @@ googledrive::drive_download(
   file = googledrive::as_id("1fBNElCcrLTWkSAbjEoShsduuyMfHEisJDyyumCpCSAw"), #1FJe2kqkcKpgOh4YS1_QJqaPX2wvOdhGu0DkPBF-SsQs
   type = "csv",
   overwrite = TRUE,
-  path = here::here("temp", "other_products.csv"))
+  path = here::here("content", "other_products.csv"))
 ```
 
 ```{r prod-table}
@@ -29,7 +29,7 @@ googledrive::drive_download(
 #| warning: false
 #| echo: false
 
-table_raw <- read.csv(file = here::here("temp", "other_products.csv"), 
+table_raw <- read.csv(file = here::here("content", "other_products.csv"), 
                       skip = 1)  %>% 
   dplyr::mutate(
     poc_goa = gsub(x = poc_goa, 

@@ -65,8 +65,8 @@ write.table(x = readLines(con = "https://raw.githubusercontent.com/afsc-gap-prod
             col.names = FALSE,
             quote = FALSE)
 
-# # Write README -----------------------------------------------------------------
-# 
+# Write README -----------------------------------------------------------------
+
 # rmarkdown::render(paste0(here::here("content","README.Rmd")),
 #                   output_dir = here::here(),
 #                   output_file = paste0("README.md"))

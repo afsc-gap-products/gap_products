@@ -110,58 +110,41 @@ survey.grid <- dplyr::bind_rows(list(
   shp_ebs$survey.grid %>%
     sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "EBS", 
-                  station = STATIONID),
+                  station = STATION),
   shp_nbs$survey.grid  %>%
     sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "NBS", 
-                  station = STATIONID),
+                  station = STATION),
   shp_ai$survey.grid %>%
     sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "AI", 
                   survey_definition_id = 52, 
-                  station = ID, 
-                  stratum = STRATUM),
+                  station = STATION),
   shp_goa$survey.grid %>%
     sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "GOA", 
                   survey_definition_id = 47, 
-                  station = ID, 
-                  stratum = STRATUM))) %>% 
-  dplyr::select(survey_definition_id, SRVY, stratum, station, geometry)
+                  station = STATION))) %>% 
+  dplyr::select(survey_definition_id, SRVY, station, geometry)
 
 # Pull together all stratum ----------------------------------------------------
 survey.strata <- dplyr::bind_rows(list(
   shp_ebs$survey.strata %>%
-    sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "EBS", 
-                  survey_definition_id = 98,
-                  stratum = as.numeric(Stratum)) %>% 
-    dplyr::select(-Stratum),
+                  survey_definition_id = 98),
   shp_nbs$survey.strata  %>%
-    sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "NBS", 
-                  survey_definition_id = 143,
-                  stratum = as.numeric(Stratum)) %>% 
-    dplyr::select(-Stratum),
+                  survey_definition_id = 143),
   shp_ai$survey.strata %>%
-    sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "AI", 
-                  survey_definition_id = 52,
-                  stratum = as.numeric(STRATUM)) %>% 
-    dplyr::select(-STRATUM),
+                  survey_definition_id = 52),
   shp_goa$survey.strata %>%
-    sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "GOA",
-                  survey_definition_id = 47,
-                  stratum = as.numeric(STRATUM)) %>% 
-    dplyr::select(-STRATUM, -Stratum),
+                  survey_definition_id = 47),
   shp_bss$survey.strata %>%
-    sf::st_transform(crs = crs_out) %>%
     dplyr::mutate(SRVY = "BSS", 
-                  survey_definition_id = 78,
-                  stratum = as.numeric(STRATUM)) %>% 
-    dplyr::select(-STRATUM))) %>%
-  dplyr::select(SRVY, survey_definition_id, area_id = stratum, geometry) 
+                  survey_definition_id = 78))) %>%
+  dplyr::select(SRVY, survey_definition_id, geometry) 
 
 # Plot -------------------------------------------------------------------------
 figure_print <- ggplot2::ggplot() +
