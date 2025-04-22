@@ -21,8 +21,7 @@ If you are an AFSC employee you may access the AKFIN oracle database directly wh
 
 (AKFIN Answers)[https://akfin.psmfc.org/akfin-answers/] is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from AKFIN direct database credentials. The distribution of GAP_PRODUCTS on AKFIN Answers is planned but not yet implemented. The RACE Survey tab on the stock assessment dashboard contains reports generated from now depreciated tables that predated the GAP_PRODUCTS tables. AKFIN will keep these reports for reference but they will not be updated 2024 onward.
 
-```{r foss-2-select, echo=FALSE}
-#| label: foss-2-select
+```{r echo=FALSE}
 #| fig-cap: "AKFIN platfrom. "
 
 knitr::include_graphics(path = here::here("img", "akfin.jpg"))

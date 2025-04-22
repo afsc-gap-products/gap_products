@@ -824,37 +824,3 @@ figure0$plot + # 20x20km grid
   ggplot2::guides(fill=guide_legend(title = "walleye pollock\nCPUE (kg/km2)"))
 ```
 
-## Other query examples
-
-### Ex. Combination of year, srvy, stratum
-
-Show haul data where year is less than 1989, srvy = "EBS", and stratum is not equal to 81. 
-
-```{r cc}
-res <- httr::GET(
-  url = paste0(api_link_haul, 
-               '?&limit=10000&q={"year":{"$lt":1989},"stratum":{"$ne":"81"},"srvy":"EBS"}}'))
-data <- jsonlite::fromJSON(base::rawToChar(res$content))
-dat <- data$items %>% 
-  dplyr::select(-links) # necessary for API accounting, but not part of the dataset)
-```
-
-Explore data:
-
-```{r ff}
-# Find how many rows and columns are in the data pull
-print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
-
-# learn about the structure of the data
-summary(dat)
-
-# Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
-  flextable::colformat_num(
-      x = ., 
-      j = c("year", "cruise", "cruisejoin"), 
-      big.mark = "") %>% 
-  flextable::theme_zebra()
-```

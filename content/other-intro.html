@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>GAP Production Data Documentation - Data Products &amp; Tools</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/other-pkgs.html" rel="next">
+<link href="../content/foss-oracle-r.html" rel="prev">
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Data Products &amp; Tools</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="https://avatars.githubusercontent.com/u/91760178?s=96&amp;amp;v=4" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">GAP Production Data Documentation</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/afsc-gap-products" title="AFSC GAP Survey Data Products" class="sidebar-tool px-1"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/afsc-gap-products/gap_products" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.pdf">
+            <i class="bi bi-bi-file-pdf pe-1"></i>
+          Download PDF
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="../GAP-Production-Data-Documentation.docx">
+            <i class="bi bi-bi-file-word pe-1"></i>
+          Download Docx
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro-survey-background.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Survey Background</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">News</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/intro-code-of-conduct.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Code of Conduct</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/product-intro.html" class="sidebar-item-text sidebar-link">GAP Production Data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/product-metadata-column.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Universal Column Metadata</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/akfin-intro.html" class="sidebar-item-text sidebar-link">AKFIN</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-oracle-sql-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access data via Oracle and R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/akfin-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access API data via R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/foss-intro.html" class="sidebar-item-text sidebar-link">Public Data (FOSS)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data description</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-platform.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using the FOSS platform</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-api-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via API and R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-api-py.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via API and Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foss-oracle-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access via Oracle and R (AFSC Staff only)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/other-intro.html" class="sidebar-item-text sidebar-link active">Data Products &amp; Tools</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/other-pkgs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Open source code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../content/end-contact-us.html" class="sidebar-item-text sidebar-link">Contact us</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/end-run-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Production run notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/end-acknowledgements.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/end-refs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Citations and References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Data Products &amp; Tools</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>To accompany these data, we also produce data products to make using our data more accessible and straightforward.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-f5fe8e64{}.cl-f5dbb286{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f5dbb290{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f5dbb29a{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 139, 1.00);background-color:transparent;}.cl-f5dbb2a4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f5ea7316{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f5ea7348{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:10pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f5ea7352{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:15pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f5eac08c{width:2in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0b4{width:1.5in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0be{width:3in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0c8{width:2in;background-color:rgba(179, 179, 179, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0d2{width:1.5in;background-color:rgba(179, 179, 179, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0d3{width:3in;background-color:rgba(179, 179, 179, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0e6{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0f0{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0f1{width:3in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac0fa{width:2in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac104{width:1.5in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f5eac10e{width:3in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f5fe8e64"><caption>Survey of products developed by GAP</caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-f5eac08c"><p class="cl-f5ea7316"><span class="cl-f5dbb286">Product</span></p></th><th class="cl-f5eac0b4"><p class="cl-f5ea7316"><span class="cl-f5dbb286">Point of Contact</span><br><span class="cl-f5dbb286">AI</span></p></th><th class="cl-f5eac0b4"><p class="cl-f5ea7316"><span class="cl-f5dbb286">Point of Contact</span><br><span class="cl-f5dbb286">GOA</span></p></th><th class="cl-f5eac0b4"><p class="cl-f5ea7316"><span class="cl-f5dbb286">Point of Contact</span><br><span class="cl-f5dbb286">BS</span></p></th><th class="cl-f5eac0be"><p class="cl-f5ea7316"><span class="cl-f5dbb286">Description</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0c8"><p class="cl-f5ea7348"><span class="cl-f5dbb290">Data</span></p></td><td colspan="4" class="cl-f5eac0d2"><p class="cl-f5ea7316"><span class="cl-f5dbb290"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/data-requests"><span class="cl-f5dbb29a">Finalized bottom trawl data</span></a></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Susanne McDermott</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Ned Laman</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Duane Stevenson</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">NOAA-NMFS-AFSC-RACE-GAP bottom trawl data that has completed the post-survey internal QAQC process.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/data-requests"><span class="cl-f5dbb29a">Data requests</span></a></p></td><td colspan="2" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Alexandra Dowlin</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Chris Anderson</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">To request a subset of the NOAA-NMFS-AFSC-RACE-GAP bottom trawl raw data or a data product.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual"><span class="cl-f5dbb29a">Species codebook</span></a></p></td><td colspan="3" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Chris Anderson</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">List of codes used for fish and invertebrates identified in NOAA-NMFS-AFSC-RACE-GAP Division surveys.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://repository.library.noaa.gov/view/noaa/12855"><span class="cl-f5dbb29a">Survey protocols</span></a></p></td><td colspan="3" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Em?</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Documentation of NOAA-NMFS-AFSC-RACE-GAP groundfish bottom trawl survey protocols.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0c8"><p class="cl-f5ea7348"><span class="cl-f5dbb290">Analysis</span></p></td><td colspan="4" class="cl-f5eac0d2"><p class="cl-f5ea7316"><span class="cl-f5dbb290"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/gapindex"><span class="cl-f5dbb29a">Design-based indices for target species</span></a></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Susanne McDermott</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Ned Laman</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Duane Stevenson</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Standard design-based indices of biomass and abundance from NOAA-NMFS-AFSC-RACE-GAP bottom trawl survey data.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/gapindex"><span class="cl-f5dbb29a">Design-based age or length composition</span></a></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Susanne McDermott</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Ned Laman</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Duane Stevenson</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Standard design-based indices of size and age composition from NOAA-NMFS-AFSC-RACE-GAP bottom trawl survey data.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/model-based-indices"><span class="cl-f5dbb29a">Model-based indices, age comps (stock assessment), area occupied, and COG (ESP)</span></a></p></td><td colspan="3" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Lewis Barnett</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Spatiotemporal model-based biomass indices, abundance indices, and age composition from NOAA-NMFS-AFSC-RACE-GAP bottom trawl survey data.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">Annual bottom and surface temperature summary (ESR, stock assessment)</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Rebecca Howard</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Sean Rohan &amp;</span><br><span class="cl-f5dbb2a4">Lewis Barnett</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Summary metrics for bottom trawl bottom and surface temperatures relative to historical baseline.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/coldpool"><span class="cl-f5dbb29a">Bering Sea cold pool index and temperature data products (ESR, ESP, stock assessment)</span></a></p></td><td colspan="2" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">-</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Sean Rohan &amp;</span><br><span class="cl-f5dbb2a4">Lewis Barnett</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Create annual temperature rasters for the EBS, calculate the EBS cold pool index and temperature data products, and produce visualizations.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/akfishcondition"><span class="cl-f5dbb29a">Annual fish condition (ESR)</span></a></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Rebecca Howard, Sean Rohan, &amp;</span><br><span class="cl-f5dbb2a4">Bianca Prohaska</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Rebecca Howard &amp;</span><br><span class="cl-f5dbb2a4">Bianca Prohaska</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Bianca Prohaska &amp;</span><br><span class="cl-f5dbb2a4">Sean Rohan</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Groundfish morphometric condition for fish in the Bering Sea, Aleutian Islands, and Gulf of Alaska.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">Rockfish indices vs environmental gradients (ESR)</span></a></p></td><td colspan="2" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Alexandra Dowlin &amp;</span><br><span class="cl-f5dbb2a4">Christina Conrath</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">-</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">GOA/AI survey trends in distribution and abundance of 6 rockfishes across 3 environmental gradients in the North Pacific.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">Structure-Forming Invertebrates-Habitat Areas of Particular Concern (SFI-HAPC) (ESR)</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Christina Conrath</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Thaddeus Buser</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Relative abundance of sponges, hydrocorals, soft corals, Gorgonians, anemones, and Pennatulaceans in GOA and AI surveys.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">Forage fishes (ESR)</span></a></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">-</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Megsie Siple</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">-</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Relative abundance of capelin, eulachon, sandfish, sand lance, and prickelbacks in GOA and AI surveys.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">Miscellaneous species (ESR)</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Sarah Friedman</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Thaddeus Buser</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Relative abundance of echinoderms, poachers, shrimp and eelpouts in GOA and AI surveys.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">Jellies (ESR)</span></a></p></td><td colspan="2" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Alexandra Dowlin</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Thaddeus Buser</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Relative abundance of sea jellies in GOA and AI surveys.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://github.com/alaska-groundfish-efh/"><span class="cl-f5dbb29a">Essential fish habitat</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Megsie Siple</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Sean Rohan</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Habitat maps for groundfish and crab based on species distribution models. Updated every five years.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0c8"><p class="cl-f5ea7348"><span class="cl-f5dbb290">Visualization Tools</span></p></td><td colspan="4" class="cl-f5eac0d2"><p class="cl-f5ea7316"><span class="cl-f5dbb290"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://github.com/afsc-gap-products/akgfmaps"><span class="cl-f5dbb29a">Alaska groundfish maps (CPUE, etc.)</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Megsie Siple</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Sean Rohan</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0c8"><p class="cl-f5ea7348"><span class="cl-f5dbb290">Communication</span></p></td><td colspan="4" class="cl-f5eac0d2"><p class="cl-f5ea7316"><span class="cl-f5dbb290"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#data-products"><span class="cl-f5dbb29a">Annual survey data report</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Megsie Siple, Bethany Riggle, Alex Dowlin</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Emily Markowitz, Sophia Wassermann, Nicole Charriere, Chris Anderson</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Alaska Fisheries Science Center NOAA Technical Memorandum summary of the survey progress and findings. These are available online and the latest publications for each survey are listed below (https://repository.library.noaa.gov/).</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">ADF&amp;G report of research activities</span></a></p></td><td colspan="2" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Alexandra Dowlin</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Nicole Charriere &amp;</span><br><span class="cl-f5dbb2a4">Rebecca Haehn</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Report on AI and GOA trawl survey fishing activity inside and outside of Alaska State waters.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href=""><span class="cl-f5dbb29a">IPHC report of research activities</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Ned Laman</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Rebecca Haehn</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#data-products"><span class="cl-f5dbb29a">Plan team survey results presentation</span></a></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Megsie Siple, Susanne McDermott</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Megsie Siple, Ned Laman</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Duane Stevenson</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">NOAA-NMFS-AFSC-RACE-GAP present their findings to the North Pacific Groundfish Plan Team; presentations, recordings, and attachments located here: https://www.npfmc.org/about-the-council/plan-teams/bsai-and-goa-groundfish/.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0e6"><p class="cl-f5ea7352"><a href="https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#data-products"><span class="cl-f5dbb29a">Community highlights report</span></a></p></td><td colspan="2" class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Susanne McDermott</span></p></td><td class="cl-f5eac0f0"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Emily Markowitz</span></p></td><td class="cl-f5eac0f1"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Compilation of NOAA-NMFS-AFSC-RACE-GAP survey findings for communities around Alaska.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f5eac0fa"><p class="cl-f5ea7352"><a href="https://www.fisheries.noaa.gov/alaska/science-data/bottom-trawl-survey-temperature-and-progress-maps"><span class="cl-f5dbb29a">Bottom Trawl Survey Temperature and Progress Maps</span></a></p></td><td colspan="2" class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Ned Laman</span></p></td><td class="cl-f5eac104"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Emily Markowitz</span></p></td><td class="cl-f5eac10e"><p class="cl-f5ea7316"><span class="cl-f5dbb2a4">Near real-time survey progress and ocean temperatures recorded during the Aleutian Islands, Gulf of Alaska, and Bering Sea Bottom Trawl Surveys.</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/foss-oracle-r.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access via Oracle and R (AFSC Staff only)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../content/other-pkgs.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Open source code</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-1.0</div>   
+    <div class="nav-footer-right"><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>
