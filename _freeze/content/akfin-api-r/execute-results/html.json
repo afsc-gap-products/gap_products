@@ -2,9 +2,7 @@
   "hash": "34e99502be40e7f09a96eb676ac23df8",
   "result": {
     "markdown": "---\ntitle: Access API data via R\nnumber-sections: true\nnumber-depth: 3\n---\n\n\n\n\nAKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.\n\nThe url structure is \"https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]\" . For example \"https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass\" is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use \"https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&area_id=10&species_code=21740&start_year=2022&end_year=2022”.\n\nIf you’re using R to pull data through web services you might find the [akfingapdata](https://github.com/MattCallahan-NOAA/akfingapdata/tree/main) (pronounced **akfin-gap-data** not **ak-eff-ing-app-data**) R package helpful.\n\n\n### Load packages and helpful functions\n\n\n::: {.cell}\n\n:::\n\n\n## Ex. Direct database query in R using the [akfingapdata R package README](https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd):\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell tbl-cap='Ex. Load data with {akfingapdata}. '}\n\n:::\n\n\nSign into akfin with token (need to request token from AKFIN)\n\n\n::: {.cell}\n\n:::\n\n::: {.cell tbl-cap='Ex. 2: Load catch data with {akfingapdata}. '}\n\n```{.r .cell-code}\nakfingapdata::get_gap_catch()[,1:6] %>% \n  head() %>% \n  flextable::flextable() %>%\n  flextable::theme_zebra()\n```\n:::\n",
-    "supporting": [
-      "akfin-api-r_files"
-    ],
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
