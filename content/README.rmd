@@ -157,6 +157,26 @@ If you see that the data, product, or metadata can be improved, you are invited 
 [submit an issue to the GitHub organization](`r "https://github.com/afsc-gap-products/data-requests/issues"`), or 
 [submit an issue to the code's repository](`r paste0(link_repo, "/issues")`).
 
+## Run notes
+
+Will need to install [miktex](https://miktex.org/) and run the following code in the console. 
+
+```{r, eval = FALSE}
+# https://yihui.org/tinytex/r/#debugging
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
+tinytex::reinstall_tinytex()
+options(tinytex.verbose = TRUE)
+```
+
+```{r, eval = FALSE}
+install.packages("tinytex")   
+require("tinytex")
+install_tinytex(force = TRUE)
+tlmgr_install('montserrat') 
+xelatex('Report.tex')
+```
+
 ## R Version Metadata
 
 ```{r session-info}
