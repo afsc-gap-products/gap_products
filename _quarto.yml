@@ -98,7 +98,7 @@ execute:
   comment: false
   warning: false
   code-overflow: wrap
-  freeze: auto
+  # freeze: auto
 
 format:
   titlepage-pdf:
