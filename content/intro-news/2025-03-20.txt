@@ -1,0 +1,88 @@
+GAP_PRODUCTS ChangeLog (last produced on 2025-03-20) using gapindex v3.0.2
+Run completed by: Zack Oyafuso
+
+Age composition records for 2024 EBS and AI Cod and 2023 GOA blackspotted rockfish were updated from recently updated specimen data.
+
+
+
+ AI Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 377 new agecomp records.  There are 35 agecomp records that were removed.  There are 43 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 476 new agecomp records.  There are 41 agecomp records that were removed.  There are 10 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 453 new agecomp records.  There are 17 agecomp records that were removed.  There are 46 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ There are 0 new cpue records.  There are 0 cpue records that were removed.  There are 0 modified cpue records.
+
+ biomass : 
+ There are 0 new biomass records.  There are 0 biomass records that were removed.  There are 0 modified biomass records.
+
+ sizecomp : 
+ There are 0 new sizecomp records.  There are 0 sizecomp records that were removed.  There are 0 modified sizecomp records.
+
+ agecomp : 
+ There are 0 new agecomp records.  There are 0 agecomp records that were removed.  There are 0 modified agecomp records.
+
+
+
+

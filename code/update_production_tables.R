@@ -42,11 +42,8 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
 
-A development branch version of gapindex called [using_datatable](https://github.com/afsc-gap-products/gap_products/tree/using_datatable) uses the data.table package for many dataframe manipulations, which greatly decreased the computation time of many of the functions. There were no major changes in the calculations in this version of the gapindex package and thus the major changes listed below are not related to the gapindex package.
+Age composition records for 2024 AI northern rockfish, 2021 GOA rex sole, 2023 southern rock sole, and 2024 yellowfin sole were updated from recently updated specimen data.
 
-Modified records were not updated due to a bug in the code during th 10/21/2024 run have now been recitfied.
-
-Two Bering skate (435) lengths were converted to unid. skate (400).
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -297,7 +294,7 @@ RODBC::sqlQuery(
 END;")
 
 ## Purge dropped temporary tables to free up space
-RODBC::sqlQuery(channel = channel,
+RODBC::sqlQuery(channel = gapproducts_channel,
                   query = "
 BEGIN
   FOR obj IN (
@@ -314,8 +311,8 @@ END;")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # source("functions/summarize_gp_updates.R")
 # summarize_gp_updates(channel = gapproducts_channel,
-#                      time_start = "22-OCT-24 11.00.00 PM",
-#                      time_end = "22-OCT-24 11.59.00 PM" )
+#                      time_start = "30-APR-25 11.00.00 AM",
+#                      time_end = "30-APR-25 11.59.00 PM" )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Update FOSS and AKFIN Tables
