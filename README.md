@@ -8,7 +8,7 @@ The scripts therein reproducibly produce our typical data products.
 > in the code
 > [releases](https://github.com/afsc-gap-products/gap_products/releases).
 
-## This code is primarally maintained by:
+## This code is primarily maintained by:
 
 **Emily Markowitz** (Emily.Markowitz AT noaa.gov;
 [@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA))
@@ -26,27 +26,6 @@ Seattle, WA 98195
 
 ## Table of contents
 
-> - [*PKG \<- unique(PKG)*](#pkg-%3C--unique(pkg))
-> - [*for (p in PKG) {*](#for-(p-in-pkg)-%7B)
-> - [\* if(!require(p,character.only = TRUE))
->   {\*](#--if(!require(p,character.only-=-true))-%7B)
-> - [\* install.packages(p)\*](#----install.packages(p))
-> - [\* require(p,character.only =
->   TRUE)}\*](#----require(p,character.only-=-true)%7D)
-> - [*}*](#%7D)
-> - \[\*\> - [*library(“badger”, quietly =
->   TRUE)*](#library(%22badger%22,-quietly-=-true))
-> - \[*cat(*\](#cat()
-> - \[\* \> - [*badge_devel(“afsc-gap-products/gap_public_data”,
->   “blue”),*](#--badge_devel(%22afsc-gap-products/gap_public_data%22,-%22blue%22),)
-> - \[\* \> - [*badge_lifecycle(“maturing”,
->   “blue”),*](#--badge_lifecycle(%22maturing%22,-%22blue%22),)
-> - [\*
->   badge_last_commit(“afsc-gap-products/gap_products”)\*](#--badge_last_commit(%22afsc-gap-products/gap_products%22))
-> - [*)*](#))
->   - [*This code is primarally maintained
->     by:*](#this-code-is-primarally-maintained-by:)
->   - [*Table of contents*](#table-of-contents)
 >   - [*User Resources*](#user-resources)
 > - [*Cite this data*](#cite-this-data)
 >   - [*Access Constraints*](#access-constraints)
@@ -57,9 +36,6 @@ Seattle, WA 98195
 >   - [*NOAA License*](#noaa-license)
 
 ## User Resources
-
-- [GitHub
-  repository](https://github.com/afsc-gap-products/gap_products).
 
 - [Access Tips and Documentation for All Production
   Data](https://afsc-gap-products.github.io/gap_products/)
