@@ -18,29 +18,12 @@ The scripts therein reproducibly produce our typical data products.
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r echo=FALSE, results="hide", message=FALSE, include=FALSE, echo = FALSE}
-# PKG <- c("badger", #"flextable"
-#          "knitr")
-# PKG <- unique(PKG)
-# for (p in PKG) {
-#   if(!require(p,character.only = TRUE)) {
-#     install.packages(p)
-#     require(p,character.only = TRUE)}
-# }
-# # library("badger", quietly = TRUE)
 link_repo <- "https://github.com/afsc-gap-products/gap_products"
-```
-
-```{r, echo = FALSE, results='asis', message=FALSE}
-# cat(
-#   # badge_devel("afsc-gap-products/gap_public_data", "blue"),
-#   # badge_lifecycle("maturing", "blue"),
-#   badge_last_commit("afsc-gap-products/gap_products")
-# )
 ```
 
 > This code is always in development. Find code used for various reports in the code [releases](`r paste0(link_repo, "/releases")`).
 
-## This code is primarally maintained by:
+*This code is primarally maintained by:*
 
 **Emily Markowitz** (Emily.Markowitz AT noaa.gov; [\@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA)) 
 

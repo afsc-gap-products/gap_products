@@ -8,7 +8,7 @@ The scripts therein reproducibly produce our typical data products.
 > in the code
 > [releases](https://github.com/afsc-gap-products/gap_products/releases).
 
-## This code is primarally maintained by:
+*This code is primarally maintained by:*
 
 **Emily Markowitz** (Emily.Markowitz AT noaa.gov;
 [@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA))
@@ -26,32 +26,12 @@ Seattle, WA 98195
 
 ## Table of contents
 
-> - [*PKG \<- unique(PKG)*](#pkg-%3C--unique(pkg))
-> - [*for (p in PKG) {*](#for-(p-in-pkg)-%7B)
-> - [\* if(!require(p,character.only = TRUE))
->   {\*](#--if(!require(p,character.only-=-true))-%7B)
-> - [\* install.packages(p)\*](#----install.packages(p))
-> - [\* require(p,character.only =
->   TRUE)}\*](#----require(p,character.only-=-true)%7D)
-> - [*}*](#%7D)
-> - \[\*\> - [*library(“badger”, quietly =
->   TRUE)*](#library(%22badger%22,-quietly-=-true))
-> - \[*cat(*\](#cat()
-> - \[\* \> - [*badge_devel(“afsc-gap-products/gap_public_data”,
->   “blue”),*](#--badge_devel(%22afsc-gap-products/gap_public_data%22,-%22blue%22),)
-> - \[\* \> - [*badge_lifecycle(“maturing”,
->   “blue”),*](#--badge_lifecycle(%22maturing%22,-%22blue%22),)
-> - [\*
->   badge_last_commit(“afsc-gap-products/gap_products”)\*](#--badge_last_commit(%22afsc-gap-products/gap_products%22))
-> - [*)*](#))
->   - [*This code is primarally maintained
->     by:*](#this-code-is-primarally-maintained-by:)
->   - [*Table of contents*](#table-of-contents)
->   - [*User Resources*](#user-resources)
 > - [*Cite this data*](#cite-this-data)
 >   - [*Access Constraints*](#access-constraints)
 > - [*Relevant publications*](#relevant-publications)
 > - [*Suggestions and Comments*](#suggestions-and-comments)
+>   - [*Run notes*](#run-notes)
+> - [*https://yihui.org/tinytex/r/#debugging*](#https://yihui.org/tinytex/r/debugging)
 >   - [*R Version Metadata*](#r-version-metadata)
 >   - [*NOAA README*](#noaa-readme)
 >   - [*NOAA License*](#noaa-license)
@@ -136,7 +116,7 @@ et al., 2024](#ref-2023NEBS), [2024](#ref-2023NEBS); [Siple et al.,
 al., 2024](#ref-SAPcrab2024)).
 
 <div id="refs" class="references csl-bib-body hanging-indent"
-entry-spacing="0" line-spacing="2">
+line-spacing="2">
 
 <div id="ref-RN979" class="csl-entry">
 
@@ -197,6 +177,27 @@ organization](https://github.com/afsc-gap-products/data-requests/issues),
 or [submit an issue to the code’s
 repository](https://github.com/afsc-gap-products/gap_products/issues).
 
+## Run notes
+
+Will need to install [miktex](https://miktex.org/) and run the following
+code in the console.
+
+``` r
+# https://yihui.org/tinytex/r/#debugging
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
+tinytex::reinstall_tinytex()
+options(tinytex.verbose = TRUE)
+```
+
+``` r
+install.packages("tinytex")   
+require("tinytex")
+install_tinytex(force = TRUE)
+tlmgr_install('montserrat') 
+xelatex('Report.tex')
+```
+
 ## R Version Metadata
 
 ``` r
@@ -211,7 +212,8 @@ sessionInfo()
     ## 
     ## 
     ## locale:
-    ## [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8    LC_MONETARY=English_United States.utf8 LC_NUMERIC=C                           LC_TIME=English_United States.utf8    
+    ## [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8    LC_MONETARY=English_United States.utf8
+    ## [4] LC_NUMERIC=C                           LC_TIME=English_United States.utf8    
     ## 
     ## time zone: America/Los_Angeles
     ## tzcode source: internal
@@ -219,20 +221,29 @@ sessionInfo()
     ## attached base packages:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
-    ## other attached packages:
-    ##  [1] flextable_0.9.7 akgfmaps_4.0.3  terra_1.8-15    stars_0.6-8     abind_1.4-8     sf_1.0-19       ggplot2_3.5.1   dplyr_1.1.4     jsonlite_1.9.0  httr_1.4.7     
-    ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] DBI_1.2.3               gridExtra_2.3           remotes_2.5.0           rlang_1.1.5             magrittr_2.0.3          snakecase_0.11.1        ggridges_0.5.6          e1071_1.7-16            compiler_4.4.3          maps_3.4.2.1            systemfonts_1.2.1       vctrs_0.6.5            
-    ##  [13] ftExtra_0.6.4           RODBC_1.3-26            stringr_1.5.1           profvis_0.4.0           pkgconfig_2.0.3         fastmap_1.2.0           ellipsis_0.3.2          labeling_0.4.3          promises_1.3.2          rmarkdown_2.29          sessioninfo_1.2.3       ragg_1.3.3             
-    ##  [25] purrr_1.0.2             bit_4.5.0.1             xfun_0.50               cachem_1.1.0            blob_1.2.4              later_1.4.1             uuid_1.2-1              parallel_4.4.3          R6_2.6.1                RColorBrewer_1.1-3      stringi_1.8.4           pkgload_1.4.0          
-    ##  [37] lubridate_1.9.4         Rcpp_1.0.14             assertthat_0.2.1        knitr_1.49              usethis_3.1.0           zoo_1.8-12              readtext_0.91           FNN_1.1.4.1             httpuv_1.6.15           timechange_0.3.0        tidyselect_1.2.1        viridis_0.6.5          
-    ##  [49] rstudioapi_0.17.1       yaml_2.3.10             codetools_0.2-20        miniUI_0.1.1.1          curl_6.2.1              pkgbuild_1.4.6          lattice_0.22-6          tibble_3.2.1            intervals_0.15.5        withr_3.0.2             shiny_1.10.0            askpass_1.2.1          
-    ##  [61] evaluate_1.0.3          units_0.8-5             proxy_0.4-27            urlchecker_1.0.1        zip_2.3.1               xts_0.14.1              xml2_1.3.6              pillar_1.10.1           KernSmooth_2.23-26      generics_0.1.3          rprojroot_2.0.4         sp_2.1-4               
-    ##  [73] spacetime_1.3-3         hms_1.1.3               munsell_0.5.1           scales_1.3.0            xtable_1.8-4            gapindex_3.0.2          class_7.3-23            glue_1.8.0              odbc_1.6.0              janitor_2.2.1           gdtools_0.4.1           tools_4.4.3            
-    ##  [85] data.table_1.16.4       fs_1.6.5                grid_4.4.3              devtools_2.4.5          colorspace_2.1-1        googledrive_2.1.1       cli_3.6.3               gstat_2.1-2             kableExtra_1.4.0        textshaping_1.0.0       officer_0.6.7           fontBitstreamVera_0.1.1
-    ##  [97] gargle_1.5.2            viridisLite_0.4.2       svglite_2.1.3           keyring_1.3.2           gtable_0.3.6            digest_0.6.37           fontquiver_0.2.1        classInt_0.4-11         farver_2.1.2            htmlwidgets_1.6.4       memoise_2.0.1           htmltools_0.5.8.1      
-    ## [109] lifecycle_1.0.4         here_1.0.1              mime_0.12               fontLiberation_0.1.0    openssl_2.3.1           bit64_4.6.0-1
+    ##   [1] tidyselect_1.2.1        viridisLite_0.4.2       dplyr_1.1.4             farver_2.1.2            blob_1.2.4             
+    ##   [6] viridis_0.6.5           fastmap_1.2.0           gapindex_3.0.2          fontquiver_0.2.1        promises_1.3.2         
+    ##  [11] akgfmaps_4.0.3          digest_0.6.37           mime_0.13               lifecycle_1.0.4         sf_1.0-20              
+    ##  [16] ellipsis_0.3.2          terra_1.8-42            magrittr_2.0.3          compiler_4.4.3          rlang_1.1.6            
+    ##  [21] RODBC_1.3-26            tools_4.4.3             yaml_2.3.10             data.table_1.17.0       knitr_1.50             
+    ##  [26] FNN_1.1.4.1             askpass_1.2.1           htmlwidgets_1.6.4       classInt_0.4-11         bit_4.6.0              
+    ##  [31] sp_2.2-0                pkgbuild_1.4.7          here_1.0.1              xml2_1.3.8              RColorBrewer_1.1-3     
+    ##  [36] abind_1.4-8             KernSmooth_2.23-26      pkgload_1.4.0           miniUI_0.1.2            akfingapdata_0.1.0     
+    ##  [41] purrr_1.0.4             odbc_1.6.1              grid_4.4.3              urlchecker_1.0.1        profvis_0.4.0          
+    ##  [46] gdtools_0.4.2           xts_0.14.1              readtext_0.91           e1071_1.7-16            xtable_1.8-4           
+    ##  [51] ggplot2_3.5.2           scales_1.4.0            cli_3.6.5               rmarkdown_2.29          intervals_0.15.5       
+    ##  [56] ragg_1.4.0              generics_0.1.3          remotes_2.5.0           rstudioapi_0.17.1       httr_1.4.7             
+    ##  [61] sessioninfo_1.2.3       proxy_0.4-27            DBI_1.2.3               cachem_1.1.0            stringr_1.5.1          
+    ##  [66] stars_0.6-8             parallel_4.4.3          vctrs_0.6.5             devtools_2.4.5          jsonlite_2.0.0         
+    ##  [71] fontBitstreamVera_0.1.1 hms_1.1.3               bit64_4.6.0-1           systemfonts_1.2.3       units_0.8-7            
+    ##  [76] glue_1.8.0              codetools_0.2-20        gstat_2.1-3             stringi_1.8.7           flextable_0.9.7        
+    ##  [81] gtable_0.3.6            later_1.4.2             tibble_3.2.1            pillar_1.10.2           htmltools_0.5.8.1      
+    ##  [86] openssl_2.3.2           R6_2.6.1                textshaping_1.0.1       rprojroot_2.0.4         evaluate_1.0.3         
+    ##  [91] shiny_1.10.0            kableExtra_1.4.0        lattice_0.22-7          memoise_2.0.1           fontLiberation_0.1.0   
+    ##  [96] httpuv_1.6.16           class_7.3-23            Rcpp_1.0.14             zip_2.3.2               uuid_1.2-1             
+    ## [101] gridExtra_2.3           svglite_2.1.3           spacetime_1.3-3         officer_0.6.8           xfun_0.52              
+    ## [106] fs_1.6.6                zoo_1.8-14              usethis_3.1.0           pkgconfig_2.0.3
 
 ## NOAA README
 
