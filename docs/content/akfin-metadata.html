@@ -358,7 +358,7 @@ function googleTranslateElementInit() {
 <section id="akfin_agecomp" class="level3">
 <h3 class="anchored" data-anchor-id="akfin_agecomp">AKFIN_AGECOMP</h3>
 <p>snapshot table for snapshot GAP_PRODUCTS.AKFIN_AGECOMP</p>
-<p>Number of rows: 675,630</p>
+<p>Number of rows: 681,963</p>
 <p>Number of columns: 10</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -1526,193 +1526,6 @@ Column description
 <tbody>
 <tr>
 <td style="text-align:left;">
-CRUISEJOIN
-</td>
-<td style="text-align:left;">
-Cruise ID
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-Unique integer ID assigned to each survey, vessel, and year combination.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HAULJOIN
-</td>
-<td style="text-align:left;">
-Haul ID
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HAUL
-</td>
-<td style="text-align:left;">
-Haul number
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-This number uniquely identifies a sampling event (haul) within a cruise. It is a sequential number, in chronological order of occurrence.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HAUL_TYPE
-</td>
-<td style="text-align:left;">
-Haul sampling type
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-Type of haul sampling method. For a complete list of haul type ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PERFORMANCE
-</td>
-<td style="text-align:left;">
-Haul performance code
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-This denotes what, if any, issues arose during the haul. For more information, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DATE_TIME_START
-</td>
-<td style="text-align:left;">
-Start date and time
-</td>
-<td style="text-align:left;">
-MM/DD/YYYY HH::MM
-</td>
-<td style="text-align:left;">
-TIMESTAMP
-</td>
-<td style="text-align:left;">
-The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul. All dates and times are in Alaska time (AKDT) of Anchorage, AK, USA (UTC/GMT -8 hours).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DURATION_HR
-</td>
-<td style="text-align:left;">
-Tow duration (decimal hr)
-</td>
-<td style="text-align:left;">
-hours
-</td>
-<td style="text-align:left;">
-NUMBER(38,1)
-</td>
-<td style="text-align:left;">
-This is the elapsed time between start and end of a haul (decimal hours).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DISTANCE_FISHED_KM
-</td>
-<td style="text-align:left;">
-Distance fished (km)
-</td>
-<td style="text-align:left;">
-kilometers
-</td>
-<td style="text-align:left;">
-NUMBER(38,3)
-</td>
-<td style="text-align:left;">
-Distance the net fished (kilometers).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NET_WIDTH_M
-</td>
-<td style="text-align:left;">
-Net width (m)
-</td>
-<td style="text-align:left;">
-meters
-</td>
-<td style="text-align:left;">
-NUMBER(38,1)
-</td>
-<td style="text-align:left;">
-Measured or estimated distance (meters) between wingtips of the trawl.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NET_MEASURED
-</td>
-<td style="text-align:left;">
-Net measured during haul
-</td>
-<td style="text-align:left;">
-logical
-</td>
-<td style="text-align:left;">
-BINARY_DOUBLE
-</td>
-<td style="text-align:left;">
-Logical, describing if the net was measured (TRUE) or not (FALSE) by wheelhouse and marport programs during the haul.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NET_HEIGHT_M
-</td>
-<td style="text-align:left;">
-Net height (m)
-</td>
-<td style="text-align:left;">
-meters
-</td>
-<td style="text-align:left;">
-NUMBER(38,1)
-</td>
-<td style="text-align:left;">
-Measured or estimated distance (meters) between footrope and headrope of the trawl.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 STRATUM
 </td>
 <td style="text-align:left;">
@@ -1947,6 +1760,193 @@ NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 Type of accessories used on net. For a complete list of accessories ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRUISEJOIN
+</td>
+<td style="text-align:left;">
+Cruise ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Unique integer ID assigned to each survey, vessel, and year combination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HAULJOIN
+</td>
+<td style="text-align:left;">
+Haul ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HAUL
+</td>
+<td style="text-align:left;">
+Haul number
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This number uniquely identifies a sampling event (haul) within a cruise. It is a sequential number, in chronological order of occurrence.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HAUL_TYPE
+</td>
+<td style="text-align:left;">
+Haul sampling type
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+Type of haul sampling method. For a complete list of haul type ID key codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PERFORMANCE
+</td>
+<td style="text-align:left;">
+Haul performance code
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This denotes what, if any, issues arose during the haul. For more information, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DATE_TIME_START
+</td>
+<td style="text-align:left;">
+Start date and time
+</td>
+<td style="text-align:left;">
+MM/DD/YYYY HH::MM
+</td>
+<td style="text-align:left;">
+TIMESTAMP
+</td>
+<td style="text-align:left;">
+The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul. All dates and times are in Alaska time (AKDT) of Anchorage, AK, USA (UTC/GMT -8 hours).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DURATION_HR
+</td>
+<td style="text-align:left;">
+Tow duration (decimal hr)
+</td>
+<td style="text-align:left;">
+hours
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+This is the elapsed time between start and end of a haul (decimal hours).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DISTANCE_FISHED_KM
+</td>
+<td style="text-align:left;">
+Distance fished (km)
+</td>
+<td style="text-align:left;">
+kilometers
+</td>
+<td style="text-align:left;">
+NUMBER(38,3)
+</td>
+<td style="text-align:left;">
+Distance the net fished (kilometers).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NET_WIDTH_M
+</td>
+<td style="text-align:left;">
+Net width (m)
+</td>
+<td style="text-align:left;">
+meters
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Measured or estimated distance (meters) between wingtips of the trawl.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NET_MEASURED
+</td>
+<td style="text-align:left;">
+Net measured during haul
+</td>
+<td style="text-align:left;">
+logical
+</td>
+<td style="text-align:left;">
+BINARY_DOUBLE
+</td>
+<td style="text-align:left;">
+Logical, describing if the net was measured (TRUE) or not (FALSE) by wheelhouse and marport programs during the haul.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NET_HEIGHT_M
+</td>
+<td style="text-align:left;">
+Net height (m)
+</td>
+<td style="text-align:left;">
+meters
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Measured or estimated distance (meters) between footrope and headrope of the trawl.
 </td>
 </tr>
 </tbody>
@@ -2390,6 +2390,23 @@ Column description
 <tbody>
 <tr>
 <td style="text-align:left;">
+HAULJOIN
+</td>
+<td style="text-align:left;">
+Haul ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 SPECIMEN_ID
 </td>
 <td style="text-align:left;">
@@ -2573,23 +2590,6 @@ NUMBER(10,0)
 </td>
 <td style="text-align:left;">
 Numeric code corresponding to the method of age determination. For a complete list of age determination codes, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HAULJOIN
-</td>
-<td style="text-align:left;">
-Haul ID
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
 </td>
 </tr>
 </tbody>
@@ -2798,108 +2798,6 @@ Column description
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-SPECIES_NAME
-</td>
-<td style="text-align:left;">
-Scientific name of species
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Scientific name of species.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-COMMON_NAME
-</td>
-<td style="text-align:left;">
-Taxon common name
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-The common name of the marine organism associated with the scientific_name and species_code columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPECIES_CODE
-</td>
-<td style="text-align:left;">
-Taxon code
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-NUMBER(38,0)
-</td>
-<td style="text-align:left;">
-The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ID_RANK
-</td>
-<td style="text-align:left;">
-Lowest taxonomic rank
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Lowest taxonomic rank of a given species entry.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DATABASE_ID
-</td>
-<td style="text-align:left;">
-Species ID in database
-</td>
-<td style="text-align:left;">
-ID key code
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Species ID key code of a species in the taxonomic “DATABASE” source.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DATABASE
-</td>
-<td style="text-align:left;">
-Database source
-</td>
-<td style="text-align:left;">
-category
-</td>
-<td style="text-align:left;">
-VARCHAR2(255 BYTE)
-</td>
-<td style="text-align:left;">
-Taxonomic database source, either ITIS or WoRMS.
-</td>
-</tr>
 <tr>
 <td style="text-align:left;">
 GENUS_TAXON
@@ -3119,6 +3017,108 @@ VARCHAR2(255 BYTE)
 </td>
 <td style="text-align:left;">
 Phylogenetic latin rank of kingdom of a given species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIES_NAME
+</td>
+<td style="text-align:left;">
+Scientific name of species
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Scientific name of species.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+COMMON_NAME
+</td>
+<td style="text-align:left;">
+Taxon common name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+The common name of the marine organism associated with the scientific_name and species_code columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIES_CODE
+</td>
+<td style="text-align:left;">
+Taxon code
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+The species code of the organism associated with the common_name and scientific_name columns. For a complete species list, review the <a href="https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual">code books</a>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ID_RANK
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Lowest taxonomic rank of a given species entry.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DATABASE_ID
+</td>
+<td style="text-align:left;">
+Species ID in database
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Species ID key code of a species in the taxonomic “DATABASE” source.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DATABASE
+</td>
+<td style="text-align:left;">
+Database source
+</td>
+<td style="text-align:left;">
+category
+</td>
+<td style="text-align:left;">
+VARCHAR2(255 BYTE)
+</td>
+<td style="text-align:left;">
+Taxonomic database source, either ITIS or WoRMS.
 </td>
 </tr>
 </tbody>

@@ -59,7 +59,7 @@ toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
 ## User Resources
 
 - [GitHub
-  repository](https://github.com/afsc-gap-products/gap_products).
+  repository](https://github.com/afsc-gap-products/gap_products)
 
 - [Access Tips and Documentation for All Production
   Data](https://afsc-gap-products.github.io/gap_products/)
@@ -145,7 +145,7 @@ If you see that the data, product, or metadata can be improved, you are invited 
 Will need to install [miktex](https://miktex.org/) and run the following code in the console. 
 
 ```{r, eval = FALSE}
-# https://yihui.org/tinytex/r/#debugging
+ # https://yihui.org/tinytex/r/#debugging
 update.packages(ask = FALSE, checkBuilt = TRUE)
 tinytex::tlmgr_update()
 tinytex::reinstall_tinytex()

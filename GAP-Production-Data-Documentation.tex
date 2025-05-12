@@ -534,7 +534,7 @@ Team~nmfs.afsc.gap.metadata@noaa.gov
 \part{Welcome}
 
 \begin{quote}
-Report run date: Thursday, April 24, 2025
+Report run date: Thursday, May 08, 2025
 \end{quote}
 
 \section*{AFSC Bottom Trawl Surveys}\label{afsc-bottom-trawl-surveys}
@@ -1098,6 +1098,16 @@ Most recent data report: (Hoff, 2016)
 \section{News/change logs}\label{newschange-logs}
 
 --
+\href{https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/2025-04-30.txt}{GAP\_PRODUCTS
+ChangeLog (last produced on 2025-04-30) using gapindex v3.0.2}: Run
+completed by: Zack Oyafuso
+
+--
+\href{https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/2025-03-20.txt}{GAP\_PRODUCTS
+ChangeLog (last produced on 2025-03-20) using gapindex v3.0.2}: Run
+completed by: Zack Oyafuso
+
+--
 \href{https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/2024-12-10.txt}{GAP\_PRODUCTS
 ChangeLog (last produced on 2024-12-10) using gapindex v3.0.2}: Run
 completed by: Sean Rooney
@@ -1416,7 +1426,7 @@ created by the Resource Assessment and Conservation Engineering Division
 Science Center (AFSC). The GitHub repository for the scripts that
 created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 680,094
 
@@ -1560,7 +1570,7 @@ created by the Resource Assessment and Conservation Engineering Division
 Science Center (AFSC). The GitHub repository for the scripts that
 created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 395
 
@@ -1687,7 +1697,7 @@ created by the Resource Assessment and Conservation Engineering Division
 Science Center (AFSC). The GitHub repository for the scripts that
 created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 2,656,482
 
@@ -1887,7 +1897,7 @@ Engineering Division (RACE) Groundfish Assessment Program (GAP) of the
 Alaska Fisheries Science Center (AFSC). The GitHub repository for the
 scripts that created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 21,558,257
 
@@ -1988,7 +1998,7 @@ created by the Resource Assessment and Conservation Engineering Division
 Science Center (AFSC). The GitHub repository for the scripts that
 created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 3,239,488
 
@@ -2129,7 +2139,7 @@ Engineering Division (RACE) Groundfish Assessment Program (GAP) of the
 Alaska Fisheries Science Center (AFSC). The GitHub repository for the
 scripts that created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 768
 
@@ -2206,7 +2216,7 @@ Division (RACE) Groundfish Assessment Program (GAP) of the Alaska
 Fisheries Science Center (AFSC). The GitHub repository for the scripts
 that created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
-restrictions on access to the data. Last updated on 14 January 2025.
+restrictions on access to the data. Last updated on 20 March 2025.
 
 Number of rows: 87
 
@@ -2524,7 +2534,7 @@ Assessment and Conservation Engineering Division (RACE) Groundfish
 Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC).
 The GitHub repository for the scripts that created this code can be
 found at (https://github.com/afsc-gap-products/gap\_products). There are
-no legal restrictions on access to the data. Last updated on 14 January
+no legal restrictions on access to the data. Last updated on 20 March
 2025.
 
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
@@ -4084,7 +4094,7 @@ credentials.
 
 snapshot table for snapshot GAP\_PRODUCTS.AKFIN\_AGECOMP
 
-Number of rows: 675,630
+Number of rows: 681,963
 
 Number of columns: 10
 
@@ -4852,129 +4862,6 @@ Oracle data type
 
 Column description
 
-CRUISEJOIN
-
-Cruise ID
-
-ID key code
-
-NUMBER(38,0)
-
-Unique integer ID assigned to each survey, vessel, and year combination.
-
-HAULJOIN
-
-Haul ID
-
-ID key code
-
-NUMBER(38,0)
-
-This is a unique numeric identifier assigned to each (vessel, cruise,
-and haul) combination.
-
-HAUL
-
-Haul number
-
-ID key code
-
-NUMBER(38,0)
-
-This number uniquely identifies a sampling event (haul) within a cruise.
-It is a sequential number, in chronological order of occurrence.
-
-HAUL\_TYPE
-
-Haul sampling type
-
-ID key code
-
-NUMBER(38,0)
-
-Type of haul sampling method. For a complete list of haul type ID key
-codes, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-PERFORMANCE
-
-Haul performance code
-
-category
-
-NUMBER(38,0)
-
-This denotes what, if any, issues arose during the haul. For more
-information, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-DATE\_TIME\_START
-
-Start date and time
-
-MM/DD/YYYY HH::MM
-
-TIMESTAMP
-
-The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul. All
-dates and times are in Alaska time (AKDT) of Anchorage, AK, USA (UTC/GMT
--8 hours).
-
-DURATION\_HR
-
-Tow duration (decimal hr)
-
-hours
-
-NUMBER(38,1)
-
-This is the elapsed time between start and end of a haul (decimal
-hours).
-
-DISTANCE\_FISHED\_KM
-
-Distance fished (km)
-
-kilometers
-
-NUMBER(38,3)
-
-Distance the net fished (kilometers).
-
-NET\_WIDTH\_M
-
-Net width (m)
-
-meters
-
-NUMBER(38,1)
-
-Measured or estimated distance (meters) between wingtips of the trawl.
-
-NET\_MEASURED
-
-Net measured during haul
-
-logical
-
-BINARY\_DOUBLE
-
-Logical, describing if the net was measured (TRUE) or not (FALSE) by
-wheelhouse and marport programs during the haul.
-
-NET\_HEIGHT\_M
-
-Net height (m)
-
-meters
-
-NUMBER(38,1)
-
-Measured or estimated distance (meters) between footrope and headrope of
-the trawl.
-
 STRATUM
 
 Stratum ID
@@ -5133,6 +5020,129 @@ Type of accessories used on net. For a complete list of accessories ID
 key codes, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
+
+CRUISEJOIN
+
+Cruise ID
+
+ID key code
+
+NUMBER(38,0)
+
+Unique integer ID assigned to each survey, vessel, and year combination.
+
+HAULJOIN
+
+Haul ID
+
+ID key code
+
+NUMBER(38,0)
+
+This is a unique numeric identifier assigned to each (vessel, cruise,
+and haul) combination.
+
+HAUL
+
+Haul number
+
+ID key code
+
+NUMBER(38,0)
+
+This number uniquely identifies a sampling event (haul) within a cruise.
+It is a sequential number, in chronological order of occurrence.
+
+HAUL\_TYPE
+
+Haul sampling type
+
+ID key code
+
+NUMBER(38,0)
+
+Type of haul sampling method. For a complete list of haul type ID key
+codes, review the
+\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
+books}.
+
+PERFORMANCE
+
+Haul performance code
+
+category
+
+NUMBER(38,0)
+
+This denotes what, if any, issues arose during the haul. For more
+information, review the
+\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
+books}.
+
+DATE\_TIME\_START
+
+Start date and time
+
+MM/DD/YYYY HH::MM
+
+TIMESTAMP
+
+The date (MM/DD/YYYY) and time (HH:MM) of the beginning of the haul. All
+dates and times are in Alaska time (AKDT) of Anchorage, AK, USA (UTC/GMT
+-8 hours).
+
+DURATION\_HR
+
+Tow duration (decimal hr)
+
+hours
+
+NUMBER(38,1)
+
+This is the elapsed time between start and end of a haul (decimal
+hours).
+
+DISTANCE\_FISHED\_KM
+
+Distance fished (km)
+
+kilometers
+
+NUMBER(38,3)
+
+Distance the net fished (kilometers).
+
+NET\_WIDTH\_M
+
+Net width (m)
+
+meters
+
+NUMBER(38,1)
+
+Measured or estimated distance (meters) between wingtips of the trawl.
+
+NET\_MEASURED
+
+Net measured during haul
+
+logical
+
+BINARY\_DOUBLE
+
+Logical, describing if the net was measured (TRUE) or not (FALSE) by
+wheelhouse and marport programs during the haul.
+
+NET\_HEIGHT\_M
+
+Net height (m)
+
+meters
+
+NUMBER(38,1)
+
+Measured or estimated distance (meters) between footrope and headrope of
+the trawl.
 
 \subsection{AKFIN\_LENGTH}\label{akfin_length}
 
@@ -5423,6 +5433,17 @@ Oracle data type
 
 Column description
 
+HAULJOIN
+
+Haul ID
+
+ID key code
+
+NUMBER(38,0)
+
+This is a unique numeric identifier assigned to each (vessel, cruise,
+and haul) combination.
+
 SPECIMEN\_ID
 
 Specimen unique ID
@@ -5554,17 +5575,6 @@ Numeric code corresponding to the method of age determination. For a
 complete list of age determination codes, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
-
-HAULJOIN
-
-Haul ID
-
-ID key code
-
-NUMBER(38,0)
-
-This is a unique numeric identifier assigned to each (vessel, cruise,
-and haul) combination.
 
 \subsection{AKFIN\_STRATUM\_GROUPS}\label{akfin_stratum_groups}
 
@@ -5708,73 +5718,6 @@ Oracle data type
 
 Column description
 
-SPECIES\_NAME
-
-Scientific name of species
-
-text
-
-VARCHAR2(255 BYTE)
-
-Scientific name of species.
-
-COMMON\_NAME
-
-Taxon common name
-
-text
-
-VARCHAR2(255 BYTE)
-
-The common name of the marine organism associated with the
-scientific\_name and species\_code columns. For a complete species list,
-review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-SPECIES\_CODE
-
-Taxon code
-
-ID key code
-
-NUMBER(38,0)
-
-The species code of the organism associated with the common\_name and
-scientific\_name columns. For a complete species list, review the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-ID\_RANK
-
-Lowest taxonomic rank
-
-text
-
-VARCHAR2(255 BYTE)
-
-Lowest taxonomic rank of a given species entry.
-
-DATABASE\_ID
-
-Species ID in database
-
-ID key code
-
-VARCHAR2(255 BYTE)
-
-Species ID key code of a species in the taxonomic ``DATABASE'' source.
-
-DATABASE
-
-Database source
-
-category
-
-VARCHAR2(255 BYTE)
-
-Taxonomic database source, either ITIS or WoRMS.
-
 GENUS\_TAXON
 
 Genus phylogenetic rank
@@ -5904,6 +5847,73 @@ category
 VARCHAR2(255 BYTE)
 
 Phylogenetic latin rank of kingdom of a given species.
+
+SPECIES\_NAME
+
+Scientific name of species
+
+text
+
+VARCHAR2(255 BYTE)
+
+Scientific name of species.
+
+COMMON\_NAME
+
+Taxon common name
+
+text
+
+VARCHAR2(255 BYTE)
+
+The common name of the marine organism associated with the
+scientific\_name and species\_code columns. For a complete species list,
+review the
+\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
+books}.
+
+SPECIES\_CODE
+
+Taxon code
+
+ID key code
+
+NUMBER(38,0)
+
+The species code of the organism associated with the common\_name and
+scientific\_name columns. For a complete species list, review the
+\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
+books}.
+
+ID\_RANK
+
+Lowest taxonomic rank
+
+text
+
+VARCHAR2(255 BYTE)
+
+Lowest taxonomic rank of a given species entry.
+
+DATABASE\_ID
+
+Species ID in database
+
+ID key code
+
+VARCHAR2(255 BYTE)
+
+Species ID key code of a species in the taxonomic ``DATABASE'' source.
+
+DATABASE
+
+Database source
+
+category
+
+VARCHAR2(255 BYTE)
+
+Taxonomic database source, either ITIS or WoRMS.
 
 \subsection{AKFIN\_TAXONOMIC\_GROUPS}\label{akfin_taxonomic_groups}
 
@@ -6381,7 +6391,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{198,203}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1,982}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{98}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{CHAPMAN}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{878}}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{198,203}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1,982}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{98}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{CHAPMAN}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{877}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -6389,7 +6399,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{198,203}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1,982}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{98}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{CHAPMAN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{879}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{198,203}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1,982}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{98}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{1}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{CHAPMAN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{877}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -8516,6 +8526,99 @@ Oracle data type
 
 Column description
 
+YEAR
+
+Survey year
+
+year
+
+NUMBER(10,0)
+
+Year the observation (survey) was collected.
+
+SRVY
+
+Survey abbreviation
+
+text abbreviated
+
+VARCHAR2(255 BYTE)
+
+Abbreviated survey names. The column srvy is associated with the survey
+and survey\_definition\_id columns. Northern Bering Sea (NBS),
+Southeastern Bering Sea (EBS), Bering Sea Slope (BSS), Gulf of Alaska
+(GOA), Aleutian Islands (AI).
+
+SURVEY
+
+Survey name
+
+text
+
+VARCHAR2(255 BYTE)
+
+Name and description of survey. The column survey is associated with the
+srvy and survey\_definition\_id columns.
+
+SURVEY\_DEFINITION\_ID
+
+Survey ID
+
+ID key code
+
+NUMBER(38,0)
+
+The survey definition ID key code is an integer that uniquely identifies
+a survey region/survey design. The column survey\_definition\_id is
+associated with the srvy and survey columns. Full list of survey
+definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS and in the
+\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
+books}.
+
+SURVEY\_NAME
+
+Survey name official
+
+text
+
+VARCHAR2(255 BYTE)
+
+Long name of the survey conducted
+
+CRUISE
+
+Cruise Name
+
+ID key code
+
+NUMBER(38,0)
+
+This is a six-digit integer identifying the cruise number of the form:
+YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is
+sequential; 01 denotes the first cruise that vessel made in this year,
+02 is the second, etc.).
+
+CRUISEJOIN
+
+Cruise ID
+
+ID key code
+
+NUMBER(38,0)
+
+Unique integer ID assigned to each survey, vessel, and year combination.
+
+HAULJOIN
+
+Haul ID
+
+ID key code
+
+NUMBER(38,0)
+
+This is a unique numeric identifier assigned to each (vessel, cruise,
+and haul) combination.
+
 HAUL
 
 Haul number
@@ -8733,99 +8836,6 @@ This denotes what, if any, issues arose during the haul. For more
 information, review the
 \href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
 books}.
-
-YEAR
-
-Survey year
-
-year
-
-NUMBER(10,0)
-
-Year the observation (survey) was collected.
-
-SRVY
-
-Survey abbreviation
-
-text abbreviated
-
-VARCHAR2(255 BYTE)
-
-Abbreviated survey names. The column srvy is associated with the survey
-and survey\_definition\_id columns. Northern Bering Sea (NBS),
-Southeastern Bering Sea (EBS), Bering Sea Slope (BSS), Gulf of Alaska
-(GOA), Aleutian Islands (AI).
-
-SURVEY
-
-Survey name
-
-text
-
-VARCHAR2(255 BYTE)
-
-Name and description of survey. The column survey is associated with the
-srvy and survey\_definition\_id columns.
-
-SURVEY\_DEFINITION\_ID
-
-Survey ID
-
-ID key code
-
-NUMBER(38,0)
-
-The survey definition ID key code is an integer that uniquely identifies
-a survey region/survey design. The column survey\_definition\_id is
-associated with the srvy and survey columns. Full list of survey
-definition IDs are in RACE\_DATA.SURVEY\_DEFINITIONS and in the
-\href{https://www.fisheries.noaa.gov/resource/document/groundfish-survey-species-code-manual-and-data-codes-manual}{code
-books}.
-
-SURVEY\_NAME
-
-Survey name official
-
-text
-
-VARCHAR2(255 BYTE)
-
-Long name of the survey conducted
-
-CRUISE
-
-Cruise Name
-
-ID key code
-
-NUMBER(38,0)
-
-This is a six-digit integer identifying the cruise number of the form:
-YYYY99 (where YYYY = year of the cruise; 99 = 2-digit number and is
-sequential; 01 denotes the first cruise that vessel made in this year,
-02 is the second, etc.).
-
-CRUISEJOIN
-
-Cruise ID
-
-ID key code
-
-NUMBER(38,0)
-
-Unique integer ID assigned to each survey, vessel, and year combination.
-
-HAULJOIN
-
-Haul ID
-
-ID key code
-
-NUMBER(38,0)
-
-This is a unique numeric identifier assigned to each (vessel, cruise,
-and haul) combination.
 
 \subsection{FOSS\_SPECIES}\label{foss_species}
 
@@ -12177,7 +12187,7 @@ For questions, comments, and concerns specifically about the
 \chapter{Production run notes}\label{production-run-notes}
 
 \begin{quote}
-Report run date: Thursday, April 24, 2025
+Report run date: Thursday, May 08, 2025
 \end{quote}
 
 \chapter{R Version Metadata}\label{r-version-metadata}
