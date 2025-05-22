@@ -17,7 +17,7 @@ PKG <- c(
   "here",
   "stringr",
   "scales", 
-  "badger",
+  # "badger",
   "ftExtra", 
   "RODBC",
   "DBI",
