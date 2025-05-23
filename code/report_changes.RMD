@@ -22,11 +22,11 @@ for (iregion in c("AI", "GOA", "EBS", "NBS", "BSS")) {
   for (idata in c("cpue", "biomass", "sizecomp", "agecomp")) {
     summary_report <- 
       paste(summary_report, idata, ": \n",
-            "There are", nrow(mismatches[[iregion]][[idata]]$new_records), 
-            "new", idata, "records. ",
-            "There are", nrow(mismatches[[iregion]][[idata]]$removed_records),
-            idata, "records that were removed. ",
-            "There are", nrow(mismatches[[iregion]][[idata]]$modified_records),
+            nrow(mismatches[[iregion]][[idata]]$new_records), 
+            "new", idata, "records,",
+            nrow(mismatches[[iregion]][[idata]]$removed_records),
+            idata, "removed records, and ",
+            nrow(mismatches[[iregion]][[idata]]$modified_records),
             "modified", idata, "records.\n\n")
   }
   summary_report <- paste0(summary_report, "\n\n")
