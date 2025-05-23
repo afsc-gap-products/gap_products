@@ -42,8 +42,7 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
 
-Age composition records for 2024 AI northern rockfish, 2021 GOA rex sole, 2023 southern rock sole, and 2024 yellowfin sole were updated from recently updated specimen data.
-
+The Gulf of Alaska historical (1990-2023) survey footprint was trimmed to remove survey areas in NMFS areas 519 (Unimak Pass) and 659 (Southeast Inside) to align the historical survey footprint with the outer boundaries of NMFS areas 610, 620, 630, 640, and 650. As a result, historical stratum areas in NMFS areas 519 and 659 were removed along with the stations that happened to fall within them. The set of updated stratum areas is versioned using a DESIGN_YEAR = 2024, which can be found in tables GAP_PRODUCTS.AREA GAP_PRODUCTS.STRATUM_GROUPS. The HAUL_TYPE values for these removed stations were changed from HAUL_TYPE 3 -> HAUL_TYPE 24 with description 'Formerly Haul Type 3 station that is being changed because the area represented by this trawl haul is no longer included in the defined survey area; was removed when the new survey design was implemented,' which also changed the ABUNDANCE_HAUL values from 'Y' -> 'N' so they are not included in the standard index/composition calculations. The historical biomass/abundance indices and size/age composition time series were recalculated under this revised survey footprint. 
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -244,28 +243,19 @@ for (iregion in regions) {
       
       ## String together query to modify records
       modify_query <-
-        paste0("UPDATE GAP_PRODUCTS.", toupper(x = iquantity), 
-               " MAIN_TABLE\n\n SET(", 
-               paste0(paste0("MAIN_TABLE.", response_fields), 
-                      collapse = ", "),
-               ") = (\n SELECT ",
-               paste0(paste0("UPDATED_TABLE.", response_fields), 
-                      collapse = ", "), "\n FROM ",
-               "GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS UPDATED_TABLE",
-               "\n WHERE ",
-               
-               paste0(paste0("MAIN_TABLE.", key_fields), " = ", 
-                      paste0("UPDATED_TABLE.", key_fields), 
-                      collapse = "\n AND "), 
-               
-               "\n)\n WHERE EXISTS (\n SELECT 1 \n FROM ",
-               "GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS UPDATED_TABLE",
-               "\n WHERE ",
-               paste0(paste0("MAIN_TABLE.", key_fields), " = ", 
-                      paste0("UPDATED_TABLE.", key_fields), 
-                      collapse = "\n AND "), 
-               
-               "\n);"
+        paste0(
+          "MERGE INTO GAP_PRODUCTS.", toupper(x = iquantity), " MAIN_TABLE\n",
+          " USING GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS UPDATED_TABLE
+             ON (\n",
+          paste0(paste0("MAIN_TABLE.", key_fields), " = ", 
+                 paste0("UPDATED_TABLE.", key_fields), 
+                 collapse = "\n AND "), 
+          ") 
+             WHEN MATCHED THEN 
+             UPDATE SET \n",
+          paste0(paste0("MAIN_TABLE.", response_fields), " = ",
+                 paste0("UPDATED_TABLE.", response_fields),
+                 collapse = ",\n"), ";"
         )
       
       ## Execute modify records query
@@ -295,7 +285,7 @@ END;")
 
 ## Purge dropped temporary tables to free up space
 RODBC::sqlQuery(channel = gapproducts_channel,
-                  query = "
+                query = "
 BEGIN
   FOR obj IN (
     SELECT OBJECT_NAME 
