@@ -66,6 +66,11 @@ file.edit("code/production.R")
 file.edit("code/update_production_tables.R")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##   Directly Upload AKFIN_* production tables to AKFIN server
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+file.edit("code/direct_upload_akfin.R")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Archive GAP_PRODUCTS  ----
 ##   Archive the bits that would allow one to reproduce the standard data 
 ##   tables. The session info and package versions are also .csv files in the 
