@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GAP Production Data Documentation - 8&nbsp; Access API data via R</title>
+<title>GAP Production Data Documentation - 9&nbsp; Access API data via R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -180,6 +180,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/intro-workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workflow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/intro-news.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">News</span></a>
   </div>
 </li>
@@ -325,8 +330,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#load-packages-and-helpful-functions" id="toc-load-packages-and-helpful-functions" class="nav-link active" data-scroll-target="#load-packages-and-helpful-functions"><span class="header-section-number">8.0.1</span> Load packages and helpful functions</a></li>
-  <li><a href="#ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" id="toc-ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" class="nav-link" data-scroll-target="#ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">8.1</span> Ex. Direct database query in R using the akfingapdata R package README:</a></li>
+  <li><a href="#load-packages-and-helpful-functions" id="toc-load-packages-and-helpful-functions" class="nav-link active" data-scroll-target="#load-packages-and-helpful-functions"><span class="header-section-number">9.0.1</span> Load packages and helpful functions</a></li>
+  <li><a href="#ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" id="toc-ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" class="nav-link" data-scroll-target="#ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">9.1</span> Ex. Direct database query in R using the akfingapdata R package README:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/afsc-gap-products/gap_products/edit/main/content/akfin-api-r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/blob/main/content/akfin-api-r.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/afsc-gap-products/gap_products/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -373,11 +378,11 @@ function googleTranslateElementInit() {
 <p>AKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.</p>
 <p>The url structure is “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]” . For example “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass” is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&amp;area_id=10&amp;species_code=21740&amp;start_year=2022&amp;end_year=2022”.</p>
 <p>If you’re using R to pull data through web services you might find the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/tree/main">akfingapdata</a> (pronounced <strong>akfin-gap-data</strong> not <strong>ak-eff-ing-app-data</strong>) R package helpful.</p>
-<section id="load-packages-and-helpful-functions" class="level3" data-number="8.0.1">
-<h3 data-number="8.0.1" class="anchored" data-anchor-id="load-packages-and-helpful-functions"><span class="header-section-number">8.0.1</span> Load packages and helpful functions</h3>
+<section id="load-packages-and-helpful-functions" class="level3" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="load-packages-and-helpful-functions"><span class="header-section-number">9.0.1</span> Load packages and helpful functions</h3>
 </section>
-<section id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">8.1</span> Ex. Direct database query in R using the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd">akfingapdata R package README</a>:</h2>
+<section id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">9.1</span> Ex. Direct database query in R using the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd">akfingapdata R package README</a>:</h2>
 <p>Sign into akfin with token (need to request token from AKFIN)</p>
 <div class="cell" data-tbl-cap="Ex. 2: Load catch data with {akfingapdata}. ">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>akfingapdata<span class="sc">::</span><span class="fu">get_gap_catch</span>()[,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="sc">%&gt;%</span> </span>

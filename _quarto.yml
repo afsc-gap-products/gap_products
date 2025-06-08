@@ -36,7 +36,7 @@ book:
     - part: index.qmd
       chapters:
         - content/intro-survey-background.qmd
-        # - content/intro-workflow.qmd
+        - content/intro-workflow.qmd
         - content/intro-news.qmd
         - content/intro-code-of-conduct.qmd
     - part: content/product-intro.qmd
