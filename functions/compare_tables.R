@@ -29,6 +29,7 @@
 compare_tables <- function(x = NULL, 
                            key_columns = NULL,
                            cols_to_check = NULL, 
+                           cols_to_ignore = NULL,
                            base_table_suffix = NULL,
                            update_table_suffix = NULL) {
   
@@ -56,9 +57,16 @@ compare_tables <- function(x = NULL,
     stop("The `key_columns` need to be present in argument `x`")
   
   col_order <- 
-    as.vector(t(sapply(X = c(base_table_suffix, update_table_suffix, "_DIFF"),
-                       FUN = function(x) paste0(cols_to_check$colname, x), 
-                       simplify = T)))
+    c(do.call(what = c, 
+              args = sapply(X = cols_to_ignore, 
+                            FUN = function(x) paste0(x, c(base_table_suffix, 
+                                                          update_table_suffix)),
+                            simplify = F)),
+      as.vector(t(sapply(X = c(base_table_suffix, update_table_suffix, "_DIFF"),
+                         FUN = function(x) paste0(cols_to_check$colname, x), 
+                         simplify = T)))    
+    )
+  
   
   for (icol in 1:nrow(x = cols_to_check)) {
     x[, paste0(cols_to_check$colname[icol], "_DIFF") := 
@@ -92,7 +100,9 @@ compare_tables <- function(x = NULL,
                   collapse = " & "), 
            "]")
   removed_records <- eval(parse(text = removed_records_stmt))
-  removed_records <- removed_records[, c(key_columns, col_order), with = F]
+  removed_records <- removed_records[, c(key_columns, 
+                                         col_order), 
+                                     with = F]
   
   ## modified records consist of two types:
   ## 1) non-zero differences

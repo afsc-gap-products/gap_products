@@ -484,10 +484,10 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
     compare_tables(
       x = test_cpue,
       cols_to_check = data.frame(
-        colname = c("WEIGHT_KG", "COUNT", "AREA_SWEPT_KM2",
-                    "CPUE_KGKM2", "CPUE_NOKM2"),
-        percent = c(F, F, F, F, F),
-        decplaces = c(2, 0, 2, 2, 2)),
+        colname = c("WEIGHT_KG","AREA_SWEPT_KM2", "CPUE_KGKM2"),
+        percent = c(F, F, F),
+        decplaces = c(2, 2, 2)),
+      cols_to_ignore = c("COUNT", "CPUE_NOKM2"),
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("HAULJOIN", "SPECIES_CODE"))
