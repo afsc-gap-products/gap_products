@@ -41,8 +41,8 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
-
-The Gulf of Alaska historical (1990-2023) survey footprint was trimmed to remove survey areas in NMFS areas 519 (Unimak Pass) and 659 (Southeast Inside) to align the historical survey footprint with the outer boundaries of NMFS areas 610, 620, 630, 640, and 650. As a result, historical stratum areas in NMFS areas 519 and 659 were removed along with the stations that happened to fall within them. The set of updated stratum areas is versioned using a DESIGN_YEAR = 2024, which can be found in tables GAP_PRODUCTS.AREA GAP_PRODUCTS.STRATUM_GROUPS. The HAUL_TYPE values for these removed stations were changed from HAUL_TYPE 3 -> HAUL_TYPE 24 with description 'Formerly Haul Type 3 station that is being changed because the area represented by this trawl haul is no longer included in the defined survey area; was removed when the new survey design was implemented,' which also changed the ABUNDANCE_HAUL values from 'Y' -> 'N' so they are not included in the standard index/composition calculations. The historical biomass/abundance indices and size/age composition time series were recalculated under this revised survey footprint. 
+  
+This run was conducted to correct the updating process to remove/insert species_codes that typically are not associated with a count value or had an omitted count value.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
