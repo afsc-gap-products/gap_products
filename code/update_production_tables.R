@@ -42,7 +42,8 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
   
-This run was conducted to correct the updating process to remove/insert species_codes that typically are not associated with a count value or had an omitted count value.
+This run was conducted to update age composition tables with specimen data added to the database in June and July 2025. 
+
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
