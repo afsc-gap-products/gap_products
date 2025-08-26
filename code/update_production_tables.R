@@ -42,8 +42,7 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
   
-This run was conducted to update age composition tables with specimen data added to the database in June and July 2025. 
-
+This run was conducted to update cpue, biomass, and sizecomp after the Gulf of Alaska and Eastern Bering Sea 2025 bottom trawl surveys. This first run is primarily for Groundfish Plan Team Meetings in September 2025. Ages from 2025 have not been updated into the database yet. 
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
