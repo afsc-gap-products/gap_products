@@ -1,0 +1,88 @@
+GAP_PRODUCTS ChangeLog (last produced on 2025-08-25) using gapindex v3.0.2
+Run completed by: Zack Oyafuso
+  
+This run was conducted to update cpue, biomass, and sizecomp after the Gulf of Alaska and Eastern Bering Sea 2025 bottom trawl surveys. This first run is primarily for Groundfish Plan Team Meetings in September 2025. Ages from 2025 have not been updated into the database yet. 
+
+
+
+ AI Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ 372159 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 28756 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 35564 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 793 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ 215234 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 16854 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 32428 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 841 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+
