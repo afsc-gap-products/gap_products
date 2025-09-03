@@ -51,7 +51,7 @@ temp/
 /_book/
 
 # Modsquad bridging RDS objects
-code/modsquad_bridge/**/*.RDS
+code/analysis/modsquad_bridge/**/*.RDS
 
 output/
 temp/
