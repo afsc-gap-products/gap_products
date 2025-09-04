@@ -42,14 +42,28 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -68,7 +82,7 @@
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
@@ -78,7 +92,7 @@
 \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
 \newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
@@ -104,15 +118,17 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 % definitions for citeproc citations
@@ -247,9 +263,7 @@
 
 
 
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
+
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -259,6 +273,7 @@
   pdfauthor={Bering Sea Survey Team; Gulf of Alaska Survey Team; Aleutian Islands Survey Team},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
+
 
 \title{GAP Production Data Documentation}
 \author{Bering Sea Survey Team \and Gulf of Alaska Survey
@@ -530,6 +545,7 @@ Team~nmfs.afsc.gap.metadata@noaa.gov
 }
 \listoffigures
 \listoftables
+
 \mainmatter
 \part{Welcome}
 
@@ -563,7 +579,7 @@ each of the surveys can be found below.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{index_files/mediabag/750x500-bottom-trawl.jpg}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{index_files/mediabag/750x500-bottom-trawl.jpg}}
 
 }
 
@@ -798,7 +814,7 @@ regions}\label{bottom-trawl-surveys-and-regions}
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7in,height=\textheight]{content/../img/survey_plot_all.png}
+{\centering \includegraphics[width=7in,height=\textheight,keepaspectratio]{content/../img/survey_plot_all.png}
 
 }
 
@@ -941,7 +957,7 @@ Most recent data report: (Von Szalay et al., 2023)
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7in,height=\textheight]{content/../img/survey_plot_ai.png}
+{\centering \includegraphics[width=7in,height=\textheight,keepaspectratio]{content/../img/survey_plot_ai.png}
 
 }
 
@@ -975,7 +991,7 @@ Most recent data report: (Siple et al., 2024)
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7in,height=\textheight]{content/../img/survey_plot_goa.png}
+{\centering \includegraphics[width=7in,height=\textheight,keepaspectratio]{content/../img/survey_plot_goa.png}
 
 }
 
@@ -1020,7 +1036,7 @@ Most recent data report: (Markowitz et al., 2024)
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7in,height=\textheight]{content/../img/survey_plot_ebs.png}
+{\centering \includegraphics[width=7in,height=\textheight,keepaspectratio]{content/../img/survey_plot_ebs.png}
 
 }
 
@@ -1049,7 +1065,7 @@ Most recent data report: (Markowitz et al., 2024)
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7in,height=\textheight]{content/../img/survey_plot_nbs.png}
+{\centering \includegraphics[width=7in,height=\textheight,keepaspectratio]{content/../img/survey_plot_nbs.png}
 
 }
 
@@ -1085,7 +1101,7 @@ Most recent data report: (Hoff, 2016)
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7.33in,height=\textheight]{content/../img/bss-strata.png}
+{\centering \includegraphics[width=7.33in,height=\textheight,keepaspectratio]{content/../img/bss-strata.png}
 
 }
 
@@ -1218,7 +1234,7 @@ be entered into tablets.
 
 \centering{
 
-\includegraphics[width=16.11in,height=14.6in]{content/intro-workflow_files/figure-latex/mermaid-figure-1.png}
+\includegraphics[width=24.68in,height=17.56in]{content/intro-workflow_files/figure-latex/mermaid-figure-1.png}
 
 }
 
@@ -1261,7 +1277,7 @@ stakeholders, and fellow scientists}.
 
 \centering{
 
-\includegraphics[width=17.45in,height=8.76in]{content/intro-workflow_files/figure-latex/mermaid-figure-3.png}
+\includegraphics[width=22.83in,height=8.79in]{content/intro-workflow_files/figure-latex/mermaid-figure-3.png}
 
 }
 
@@ -1297,7 +1313,7 @@ During each data product run cycle:
 
 \centering{
 
-\includegraphics[width=6.54in,height=15.11in]{content/intro-workflow_files/figure-latex/mermaid-figure-2.png}
+\includegraphics[width=11.15in,height=15.99in]{content/intro-workflow_files/figure-latex/mermaid-figure-2.png}
 
 }
 
@@ -4292,7 +4308,7 @@ reports for reference but they will not be updated 2024 onward.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=6.22in,height=\textheight]{content/../img/akfin.jpg}
+{\centering \includegraphics[width=6.22in,height=\textheight,keepaspectratio]{content/../img/akfin.jpg}
 
 }
 
@@ -7013,7 +7029,7 @@ map.}\tabularnewline
 
 \begin{figure}[H]
 
-{\centering \includegraphics{content/akfin-oracle-sql-r_files/figure-pdf/test-6-fig-1.pdf}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{content/akfin-oracle-sql-r_files/figure-pdf/test-6-fig-1.pdf}}
 
 }
 
@@ -7206,7 +7222,7 @@ region.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{content/akfin-oracle-sql-r_files/figure-pdf/test-1-plot-1.pdf}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{content/akfin-oracle-sql-r_files/figure-pdf/test-1-plot-1.pdf}}
 
 }
 
@@ -7375,7 +7391,7 @@ for the Aleutian Islands, with Ridge plot from
 
 \begin{figure}[H]
 
-{\centering \includegraphics{content/akfin-oracle-sql-r_files/figure-pdf/test-2-plot-1.pdf}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{content/akfin-oracle-sql-r_files/figure-pdf/test-2-plot-1.pdf}}
 
 }
 
@@ -7555,7 +7571,7 @@ Walleye pollock age composition for the EBS standard + NW Area from
 
 \begin{figure}[H]
 
-{\centering \includegraphics{content/akfin-oracle-sql-r_files/figure-pdf/test-3-plot-1.pdf}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{content/akfin-oracle-sql-r_files/figure-pdf/test-3-plot-1.pdf}}
 
 }
 
@@ -7825,7 +7841,7 @@ Pacific cod biomass and abundance data for the NBS by stratum.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{content/akfin-oracle-sql-r_files/figure-pdf/test-4-fig-1.pdf}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{content/akfin-oracle-sql-r_files/figure-pdf/test-4-fig-1.pdf}}
 
 }
 
@@ -8017,7 +8033,7 @@ Pacific Ocean perch biomass totals for GOA between 1984-2021 from
 
 \begin{figure}[H]
 
-{\centering \includegraphics{content/akfin-oracle-sql-r_files/figure-pdf/test-5-fig-1.pdf}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{content/akfin-oracle-sql-r_files/figure-pdf/test-5-fig-1.pdf}}
 
 }
 
@@ -9300,7 +9316,7 @@ books}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=2.87in,height=\textheight]{content/../img/foss_1_interface.png}
+{\centering \includegraphics[width=2.87in,height=\textheight,keepaspectratio]{content/../img/foss_1_interface.png}
 
 }
 
@@ -9328,7 +9344,7 @@ species with the term ``cod'' in their common names and selected
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=2.73in,height=\textheight]{content/../img/foss_1_interface_catch.png}
+{\centering \includegraphics[width=2.73in,height=\textheight,keepaspectratio]{content/../img/foss_1_interface_catch.png}
 
 }
 
@@ -9342,7 +9358,7 @@ platform.}
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=3.61in,height=\textheight]{content/../img/foss_1_interface_haul.png}
+{\centering \includegraphics[width=3.61in,height=\textheight,keepaspectratio]{content/../img/foss_1_interface_haul.png}
 
 }
 
@@ -9356,7 +9372,7 @@ platform.}
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=3.12in,height=\textheight]{content/../img/foss_1_interface_species.png}
+{\centering \includegraphics[width=3.12in,height=\textheight,keepaspectratio]{content/../img/foss_1_interface_species.png}
 
 }
 
@@ -9419,7 +9435,7 @@ for entire form.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=6.72in,height=\textheight]{content/../img/foss_2_catch_select_species.png}
+{\centering \includegraphics[width=6.72in,height=\textheight,keepaspectratio]{content/../img/foss_2_catch_select_species.png}
 
 }
 
@@ -9440,7 +9456,7 @@ results, and apply a variety of \texttt{filters} and mathematical tools.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=5.97in,height=\textheight]{content/../img/foss_3_run_report.png}
+{\centering \includegraphics[width=5.97in,height=\textheight,keepaspectratio]{content/../img/foss_3_run_report.png}
 
 }
 
@@ -10577,7 +10593,7 @@ Here is some example data of 2023 through 2019
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{content/foss-api-r_files/figure-pdf/pollock-multi-loc-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{content/foss-api-r_files/figure-pdf/pollock-multi-loc-1.pdf}}
 
 \subsection{Plot inverse-distance weighted plot of
 CPUE}\label{plot-inverse-distance-weighted-plot-of-cpue}
@@ -10718,7 +10734,7 @@ Bering Sea data reports}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{content/foss-api-r_files/figure-pdf/pollock-multi-idw-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{content/foss-api-r_files/figure-pdf/pollock-multi-idw-1.pdf}}
 
 \section{Ex. Show catch data for 2023 eastern Bering Sea Walleye Pollock
 (one species in one survey region in one
@@ -11424,7 +11440,7 @@ plots!
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{content/foss-api-r_files/figure-pdf/pollock-multi1-loc-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{content/foss-api-r_files/figure-pdf/pollock-multi1-loc-1.pdf}}
 
 \subsection{Plot inverse-distance weighted modeled product of
 locations}\label{plot-inverse-distance-weighted-modeled-product-of-locations}
@@ -11461,7 +11477,7 @@ This map is constructed using
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{content/foss-api-r_files/figure-pdf/pollock-multi2-loc-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{content/foss-api-r_files/figure-pdf/pollock-multi2-loc-1.pdf}}
 
 \chapter{Access via API and Python}\label{access-via-api-and-python}
 
@@ -11685,9 +11701,9 @@ Pacific glass shrimp were not found. This can be seen in differences in
 counts reported:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1609}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4138}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4253}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1609}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4138}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4253}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Rounded CPUE
@@ -12671,5 +12687,6 @@ Islands} bottom trawl survey} (AFSC Processed Rep. 2023-07; p. 230).
 
 
 \backmatter
+
 
 \end{document}

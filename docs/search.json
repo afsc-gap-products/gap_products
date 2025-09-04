@@ -344,7 +344,7 @@
     "href": "content/akfin-intro.html",
     "title": "AKFIN",
     "section": "",
-    "text": "The Alaska Fisheries Information Network\nThe Alaska Fisheries Information Network (AKFIN) is a regional program that consolidates and supports the processing, analysis, and reporting of fisheries data for Alaskan fisheries. AKFIN integrates this information into a single data management system using consistent methods and standardized formats. The resulting data enables fishery managers, scientists, and associated agencies to supervise fisheries resources more effectively and efficiently. The AKFIN database contains much of the data needed to complete stock assessments, including GAP trawl survey data. .",
+    "text": "The Alaska Fisheries Information Network\nThese data are used directly by stock assessors and are provided to The Alaska Fisheries Information Network (AKFIN).\nThe Alaska Fisheries Information Network (AKFIN) is a regional program that consolidates and supports the processing, analysis, and reporting of fisheries data for Alaskan fisheries. AKFIN integrates this information into a single data management system using consistent methods and standardized formats. The resulting data enables fishery managers, scientists, and associated agencies to supervise fisheries resources more effectively and efficiently. The AKFIN database contains much of the data needed to complete stock assessments, including GAP trawl survey data. .",
     "crumbs": [
       "AKFIN"
     ]
@@ -394,7 +394,7 @@
     "href": "content/akfin-metadata.html",
     "title": "Data description",
     "section": "",
-    "text": "Data tables",
+    "text": "Data tables\nAKFIN Answers is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from direct AKFIN database credentials.",
     "crumbs": [
       "AKFIN",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Data description</span>"
@@ -449,7 +449,7 @@
     "href": "content/akfin-api-r.html",
     "title": "Access API data via R",
     "section": "",
-    "text": "9.0.1 Load packages and helpful functions",
+    "text": "9.0.1 Load packages and helpful functions\nAKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.\nThe url structure is “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]” . For example “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass” is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use “https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&area_id=10&species_code=21740&start_year=2022&end_year=2022”.\nIf you’re using R to pull data through web services you might find the akfingapdata (pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.",
     "crumbs": [
       "AKFIN",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Access API data via R</span>"
@@ -471,7 +471,7 @@
     "href": "content/foss-intro.html",
     "title": "Public Data (FOSS)",
     "section": "",
-    "text": "Collaborators and data users\nBelow are a few packages and products currently using this data. If you have developed a product, performed an analysis, or exhibited this data in any way, reach out so we can showcase your hard work.",
+    "text": "Collaborators and data users\nThe final, validated survey data are publicly accessible soon after surveys are completed on the Fisheries One Stop Shop (FOSS) platform. This data includes catch, haul, and environmental data collected at each station. On the FOSS data platform, users can interactively select, view, and download data. Descriptive documentation and user-examples are available on the metadata page.\nThis data contains all of the catch, environmental, and haul data from the fisheries-independent Groundfish and Shellfish Assessment Program surveys in the Bering Sea, Aleutian Islands, and Gulf of Alaska. This data is sought after by the general public, private entities, and NOAA partners alike, including tribal organizations, K-12 classrooms, academic institutions, for-profit groups, and non-profit groups. This data is compiled and approved once a year after each summer survey season and is available for open access.\nBelow are a few packages and products currently using this data. If you have developed a product, performed an analysis, or exhibited this data in any way, reach out so we can showcase your hard work.",
     "crumbs": [
       "Public Data (FOSS)"
     ]
@@ -501,7 +501,7 @@
     "href": "content/foss-metadata.html",
     "title": "Data description",
     "section": "",
-    "text": "Data tables",
+    "text": "Data tables\nThe Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC) conducts fisheries-independent bottom trawl surveys to monitor the condition of the demersal fish and crab stocks of Alaska. These data are developed to describe the temporal distribution and abundance of commercially and ecologically important groundfish species, examine the changes in the species composition of the fauna over time and space, and describe the physical environment of the groundfish habitat.\nThere are no legal restrictions on access to the data. They reside in the public domain and can be freely distributed. Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested. These data are compiled and approved annually after each summer survey season. The data from previous years are unlikely to change substantially once published.\nThese data are zero-filled (presence and absence) observations from surveys conducted on fishing vessels. These surveys monitor trends in distribution and abundance of groundfish, crab, and bottom-dwelling species in Alaska’s marine ecosystems. These data include estimates of catch-per-unit-effort (CPUE) for all identified species for index stations. Some survey data are excluded, such as non-standard stations, surveys completed in earlier years using different/non-standard gear, and special tows and non-standard data collections.\nThough not included in the public data, these surveys also collect oceanographic and environmental data, and biological data such as length, weight, stomach contents (to learn more about diet), otoliths (fish ear bones to learn about age), and tissue samples for genetic analysis, all of which can be shared upon special request. Also not included in the public data are estimated biomass (average total weight of all fish and crabs sampled) of crabs and groundfish that support the creation of annual stock assessments.",
     "crumbs": [
       "Public Data (FOSS)",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Data description</span>"
@@ -578,7 +578,7 @@
     "href": "content/foss-api-r.html",
     "title": "Access via API and R",
     "section": "",
-    "text": "12.1 Ex. Load all rows of the catch, haul, and species data tables\nNote that without specifying, a basic query to the API will only return 25 entries.",
+    "text": "12.1 Ex. Load all rows of the catch, haul, and species data tables\nAn application programming interface (API) is a way for two or more computer programs to communicate with each other. More information about how to amend API links can be found here. Useful introductions to using APIs in R can be found here.\nThere are three tables the user can pull from the API. Learn more about them on the FOSS data description page. Here, you can see them in their raw JSON format:\nHere are some examples of how to use the data with R:\nNote that without specifying, a basic query to the API will only return 25 entries.",
     "crumbs": [
       "Public Data (FOSS)",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Access via API and R</span>"
@@ -698,7 +698,7 @@
     "href": "content/end-contact-us.html",
     "title": "Contact us",
     "section": "",
-    "text": "This code is primarally maintained by:\nEmily Markowitz (Emily.Markowitz AT noaa.gov; @EmilyMarkowitz-NOAA)\nZack Oyafuso (Zack.Oyafuso AT noaa.gov; @zoyafuso-NOAA)\nSarah Friedman (Sarah.Friedman AT noaa.gov; @SarahFriedman-NOAA)\nAlaska Fisheries Science Center,\nNational Marine Fisheries Service,\nNational Oceanic and Atmospheric Administration,\nSeattle, WA 98195\nGeneral questions and more specific data requests can be sent to nmfs.afsc.gap.metadata@noaa.gov or submitted as an issue on our GitHub Organization. The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson (Duane.Stevenson@noaa.gov). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman (Ned.Laman@noaa.gov). For questions specifically about crab data in any region, contact Mike Litzow (Mike.Litzow@noaa.gov), the Shellfish Assessment Program lead.\nFor questions, comments, and concerns specifically about the Fisheries One Stop Shop (FOSS) platform, please contact us using the Comments page on the FOSS webpage.",
+    "text": "This code is primarally maintained by:\nThank you for using our data guide!\nEmily Markowitz (Emily.Markowitz AT noaa.gov; @EmilyMarkowitz-NOAA)\nZack Oyafuso (Zack.Oyafuso AT noaa.gov; @zoyafuso-NOAA)\nSarah Friedman (Sarah.Friedman AT noaa.gov; @SarahFriedman-NOAA)\nAlaska Fisheries Science Center,\nNational Marine Fisheries Service,\nNational Oceanic and Atmospheric Administration,\nSeattle, WA 98195\nGeneral questions and more specific data requests can be sent to nmfs.afsc.gap.metadata@noaa.gov or submitted as an issue on our GitHub Organization. The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson (Duane.Stevenson@noaa.gov). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman (Ned.Laman@noaa.gov). For questions specifically about crab data in any region, contact Mike Litzow (Mike.Litzow@noaa.gov), the Shellfish Assessment Program lead.\nFor questions, comments, and concerns specifically about the Fisheries One Stop Shop (FOSS) platform, please contact us using the Comments page on the FOSS webpage.",
     "crumbs": [
       "Contact us"
     ]
