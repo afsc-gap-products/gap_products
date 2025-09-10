@@ -64,14 +64,14 @@ metadata_table_comment <- paste(
 metadata_column <- readxl::read_xlsx( ## import spreadsheet
   path = "temp/future_oracle.xlsx",
   sheet = "METADATA_COLUMN",
-  skip = 1) %>%
-  janitor::clean_names() %>% ## clean field names
+  skip = 1) |>
+  janitor::clean_names() |> ## clean field names
   ## select fields that start with "metadata_"
-  dplyr::select(dplyr::starts_with("metadata_")) %>%
+  dplyr::select(dplyr::starts_with("metadata_")) |>
   ## filter out true NAs, "", "NA", and nulls in field "metadata_colname"
-  dplyr::filter(!is.na(metadata_colname)) %>%
-  dplyr::filter(!is.null(metadata_colname)) %>%
-  dplyr::filter(!(metadata_colname %in% c("", "NA"))) %>%
+  dplyr::filter(!is.na(metadata_colname)) |>
+  dplyr::filter(!is.null(metadata_colname)) |>
+  dplyr::filter(!(metadata_colname %in% c("", "NA"))) |>
   dplyr::mutate(
     ## input the links to the codebook
     metadata_colname_desc = gsub(pattern = "INSERT_CODE_BOOK",

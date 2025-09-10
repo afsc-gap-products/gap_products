@@ -27,8 +27,8 @@ dat <- data.frame(Month = unique(months(as.Date(x = 1:365, format = "%m"))),
              c(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0), 
            triage = 1, # Triage (fixing bugs and errors)
            feedback = 1 # User feedback and brainstorming
-           ) %>% 
-  t() %>% 
+           ) |> 
+  t() |> 
   data.frame()
 
 names(dat) <- dat[1,]
@@ -41,15 +41,15 @@ dat[dat == 0] <- ""
 # }
 dat <- cbind.data.frame(" " = c("Surveys", "Planning", "Development", "Deployment (survey deliverables)", "Deployment (survey operations)", "Triage (fixing bugs and errors)", "User feedback and brainstorming"), 
                         dat)
-t0 <- dat %>% 
-  flextable::flextable() %>% # col_keys = names(dat)[-ncol(dat)]
+t0 <- dat |> 
+  flextable::flextable() |> # col_keys = names(dat)[-ncol(dat)]
   flextable::vline(j = 1)
 
 for (i in 1:nrow(dat)){
   for (j in 2:(ncol(dat))) {
     if (dat[i,j] == 1) {
-t0 <- t0 %>% 
-  flextable::bg(i = i, j = j, bg = cols[i], part = "body")  %>% 
+t0 <- t0 |> 
+  flextable::bg(i = i, j = j, bg = cols[i], part = "body")  |> 
   flextable::color(i = i, j = j, color = cols[i], part = "body") 
     }
   }

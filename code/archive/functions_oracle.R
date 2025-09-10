@@ -179,7 +179,7 @@ oracle_upload <- function(
       ## Add the table to the schema ------------------------------------------------
       
       # find columns that need special data type help
-      metadata_column0 <- metadata_column[which(metadata_column$metadata_colname %in% names(a)),] %>% 
+      metadata_column0 <- metadata_column[which(metadata_column$metadata_colname %in% names(a)),] |> 
         dplyr::filter(!is.na(metadata_units))
       
       cc <- c()
@@ -339,7 +339,7 @@ oracle_upload0 <- function(
       ## Add the table to the schema ------------------------------------------------
       
       # find columns that need special data type help
-      metadata_column0 <- metadata_column[which(metadata_column$metadata_colname %in% names(a)),] %>% 
+      metadata_column0 <- metadata_column[which(metadata_column$metadata_colname %in% names(a)),] |> 
         dplyr::filter(!is.na(metadata_units))
       
         cc <- c()
@@ -459,7 +459,7 @@ oracle_dl_metadata <- function(
     # owner, table_name"))
     
     a_table <- dplyr::bind_rows(a_table, 
-                                a %>% 
+                                a |> 
                                   dplyr::mutate(schema = loc))
     
     
@@ -486,7 +486,7 @@ oracle_dl_metadata <- function(
                                         loc,"' AND comments IS NOT NULL AND comments IS NOT NULL GROUP BY table_name, comments ORDER BY table_name ASC"))
     
     a_col <- dplyr::bind_rows(a_col, 
-                              a %>% 
+                              a |> 
                                 dplyr::mutate(schema = loc))
     
   }

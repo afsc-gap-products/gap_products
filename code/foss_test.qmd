@@ -59,11 +59,11 @@ dat_haul_api <- dat
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_haul <- function(dat0){
-dat <- dat0 %>%  
-  dplyr::select(-links) %>%
-  head() %>%
-  flextable::flextable() %>%
-  flextable::theme_zebra() %>%
+dat <- dat0 |>  
+  dplyr::select(-links) |>
+  head() |>
+  flextable::flextable() |>
+  flextable::theme_zebra() |>
   flextable::colformat_num(
     x = ., 
     j = c("year", "cruise", "cruisejoin"), 
@@ -114,11 +114,11 @@ dat_catch_api <- dat
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_catch <- function(dat0){
-dat <- dat0 %>%  
-  dplyr::select(-links) %>%
-  head() %>%
-  flextable::flextable() %>%
-  flextable::theme_zebra() %>%
+dat <- dat0 |>  
+  dplyr::select(-links) |>
+  head() |>
+  flextable::flextable() |>
+  flextable::theme_zebra() |>
   flextable::colformat_num(
     x = ., 
     j = c("species_code"), 
@@ -165,11 +165,11 @@ dat_catch_taxon_api <- dat
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_catch <- function(dat0){
-dat <- dat0 %>%  
-  dplyr::select(-links) %>%
-  head() %>%
-  flextable::flextable() %>%
-  flextable::theme_zebra() %>%
+dat <- dat0 |>  
+  dplyr::select(-links) |>
+  head() |>
+  flextable::flextable() |>
+  flextable::theme_zebra() |>
   flextable::colformat_num(
     x = ., 
     j = c("year", "cruise", "species_code"), 
@@ -207,11 +207,11 @@ dat_species_api <- dat
 
 # Print the first few lines of the data, but make it pretty for quarto
 pretty_print_species <- function(dat0){
-dat <- dat0 %>%  
-  dplyr::select(-links) %>%
-  head() %>%
-  flextable::flextable() %>%
-  flextable::theme_zebra() %>%
+dat <- dat0 |>  
+  dplyr::select(-links) |>
+  head() |>
+  flextable::flextable() |>
+  flextable::theme_zebra() |>
   flextable::colformat_num(
     x = ., 
     j = c("species_code", "worms", "itis"), 
@@ -264,8 +264,8 @@ foss_views <- RODBC::sqlQuery(
   channel = channel,
   query = "SELECT table_name 
 FROM all_tables
-WHERE owner = 'GAP_PRODUCTS';") %>% 
-  dplyr::filter(grepl(x = TABLE_NAME, pattern = "FOSS_")) %>% 
+WHERE owner = 'GAP_PRODUCTS';") |> 
+  dplyr::filter(grepl(x = TABLE_NAME, pattern = "FOSS_")) |> 
   dplyr::filter(TABLE_NAME != "FOSS_CPUE_PRESONLY")
   
 locations <- foss_views$TABLE_NAME
@@ -287,7 +287,7 @@ data.frame(table = c("catch", # "catch_taxon",
            oracle_r = c(nrow(dat_catch_oracle), #nrow(dat_catch_oracle), 
                       nrow(dat_haul_oracle), nrow(dat_species_oracle)), 
            foss_r = c(nrow(dat_catch_api), #nrow(dat_catch_taxon_api), 
-                    nrow(dat_haul_api), nrow(dat_species_api))) %>% 
+                    nrow(dat_haul_api), nrow(dat_species_api))) |> 
   dplyr::mutate(difference_r = oracle_r - foss_r, 
                 difference_c = oracle_c - foss_c)
 ```
@@ -295,15 +295,15 @@ data.frame(table = c("catch", # "catch_taxon",
 ```{r}
 print("--------------------- catch ---------------------")
 summary(dat_catch_oracle)
-summary(dat_catch_api %>% dplyr::select(-links))
+summary(dat_catch_api |> dplyr::select(-links))
 
 print("--------------------- haul ---------------------")
 summary(dat_haul_oracle)
-summary(dat_haul_api %>% dplyr::select(-links))
+summary(dat_haul_api |> dplyr::select(-links))
 
 print("--------------------- species ---------------------")
 summary(dat_species_oracle)
-summary(dat_species_api %>% dplyr::select(-links))
+summary(dat_species_api |> dplyr::select(-links))
 
 ```
 
@@ -334,7 +334,7 @@ return(str0)
 
 ```{r}
 var <- "catch"
-foss <- dat_catch_api %>% 
+foss <- dat_catch_api |> 
   dplyr::select(-links)
 oracle <- dat_catch_oracle
 
@@ -343,7 +343,7 @@ print_diff_summary(foss, oracle)
 
 ```{r, eval = FALSE}
 var <- "catch (vs. catch_taxon)"
-foss <- dat_catch_taxon_api %>% 
+foss <- dat_catch_taxon_api |> 
   dplyr::select(-links)
 oracle <- dat_catch_oracle
 
@@ -361,7 +361,7 @@ print_diff_summary(foss, oracle)
 
 ```{r}
 var <- "haul"
-foss <- dat_haul_api %>% 
+foss <- dat_haul_api |> 
   dplyr::select(-links)
 oracle <- dat_haul_oracle
 
@@ -370,7 +370,7 @@ print_diff_summary(foss, oracle)
 
 ```{r}
 var <- "species"
-foss <- dat_species_api %>% 
+foss <- dat_species_api |> 
   dplyr::select(-links)
 oracle <- dat_species_oracle
 
@@ -379,7 +379,7 @@ print_diff_summary(foss, oracle)
 
 ```{r}
 var <- "species"
-foss <- dat_species_api %>% 
+foss <- dat_species_api |> 
   dplyr::select(-links)
 oracle <- dat_survey_species_oracle
 
@@ -387,7 +387,7 @@ print_diff_summary(foss, oracle)
 ```
 ```{r}
 var <- "species"
-foss <- dat_species_api %>% 
+foss <- dat_species_api |> 
   dplyr::select(-links)
 oracle <- dat_taxon_group_oracle
 

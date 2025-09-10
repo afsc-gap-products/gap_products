@@ -1,13 +1,16 @@
 # Load libaries and funcitons --------------------------------------------------
 
+# Keeping Organized
 PKG <- c(
-  # Keeping Organized
   "devtools", # Package development tools for R; used here for downloading packages from GitHub
+
   "gapindex", # devtools::install_github("afsc-gap-products/gapindex")
   "akgfmaps", # devtools::install_github("afsc-gap-products/akgfmaps")
+  "akfingapdata", # devtools::install_github("MattCallahan-NOAA/akfingapdata")
+  
   "dplyr",
   "googledrive",
-  "magrittr",
+  # "magrittr",
   "readr",
   "tidyr",
   "readxl",
@@ -21,8 +24,7 @@ PKG <- c(
   "ftExtra", 
   "RODBC",
   "DBI",
-  "odbc",
-  "akfingapdata" # devtools::install_github("MattCallahan-NOAA/akfingapdata")
+  "odbc"
 )
 
 #' Package install
@@ -178,7 +180,7 @@ find_citation_for <- function(bib_ref = "GAPProducts") {
 #                  subset = TABLE_NAME == table_info$TABLE_NAME[i],
 #                  select = -TABLE_NAME), 
 #           row.names = FALSE, format = "html"
-#         ) %>%
+#         ) |>
 #           kableExtra::kable_styling(bootstrap_options = "striped"),
 #         "\n\n\n"
 #       )
@@ -247,7 +249,7 @@ print_table_metadata <- function(channel, locations, owner = "GAP_PRODUCTS") {
       kableExtra::kable(subset(x = b_columns,
                                subset = TABLE_NAME == b$TABLE_NAME[i],
                                select = -TABLE_NAME),
-                        row.names = FALSE, format = "html") %>%
+                        row.names = FALSE, format = "html") |>
         kableExtra::kable_styling(bootstrap_options = "striped"),
       "\n\n\n"
     )

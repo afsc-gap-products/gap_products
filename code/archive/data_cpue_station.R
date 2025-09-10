@@ -16,34 +16,34 @@ for (i in 1:length(surveys$SRVY)) {
   print(surveys$SRVY[i])
   
   # subset data to survey
-  temp <- catch_haul_cruises %>% 
+  temp <- catch_haul_cruises |> 
     dplyr::filter(SRVY == surveys$SRVY[i]) 
   
   cpue_station_0filled <- 
     tidyr::crossing( # create all possible haul event x species_code combinations
-      temp %>% 
-        dplyr::select(SRVY, hauljoin, cruisejoin) %>% # unique haul event
+      temp |> 
+        dplyr::select(SRVY, hauljoin, cruisejoin) |> # unique haul event
         dplyr::distinct(),
-      temp %>%
-        dplyr::distinct(., species_code)) %>% # unique species_codes
+      temp |>
+        dplyr::distinct(., species_code)) |> # unique species_codes
     dplyr::left_join( # overwrite NAs where data exists for CPUE calculation
       x = .,
-      y = temp %>%
+      y = temp |>
         dplyr::select(SRVY, cruisejoin, hauljoin, species_code,
                       distance_fished, net_width, weight, number_fish),
-      by = c("species_code", "hauljoin", "cruisejoin", "SRVY")) %>%
+      by = c("species_code", "hauljoin", "cruisejoin", "SRVY")) |>
     # summarize weight and count - already summarized catch data earlier so this step is now obsolete, but wouldnt hurt anything
     # dplyr::group_by(SRVY, hauljoin, cruisejoin, species_code, 
-    #                 distance_fished, net_width) %>% 
+    #                 distance_fished, net_width) |> 
     # dplyr::summarise(
     #   weight = sum(weight, na.rm = TRUE),
-    #   number_fish = sum(number_fish, na.rm = TRUE)) %>%  
-    # dplyr::ungroup() %>% 
+    #   number_fish = sum(number_fish, na.rm = TRUE)) |>  
+    # dplyr::ungroup() |> 
     dplyr::mutate(# calculates CPUE for each species group by station
       area_swept_ha = distance_fished * (net_width/10), # both in units of km
       cpue_kgha = weight/area_swept_ha, 
       cpue_noha = ifelse(weight > 0 & number_fish == 0, 
-                         NA, (number_fish/area_swept_ha))) %>% 
+                         NA, (number_fish/area_swept_ha))) |> 
     dplyr::bind_rows(cpue_station_0filled, .)
   
   gc()
@@ -85,16 +85,16 @@ lookup <- c(station = "stationid",
 cpue_station_0filled <- 
   dplyr::left_join( # bind with the rest of the cruise and haul data
     x = cpue_station_0filled, 
-    y = catch_haul_cruises %>% 
+    y = catch_haul_cruises |> 
       dplyr::select(-distance_fished, -net_width, -number_fish, -weight),
-    by = c("SRVY", "cruisejoin", "hauljoin", "species_code"))  %>%
-  dplyr::rename(dplyr::any_of(lookup)) %>% 
+    by = c("SRVY", "cruisejoin", "hauljoin", "species_code"))  |>
+  dplyr::rename(dplyr::any_of(lookup)) |> 
   dplyr::mutate(cpue_kgkm2 = cpue_kgha * 100, 
                 cpue_nokm2 = cpue_noha * 100, 
                 # cpue_no1000km2 = cpue_nokm2 * 1000, 
                 # cpue_kg1000km2 = cpue_kgkm2 * 1000, 
                 dplyr::across(dplyr::starts_with("cpue_"), round, digits = 6), 
-                weight_kg = round(weight_kg, digits = 6)) %>% 
+                weight_kg = round(weight_kg, digits = 6)) |> 
   dplyr::select(any_of(
     c(as.character(expression(
       year, srvy, survey, survey_id, cruise, haul, hauljoin, stratum, station, vessel_name, vessel_id, # survey data
@@ -105,7 +105,7 @@ cpue_station_0filled <-
       weight_kg, count, # summed catch data
       bottom_temperature_c, surface_temperature_c, depth_m, #environmental data
       distance_fished_km, net_width_m, net_height_m, area_swept_ha, duration_hr, performance # gear data
-  ))))) %>% 
+  ))))) |> 
   dplyr::arrange(srvy, date_time, cpue_kgha)
 
 names(cpue_station_0filled) <- stringr::str_to_upper(names(cpue_station_0filled))
@@ -132,7 +132,7 @@ readr::write_lines(x = table_metadata,
 cpue_station <- cpue_station_0filled 
 
 
-cpue_station <- cpue_station %>%
+cpue_station <- cpue_station |>
   dplyr::filter(
     !(COUNT %in% c(NA, 0) & # this will remove 0-filled values
         WEIGHT_KG %in% c(NA, 0)) | 

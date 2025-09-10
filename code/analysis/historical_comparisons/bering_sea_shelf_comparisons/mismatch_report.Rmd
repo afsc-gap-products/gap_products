@@ -15,8 +15,8 @@ this_yr <- 2023
 past_yr <- this_yr-1
 
 # find_difference <- function(mismatch, str0, past_yr, this_yr) {
-# aa <- mismatch %>% 
-#   dplyr::select(dplyr::ends_with("_hist")) %>% 
+# aa <- mismatch |> 
+#   dplyr::select(dplyr::ends_with("_hist")) |> 
 #   names()
 # aa <- gsub(pattern = "_hist", replacement = "", x = aa)
 # 
@@ -24,7 +24,7 @@ past_yr <- this_yr-1
 # for (i in 1:nrow(a)) {
 #   aaaa <- c()
 #   for (ii in 1:length(aa)) {
-#     aaa <- a[i,] %>% 
+#     aaa <- a[i,] |> 
 #       dplyr::select(dplyr::starts_with(aa[ii])) 
 #     if (aaa[,1] %in% aaa[,2]) {
 #       aaaa <- c(aaaa, aa[ii])
@@ -49,16 +49,16 @@ find_difference <- function(mismatch, str0, past_yr, this_yr, col) {
 
 mismatch0 <- mismatch
 
-aa <- mismatch %>% 
-  dplyr::select(dplyr::ends_with("_hist")) %>% 
+aa <- mismatch |> 
+  dplyr::select(dplyr::ends_with("_hist")) |> 
   names()
 aa <- gsub(pattern = "_hist", replacement = "", x = aa)
 
-mismatch <- mismatch %>% 
+mismatch <- mismatch |> 
   dplyr::select(dplyr::any_of(col), 
                 dplyr::ends_with("_hist"), 
-                dplyr::ends_with("_prod"))  %>% 
-  dplyr::select(order(colnames(.))) %>% 
+                dplyr::ends_with("_prod"))  |> 
+  dplyr::select(order(colnames(.))) |> 
   dplyr::relocate(dplyr::any_of(col))
 
 for (i in 1:length(aa)) {
@@ -66,7 +66,7 @@ for (i in 1:length(aa)) {
   mismatch$temp <- (mismatch[, aaa[1]] - mismatch[, aaa[2]])
   names(mismatch)[names(mismatch) == "temp"] <- paste0(aa[i], "_diff")
   
-  mismatch$temp <- #mismatch %>% 
+  mismatch$temp <- #mismatch |> 
     dplyr::case_when(
       is.na(mismatch[,aaa[1]]) ~ paste0("missing from hist"), 
       is.na(mismatch[,aaa[2]]) ~ paste0("missing from prod"), 
@@ -133,14 +133,14 @@ mismatch <- mismatch_actual
 #                 " enteries were removed from the newest dataset. ")
 
 
-mismatch <- mismatch %>% 
-  # dplyr::filter(case>0) %>% 
+mismatch <- mismatch |> 
+  # dplyr::filter(case>0) |> 
   dplyr::select(dplyr::any_of(names(mismatch0)))
 
 if (nrow(mismatch) == 0) {
   mismatch <- ""
 } else {
-  mismatch <- flextable::flextable(mismatch) %>% flextable::theme_vanilla()
+  mismatch <- flextable::flextable(mismatch) |> flextable::theme_vanilla()
 }
 
 return(list("a" = mismatch, 
@@ -157,7 +157,7 @@ return(list("a" = mismatch,
 #       str00,
 #       "### ", names(all_mismatches)[i], "\n\n",
 #       "\n\n",
-#       kableExtra::kable(all_mismatches[i], row.names = FALSE, format = "html") %>%
+#       kableExtra::kable(all_mismatches[i], row.names = FALSE, format = "html") |>
 #         kableExtra::kable_styling(bootstrap_options = "striped"),
 #       "\n\n\n"
 #     )
@@ -168,9 +168,9 @@ return(list("a" = mismatch,
 # Species
 
 ```{r}
-a <- mismatch_spp %>% 
-  dplyr::filter(SPECIES_NAME_diff) %>%
-  dplyr::select(!dplyr::ends_with("_diff"))  %>%
+a <- mismatch_spp |> 
+  dplyr::filter(SPECIES_NAME_diff) |>
+  dplyr::select(!dplyr::ends_with("_diff"))  |>
   dplyr::select(SPECIES_CODE, dplyr::starts_with("SPECIES_NAME_")) 
 
 str00 <- paste0("There were ", nrow(a), 
@@ -181,20 +181,20 @@ a <- mismatch_spp_change
 str00 <- paste0(str00, 
                 "There were ", nrow(a), " species scientific taxonomics that changed across all of the surveys. ")
 
-a0 <- table(mismatch_spp_change[, c("ACTION")]) %>% data.frame()
+a0 <- table(mismatch_spp_change[, c("ACTION")]) |> data.frame()
 str00 <- paste0(str00, 
                 "There were ", 
                 paste0(a0$Freq, " instances of ", a0$Var1, collapse = " and "), 
                 " species info tables that changed. ")
-a0 <- table(mismatch_spp_change[, c("ACTION", "REASON")]) %>% data.frame()
+a0 <- table(mismatch_spp_change[, c("ACTION", "REASON")]) |> data.frame()
 str00 <- paste0(str00, 
                 "These changes were changed because ", paste0(a0$REASON, collapse = ", "), " were identified. ")
 ```
 
 ```{r, eval = FALSE}
-a <- mismatch_spp %>% 
-  dplyr::filter(SPECIES_NAME_diff) %>%
-  dplyr::select(!dplyr::ends_with("_diff"))  %>%
+a <- mismatch_spp |> 
+  dplyr::filter(SPECIES_NAME_diff) |>
+  dplyr::select(!dplyr::ends_with("_diff"))  |>
   dplyr::select(SPECIES_CODE, dplyr::starts_with("SPECIES_NAME_")) 
 
 str00 <- paste0("These changes are now represented in the data. There were ", nrow(a), 
@@ -203,9 +203,9 @@ str00 <- paste0("These changes are now represented in the data. There were ", nr
 ```
 
 ```{r, eval = FALSE}
-a <- mismatch_spp %>% 
-  dplyr::filter(COMMON_NAME_diff) %>%
-  dplyr::select(!dplyr::ends_with("_diff"))  %>%
+a <- mismatch_spp |> 
+  dplyr::filter(COMMON_NAME_diff) |>
+  dplyr::select(!dplyr::ends_with("_diff"))  |>
   dplyr::select(SPECIES_CODE, dplyr::starts_with("common_")) 
 
 str00 <- paste0("There were ", nrow(a), 
@@ -215,7 +215,7 @@ str00 <- paste0("There were ", nrow(a),
 
 `r (str00)` 
 
-`r flextable::flextable(a) %>% flextable::theme_vanilla() `
+`r flextable::flextable(a) |> flextable::theme_vanilla() `
 
 # Catch-per-unit-effort
 

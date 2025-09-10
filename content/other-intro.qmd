@@ -30,7 +30,7 @@ googledrive::drive_download(
 #| echo: false
 
 table_raw <- read.csv(file = here::here("content", "other_products.csv"), 
-                      skip = 1)  %>% 
+                      skip = 1)  |> 
   dplyr::mutate(
     poc_goa = gsub(x = poc_goa, 
                       pattern = " & ", replacement = " &\n"), 
@@ -43,9 +43,9 @@ table_raw <- read.csv(file = here::here("content", "other_products.csv"),
     product_type  = factor(x = product_type, 
                            levels = c("Data", "Analysis", "Visualization Tools", "Communication"), 
                            labels = c("Data", "Analysis", "Visualization Tools", "Communication"),
-                           ordered = TRUE)) %>% 
-  dplyr::arrange(product_type) %>% 
-  dplyr::filter(include) %>% 
+                           ordered = TRUE)) |> 
+  dplyr::arrange(product_type) |> 
+  dplyr::filter(include) |> 
   dplyr::select(-include)
 
 table_raw[is.na(table_raw)] <- "-"
@@ -53,40 +53,40 @@ table_raw[is.na(table_raw)] <- "-"
 table_print <- 
   flextable::as_grouped_data(x = table_raw, 
                              groups = "product_type", 
-                             columns = NULL) %>% 
+                             columns = NULL) |> 
   flextable::as_flextable(
     col_keys = c(#"product_type", 
       "product",
-      "poc_ai", "poc_goa", "poc_bs", "description")) %>% 
+      "poc_ai", "poc_goa", "poc_bs", "description")) |> 
   flextable::compose(j = "product",
                      value = as_paragraph(flextable::hyperlink_text(
-                       x = product, url = link ) ) )  %>% 
+                       x = product, url = link ) ) )  |> 
   flextable::compose(
     i = ~ !is.na(product_type),
     j = "product",
-    value = as_paragraph(as_chunk(product_type))) %>%
-  flextable::theme_zebra()  %>% 
+    value = as_paragraph(as_chunk(product_type))) |>
+  flextable::theme_zebra()  |> 
   flextable::set_header_labels(
     product = "Product", 
     poc_goa = "Point of Contact\nGOA", 
     poc_ai = "Point of Contact\nAI", 
     poc_bs = "Point of Contact\nBS", 
-    description = "Description") %>% 
-  flextable::merge_h() %>% 
-  flextable::padding(padding = 5, part = "all") %>%
+    description = "Description") |> 
+  flextable::merge_h() |> 
+  flextable::padding(padding = 5, part = "all") |>
   flextable::color(j = "product", i = ~ is.na(product_type), 
-                   color = "darkblue", part = "body") %>% 
-  flextable::bg(i = ~ !is.na(product_type), bg = "grey70") %>% 
-  flextable::bold(i = ~ is.na(product_type), bold = TRUE, j = "product") %>%
-  flextable::italic(i = ~ !is.na(product_type), italic = TRUE) %>% 
+                   color = "darkblue", part = "body") |> 
+  flextable::bg(i = ~ !is.na(product_type), bg = "grey70") |> 
+  flextable::bold(i = ~ is.na(product_type), bold = TRUE, j = "product") |>
+  flextable::italic(i = ~ !is.na(product_type), italic = TRUE) |> 
   flextable::padding(padding.left = 10, 
                      j = "product", 
                      i = ~ !is.na(product_type), 
-                     part = "body") %>% 
+                     part = "body") |> 
   flextable::padding(padding.left = 15, 
                      j = "product", 
                      i = ~ is.na(product_type), 
-                     part = "body") %>% 
+                     part = "body") |> 
   flextable::width(width = c(2,1.5,1.5,1.5,3))
 
 table_print

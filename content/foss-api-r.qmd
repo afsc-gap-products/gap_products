@@ -83,7 +83,7 @@ for (i in seq(0, 500000, 10000)){
   
   ## bind sub-pull to dat data.frame
   dat <- dplyr::bind_rows(dat, 
-                          data$items %>%
+                          data$items |>
                             dplyr::select(-links)) # necessary for API accounting, but not part of the dataset)
 }
 ```
@@ -98,13 +98,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("year", "cruise", "cruisejoin"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 
 # save outputs for later comparison
@@ -157,7 +156,7 @@ for (i in seq(0, 1000000, 10000)){
   
   ## bind sub-pull to dat data.frame
   dat <- dplyr::bind_rows(dat, 
-                          data$items %>%
+                          data$items |>
                             dplyr::select(-links)) # necessary for API accounting, but not part of the dataset)
 }
 ```
@@ -173,13 +172,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("species_code"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 
 # save outputs for later comparison
@@ -204,7 +202,7 @@ res <- httr::GET(url = paste0(api_link_species, "?offset=0&limit=10000"))
 
 ## convert from JSON format
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-dat <- data$items  %>%
+dat <- data$items  |>
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 ```
 
@@ -218,13 +216,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("species_code", "worms", "itis"), # 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 
 # save outputs for later comparison
@@ -240,16 +237,16 @@ First prepare a table with all combinations of what species should be listed for
 ```{r g, message = TRUE, comment = TRUE, warning = TRUE}
 comb <- dplyr::full_join(
   # find all species that have been caught, by survey
-  x = dplyr::left_join(dat_catch_api, dat_haul_api, by = "hauljoin") %>%
-    dplyr::select(survey_definition_id, species_code) %>%
+  x = dplyr::left_join(dat_catch_api, dat_haul_api, by = "hauljoin") |>
+    dplyr::select(survey_definition_id, species_code) |>
     dplyr::distinct(),
   # find all haul events (hauljoins), by survey
-  y = dat_haul_api %>%
-    dplyr::select(survey_definition_id, hauljoin) %>%
+  y = dat_haul_api |>
+    dplyr::select(survey_definition_id, hauljoin) |>
     dplyr::distinct(),
   relationship = "many-to-many",
   by = "survey_definition_id"
-) %>% 
+) |> 
   dplyr::select(-survey_definition_id) # now, redundant
 ```
 
@@ -258,25 +255,24 @@ Explore the data contents:
 ```{r gg}
 print(paste0("rows: ", nrow(comb), "; cols: ", ncol(comb)))
 
-comb %>% head(3) %>% 
-  flextable::flextable()  %>%
+comb |> head(3) |> 
+  flextable::flextable()  |>
   flextable::colformat_num(
-      x = ., 
       j = c("species_code", "hauljoin"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 ```
 
 Now, using that table of combinations (here, called `comb`), join data to make a full zero-filled CPUE dataset. When all of the data have been full joined together, there should be the maximum number of rows in `comb`. 
 
 ```{r ggg, message = TRUE, comment = TRUE, warning = TRUE}
-dat <- comb %>%
+dat <- comb |>
   # add species data
-  dplyr::left_join(dat_species_api) %>% # , "species_code"
+  dplyr::left_join(dat_species_api) |> # , "species_code"
   # add haul data
-  dplyr::left_join(dat_haul_api) %>% # , c("hauljoin")
+  dplyr::left_join(dat_haul_api) |> # , c("hauljoin")
   # add catch data
-  dplyr::left_join(dat_catch_api) %>% # , c("species_code", "hauljoin")
+  dplyr::left_join(dat_catch_api) |> # , c("species_code", "hauljoin")
   # modify/clean up zero-filled rows
   dplyr::mutate(
     cpue_kgkm2 = ifelse(is.na(cpue_kgkm2), 0, cpue_kgkm2),
@@ -295,13 +291,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("species_code", "hauljoin", "year", "cruise", "cruisejoin", "worms", "itis"), #
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 
 # save outputs for later comparison
@@ -315,10 +310,10 @@ Using the zero-filled data from the previous example, we can make a few plots!
 Here is some example data of 2023 through 2019 (`year %in% 2019:2023`) eastern and northern Bering Sea (`srvy %in% c("EBS", "NBS)`) walleye pollock (`species_code == 21740`). 
 
 ```{r h}
-dat <- dat_zerofill_api %>% 
+dat <- dat_zerofill_api |> 
   dplyr::filter(year %in% 2019:2023 & 
                   srvy %in% c("EBS", "NBS") & 
-                  species_code == 21740) %>% 
+                  species_code == 21740) |> 
   dplyr::select(year, common_name, longitude_dd_start, latitude_dd_start, cpue_kgkm2)
 
 # Find how many rows and columns are in the data pull
@@ -328,13 +323,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 # summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("year"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 ```
 
@@ -346,12 +340,12 @@ dat %>%
 
 library(ggplot2)
 
-ggplot2::ggplot(data = dat %>% dplyr::filter(cpue_kgkm2 != 0), 
+ggplot2::ggplot(data = dat |> dplyr::filter(cpue_kgkm2 != 0), 
                 mapping = aes(x = longitude_dd_start, 
                               y = latitude_dd_start, 
                               size = cpue_kgkm2)) + 
   ggplot2::geom_point(alpha = .75) +
-  ggplot2::geom_point(data = dat %>% dplyr::filter(cpue_kgkm2 == 0), 
+  ggplot2::geom_point(data = dat |> dplyr::filter(cpue_kgkm2 == 0), 
                       color = "red", 
                       shape = 17,
                       alpha = .75,
@@ -377,7 +371,7 @@ These plots are similar to those published in the [annual Bering Sea data report
 # devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
 library(akgfmaps)
 idw <- akgfmaps::make_idw_stack(
-  x = dat %>% 
+  x = dat |> 
     dplyr::select(COMMON_NAME = common_name, 
                   CPUE_KGHA = cpue_kgkm2, 
                   LATITUDE = latitude_dd_start, 
@@ -392,7 +386,7 @@ idw <- akgfmaps::make_idw_stack(
 
 shps <- akgfmaps::get_base_layers(
   select.region = "bs.all", 
-  include.corners = TRUE, 
+  # include.corners = TRUE, 
   set.crs = "EPSG:3338")
 
 shps$survey.area$SRVY <- c("EBS", "NBS")
@@ -488,11 +482,11 @@ res <- httr::GET(url = paste0(api_link_haul, '?limit=10000&q={"year":2023,"srvy"
 
 ## convert from JSON format
 data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
-dat <- data$items %>%
+dat <- data$items |>
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 
 ## show summary of data to make sure it is subset correctly
-summary(dat %>% dplyr::mutate(srvy = as.factor(srvy)))
+summary(dat |> dplyr::mutate(srvy = as.factor(srvy)))
 
 ## Find how many rows and columns are in the data pull. 
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
@@ -507,13 +501,12 @@ dat_haul_ex <- dat
 #| tbl-cap: "Haul data filtered by `year = 2023` and `SRVY = 'EBS'`. "
 
 # Print the first few lines of the data 
-dat_haul_ex %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat_haul_ex |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("year", "hauljoin", "cruise"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 ```
 
@@ -533,7 +526,7 @@ res <- httr::GET(url = paste0(api_link_species, '?q={"common_name":"walleye%20po
 data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
 
 # save outputs for later comparison
-dat_species_ex <- data$items %>% dplyr::select(-links) # necessary for API accounting, but not part of the dataset
+dat_species_ex <- data$items |> dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 ```
 
 ```{r p}
@@ -541,13 +534,12 @@ dat_species_ex <- data$items %>% dplyr::select(-links) # necessary for API accou
 #| tbl-cap: "Walleye pollock species information. "
 
 # Print the first few lines of the data
-dat_species_ex %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat_species_ex |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("species_code"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 ```
 
@@ -570,7 +562,7 @@ for (i in 1:nrow(dat_haul_ex)) {
   if (length(data$items) != 0) {
     dat <- dplyr::bind_rows(
       dat,
-      data$items %>% 
+      data$items |> 
         dplyr::select(-links)) # necessary for API accounting, but not part of the dataset
   }
 }
@@ -586,13 +578,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("hauljoin", "species_code"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 
 # save outputs for later comparison
@@ -633,7 +624,7 @@ for (i in seq(0, 100000, 10000)){
   
   ## bind sub-pull to dat data.frame
   dat <- dplyr::bind_rows(dat, 
-                          data$items %>%
+                          data$items |>
                             dplyr::select(-links)) # necessary for API accounting, but not part of the dataset)
 }
 
@@ -666,7 +657,7 @@ res <- httr::GET(url = paste0(api_link_catch,
 
 ## convert from JSON format
 data <- jsonlite::fromJSON(base::rawToChar(res$content)) 
-dat <- data$items %>% 
+dat <- data$items |> 
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 ```
 
@@ -723,7 +714,7 @@ res = httr::GET(url = api_link_catch,
 
 # ## convert from JSON format
 data <- jsonlite::fromJSON(base::rawToChar(res$content))
-dat <- data$items %>%
+dat <- data$items |>
   dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
@@ -738,9 +729,9 @@ It is important to create and have access to zero-fill (presence and absence) so
 ```{r w}
 dat <- dplyr::full_join(
   dat_haul_ex,
-  dat_catch_ex) %>% 
+  dat_catch_ex) |> 
   dplyr::full_join(
-    dat_species_ex)  %>% 
+    dat_species_ex)  |> 
   # modify zero-filled rows
   dplyr::mutate(
     cpue_kgkm2 = ifelse(is.na(cpue_kgkm2), 0, cpue_kgkm2),
@@ -759,13 +750,12 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 summary(dat)
 
 # Print the first few lines of the data 
-dat %>% 
-  head(3) %>% 
-  flextable::flextable() %>%
+dat |> 
+  head(3) |> 
+  flextable::flextable() |>
   flextable::colformat_num(
-      x = ., 
       j = c("year", "cruise", "cruisejoin", "species_code"), 
-      big.mark = "") %>% 
+      big.mark = "") |> 
   flextable::theme_zebra()
 ```
 
@@ -781,12 +771,12 @@ Using the zero-filled data from the previous example, we can make a few plots!
 
 library(ggplot2)
 
-ggplot2::ggplot(data = dat %>% dplyr::filter(cpue_kgkm2 != 0), 
+ggplot2::ggplot(data = dat |> dplyr::filter(cpue_kgkm2 != 0), 
                 mapping = aes(x = longitude_dd_start, 
                               y = latitude_dd_start, 
                               size = cpue_kgkm2)) + 
   ggplot2::geom_point(alpha = .75) +
-  ggplot2::geom_point(data = dat %>% dplyr::filter(cpue_kgkm2 == 0), 
+  ggplot2::geom_point(data = dat |> dplyr::filter(cpue_kgkm2 == 0), 
                       color = "red", 
                       shape = 17,
                       alpha = .75,

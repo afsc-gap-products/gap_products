@@ -57,18 +57,18 @@ OLD_SPECIAL_PROJECTS <- dplyr::left_join(
                         sheet = "projects", skip = 1), 
   y = readxl::read_xlsx(path = paste0(dir_data, "0_special_projects.xlsx"), 
                         sheet = "solicitation_date", skip = 1), 
-  by = "year") %>% 
-  janitor::clean_names() %>% 
+  by = "year") |> 
+  janitor::clean_names() |> 
   dplyr::select(-in_report)
 
 # affiliations -----------------------------------------------------------------
 
 OLD_AFFILIATIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_special_projects.xlsx"), 
-                                      sheet = "affiliations", skip = 1) %>% 
-  janitor::clean_names() %>% 
+                                      sheet = "affiliations", skip = 1) |> 
+  janitor::clean_names() |> 
   dplyr::rename("agency_short" = "agency_2", 
-                "agency_abrv" = "agency")  %>%
-  dplyr::select(-combined) %>% 
+                "agency_abrv" = "agency")  |>
+  dplyr::select(-combined) |> 
   dplyr::mutate(agency_join = 1:nrow(.))
 
 # , 
@@ -77,16 +77,16 @@ OLD_AFFILIATIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_special_project
 # "pricipal_investigator" = "pricipalinvestigator"
 
 OLD_OTHER_FIELD_COLLECTIONS <- readxl::read_xlsx(path = paste0(dir_data, "0_other_field_collections.xlsx"), 
-                                                 sheet = "Sheet1", skip = 1)  %>% 
-  janitor::clean_names() %>% 
-  dplyr::filter(year > 2017) %>% 
+                                                 sheet = "Sheet1", skip = 1)  |> 
+  janitor::clean_names() |> 
+  dplyr::filter(year > 2017) |> 
   dplyr::select(-print_name, -notes)
 
 OLD_COLLECTION_SCHEME <- readxl::read_xlsx(path = paste0(dir_data, "0_collection_scheme.xlsx"), 
-                                           sheet = "Sheet1", skip = 1) %>% 
-  dplyr::filter(year > 2017) %>% 
-  janitor::clean_names() %>% 
-  dplyr::rename(species_codes = species_code) %>%
+                                           sheet = "Sheet1", skip = 1) |> 
+  dplyr::filter(year > 2017) |> 
+  janitor::clean_names() |> 
+  dplyr::rename(species_codes = species_code) |>
   dplyr::select(-print_name, -x12, -notes)
 
 # Wrangle data -----------------------------------------------------------------
@@ -225,8 +225,8 @@ lookup <- c(
 
 ## Haul data -------------------------------------------------------------------
 
-OLD_HAUL <- racebase_haul0 %>% ## Haul events
-  dplyr::rename(dplyr::any_of(lookup)) %>%
+OLD_HAUL <- racebase_haul0 |> ## Haul events
+  dplyr::rename(dplyr::any_of(lookup)) |>
   dplyr::mutate(SRVY = dplyr::case_when(
     region == "BS" & stratum %in% 
       c(1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 
@@ -238,10 +238,10 @@ OLD_HAUL <- racebase_haul0 %>% ## Haul events
         501, 502, 503, 504, 505, 506, 507, 508, 509) ~ "BSS",
     region == "BS" & stratum %in% c(70, 71, 81) ~ "NBS",
     region == "BS" & stratum %in% c(50, 32, 31, 42, 10, 20, 43, 62, 41, 61, 90, 82, 81, 70, 71) ~ "EBS",
-    TRUE ~ region)) %>%
-  dplyr::filter(!is.na(stratum)) %>%
-  dplyr::filter(!is.na(station)) %>%
-  # dplyr::select(hauljoin, stratum, station, SRVY, cruise) %>%
+    TRUE ~ region)) |>
+  dplyr::filter(!is.na(stratum)) |>
+  dplyr::filter(!is.na(station)) |>
+  # dplyr::select(hauljoin, stratum, station, SRVY, cruise) |>
   dplyr::distinct()
 
 ## CPUE by station data --------------------------------------------------------
@@ -250,8 +250,8 @@ OLD_CPUE_STATION <- dplyr::bind_rows(
   # crab EBS + NBS data
   # dplyr::left_join(
   # x = 
-  crab_gap_ebs_nbs_crab_cpue0 %>% 
-    dplyr::rename(dplyr::any_of(lookup)) %>%
+  crab_gap_ebs_nbs_crab_cpue0 |> 
+    dplyr::rename(dplyr::any_of(lookup)) |>
     dplyr::mutate(
       # hauljoin = hauljoin*-1,
       cpue_kgkm2 = cpue_kgkm2/100, 
@@ -260,29 +260,29 @@ OLD_CPUE_STATION <- dplyr::bind_rows(
   # y = haul, 
   # by = "hauljoin"), 
   # NBS data
-  nbsshelf_nbs_cpue0 %>% 
-    dplyr::rename(dplyr::any_of(lookup)) %>%
+  nbsshelf_nbs_cpue0 |> 
+    dplyr::rename(dplyr::any_of(lookup)) |>
     dplyr::mutate(
       # SRVY = "NBS", 
       file = "nbsshelf.nbs_cpue"), 
   # EBS data
-  ebsshelf_ebsshelf_cpue0 %>% 
-    dplyr::rename(dplyr::any_of(lookup)) %>%
+  ebsshelf_ebsshelf_cpue0 |> 
+    dplyr::rename(dplyr::any_of(lookup)) |>
     dplyr::mutate(
       # SRVY = "EBS", 
       file = "ebsshelf.ebsshelf_cpue"), 
   
   # BSS data
-  # ebsslope_cpuelistrnk0 %>% 
+  # ebsslope_cpuelistrnk0 |> 
   #   dplyr::rename(dplyr::any_of(lookup), 
-  #                 cpue_kgkm2 = cpue) %>% # I think? Realy no count data? only has data from 2014:2016, so incomplete
+  #                 cpue_kgkm2 = cpue) |> # I think? Realy no count data? only has data from 2014:2016, so incomplete
   #   dplyr::mutate(
   #     cpue_kgkm2 = cpue_kgkm2/100, # I think
   #     # cpue_nokm2 = cpue_nokm2/100,
   #     SRVY = "ESS",
   #     file = "ebsslope.cpuelistrnk"), 
-  hoffj_cpue_ebsslope_pos0 %>% # ESS CPUE data
-    dplyr::rename(dplyr::any_of(lookup)) %>% # has data fro 2002:2016
+  hoffj_cpue_ebsslope_pos0 |> # ESS CPUE data
+    dplyr::rename(dplyr::any_of(lookup)) |> # has data fro 2002:2016
     dplyr::mutate(
       # SRVY = "BSS",
       cpue_kgkm2 = cpue_kgkm2/100,
@@ -290,23 +290,23 @@ OLD_CPUE_STATION <- dplyr::bind_rows(
       file = "hoffj.cpue_ebsslope_pos"), # PROBLEM
   
   # GOA data
-  goa_cpue0 %>%
-    dplyr::rename(dplyr::any_of(lookup)) %>%
+  goa_cpue0 |>
+    dplyr::rename(dplyr::any_of(lookup)) |>
     dplyr::mutate(
       # SRVY = "GOA",
       file = "goa.cpue"), # GOA CPUE data
   # AI data
-  ai_cpue0 %>%
-    dplyr::rename(dplyr::any_of(lookup)) %>%
+  ai_cpue0 |>
+    dplyr::rename(dplyr::any_of(lookup)) |>
     dplyr::mutate(
       # SRVY = "AI", # AI CPUE data
-      file = "ai.cpue") )  %>% 
-  dplyr::group_by(hauljoin, species_code, file) %>% 
+      file = "ai.cpue") )  |> 
+  dplyr::group_by(hauljoin, species_code, file) |> 
   dplyr::summarise(cpue_kgkm2 = sum(cpue_kgkm2, na.rm = TRUE), 
                    cpue_nokm2 = sum(cpue_nokm2, na.rm = TRUE), 
                    weight_kg = sum(weight_kg, na.rm = TRUE), 
-                   count = sum(count, na.rm = TRUE)) %>% 
-  dplyr::ungroup() %>% 
+                   count = sum(count, na.rm = TRUE)) |> 
+  dplyr::ungroup() |> 
   dplyr::select(#SRVY, year, 
     species_code, hauljoin, 
     cpue_kgkm2, cpue_nokm2, weight_kg, count, 
@@ -320,20 +320,20 @@ googledrive::drive_download(file = googledrive::as_id("https://docs.google.com/s
                             overwrite = TRUE,
                             path = paste0(dir_data, "/taxonomy_worms.csv"))
 
-OLD_TAXONOMICS_WORMS <- readr::read_csv(file = paste0(dir_data, "/taxonomy_worms.csv")) %>% 
+OLD_TAXONOMICS_WORMS <- readr::read_csv(file = paste0(dir_data, "/taxonomy_worms.csv")) |> 
   dplyr::mutate(database_id = ifelse(database == "ITIS", NA, database_id), 
                 database = ifelse(database == "ITIS", NA, database), 
                 database = ifelse(is.na(database_id), NA, database))
 
-OLD_TAXONOMICS_ITIS <- readr::read_csv(file = paste0(dir_data, "/2023_taxonomy_updates_itis.csv")) %>% 
+OLD_TAXONOMICS_ITIS <- readr::read_csv(file = paste0(dir_data, "/2023_taxonomy_updates_itis.csv")) |> 
   dplyr::mutate(database_id = ifelse(database == "WORMS", NA, database_id), 
                 database = ifelse(database == "WORMS", NA, database), 
                 database = ifelse(is.na(database_id), NA, database))
 
 OLD_V_TAXONOMICS <- dplyr::full_join(
-  OLD_TAXONOMICS_WORMS %>% 
+  OLD_TAXONOMICS_WORMS |> 
     dplyr::select(species_code, scientific_name = accepted_name, common_name, worms = database_id), 
-  OLD_TAXONOMICS_ITIS %>% 
+  OLD_TAXONOMICS_ITIS |> 
     dplyr::select(species_code, itis = database_id), 
   by = "species_code")
 
@@ -358,23 +358,23 @@ a <- list.files(path = paste0("./data/TAXON_CONFIDENCE/"))
 for (i in 1:length(a)){
   print(a[i])
   b <- readxl::read_xlsx(path = paste0("./data/TAXON_CONFIDENCE/", a[i]), 
-                         skip = 1, col_names = TRUE) %>% 
-    dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
-    janitor::clean_names() %>% 
+                         skip = 1, col_names = TRUE) |> 
+    dplyr::select(where(~!all(is.na(.x)))) |> # remove empty columns
+    janitor::clean_names() |> 
     dplyr::rename(species_code = code)
   if (sum(names(b) %in% "quality_codes")>0) {
     b$quality_codes<-NULL
   }
-  b <- b %>% 
+  b <- b |> 
     tidyr::pivot_longer(cols = starts_with("x"), 
                         names_to = "year", 
-                        values_to = "taxon_confidence") %>% 
+                        values_to = "taxon_confidence") |> 
     dplyr::mutate(year = gsub(pattern = "[a-z]", 
                               replacement = "", 
                               x = year), 
                   year = gsub(pattern = "_0", replacement = "", 
                               x = year), 
-                  year = as.numeric(year)) %>% 
+                  year = as.numeric(year)) |> 
     dplyr::distinct()
   
   cc <- strsplit(x = gsub(x = gsub(x = a[i], 
@@ -406,7 +406,7 @@ for (i in 1:length(a)){
 # 3 – Low confidence.  Taxonomy is incompletely known, or reliable field  
 #     identification characteristics are unknown.
 
-OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>% 
+OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) |> 
   dplyr::mutate(taxon_confidence_code = taxon_confidence, 
                 taxon_confidence = dplyr::case_when(
                   taxon_confidence_code == 1 ~ "High",
@@ -416,8 +416,8 @@ OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(df.ls) %>%
 
 # fill in OLD_TAXON_CONFIDENCE with, if missing, the values from the year before
 
-cruises <- race_data_v_cruises0 %>% #read.csv("./data/race_data_v_cruises.csv") %>% 
-  janitor::clean_names() %>% 
+cruises <- race_data_v_cruises0 |> #read.csv("./data/race_data_v_cruises.csv") |> 
+  janitor::clean_names() |> 
   dplyr::left_join(
     x = surveys, # a data frame of all surveys and survey_definition_ids we want included in the public data, created in the run.R script
     y = ., 
@@ -431,11 +431,11 @@ comb <- strsplit(x = setdiff(comb1$comb, comb2$comb), split = "_")
 
 OLD_TAXON_CONFIDENCE <- dplyr::bind_rows(
   OLD_TAXON_CONFIDENCE, 
-  OLD_TAXON_CONFIDENCE %>% 
+  OLD_TAXON_CONFIDENCE |> 
     dplyr::filter(
       SRVY %in% sapply(comb,"[[",1) &
-        year == 2021) %>% 
-    dplyr::mutate(year = 2022)) %>% 
+        year == 2021) |> 
+    dplyr::mutate(year = 2022)) |> 
   dplyr::select(-common_name, -scientific_name)
 # dplyr::rename(taxon_confidence = taxon_confidence, 
 #               taxon_confidence_code = taxon_confidence_code)
