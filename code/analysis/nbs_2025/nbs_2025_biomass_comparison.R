@@ -15,15 +15,15 @@ channel <- gapindex::get_connected(check_access = F)
 
 ## Pull NBS data, make a copy for the "b" scenario.
 gapindex_data_2025a <- gapindex_data_2025b <- gapindex::get_data(
-  year_set = 2023,
+  year_set = 2025,
   survey_set = "NBS",
   spp_codes = NULL,
   channel = channel)
 
 ## Modify the stratum area for the "b" version
-# gapindex_data_2025b$strata$AREA_KM2[
-#   gapindex_data_2025b$strata$STRATUM == 70
-# ] <- 79259.89
+gapindex_data_2025b$strata$AREA_KM2[
+  gapindex_data_2025b$strata$STRATUM == 70
+] <- 69352.403
 
 ## Fill in zeros and calculate CPUE under both stratum scenarios
 cpue_a <- gapindex::calc_cpue(gapdata = gapindex_data_2025a)
@@ -98,9 +98,7 @@ merged_biomass$BIOMASS_PERC_DIFF <-
                           yes = 1, 
                           no = BIOMASS_MT_a) * 100), 
         digits = 2) 
-merged_biomass$CV_DIFF <- 
-  round(x = with(merged_biomass, (CV_b - CV_a), 
-                 digits = 6) )
+merged_biomass$CV_DIFF <-   round(with(merged_biomass, (CV_b - CV_a)), 6)
 
 ## Reorder columns
 merged_biomass <- 
