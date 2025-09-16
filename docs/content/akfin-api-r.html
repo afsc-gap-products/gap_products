@@ -385,9 +385,9 @@ function googleTranslateElementInit() {
 <h2 data-number="9.1" class="anchored" data-anchor-id="ex.-direct-database-query-in-r-using-the-akfingapdata-r-package-readme"><span class="header-section-number">9.1</span> Ex. Direct database query in R using the <a href="https://github.com/MattCallahan-NOAA/akfingapdata/blob/main/README.Rmd">akfingapdata R package README</a>:</h2>
 <p>Sign into akfin with token (need to request token from AKFIN)</p>
 <div class="cell" data-tbl-cap="Ex. 2: Load catch data with {akfingapdata}. ">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>akfingapdata<span class="sc">::</span><span class="fu">get_gap_catch</span>()[,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>akfingapdata<span class="sc">::</span><span class="fu">get_gap_catch</span>()[,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 

@@ -64,9 +64,9 @@ for (iregion in c("GOA", "AI", "EBS", "BSS")) {
   taxon_conf_wide <- readxl::read_excel(path = paste0("temp/Taxon_confidence_", 
                                                       iregion, ".xlsx"), 
                                         skip = 1, 
-                                        col_names = TRUE) %>% 
-    dplyr::select(where(~!all(is.na(.x)))) %>% # remove empty columns
-    janitor::clean_names() %>% 
+                                        col_names = TRUE) |> 
+    dplyr::select(where(~!all(is.na(.x)))) |> # remove empty columns
+    janitor::clean_names() |> 
     dplyr::rename(SPECIES_CODE = code)
   
   ## The quality_code field is inconsistently provided across tables so 
@@ -102,18 +102,18 @@ for (iregion in c("GOA", "AI", "EBS", "BSS")) {
   }
   
   ## Lengthen the wide-version taxon_conf_wide, which creates the YEAR field
-  taxon_conf_long <- taxon_conf_wide %>% 
-    dplyr::select(-scientific_name, -common_name) %>% 
+  taxon_conf_long <- taxon_conf_wide |> 
+    dplyr::select(-scientific_name, -common_name) |> 
     tidyr::pivot_longer(cols = starts_with("x"), 
                         names_to = "YEAR", 
-                        values_to = "TAXON_CONFIDENCE") %>% 
+                        values_to = "TAXON_CONFIDENCE") |> 
     dplyr::mutate(YEAR = gsub(pattern = "[a-z]", 
                               replacement = "", 
                               x = YEAR), 
                   YEAR = gsub(pattern = "_0", replacement = "", 
                               x = YEAR), 
-                  YEAR = as.numeric(YEAR)) %>% 
-    dplyr::distinct() %>% 
+                  YEAR = as.numeric(YEAR)) |> 
+    dplyr::distinct() |> 
     dplyr::mutate(SRVY = iregion)
   
   ## Filter only years where a bottom trawl survey occurred
@@ -129,28 +129,28 @@ for (iregion in c("GOA", "AI", "EBS", "BSS")) {
   
   ## Since there is no NBS confidence table, duplicate the EBS table
   if (iregion == "EBS") 
-    TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE %>% 
+    TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE |> 
     dplyr::bind_rows(subset(x = taxon_conf_long,
                             subset = YEAR %in% survey_years$YEAR[
                               survey_years$SURVEY_DEFINITION_ID == 143
-                            ]) %>% 
+                            ]) |> 
                        dplyr::mutate(SRVY = "NBS")
     )
 }
 
 ## Add TAXON_CONFIDENCE field which is a text version of TAXON_CONFIDENCE_CODE
-TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE %>% 
+TAXONOMIC_CONFIDENCE <- TAXONOMIC_CONFIDENCE |> 
   dplyr::mutate(TAXON_CONFIDENCE_CODE = TAXON_CONFIDENCE, 
                 TAXON_CONFIDENCE = dplyr::case_when(
                   TAXON_CONFIDENCE_CODE == 1 ~ "High",
                   TAXON_CONFIDENCE_CODE == 2 ~ "Moderate",
                   TAXON_CONFIDENCE_CODE == 3 ~ "Low",
                   TRUE ~ "Unassessed")
-  ) %>%
+  ) |>
   dplyr::left_join(y = 
                      data.frame(SURVEY_DEFINITION_ID = c(143, 98, 47, 52, 78),
                                 SRVY = c("NBS", "EBS", "GOA", "AI", "BSS") ),
-                   by = "SRVY") %>% 
+                   by = "SRVY") |> 
   dplyr::select(-SRVY)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -180,9 +180,9 @@ for (iyear in 1:nrow(x = missing_survey_years)) {
   ## to the TAXONOMIC_CONFIDENCE data frame.  
   TAXONOMIC_CONFIDENCE <- dplyr::bind_rows(
     TAXONOMIC_CONFIDENCE, 
-    TAXONOMIC_CONFIDENCE %>% 
+    TAXONOMIC_CONFIDENCE |> 
       dplyr::filter(SURVEY_DEFINITION_ID == imputted_year$SURVEY_DEFINITION_ID & 
-                      YEAR == imputted_year$YEAR) %>% 
+                      YEAR == imputted_year$YEAR) |> 
       dplyr::mutate(YEAR = missing_survey_years$YEAR[iyear]) 
   )
 }

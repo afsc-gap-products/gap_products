@@ -185,7 +185,7 @@ a <- RODBC::sqlQuery(channel,
 WHERE SPECIES_CODE = 30060 
 AND SURVEY_DEFINITION_ID = 47 
 AND AREA_ID = 99903 
-AND YEAR BETWEEN 1984 AND 2021;") %>% 
+AND YEAR BETWEEN 1984 AND 2021;") |> 
   janitor::clean_names()
 
 dim(a)
@@ -195,8 +195,8 @@ flextable::flextable(a)
 ```{r r-plot-biomass}
 #| fig-cap: View new POP biomass totals for GOA between 1984-2021 from `GAP_PRODUCTS.BIOMASS`. 
 
-a_mean <- a %>% 
-  dplyr::group_by(survey_definition_id) %>% 
+a_mean <- a |> 
+  dplyr::group_by(survey_definition_id) |> 
   dplyr::summarise(biomass_mt = mean(biomass_mt, na.rm = TRUE), 
                    minyr = min(year, na.rm = TRUE), 
                    maxyr = max(year, na.rm = TRUE)) 
@@ -234,7 +234,7 @@ figure <-
 # WHERE SPECIES_CODE = 30060 
 # AND SURVEY_DEFINITION_ID = 47 
 # AND AREA_ID = 99903 
-# AND YEAR BETWEEN 1984 AND 2021;") %>% 
+# AND YEAR BETWEEN 1984 AND 2021;") |> 
 #   janitor::clean_names()
 # 
 # dim(a)

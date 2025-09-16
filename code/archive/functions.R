@@ -149,7 +149,7 @@
 #     FROM ", locations[i], "
 #     FETCH FIRST 3 ROWS ONLY;"))
 #     
-#     temp_cols <- temp_data %>% 
+#     temp_cols <- temp_data |> 
 #       ncol()
 #     
 #     str00 <- paste0(str00, 
@@ -162,7 +162,7 @@
 #                            #         digits = 1, format = "f", big.mark = ","), 
 #                            # " ", ifelse(temp>1e+7, "GB", "B"), 
 #                            "\n\n", 
-#                            # flextable::flextable(temp_data) %>% theme_zebra(), 
+#                            # flextable::flextable(temp_data) |> theme_zebra(), 
 #                            knitr::kable(temp_data, row.names = FALSE),
 #                            "\n\n\n"
 #                     ))

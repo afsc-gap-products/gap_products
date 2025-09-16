@@ -41,7 +41,7 @@ get_gap_biomass<-function(area_id, species_code) {
                      area_id,
                      "&species_code=",
                      species_code)),
-    type = "application/json") %>%
+    type = "application/json") |>
     # convert to data frame
     bind_rows()
 }
@@ -92,7 +92,7 @@ data<- DBI::dbFetch(dbSendQuery(conn = con,
                            paste0("select * from gap_products.akfin_biomass 
 where species_name = ", my_species, 
 " and survey_definition_id = 98, 
-and area_id = 10"))) %>%
+and area_id = 10"))) |>
 dplyr::rename_with(tolower) # everyone likes lower case letters better
 
 head(data)
@@ -112,9 +112,9 @@ token <- akfingapdata::create_token(x = paste0(dirname(here::here()), "/akfin_to
 #| eval: false
 #| echo: true
 
-akfingapdata::get_gap_catch()[,1:6] %>% 
-  head() %>% 
-  flextable::flextable() %>%
+akfingapdata::get_gap_catch()[,1:6] |> 
+  head() |> 
+  flextable::flextable() |>
   flextable::theme_zebra()
 ```
 

@@ -37,7 +37,7 @@ metadata_column0 <- RODBC::sqlQuery(
       ORDER BY METADATA_COLNAME"
 )
 
-flextable::flextable(metadata_column0) %>% theme_zebra()
+flextable::flextable(metadata_column0) |> theme_zebra()
 ```
 
 ```{r rodbc-close}

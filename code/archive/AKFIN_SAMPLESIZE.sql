@@ -77,11 +77,11 @@ AND cc.SURVEY_DEFINITION_ID = aa.SURVEY_DEFINITION_ID
 
 -- Group for COUNT() or SUM() functions in SELECT call
 GROUP BY ss.SPECIES_CODE, cc.YEAR, cc.SURVEY_DEFINITION_ID, aa.AREA_ID, ss.specimen_sample_type--, st.NAME 
-ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE, ss.specimen_sample_type;")) %>% #  --, st.NAME;
+ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, ss.SPECIES_CODE, ss.specimen_sample_type;")) |> #  --, st.NAME;
 
   dplyr::mutate(SPECIMEN_SAMPLE_TYPE = gsub(pattern = " ", replacement = "_", x = SPECIMEN_SAMPLE_TYPE)), 
 SPECIMEN_SAMPLE_TYPE = gsub(pattern = ")", replacement = "", x = SPECIMEN_SAMPLE_TYPE), 
-SPECIMEN_SAMPLE_TYPE = gsub(pattern = "(", replacement = "", x = SPECIMEN_SAMPLE_TYPE))) %>% 
+SPECIMEN_SAMPLE_TYPE = gsub(pattern = "(", replacement = "", x = SPECIMEN_SAMPLE_TYPE))) |> 
   tidyr::pivot_wider(id_cols = c("SPECIES_CODE", "YEAR", "SURVEY_DEFINITION_ID", "AREA_ID"), 
                      names_from = "SPECIMEN_SAMPLE_TYPE", 
                      values_from = c("N_", "S_"))
@@ -164,13 +164,13 @@ ORDER BY cc.SURVEY_DEFINITION_ID, cc.YEAR, C.SPECIES_CODE;"))
 
 # Bind data together -----------------------------------------------------------
 
-AKFIN_SAMPLESIZE <- dplyr::full_join(dat_haul, dat_specimen) %>% 
-  dplyr::full_join(dat_length)  %>% 
-  dplyr::full_join(dat_specimen_aged) %>% 
-  dplyr::select(order(colnames(.))) %>% 
-  dplyr::relocate(SURVEY_DEFINITION_ID, AREA_ID, YEAR, SPECIES_CODE) %>% 
-  dplyr::arrange(SURVEY_DEFINITION_ID, AREA_ID, SPECIES_CODE, YEAR) %>% 
-  tidyr::pivot_longer(cols = dplyr::starts_with("N_"), names_to = "N_SAMPLE_TYPE", values_to = "N") %>% 
-  dplyr::mutate(N_SAMPLE_TYPE = gsub(pattern = "N_", replacement = "", x = N_SAMPLE_TYPE)) %>% 
+AKFIN_SAMPLESIZE <- dplyr::full_join(dat_haul, dat_specimen) |> 
+  dplyr::full_join(dat_length)  |> 
+  dplyr::full_join(dat_specimen_aged) |> 
+  dplyr::select(order(colnames(.))) |> 
+  dplyr::relocate(SURVEY_DEFINITION_ID, AREA_ID, YEAR, SPECIES_CODE) |> 
+  dplyr::arrange(SURVEY_DEFINITION_ID, AREA_ID, SPECIES_CODE, YEAR) |> 
+  tidyr::pivot_longer(cols = dplyr::starts_with("N_"), names_to = "N_SAMPLE_TYPE", values_to = "N") |> 
+  dplyr::mutate(N_SAMPLE_TYPE = gsub(pattern = "N_", replacement = "", x = N_SAMPLE_TYPE)) |> 
   dplyr::filter(!is.na(N))
 

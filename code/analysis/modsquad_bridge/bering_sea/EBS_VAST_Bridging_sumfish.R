@@ -79,13 +79,13 @@ for (ispp in 1:nrow(x = species_info)) {
                               survey = 'EBS_SHELF', 
                               speciesCode = species_code) 
   
-  EBS_nonstandard_hauls <- EBS$haul_other %>%
+  EBS_nonstandard_hauls <- EBS$haul_other |>
     filter(CRUISE %in% c(200101, 199401, 200501, 200601) 
            & PERFORMANCE >= 0
            & HAUL_TYPE == 3
            & !is.na(STRATUM))
   
-  EBS_nonstandard_catch <- EBS$catch_other %>%
+  EBS_nonstandard_catch <- EBS$catch_other |>
     filter(HAULJOIN %in% EBS_nonstandard_hauls$HAULJOIN)
   
   EBS$catch <- bind_rows(EBS$catch, EBS_nonstandard_catch)
@@ -151,15 +151,15 @@ for (ispp in 1:nrow(x = species_info)) {
   ##   Fill in zeros for hauls that did not encounter the species, 
   ##   Bind EBS, NBS and NBS18 haul data
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-  sumEBS <- sumfish::sumHaul(EBS) %>%
+  sumEBS <- sumfish::sumHaul(EBS) |>
     dplyr::mutate(REGION = "EBS")
-  sumNBS <- sumfish::sumHaul(NBS) %>%
+  sumNBS <- sumfish::sumHaul(NBS) |>
     dplyr::mutate(REGION = "NBS")
-  sum18 <- sumfish::sumHaul(NBS18) %>%
+  sum18 <- sumfish::sumHaul(NBS18) |>
     dplyr::mutate(STRATUM = as.character(STRATUM),
                   REGION = "NBS")
   
-  weightAll <- sumAll <- dplyr::bind_rows(sumEBS, sumNBS,sum18) %>%
+  weightAll <- sumAll <- dplyr::bind_rows(sumEBS, sumNBS,sum18) |>
     dplyr::filter(SPECIES_CODE %in% species_code, 
                   # YEAR >= min_year_ages,
                   !is.na(EFFORT))
@@ -178,15 +178,15 @@ for (ispp in 1:nrow(x = species_info)) {
   ##   Filter to choose years >= min_year_ages
   ##   Bind EBS, NBS and NBS18 size data
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-  size18 <- sumfish::sumSize(NBS18) %>%
+  size18 <- sumfish::sumSize(NBS18) |>
     dplyr::mutate(STRATUM = as.character(STRATUM),
                   REGION = 'NBS')
-  sizeNBS <- sumfish::sumSize(NBS) %>%
+  sizeNBS <- sumfish::sumSize(NBS) |>
     dplyr::mutate(REGION = 'NBS')
-  sizeEBS <- sumfish::sumSize(EBS) %>%
+  sizeEBS <- sumfish::sumSize(EBS) |>
     dplyr::mutate(REGION = 'EBS')
   
-  sizeAll <- sizeComp <- bind_rows(sizeEBS, sizeNBS,size18) %>%
+  sizeAll <- sizeComp <- bind_rows(sizeEBS, sizeNBS,size18) |>
     dplyr::filter(YEAR >= min_year_ages, 
                   !is.na(EFFORT))
   
@@ -243,12 +243,12 @@ for (ispp in 1:nrow(x = species_info)) {
                                    all_performance=FALSE)    
   
   ## Find missing observations of age-at-length for the NBS
-  missing_test <- alk_nbs_prime %>%
+  missing_test <- alk_nbs_prime |>
     ## For each combination of sex, year, and length bin, append a 
     ## column called total_ratio that sums probabilities (should either be
     ##  zero for missing or one for existing)
-    dplyr::group_by(SEX, YEAR, LENGTH) %>%
-    dplyr::summarize(total_ratio = sum(probability) ) %>%
+    dplyr::group_by(SEX, YEAR, LENGTH) |>
+    dplyr::summarize(total_ratio = sum(probability) ) |>
     ## then filter the dataframe to only those records where total_ratio == 0. 
     ## These are the ALKs that we need to fill in 
     dplyr::filter(total_ratio == 0)
@@ -262,17 +262,17 @@ for (ispp in 1:nrow(x = species_info)) {
   
   ## For those missing NBS ALKs, use the ALKs from the EBS, then append to the 
   ## available NBS ALKs
-  alk_nbs_yearFill <- alk_ebs %>%
+  alk_nbs_yearFill <- alk_ebs |>
     dplyr::inner_join(missing_test,
-                      by = c("YEAR", "SEX", "LENGTH")) %>%
-    dplyr::select(-total_ratio) %>%
+                      by = c("YEAR", "SEX", "LENGTH")) |>
+    dplyr::select(-total_ratio) |>
     dplyr::bind_rows(alk_nbs_prime2)
   
   ## For the remaining missing ALKs, we apply the NBS ALK with global_fill == T
   ## But first, find missing observations of age-at-length for the filled NBS key   
-  missing_test2 <- alk_nbs_yearFill %>%
-    group_by(YEAR, SEX, LENGTH) %>%
-    summarize(total_ratio = sum(probability) ) %>%
+  missing_test2 <- alk_nbs_yearFill |>
+    group_by(YEAR, SEX, LENGTH) |>
+    summarize(total_ratio = sum(probability) ) |>
     filter(total_ratio == 0)
   
   ## Again, filter ALK to only lengths that have some probability for age 
@@ -284,14 +284,14 @@ for (ispp in 1:nrow(x = species_info)) {
   alk_nbs_fill <- sumfish::sumALK(NBS_4alk, 
                                   global_fill = TRUE, 
                                   all_performance = FALSE)
-  alk_nbs_globalFill <- alk_nbs_fill %>%
+  alk_nbs_globalFill <- alk_nbs_fill |>
     inner_join(missing_test2,
-               by = c("YEAR", "SEX", "LENGTH")) %>%
-    select(-total_ratio) %>%
-    bind_rows(alk_nbs_yearFill) %>%
+               by = c("YEAR", "SEX", "LENGTH")) |>
+    select(-total_ratio) |>
+    bind_rows(alk_nbs_yearFill) |>
     ## We use EBS ALK for 2018 because the 2018 NBS specimen data are not filtered 
     ## out of the ALK generation for the EBS.
-    bind_rows(filter(alk_ebs, YEAR == 2018)) %>% 
+    bind_rows(filter(alk_ebs, YEAR == 2018)) |> 
     mutate(REGION = "NBS")
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -305,8 +305,8 @@ for (ispp in 1:nrow(x = species_info)) {
   ##   adopt a more robust methodology.
   ##
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  probabilities_test <- alk_nbs_globalFill %>%
-    group_by(SEX, YEAR, LENGTH) %>%
+  probabilities_test <- alk_nbs_globalFill |>
+    group_by(SEX, YEAR, LENGTH) |>
     summarize(total_ratio = sum(probability) )
   
   unique(probabilities_test$total_ratio)
@@ -324,28 +324,28 @@ for (ispp in 1:nrow(x = species_info)) {
   ## unique haul has the full age composition
   allCats <- expand.grid(HAULJOIN = unique(weightAll$HAULJOIN), 
                          AGE = unique(alk$AGE[alk$AGE<=plus_group]), 
-                         noAge = 0) %>%
+                         noAge = 0) |>
     inner_join(weightAll, by = c("HAULJOIN")) 
   
   ## Aggregate by Age key
-  Data <- sizeComp %>%
+  Data <- sizeComp |>
     ## append the alks to the sizeComp, adding columns `AGE`` and `probabilties``
     dplyr::left_join(alk, by = c("YEAR", "REGION", "LENGTH", 
-                                 "SEX", "SPECIES_CODE")) %>%
+                                 "SEX", "SPECIES_CODE")) |>
     ## Calculate age CPUE and truncate ages > plus group to the max age
     dplyr::mutate(ageCPUE = nSizeCPUE * probability,
                   AGE = ifelse(test = AGE > plus_group, 
-                               yes = plus_group, no = AGE)) %>% 
+                               yes = plus_group, no = AGE)) |> 
     ## sum cpues of length bins for a given ages for each unique haul
     dplyr::group_by(YEAR, REGION, HAULJOIN, STRATUM, 
-                    START_LONGITUDE, START_LATITUDE, nCPUE, AGE) %>%
+                    START_LONGITUDE, START_LATITUDE, nCPUE, AGE) |>
     dplyr::summarize(ageCPUE = sum(ageCPUE),
-                     count = dplyr::n()) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(HAULJOIN, AGE, ageCPUE, count) %>%
+                     count = dplyr::n()) |>
+    dplyr::ungroup() |>
+    dplyr::select(HAULJOIN, AGE, ageCPUE, count) |>
     ## make sure that all age categories are available for each unique haul and 
     ## if there is no cpue for a given age, fill with zero. 
-    dplyr::right_join(allCats, by= c("HAULJOIN", "AGE")) %>%
+    dplyr::right_join(allCats, by= c("HAULJOIN", "AGE")) |>
     dplyr::mutate(ageCPUE = ifelse(test = is.na(ageCPUE), 
                                    yes = noAge, 
                                    no = ageCPUE)) 
@@ -387,7 +387,7 @@ for (ispp in 1:nrow(x = species_info)) {
     AreaSwept_km2 = .01, # Converts CPUE to km^2
     Lat = START_LATITUDE,
     Lon = START_LONGITUDE,
-    Pass = 0) %>%
+    Pass = 0) |>
     data.frame() 
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
