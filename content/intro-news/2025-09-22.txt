@@ -1,0 +1,94 @@
+GAP_PRODUCTS ChangeLog (last produced on 2025-09-22) using gapindex v3.0.3
+Run completed by: Duane Stevenson
+ 
+-- This run was conducted primarily to update cpue, biomass, and sizecomp after the Northern Bering Sea 2025 bottom trawl survey.
+
+-- The skate complex aggregation (400) and Bathyraja spp. aggregation (405) was adjusted to account for the Genus name change Arctoraja parmifera (formerly Bathyraja parmifera) for all survey regions. See details in github issue: https://github.com/afsc-gap-products/gap_products/issues/78.
+
+-- Age compositions were updated to account for new GOA northern rock sole (2021) and NBS pollock (2023) aged otolith data. 
+
+-- A Bering sea slope Kamchatka flounder specimen record with a negative age was corrected. This correction slightly adjusted the age compositions. See details in github issue: https://github.com/afsc-gap-products/data-requests/issues/108.
+
+
+
+ AI Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  334 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  270 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  44 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  100 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 427 new agecomp records, 12 agecomp removed records, and  22 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  2732 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  470 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ 47091 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 1352 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 3721 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 158 new agecomp records, 0 agecomp removed records, and  12 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 12 agecomp removed records, and  72 modified agecomp records.
+
+
+
+
