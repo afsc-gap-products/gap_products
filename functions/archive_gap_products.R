@@ -2,6 +2,8 @@
 
 archive_gap_products <- function(path, archive_path) {
   
+  if (!dir.exists(paths = archive_path))
+    stop("The provided argument `archive_path` does not exist.")
   
   if (file.exists(paste0(path, "/report_changes.txt"))) {
     ## Copy changelog to news section
