@@ -25,6 +25,7 @@
 library(dplyr)
 library(readxl)
 library(tidyr)
+library(janitor)
 library(googledrive)
 library(gapindex)
 
@@ -41,6 +42,8 @@ googledrive::drive_auth()
 
 data_sources <- googledrive::drive_ls(
   path = googledrive::as_id(x = "1s-BKOnfiuF3b0642C_DGhLcuRv-MOPxO"))
+
+if (!dir.exists(paths = "temp/")) dir.create(path = "temp/")
 
 for (idata in 1:nrow(x = data_sources)) {
   googledrive::drive_download(file = data_sources$id[idata], 
