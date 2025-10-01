@@ -78,5 +78,6 @@ file.edit("code/direct_upload_akfin.R")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/archive_gap_products.R") 
 archive_gap_products(path = "temp/", 
-                     archive_path = "Y:/RACE_GF/GAP_PRODUCTS_Archives")
+                     archive_path = "V:/GAP_PRODUCTS_Archives")
+
 
