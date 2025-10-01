@@ -14,7 +14,7 @@ rm(list = ls())
 library(gapindex)
 
 ## Connect to Oracle
-sql_channel <- gapindex::get_connected()
+sql_channel <- gapindex::get_connected(check_access = FALSE)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Pull Data from the gapindex R Package
