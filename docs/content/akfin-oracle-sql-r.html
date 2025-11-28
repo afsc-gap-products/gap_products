@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,15 +67,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../content/akfin-api-r.html" rel="next">
 <link href="../content/akfin-metadata.html" rel="prev">
 <link href="../img/favicon.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2b26ff2ce9f0cc5edc0a1c91f60f6743.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-26c211a7d3338036e3e83f981a3ef5a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -110,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -484,7 +486,7 @@ function googleTranslateElementInit() {
 </section>
 <section id="ex.-cpue-for-all-ebs-and-nbs-stations-with-associated-haul-cruise-and-species-information." class="level3" data-number="8.0.3">
 <h3 data-number="8.0.3" class="anchored" data-anchor-id="ex.-cpue-for-all-ebs-and-nbs-stations-with-associated-haul-cruise-and-species-information."><span class="header-section-number">8.0.3</span> Ex. CPUE for all EBS and NBS stations with associated haul, cruise, and species information.</h3>
-<div class="cell">
+<div class="cell" data-tbl-cap="CPUE for all EBS and NBS stations with associated haul, cruise, and species information. ">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> RODBC<span class="sc">::</span><span class="fu">sqlQuery</span>(<span class="at">channel =</span> channel, <span class="co"># NOT RACEBASE.HAUL</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">query =</span> <span class="fu">paste0</span>(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"</span></span>
@@ -529,8 +531,8 @@ function googleTranslateElementInit() {
 <span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-6bef64e4{}.cl-6bdcb812{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6bdcb830{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6be44442{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6be44456{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6be48c7c{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6be48c86{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6be48c90{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6be48c9a{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6be48ca4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6be48ca5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6bef64e4"><caption><p>CPUE for all EBS and NBS stations with associated haul, cruise, and
-species information.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6be48c7c"><p class="cl-6be44442"><span class="cl-6bdcb812">CRUISE</span></p></th><th class="cl-6be48c7c"><p class="cl-6be44442"><span class="cl-6bdcb812">YEAR</span></p></th><th class="cl-6be48c7c"><p class="cl-6be44442"><span class="cl-6bdcb812">SURVEY_DEFINITION_ID</span></p></th><th class="cl-6be48c86"><p class="cl-6be44456"><span class="cl-6bdcb812">SURVEY_NAME</span></p></th><th class="cl-6be48c7c"><p class="cl-6be44442"><span class="cl-6bdcb812">VESSEL_ID</span></p></th><th class="cl-6be48c86"><p class="cl-6be44456"><span class="cl-6bdcb812">VESSEL_NAME</span></p></th><th class="cl-6be48c7c"><p class="cl-6be44442"><span class="cl-6bdcb812">HAULJOIN</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">198,203</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">1,982</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">98</span></p></td><td class="cl-6be48c9a"><p class="cl-6be44456"><span class="cl-6bdcb830">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">1</span></p></td><td class="cl-6be48c9a"><p class="cl-6be44456"><span class="cl-6bdcb830">CHAPMAN</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">877</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6be48ca4"><p class="cl-6be44442"><span class="cl-6bdcb830">198,203</span></p></td><td class="cl-6be48ca4"><p class="cl-6be44442"><span class="cl-6bdcb830">1,982</span></p></td><td class="cl-6be48ca4"><p class="cl-6be44442"><span class="cl-6bdcb830">98</span></p></td><td class="cl-6be48ca5"><p class="cl-6be44456"><span class="cl-6bdcb830">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-6be48ca4"><p class="cl-6be44442"><span class="cl-6bdcb830">1</span></p></td><td class="cl-6be48ca5"><p class="cl-6be44456"><span class="cl-6bdcb830">CHAPMAN</span></p></td><td class="cl-6be48ca4"><p class="cl-6be44442"><span class="cl-6bdcb830">877</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">198,203</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">1,982</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">98</span></p></td><td class="cl-6be48c9a"><p class="cl-6be44456"><span class="cl-6bdcb830">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">1</span></p></td><td class="cl-6be48c9a"><p class="cl-6be44456"><span class="cl-6bdcb830">CHAPMAN</span></p></td><td class="cl-6be48c90"><p class="cl-6be44442"><span class="cl-6bdcb830">877</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-06f71ee4{}.cl-06e3c920{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-06e3c93e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-06ebb536{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-06ebb54a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-06ebffc8{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-06ebffdc{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-06ebffdd{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-06ebffde{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-06ebffe6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-06ebffe7{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-06f71ee4"><caption><p>CPUE for all EBS and NBS stations with associated haul, cruise, and
+species information.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-06ebffc8"><p class="cl-06ebb536"><span class="cl-06e3c920">CRUISE</span></p></th><th class="cl-06ebffc8"><p class="cl-06ebb536"><span class="cl-06e3c920">YEAR</span></p></th><th class="cl-06ebffc8"><p class="cl-06ebb536"><span class="cl-06e3c920">SURVEY_DEFINITION_ID</span></p></th><th class="cl-06ebffdc"><p class="cl-06ebb54a"><span class="cl-06e3c920">SURVEY_NAME</span></p></th><th class="cl-06ebffc8"><p class="cl-06ebb536"><span class="cl-06e3c920">VESSEL_ID</span></p></th><th class="cl-06ebffdc"><p class="cl-06ebb54a"><span class="cl-06e3c920">VESSEL_NAME</span></p></th><th class="cl-06ebffc8"><p class="cl-06ebb536"><span class="cl-06e3c920">HAULJOIN</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">198,203</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">1,982</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">98</span></p></td><td class="cl-06ebffde"><p class="cl-06ebb54a"><span class="cl-06e3c93e">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">1</span></p></td><td class="cl-06ebffde"><p class="cl-06ebb54a"><span class="cl-06e3c93e">CHAPMAN</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">877</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-06ebffe6"><p class="cl-06ebb536"><span class="cl-06e3c93e">198,203</span></p></td><td class="cl-06ebffe6"><p class="cl-06ebb536"><span class="cl-06e3c93e">1,982</span></p></td><td class="cl-06ebffe6"><p class="cl-06ebb536"><span class="cl-06e3c93e">98</span></p></td><td class="cl-06ebffe7"><p class="cl-06ebb54a"><span class="cl-06e3c93e">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-06ebffe6"><p class="cl-06ebb536"><span class="cl-06e3c93e">1</span></p></td><td class="cl-06ebffe7"><p class="cl-06ebb54a"><span class="cl-06e3c93e">CHAPMAN</span></p></td><td class="cl-06ebffe6"><p class="cl-06ebb536"><span class="cl-06e3c93e">877</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">198,203</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">1,982</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">98</span></p></td><td class="cl-06ebffde"><p class="cl-06ebb54a"><span class="cl-06e3c93e">Eastern Bering Sea Crab/Groundfish Bottom Trawl Survey</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">1</span></p></td><td class="cl-06ebffde"><p class="cl-06ebb54a"><span class="cl-06e3c93e">CHAPMAN</span></p></td><td class="cl-06ebffdd"><p class="cl-06ebb536"><span class="cl-06e3c93e">877</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
@@ -567,7 +569,7 @@ species information.</p></caption><thead><tr style="overflow-wrap:break-word;"><
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE AREA_ID = 919</span></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="st">);"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="CPUE for all stations contained in the Shumagin region (AREA_ID = 919). ">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(HAULJOIN, STRATUM, SPECIES_CODE, LATITUDE_DD_START, LONGITUDE_DD_START, CPUE_KGKM2, GEAR_TEMPERATURE_C) <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">SPECIES_CODE =</span> <span class="fu">as.character</span>(SPECIES_CODE), </span>
@@ -578,8 +580,8 @@ species information.</p></caption><thead><tr style="overflow-wrap:break-word;"><
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-6d10a748{}.cl-6cfa64c4{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6cfa64ce{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6d04c810{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d04c824{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d05348a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d0534a8{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d0534b2{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d0534bc{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d0534c6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d0534d0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6d10a748"><caption><p>CPUE for all stations contained in the Shumagin region (AREA_ID =
-919).</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d05348a"><p class="cl-6d04c810"><span class="cl-6cfa64c4">HAULJOIN</span></p></th><th class="cl-6d0534a8"><p class="cl-6d04c824"><span class="cl-6cfa64c4">STRATUM</span></p></th><th class="cl-6d0534a8"><p class="cl-6d04c824"><span class="cl-6cfa64c4">SPECIES_CODE</span></p></th><th class="cl-6d05348a"><p class="cl-6d04c810"><span class="cl-6cfa64c4">LATITUDE_DD_START</span></p></th><th class="cl-6d05348a"><p class="cl-6d04c810"><span class="cl-6cfa64c4">LONGITUDE_DD_START</span></p></th><th class="cl-6d05348a"><p class="cl-6d04c810"><span class="cl-6cfa64c4">CPUE_KGKM2</span></p></th><th class="cl-6d05348a"><p class="cl-6d04c810"><span class="cl-6cfa64c4">GEAR_TEMPERATURE_C</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-12,880</span></p></td><td class="cl-6d0534bc"><p class="cl-6d04c824"><span class="cl-6cfa64ce">210</span></p></td><td class="cl-6d0534bc"><p class="cl-6d04c824"><span class="cl-6cfa64ce">21720</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">52.55793</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-169.7829</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">6,863.3672</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-12,881</span></p></td><td class="cl-6d0534d0"><p class="cl-6d04c824"><span class="cl-6cfa64ce">10</span></p></td><td class="cl-6d0534d0"><p class="cl-6d04c824"><span class="cl-6cfa64ce">21720</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">52.63840</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-169.7815</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">1,536.8594</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">4.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-12,882</span></p></td><td class="cl-6d0534bc"><p class="cl-6d04c824"><span class="cl-6cfa64ce">111</span></p></td><td class="cl-6d0534bc"><p class="cl-6d04c824"><span class="cl-6cfa64ce">21720</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">52.67131</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-169.4279</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">10,044.8409</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">4.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-12,883</span></p></td><td class="cl-6d0534d0"><p class="cl-6d04c824"><span class="cl-6cfa64ce">10</span></p></td><td class="cl-6d0534d0"><p class="cl-6d04c824"><span class="cl-6cfa64ce">21720</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">53.24099</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-168.0725</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">1,937.7294</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">5.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-12,884</span></p></td><td class="cl-6d0534bc"><p class="cl-6d04c824"><span class="cl-6cfa64ce">10</span></p></td><td class="cl-6d0534bc"><p class="cl-6d04c824"><span class="cl-6cfa64ce">21720</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">53.16771</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-167.9810</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">830.2039</span></p></td><td class="cl-6d0534b2"><p class="cl-6d04c810"><span class="cl-6cfa64ce">5.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-12,885</span></p></td><td class="cl-6d0534d0"><p class="cl-6d04c824"><span class="cl-6cfa64ce">111</span></p></td><td class="cl-6d0534d0"><p class="cl-6d04c824"><span class="cl-6cfa64ce">21720</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">53.06838</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">-167.6713</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">2,891.8092</span></p></td><td class="cl-6d0534c6"><p class="cl-6d04c810"><span class="cl-6cfa64ce">4.9</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-07fcad04{}.cl-07eb282c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-07eb2840{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-07f1ec5c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-07f1ec66{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-07f22b54{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-07f22b5e{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-07f22b68{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-07f22b69{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-07f22b72{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-07f22b7c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-07fcad04"><caption><p>CPUE for all stations contained in the Shumagin region (AREA_ID =
+919).</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-07f22b54"><p class="cl-07f1ec5c"><span class="cl-07eb282c">HAULJOIN</span></p></th><th class="cl-07f22b5e"><p class="cl-07f1ec66"><span class="cl-07eb282c">STRATUM</span></p></th><th class="cl-07f22b5e"><p class="cl-07f1ec66"><span class="cl-07eb282c">SPECIES_CODE</span></p></th><th class="cl-07f22b54"><p class="cl-07f1ec5c"><span class="cl-07eb282c">LATITUDE_DD_START</span></p></th><th class="cl-07f22b54"><p class="cl-07f1ec5c"><span class="cl-07eb282c">LONGITUDE_DD_START</span></p></th><th class="cl-07f22b54"><p class="cl-07f1ec5c"><span class="cl-07eb282c">CPUE_KGKM2</span></p></th><th class="cl-07f22b54"><p class="cl-07f1ec5c"><span class="cl-07eb282c">GEAR_TEMPERATURE_C</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-12,880</span></p></td><td class="cl-07f22b69"><p class="cl-07f1ec66"><span class="cl-07eb2840">210</span></p></td><td class="cl-07f22b69"><p class="cl-07f1ec66"><span class="cl-07eb2840">21720</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">52.55793</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-169.7829</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">6,863.3672</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-12,881</span></p></td><td class="cl-07f22b7c"><p class="cl-07f1ec66"><span class="cl-07eb2840">10</span></p></td><td class="cl-07f22b7c"><p class="cl-07f1ec66"><span class="cl-07eb2840">21720</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">52.63840</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-169.7815</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">1,536.8594</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">4.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-12,882</span></p></td><td class="cl-07f22b69"><p class="cl-07f1ec66"><span class="cl-07eb2840">111</span></p></td><td class="cl-07f22b69"><p class="cl-07f1ec66"><span class="cl-07eb2840">21720</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">52.67131</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-169.4279</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">10,044.8409</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">4.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-12,883</span></p></td><td class="cl-07f22b7c"><p class="cl-07f1ec66"><span class="cl-07eb2840">10</span></p></td><td class="cl-07f22b7c"><p class="cl-07f1ec66"><span class="cl-07eb2840">21720</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">53.24099</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-168.0725</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">1,937.7294</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">5.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-12,884</span></p></td><td class="cl-07f22b69"><p class="cl-07f1ec66"><span class="cl-07eb2840">10</span></p></td><td class="cl-07f22b69"><p class="cl-07f1ec66"><span class="cl-07eb2840">21720</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">53.16771</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-167.9810</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">830.2039</span></p></td><td class="cl-07f22b68"><p class="cl-07f1ec5c"><span class="cl-07eb2840">5.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-12,885</span></p></td><td class="cl-07f22b7c"><p class="cl-07f1ec66"><span class="cl-07eb2840">111</span></p></td><td class="cl-07f22b7c"><p class="cl-07f1ec66"><span class="cl-07eb2840">21720</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">53.06838</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">-167.6713</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">2,891.8092</span></p></td><td class="cl-07f22b72"><p class="cl-07f1ec5c"><span class="cl-07eb2840">4.9</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
@@ -610,7 +612,7 @@ species information.</p></caption><thead><tr style="overflow-wrap:break-word;"><
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="st">AND cc.SURVEY_DEFINITION_ID = 98 </span></span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="st">AND cc.YEAR = 2021;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="EBS Pacific Ocean perch CPUE and [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps) map. ">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(CPUE_KGHA)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
@@ -618,8 +620,8 @@ species information.</p></caption><thead><tr style="overflow-wrap:break-word;"><
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-6d5d46f2{}.cl-6d4c1a8a{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6d4c1a9e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6d52d1b8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d531150{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d531164{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d531165{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6d5d46f2"><caption><p>EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>
-map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d531150"><p class="cl-6d52d1b8"><span class="cl-6d4c1a8a">CPUE_KGHA</span></p></th><th class="cl-6d531150"><p class="cl-6d52d1b8"><span class="cl-6d4c1a8a">LATITUDE</span></p></th><th class="cl-6d531150"><p class="cl-6d52d1b8"><span class="cl-6d4c1a8a">LONGITUDE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">10.1768965</span></p></td><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">57.64871</span></p></td><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">-173.3735</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">6.2734470</span></p></td><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">56.36952</span></p></td><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">-169.4604</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">3.0252034</span></p></td><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">56.66253</span></p></td><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">-171.9549</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">1.8214628</span></p></td><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">57.98912</span></p></td><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">-173.4816</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">0.5535672</span></p></td><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">55.65865</span></p></td><td class="cl-6d531164"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">-168.1804</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">0.2813533</span></p></td><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">57.32545</span></p></td><td class="cl-6d531165"><p class="cl-6d52d1b8"><span class="cl-6d4c1a9e">-173.3217</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-084b059e{}.cl-08381330{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-08381344{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-083f195a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-083f55e6{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-083f55f0{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-083f55fa{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-084b059e"><caption><p>EBS Pacific Ocean perch CPUE and <a href="https://github.com/afsc-gap-products/akgfmaps"><code>akgfmaps</code></a>
+map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-083f55e6"><p class="cl-083f195a"><span class="cl-08381330">CPUE_KGHA</span></p></th><th class="cl-083f55e6"><p class="cl-083f195a"><span class="cl-08381330">LATITUDE</span></p></th><th class="cl-083f55e6"><p class="cl-083f195a"><span class="cl-08381330">LONGITUDE</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">10.1768965</span></p></td><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">57.64871</span></p></td><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">-173.3735</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">6.2734470</span></p></td><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">56.36952</span></p></td><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">-169.4604</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">3.0252034</span></p></td><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">56.66253</span></p></td><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">-171.9549</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">1.8214628</span></p></td><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">57.98912</span></p></td><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">-173.4816</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">0.5535672</span></p></td><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">55.65865</span></p></td><td class="cl-083f55f0"><p class="cl-083f195a"><span class="cl-08381344">-168.1804</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">0.2813533</span></p></td><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">57.32545</span></p></td><td class="cl-083f55fa"><p class="cl-083f195a"><span class="cl-08381344">-173.3217</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
@@ -680,7 +682,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE BIOMASS.SPECIES_CODE = 30060</span></span>
 <span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="st">AND BIOMASS.YEAR BETWEEN 1990 AND 2023"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="GOA Pacific Ocean perch biomass and abundance. ">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(biomass_mt, population_count, year, <span class="at">area =</span> description) <span class="sc">|&gt;</span></span>
@@ -702,7 +704,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">|&gt;</span></span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="st">"YEAR"</span>, <span class="at">big.mark =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-77934784{}.cl-7781f740{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7781f754{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7788a3ba{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7788a3d8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7788e2f8{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7788e302{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7788e30c{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7788e30d{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7788e316{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7788e317{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-77934784"><caption><p>GOA Pacific Ocean perch biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7788e2f8"><p class="cl-7788a3ba"><span class="cl-7781f740">BIOMASS_MT</span></p></th><th class="cl-7788e2f8"><p class="cl-7788a3ba"><span class="cl-7781f740">POPULATION_COUNT</span></p></th><th class="cl-7788e2f8"><p class="cl-7788a3ba"><span class="cl-7781f740">YEAR</span></p></th><th class="cl-7788e302"><p class="cl-7788a3d8"><span class="cl-7781f740">DESCRIPTION</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">31,073.15</span></p></td><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">60,087,711</span></p></td><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">1990</span></p></td><td class="cl-7788e30d"><p class="cl-7788a3d8"><span class="cl-7781f754">CENTRAL GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">100,321.48</span></p></td><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">174,708,361</span></p></td><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">1990</span></p></td><td class="cl-7788e317"><p class="cl-7788a3d8"><span class="cl-7781f754">EASTERN GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">24,435.56</span></p></td><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">79,343,919</span></p></td><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">1990</span></p></td><td class="cl-7788e30d"><p class="cl-7788a3d8"><span class="cl-7781f754">WESTERN GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">155,830.19</span></p></td><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">314,139,991</span></p></td><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">1990</span></p></td><td class="cl-7788e317"><p class="cl-7788a3d8"><span class="cl-7781f754">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">256,345.03</span></p></td><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">454,133,028</span></p></td><td class="cl-7788e30c"><p class="cl-7788a3ba"><span class="cl-7781f754">1993</span></p></td><td class="cl-7788e30d"><p class="cl-7788a3d8"><span class="cl-7781f754">CENTRAL GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">147,912.16</span></p></td><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">230,314,654</span></p></td><td class="cl-7788e316"><p class="cl-7788a3ba"><span class="cl-7781f754">1993</span></p></td><td class="cl-7788e317"><p class="cl-7788a3d8"><span class="cl-7781f754">EASTERN GOA - INPFC</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-10caef4a{}.cl-10b6f5ee{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-10b6f60c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-10bdf57e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-10bdf592{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-10be3480{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-10be3494{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-10be3495{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-10be349e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-10be34a8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-10be34a9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-10caef4a"><caption><p>GOA Pacific Ocean perch biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-10be3480"><p class="cl-10bdf57e"><span class="cl-10b6f5ee">BIOMASS_MT</span></p></th><th class="cl-10be3480"><p class="cl-10bdf57e"><span class="cl-10b6f5ee">POPULATION_COUNT</span></p></th><th class="cl-10be3480"><p class="cl-10bdf57e"><span class="cl-10b6f5ee">YEAR</span></p></th><th class="cl-10be3494"><p class="cl-10bdf592"><span class="cl-10b6f5ee">DESCRIPTION</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">31,073.15</span></p></td><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">60,087,711</span></p></td><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">1990</span></p></td><td class="cl-10be349e"><p class="cl-10bdf592"><span class="cl-10b6f60c">CENTRAL GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">100,321.48</span></p></td><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">174,708,361</span></p></td><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">1990</span></p></td><td class="cl-10be34a9"><p class="cl-10bdf592"><span class="cl-10b6f60c">EASTERN GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">24,435.56</span></p></td><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">79,343,919</span></p></td><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">1990</span></p></td><td class="cl-10be349e"><p class="cl-10bdf592"><span class="cl-10b6f60c">WESTERN GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">155,830.19</span></p></td><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">314,139,991</span></p></td><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">1990</span></p></td><td class="cl-10be34a9"><p class="cl-10bdf592"><span class="cl-10b6f60c">GOA Region: All Strata</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">256,345.03</span></p></td><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">454,133,028</span></p></td><td class="cl-10be3495"><p class="cl-10bdf57e"><span class="cl-10b6f60c">1993</span></p></td><td class="cl-10be349e"><p class="cl-10bdf592"><span class="cl-10b6f60c">CENTRAL GOA - INPFC</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">147,912.16</span></p></td><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">230,314,654</span></p></td><td class="cl-10be34a8"><p class="cl-10bdf57e"><span class="cl-10b6f60c">1993</span></p></td><td class="cl-10be34a9"><p class="cl-10bdf592"><span class="cl-10b6f60c">EASTERN GOA - INPFC</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
@@ -756,7 +758,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="st">-- sum over species_codes and sexes</span></span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY (YEAR, LENGTH_MM)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="AI Rock sole size compositions and ridge plot. ">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
@@ -766,7 +768,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="st">"year"</span>, <span class="at">big.mark =</span> <span class="st">""</span>)</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>dat0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-78db597e{}.cl-78c9a260{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-78c9a26a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-78d11540{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-78d1579e{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-78d157b2{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-78d157bc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-78db597e"><caption><p>AI Rock sole size compositions and ridge plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-78d1579e"><p class="cl-78d11540"><span class="cl-78c9a260">year</span></p></th><th class="cl-78d1579e"><p class="cl-78d11540"><span class="cl-78c9a260">length_cm</span></p></th><th class="cl-78d1579e"><p class="cl-78d11540"><span class="cl-78c9a260">population_count</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">1991</span></p></td><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">23</span></p></td><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">4,625,236</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">1991</span></p></td><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">38</span></p></td><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">2,254,964</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">1991</span></p></td><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">42</span></p></td><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">820,614</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">1991</span></p></td><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">52</span></p></td><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">11,225</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">1994</span></p></td><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">16</span></p></td><td class="cl-78d157b2"><p class="cl-78d11540"><span class="cl-78c9a26a">741,246</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">1994</span></p></td><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">26</span></p></td><td class="cl-78d157bc"><p class="cl-78d11540"><span class="cl-78c9a26a">9,762,322</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-120d7e54{}.cl-11fc3f72{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-11fc3f86{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1202bad2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1202f60a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1202f61e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1202f61f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-120d7e54"><caption><p>AI Rock sole size compositions and ridge plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-1202f60a"><p class="cl-1202bad2"><span class="cl-11fc3f72">year</span></p></th><th class="cl-1202f60a"><p class="cl-1202bad2"><span class="cl-11fc3f72">length_cm</span></p></th><th class="cl-1202f60a"><p class="cl-1202bad2"><span class="cl-11fc3f72">population_count</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">1991</span></p></td><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">23</span></p></td><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">4,625,236</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">1991</span></p></td><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">38</span></p></td><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">2,254,964</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">1991</span></p></td><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">42</span></p></td><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">820,614</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">1991</span></p></td><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">52</span></p></td><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">11,225</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">1994</span></p></td><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">16</span></p></td><td class="cl-1202f61e"><p class="cl-1202bad2"><span class="cl-11fc3f86">741,246</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">1994</span></p></td><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">26</span></p></td><td class="cl-1202f61f"><p class="cl-1202bad2"><span class="cl-11fc3f86">9,762,322</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
@@ -826,7 +828,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR = 2023</span></span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="st">AND AGE &gt;= 0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="EBS Walleye Pollock Age Compositions and Age Pyramid. ">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sex <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
@@ -839,7 +841,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-798bd6a0{}.cl-797adc42{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-797adc56{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-79817e12{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7981baf8{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7981bb0c{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7981bb16{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-798bd6a0"><caption><p>EBS Walleye Pollock Age Compositions and Age Pyramid.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7981baf8"><p class="cl-79817e12"><span class="cl-797adc42">AGE</span></p></th><th class="cl-7981baf8"><p class="cl-79817e12"><span class="cl-797adc42">POPULATION_COUNT</span></p></th><th class="cl-7981baf8"><p class="cl-79817e12"><span class="cl-797adc42">SEX</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">22,060,172</span></p></td><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">2</span></p></td><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">123,165,369</span></p></td><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">3</span></p></td><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">136,542,625</span></p></td><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">4</span></p></td><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">252,538,747</span></p></td><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">5</span></p></td><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">964,790,939</span></p></td><td class="cl-7981bb0c"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">6</span></p></td><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">242,135,720</span></p></td><td class="cl-7981bb16"><p class="cl-79817e12"><span class="cl-797adc56">1</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-12ba0232{}.cl-12a7a2c2{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-12a7a2d6{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-12af286c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-12af963a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-12af9658{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-12af9662{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-12ba0232"><caption><p>EBS Walleye Pollock Age Compositions and Age Pyramid.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-12af963a"><p class="cl-12af286c"><span class="cl-12a7a2c2">AGE</span></p></th><th class="cl-12af963a"><p class="cl-12af286c"><span class="cl-12a7a2c2">POPULATION_COUNT</span></p></th><th class="cl-12af963a"><p class="cl-12af286c"><span class="cl-12a7a2c2">SEX</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">22,060,172</span></p></td><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">2</span></p></td><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">123,165,369</span></p></td><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">3</span></p></td><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">136,542,625</span></p></td><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">4</span></p></td><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">252,538,747</span></p></td><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">5</span></p></td><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">964,790,939</span></p></td><td class="cl-12af9658"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">6</span></p></td><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">242,135,720</span></p></td><td class="cl-12af9662"><p class="cl-12af286c"><span class="cl-12a7a2d6">1</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
@@ -893,7 +895,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="st">AND SPECIES_CODE = 21720</span></span>
 <span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY YEAR, STRATUM"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="NBS Pacific cod biomass and abundance. ">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dat0 <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(year, area_name, biomass_mt, population_count) <span class="sc">|&gt;</span></span>
@@ -909,7 +911,7 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">|&gt;</span></span>
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="st">"YEAR"</span>, <span class="at">big.mark =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-7a492d7c{}.cl-7a37274e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7a372762{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7a3e01cc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7a3e01ea{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7a3e4358{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7a3e436c{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7a3e436d{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7a3e4376{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7a3e4380{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7a3e4381{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7a492d7c"><caption><p>NBS Pacific cod biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7a3e4358"><p class="cl-7a3e01cc"><span class="cl-7a37274e">YEAR</span></p></th><th class="cl-7a3e4358"><p class="cl-7a3e01cc"><span class="cl-7a37274e">STRATUM</span></p></th><th class="cl-7a3e436c"><p class="cl-7a3e01ea"><span class="cl-7a37274e">AREA_NAME</span></p></th><th class="cl-7a3e4358"><p class="cl-7a3e01cc"><span class="cl-7a37274e">BIOMASS_MT</span></p></th><th class="cl-7a3e4358"><p class="cl-7a3e01cc"><span class="cl-7a37274e">POPULATION_COUNT</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2010</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">7,462.5586</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">4,724,153</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2010</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">20,983.3757</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">3,928,600</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2010</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">680.4357</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">250,837</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2017</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">132,490.1518</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">66,187,245</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2017</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">147,971.4542</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">65,078,489</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2017</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">7,089.8740</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">4,191,118</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2019</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">107,096.7296</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">102,734,142</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2019</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">194,846.7230</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">73,495,085</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2019</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">63,061.2786</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">25,926,805</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2021</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">95,849.9833</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">68,767,498</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2021</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">53,814.6332</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">17,941,471</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2021</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">77,917.1083</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">42,991,939</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2022</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">96,500.6975</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">60,433,135</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2022</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">26,747.0747</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">10,447,602</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2022</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">30,487.2782</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">15,157,597</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2023</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">76,708.4327</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">39,605,860</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2023</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">19,130.0046</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">8,459,469</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2023</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">12,507.8566</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">4,128,368</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2025</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">70</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">48,587.6745</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">31,324,540</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">2025</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">71</span></p></td><td class="cl-7a3e4381"><p class="cl-7a3e01ea"><span class="cl-7a372762">Inner Domain</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">11,129.2287</span></p></td><td class="cl-7a3e4380"><p class="cl-7a3e01cc"><span class="cl-7a372762">4,456,827</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">2025</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">81</span></p></td><td class="cl-7a3e4376"><p class="cl-7a3e01ea"><span class="cl-7a372762">Middle Domain</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">9,665.6621</span></p></td><td class="cl-7a3e436d"><p class="cl-7a3e01cc"><span class="cl-7a372762">7,262,957</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-13bbd17e{}.cl-13a8f25c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-13a8f266{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-13b04322{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-13b04336{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-13b08026{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-13b08030{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-13b0803a{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-13b0803b{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-13b0804e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-13b0804f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-13bbd17e"><caption><p>NBS Pacific cod biomass and abundance.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-13b08026"><p class="cl-13b04322"><span class="cl-13a8f25c">YEAR</span></p></th><th class="cl-13b08026"><p class="cl-13b04322"><span class="cl-13a8f25c">STRATUM</span></p></th><th class="cl-13b08030"><p class="cl-13b04336"><span class="cl-13a8f25c">AREA_NAME</span></p></th><th class="cl-13b08026"><p class="cl-13b04322"><span class="cl-13a8f25c">BIOMASS_MT</span></p></th><th class="cl-13b08026"><p class="cl-13b04322"><span class="cl-13a8f25c">POPULATION_COUNT</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2010</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">7,462.5586</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">4,724,153</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2010</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">20,983.3757</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">3,928,600</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2010</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">680.4357</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">250,837</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2017</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">132,490.1518</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">66,187,245</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2017</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">147,971.4542</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">65,078,489</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2017</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">7,089.8740</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">4,191,118</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2019</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">107,096.7296</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">102,734,142</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2019</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">194,846.7230</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">73,495,085</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2019</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">63,061.2786</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">25,926,805</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2021</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">95,849.9833</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">68,767,498</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2021</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">53,814.6332</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">17,941,471</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2021</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">77,917.1083</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">42,991,939</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2022</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">96,500.6975</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">60,433,135</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2022</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">26,747.0747</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">10,447,602</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2022</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">30,487.2782</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">15,157,597</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2023</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">76,708.4327</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">39,605,860</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2023</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">19,130.0046</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">8,459,469</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2023</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">12,507.8566</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">4,128,368</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2025</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">70</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">48,587.6745</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">31,324,540</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">2025</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">71</span></p></td><td class="cl-13b0804f"><p class="cl-13b04336"><span class="cl-13a8f266">Inner Domain</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">11,129.2287</span></p></td><td class="cl-13b0804e"><p class="cl-13b04322"><span class="cl-13a8f266">4,456,827</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">2025</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">81</span></p></td><td class="cl-13b0803b"><p class="cl-13b04336"><span class="cl-13a8f266">Middle Domain</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">9,665.6621</span></p></td><td class="cl-13b0803a"><p class="cl-13b04322"><span class="cl-13a8f266">7,262,957</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
@@ -962,13 +964,13 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="st">AND YEAR BETWEEN 1990 AND 2023"</span> ) <span class="sc">|&gt;</span> </span>
 <span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="GOA Pacific Ocean perch biomass and line plot. ">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">|&gt;</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="st">"year"</span>, <span class="at">big.mark =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-7b3b521e{}.cl-7b2a744e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7b2a7462{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7b30fd0a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7b313a9a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7b313aa4{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7b313aae{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7b3b521e"><caption><p>GOA Pacific Ocean perch biomass and line plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7b313a9a"><p class="cl-7b30fd0a"><span class="cl-7b2a744e">survey_definition_id</span></p></th><th class="cl-7b313a9a"><p class="cl-7b30fd0a"><span class="cl-7b2a744e">biomass_mmt</span></p></th><th class="cl-7b313a9a"><p class="cl-7b30fd0a"><span class="cl-7b2a744e">biomass_ci_dw</span></p></th><th class="cl-7b313a9a"><p class="cl-7b30fd0a"><span class="cl-7b2a744e">biomass_ci_up</span></p></th><th class="cl-7b313a9a"><p class="cl-7b30fd0a"><span class="cl-7b2a744e">year</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">47</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.1558302</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.06181370</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.2498467</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1990</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">47</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.4796687</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.26596329</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.6933741</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1993</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">47</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.7651705</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.36044598</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1.1698950</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1996</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">47</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.7243655</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">-0.05238029</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1.5011113</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1999</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">47</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.6723673</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.22903375</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">1.1157008</span></p></td><td class="cl-7b313aa4"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">2001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">47</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.4543899</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.31077353</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">0.5980063</span></p></td><td class="cl-7b313aae"><p class="cl-7b30fd0a"><span class="cl-7b2a7462">2003</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-14834286{}.cl-14721830{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-14721844{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1478f2ea{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-147932fa{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1479330e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1479330f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-14834286"><caption><p>GOA Pacific Ocean perch biomass and line plot.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-147932fa"><p class="cl-1478f2ea"><span class="cl-14721830">survey_definition_id</span></p></th><th class="cl-147932fa"><p class="cl-1478f2ea"><span class="cl-14721830">biomass_mmt</span></p></th><th class="cl-147932fa"><p class="cl-1478f2ea"><span class="cl-14721830">biomass_ci_dw</span></p></th><th class="cl-147932fa"><p class="cl-1478f2ea"><span class="cl-14721830">biomass_ci_up</span></p></th><th class="cl-147932fa"><p class="cl-1478f2ea"><span class="cl-14721830">year</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">47</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.1558302</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.06181370</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.2498467</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">1990</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">47</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.4796687</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.26596329</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.6933741</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">1993</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">47</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.7651705</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.36044598</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">1.1698950</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">1996</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">47</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.7243655</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">-0.05238029</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">1.5011113</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">1999</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">47</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.6723673</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">0.22903375</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">1.1157008</span></p></td><td class="cl-1479330e"><p class="cl-1478f2ea"><span class="cl-14721844">2001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">47</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.4543899</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.31077353</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">0.5980063</span></p></td><td class="cl-1479330f"><p class="cl-1478f2ea"><span class="cl-14721844">2003</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
@@ -1048,14 +1050,14 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="st">AND SURVEY_DEFINITION_ID = 52"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="2022 AI Atka mackerel age specimen summary: all ages determined. ">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat) <span class="sc">|&gt;</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                       dplyr<span class="sc">::</span><span class="fu">arrange</span>(age)) <span class="sc">|&gt;</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">|&gt;</span></span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"species_code"</span>), <span class="at">big.mark =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-7c59ad08{}.cl-7c48a558{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7c48a56c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7c4f4d5e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7c4f8bb6{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7c4f8bc0{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7c4f8bca{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7c59ad08"><caption><p>2022 AI Atka mackerel age specimen summary: all ages determined.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7c4f8bb6"><p class="cl-7c4f4d5e"><span class="cl-7c48a558">survey_definition_id</span></p></th><th class="cl-7c4f8bb6"><p class="cl-7c4f4d5e"><span class="cl-7c48a558">year</span></p></th><th class="cl-7c4f8bb6"><p class="cl-7c4f4d5e"><span class="cl-7c48a558">species_code</span></p></th><th class="cl-7c4f8bb6"><p class="cl-7c4f4d5e"><span class="cl-7c48a558">age</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">52</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">2022</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">21921</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">52</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">2022</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">21921</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">52</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">2022</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">21921</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">52</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">2022</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">21921</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">52</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">2022</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">21921</span></p></td><td class="cl-7c4f8bc0"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">52</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">2022</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">21921</span></p></td><td class="cl-7c4f8bca"><p class="cl-7c4f4d5e"><span class="cl-7c48a56c">7</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-15a2ffda{}.cl-1591b64e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1591b662{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1598a5e4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1598e2a2{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1598e2ac{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1598e2b6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-15a2ffda"><caption><p>2022 AI Atka mackerel age specimen summary: all ages determined.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-1598e2a2"><p class="cl-1598a5e4"><span class="cl-1591b64e">survey_definition_id</span></p></th><th class="cl-1598e2a2"><p class="cl-1598a5e4"><span class="cl-1591b64e">year</span></p></th><th class="cl-1598e2a2"><p class="cl-1598a5e4"><span class="cl-1591b64e">species_code</span></p></th><th class="cl-1598e2a2"><p class="cl-1598a5e4"><span class="cl-1591b64e">age</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">52</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">2022</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">21921</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">52</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">2022</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">21921</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">52</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">2022</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">21921</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">52</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">2022</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">21921</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">52</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">2022</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">21921</span></p></td><td class="cl-1598e2ac"><p class="cl-1598a5e4"><span class="cl-1591b662">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">52</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">2022</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">21921</span></p></td><td class="cl-1598e2b6"><p class="cl-1598a5e4"><span class="cl-1591b662">7</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
@@ -1085,14 +1087,14 @@ map.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d5
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY AGE"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-tbl-cap="Ex.: 2022 AI Atka mackerel age specimen summary: how many of each age were determined. ">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(dat) <span class="sc">|&gt;</span> </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">|&gt;</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"species_code"</span>), <span class="at">big.mark =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-7caf0aa0{}.cl-7c9baf6e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7c9baf82{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7ca2806e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7ca2c15a{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7ca2c164{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7ca2c16e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7caf0aa0"><caption><p>Ex.: 2022 AI Atka mackerel age specimen summary: how many of each age
-were determined.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7ca2c15a"><p class="cl-7ca2806e"><span class="cl-7c9baf6e">survey_definition_id</span></p></th><th class="cl-7ca2c15a"><p class="cl-7ca2806e"><span class="cl-7c9baf6e">year</span></p></th><th class="cl-7ca2c15a"><p class="cl-7ca2806e"><span class="cl-7c9baf6e">species_code</span></p></th><th class="cl-7ca2c15a"><p class="cl-7ca2806e"><span class="cl-7c9baf6e">age</span></p></th><th class="cl-7ca2c15a"><p class="cl-7ca2806e"><span class="cl-7c9baf6e">countage</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">1</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">40</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">3</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">295</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">4</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">119</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">5</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">130</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">6</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">116</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">7</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">108</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">8</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">61</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">9</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">10</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">73</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">11</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">20</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">12</span></p></td><td class="cl-7ca2c16e"><p class="cl-7ca2806e"><span class="cl-7c9baf82">9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">52</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">2022</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">21921</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">13</span></p></td><td class="cl-7ca2c164"><p class="cl-7ca2806e"><span class="cl-7c9baf82">1</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-15fa29fe{}.cl-15e5d72e{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-15e5d742{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-15ef39e0{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-15ef7932{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-15ef793c{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-15ef7946{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-15fa29fe"><caption><p>Ex.: 2022 AI Atka mackerel age specimen summary: how many of each age
+were determined.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-15ef7932"><p class="cl-15ef39e0"><span class="cl-15e5d72e">survey_definition_id</span></p></th><th class="cl-15ef7932"><p class="cl-15ef39e0"><span class="cl-15e5d72e">year</span></p></th><th class="cl-15ef7932"><p class="cl-15ef39e0"><span class="cl-15e5d72e">species_code</span></p></th><th class="cl-15ef7932"><p class="cl-15ef39e0"><span class="cl-15e5d72e">age</span></p></th><th class="cl-15ef7932"><p class="cl-15ef39e0"><span class="cl-15e5d72e">countage</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">1</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">40</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">3</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">295</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">4</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">119</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">5</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">130</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">6</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">116</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">7</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">108</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">8</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">61</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">9</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">10</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">73</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">11</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">20</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">12</span></p></td><td class="cl-15ef7946"><p class="cl-15ef39e0"><span class="cl-15e5d742">9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">52</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">2022</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">21921</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">13</span></p></td><td class="cl-15ef793c"><p class="cl-15ef39e0"><span class="cl-15e5d742">1</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
@@ -1151,14 +1153,14 @@ were determined.</p></caption><thead><tr style="overflow-wrap:break-word;"><th c
 <span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Both scripts will produce this table:</p>
-<div class="cell">
+<div class="cell" data-tbl-cap="2022 AI Atka mackerel age specimen summary: how many otoliths were aged. This quiery was created using SQL. ">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>flextable<span class="sc">::</span><span class="fu">flextable</span>(<span class="fu">head</span>(dat)) <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">fit_to_width</span>(<span class="at">max_width =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">theme_zebra</span>() <span class="sc">|&gt;</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">colformat_num</span>(<span class="at">j =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"species_code"</span>), <span class="at">big.mark =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-7d027b86{}.cl-7cf08a2a{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7cf08a34{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7cf70b2a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7cf7493c{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7cf74950{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7d027b86"><caption><p>2022 AI Atka mackerel age specimen summary: how many otoliths were
-aged. This quiery was created using SQL.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-7cf7493c"><p class="cl-7cf70b2a"><span class="cl-7cf08a2a">survey_definition_id</span></p></th><th class="cl-7cf7493c"><p class="cl-7cf70b2a"><span class="cl-7cf08a2a">year</span></p></th><th class="cl-7cf7493c"><p class="cl-7cf70b2a"><span class="cl-7cf08a2a">species_code</span></p></th><th class="cl-7cf7493c"><p class="cl-7cf70b2a"><span class="cl-7cf08a2a">countage</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7cf74950"><p class="cl-7cf70b2a"><span class="cl-7cf08a34">52</span></p></td><td class="cl-7cf74950"><p class="cl-7cf70b2a"><span class="cl-7cf08a34">2022</span></p></td><td class="cl-7cf74950"><p class="cl-7cf70b2a"><span class="cl-7cf08a34">21921</span></p></td><td class="cl-7cf74950"><p class="cl-7cf70b2a"><span class="cl-7cf08a34">1,061</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-164d8c52{}.cl-163d303c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-163d3050{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1643bccc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1643fc1e{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1643fc28{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-164d8c52"><caption><p>2022 AI Atka mackerel age specimen summary: how many otoliths were
+aged. This quiery was created using SQL.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-1643fc1e"><p class="cl-1643bccc"><span class="cl-163d303c">survey_definition_id</span></p></th><th class="cl-1643fc1e"><p class="cl-1643bccc"><span class="cl-163d303c">year</span></p></th><th class="cl-1643fc1e"><p class="cl-1643bccc"><span class="cl-163d303c">species_code</span></p></th><th class="cl-1643fc1e"><p class="cl-1643bccc"><span class="cl-163d303c">countage</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1643fc28"><p class="cl-1643bccc"><span class="cl-163d3050">52</span></p></td><td class="cl-1643fc28"><p class="cl-1643bccc"><span class="cl-163d3050">2022</span></p></td><td class="cl-1643fc28"><p class="cl-1643bccc"><span class="cl-163d3050">21921</span></p></td><td class="cl-1643fc28"><p class="cl-1643bccc"><span class="cl-163d3050">1,061</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 
@@ -1169,236 +1171,242 @@ aged. This quiery was created using SQL.</p></caption><thead><tr style="overflow
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/afsc-gap-products\.github\.io\/gap_products");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/afsc-gap-products\.github\.io\/gap_products");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1406,185 +1414,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../content/akfin-metadata.html" class="pagination-link" aria-label="Data description">
