@@ -57,3 +57,4 @@ output/
 temp/
 data/
 content/*.csv
+**/*.quarto_ipynb
