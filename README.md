@@ -8,7 +8,7 @@ The scripts therein reproducibly produce our typical data products.
 > in the code
 > [releases](https://github.com/afsc-gap-products/gap_products/releases).
 
-*This code is primarally maintained by:*
+*This code is primarily maintained by:*
 
 **Emily Markowitz** (Emily.Markowitz AT noaa.gov;
 [@EmilyMarkowitz-NOAA](https://github.com/EmilyMarkowitz-NOAA))
