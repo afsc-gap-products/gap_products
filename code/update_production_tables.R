@@ -25,7 +25,8 @@ rm(list = ls())
 ##  GAP_PRODUCTS credentials. Import mismatches.RDS and constants
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex); library(data.table); library(rmarkdown)
-gapproducts_channel <- gapindex::get_connected(check_access = F)
+gapproducts_channel <- gapindex::get_connected(check_access = F, 
+                                               conn_type = "DBI")
 updates <- readRDS(file = "temp/mismatches.RDS")
 regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
 all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
@@ -40,15 +41,10 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 ##   areas, updated gapindex package, etc.) 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 detailed_notes <- 
-  "Run completed by: Duane Stevenson
+  "Run completed by: Zack Oyafuso
  
--- This run was conducted primarily to update cpue, biomass, and sizecomp after the Northern Bering Sea 2025 bottom trawl survey.
+-- This run was conducted to test out a branch of gapindex that incorporates obdc/DBI as an Oracle connection type and to incorporate recently uploaded Aleutian Island Pacific Ocean perch read otoliths into the age compositions. 
 
--- The skate complex aggregation (400) and Bathyraja spp. aggregation (405) was adjusted to account for the Genus name change Arctoraja parmifera (formerly Bathyraja parmifera) for all survey regions. See details in github issue: https://github.com/afsc-gap-products/gap_products/issues/78.
-
--- Age compositions were updated to account for new GOA northern rock sole (2021) and NBS pollock (2023) aged otolith data. 
-
--- A Bering sea slope Kamchatka flounder specimen record with a negative age was corrected. This correction slightly adjusted the age compositions. See details in github issue: https://github.com/afsc-gap-products/data-requests/issues/108.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,7 +65,7 @@ rmarkdown::render(input = "code/report_changes.RMD",
 ##   Import all field names to aid with uploading to Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 all_field_names <- 
-  RODBC::sqlQuery(
+  gapindex::sql_query(
     channel = gapproducts_channel,
     query = paste0(
       "
@@ -127,7 +123,7 @@ for (iregion in regions) {
     
     ## Extract field descriptions
     metadata_column <- 
-      RODBC::sqlQuery(
+      gapindex::sql_query(
         channel = gapproducts_channel,
         query = paste("SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
                          WHERE METADATA_COLNAME IN",
@@ -144,7 +140,7 @@ for (iregion in regions) {
       
       ## Extract the field descriptions of the table
       metadata_column <- 
-        RODBC::sqlQuery(
+        gapindex::sql_query(
           channel = gapproducts_channel,
           query = paste("SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
                          WHERE METADATA_COLNAME IN",
@@ -172,7 +168,7 @@ for (iregion in regions) {
       
       ## Use the newly created temporary table to flag which records to 
       ## remove from the iquantity table. The fields that utilize the 
-      RODBC::sqlQuery(
+      gapindex::sql_query(
         channel = gapproducts_channel,
         query = 
           paste0(
@@ -186,8 +182,11 @@ for (iregion in regions) {
             " FROM GAP_PRODUCTS.GAP_PRODUCTS_TEMP_REMOVED_RECORDS REMOVE)") )
       
       ## Drop temporary table
-      RODBC::sqlDrop(channel = gapproducts_channel, 
-                     sqtable = "GAP_PRODUCTS.GAP_PRODUCTS_TEMP_REMOVED_RECORDS")
+      gapindex::sql_query(
+        channel = gapproducts_channel, 
+        query = "DROP TABLE GAP_PRODUCTS.GAP_PRODUCTS_TEMP_REMOVED_RECORDS PURGE;"
+      )
+      
     }
     
     ## Add new records if they exist
@@ -212,7 +211,7 @@ for (iregion in regions) {
         share_with_all_users = F)
       
       ## Append the new records to the 
-      RODBC::sqlQuery(
+      gapindex::sql_query(
         channel = gapproducts_channel,
         query = paste0("INSERT INTO GAP_PRODUCTS.", toupper(x = iquantity), 
                        " (", paste0(c(key_fields, response_fields), 
@@ -222,8 +221,10 @@ for (iregion in regions) {
                        " FROM GAP_PRODUCTS.GAP_PRODUCTS_TEMP_NEW_RECORDS"))
       
       ## Drop temporary table
-      RODBC::sqlDrop(channel = gapproducts_channel, 
-                     sqtable = "GAP_PRODUCTS.GAP_PRODUCTS_TEMP_NEW_RECORDS")
+      gapindex::sql_query(
+        channel = gapproducts_channel, 
+        query = "DROP TABLE GAP_PRODUCTS.GAP_PRODUCTS_TEMP_NEW_RECORDS PURGE;"
+      )
     }
     
     # Modify records if they exist
@@ -265,50 +266,38 @@ for (iregion in regions) {
         )
       
       ## Execute modify records query
-      RODBC::sqlQuery(channel = gapproducts_channel,
-                      query = modify_query)
+      gapindex::sql_query(channel = gapproducts_channel,
+                          query = modify_query)
       
       ## Drop temporary table
-      RODBC::sqlDrop(channel = gapproducts_channel, 
-                     sqtable = "GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS")
-      
+      gapindex::sql_query(
+        channel = gapproducts_channel, 
+        query = "DROP TABLE GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS PURGE;"
+      )
     }
   }
 }
 
 ## Commit changes
-RODBC::sqlQuery(
+gapindex::sql_query(
   channel = gapproducts_channel,
   query = "commit;")
 
 ## Update Table Comments to reflect updated DDL timestamp
-RODBC::sqlQuery(
+gapindex::sql_query(
   channel = gapproducts_channel,
   query = "BEGIN
 	UPDATE_TABLE_COMMENTS;
 	UPDATE_FIELD_COMMENTS;
 END;")
 
-## Purge dropped temporary tables to free up space
-RODBC::sqlQuery(channel = gapproducts_channel,
-                query = "
-BEGIN
-  FOR obj IN (
-    SELECT OBJECT_NAME 
-    FROM RECYCLEBIN
-    WHERE ORIGINAL_NAME LIKE 'GAP_PRODUCTS_TEMP_%'
-  ) LOOP
-    EXECUTE IMMEDIATE 'PURGE TABLE \"' || obj.OBJECT_NAME || '\"';
-  END LOOP;
-END;")
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Use summarize_gp_updates to quickly check audit tables
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# source("functions/summarize_gp_updates.R")
-# summarize_gp_updates(channel = gapproducts_channel,
-#                      time_start = "30-APR-25 11.00.00 AM",
-#                      time_end = "30-APR-25 11.59.00 PM" )
+source("functions/summarize_gp_updates.R")
+summarize_gp_updates(channel = gapproducts_channel,
+                     time_start = "13-MAR-26 11.00.00 AM",
+                     time_end = "14-APR-26 11.59.00 PM" )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Update FOSS and AKFIN Tables
@@ -329,18 +318,22 @@ for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
   cat("Creating", temp_table_name, "...\n")
   
   ## Extract tables already in GAP_PRODUCTS
-  available_views <- subset(x = RODBC::sqlTables(channel = gapproducts_channel, 
-                                                 schema = "GAP_PRODUCTS"))
+  available_views <- gapindex::sql_query(
+    channel = gapproducts_channel, 
+    query = "SELECT OWNER, TABLE_NAME 
+    FROM ALL_TABLES 
+    WHERE OWNER = 'GAP_PRODUCTS';"
+  )
   
   ## If the temp_table_name already exists, drop before recreating
   if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
-    RODBC::sqlQuery(channel = gapproducts_channel, 
-                    query = paste("DROP MATERIALIZED VIEW", temp_table_name))
+    gapindex::sql_query(channel = gapproducts_channel, 
+                        query = paste("DROP MATERIALIZED VIEW", temp_table_name))
   
   ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
   ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
   ## caled code/sql_foss.
-  RODBC::sqlQuery(
+  gapindex::sql_query(
     channel = gapproducts_channel,
     query = getSQL(filepath = paste0("code/sql_", 
                                      views$table_type[isql_script], "/", 
@@ -348,10 +341,10 @@ for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
     )
   )
   
-  RODBC::sqlQuery(channel = gapproducts_channel,
-                  query = paste0("GRANT SELECT ON GAP_PRODUCTS.", 
-                                 views$table_name[isql_script],
-                                 " TO PUBLIC;"))
+  gapindex::sql_query(channel = gapproducts_channel,
+                      query = paste0("GRANT SELECT ON GAP_PRODUCTS.", 
+                                     views$table_name[isql_script],
+                                     " TO PUBLIC;"))
   
   end_time <- Sys.time()
   cat(names(print(end_time - start_time)), "\n")
