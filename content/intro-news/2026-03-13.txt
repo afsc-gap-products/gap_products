@@ -1,0 +1,89 @@
+GAP_PRODUCTS ChangeLog (last produced on 2026-03-13) using gapindex v3.1.0
+Run completed by: Zack Oyafuso
+ 
+-- This run was conducted to test out a branch of gapindex that incorporates obdc/DBI as an Oracle connection type and to incorporate recently uploaded Aleutian Island Pacific Ocean perch read otoliths into the age compositions. 
+
+
+
+
+ AI Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 3918 new agecomp records, 53 agecomp removed records, and  34 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+
