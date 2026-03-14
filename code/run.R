@@ -36,7 +36,7 @@ rm(list = ls())
 ##   Make sure a local temp/ directory is created, save R version data, 
 ##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-library(gapindex) # devtools::install_github("afsc-gap-products/gapindex")
+library(gapindex) # devtools::install_github("afsc-gap-products/gapindex@testing_odbc")
 source("functions/output_r_session.R")
 output_r_session(path = "temp/") ## sets up temp/ folder
 
@@ -78,6 +78,4 @@ file.edit("code/direct_upload_akfin.R")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/archive_gap_products.R") 
 archive_gap_products(path = "temp/", 
-                     archive_path = "V:/GAP_PRODUCTS_Archives")
-
-
+                     archive_path = "Y:/RACE_GF/GAP_PRODUCTS_Archives")
