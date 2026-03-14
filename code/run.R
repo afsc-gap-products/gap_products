@@ -74,7 +74,7 @@ file.edit("code/direct_upload_akfin.R")
 ##   Archive GAP_PRODUCTS  ----
 ##   Archive the bits that would allow one to reproduce the standard data 
 ##   tables. The session info and package versions are also .csv files in the 
-##   temp/folder.
+##   temp/folder. ** Check your specific path to GAP_PRODUCTS_Archives **
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/archive_gap_products.R") 
 archive_gap_products(path = "temp/", 
