@@ -23,6 +23,9 @@ rm(list = ls())
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  Load libraries and connect to Oracle. Make sure to connect using the 
 ##  GAP_PRODUCTS credentials. Import mismatches.RDS and constants
+##
+##  If you are a GAP_PRODUCTS proxy user, log into using username 
+##  MYUSERNAME[GAP_PRODUCTS] and use your password
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex); library(data.table); library(rmarkdown)
 gapproducts_channel <- gapindex::get_connected(check_access = F, 
@@ -43,8 +46,7 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
  
--- This run was conducted to test out a branch of gapindex that incorporates obdc/DBI as an Oracle connection type and to incorporate recently uploaded Aleutian Island Pacific Ocean perch read otoliths into the age compositions. 
-
+-- This run was conducted to test out a branch of gapindex that incorporates obdc/DBI as an Oracle connection type and to incorporate recently uploaded Gulf of Alaska Pacific Ocean perch and Bering sea saffron cod, Greenland turbot, and yellowfin sole read otoliths into the age compositions. 
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -296,8 +298,8 @@ END;")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "13-MAR-26 11.00.00 AM",
-                     time_end = "14-APR-26 11.59.00 PM" )
+                     time_start = "24-APR-26 11.00.00 AM",
+                     time_end = "25-APR-26 11.59.00 PM" )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Update FOSS and AKFIN Tables
