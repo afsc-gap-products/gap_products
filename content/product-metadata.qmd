@@ -12,7 +12,8 @@ str00 <- print_table_metadata(
   channel, 
   locations = c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", 
                 "SURVEY_DESIGN", "STRATUM_GROUPS", "SPECIES_YEAR",
-                "TAXON_GROUPS") 
+                "TAXON_GROUPS", "CRUISE", "HAUL", "LENGTH", "METADATA_COLUMN", 
+                "SPECIMEN", "TAXONOMIC_CLASSIFICATION", "TAXONOMIC_GROUPS") 
 )
 ```
 
