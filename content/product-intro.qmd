@@ -19,7 +19,7 @@ Code to generate design-based catch-per-unit-effort (CPUE), indices of abundance
 
 ```{r gapindex-cite, include=FALSE}
 library(devtools)
-devtools::install_github("afsc-gap-products/gapindex")
+pak::pak("afsc-gap-products/gapindex")
 
 library(gapindex)
 ```

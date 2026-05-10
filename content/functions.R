@@ -4,9 +4,9 @@
 PKG <- c(
   "devtools", # Package development tools for R; used here for downloading packages from GitHub
 
-  "gapindex", # devtools::install_github("afsc-gap-products/gapindex")
-  "akgfmaps", # devtools::install_github("afsc-gap-products/akgfmaps")
-  "akfingapdata", # devtools::install_github("MattCallahan-NOAA/akfingapdata")
+  "gapindex", # pak::pak("afsc-gap-products/gapindex")
+  "akgfmaps", # pak::pak("afsc-gap-products/akgfmaps")
+  "akfingapdata", # pak::pak("MattCallahan-NOAA/akfingapdata")
   
   "dplyr",
   "googledrive",
@@ -44,18 +44,18 @@ pkg_install <- function(p){
   }
   if(!require(p, character.only = TRUE)) {
     if (p == 'coldpool') {
-      devtools::install_github("afsc-gap-products/coldpool")
+      pak::pak("afsc-gap-products/coldpool")
     } else if (p == "akgfmapas") {
-      devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+      pak::pak("afsc-gap-products/akgfmaps")
     } else if (p == 'nwfscSurvey') {
-      remotes::install_github("pfmc-assessments/nwfscSurvey")
+      pak::pak("pfmc-assessments/nwfscSurvey")
     } else if (p == "gapctd") {
-      devtools::install_github("afsc-gap-products/gapctd")
+      pak::pak("afsc-gap-products/gapctd")
     } else if (p == 'gapindex') {
-      remotes::install_github("afsc-gap-products/gapindex")
+      pak::pak("afsc-gap-products/gapindex")
     } else if (p == 'akfingapdata') {
-      # remotes::install_github("afsc-gap-products/akfingapdata")
-      devtools::install_github("MattCallahan-NOAA/akfingapdata")
+      # pak::pak("afsc-gap-products/akfingapdata")
+      pak::pak("MattCallahan-NOAA/akfingapdata")
     } else {
       install.packages(p)
     }

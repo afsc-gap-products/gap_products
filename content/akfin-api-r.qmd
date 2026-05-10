@@ -7,7 +7,7 @@ number-depth: 3
 ```{r setup, include=FALSE}
 #| file: functions.R
 
-knitr::opts_chunk$set(eval = TRUE, echo = TRUE, include = TRUE)
+knitr::opts_chunk$set(eval = FALSE, echo = TRUE, include = TRUE)
 # tell R to not use scientific notation
 options(scipen=999)
 ```
@@ -27,7 +27,7 @@ library(dplyr)
 library(magrittr)
 library(httr)
 library(flextable)
-# devtools::install_github("MattCallahan-NOAA/akfingapdata")
+# pak::pak("MattCallahan-NOAA/akfingapdata")
 library(akfingapdata)
 
 # function for pulling data from the api using the httr package

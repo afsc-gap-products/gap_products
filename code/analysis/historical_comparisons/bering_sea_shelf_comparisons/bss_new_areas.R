@@ -20,7 +20,7 @@ options(scipen = 999)
 source(file = "functions/calc_diff.R")
 source(file = "functions/compare_tables.R")
 
-# devtools::install_github("afsc-gap-products/gapindex")
+# pak::pak("afsc-gap-products/gapindex")
 library(gapindex)
 
 ## Connect to Oracle

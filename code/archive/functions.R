@@ -4,8 +4,8 @@
 #   # Keeping Organized
 #   "devtools", # Package development tools for R; used here for downloading packages from GitHub
 #   "distill",
-#   "gapindex", # devtools::install_github("afsc-gap-products/gapindex")
-#   "akgfmaps", # devtools::install_github("afsc-gap-products/akgfmaps")
+#   "gapindex", # pak::pak("afsc-gap-products/gapindex")
+#   "akgfmaps", # pak::pak("afsc-gap-products/akgfmaps")
 #   "dplyr",
 #   "googledrive",
 #   "magrittr",

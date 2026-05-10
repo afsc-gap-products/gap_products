@@ -285,7 +285,7 @@ dat |>
 #| echo: true
 #| warning: false
 
-# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+# pak::pak("afsc-gap-products/akgfmaps")
 library(akgfmaps)
 
 figure <- akgfmaps::make_idw_map(

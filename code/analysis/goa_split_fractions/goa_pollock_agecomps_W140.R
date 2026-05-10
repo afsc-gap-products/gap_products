@@ -50,7 +50,7 @@ rm(list = ls())
 ##   version. To be merged in the future.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Import Libraries
-# devtools::install_github(repo = "asfc-gap-products/gapindex@using_datatable")
+# pak::pak(repo = "asfc-gap-products/gapindex@using_datatable")
 library(gapindex)
 library(data.table)
 

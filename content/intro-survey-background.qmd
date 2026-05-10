@@ -30,7 +30,7 @@ Scientists from the Alaska Fisheries Science Center conduct these bottom trawl s
 library(ggplot2)
 library(viridis)
 library(sf)
-# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+# pak::pak("afsc-gap-products/akgfmaps")
 library(akgfmaps)
 
 crs_out <- "EPSG:3338"

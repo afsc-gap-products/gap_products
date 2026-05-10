@@ -4,12 +4,12 @@ number-sections: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = TRUE, echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 
 # install.packages(c("httr", "jsonlite"))
 library(httr)
 library(jsonlite)
-# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+# pak::pak("afsc-gap-products/akgfmaps")
 library(akgfmaps)
 library(flextable)
 library(ggplot2)
@@ -368,7 +368,7 @@ These plots are similar to those published in the [annual Bering Sea data report
 ```{r j, fig.height=8, fig.width=6}
 #| label: pollock-multi-idw
 #| tbl-cap: "Inverse-distance weight CPUE of walleye pollock catch at each station in the 2019-2023 eastern and northern Bering Sea bottom trawl surveys. "
-# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+# pak::pak("afsc-gap-products/akgfmaps")
 library(akgfmaps)
 idw <- akgfmaps::make_idw_stack(
   x = dat |> 
@@ -797,7 +797,7 @@ This map is constructed using [`akgfmaps`](https://github.com/afsc-gap-products/
 #| label: pollock-multi2-loc
 #| tbl-cap: "Inverse-distance weight CPUE of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. "
 
-# devtools::install_github("afsc-gap-products/akgfmaps", build_vignettes = TRUE)
+# pak::pak("afsc-gap-products/akgfmaps")
 library(akgfmaps)
 
 figure0 <- akgfmaps::make_idw_map(
