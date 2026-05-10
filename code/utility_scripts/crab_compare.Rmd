@@ -1,0 +1,130 @@
+---
+title: "crab_compare"
+output: html_document
+date: "2026-05-10"
+---
+
+# Pull tables
+
+```{r data_dl}
+
+files <-  c("crab_sizecomp", "crab_biomass", "crab_cpue", 
+            # "crabpack_specimen", "crab_specimen",
+            "crab_sizecomp_pack", "crab_biomass_pack", "crab_cpue_pack")
+for (filesi in files) {
+temp <- read.csv(file = here::here(paste0("data/", filesi, ".csv"))) |> 
+  dplyr::rename_all(tolower)
+assign(x = filesi, temp)
+}
+
+gapindex_sizecomp <- crab_sizecomp
+gapindex_biomass <- crab_biomass
+gapindex_cpue <- crab_cpue
+crabpack_sizecomp <- crab_sizecomp_pack
+crabpack_biomass <- crab_biomass_pack
+crabpack_cpue <- crab_cpue_pack |> 
+  dplyr::mutate(
+    # cpue_kgkm2 = cpue_kgkm2/10,
+    cpue_nokm2 = cpue_nokm2*1000
+  # weight_kg = weight_g/1000, 
+  #               cpue_kgkm2 = cpue_kgkm2/1000
+                ) |>
+  dplyr::select(-weight_g)
+
+```
+
+
+## Catch per unit effort
+
+```{r compare-cpue}
+cpue_compare <- dplyr::full_join(
+  gapindex_cpue, 
+  crabpack_cpue, 
+  by = c("hauljoin", "species_code")) 
+
+cpue_compare_diff <- cpue_compare |> 
+  dplyr::mutate(
+    # weight_kg_diff = weight_kg.x - weight_kg.y, 
+                count_diff = count.x - count.y, 
+                # area_swept_km2_diff = area_swept_km2.x - area_swept_km2.y, 
+                count_diff = count.x - count.y, 
+                cpue_kgkm2_diff = cpue_kgkm2.x - cpue_kgkm2.y, 
+                cpue_nokm2_diff = cpue_nokm2.x - cpue_nokm2.y) |> 
+  dplyr::select(hauljoin, species_code, dplyr::ends_with("_diff")) |> 
+  dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.001, 1, 0)), 
+                noteable_diff = (#weight_kg_diff  + area_swept_km2_diff + 
+                                   count_diff + cpue_kgkm2_diff + cpue_nokm2_diff)) |> 
+  dplyr::filter(noteable_diff > 0)
+
+cpue_compare_diff
+
+cpue_compare_diff_data <- cpue_compare |> 
+  dplyr::right_join(cpue_compare_diff |> 
+                      dplyr::select(hauljoin, species_code, noteable_diff))
+
+cpue_compare_diff_data
+```
+
+## Biomass
+
+```{r compare-biomass-abundance}
+biomass_compare <- dplyr::full_join(
+  gapindex_biomass |> 
+    dplyr::select(species_code, survey_definition_id, 
+                  biomass_mt, population_count) , #|> 
+    # dplyr::filter(AREA_ID %in% c(99900, 99901, 99902)), 
+  crabpack_biomass  |> 
+    dplyr::select(species_code, survey_definition_id,
+                  biomass_mt, population_count), 
+  by = c("survey_definition_id", "year", "species_code", "survey_definition_id"))
+
+biomass_compare_diff <- biomass_compare |> 
+  dplyr::mutate(biomass_mt_diff = biomass_mt.x - biomass_mt.y, 
+                population_count_diff = population_count.x - population_count.y) |> 
+  dplyr::select(SURVEY_DEFINITION_ID, YEAR, species_code, AREA_ID, 
+                dplyr::ends_with("_diff")) |> 
+  dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.000001, 1, 0)), 
+                noteable_diff = (biomass_mt_diff + population_count_diff)) |> 
+  dplyr::filter(noteable_diff > 0)
+
+biomass_compare_diff
+
+biomass_compare_diff_data <- biomass_compare |> 
+  dplyr::right_join(biomass_compare_diff |> 
+                      dplyr::select(survey_definition_id, year, species_code, area_id, noteable_diff))
+
+biomass_compare_diff_data
+```
+
+## Sizecomp
+
+```{r compare-sizecomp}
+sizecomp_compare <- dplyr::full_join(
+  size_comp_subareas |> 
+    dplyr::filter(area_id %in% c(99900, 99902)) |> 
+    dplyr::select(-area_id) |>
+    dplyr::filter(!is.na(population_count)) |>
+    dplyr::filter(population_count != 0), 
+  sizecomp_crabpack |> 
+    dplyr::select(-area_id)  |>
+    dplyr::filter(population_count != 0) |> 
+    dplyr::filter(!is.na(population_count)), 
+    # dplyr::mutate(population_count = ifelse(is.na(population_count), 0, population_count)) |>
+  by = c("SURVEY_DEFINITION_ID", "YEAR", "SPECIES_CODE", "LENGTH_MM", "SEX"))
+
+sizecomp_compare_diff <- sizecomp_compare |> 
+  dplyr::mutate(population_count_diff = (population_count.x - population_count.y)) |> 
+  dplyr::mutate(percent_diff = (population_count.y - population_count.x)/population_count.x) |>
+  dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.000001, 1, 0)), 
+                noteable_diff = (population_count_diff)) |> 
+  dplyr::filter(noteable_diff > 0)
+
+sizecomp_compare_diff
+
+# sizecomp_compare_diff_data <- sizecomp_compare |> 
+#   dplyr::right_join(sizecomp_compare_diff |> 
+#                       dplyr::select(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, AREA_ID, noteable_diff))
+# 
+# sizecomp_compare_diff_data
+```
+

@@ -45,7 +45,7 @@ for(i in 1:length(species_lookup$SPECIES)){
   # Bind haul info to add hauljoins later
   haul <- bind_rows(dat_EBS$haul, dat_NBS$haul)
   specimen <- bind_rows(dat_EBS$specimen, dat_NBS$specimen) |> 
-    dplyr::select(-REGION, -YEAR, -STATION_ID, -HAUL_TYPE, -AREA_SWEPT, -LATITUDE, -LONGITUDE, -DISTRICT, -STRATUM, -TOTAL_AREA)
+    dplyr::select(-REGION, -YEAR, -STATION_ID, -HAUL_TYPE, -LATITUDE, -LONGITUDE, -DISTRICT, -STRATUM, -TOTAL_AREA) # -AREA_SWEPT, 
   specimen_out <- rbind(specimen_out, specimen)
   
   ## Biomass/Abundance ---------------------------------------------------------
@@ -88,11 +88,11 @@ for(i in 1:length(species_lookup$SPECIES)){
   # bind regions and format
   cpue_combined <- rbind(EBS_cpue, NBS_cpue) |>
     dplyr::left_join(species_lookup) |>
-    dplyr::left_join(haul) |>
-    dplyr::select(YEAR, SPECIES_CODE, SPECIES, REGION,
-                  HAULJOIN, STATION_ID, LATITUDE, LONGITUDE,
-                  DISTRICT, STRATUM, TOTAL_AREA,
-                  COUNT, CPUE, CPUE_MT)
+    dplyr::left_join(haul) # |>
+    # dplyr::select(YEAR, SPECIES_CODE, SPECIES, REGION,
+    #               HAULJOIN, STATION_ID, LATITUDE, LONGITUDE,
+    #               DISTRICT, STRATUM, TOTAL_AREA,
+    #               COUNT, CPUE, CPUE_MT)
   cpue_out <- rbind(cpue_out, cpue_combined)
   
   
@@ -154,6 +154,8 @@ for(i in 1:length(species_lookup$SPECIES)){
   EBS_pop1mm_out <- rbind(EBS_pop1mm_out, EBS_pop1mm)
   
 }
+save(bioabund_out, cpue_out, NBS_pop1mm_out, EBS_pop1mm_out, specimen_out, "data/crabpack_data.rdata")
+
 
 crab_spp <- data.frame(
   species_code = c(69322, 69323, 68560, 68580, 68590, 69400),
@@ -188,7 +190,7 @@ crab_sizecomp <-
   dplyr::select(-sex_description)
 
 write.csv(x = crab_sizecomp, 
-          file = here::here("data/crab_sizecomp.csv"), 
+          file = here::here("data/crab_sizecomp_pack.csv"), 
           row.names = FALSE)
 
 crab_cpue <- cpue_out |> 
@@ -196,21 +198,27 @@ crab_cpue <- cpue_out |>
   dplyr::left_join(crab_spp) |> 
   dplyr::mutate(
     cpue_nokm2 = cpue * 3.4299, 
-    cpue_kgkm2 = cpue_mt * 3.4299, 
+    cpue_kgkm2 = (cpue_mt/1000) * 3.4299, 
     srvy = region, 
-    weight_kg = NA, 
+    # weight_kg = NA, 
     survey_definition_id = dplyr::case_when(
       region == "NBS" ~ 143, 
       region == "EBS" ~ 98)) |> 
   dplyr::select(species_code, hauljoin, count, cpue_nokm2, cpue_kgkm2)  |> # does not have weight_kg , #year, common_name, taxon, species_name, srvy, survey_definition_id
 #dplyr::select(-common_name, -taxon, -species_name, -srvy) |> 
   dplyr::left_join(specimen |> 
-  dplyr::mutate(weight_g = (CALCULATED_WEIGHT_1MM * SAMPLING_FACTOR)) |> 
-  dplyr::group_by(hauljoin = HAULJOIN, species_code = SPECIES_CODE) |> 
-  dplyr::summarise(weight_g = sum(weight_g, na.rm = TRUE)))
+  dplyr::mutate(weight_g = (CALCULATED_WEIGHT * SAMPLING_FACTOR)) |> 
+  dplyr::group_by(hauljoin = HAULJOIN, 
+                  species_code = SPECIES_CODE) |> 
+  dplyr::summarise(weight_g = sum(weight_g, na.rm = TRUE)) |> 
+    dplyr::mutate(weight_kg = weight_g/1000) |> 
+  dplyr::select(-weight_g)) |> 
+  dplyr::left_join(haul |> 
+                     dplyr::select(hauljoin = HAULJOIN, area_swept = AREA_SWEPT) |> 
+                     dplyr::distinct())
 
 write.csv(x = crab_cpue, 
-          file = here::here("data/crab_cpue.csv"), 
+          file = here::here("data/crab_cpue_pack.csv"), 
           row.names = FALSE)
 
 crab_biomass <- bioabund_out |> 
@@ -239,56 +247,62 @@ crab_biomass <- bioabund_out |>
   dplyr::select(-species, -taxon, -species_name, -common_name, -srvy)
 
 write.csv(x = crab_biomass, 
-          file = here::here("data/crab_biomass.csv"), 
+          file = here::here("data/crab_biomass_pack.csv"), 
           row.names = FALSE)
 
 
 crab_specimen <- specimen |> 
-  dplyr::select(HAULJOIN, SPECIES_CODE, SEX, LENGTH_MM = SIZE_1MM, SHELL_CONDITION, EGG_CONDITION, CLUTCH_SIZE, MERUS_LENGTH, CHELA_HEIGHT, DISEASE_CODE, WEIGHT_G = CALCULATED_WEIGHT_1MM, SAMPLING_FACTOR) 
+  dplyr::mutate(LENGTH_TYPE = dplyr::case_when(
+    SPECIES_CODE %in% c(68541, 68550, 68560) ~ 8,
+    TRUE ~ 7
+  )) |> 
+  dplyr::select(HAULJOIN, SPECIES_CODE, SEX, LENGTH_MM = SIZE_1MM, LENGTH_TYPE, 
+                SHELL_CONDITION, EGG_CONDITION, CLUTCH_SIZE, MERUS_LENGTH, 
+                CHELA_HEIGHT, DISEASE_CODE, 
+                WEIGHT_G = CALCULATED_WEIGHT_1MM, 
+                SAMPLING_FACTOR)
 
 write.csv(x = crab_specimen, 
-          file = here::here("data/crab_specimen.csv"), 
+          file = here::here("data/crab_specimen_pack.csv"), 
           row.names = FALSE)
 
-quantity <- c("crab_sizecomp", "crab_biomass", "crab_cpue", "crab_specimen")
-
-# Temporarily dump these tables in MARKOWITZE so they can be pulled into production tables ------------
-source("Z:/Projects/ConnectToOracle.R")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Upload Tables to GAP_PRODUCTS
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-for (idata in quantity) { ## Loop over data types -- start
-  
-  data_table <- read.csv(file = here::here(paste0("data/", idata, ".csv"))) |> 
-    dplyr::rename_all(toupper)
-
-  ## Pull field descriptions from GAP_PRODUCTS.METADATA_COLUMN
-  metadata_column <-
-    RODBC::sqlQuery(channel = channel,
-                    query = paste(
-                      "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
-                       WHERE METADATA_COLNAME IN",
-                      gapindex::stitch_entries(names(x = data_table))))
-
-  ## Clean up field names to be consistent with the data input format for
-  ## gapindex::upload_oracle
-  names(x = metadata_column) <-
-    gsub(x = tolower(x = names(x = metadata_column)),
-         pattern = "metadata_",
-         replacement = "")
-  
-  ## Upload to Oracle
-  gapindex::upload_oracle(channel = channel,
-                          x = data_table,
-                          schema = "MARKOWITZE", # "GAP_PRODUCTS",
-                          table_name = toupper(x = idata),
-                          table_metadata = "compiled from crabpack",
-                          metadata_column = metadata_column)
-  
-} ## Loop over data types -- start
-
-
-
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##   Upload Tables to GAP_PRODUCTS
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##
+# # Temporarily dump these tables in MARKOWITZE so they can be pulled into production tables ------------
+# source("Z:/Projects/ConnectToOracle.R")
+# quantity <- c("crab_sizecomp", "crab_biomass", "crab_cpue", "crab_specimen")
+# 
+# for (idata in quantity) { ## Loop over data types -- start
+#   
+#   data_table <- read.csv(file = here::here(paste0("data/", gsub(pattern = "crab_", replacement = "crabpack_", x = idata), ".csv"))) |> 
+#     dplyr::rename_all(toupper)
+# 
+#   ## Pull field descriptions from GAP_PRODUCTS.METADATA_COLUMN
+#   metadata_column <-
+#     RODBC::sqlQuery(channel = channel,
+#                     query = paste(
+#                       "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
+#                        WHERE METADATA_COLNAME IN",
+#                       gapindex::stitch_entries(names(x = data_table))))
+# 
+#   ## Clean up field names to be consistent with the data input format for
+#   ## gapindex::upload_oracle
+#   names(x = metadata_column) <-
+#     gsub(x = tolower(x = names(x = metadata_column)),
+#          pattern = "metadata_",
+#          replacement = "")
+#   
+#   ## Upload to Oracle
+#   gapindex::upload_oracle(channel = channel,
+#                           x = data_table,
+#                           schema = "MARKOWITZE", # "GAP_PRODUCTS",
+#                           table_name = toupper(x = idata),
+#                           table_metadata = "compiled from crabpack",
+#                           metadata_column = metadata_column)
+#   
+# } ## Loop over data types -- start
+# 
+# 
+# 

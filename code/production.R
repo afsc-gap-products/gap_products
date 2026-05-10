@@ -15,6 +15,7 @@ options(scipen = 999999)
 ##   Connect to Oracle (Make sure to connect to network or VPN)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(gapindex); library(data.table)
+# source(file = "utility_scripts/crab_pull.R") -- is this the right folder for this
 source(file = "functions/calc_diff.R")
 source(file = "functions/compare_tables.R")
 channel <- gapindex::get_connected(check_access = F)
@@ -167,14 +168,32 @@ for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
   
   ## Combine stratum, subarea, and region estimates for the biomass and
   ## size composition tables
+  
+  ### add crab data
+  crab_cpue <- read.csv("data/crab_cpue.R")
+  crab_bio <- read.csv("data/crab_biomass.R")
+  crab_sizecomp <- read.csv("data/crab_sizecomps.R")
+  
+  production_cpue <-
+    rbind(production_cpue,
+          crab_cpue[, 
+                   names(x = production_cpue),  
+                   with = F])
+  
   production_biomass <-
     rbind(production_biomass_stratum[,
                                      names(x = production_biomass_subarea), 
                                      with = F],
+          crab_bio[, 
+                    names(x = production_biomass_subarea),  
+                    with = F],
           production_biomass_subarea)
   
   production_sizecomp <-
     rbind(production_sizecomp_subarea,
+          crab_sizecomp[, 
+                    names(x = production_sizecomp_subarea),  
+                    with = F],
           production_sizecomp_stratum[, 
                                       names(x = production_sizecomp_subarea),  
                                       with = F])
