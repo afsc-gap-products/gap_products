@@ -6,8 +6,9 @@ number-depth: 3
 
 ```{r setup, include=FALSE}
 #| file: functions.R
+#| eval: false
 
-knitr::opts_chunk$set(eval = FALSE, echo = TRUE, include = TRUE)
+knitr::opts_chunk$set(eval = FALSE, echo = TRUE, include = TRUE, )
 # tell R to not use scientific notation
 options(scipen=999)
 ```
@@ -18,10 +19,11 @@ The url structure is "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[
 
 If you’re using R to pull data through web services you might find the [akfingapdata](https://github.com/MattCallahan-NOAA/akfingapdata/tree/main) (pronounced **akfin-gap-data** not **ak-eff-ing-app-data**) R package helpful.
 
-
 ### Load packages and helpful functions
 
 ```{r akfin-api-fn}
+#| eval: false
+
 # load libraries
 library(dplyr)
 library(magrittr)
@@ -64,7 +66,7 @@ con <- dbConnect(odbc::odbc(), "akfin", UID=getPass(msg="USER NAME"), PWD=getPas
 
 ```{r}
 #| label: test-2b
-#| eval: true
+#| eval: false
 #| echo: false
 
 library(odbc)
@@ -102,6 +104,7 @@ Sign into akfin with token (need to request token from AKFIN)
 
 ```{r}
 #| eval: false
+
 library(akfingapdata)
 token <- akfingapdata::create_token(x = paste0(dirname(here::here()), "/akfin_token.txt"))
 ```

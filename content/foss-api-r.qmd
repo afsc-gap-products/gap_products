@@ -18,10 +18,8 @@ library(dplyr)
 library(magrittr)
 library(tidyr)
 options(scipen = 999)
-```
 
-```{r, include = FALSE, echo = FALSE}
-test0 <- FALSE
+eval0 <- FALSE
 ```
 
 **An application programming interface (API) is a way for two or more computer programs to communicate with each other.** More information about how to amend API links can be found [here](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/22.3/books.html#AELIG90103/). Useful introductions to using APIs in `R` can be found [here](https://www.dataquest.io/blog/r-api-tutorial/). 
@@ -45,13 +43,10 @@ Note that without specifying, a basic query to the API will only return 25 entri
 api_link_haul <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/'
 ```
 
-```{r api_link_haul-test, echo = FALSE, inlcude = FALSE, eval = test0}
-# api_link_haul <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_haul/' # test
-```
-
 #### Load first 25 rows of data
 
-```{r load-25-haul}
+```{r load-25-haul, eval = eval0}
+
 res <- httr::GET(url = api_link_haul)
 # res ## Test connection
 
@@ -66,7 +61,7 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
 Since the maxim number of rows a user can pull is 10,000 rows in a query, the user needs to cycle through by `offsetting` to the next 10,000 rows (as is shown here). 
 
-```{r load-haul}
+```{r load-haul, eval = eval0}
 dat <- data.frame()
 for (i in seq(0, 500000, 10000)){
   ## find how many iterations it takes to cycle through the data
@@ -90,7 +85,7 @@ for (i in seq(0, 500000, 10000)){
 
 Explore the data contents:
 
-```{r a}
+```{r a, eval = eval0}
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
@@ -112,18 +107,14 @@ dat_haul_api <- dat
 
 ### Load catch data
 
-```{r api_link_catch}
+```{r api_link_catch, eval = eval0}
 # link to the API
 api_link_catch <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/'
 ```
 
-```{r api_link_catch-test, echo = FALSE, inlcude = FALSE, eval = test0}
-# api_link_catch <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_catch/' # test
-```
-
 #### Load first 25 rows of data
 
-```{r load-25-catch}
+```{r load-25-catch, eval = eval0}
 res <- httr::GET(url = api_link_catch)
 # res ## Test connection
 
@@ -138,7 +129,7 @@ print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
 Since the maxim number of rows a user can pull is 10,000 rows in a query, the user needs to cycle through by `offsetting` to the next 10,000 rows (as is shown here). 
 
-```{r load-catch, eval = TRUE}
+```{r load-catch, eval = eval0}
 dat <- data.frame()
 # for (i in seq(0, 100000, 10000)){
 for (i in seq(0, 1000000, 10000)){
@@ -163,7 +154,7 @@ for (i in seq(0, 1000000, 10000)){
 
 Explore the data contents:
 
-```{r b}
+```{r b, eval = eval0}
 
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
@@ -188,16 +179,12 @@ dat_catch_api <- dat
 
 Since there are less than 10,000 rows of species data (and the maxim number of rows a user can pull from this API is 10,000 rows in a query), we can simply call `?offset=0&limit=10000` in our query call. 
 
-```{r api_link_species}
+```{r api_link_species, eval = eval0}
 # link to the API
 api_link_species <- 'https://apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/'
 ```
 
-```{r api_link_species-test, echo = FALSE, inlcude = FALSE, eval = test0}
-# api_link_species <- 'https://dev-apps-st.fisheries.noaa.gov/ods/foss/afsc_groundfish_survey_species/' # test
-```
-
-```{r load-species}
+```{r load-species, eval = eval0}
 res <- httr::GET(url = paste0(api_link_species, "?offset=0&limit=10000"))
 
 ## convert from JSON format
@@ -208,7 +195,7 @@ dat <- data$items  |>
 
 Explore the data contents:
 
-```{r c}
+```{r c, eval = eval0}
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
@@ -234,7 +221,7 @@ It is important to create and have access to zero-fill (presence and absence) so
 
 First prepare a table with all combinations of what species should be listed for what hauls/surveys. For zero-filled data, all species caught in a survey need to have zero or non-zero row entries for a haul
 
-```{r g, message = TRUE, comment = TRUE, warning = TRUE}
+```{r g, message = TRUE, comment = TRUE, warning = TRUE, eval = eval0}
 comb <- dplyr::full_join(
   # find all species that have been caught, by survey
   x = dplyr::left_join(dat_catch_api, dat_haul_api, by = "hauljoin") |>
@@ -252,7 +239,7 @@ comb <- dplyr::full_join(
 
 Explore the data contents:
 
-```{r gg}
+```{r gg, eval = eval0}
 print(paste0("rows: ", nrow(comb), "; cols: ", ncol(comb)))
 
 comb |> head(3) |> 
@@ -265,7 +252,7 @@ comb |> head(3) |>
 
 Now, using that table of combinations (here, called `comb`), join data to make a full zero-filled CPUE dataset. When all of the data have been full joined together, there should be the maximum number of rows in `comb`. 
 
-```{r ggg, message = TRUE, comment = TRUE, warning = TRUE}
+```{r ggg, message = TRUE, comment = TRUE, warning = TRUE, eval = eval0}
 dat <- comb |>
   # add species data
   dplyr::left_join(dat_species_api) |> # , "species_code"
@@ -283,7 +270,7 @@ dat <- comb |>
 
 Explore the data contents:
 
-```{r gggg}
+```{r gggg, eval = eval0}
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
@@ -309,7 +296,7 @@ Using the zero-filled data from the previous example, we can make a few plots!
 
 Here is some example data of 2023 through 2019 (`year %in% 2019:2023`) eastern and northern Bering Sea (`srvy %in% c("EBS", "NBS)`) walleye pollock (`species_code == 21740`). 
 
-```{r h}
+```{r h, eval = eval0}
 dat <- dat_zerofill_api |> 
   dplyr::filter(year %in% 2019:2023 & 
                   srvy %in% c("EBS", "NBS") & 
@@ -334,7 +321,7 @@ dat |>
 
 ### Plot locations on map
 
-```{r i}
+```{r i, eval = eval0}
 #| label: pollock-multi-loc
 #| tbl-cap: "CPUE (kg/km^2) of walleye pollock catch at each station in the 2019-2023 eastern and northern Bering Sea bottom trawl surveys. Size of black circles denote magnitude of CPUE caught at station and red triangles denote stations where walleye pollock were not caught. "
 
@@ -365,7 +352,7 @@ This map is constructed using [`akgfmaps`](https://github.com/afsc-gap-products/
 
 These plots are similar to those published in the [annual Bering Sea data reports](https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys#communications). 
 
-```{r j, fig.height=8, fig.width=6}
+```{r j, fig.height=8, fig.width=6, eval = eval0}
 #| label: pollock-multi-idw
 #| tbl-cap: "Inverse-distance weight CPUE of walleye pollock catch at each station in the 2019-2023 eastern and northern Bering Sea bottom trawl surveys. "
 # pak::pak("afsc-gap-products/akgfmaps")
@@ -476,7 +463,7 @@ First, because `year` is identified in the haul table, we need to identify all o
 
 Note: Check how many rows and columns are in the data pull. The eastern Bering Sea survey (before 2024) has 376 stations in it, and pollock are often found in throughout the region so this should have a similar number of rows. 
 
-```{r k}
+```{r k, eval = eval0}
 ## query the API link
 res <- httr::GET(url = paste0(api_link_haul, '?limit=10000&q={"year":2023,"srvy":"EBS"}'))
 
@@ -496,7 +483,7 @@ dat_haul_ex <- dat
 ```
 
 
-```{r m}
+```{r m, eval = eval0}
 #| label: test-foss-api-3
 #| tbl-cap: "Haul data filtered by `year = 2023` and `SRVY = 'EBS'`. "
 
@@ -514,7 +501,7 @@ dat_haul_ex |>
 
 In the catch data, we itemize species catches by `species_code`. To find out which `species_code` to use, you can check variations on the following code. Note that here the word `pollock` is case sensitive. All species `common_name` entries are lower case except for proper nouns (e.g., "Pacific"). The notation for finding a string is to use `%` around the phrase. Since `%` is a reserved character in a URL, you have to replace `%` with `%25`. Similarly, `%20` needs to be used in place of a space (e.g., between "walleye" and "pollock": `"walleye%20pollock"}'`).  
 
-```{r n}
+```{r n, eval = eval0}
 ## query the API link. Use: 
 res <- httr::GET(url = paste0(api_link_species, '?q={%22common_name%22:%22walleye%20pollock%22}'))
 # OR
@@ -529,7 +516,7 @@ data <- jsonlite::fromJSON(base::rawToChar(res$content))
 dat_species_ex <- data$items |> dplyr::select(-links) # necessary for API accounting, but not part of the dataset
 ```
 
-```{r p}
+```{r p, eval = eval0}
 #| label: wp-spp
 #| tbl-cap: "Walleye pollock species information. "
 
@@ -547,7 +534,7 @@ dat_species_ex |>
 
 We'll use the data from the haul and species table we collected before to select 2023 eastern Bering Sea walleye pollock catch data. 
 
-```{r q}
+```{r q, eval = eval0}
 ## query the API link
 # data for all walleye pollock caught in all 2023 eastern Bering Sea survey hauls
 dat <- data.frame()
@@ -570,7 +557,7 @@ for (i in 1:nrow(dat_haul_ex)) {
 
 Explore data:
 
-```{r t}
+```{r t, eval = eval0}
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
@@ -592,7 +579,7 @@ dat_catch_ex <- dat
 
 For reference and to help break down the above query, see these other query examples:
 
-```{r u, eval = FALSE}
+```{r u, eval = eval0}
 # data for haul -22775 (i.e., one specific haul)?
 res <- httr::GET(url = paste0(api_link_catch, 
                               '?offset=',i,'&limit=10000&q={"hauljoin":-22775}'))
@@ -602,7 +589,7 @@ res <- httr::GET(url = paste0(api_link_catch,
                               '?offset=',i,'&limit=10000&q={"species_code":21740}'))
 ```
 
-```{r rr, include = FALSE, eval = FALSE}
+```{r rr, include = FALSE, eval = eval0}
 dat <- data.frame()
 for (i in seq(0, 100000, 10000)){
   # for (i in seq(0, 1000000, 10000)){
@@ -662,7 +649,7 @@ dat <- data$items |>
 ```
 
 
-```{r v, include = FALSE, eval = FALSE}
+```{r v, include = FALSE, eval = eval0}
 # cant get these to work, but they really should!!
 
 # TOLEDO
@@ -726,7 +713,7 @@ dat
 
 It is important to create and have access to zero-fill (presence and absence) so you can do simple analyses and plot data. 
 
-```{r w}
+```{r w, eval = eval0}
 dat <- dplyr::full_join(
   dat_haul_ex,
   dat_catch_ex) |> 
@@ -742,7 +729,7 @@ dat <- dplyr::full_join(
 
 Explore data
 
-```{r ww}
+```{r ww, eval = eval0}
 # Find how many rows and columns are in the data pull
 print(paste0("rows: ", nrow(dat), "; cols: ", ncol(dat)))
 
@@ -765,7 +752,7 @@ Using the zero-filled data from the previous example, we can make a few plots!
 
 ## Plot locations
 
-```{r x}
+```{r x, eval = eval0}
 #| label: pollock-multi1-loc
 #| tbl-cap: "CPUE (kg/km^2) of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. Size of black circles denote magnitude of CPUE caught at station and red triangles denote stations where walleye pollock were not caught. "
 
@@ -793,7 +780,7 @@ ggplot2::ggplot(data = dat |> dplyr::filter(cpue_kgkm2 != 0),
 
 This map is constructed using [`akgfmaps`](https://github.com/afsc-gap-products/akgfmaps)
 
-```{r y}
+```{r y, eval = eval0}
 #| label: pollock-multi2-loc
 #| tbl-cap: "Inverse-distance weight CPUE of walleye pollock catch at each station in the 2023 eastern Bering Sea bottom trawl survey. "
 
