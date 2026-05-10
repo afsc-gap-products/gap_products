@@ -154,7 +154,8 @@ for(i in 1:length(species_lookup$SPECIES)){
   EBS_pop1mm_out <- rbind(EBS_pop1mm_out, EBS_pop1mm)
   
 }
-save(bioabund_out, cpue_out, NBS_pop1mm_out, EBS_pop1mm_out, specimen_out, "data/crabpack_data.rdata")
+
+save(bioabund_out, cpue_out, NBS_pop1mm_out, EBS_pop1mm_out, specimen_out, file = "data/crabpack_data.rdata")
 
 
 crab_spp <- data.frame(
@@ -197,25 +198,23 @@ crab_cpue <- cpue_out |>
   dplyr::rename_all(tolower)  |> 
   dplyr::left_join(crab_spp) |> 
   dplyr::mutate(
-    cpue_nokm2 = cpue * 3.4299, 
-    cpue_kgkm2 = (cpue_mt/1000) * 3.4299, 
+    cpue_nokm2 = cpue/1000 * 3.4299, 
+    cpue_kgkm2 = (cpue_mt) * 3.4299, 
     srvy = region, 
+    weight_kg = (cpue_mt*area_swept)*1000,
     # weight_kg = NA, 
     survey_definition_id = dplyr::case_when(
       region == "NBS" ~ 143, 
       region == "EBS" ~ 98)) |> 
-  dplyr::select(species_code, hauljoin, count, cpue_nokm2, cpue_kgkm2)  |> # does not have weight_kg , #year, common_name, taxon, species_name, srvy, survey_definition_id
-#dplyr::select(-common_name, -taxon, -species_name, -srvy) |> 
-  dplyr::left_join(specimen |> 
-  dplyr::mutate(weight_g = (CALCULATED_WEIGHT * SAMPLING_FACTOR)) |> 
-  dplyr::group_by(hauljoin = HAULJOIN, 
-                  species_code = SPECIES_CODE) |> 
-  dplyr::summarise(weight_g = sum(weight_g, na.rm = TRUE)) |> 
-    dplyr::mutate(weight_kg = weight_g/1000) |> 
-  dplyr::select(-weight_g)) |> 
-  dplyr::left_join(haul |> 
-                     dplyr::select(hauljoin = HAULJOIN, area_swept = AREA_SWEPT) |> 
-                     dplyr::distinct())
+  dplyr::select(species_code, hauljoin, count, weight_kg, cpue_nokm2, cpue_kgkm2, area_swept) # |>  
+  # dplyr::left_join(specimen |> 
+  # dplyr::mutate(weight_g = (CALCULATED_WEIGHT * SAMPLING_FACTOR)) |> 
+  # dplyr::group_by(hauljoin = HAULJOIN, 
+  #                 species_code = SPECIES_CODE) |> 
+  # dplyr::summarise(weight_g = sum(weight_g, na.rm = TRUE)) |> 
+  #   dplyr::ungroup() |> 
+  #   dplyr::mutate(weight_kg0 = weight_g/1000) |> 
+  # dplyr::select(-weight_g))
 
 write.csv(x = crab_cpue, 
           file = here::here("data/crab_cpue_pack.csv"), 

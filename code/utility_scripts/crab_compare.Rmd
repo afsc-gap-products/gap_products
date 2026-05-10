@@ -23,13 +23,7 @@ gapindex_cpue <- crab_cpue
 crabpack_sizecomp <- crab_sizecomp_pack
 crabpack_biomass <- crab_biomass_pack
 crabpack_cpue <- crab_cpue_pack |> 
-  dplyr::mutate(
-    # cpue_kgkm2 = cpue_kgkm2/10,
-    cpue_nokm2 = cpue_nokm2*1000
-  # weight_kg = weight_g/1000, 
-  #               cpue_kgkm2 = cpue_kgkm2/1000
-                ) |>
-  dplyr::select(-weight_g)
+  dplyr::mutate(area_swept_km2 = area_swept) #hectars to km2?
 
 ```
 
@@ -44,9 +38,9 @@ cpue_compare <- dplyr::full_join(
 
 cpue_compare_diff <- cpue_compare |> 
   dplyr::mutate(
-    # weight_kg_diff = weight_kg.x - weight_kg.y, 
+     weight_kg_diff = weight_kg.x - weight_kg.y,
                 count_diff = count.x - count.y, 
-                # area_swept_km2_diff = area_swept_km2.x - area_swept_km2.y, 
+                area_swept_km2_diff = area_swept_km2.x - area_swept_km2.y,
                 count_diff = count.x - count.y, 
                 cpue_kgkm2_diff = cpue_kgkm2.x - cpue_kgkm2.y, 
                 cpue_nokm2_diff = cpue_nokm2.x - cpue_nokm2.y) |> 
@@ -58,11 +52,22 @@ cpue_compare_diff <- cpue_compare |>
 
 cpue_compare_diff
 
+a <- cpue_compare_diff |>
+  dplyr::summarize(
+    weight_kg_diff = sum(weight_kg_diff, na.rm = TRUE),
+    count_diff = sum(count_diff, na.rm = TRUE),
+    area_swept_km2_diff = sum(area_swept_km2_diff, na.rm = TRUE),
+    cpue_kgkm2_diff = sum(cpue_kgkm2_diff, na.rm = TRUE),
+    cpue_nokm2_diff = sum(cpue_nokm2_diff, na.rm = TRUE)
+)
+
 cpue_compare_diff_data <- cpue_compare |> 
   dplyr::right_join(cpue_compare_diff |> 
                       dplyr::select(hauljoin, species_code, noteable_diff))
 
-cpue_compare_diff_data
+print(paste0("Of ", nrow(cpue_compare), " records, ", nrow(cpue_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
+# cpue_compare_diff_data
+summary(cpue_compare_diff_data)
 ```
 
 ## Biomass
@@ -70,20 +75,21 @@ cpue_compare_diff_data
 ```{r compare-biomass-abundance}
 biomass_compare <- dplyr::full_join(
   gapindex_biomass |> 
-    dplyr::select(species_code, survey_definition_id, 
-                  biomass_mt, population_count) , #|> 
-    # dplyr::filter(AREA_ID %in% c(99900, 99901, 99902)), 
+    dplyr::filter(area_id %in% c(99900, #99901, 
+                                 99902)) |> 
+    dplyr::select(species_code, year, survey_definition_id,
+                  biomass_mt, population_count),
   crabpack_biomass  |> 
-    dplyr::select(species_code, survey_definition_id,
+    dplyr::select(species_code, year, survey_definition_id, 
                   biomass_mt, population_count), 
-  by = c("survey_definition_id", "year", "species_code", "survey_definition_id"))
+  by = c("survey_definition_id", "year", "species_code"))
 
 biomass_compare_diff <- biomass_compare |> 
   dplyr::mutate(biomass_mt_diff = biomass_mt.x - biomass_mt.y, 
                 population_count_diff = population_count.x - population_count.y) |> 
-  dplyr::select(SURVEY_DEFINITION_ID, YEAR, species_code, AREA_ID, 
+  dplyr::select(survey_definition_id, year, species_code, 
                 dplyr::ends_with("_diff")) |> 
-  dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.000001, 1, 0)), 
+  dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.01, 1, 0)), 
                 noteable_diff = (biomass_mt_diff + population_count_diff)) |> 
   dplyr::filter(noteable_diff > 0)
 
@@ -91,26 +97,34 @@ biomass_compare_diff
 
 biomass_compare_diff_data <- biomass_compare |> 
   dplyr::right_join(biomass_compare_diff |> 
-                      dplyr::select(survey_definition_id, year, species_code, area_id, noteable_diff))
+                      dplyr::select(survey_definition_id, year, species_code, noteable_diff))
 
-biomass_compare_diff_data
+a <- biomass_compare_diff |>
+  dplyr::summarize(
+    biomass_mt_diff = sum(biomass_mt_diff, na.rm = TRUE),
+    population_count_diff = sum(population_count_diff, na.rm = TRUE)
+)
+
+print(paste0("Of ", nrow(biomass_compare), " records, ", nrow(biomass_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
+# biomass_compare_diff_data
+summary(biomass_compare_diff_data)
 ```
 
 ## Sizecomp
 
 ```{r compare-sizecomp}
 sizecomp_compare <- dplyr::full_join(
-  size_comp_subareas |> 
+  gapindex_sizecomp |> 
     dplyr::filter(area_id %in% c(99900, 99902)) |> 
     dplyr::select(-area_id) |>
     dplyr::filter(!is.na(population_count)) |>
     dplyr::filter(population_count != 0), 
-  sizecomp_crabpack |> 
-    dplyr::select(-area_id)  |>
+  crabpack_sizecomp |> 
     dplyr::filter(population_count != 0) |> 
     dplyr::filter(!is.na(population_count)), 
     # dplyr::mutate(population_count = ifelse(is.na(population_count), 0, population_count)) |>
-  by = c("SURVEY_DEFINITION_ID", "YEAR", "SPECIES_CODE", "LENGTH_MM", "SEX"))
+  by = c("survey_definition_id", "year", "species_code", "length_mm", "sex"))
+
 
 sizecomp_compare_diff <- sizecomp_compare |> 
   dplyr::mutate(population_count_diff = (population_count.x - population_count.y)) |> 
@@ -119,8 +133,14 @@ sizecomp_compare_diff <- sizecomp_compare |>
                 noteable_diff = (population_count_diff)) |> 
   dplyr::filter(noteable_diff > 0)
 
-sizecomp_compare_diff
+a <- sizecomp_compare_diff |>
+  dplyr::summarize(
+    population_count_diff = sum(population_count_diff, na.rm = TRUE)
+)
 
+print(paste0("Of ", nrow(sizecomp_compare), " records, ", nrow(sizecomp_compare_diff), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
+# sizecomp_compare_diff
+summary(sizecomp_compare_diff)
 # sizecomp_compare_diff_data <- sizecomp_compare |> 
 #   dplyr::right_join(sizecomp_compare_diff |> 
 #                       dplyr::select(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, AREA_ID, noteable_diff))
