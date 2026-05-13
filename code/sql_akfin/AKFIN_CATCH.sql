@@ -20,3 +20,6 @@ FROM RACEBASE.CATCH cc
 LEFT JOIN RACEBASE.HAUL hh
 ON cc.HAULJOIN = hh.HAULJOIN
 WHERE hh.ABUNDANCE_HAUL = 'Y'
+
+-- File slated to be will be removed by end of 2026 if not sooner
+-- Table slated to be discontinued, as it is redundant to AKFIN_CPUE
