@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/intro-survey-background.html</loc>
-    <lastmod>2026-05-10T10:05:10.739Z</lastmod>
+    <lastmod>2026-05-13T05:29:36.393Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/intro-workflow.html</loc>
@@ -22,39 +22,23 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-intro.html</loc>
-    <lastmod>2026-05-10T10:05:10.943Z</lastmod>
+    <lastmod>2026-05-13T06:01:03.149Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata.html</loc>
-    <lastmod>2024-09-23T20:15:08.132Z</lastmod>
+    <lastmod>2026-05-13T05:39:55.095Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata-column.html</loc>
     <lastmod>2025-09-07T03:15:40.295Z</lastmod>
   </url>
   <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/akfin-intro.html</loc>
-    <lastmod>2025-09-05T20:15:57.948Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/akfin-metadata.html</loc>
-    <lastmod>2024-09-23T20:15:07.903Z</lastmod>
-  </url>
-  <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/akfin-oracle-sql-r.html</loc>
-    <lastmod>2026-05-10T10:05:10.712Z</lastmod>
+    <lastmod>2026-05-13T05:29:36.122Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/akfin-api-r.html</loc>
-    <lastmod>2026-05-10T15:25:45.883Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/foss-intro.html</loc>
-    <lastmod>2025-09-07T03:15:39.533Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/foss-metadata.html</loc>
-    <lastmod>2024-09-23T20:15:07.967Z</lastmod>
+    <lastmod>2026-05-13T05:29:36.106Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-platform.html</loc>
@@ -62,15 +46,11 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-api-r.html</loc>
-    <lastmod>2026-05-10T15:52:25.206Z</lastmod>
+    <lastmod>2026-05-13T05:29:36.348Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/foss-api-py.html</loc>
     <lastmod>2023-09-21T06:24:09.769Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/foss-oracle-r.html</loc>
-    <lastmod>2025-09-07T03:15:39.698Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/other-intro.html</loc>
@@ -98,10 +78,10 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.pdf</loc>
-    <lastmod>2026-05-10T16:54:48.275Z</lastmod>
+    <lastmod>2026-05-13T06:27:09.152Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.docx</loc>
-    <lastmod>2026-05-10T16:55:18.029Z</lastmod>
+    <lastmod>2026-05-13T06:27:32.524Z</lastmod>
   </url>
 </urlset>
