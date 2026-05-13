@@ -13,3 +13,5 @@
 
 CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_CPUE AS 
 SELECT * FROM GAP_PRODUCTS.CPUE
+
+-- File slated to be will be removed by end of 2026 if not sooner
