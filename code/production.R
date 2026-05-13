@@ -186,12 +186,6 @@ for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
                                           names(x = production_agecomp_region),
                                           with = F])
   
-  ## AREA_ID_FOOTPRINT denotes survey footprint and distinguishes the EBS
-  ## STANDARD area vs EBS STANDARD PLUS NW 
-  production_agecomp$AREA_ID_FOOTPRINT <-
-    c("52" = "AI", "47" = "GOA", "78" = "BSS",
-      "98" = "EBS STANDARD PLUS NW", "143" = "NBS" )[paste(regions[iregion])]
-  
   ## if EBS, recalculate agecomps using only the EBS Standard Region (sans
   ## strata 82 and 90) and then append to production_agecomp.
   if (regions[iregion] == 98) {
@@ -300,10 +294,6 @@ EBS Standard Area.\n\n")
     names(x = production_agecomp_stratum_ebsstand$age_comp)[
       names(x = production_agecomp_stratum_ebsstand$age_comp) == "STRATUM"] <-
       "AREA_ID"
-    production_agecomp_stratum_ebsstand$age_comp$AREA_ID_FOOTPRINT <- 
-      "EBS STANDARD"
-    production_agecomp_region_ebsstand$AREA_ID_FOOTPRINT <-
-      "EBS STANDARD"
     
     production_agecomp <-
       rbind(
@@ -342,13 +332,13 @@ EBS Standard Area.\n\n")
     production_agecomp <- 
       subset(x = production_agecomp,
              subset = (YEAR >= 1987 & 
-                         AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW") |
+                         AREA_ID == 99900) | # 'EBS STANDARD PLUS NW'
                (YEAR >= 1982 & 
-                  AREA_ID_FOOTPRINT == "EBS STANDARD"))
+                  AREA_ID == 99901)) # "EBS STANDARD"
     production_agecomp <- 
       subset(x = production_agecomp,
-             subset = !(AREA_ID == 99901 & 
-                          AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW"))
+             subset = !(AREA_ID == 99901 & # "EBS STANDARD" (unchanged)
+                          AREA_ID == 99900)) # 'EBS STANDARD PLUS NW'
   }
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -603,7 +593,6 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
                         all = TRUE,
                         suffixes = c("_CURRENT", "_UPDATE"),
                         by = c("SURVEY_DEFINITION_ID", "AREA_ID", "YEAR",
-                               "AREA_ID_FOOTPRINT",
                                "SPECIES_CODE", "SEX", "AGE"))
   
   ## Evaluate the new, removed, and modified records between the two tables
@@ -617,7 +606,6 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
       base_table_suffix = "_CURRENT",
       update_table_suffix = "_UPDATE",
       key_columns = c("SURVEY_DEFINITION_ID", 'AREA_ID', "YEAR",
-                      "AREA_ID_FOOTPRINT",
                       "SPECIES_CODE", "SEX", "AGE"))
   
   cat(paste0("Finished with AGECOMP for the ", 
