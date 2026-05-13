@@ -1,5 +1,5 @@
 ---
-title: Data description
+title: Data Description
 ---
 
 ```{r setup, include=FALSE}
