@@ -50,7 +50,7 @@ cpue_compare_diff <- cpue_compare |>
                                    count_diff + cpue_kgkm2_diff + cpue_nokm2_diff)) |> 
   dplyr::filter(noteable_diff > 0)
 
-cpue_compare_diff
+# cpue_compare_diff
 
 a <- cpue_compare_diff |>
   dplyr::summarize(
@@ -65,18 +65,23 @@ cpue_compare_diff_data <- cpue_compare |>
   dplyr::right_join(cpue_compare_diff |> 
                       dplyr::select(hauljoin, species_code, noteable_diff))
 
-print(paste0("Of ", nrow(cpue_compare), " records, ", nrow(cpue_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
+print(paste0("Of ", nrow(cpue_compare), " records ( gapindex: ",nrow(gapindex_cpue), ", crabpack ", nrow(crabpack_cpue), "), ", nrow(cpue_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
 # cpue_compare_diff_data
 summary(cpue_compare_diff_data)
+
+table(cpue_compare_diff_data$species_code)
+write.csv(x = cpue_compare_diff_data, file = here::here("data/cpue_compare_diff_data.csv"))
+
 ```
 
 ## Biomass
 
 ```{r compare-biomass-abundance}
+gapindex_biomass <- gapindex_biomass |> 
+    dplyr::filter(area_id %in% c(99900, #99901, 
+                                 99902))
 biomass_compare <- dplyr::full_join(
   gapindex_biomass |> 
-    dplyr::filter(area_id %in% c(99900, #99901, 
-                                 99902)) |> 
     dplyr::select(species_code, year, survey_definition_id,
                   biomass_mt, population_count),
   crabpack_biomass  |> 
@@ -93,7 +98,7 @@ biomass_compare_diff <- biomass_compare |>
                 noteable_diff = (biomass_mt_diff + population_count_diff)) |> 
   dplyr::filter(noteable_diff > 0)
 
-biomass_compare_diff
+# biomass_compare_diff
 
 biomass_compare_diff_data <- biomass_compare |> 
   dplyr::right_join(biomass_compare_diff |> 
@@ -105,23 +110,35 @@ a <- biomass_compare_diff |>
     population_count_diff = sum(population_count_diff, na.rm = TRUE)
 )
 
-print(paste0("Of ", nrow(biomass_compare), " records, ", nrow(biomass_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
+print(paste0("Of ", nrow(biomass_compare), 
+             " records ( gapindex: ",nrow(gapindex_biomass), 
+             ", crabpack ", nrow(crabpack_biomass), "), ", nrow(biomass_compare_diff_data), 
+             " did not match. These issues occured in: ", 
+             paste0(names(a), ": ", a, collapse = ", ")))
 # biomass_compare_diff_data
 summary(biomass_compare_diff_data)
+
+table(biomass_compare_diff_data$species_code, biomass_compare_diff_data$year, biomass_compare_diff_data$survey_definition_id)
+write.csv(x = biomass_compare_diff_data, file = here::here("data/biomass_compare_diff_data.csv"))
+
 ```
 
 ## Sizecomp
 
 ```{r compare-sizecomp}
-sizecomp_compare <- dplyr::full_join(
-  gapindex_sizecomp |> 
+
+gapindex_sizecomp <- gapindex_sizecomp |> 
     dplyr::filter(area_id %in% c(99900, 99902)) |> 
     dplyr::select(-area_id) |>
     dplyr::filter(!is.na(population_count)) |>
-    dplyr::filter(population_count != 0), 
-  crabpack_sizecomp |> 
+    dplyr::filter(population_count != 0)
+  crabpack_sizecomp <- crabpack_sizecomp |> 
     dplyr::filter(population_count != 0) |> 
-    dplyr::filter(!is.na(population_count)), 
+    dplyr::filter(!is.na(population_count))
+
+sizecomp_compare <- dplyr::full_join(
+  gapindex_sizecomp, 
+  crabpack_sizecomp, 
     # dplyr::mutate(population_count = ifelse(is.na(population_count), 0, population_count)) |>
   by = c("survey_definition_id", "year", "species_code", "length_mm", "sex"))
 
@@ -138,13 +155,22 @@ a <- sizecomp_compare_diff |>
     population_count_diff = sum(population_count_diff, na.rm = TRUE)
 )
 
-print(paste0("Of ", nrow(sizecomp_compare), " records, ", nrow(sizecomp_compare_diff), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
+print(paste0("Of ", nrow(sizecomp_compare), 
+             " records ( gapindex: ",nrow(gapindex_sizecomp), 
+             ", crabpack ", nrow(crabpack_sizecomp), "), ", nrow(sizecomp_compare_diff), 
+             " did not match. These issues occured in: ", 
+             paste0(names(a), ": ", a, collapse = ", ")))
 # sizecomp_compare_diff
 summary(sizecomp_compare_diff)
-# sizecomp_compare_diff_data <- sizecomp_compare |> 
-#   dplyr::right_join(sizecomp_compare_diff |> 
-#                       dplyr::select(SURVEY_DEFINITION_ID, YEAR, SPECIES_CODE, AREA_ID, noteable_diff))
+sizecomp_compare_diff_data <- sizecomp_compare |>
+  dplyr::right_join(sizecomp_compare_diff |>
+                      dplyr::select(survey_definition_id, year, species_code, noteable_diff))
 # 
 # sizecomp_compare_diff_data
+# 
+table(sizecomp_compare_diff_data$species_code, sizecomp_compare_diff_data$year, sizecomp_compare_diff_data$survey_definition_id)
+
+write.csv(x = sizecomp_compare_diff_data, file = here::here("data/sizecomp_compare_diff_data.csv"))
+
 ```
 
