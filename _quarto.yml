@@ -43,18 +43,12 @@ book:
       chapters:
         - content/product-metadata.qmd
         - content/product-metadata-column.qmd
-    - part: content/akfin-intro.qmd
-      chapters:
-        - content/akfin-metadata.qmd
         - content/akfin-oracle-sql-r.qmd
         - content/akfin-api-r.qmd
-    - part: content/foss-intro.qmd
-      chapters:
-        - content/foss-metadata.qmd
         - content/foss-platform.qmd
         - content/foss-api-r.qmd
         - content/foss-api-py.qmd
-        - content/foss-oracle-r.qmd
+        # - content/foss-oracle-r.qmd
     - part: content/other-intro.qmd
       chapters:
         - content/other-pkgs.qmd

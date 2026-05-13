@@ -36,3 +36,106 @@ find_citation_for(bib_ref = "GAPProducts")
 RODBC::odbcCloseAll()
 ```
 
+
+## The Alaska Fisheries Information Network
+
+These data are used directly by stock assessors and are provided to The [Alaska Fisheries Information Network (AKFIN)](https://akfin.psmfc.org/). 
+
+The Alaska Fisheries Information Network (AKFIN) is a regional program that consolidates and supports the processing, analysis, and reporting of fisheries data for Alaskan fisheries. AKFIN integrates this information into a single data management system using consistent methods and standardized formats. The resulting data enables fishery managers, scientists, and associated agencies to supervise fisheries resources more effectively and efficiently. The AKFIN database contains much of the data needed to complete stock assessments, including GAP trawl survey data. 
+
+### Data Access Options
+
+Direct database connection: 
+If you are an AFSC employee you may access the AKFIN oracle database directly while on the NOAA network or VPN. Note that this is a separate database from the AFSC oracle database referenced above, and requires separate credentials. If you do not already have an AKFIN account you can request one here. NOAA IT will need to add AKFIN access to your tnsnames.ora file (they do this frequently). Once your connection is established data may be accessed through SQL queries using SQL developer, R, or python.
+
+### AKFIN Answers
+
+(AKFIN Answers)[https://akfin.psmfc.org/akfin-answers/] is an Oracle BI tool used for distributing data to stock assessors and other users. Usernames and passwords are distinct from AKFIN direct database credentials. The distribution of GAP_PRODUCTS on AKFIN Answers is planned but not yet implemented. The RACE Survey tab on the stock assessment dashboard contains reports generated from now depreciated tables that predated the GAP_PRODUCTS tables. AKFIN will keep these reports for reference but they will not be updated 2024 onward.
+
+```{r echo=FALSE}
+#| fig-cap: "AKFIN platfrom. "
+
+knitr::include_graphics(path = here::here("img", "akfin.jpg"))
+```
+
+### [Web Service](https://afsc-gap-products.github.io/gap_products/content/akfin-api-r.html)
+
+AKFIN has developed web services (apis) to distribute GAP data. Like the GAP_PRODUCTS schema, these are under active development. These do not require VPN or an oracle connection but they are protected by Oracle authentication, please contact matt.callahan@noaa.gov for information on how to get an api token to use this option.
+
+The url structure is "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_[base table name]" . For example "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass" is the base url to get data from the akfin_biomass table. Web services linked to large tables have mandatory parameters to reduce data download size. For example to get agecomp data for Bering Sea pollock in area_id 10 in 2022 you would use "https://apex.psmfc.org/akfin/data_marts/gap_products/gap_biomass?survey_definition_id=98&area_id=10&species_code=21740&start_year=2022&end_year=2022”.
+
+If you’re using R to pull data through web services you might find the [akfingapdata](https://github.com/MattCallahan-NOAA/akfingapdata/tree/main) (pronounced akfin-gap-data not ak-eff-ing-app-data) R package helpful.
+
+### Cite this data
+
+Use the below bibtext citation, as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+
+```{r load_citation, echo = FALSE}
+find_citation_for(bib_ref = "GAPakfin")
+```
+
+## Fisheries One Stop Shop data platform
+
+The final, validated survey data are publicly accessible soon after surveys are completed on the [Fisheries One Stop Shop (FOSS) platform](https://www.fisheries.noaa.gov/foss/). This data includes catch, haul, and environmental data collected at each station. On the [FOSS data platform](https://www.fisheries.noaa.gov/foss/), users can interactively select, view, and download data. Descriptive documentation and user-examples are available on the metadata page.
+
+This data contains all of the catch, environmental, and haul data from the fisheries-independent Groundfish and Shellfish Assessment Program surveys in the Bering Sea, Aleutian Islands, and Gulf of Alaska. This data is sought after by the general public, private entities, and NOAA partners alike, including tribal organizations, K-12 classrooms, academic institutions, for-profit groups, and non-profit groups. This data is compiled and approved once a year after each summer survey season and is available for open access. 
+
+### Collaborators and data users
+
+Below are a few packages and products currently using this data. If you have developed a product, performed an analysis, or exhibited this data in any way, reach out so we can showcase your hard work. 
+
+```{r citing-us, echo = FALSE}
+str0 <- paste0(" - **[NOAA Fisheries Distribution Mapping and Analysis Portal](https://apps-st.fisheries.noaa.gov/dismap)**; *[NOAA Fisheries Office of Science and Technology](https://www.fisheries.noaa.gov/contact/office-science-and-technology)*
+
+
+ - **[Pull data with python](https://pyafscgap.org/) and explore the [in-browser visualization tool](https://app.pyafscgap.org/'). Reference their [example Python notebook](https://mybinder.org/v2/gh/SchmidtDSE/afscgap/main?urlpath=/tree/index.ipynb)**; *[The Eric and Wendy Schmidt Center for Data Science and the Environment at UC Berkeley](https://dse.berkeley.edu/), including sam.pottinger@berkeley.edu, ccmartinez@berkeley.edu, gzarpellon@berkeley.edu, and kkoy@berkeley.edu.* ")
+
+#  # DisMAP
+# df <- data.frame(    
+#     url = c("https://www.noaa.gov/sites/default/files/2022-03/noaa_emblem_logo-2022.png"), 
+#     Description = c("<a href = 'https://apps-st.fisheries.noaa.gov/dismap'>NOAA Fisheries Distribution Mapping and Analysis Portal</a>"), 
+#     Contacts = c("<a href = 'https://www.fisheries.noaa.gov/contact/office-science-and-technology'>NOAA Fisheries Office of Science and Technology</a>"))
+# 
+#  # DSE
+# df <- df |> 
+#   dplyr::add_row(
+#     url = c("https://dse.berkeley.edu/sites/default/files/styles/openberkeley_image_full/public/general/dse_logostack.png"), 
+#                  Description = c("<a href = 'https://pyafscgap.org/'>Pull data with python</a> and explore the <a href = 'https://app.pyafscgap.org/'>in-browser visualization tool</a>. Reference their <a href = 'https://mybinder.org/v2/gh/SchmidtDSE/afscgap/main?urlpath=/tree/index.ipynb'>example Python notebook</a>"), 
+#                  Contacts = c("<a href = 'https://dse.berkeley.edu/'>The Eric and Wendy Schmidt Center for Data Science and the Environment at UC Berkeley</a>; <a href = 'mailto: sam.pottinger@berkeley.edu'>Sam Pottinger</a>, <a href = 'mailto: ccmartinez@berkeley.edu'>Ciera Martinez</a>, <a href = 'mailto: gzarpellon@berkeley.edu'>Giulia Zarpellon</a>, and <a href = 'mailto: kkoy@berkeley.edu'>Kevin Koy</a>"))
+# 
+# library(gt)
+# library(gtExtras)
+# library(purrr)
+#   
+#   df <- df |>
+#   dplyr::select(url, 
+#                 Description, Contacts) |>
+#   dplyr::mutate(Contacts = map(Contacts, gt::html)) |>
+#   dplyr::mutate(Description = map(Description, gt::html)) |>
+#   gt::gt() |>
+#   gtExtras::gt_img_rows(columns = url, img_source = "web") |>
+#   gt::tab_options(data_row.padding = px(1)) |>
+#   gt::cols_label(url = "     ") |>
+#   cols_align(align = c("left"), columns = everything())
+# df
+
+```
+
+`r str0`
+
+### Access Constraints
+
+**User Constraints:** Users must read and fully comprehend the metadata prior to use. Data should not be used beyond the limits of the source scale. Acknowledgment of AFSC Groundfish Assessment Program, as the source from which these data were obtained, in any publications and/or other representations of these data, is suggested.
+
+**General questions and more specific data requests** can be sent to <nmfs.afsc.gap.metadata@noaa.gov> or submitted as an [issue on our GitHub
+Organization](https://github.com/afsc-gap-products/data-requests). The version of this data used for stock assessments can be found through the Alaska Fisheries Information Network (AKFIN). For questions about the eastern Bering Sea surveys, contact Duane Stevenson (<Duane.Stevenson@noaa.gov>). For questions about the Gulf of Alaska or Aleutian Islands surveys, contact Ned Laman (<Ned.Laman@noaa.gov>). For questions specifically about crab data in any region, contact Mike Litzow (<Mike.Litzow@noaa.gov>), the Shellfish Assessment Program lead.
+
+For questions, comments, and concerns specifically about the [Fisheries One Stop Shop (FOSS)](https://www.fisheries.noaa.gov/foss) platform, please contact us using the Comments page on the [FOSS](https://www.fisheries.noaa.gov/foss) webpage.
+
+### Cite this data
+
+Use the below bibtext citation, as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repository. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+
+```{r load_citation, echo = FALSE}
+find_citation_for(bib_ref = "FOSSAFSCData")
+```
