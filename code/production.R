@@ -190,7 +190,8 @@ for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
   ## STANDARD area vs EBS STANDARD PLUS NW 
   production_agecomp$AREA_ID_FOOTPRINT <-
     c("52" = "AI", "47" = "GOA", "78" = "BSS",
-      "98" = "EBS STANDARD PLUS NW", "143" = "NBS" )[paste(regions[iregion])]
+      "98" = 99900, # "EBS STANDARD PLUS NW", 
+      "143" = "NBS" )[paste(regions[iregion])]
   
   ## if EBS, recalculate agecomps using only the EBS Standard Region (sans
   ## strata 82 and 90) and then append to production_agecomp.
@@ -298,12 +299,9 @@ EBS Standard Area.\n\n")
     
     # Change "STRATUM" field name to "AREA_ID"
     names(x = production_agecomp_stratum_ebsstand$age_comp)[
-      names(x = production_agecomp_stratum_ebsstand$age_comp) == "STRATUM"] <-
-      "AREA_ID"
-    production_agecomp_stratum_ebsstand$age_comp$AREA_ID_FOOTPRINT <- 
-      "EBS STANDARD"
-    production_agecomp_region_ebsstand$AREA_ID_FOOTPRINT <-
-      "EBS STANDARD"
+      names(x = production_agecomp_stratum_ebsstand$age_comp) == "STRATUM"] <- "AREA_ID"
+    production_agecomp_stratum_ebsstand$age_comp$AREA_ID_FOOTPRINT <- 99901 # "EBS STANDARD"
+    production_agecomp_region_ebsstand$AREA_ID_FOOTPRINT <- 99901 # "EBS STANDARD"
     
     production_agecomp <-
       rbind(
@@ -342,13 +340,13 @@ EBS Standard Area.\n\n")
     production_agecomp <- 
       subset(x = production_agecomp,
              subset = (YEAR >= 1987 & 
-                         AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW") |
+                         AREA_ID_FOOTPRINT == 99900) | # "EBS STANDARD PLUS NW"
                (YEAR >= 1982 & 
-                  AREA_ID_FOOTPRINT == "EBS STANDARD"))
+                  AREA_ID_FOOTPRINT == 99901)) # "EBS STANDARD"
     production_agecomp <- 
       subset(x = production_agecomp,
              subset = !(AREA_ID == 99901 & 
-                          AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW"))
+                          AREA_ID_FOOTPRINT == 99900)) # "EBS STANDARD PLUS NW"
   }
   
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
