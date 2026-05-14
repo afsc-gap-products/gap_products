@@ -118,7 +118,8 @@ crab_specimen <- dplyr::bind_rows(
                 SEX = ifelse(SEX == 2 & CONDITION_CLUTCH != 0, 6, SEX)) |> # "mature females" 
   dplyr::filter(SEX != 4) |> # unisex
   dplyr::select(-HAUL_TYPE) |> 
-  dplyr::distinct()
+  dplyr::distinct() |> 
+  dplyr::mutate(AREA_SWEPT = AREA_SWEPT*3.4299) # nmi2 to km2? # TOLEDO!
 
 gapindex_data$catch <- crab_specimen |> 
   dplyr::mutate(WEIGHT = (WEIGHT_G * FREQUENCY)/1000) |>  # convert from grams to kg
@@ -216,29 +217,29 @@ for (idata in quantity) { ## Loop over data types -- start
             file = here::here(paste0("data/",idata,".csv")), 
             row.names = FALSE)
   
-  # data_table <- read.csv(file = here::here(paste0("data/", idata, ".csv"))) |> 
-  #   dplyr::rename_all(toupper)
-  # 
-  # ## Pull field descriptions from GAP_PRODUCTS.METADATA_COLUMN
-  # metadata_column <-
-  #   RODBC::sqlQuery(channel = channel,
-  #                   query = paste(
-  #                     "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
-  #                      WHERE METADATA_COLNAME IN",
-  #                     gapindex::stitch_entries(names(x = data_table))))
-  # 
-  # ## Clean up field names to be consistent with the data input format for
-  # ## gapindex::upload_oracle
-  # names(x = metadata_column) <-
-  #   gsub(x = tolower(x = names(x = metadata_column)),
-  #        pattern = "metadata_",
-  #        replacement = "")
-  # 
-  # ## Upload to Oracle
-  # gapindex::upload_oracle(channel = channel,
-  #                         x = data_table,
-  #                         schema = "MARKOWITZE", # "GAP_PRODUCTS",
-  #                         table_name = toupper(x = idata),
-  #                         table_metadata = "compiled from crabpack",
-  #                         metadata_column = metadata_column)
+  data_table <- read.csv(file = here::here(paste0("data/", idata, ".csv"))) |>
+    dplyr::rename_all(toupper)
+
+  ## Pull field descriptions from GAP_PRODUCTS.METADATA_COLUMN
+  metadata_column <-
+    RODBC::sqlQuery(channel = channel,
+                    query = paste(
+                      "SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
+                       WHERE METADATA_COLNAME IN",
+                      gapindex::stitch_entries(names(x = data_table))))
+
+  ## Clean up field names to be consistent with the data input format for
+  ## gapindex::upload_oracle
+  names(x = metadata_column) <-
+    gsub(x = tolower(x = names(x = metadata_column)),
+         pattern = "metadata_",
+         replacement = "")
+
+  ## Upload to Oracle
+  gapindex::upload_oracle(channel = channel,
+                          x = data_table,
+                          schema = "MARKOWITZE", # "GAP_PRODUCTS",
+                          table_name = toupper(x = idata),
+                          table_metadata = "compiled from crabpack",
+                          metadata_column = metadata_column)
 }

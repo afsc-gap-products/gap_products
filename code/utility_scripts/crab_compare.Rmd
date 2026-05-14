@@ -19,11 +19,13 @@ assign(x = filesi, temp)
 
 gapindex_sizecomp <- crab_sizecomp
 gapindex_biomass <- crab_biomass
-gapindex_cpue <- crab_cpue
+gapindex_cpue <- crab_cpue |> 
+  dplyr::mutate(area_swept_km2 = round(x = area_swept_km2, digits = 4))
 crabpack_sizecomp <- crab_sizecomp_pack
 crabpack_biomass <- crab_biomass_pack
 crabpack_cpue <- crab_cpue_pack |> 
-  dplyr::mutate(area_swept_km2 = area_swept) #hectars to km2?
+  dplyr::mutate(area_swept_km2 = round(x = area_swept_km2, digits = 4)) 
+  # dplyr::mutate(area_swept_km2 = round(x = area_swept*3.4299, digits = 4)) #nmi2 to km2?
 
 ```
 
@@ -69,10 +71,52 @@ print(paste0("Of ", nrow(cpue_compare), " records ( gapindex: ",nrow(gapindex_cp
 # cpue_compare_diff_data
 summary(cpue_compare_diff_data)
 
-table(cpue_compare_diff_data$species_code)
+table(cpue_compare_diff_data$hauljoin, cpue_compare_diff_data$species_code)
 write.csv(x = cpue_compare_diff_data, file = here::here("data/cpue_compare_diff_data.csv"))
 
 ```
+
+
+```{r}
+if (file.exists("Z:/Projects/ConnectToOracle.R")) {
+  # This has a specific username and password because I DONT want people to have access to this!
+  source("Z:/Projects/ConnectToOracle.R")
+} else {
+  # For those without a ConnectToOracle file
+  library(rstudioapi)
+  library(RODBC)
+  channel <- odbcConnect(dsn = "AFSC", 
+                         uid = rstudioapi::showPrompt(title = "Username", 
+                                                      message = "Oracle Username", default = ""), 
+                         pwd = rstudioapi::askForPassword("Enter Password"),
+                         believeNRows = FALSE)
+}
+
+haul <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.HAUL; ")) |> 
+  dplyr::rename_all(tolower)
+cruise <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.CRUISE; ")) |> 
+  dplyr::rename_all(tolower)
+
+a <- cpue_compare_diff_data |>
+  dplyr::left_join(haul) |> 
+  dplyr::left_join(cruise) |> 
+    dplyr::select(hauljoin, species_code, area_swept_km2.x, area_swept_km2.y, survey_name, survey_definition_id, vessel_name, year)
+print("frequency in differences between cpue output") 
+table(a$species_code, a$year, a$survey_name)
+
+# how many numbers there should be
+
+b <- cpue_compare |>
+  dplyr::filter(weight_kg.x > 0 & weight_kg.y > 0) |> 
+  dplyr::left_join(haul) |> 
+  dplyr::left_join(cruise) |> 
+    dplyr::select(hauljoin, species_code, survey_name, survey_definition_id, vessel_name, year) # |> 
+  # dplyr::filter(species_code == 68560) 
+print("all non-zero observations of cpue output") 
+table(b$species_code, b$year, b$survey_name)
+
+```
+
 
 ## Biomass
 
