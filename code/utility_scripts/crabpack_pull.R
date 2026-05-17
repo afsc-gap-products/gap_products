@@ -208,7 +208,7 @@ crab_cpue <- cpue_out |>
   dplyr::rename_all(tolower)  |> 
   dplyr::left_join(crab_spp) |> 
   dplyr::mutate(
-    # dplyr::mutate(AREA_SWEPT_KM2 = AREA_SWEPT*3.4299) |> # nmi2 to km2? # TOLEDO!|> 
+    area_swept_km2 = area_swept*3.4299, # nmi2 to km2? # TOLEDO!|>
     cpue_nokm2 = cpue/1000 * 3.4299, # nmi2 to km2
     cpue_kgkm2 = (cpue_mt) * 3.4299, # nmi2 to km2
     srvy = region, 
@@ -217,7 +217,7 @@ crab_cpue <- cpue_out |>
     survey_definition_id = dplyr::case_when(
       region == "NBS" ~ 143, 
       region == "EBS" ~ 98)) |> 
-  dplyr::select(species_code, hauljoin, count, weight_kg, cpue_nokm2, cpue_kgkm2, area_swept) # |>  
+  dplyr::select(species_code, hauljoin, count, weight_kg, cpue_nokm2, cpue_kgkm2, area_swept_km2, area_swept) # |>  
   # dplyr::left_join(specimen |> 
   # dplyr::mutate(weight_g = (CALCULATED_WEIGHT * SAMPLING_FACTOR)) |> 
   # dplyr::group_by(hauljoin = HAULJOIN, 

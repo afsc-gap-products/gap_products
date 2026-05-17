@@ -9,7 +9,7 @@ date: "2026-05-17"
 ```{r data_dl}
 
 files <-  c("crab_sizecomp", "crab_biomass", "crab_cpue", "crab_specimen_preinclude", 
-            "crab_specimen_pack", "crab_specimen",
+            "crab_specimen_pack", "crab_specimen", "hauls_retow",
             "crab_sizecomp_pack", "crab_biomass_pack", "crab_cpue_pack")
 for (filesi in files) {
   temp <- read.csv(file = here::here(paste0("data/", filesi, ".csv"))) |> 
@@ -48,7 +48,48 @@ cpue_compare <- dplyr::full_join(
   # dplyr::mutate(source = gapindex+crabpack)
   setdiff(crabpack_cpue$hauljoin, gapindex_cpue$hauljoin)
   setdiff(gapindex_cpue$hauljoin, crabpack_cpue$hauljoin)
+```
+It is my understanding that none of the hauljoins in the crabpack data should be there. 
 
+As I understand the retow data rule: haul_type 3 should be used except in retow years. In retow years, haul_type 17 data for female (2) RKC (69322) replaces any data for female RKC at those stations where haul_type 3. 
+
+Firstly, there are haul_types that are not 3 and 17 in the crabpack data pull. These should not be used:
+example code: `a <- crabpack_cpue |> dplyr::right_join(hauls_missing) |> dplyr::filter(haul_type == 13) ; unique(a$hauljoin)`
+- haul_type = 20: Catch Selectively Sampled/Processed; 1 instance in 2006 (`hauljoin -11364`)
+- haul_type = 13:	Index Sample Tow; several instances all form 2018 (`hauljoin -18178 -18188 -18189 -18185 -18184 -18145 -18191 -18210 -18197 -18196 -18180 -18195 -18176 -18177 -18192 -18208 -18211 -18173 -18174 -18179 -18193 -18206 -18207 -18212 -18219 -18216 -18220 -18221 -18222 -18190 -18194 -18205 -18204 -18213 -18214 -18217 -18218 -18203 -18202 -18181 -18183 -18144 -18209 -18187 -18215 -18175 -18223`)
+- haul_type = 4: Fishing Power Comparative Sample; several instances all from 1982 (`hauljoin -4376 4386 4377 4385 4378 4384 4379 4383`)
+
+Then, the haul_type 3 observation included in the crabpack pull but not in the gapindex data is for 3 female RKC (69322) (hauljoin -4811) that should be replaced with retow station data (-5757). Right now these are both being used in the estimates calculation. 
+
+Then, the haul_type 17 included in the crabpack pull but not in the gapindex data
+- Some observations are for male (1) RKC (69322) that should not be included, and should instead be represented by haul_type 3 observations (hauljoins: 965753  965736  965735  965733 1023485 1023470  -11704   -3821   -4443   -5703   -5690   -5691   -5701   -9379   -9378   -9374  -20687; `a <- hauls_missing_specimen |> dplyr::filter(dup == 1, include == 0, haul_type == 17) ; unique(a$hauljoin)`)
+- Then there is one hauljoin (1023479) (and this station may be up for discussion) where there was no haul_type 3 trawl done at this station (E-11), only a haul_type 17 in 2000 EBS. Should this station/hauljoin be included, or excluded?
+
+
+```{r}
+  source("Z:/Projects/ConnectToOracle.R")
+  hauls_missing <- RODBC::sqlQuery(channel = channel,
+                         query = paste0("SELECT *FROM RACEBASE.HAUL WHERE HAULJOIN IN (",
+                                        paste0(setdiff(crabpack_cpue$hauljoin, gapindex_cpue$hauljoin), collapse = ", "),
+                                        ") ; ")) |> 
+    dplyr::arrange(desc(HAUL_TYPE)) |> 
+    dplyr::select(CRUISEJOIN, CRUISE, HAULJOIN, VESSEL, HAUL_TYPE, STATION = STATIONID, STRATUM, PERFORMANCE, ABUNDANCE_HAUL) |> 
+                       dplyr::rename_all(tolower)
+  hauls_missing
+  
+  hauls_missing_cpue <- crabpack_cpue |> 
+    dplyr::filter(hauljoin %in% setdiff(crabpack_cpue$hauljoin, gapindex_cpue$hauljoin)) |> 
+    dplyr::full_join(hauls_missing) |> 
+    dplyr::arrange(desc(haul_type)) |> 
+    dplyr::select(-area_swept, -vessel)
+  
+  hauls_missing_specimen <- crab_specimen_preinclude |> 
+    dplyr::select(hauljoin, haul_type, species_code, sex, sex0, length_mm, count, weight_g, year, key, dup, include) |> 
+    dplyr::filter(hauljoin %in% setdiff(crabpack_cpue$hauljoin, gapindex_cpue$hauljoin))
+```
+
+
+```{r}
 cpue_compare_diff <- cpue_compare |> 
   dplyr::mutate(
     weight_kg_diff = weight_kg.x - weight_kg.y,
@@ -63,7 +104,9 @@ cpue_compare_diff <- cpue_compare |>
                   count_diff + cpue_kgkm2_diff + cpue_nokm2_diff)) |> 
   dplyr::filter(noteable_diff > 0)
 
-# cpue_compare_diff
+cpue_compare_diff_data <- cpue_compare |> 
+  dplyr::right_join(cpue_compare_diff |> 
+                      dplyr::select(hauljoin, species_code, noteable_diff))
 
 a <- cpue_compare_diff |>
   dplyr::summarize(
@@ -73,10 +116,6 @@ a <- cpue_compare_diff |>
     cpue_kgkm2_diff = sum(cpue_kgkm2_diff, na.rm = TRUE),
     cpue_nokm2_diff = sum(cpue_nokm2_diff, na.rm = TRUE)
   )
-
-cpue_compare_diff_data <- cpue_compare |> 
-  dplyr::right_join(cpue_compare_diff |> 
-                      dplyr::select(hauljoin, species_code, noteable_diff))
 
 print(paste0("Of ", nrow(cpue_compare), " records ( gapindex: ",nrow(gapindex_cpue), ", crabpack ", nrow(crabpack_cpue), "), ", nrow(cpue_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
 
@@ -103,7 +142,6 @@ crab_specimen_preinclude |>
 
 
 print("All hauls with differences to see if these are retow issues. ")
-hauls_retow <- read.csv(here::here("data/hauls_retow.csv"))
 b <- hauls_retow |>
   dplyr::rename_all(tolower) |> 
   dplyr::left_join(crab_specimen_preinclude  |>
