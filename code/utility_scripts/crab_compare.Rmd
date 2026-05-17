@@ -1,55 +1,66 @@
 ---
 title: "crab_compare"
 output: html_document
-date: "2026-05-10"
+date: "2026-05-17"
 ---
 
 # Pull tables
 
 ```{r data_dl}
 
-files <-  c("crab_sizecomp", "crab_biomass", "crab_cpue", 
-            # "crabpack_specimen", "crab_specimen",
+files <-  c("crab_sizecomp", "crab_biomass", "crab_cpue", "crab_specimen_preinclude", 
+            "crab_specimen_pack", "crab_specimen",
             "crab_sizecomp_pack", "crab_biomass_pack", "crab_cpue_pack")
 for (filesi in files) {
-temp <- read.csv(file = here::here(paste0("data/", filesi, ".csv"))) |> 
-  dplyr::rename_all(tolower)
-assign(x = filesi, temp)
+  temp <- read.csv(file = here::here(paste0("data/", filesi, ".csv"))) |> 
+    dplyr::rename_all(tolower)
+  assign(x = filesi, temp)
 }
 
-gapindex_sizecomp <- crab_sizecomp
+gapindex_sizecomp <- crab_sizecomp |> 
+  dplyr::filter(area_id %in% c(99900, 99902)) |>
+  dplyr::select(-area_id) |>
+  dplyr::filter(!is.na(population_count)) |>
+  dplyr::filter(population_count != 0)
 gapindex_biomass <- crab_biomass
-gapindex_cpue <- crab_cpue |> 
-  dplyr::mutate(area_swept_km2 = round(x = area_swept_km2, digits = 4))
-crabpack_sizecomp <- crab_sizecomp_pack
+gapindex_cpue <- crab_cpue  |> 
+  dplyr::filter(weight_kg > 0) |> 
+  dplyr::mutate(
+    area_swept_km2 = round(x = area_swept_km2, digits = 4))
+crabpack_sizecomp <- crab_sizecomp_pack |> 
+  dplyr::mutate(population_count = round(x = population_count, digits = 0)) |> # can't have fractions of organisms
+  dplyr::filter(population_count != 0) |> 
+  dplyr::filter(!is.na(population_count))
 crabpack_biomass <- crab_biomass_pack
 crabpack_cpue <- crab_cpue_pack |> 
-  dplyr::mutate(area_swept_km2 = round(x = area_swept_km2, digits = 4)) 
-  # dplyr::mutate(area_swept_km2 = round(x = area_swept*3.4299, digits = 4)) #nmi2 to km2?
-
+  dplyr::filter(weight_kg > 0) |> 
+  dplyr::mutate(
+    area_swept_km2 = round(x = area_swept_km2, digits = 4)) 
 ```
-
 
 ## Catch per unit effort
 
 ```{r compare-cpue}
 cpue_compare <- dplyr::full_join(
-  gapindex_cpue, 
-  crabpack_cpue, 
-  by = c("hauljoin", "species_code")) 
+  crabpack_cpue, # |> dplyr::mutate(crabpack = 1), 
+  gapindex_cpue, # |> dplyr::mutate(gapindex = 1), 
+  by = c("hauljoin", "species_code")) # |> 
+  # dplyr::mutate(source = gapindex+crabpack)
+  setdiff(crabpack_cpue$hauljoin, gapindex_cpue$hauljoin)
+  setdiff(gapindex_cpue$hauljoin, crabpack_cpue$hauljoin)
 
 cpue_compare_diff <- cpue_compare |> 
   dplyr::mutate(
-     weight_kg_diff = weight_kg.x - weight_kg.y,
-                count_diff = count.x - count.y, 
-                area_swept_km2_diff = area_swept_km2.x - area_swept_km2.y,
-                count_diff = count.x - count.y, 
-                cpue_kgkm2_diff = cpue_kgkm2.x - cpue_kgkm2.y, 
-                cpue_nokm2_diff = cpue_nokm2.x - cpue_nokm2.y) |> 
+    weight_kg_diff = weight_kg.x - weight_kg.y,
+    count_diff = count.x - count.y, 
+    area_swept_km2_diff = area_swept_km2.x - area_swept_km2.y,
+    count_diff = count.x - count.y, 
+    cpue_kgkm2_diff = cpue_kgkm2.x - cpue_kgkm2.y, 
+    cpue_nokm2_diff = cpue_nokm2.x - cpue_nokm2.y) |> 
   dplyr::select(hauljoin, species_code, dplyr::ends_with("_diff")) |> 
   dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.001, 1, 0)), 
                 noteable_diff = (#weight_kg_diff  + area_swept_km2_diff + 
-                                   count_diff + cpue_kgkm2_diff + cpue_nokm2_diff)) |> 
+                  count_diff + cpue_kgkm2_diff + cpue_nokm2_diff)) |> 
   dplyr::filter(noteable_diff > 0)
 
 # cpue_compare_diff
@@ -61,69 +72,76 @@ a <- cpue_compare_diff |>
     area_swept_km2_diff = sum(area_swept_km2_diff, na.rm = TRUE),
     cpue_kgkm2_diff = sum(cpue_kgkm2_diff, na.rm = TRUE),
     cpue_nokm2_diff = sum(cpue_nokm2_diff, na.rm = TRUE)
-)
+  )
 
 cpue_compare_diff_data <- cpue_compare |> 
   dplyr::right_join(cpue_compare_diff |> 
                       dplyr::select(hauljoin, species_code, noteable_diff))
 
 print(paste0("Of ", nrow(cpue_compare), " records ( gapindex: ",nrow(gapindex_cpue), ", crabpack ", nrow(crabpack_cpue), "), ", nrow(cpue_compare_diff_data), " did not match. These issues occured in: ", paste0(names(a), ": ", a, collapse = ", ")))
-# cpue_compare_diff_data
+
 summary(cpue_compare_diff_data)
 
-table(cpue_compare_diff_data$hauljoin, cpue_compare_diff_data$species_code)
+table(cpue_compare_diff_data$species_code, cpue_compare_diff_data$hauljoin)
 write.csv(x = cpue_compare_diff_data, file = here::here("data/cpue_compare_diff_data.csv"))
 
 ```
+Let's look at the data broken out:
+
+It looks like Male RKC seem to be removed in the crabpack data CPUE calculations in retow years. I thought just Female RKC should be replaced during retows. Further, none of these hauls appear to have been retowed (note that all hauls listed here are haul_type = 3 and `dup` = 0 where if dup = 1 would indicate a retow of that station occurred). 
+
+# Specify retow stations and years for BBRKC
+## Retow years: 1999 2000 2006 2007 2008 2009 2010 2011 2012 2017 2021
+
+```{r breakitout-cpue}
+print("here are the differences between the resultant datasets")
+cpue_compare_diff_data
+
+print("for the hauljoins that had differences, here are the data broken out by sex. ")
+crab_specimen_preinclude |> 
+  dplyr::filter(hauljoin %in% cpue_compare_diff_data$hauljoin) 
 
 
-```{r}
-if (file.exists("Z:/Projects/ConnectToOracle.R")) {
-  # This has a specific username and password because I DONT want people to have access to this!
-  source("Z:/Projects/ConnectToOracle.R")
-} else {
-  # For those without a ConnectToOracle file
-  library(rstudioapi)
-  library(RODBC)
-  channel <- odbcConnect(dsn = "AFSC", 
-                         uid = rstudioapi::showPrompt(title = "Username", 
-                                                      message = "Oracle Username", default = ""), 
-                         pwd = rstudioapi::askForPassword("Enter Password"),
-                         believeNRows = FALSE)
-}
-
-haul <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.HAUL; ")) |> 
-  dplyr::rename_all(tolower)
-cruise <- RODBC::sqlQuery(channel, paste0("SELECT * FROM GAP_PRODUCTS.CRUISE; ")) |> 
-  dplyr::rename_all(tolower)
-
-a <- cpue_compare_diff_data |>
-  dplyr::left_join(haul) |> 
-  dplyr::left_join(cruise) |> 
-    dplyr::select(hauljoin, species_code, area_swept_km2.x, area_swept_km2.y, survey_name, survey_definition_id, vessel_name, year)
-print("frequency in differences between cpue output") 
-table(a$species_code, a$year, a$survey_name)
-
-# how many numbers there should be
-
-b <- cpue_compare |>
-  dplyr::filter(weight_kg.x > 0 & weight_kg.y > 0) |> 
-  dplyr::left_join(haul) |> 
-  dplyr::left_join(cruise) |> 
-    dplyr::select(hauljoin, species_code, survey_name, survey_definition_id, vessel_name, year) # |> 
-  # dplyr::filter(species_code == 68560) 
-print("all non-zero observations of cpue output") 
-table(b$species_code, b$year, b$survey_name)
-
+print("All hauls with differences to see if these are retow issues. ")
+hauls_retow <- read.csv(here::here("data/hauls_retow.csv"))
+b <- hauls_retow |>
+  dplyr::rename_all(tolower) |> 
+  dplyr::left_join(crab_specimen_preinclude  |>
+                     dplyr::rename_all(tolower) |> 
+                     dplyr::group_by(hauljoin, species_code, haul_type, sex, key, station_id, year, include, dup) |>
+                     dplyr::summarise(weight_kg = sum(weight_g, na.rm = TRUE)/1000,
+                                      count = sum(frequency, na.rm = TRUE)) |>
+                     dplyr::ungroup()) |> 
+  dplyr::select(haul_type, key, hauljoin, dup, station_id, year) |> 
+  dplyr::filter(hauljoin %in% unique(cpue_compare_diff_data$hauljoin)) # |>
+# summary()
+b
+# all of these years are retow years
+sort(unique(b$year))
 ```
 
+One example of the above in action: 
+
+
+```{r cpue-deep-dive}
+crab_specimen_preinclude  |>
+  dplyr::rename_all(tolower) |> 
+  dplyr::group_by(hauljoin, species_code, haul_type, sex, key, station_id, year, include, dup) |>
+  dplyr::summarise(weight_kg = sum(weight_g, na.rm = TRUE)/1000,
+                   count = sum(frequency, na.rm = TRUE)) |>
+  dplyr::ungroup() |>
+  dplyr::filter(hauljoin == -19922) #key == "I-092021EBS") 
+
+cpue_compare_diff_data |>
+  dplyr::filter(hauljoin == -19922)
+```
 
 ## Biomass
 
 ```{r compare-biomass-abundance}
 gapindex_biomass <- gapindex_biomass |> 
-    dplyr::filter(area_id %in% c(99900, #99901, 
-                                 99902))
+  dplyr::filter(area_id %in% c(99900, #99901, 
+                               99902))
 biomass_compare <- dplyr::full_join(
   gapindex_biomass |> 
     dplyr::select(species_code, year, survey_definition_id,
@@ -152,14 +170,14 @@ a <- biomass_compare_diff |>
   dplyr::summarize(
     biomass_mt_diff = sum(biomass_mt_diff, na.rm = TRUE),
     population_count_diff = sum(population_count_diff, na.rm = TRUE)
-)
+  )
 
 print(paste0("Of ", nrow(biomass_compare), 
              " records ( gapindex: ",nrow(gapindex_biomass), 
              ", crabpack ", nrow(crabpack_biomass), "), ", nrow(biomass_compare_diff_data), 
              " did not match. These issues occured in: ", 
              paste0(names(a), ": ", a, collapse = ", ")))
-# biomass_compare_diff_data
+biomass_compare_diff_data
 summary(biomass_compare_diff_data)
 
 table(biomass_compare_diff_data$species_code, biomass_compare_diff_data$year, biomass_compare_diff_data$survey_definition_id)
@@ -170,45 +188,33 @@ write.csv(x = biomass_compare_diff_data, file = here::here("data/biomass_compare
 ## Sizecomp
 
 ```{r compare-sizecomp}
-
-gapindex_sizecomp <- gapindex_sizecomp |> 
-    dplyr::filter(area_id %in% c(99900, 99902)) |> 
-    dplyr::select(-area_id) |>
-    dplyr::filter(!is.na(population_count)) |>
-    dplyr::filter(population_count != 0)
-  crabpack_sizecomp <- crabpack_sizecomp |> 
-    dplyr::filter(population_count != 0) |> 
-    dplyr::filter(!is.na(population_count))
-
 sizecomp_compare <- dplyr::full_join(
-  gapindex_sizecomp, 
-  crabpack_sizecomp, 
-    # dplyr::mutate(population_count = ifelse(is.na(population_count), 0, population_count)) |>
-  by = c("survey_definition_id", "year", "species_code", "length_mm", "sex"))
+  gapindex_sizecomp |> dplyr::mutate(gapindex = 1), 
+  crabpack_sizecomp |> dplyr::mutate(crabpack = 1), 
+  by = c("survey_definition_id", "year", "species_code", "length_mm", "sex")) |> 
+  dplyr::mutate(source = (crabpack+gapindex))
 
 
 sizecomp_compare_diff <- sizecomp_compare |> 
-  dplyr::mutate(population_count_diff = (population_count.x - population_count.y)) |> 
-  dplyr::mutate(percent_diff = (population_count.y - population_count.x)/population_count.x) |>
-  dplyr::mutate(dplyr::across(dplyr::ends_with("_diff"), ~ ifelse(.x > 0.000001, 1, 0)), 
-                noteable_diff = (population_count_diff)) |> 
+  dplyr::mutate(population_count_diff = (population_count.x - population_count.y), 
+                percent_diff = (population_count.y - population_count.x)/population_count.x,
+                noteable_diff = ifelse(population_count_diff > 0.001, 1, 0)) |> 
   dplyr::filter(noteable_diff > 0)
 
 a <- sizecomp_compare_diff |>
   dplyr::summarize(
     population_count_diff = sum(population_count_diff, na.rm = TRUE)
-)
+  )
 
 print(paste0("Of ", nrow(sizecomp_compare), 
              " records ( gapindex: ",nrow(gapindex_sizecomp), 
              ", crabpack ", nrow(crabpack_sizecomp), "), ", nrow(sizecomp_compare_diff), 
-             " did not match. These issues occured in: ", 
-             paste0(names(a), ": ", a, collapse = ", ")))
+             " did not match. "))
 # sizecomp_compare_diff
 summary(sizecomp_compare_diff)
 sizecomp_compare_diff_data <- sizecomp_compare |>
   dplyr::right_join(sizecomp_compare_diff |>
-                      dplyr::select(survey_definition_id, year, species_code, noteable_diff))
+                      dplyr::select(survey_definition_id, year, species_code, length_mm, sex, noteable_diff))
 # 
 # sizecomp_compare_diff_data
 # 
@@ -217,4 +223,33 @@ table(sizecomp_compare_diff_data$species_code, sizecomp_compare_diff_data$year, 
 write.csv(x = sizecomp_compare_diff_data, file = here::here("data/sizecomp_compare_diff_data.csv"))
 
 ```
+
+Let's dive in to an example
+
+Is the difference here just rounding error with the total area unit conversion?
+
+```{r}
+sizecomp_compare  |> 
+  dplyr::rename_all(tolower) |>
+  dplyr::filter(year == 2017 & species_code == 68560 & survey_definition_id  == 143) |> 
+  dplyr::full_join(
+    crab_specimen_preinclude |> 
+      dplyr::rename_all(tolower) |> 
+      dplyr::filter(year == 2017 & species_code == 68560 & region == 'NBS') |>
+      dplyr::select(hauljoin, species_code, sex, length_mm, weight_g, haul_type, station_id) |> 
+      dplyr::left_join(crabpack_cpue |> dplyr::select(-weight_kg, -count))
+  )
+#  |> 
+# dplyr::mutate(
+#   AREA_ID = ifelse(station_id == "AA-19", 71, 81), 
+#   AREA_NM2 = ifelse(AREA_ID == 71, 57744 * x * 3.4299, # nmi2 to km2
+#                     57744 * y * 3.4299, # nmi2 to km2
+#                     ), # being used by crabpack
+#   AREA_KM2 = ifelse(AREA_ID == 71, 81255.025, 38351.89), # from GAP_PRODUCTS
+#   population_count.ytest = population_count.y/AREA_KM2
+# )
+
+
+```
+
 

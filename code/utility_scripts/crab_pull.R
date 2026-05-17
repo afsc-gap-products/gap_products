@@ -44,35 +44,103 @@ gapindex_data <- gapindex_data0 <- gapindex::get_data(
 
 ## Pull crab data --------------------------------------------------------------
 
+# Load libraries
+library(crabpack) # pak::pak("AFSC-Shellfish-Assessment-Program/crabpack")
+library(dplyr)
+library(tidyr)
+
+# Setup
+channel <- "API"
+
+# lookup for species codes
+maxyr <- 2025
+minyr <- 1982
+species_lookup <- tibble(SPECIES_CODE = c(68560, 68580, 68590, 69322, 69323, 69400),
+                         SPECIES = c("TANNER", "SNOW", "HYBRID", "RKC", "BKC", "HAIR"))
+
+
 # List of species and survey regions to add to GAP data
 
 # crabpack data pull does a funny thing where the channel *needs* to be called 'channel' even though it says it can accept other names
-source("Z:/Projects/ConnectToOracle.R")
-# channel <- channel_akfin
 
+source("Z:/Projects/ConnectToOracle.R")
+hauls <- RODBC::sqlQuery(channel = channel,
+                         query = paste0("SELECT *FROM RACEBASE.HAUL WHERE HAUL_TYPE IN (17, 3) AND PERFORMANCE >= 0; "))
+# cruises <- RODBC::sqlQuery(channel = channel,
+#                                  query = paste0("SELECT *FROM RACEBASE.CRUISE; "))
+surveys <- RODBC::sqlQuery(channel = channel,
+                           query = paste0("SELECT *FROM GAP_PRODUCTS.AKFIN_CRUISE WHERE SURVEY_DEFINITION_ID IN (98, 143); "))
+
+hauls_retow <- surveys |>
+  dplyr::select(-CRUISE) |>
+  # dplyr::left_join(cruises) |>
+  dplyr::left_join(hauls) |>
+  dplyr::filter(!is.na(HAULJOIN))  |>
+  # dplyr::select(HAULJOIN, STATION = STATIONID, HAUL_TYPE, YEAR, CRUISEJOIN, SURVEY_DEFINITION_ID) |>
+  dplyr::mutate(
+    STATION = STATIONID,
+    REGION = ifelse(SURVEY_DEFINITION_ID == 98, "EBS", "NBS"),
+    key = paste0(STATION, YEAR, REGION)) |>
+  dplyr::distinct()
+
+hauls_retow <- hauls_retow |>
+  dplyr::mutate(dup = ifelse(key %in% hauls_retow$key[duplicated(hauls_retow$key)], 1, 0))
+
+# 
+#   racebase_hauls <- RODBC::sqlQuery(channel = channel, 
+#                        query = paste0("SELECT *FROM RACE_DATA.HAULS WHERE HAUL_TYPE IN (17, 3) AND PERFORMANCE >= 0; "))
+#   racebase_cruises <- RODBC::sqlQuery(channel = channel, 
+#                                    query = paste0("SELECT *FROM RACE_DATA.CRUISES; "))
+#   racebase_surveys <- RODBC::sqlQuery(channel = channel, 
+#                                       query = paste0("SELECT *FROM RACE_DATA.SURVEYS WHERE SURVEY_DEFINITION_ID IN (98, 147); "))
+#   
+#   hauls_retow <- racebase_surveys |> 
+#     dplyr::left_join(racebase_cruises, by = "SURVEY_ID") |> 
+#     dplyr::left_join(racebase_hauls) |> 
+#     dplyr::mutate(
+#       REGION = ifelse(SURVEY_DEFINITION_ID == 98, "EBS", "NBS"), 
+#       key = paste0(STATION, YEAR, REGION)) |> 
+#     dplyr::select(HAUL_ID, HAUL_TYPE, key) |> 
+#     dplyr::distinct()
+# 
+#   hauls_retow <- hauls_retow |>
+#     dplyr::mutate(dup = ifelse(duplicated(hauls_retow$key), 1, 0))
+  
+  write.csv(x = hauls_retow, file = here::here("data/hauls_retow.csv"))
+  
+  
 spp_list <- tidyr::crossing(
   spp = c("RKC", "BKC", "TANNER", "SNOW", "HYBRID", "HAIR"), 
   reg = c("EBS", "NBS"))
 
 # Pull crab data from `crabpack`
-crabpack_specimen0 <- c()
+crabpack_specimen0 <- crabpack_sizegroups0 <- crabpack_haul0 <- c()
+
 for (i in 1:nrow(spp_list)) {
-  source("Z:/Projects/ConnectToOracle.R")
-  # channel <- channel_akfin
-  
   spp <- spp_list$spp[i]
   reg <- spp_list$reg[i]
   print(paste0(reg, " ", spp))
   
-  specimen_data <- crabpack::get_specimen_data(species = spp,
+  dat <- crabpack::get_specimen_data(species = spp,
                                                region = reg,
                                                years = c(1982:maxyr)) 
   
-  crabpack_specimen0 <- crabpack_specimen0 |> 
-    dplyr::bind_rows(specimen_data$specimen |> 
-                       dplyr::mutate(spp = spp, 
-                                     reg = reg))
-}
+  
+  # Bind haul info to add hauljoins later
+  crabpack_haul0 <- dat$haul |> 
+    dplyr::mutate(spp = spp, 
+                  reg = reg) |> 
+    dplyr::bind_rows(crabpack_haul0)
+  crabpack_specimen0 <- dat$specimen |> 
+    dplyr::mutate(spp = spp, 
+                  reg = reg) |> 
+    dplyr::bind_rows(crabpack_specimen0)
+  crabpack_sizegroups0 <- dat$sizegroups |> 
+    dplyr::mutate(spp = spp, 
+                  reg = reg) |> 
+    dplyr::bind_rows(crabpack_sizegroups0)
+}  
+  
 
 crabpack_specimen00 <- crabpack_specimen0 # safekeeping
 
@@ -95,7 +163,11 @@ crab_specimen <- crabpack_specimen0 |>
                 CHELA_LENGTH_MM = CHELA_HEIGHT, 
                 FREQUENCY = SAMPLING_FACTOR, 
                 HAUL_TYPE # temporarily need
-                )
+                )  |>
+  dplyr::left_join(crabpack_haul0 |> 
+                     dplyr::select(STATION_ID, HAULJOIN, HAUL_TYPE, YEAR, REGION) |>
+                     dplyr::distinct() |> 
+                     dplyr::mutate(key = paste0(STATION_ID, YEAR, REGION)) )
 
 # NOTES
 # sex = dplyr::case_when(
@@ -104,22 +176,115 @@ crab_specimen <- crabpack_specimen0 |>
 #   (clutch_size == 0 & sex == 2) ~ "immature females", 
 #   (clutch_size >= 1 & sex == 2) ~ "mature females"), 
 
-# find which hauls need to be replaced with retow data
-crab_specimen <- dplyr::bind_rows(
-  # data from retow stations - female RKC
-  crab_specimen |> 
-    dplyr::filter(HAUL_TYPE == 17) |> 
-    dplyr::filter(SEX == 2 & SPECIES_CODE == 69322), 
-  # data from not retow stations - male and unsexed RKC, and everything else
-  crab_specimen |> 
-    dplyr::filter(HAUL_TYPE == 3) |> 
-    dplyr::filter(!(SEX == 2 & SPECIES_CODE == 69322))  )  |> 
-  dplyr::mutate(SEX = ifelse(SEX == 2 & CONDITION_CLUTCH == 0, 5, SEX), # "immature females" 
-                SEX = ifelse(SEX == 2 & CONDITION_CLUTCH != 0, 6, SEX)) |> # "mature females" 
+# ccc <- gapindex_data$catch  |>
+#   dplyr::left_join(crabpack_haul0 |> 
+#                      dplyr::select(STATION_ID, HAULJOIN, HAUL_TYPE, YEAR, REGION) |>
+#                      dplyr::distinct() |> 
+#                      dplyr::mutate(key = paste0(STATION_ID, YEAR, REGION)) )
+#   
+# # TEST - non-retow
+# ccc |>
+#   dplyr::filter(key == "R-182025NBS")
+# crab_specimen |>
+#   dplyr::filter(key == "R-182025NBS") |>
+#   dplyr::group_by(HAULJOIN, SPECIES_CODE, SEX, HAUL_TYPE, key) |>
+#   dplyr::summarise(WEIGHT_KG = sum(WEIGHT_G, na.rm = TRUE)/1000,
+#                    COUNT = sum(FREQUENCY, na.rm = TRUE))
+# 
+# # TEST - retow
+# ccc |>
+#   dplyr::filter(key == "H-092021EBS")
+# bb <- crab_specimen |>
+  # dplyr::filter(key == "H-092021EBS") |>
+  # dplyr::group_by(HAULJOIN, SPECIES_CODE, SEX, HAUL_TYPE, key) |>
+  # dplyr::summarise(WEIGHT_KG = sum(WEIGHT_G, na.rm = TRUE)/1000,
+  #                  COUNT = sum(FREQUENCY, na.rm = TRUE))|>
+  # dplyr::ungroup()
+# 
+# # before retow applied: 
+# # HAULJOIN SPECIES_CODE   SEX HAUL_TYPE key         WEIGHT_KG COUNT
+# # <int>        <int> <int>     <int> <chr>           <dbl> <dbl>
+# #   1   -20767        69322     1        17 H-092021EBS     4.48      1 ## REMOVED after retow applied
+# # 2   -20767        69322     2        17 H-092021EBS     9.69      6
+# # 3   -19921        68560     1         3 H-092021EBS    51.2     139
+# # 4   -19921        68560     2         3 H-092021EBS     0.560     5
+# # 5   -19921        68580     1         3 H-092021EBS     1.11      4
+# # 6   -19921        68590     1         3 H-092021EBS     1.87      7
+# # 7   -19921        69322     1         3 H-092021EBS    43.2      21
+# # 8   -19921        69322     2         3 H-092021EBS    40.2      21 ## REMOVED after retow applied
+# # 9   -19921        69400     1         3 H-092021EBS     1.60      7
+# # 10   -19921        69400     2         3 H-092021EBS     1.34      7  
+
+# what hauls do we include, considering retow stations?
+# here's how it works: 
+# IF a retow was done (haul_type = 17) all female RKC data for that station and year replace haul_type = 3 female RKC data in the dataset 
+# station_id included but not necessary below - it helped with troubleshooting
+# 
+# 
+# aaa <- crabpack_haul0 |>
+#   dplyr::select(HAULJOIN, HAUL_TYPE, REGION, YEAR, STATION_ID) |>
+#   dplyr::distinct() |> 
+#   dplyr::mutate(key = paste0(STATION_ID, YEAR, REGION)) |> 
+#   dplyr::select(HAULJOIN, key)
+# aaa <- aaa |> 
+#   dplyr::mutate(dup = ifelse(duplicated(aaa$key), 1, 0)) 
+
+aaa <- crab_specimen |> 
+  dplyr::ungroup()  |>
+  dplyr::mutate(dup = ifelse(key %in% hauls_retow$key[duplicated(hauls_retow$key)], 1, 0)) |> 
+  # dplyr::filter(SEX == 2 & SPECIES_CODE == 69322)  |>
+  dplyr::group_by(HAULJOIN, SPECIES_CODE, SEX, HAUL_TYPE, key, STATION_ID, YEAR, dup) |>
+  dplyr::summarise(WEIGHT_KG = sum(WEIGHT_G, na.rm = TRUE)/1000,
+                   COUNT = sum(FREQUENCY, na.rm = TRUE)) |> 
+  dplyr::ungroup() |> 
+  # dplyr::filter(!is.na(STATION_ID)) |> 
+  # dplyr::filter(key %in% aaa$key[!duplicated(aaa$key)]) |> 
+  dplyr::mutate(
+    # dup  = ifelse(key %in% aaa$key[duplicated(aaa$key)], 1, 0), 
+    include = dplyr::case_when(
+      HAUL_TYPE == 17 & SEX == 2 & SPECIES_CODE == 69322 & dup == 1 ~ 1, 
+      HAUL_TYPE == 3 & SEX == 2 & SPECIES_CODE == 69322 & dup == 1 ~ 0, 
+      HAUL_TYPE == 17 ~ 0, 
+      HAUL_TYPE == 3 ~ 1, 
+      # dup == 0 ~ 1,
+      TRUE ~ 1))
+
+crab_specimen <- crab_specimen |> 
+  # testing
+  # dplyr::group_by(HAULJOIN, SPECIES_CODE, HAUL_TYPE, SEX, key, STATION_ID, YEAR) |>
+  # dplyr::summarise(WEIGHT_KG = sum(WEIGHT_G, na.rm = TRUE)/1000,
+  #                  COUNT = sum(FREQUENCY, na.rm = TRUE)) |>
+  # dplyr::ungroup() |>
+  # dplyr::left_join(aaa |> 
+  #                    dplyr::select(HAULJOIN, SPECIES_CODE, SEX, key, include, dup) |> 
+  #                    dplyr::mutate(SEX = 2)) |> 
+  dplyr::left_join(aaa) |> 
+  dplyr::mutate(
+    # dup = ifelse(is.na(dup), 0, dup), 
+    # include = ifelse(is.na(include), 1, include), 
+    SEX0 = SEX, 
+    SEX = dplyr::case_when(
+      SEX0 == 2 & CONDITION_CLUTCH == 0 ~ 5, # "immature females" 
+      SEX0 == 2 & CONDITION_CLUTCH != 0 ~ 6, # "mature females" 
+      TRUE ~ SEX0
+    )
+    # SEX = ifelse(SEX == 2 & CONDITION_CLUTCH == 0, 5, SEX), # "immature females" 
+    #             SEX = ifelse(SEX == 2 & CONDITION_CLUTCH != 0, 6, SEX) # "mature females" 
+  )
+
+write.csv(x = crab_specimen, 
+          file = here::here("data/crab_specimen_preinclude.csv"), 
+          row.names = FALSE)
+
+crab_specimen <- crab_specimen |> 
+  # dplyr::mutate(SEX1 = SEX, 
+  #               SEX = SEX0, 
+  #               SEX0 = SEX1) |> 
+  # dplyr::select(-SEX1) |>
+  dplyr::filter(include == 1) |>
   dplyr::filter(SEX != 4) |> # unisex
-  dplyr::select(-HAUL_TYPE) |> 
-  dplyr::distinct() |> 
-  dplyr::mutate(AREA_SWEPT = AREA_SWEPT*3.4299) # nmi2 to km2? # TOLEDO!
+  # dplyr::select(-HAUL_TYPE) |> 
+  dplyr::distinct()
 
 gapindex_data$catch <- crab_specimen |> 
   dplyr::mutate(WEIGHT = (WEIGHT_G * FREQUENCY)/1000) |>  # convert from grams to kg
@@ -129,7 +294,7 @@ gapindex_data$catch <- crab_specimen |>
   dplyr::ungroup() |> 
   data.table::data.table(key = c("HAULJOIN", "SPECIES_CODE")) 
 
-# gapindex_data$specimen <- crab_specimen |> 
+gapindex_data$specimen <- crab_specimen #|>
 #   dplyr::select(WEIGHT_G, SEX, SPECIES_CODE, HAULJOIN, LENGTH_MM)  |>  
 #   # dplyr::mutate(WEIGHT_KG = WEIGHT_G / 1000) |>   # convert from grams to kg
 #   dplyr::group_by(HAULJOIN, SPECIES_CODE, SEX, LENGTH_MM) |> 
@@ -146,9 +311,20 @@ gapindex_data$size <- crab_specimen |>
   dplyr::ungroup() |>
   data.table::data.table(key = c("HAULJOIN", "SPECIES_CODE", "SEX", "LENGTH_MM")) #|>
 
+temp <- gapindex_data$haul
+
+gapindex_data$haul <- hauls_retow |> 
+  dplyr::select(dplyr::all_of(names(temp))) |>
+  # dplyr::select(-key, -dup) |> 
+  dplyr::mutate(ABUNDANCE_HAUL = 'Y', 
+                REGION = 'BS') |>
+  dplyr::ungroup() |>
+  data.table::data.table(key = c("HAULJOIN"))
+
+
 ## Calculate Zero-fill CPUE ----------------------------------------------------
 
-crab_cpue <- gapindex::calc_cpue(gapdata = gapindex_data) |> 
+crab_cpue <- gapindex::calc_cpue(gapdata = gapindex_data)  |> 
   dplyr::select(HAULJOIN, SPECIES_CODE, WEIGHT_KG, COUNT, AREA_SWEPT_KM2, CPUE_KGKM2, CPUE_NOKM2, 
                 STRATUM, YEAR, SURVEY, SURVEY_DEFINITION_ID, DESIGN_YEAR) # temporarily needed - but why??
 

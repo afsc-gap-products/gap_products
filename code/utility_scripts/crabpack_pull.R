@@ -25,7 +25,7 @@ minyr <- 1982
 species_lookup <- tibble(SPECIES_CODE = c(68560, 68580, 68590, 69322, 69323, 69400),
                          SPECIES = c("TANNER", "SNOW", "HYBRID", "RKC", "BKC", "HAIR"))
 
-bioabund_out <- cpue_out <- NBS_pop1mm_out <- EBS_pop1mm_out <- specimen_out <- c()
+bioabund_out <- cpue_out <- NBS_pop1mm_out <- EBS_pop1mm_out <- specimen_out <- sizegroups_out <- c()
 
 # Loop through species and combine estimates
 for(i in 1:length(species_lookup$SPECIES)){
@@ -36,18 +36,25 @@ for(i in 1:length(species_lookup$SPECIES)){
   ## Specimen data -------------------------------------------------------------
   dat_EBS <- crabpack::get_specimen_data(species = species,
                                          region = "EBS",
-                                         channel = channel)
+                                         channel = channel) 
+  # dat_EBS$haul$AREA_SWEPT <- dat_EBS$haul$AREA_SWEPT*3.4299 # nmi2 to km2
+  # dat_EBS$specimen$AREA_SWEPT <- dat_EBS$specimen$AREA_SWEPT*3.4299 # nmi2 to km2
+  # dat_EBS$specimen$CALCULATED_WEIGHT <- dat_EBS$specimen$CALCULATED_WEIGHT/2.205 # lb to kg
+  
   dat_NBS <- crabpack::get_specimen_data(species = species,
                                          region = "NBS",
                                          channel = channel)
-  
+  # dat_NBS$haul$AREA_SWEPT <- dat_NBS$haul$AREA_SWEPT*3.4299 # nmi2 to km2
+  # dat_NBS$specimen$AREA_SWEPT <- dat_NBS$specimen$AREA_SWEPT*3.4299 # nmi2 to km2
+  # dat_NBS$specimen$CALCULATED_WEIGHT <- dat_NBS$specimen$CALCULATED_WEIGHT/2.205 # lb to kg
   
   # Bind haul info to add hauljoins later
   haul <- bind_rows(dat_EBS$haul, dat_NBS$haul)
   specimen <- bind_rows(dat_EBS$specimen, dat_NBS$specimen) |> 
     dplyr::select(-REGION, -YEAR, -STATION_ID, -HAUL_TYPE, -LATITUDE, -LONGITUDE, -DISTRICT, -STRATUM, -TOTAL_AREA) # -AREA_SWEPT, 
   specimen_out <- rbind(specimen_out, specimen)
-  
+  sizegroups_out <- bind_rows(dat_EBS$sizegroups, dat_NBS$sizegroups) |> bind_rows(sizegroups_out)
+    
   ## Biomass/Abundance ---------------------------------------------------------
   EBS_bioabund <- crabpack::calc_bioabund(crab_data = dat_EBS,
                                           species = species,
@@ -155,8 +162,11 @@ for(i in 1:length(species_lookup$SPECIES)){
   
 }
 
-save(bioabund_out, cpue_out, NBS_pop1mm_out, EBS_pop1mm_out, specimen_out, file = "data/crabpack_data.rdata")
+save(bioabund_out, cpue_out, NBS_pop1mm_out, EBS_pop1mm_out, specimen_out, sizegroups_out, file = "data/crabpack_data.rdata")
 
+write.csv(x = specimen_out, 
+          file = here::here("data/crab_specimen_pack.csv"), 
+          row.names = FALSE)
 
 crab_spp <- data.frame(
   species_code = c(69322, 69323, 68560, 68580, 68590, 69400),
@@ -198,8 +208,9 @@ crab_cpue <- cpue_out |>
   dplyr::rename_all(tolower)  |> 
   dplyr::left_join(crab_spp) |> 
   dplyr::mutate(
-    cpue_nokm2 = cpue/1000 * 3.4299, 
-    cpue_kgkm2 = (cpue_mt) * 3.4299, 
+    # dplyr::mutate(AREA_SWEPT_KM2 = AREA_SWEPT*3.4299) |> # nmi2 to km2? # TOLEDO!|> 
+    cpue_nokm2 = cpue/1000 * 3.4299, # nmi2 to km2
+    cpue_kgkm2 = (cpue_mt) * 3.4299, # nmi2 to km2
     srvy = region, 
     weight_kg = (cpue_mt*area_swept)*1000,
     # weight_kg = NA, 
@@ -258,7 +269,7 @@ crab_specimen <- specimen |>
   dplyr::select(HAULJOIN, SPECIES_CODE, SEX, LENGTH_MM = SIZE_1MM, LENGTH_TYPE, 
                 SHELL_CONDITION, EGG_CONDITION, CLUTCH_SIZE, MERUS_LENGTH, 
                 CHELA_HEIGHT, DISEASE_CODE, 
-                WEIGHT_G = CALCULATED_WEIGHT_1MM, 
+                WEIGHT_G = CALCULATED_WEIGHT, 
                 SAMPLING_FACTOR)
 
 write.csv(x = crab_specimen, 
