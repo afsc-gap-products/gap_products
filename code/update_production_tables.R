@@ -307,47 +307,47 @@ summarize_gp_updates(channel = gapproducts_channel,
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import AKFIN and FOSS table names and table descriptions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-views <- subset(x = read.csv(file = "data/table_comments.csv"),
-                subset = table_type %in% c("akfin", "foss"))
-source("functions/getSQL.R")
-
+# views <- subset(x = read.csv(file = "data/table_comments.csv"),
+#                 subset = table_type %in% c("akfin", "foss"))
+# source("functions/getSQL.R")
+# 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over SQL scripts, upload to Oracle, and add field and table comments
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
-  start_time <- Sys.time()
-  temp_table_name <- paste0("GAP_PRODUCTS.", views$table_name[isql_script])
-  cat("Creating", temp_table_name, "...\n")
-  
-  ## Extract tables already in GAP_PRODUCTS
-  available_views <- gapindex::sql_query(
-    channel = gapproducts_channel, 
-    query = "SELECT OWNER, TABLE_NAME 
-    FROM ALL_TABLES 
-    WHERE OWNER = 'GAP_PRODUCTS';"
-  )
-  
-  ## If the temp_table_name already exists, drop before recreating
-  if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
-    gapindex::sql_query(channel = gapproducts_channel, 
-                        query = paste("DROP MATERIALIZED VIEW", temp_table_name))
-  
-  ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
-  ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
-  ## caled code/sql_foss.
-  gapindex::sql_query(
-    channel = gapproducts_channel,
-    query = getSQL(filepath = paste0("code/sql_", 
-                                     views$table_type[isql_script], "/", 
-                                     views$table_name[isql_script], ".sql")
-    )
-  )
-  
-  gapindex::sql_query(channel = gapproducts_channel,
-                      query = paste0("GRANT SELECT ON GAP_PRODUCTS.", 
-                                     views$table_name[isql_script],
-                                     " TO PUBLIC;"))
-  
-  end_time <- Sys.time()
-  cat(names(print(end_time - start_time)), "\n")
-} ## Loop over tables -- end
+# for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
+#   start_time <- Sys.time()
+#   temp_table_name <- paste0("GAP_PRODUCTS.", views$table_name[isql_script])
+#   cat("Creating", temp_table_name, "...\n")
+#   
+#   ## Extract tables already in GAP_PRODUCTS
+#   available_views <- gapindex::sql_query(
+#     channel = gapproducts_channel, 
+#     query = "SELECT OWNER, TABLE_NAME 
+#     FROM ALL_TABLES 
+#     WHERE OWNER = 'GAP_PRODUCTS';"
+#   )
+#   
+#   ## If the temp_table_name already exists, drop before recreating
+#   if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
+#     gapindex::sql_query(channel = gapproducts_channel, 
+#                         query = paste("DROP MATERIALIZED VIEW", temp_table_name))
+#   
+#   ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
+#   ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
+#   ## caled code/sql_foss.
+#   gapindex::sql_query(
+#     channel = gapproducts_channel,
+#     query = getSQL(filepath = paste0("code/sql_", 
+#                                      views$table_type[isql_script], "/", 
+#                                      views$table_name[isql_script], ".sql")
+#     )
+#   )
+#   
+#   gapindex::sql_query(channel = gapproducts_channel,
+#                       query = paste0("GRANT SELECT ON GAP_PRODUCTS.", 
+#                                      views$table_name[isql_script],
+#                                      " TO PUBLIC;"))
+#   
+#   end_time <- Sys.time()
+#   cat(names(print(end_time - start_time)), "\n")
+# } ## Loop over tables -- end
