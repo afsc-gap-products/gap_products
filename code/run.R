@@ -36,7 +36,7 @@ rm(list = ls())
 ##   Make sure a local temp/ directory is created, save R version data, 
 ##   and install packages if not available on your machine or if outdated.
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-library(gapindex) # pak::pak("afsc-gap-products/gapindex@testing_odbc")
+library(gapindex) # devtools::install_github("afsc-gap-products/gapindex")
 source("functions/output_r_session.R")
 output_r_session(path = "temp/") ## sets up temp/ folder
 
