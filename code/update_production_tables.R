@@ -30,9 +30,7 @@ rm(list = ls())
 library(gapindex); library(data.table); library(rmarkdown)
 gapproducts_channel <- gapindex::get_connected(check_access = F, 
                                                conn_type = "DBI")
-updates <- readRDS(file = "temp/mismatches.RDS")
-regions <- c("AI", "GOA", "EBS", "BSS", "NBS")
-all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
+stage_tables <- readRDS(file = "temp/stage_tables.RDS")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Look at temp/mismatches.RDS and write a quick paragraph about the changes
@@ -43,16 +41,19 @@ all_tables <- c("agecomp", "sizecomp", "biomass", "cpue")
 ##   vouchered data, ad hoc decisions about taxon aggregations, updated stratum
 ##   areas, updated gapindex package, etc.) 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-detailed_notes <- 
+detailed_notes <-
   "Run completed by: Zack Oyafuso
- 
--- This run was conducted to test out a branch of gapindex that incorporates obdc/DBI as an Oracle connection type and to incorporate recently uploaded Gulf of Alaska Pacific Ocean perch and Bering sea saffron cod, Greenland turbot, and yellowfin sole read otoliths into the age compositions. 
+
+-- This run was conducted to test out a new way of updating the four main table (CPUE, BIOMASS, SIZECOMP, AGECOMP) using staging tables.
+
+-- Incorporating new read ages for GOA arrowtooth flounder from 2025 and AI rougheye rockfish from 2024
+
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Create report changelog
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-gapindex_version <- 
+gapindex_version <-
   subset(x = read.csv(file = "temp/installed_packages.csv"),
          subset = Package == "gapindex")$Version
 timestamp <- readLines(con = "temp/timestamp.txt")
@@ -64,290 +65,55 @@ rmarkdown::render(input = "code/report_changes.RMD",
                                 "timestamp" = timestamp))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import all field names to aid with uploading to Oracle
+##  Compile stage tables from the mismatches list 
+##  Then, upload to Oracle stage tables, check on Oracle
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-all_field_names <- 
-  gapindex::sql_query(
-    channel = gapproducts_channel,
-    query = paste0(
-      "
-SELECT cols.column_name, cols.table_name, 'KEY' AS FIELD_TYPE
-FROM all_constraints cons
-JOIN all_cons_columns cols
-  ON cons.constraint_name = cols.constraint_name
-JOIN all_tab_columns atc
-  ON atc.table_name = cols.table_name
-  AND atc.column_name = cols.column_name
-  AND atc.owner = cols.owner
-WHERE cons.constraint_type = 'P'
-  AND cons.table_name in ", 
-      gapindex::stitch_entries(toupper(x = all_tables)),
-      " AND cons.owner = 'GAP_PRODUCTS'
-  
-UNION
-  
-SELECT atc.column_name, atc.table_name, 'RESPONSE' AS FIELD_TYPE
-FROM all_tab_columns atc
-WHERE atc.table_name in ('AGECOMP', 'CPUE', 'BIOMASS', 'SIZECOMP')
-  AND atc.owner = 'GAP_PRODUCTS'     
-  AND atc.column_name NOT IN (
-    SELECT cols.column_name
-    FROM all_constraints cons
-    JOIN all_cons_columns cols
-      ON cons.constraint_name = cols.constraint_name
-    WHERE cons.constraint_type = 'P'
-      AND cons.table_name in ", 
-      gapindex::stitch_entries(toupper(x = all_tables)),
-      " AND cons.owner = 'GAP_PRODUCTS'
-  )
-                                                          
-ORDER BY TABLE_NAME, FIELD_TYPE, COLUMN_NAME
-")
-  )
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Loop over regions and table and upload updates
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (iregion in regions) {
-  for (iquantity in all_tables) {
-    
-    ## Extract new, removed, and modified records
-    modified_records <- updates[[iregion]][[iquantity]][["modified_records"]]
-    removed_records <- updates[[iregion]][[iquantity]][["removed_records"]]
-    new_records <- updates[[iregion]][[iquantity]][["new_records"]]
-    
-    key_fields <- subset(x = all_field_names,
-                         subset = FIELD_TYPE == "KEY" & 
-                           TABLE_NAME == toupper(iquantity))$COLUMN_NAME
-    response_fields <- subset(x = all_field_names,
-                              subset = FIELD_TYPE == "RESPONSE" & 
-                                TABLE_NAME == toupper(iquantity))$COLUMN_NAME
-    
-    ## Extract field descriptions
-    metadata_column <- 
-      gapindex::sql_query(
-        channel = gapproducts_channel,
-        query = paste("SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
-                         WHERE METADATA_COLNAME IN",
-                      gapindex::stitch_entries(c(key_fields, 
-                                                 response_fields))))
-    
-    names(x = metadata_column) <- 
-      gsub(x = tolower(x = names(x = metadata_column)), 
-           pattern = "metadata_", 
-           replacement = "")
-    
-    ## Remove records if they exist
-    if (nrow(x = removed_records) > 0) {
-      
-      ## Extract the field descriptions of the table
-      metadata_column <- 
-        gapindex::sql_query(
-          channel = gapproducts_channel,
-          query = paste("SELECT * FROM GAP_PRODUCTS.METADATA_COLUMN
-                         WHERE METADATA_COLNAME IN",
-                        gapindex::stitch_entries(key_fields)
-          )
-        )
-      
-      ## Change field names
-      names(x = metadata_column) <- 
-        gsub(x = tolower(x = names(x = metadata_column)), 
-             pattern = "metadata_", 
-             replacement = "")
-      
-      ## Upload a temporary table to GAP_PRODUCTS that holds the removed records
-      gapindex::upload_oracle(
-        x = removed_records[, key_fields, with = F],
-        table_name = "GAP_PRODUCTS_TEMP_REMOVED_RECORDS", 
-        metadata_column = metadata_column, 
-        table_metadata = paste(iquantity, "records to be removed from the", 
-                               iregion, "region"), 
-        channel = gapproducts_channel, 
-        schema = "GAP_PRODUCTS", 
-        share_with_all_users = F
-      )
-      
-      ## Use the newly created temporary table to flag which records to 
-      ## remove from the iquantity table. The fields that utilize the 
-      gapindex::sql_query(
-        channel = gapproducts_channel,
-        query = 
-          paste0(
-            "DELETE FROM GAP_PRODUCTS.", toupper(x = iquantity), " ", 
-            toupper(x = iquantity),
-            " WHERE (", paste0(toupper(x = iquantity), ".", 
-                               key_fields, 
-                               collapse = ", "), ") 
-          IN (SELECT ", paste0("REMOVE.", key_fields, 
-                               collapse = ", "), 
-            " FROM GAP_PRODUCTS.GAP_PRODUCTS_TEMP_REMOVED_RECORDS REMOVE)") )
-      
-      ## Drop temporary table
-      gapindex::sql_query(
-        channel = gapproducts_channel, 
-        query = "DROP TABLE GAP_PRODUCTS.GAP_PRODUCTS_TEMP_REMOVED_RECORDS PURGE;"
-      )
-      
-    }
-    
-    ## Add new records if they exist
-    if (nrow(x = new_records) > 0) {
-      
-      ## Rbind both the new records and modified records
-      new_records <- 
-        new_records[, 
-                    c(key_fields, paste0(response_fields, "_UPDATE")), 
-                    with = F]
-      names(x = new_records) <- c(key_fields, response_fields)
-      
-      ## Upload a temporary table to GAP_PRODUCTS that holds the new records
-      gapindex::upload_oracle(
-        x = new_records,
-        table_name = "GAP_PRODUCTS_TEMP_NEW_RECORDS", 
-        metadata_column = metadata_column, 
-        table_metadata = paste(iquantity, "records to be added from the", 
-                               iregion, "region"), 
-        channel = gapproducts_channel, 
-        schema = "GAP_PRODUCTS", 
-        share_with_all_users = F)
-      
-      ## Append the new records to the 
-      gapindex::sql_query(
-        channel = gapproducts_channel,
-        query = paste0("INSERT INTO GAP_PRODUCTS.", toupper(x = iquantity), 
-                       " (", paste0(c(key_fields, response_fields), 
-                                    collapse = ", "), ") 
-                      SELECT ", paste0(c(key_fields, response_fields), 
-                                       collapse = ", "), 
-                       " FROM GAP_PRODUCTS.GAP_PRODUCTS_TEMP_NEW_RECORDS"))
-      
-      ## Drop temporary table
-      gapindex::sql_query(
-        channel = gapproducts_channel, 
-        query = "DROP TABLE GAP_PRODUCTS.GAP_PRODUCTS_TEMP_NEW_RECORDS PURGE;"
-      )
-    }
-    
-    # Modify records if they exist
-    if (nrow(x = modified_records) > 0) {
-      
-      ## Subset updated field records
-      modified_records <- 
-        modified_records[, 
-                         c(key_fields, paste0(response_fields, "_UPDATE")), 
-                         with = F]
-      names(x = modified_records) <- c(key_fields, response_fields)
-      
-      ## Upload a temporary table to GAP_PRODUCTS that holds the new records
-      gapindex::upload_oracle(
-        x = modified_records,
-        table_name = "GAP_PRODUCTS_TEMP_MODIFIED_RECORDS", 
-        metadata_column = metadata_column, 
-        table_metadata = paste(iquantity, "records to be modified in the", 
-                               iregion, "region"), 
-        channel = gapproducts_channel, 
-        schema = "GAP_PRODUCTS", 
-        share_with_all_users = F)
-      
-      ## String together query to modify records
-      modify_query <-
-        paste0(
-          "MERGE INTO GAP_PRODUCTS.", toupper(x = iquantity), " MAIN_TABLE\n",
-          " USING GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS UPDATED_TABLE
-             ON (\n",
-          paste0(paste0("MAIN_TABLE.", key_fields), " = ", 
-                 paste0("UPDATED_TABLE.", key_fields), 
-                 collapse = "\n AND "), 
-          ") 
-             WHEN MATCHED THEN 
-             UPDATE SET \n",
-          paste0(paste0("MAIN_TABLE.", response_fields), " = ",
-                 paste0("UPDATED_TABLE.", response_fields),
-                 collapse = ",\n"), ";"
-        )
-      
-      ## Execute modify records query
-      gapindex::sql_query(channel = gapproducts_channel,
-                          query = modify_query)
-      
-      ## Drop temporary table
-      gapindex::sql_query(
-        channel = gapproducts_channel, 
-        query = "DROP TABLE GAP_PRODUCTS.GAP_PRODUCTS_TEMP_MODIFIED_RECORDS PURGE;"
-      )
-    }
-  }
+for (itable in paste0("STAGE_", c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP"))) {
+  gapindex::sql_query(channel = gapproducts_channel, 
+                      query = paste0("TRUNCATE TABLE ", itable))
+  DBI::dbAppendTable(conn = gapproducts_channel,
+                     name = DBI::Id(schema = "GAP_PRODUCTS", table = itable),
+                     value = stage_tables[[itable]])
+  cat(nrow(x = stage_tables[[itable]]), "records uploaded to", itable, "\n")
 }
 
-## Commit changes
-gapindex::sql_query(
-  channel = gapproducts_channel,
-  query = "commit;")
+## Check In SQL Developer that STAGE_* tables were updated
 
-## Update Table Comments to reflect updated DDL timestamp
-gapindex::sql_query(
-  channel = gapproducts_channel,
-  query = "BEGIN
-	UPDATE_TABLE_COMMENTS;
-	UPDATE_FIELD_COMMENTS;
-END;")
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  Merge changes from the STAGE_* tables to the main tables
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (itable in c("cpue", "biomass", "sizecomp", "agecomp")) {
+  n_recs <- nrow(x = stage_tables[[paste0("STAGE_", toupper(x = itable))]])
+  
+  if (n_recs > 0) {
+    cat("Merging", n_recs, "changes into", toupper(x = itable), "\n") 
+    
+    ## Read the PL/SQL file as a single block of text
+    plsql_script <- paste(readLines(con = paste0("code/sql_procedures/merge_", 
+                                                 itable, "_changes.sql")), 
+                          collapse = "\n")
+    
+    ## Execute the block safely inside an R tryCatch wrapper
+    tryCatch({
+      cat("Starting", itable, "merge...\n")
+      
+      ## dbExecute handles statements that don't return tabular records
+      rows_affected <- DBI::dbExecute(gapproducts_channel, plsql_script)
+      
+      cat("Procedure completed successfully.\n")
+    }, error = function(e) {
+      cat("An error occurred during database execution:\n")
+      print(e)
+    })
+    
+  } else cat("No records to change for", toupper(x = itable), "\n")
+  
+}
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Use summarize_gp_updates to quickly check audit tables
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "24-APR-26 11.00.00 AM",
-                     time_end = "25-APR-26 11.59.00 PM" )
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Update FOSS and AKFIN Tables
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Import AKFIN and FOSS table names and table descriptions
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# views <- subset(x = read.csv(file = "data/table_comments.csv"),
-#                 subset = table_type %in% c("akfin", "foss"))
-# source("functions/getSQL.R")
-# 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Loop over SQL scripts, upload to Oracle, and add field and table comments
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# for (isql_script in 1:nrow(x = views)) { ## Loop over tables -- start
-#   start_time <- Sys.time()
-#   temp_table_name <- paste0("GAP_PRODUCTS.", views$table_name[isql_script])
-#   cat("Creating", temp_table_name, "...\n")
-#   
-#   ## Extract tables already in GAP_PRODUCTS
-#   available_views <- gapindex::sql_query(
-#     channel = gapproducts_channel, 
-#     query = "SELECT OWNER, TABLE_NAME 
-#     FROM ALL_TABLES 
-#     WHERE OWNER = 'GAP_PRODUCTS';"
-#   )
-#   
-#   ## If the temp_table_name already exists, drop before recreating
-#   if (views$table_name[isql_script] %in% available_views$TABLE_NAME)
-#     gapindex::sql_query(channel = gapproducts_channel, 
-#                         query = paste("DROP MATERIALIZED VIEW", temp_table_name))
-#   
-#   ## Run the SQL query for the materialized view. The AKFIN SQL scripts are
-#   ## in a folder called code/sql_akfin and the FOSS scripts are in a folder 
-#   ## caled code/sql_foss.
-#   gapindex::sql_query(
-#     channel = gapproducts_channel,
-#     query = getSQL(filepath = paste0("code/sql_", 
-#                                      views$table_type[isql_script], "/", 
-#                                      views$table_name[isql_script], ".sql")
-#     )
-#   )
-#   
-#   gapindex::sql_query(channel = gapproducts_channel,
-#                       query = paste0("GRANT SELECT ON GAP_PRODUCTS.", 
-#                                      views$table_name[isql_script],
-#                                      " TO PUBLIC;"))
-#   
-#   end_time <- Sys.time()
-#   cat(names(print(end_time - start_time)), "\n")
-# } ## Loop over tables -- end
+                     time_start = "24-JUN-26 11.00.00 AM",
+                     time_end = "26-JUN-26 11.59.00 PM" )
