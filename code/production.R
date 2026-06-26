@@ -17,6 +17,7 @@ options(scipen = 999999)
 library(gapindex); library(data.table)
 source(file = "functions/calc_diff.R")
 source(file = "functions/compare_tables.R")
+source(file = "functions/compile_stage_tables.R")
 channel <- gapindex::get_connected(check_access = F)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -636,6 +637,12 @@ for (iregion in 1:length(x = regions)) { ## Loop over regions -- start
 } ## Loop over regions -- end
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  Convert mismatches table into a named l
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+stage_tables <- compile_stage_tables(update_list = mismatches)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Save mismatch object as RDS and excel file
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 saveRDS(object = mismatches, file = "temp/mismatches.RDS")
+saveRDS(object = stage_tables, file = "temp/stage_tables.RDS")
