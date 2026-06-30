@@ -7,56 +7,66 @@
 ## Restart R Session before running
 rm(list = ls())
 
-# devtools::install_version("odbc", "1.3.4")
-library(odbc); library(DBI)
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Connect to Oracle using both AFSC GAP_PRODUCTS and AKFIN GAP_PRODUCT_STAGE 
+## credentials
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Connect to the AFSC GAP_PRODUCTS and AKFIN GAP_PRODUCTS_STAGE schemata
-afsc_channel <- DBI::dbConnect(odbc::odbc(), dsn = "afsc", 
-                               UID="GAP_PRODUCTS", 
-                               PWD = getPass::getPass())
-akfin_channel <- DBI::dbConnect(odbc::odbc(), dsn = "AKFIN", 
-                                   UID="GAP_PRODUCTS_STAGE", 
-                                   PWD = getPass::getPass())
+afsc_channel <- 
+  gapindex::get_connected(db = "AFSC", conn_type = "DBI", check_access = F)
+akfin_channel <- 
+  gapindex::get_connected(db = "AKFIN", conn_type = "DBI", check_access = F)
 
-## Query AKFIN_* table names from AFSC GAP_PRODUCTS to update
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Loop over AKFIN tables, compile in R from AFSC GAP_PRODUCTS schema,
+## Truncate the table in the AKFIN GAP_PRODUCTS_STAGE schema,
+## Append the compiled table from R to AKFIN GAP_PRODUCTS_STAGE
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Query AKFIN table names from AFSC GAP_PRODUCTS to update
 akfin_table_names <- 
-  DBI::dbGetQuery(afsc_channel, 
-                  "SELECT * FROM ALL_TABLES
-                   WHERE OWNER = 'GAP_PRODUCTS'
-                   AND TABLE_NAME LIKE 'AKFIN_%'")$TABLE_NAME
+  dir("code/sql_akfin/") |> gsub(pattern = ".sql", replacement = "")
 
-for (itable in akfin_table_names){ ## Loop over tables -- start
+for (itable in rev(akfin_table_names)) { ## Loop over tables -- start
   
-  cat(paste0("Currently Uploading ", itable, "... ") )
+  ## Starting output message
+  cat(paste0("Compiling ", itable, "...") )
   start_time <- Sys.time()
   
-  ## Query itable from AFSC GAP_PRDOUCTS and add AKFIN_LOAD_DATE date stamp
-  temp_table <-
-    DBI::dbGetQuery(afsc_channel,
-                    paste0("SELECT GAP_PRODUCTS.", itable,
-                           ".*, TRUNC(SYSDATE) AKFIN_LOAD_DATE ",
-                           "FROM GAP_PRODUCTS.", itable))
+  ## Compile table in R
+  temp_table <- 
+    ## Read sql script for the creation of itable
+    readLines(paste0("code/sql_akfin/", itable, ".sql")) |> 
+    ## Remove lines starting with '--' or that are completely blank
+    (\(lines) lines[!grepl("^\\s*(--|\\s*$)", lines)])() |> 
+    # Collapse the remaining lines into a single string
+    paste(collapse = " ") |> 
+    ## Pass the clean SQL string directly into the query function
+    (\(sql) DBI::dbGetQuery(conn = afsc_channel, statement = sql))()
   
-  cat(paste0(nrow(x = temp_table), " records.\n"))
-  
-  ## Convert AKFIN_LOAD_DATE from Positct to character DATE
+  ## Convert any field with "DATE" in the name from Positct to character DATE
   if (any(grepl(pattern = "DATE", x = names(x = temp_table)) == TRUE)){
     date_fields <- grep(pattern = "DATE", x = names(x = temp_table))
     for (ifield in date_fields)
-      temp_table[, ifield] <- format(temp_table[, ifield], "%Y-%m-%d ")
+      temp_table[, ifield] <- format(temp_table[, ifield], "%Y-%m-%d")
   }
   
+  ## Output time elapsed
+  cat(paste0(nrow(x = temp_table), " records. Time Elapsed: ",
+             format(round(Sys.time() - start_time)), "\n",
+             "Transporting ", itable, " to AKFIN... ") )
+  
+  start_time <- Sys.time()
   ## Truncate itable in AKFIN GAP_PRODUCTS_STAGE
   DBI::dbGetQuery(akfin_channel, paste0("TRUNCATE TABLE ", itable))
   
-  ## Append to recently truncated itable in AKFIN GAP_PRODUCTS_STAGE
+  ## Append temp_table AKFIN GAP_PRODUCTS_STAGE
   DBI::dbAppendTable(conn = akfin_channel,
                      name = itable,
                      value = temp_table)
   
-  ## Report how long it took to upload
-  end_time <- Sys.time()
-  cat(paste0("Finished Uploading ", nrow(x = temp_table), " records from ",
-             itable, ". Time Elapsed: ",
-             format(round(end_time - start_time)), "\n\n") )
+  ## Output time elapsed
+  cat(paste0("Done. Time Elapsed: ",
+             format(round(Sys.time() - start_time)), "\n\n") )
+  
 } ## Loop over tables -- end
