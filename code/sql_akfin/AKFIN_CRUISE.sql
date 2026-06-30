@@ -1,15 +1,2 @@
--- SQL Command to Create Materilized View GAP_PRODUCTS.AKFIN_CRUISE
---
--- Note: the five survey areas w/ survey_definition_id:
--- "AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143
---
--- Contributors: Ned Laman (ned.laman@noaa.gov), 
---               Zack Oyafuso (zack.oyafuso@noaa.gov), 
---               Emily Markowitz (emily.markowitz@noaa.gov)
---
-
-CREATE MATERIALIZED VIEW GAP_PRODUCTS.AKFIN_CRUISE AS
-SELECT *
-from GAP_PRODUCTS.CRUISE
-
--- File slated to be will be removed by end of 2026 if not sooner
+-- Mirror of GAP_PRODUCTS.CRUISE
+SELECT A.*, TRUNC(SYSDATE) AKFIN_LOAD_DATE FROM GAP_PRODUCTS.CRUISE A;
