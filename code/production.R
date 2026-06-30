@@ -332,7 +332,9 @@ EBS Standard Area.\n\n")
     } ## Loop over data table -- end
   } ## Loop over species -- end
   
-  ## Remove commercial crab data from biomass table
+  ## Remove commercial crab data from cpue and biomass tables
+  production_cpue <- 
+    production_cpue[!(SPECIES_CODE %in% c(69323,69322,68580,68560,68590))]
   production_biomass <- 
     production_biomass[!(SPECIES_CODE %in% c(69323,69322,68580,68560,68590))]
   
