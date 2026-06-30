@@ -46,12 +46,11 @@ detailed_notes <-
 
 -- This run was conducted to test out a new way of updating the four main table (CPUE, BIOMASS, SIZECOMP, AGECOMP) using staging tables.
 
--- Incorporating new read ages for GOA arrowtooth flounder from 2025 and AI rougheye rockfish from 2024
-
+-- Removed commercial carb data from CPUE tables.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   Create report changelog
+##   Create report changelog from an RMarkdown template script
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 gapindex_version <-
   subset(x = read.csv(file = "temp/installed_packages.csv"),
@@ -115,5 +114,5 @@ for (itable in c("cpue", "biomass", "sizecomp", "agecomp")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "24-JUN-26 11.00.00 AM",
-                     time_end = "26-JUN-26 11.59.00 PM" )
+                     time_start = "26-JUN-26 11.00.00 AM",
+                     time_end = "26-JUN-26 11.59.00 PM")
