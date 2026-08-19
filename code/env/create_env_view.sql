@@ -16,7 +16,8 @@ SELECT * FROM (
     FROM ENVIRONMENTAL d
     JOIN VARIABLE_CODES c ON d.variable = c.variable
     WHERE d.direction = 0
-      AND c.name IN ('TEMPERATURE_C', 'SALINITY_PSS78', 'PH', 
+    AND INSTRUMENT IN (1,2,3,4,5) -- only CTD data
+    AND c.name IN ('TEMPERATURE_C', 'SALINITY_PSS78', 'PH', 
                          'DOXY_ML_L', 'DOXY_MMOL_L')
 )
 PIVOT (
