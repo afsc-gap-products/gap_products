@@ -16,7 +16,7 @@ chl <- gapindex::get_connected(conn_type = "DBI", check_access = FALSE)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Loop over the lookup tables and append to the tables created in Oracle
-for (itable in c("VARIABLE_CODES", #"INSTRUMENT_CODES", 
+for (itable in c("VARIABLE_CODES", "INSTRUMENT_CODES", 
                  "DIRECTION_CODES")) {
   lookup <- readxl::read_xlsx(path = "code/environmental/env_lookup_table_data.xlsx", 
                               sheet = itable)
