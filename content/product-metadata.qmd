@@ -13,7 +13,8 @@ str00 <- print_table_metadata(
   locations = c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", 
                 "SURVEY_DESIGN", "STRATUM_GROUPS", "SPECIES_YEAR",
                 "TAXON_GROUPS", "CRUISE", "HAUL", "LENGTH", "METADATA_COLUMN", 
-                "SPECIMEN", "TAXONOMIC_CLASSIFICATION", "TAXONOMIC_GROUPS") 
+                "SPECIMEN", "TAXONOMIC_CLASSIFICATION", "TAXONOMIC_GROUPS", 
+                "ENVIRONMENTAL", "VARIABLE_CODES", "INSTRUMENT_CODES", "DIRECTION_CODES") 
 )
 ```
 
