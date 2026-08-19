@@ -18,7 +18,7 @@ chl <- gapindex::get_connected(conn_type = "DBI", check_access = FALSE)
 ## Loop over the lookup tables and append to the tables created in Oracle
 for (itable in c("VARIABLE_CODES", "INSTRUMENT_CODES", 
                  "DIRECTION_CODES")) {
-  lookup <- readxl::read_xlsx(path = "code/environmental/env_lookup_table_data.xlsx", 
+  lookup <- readxl::read_xlsx(path = "code/env/env_lookup_table_data.xlsx", 
                               sheet = itable)
   
   DBI::dbAppendTable(conn = chl, name = itable, value = lookup)
@@ -27,10 +27,10 @@ for (itable in c("VARIABLE_CODES", "INSTRUMENT_CODES",
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  Upload historical CTD data from 2021-2024
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-env <- readRDS(file = "code/environmental/GAPCTD_all_casts_2021_2024.rds")
+env <- readRDS(file = "code/env/GAPCTD_all_casts_2021_2024.rds")
 names(x = env) <- toupper(x = names(x = env))
 
-instruments <- readRDS(file = "code/environmental/GAPCTD_instrument_2021_2024.rds")
+instruments <- readRDS(file = "code/env/GAPCTD_instrument_2021_2024.rds")
 names(x = instruments) <- toupper(x = names(x = instruments))
 
 env <- merge(
