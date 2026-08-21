@@ -6,14 +6,140 @@ title: Data Description
 #| file: functions.R
 ```
 
+```{r erg}
+
+library(DBI)
+library(dm)
+library(dplyr)
+library(gapindex)
+library(DiagrammeR)
+library(here)
+
+# 1. Establish Oracle Connection
+# con <- gapindex::get_connected(conn_type = "DBI", check_access = FALSE)
+
+# 2. Target Schema Tables (18 tables)
+target_tables <- c(
+  "ENVIRONMENTAL", "DIRECTION_CODES", "INSTRUMENT_CODES", "VARIABLE_CODES", 
+  "HAUL", "CRUISE", "CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", 
+  "SURVEY_DESIGN", "STRATUM_GROUPS", "SPECIES_YEAR", "TAXON_GROUPS", 
+  "LENGTH", "SPECIMEN", "TAXONOMIC_CLASSIFICATION"
+)
+
+# 3. Load Schema
+gap_products_erd <- dm_from_con(
+  con,
+  table_names = target_tables,
+  learn_keys = FALSE
+)
+
+# 4. Primary Keys (Defined on true parent entities to keep table layouts unified)
+gap_products_erd <- gap_products_erd |>
+  # Operational / Event Hierarchy
+  dm_add_pk(CRUISE, CRUISEJOIN) |>
+  dm_add_pk(HAUL, HAULJOIN) |>
+  
+  # Taxonomy Parent
+  dm_add_pk(TAXONOMIC_CLASSIFICATION, SPECIES_CODE) |>
+  
+  # Geographic & Design Parents
+  dm_add_pk(SURVEY_DESIGN, SURVEY_DEFINITION_ID) |>
+  dm_add_pk(AREA, AREA_ID) |>
+  dm_add_pk(STRATUM_GROUPS, STRATUM) |>
+  
+  # Measurement Lookups
+  dm_add_pk(DIRECTION_CODES, DIRECTION) |>
+  dm_add_pk(INSTRUMENT_CODES, INSTRUMENT) |>
+  dm_add_pk(VARIABLE_CODES, VARIABLE)
+
+# 5. Foreign Keys (Relational mappings)
+gap_products_erd <- gap_products_erd |>
+  # Event Hierarchy (HAUL -> CRUISE)
+  dm_add_fk(table = HAUL, columns = CRUISEJOIN, ref_table = CRUISE) |>
+  
+  # Haul-level Sampling Data -> HAUL
+  dm_add_fk(table = ENVIRONMENTAL, columns = HAULJOIN, ref_table = HAUL) |>
+  dm_add_fk(table = CPUE, columns = HAULJOIN, ref_table = HAUL) |>
+  dm_add_fk(table = LENGTH, columns = HAULJOIN, ref_table = HAUL) |>
+  dm_add_fk(table = SPECIMEN, columns = HAULJOIN, ref_table = HAUL) |>
+  
+  # Environmental Measurement Lookups
+  dm_add_fk(table = ENVIRONMENTAL, columns = DIRECTION, ref_table = DIRECTION_CODES) |>
+  dm_add_fk(table = ENVIRONMENTAL, columns = INSTRUMENT, ref_table = INSTRUMENT_CODES) |>
+  dm_add_fk(table = ENVIRONMENTAL, columns = VARIABLE, ref_table = VARIABLE_CODES) |>
+  
+  # Biological Data -> TAXONOMIC_CLASSIFICATION
+  dm_add_fk(table = CPUE, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = LENGTH, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = SPECIMEN, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = TAXON_GROUPS, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = SPECIES_YEAR, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = AGECOMP, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = BIOMASS, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  dm_add_fk(table = SIZECOMP, columns = SPECIES_CODE, ref_table = TAXONOMIC_CLASSIFICATION) |>
+  
+  # Geographic Links -> AREA
+  dm_add_fk(table = STRATUM_GROUPS, columns = AREA_ID, ref_table = AREA) |>
+  dm_add_fk(table = AGECOMP, columns = AREA_ID, ref_table = AREA) |>
+  dm_add_fk(table = BIOMASS, columns = AREA_ID, ref_table = AREA) |>
+  
+  # Design Links -> SURVEY_DESIGN
+  dm_add_fk(table = AREA, columns = SURVEY_DEFINITION_ID, ref_table = SURVEY_DESIGN) |>
+  dm_add_fk(table = CRUISE, columns = SURVEY_DEFINITION_ID, ref_table = SURVEY_DESIGN)
+
+# 6. Apply Thematic Domain Colors
+gap_products_erd <- gap_products_erd |>
+  dm_set_colors(
+    "#E8EEF5" = c(CRUISE, HAUL),
+    "#E2F0D9" = c(TAXONOMIC_CLASSIFICATION, TAXON_GROUPS, SPECIES_YEAR, SPECIMEN, LENGTH, AGECOMP, SIZECOMP, BIOMASS, CPUE),
+    "#FCE4D6" = c(SURVEY_DESIGN, AREA, STRATUM_GROUPS),
+    "#E0F2F1" = c(ENVIRONMENTAL, DIRECTION_CODES, INSTRUMENT_CODES, VARIABLE_CODES)
+  )
+
+# 7. Render Base Diagram with All Columns
+draw_obj <- dm_draw(
+  gap_products_erd, 
+  view_type = "all"
+)
+
+# 8. Post-Process DOT String
+dot_str <- draw_obj$val$graph$s
+
+# A. Force Horizontal Layout (rankdir="LR"), set node/rank spacing, and global font
+dot_str <- gsub(
+  'graph \\[', 
+  'graph [ rankdir="LR", fontname="Arial", nodesep="0.8", ranksep="2.0", node [fontname="Arial"], edge [fontname="Arial"], ', 
+  dot_str
+)
+
+# B. Override hardcoded HTML node fonts to Arial
+dot_str <- gsub('face="[^"]*"', 'face="Arial"', dot_str)
+dot_str <- gsub('FONT FACE="[^"]*"', 'FONT FACE="Arial"', dot_str)
+
+# C. Global Underline Injection for Key Attributes
+keys_to_underline <- c("SURVEY_DEFINITION_ID", "CRUISEJOIN", "HAULJOIN", "SPECIES_CODE", "AREA_ID", "STRATUM")
+
+for (key in keys_to_underline) {
+  pattern <- paste0('(?<!<U>)', key, '(?!</U>)')
+  replacement <- paste0('<U>', key, '</U>')
+  dot_str <- gsub(pattern, replacement, dot_str, perl = TRUE)
+}
+
+# Assign updated DOT string back
+draw_obj$val$graph$s <- dot_str
+
+# 9. Export to SVG
+svg_diagram <- DiagrammeRsvg::export_svg(draw_obj)
+
+writeLines(svg_diagram, here::here("content/gap_products_erd.svg"))
+# Open 'environmental_erd.svg' directly in your browser!
+
+```
 
 ```{r table-locations, eval = TRUE, echo = FALSE}
 str00 <- print_table_metadata(
   channel, 
-  locations = c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", 
-                "SURVEY_DESIGN", "STRATUM_GROUPS", "SPECIES_YEAR",
-                "TAXON_GROUPS", "CRUISE", "HAUL", "LENGTH", "METADATA_COLUMN", 
-                "SPECIMEN", "TAXONOMIC_CLASSIFICATION", "TAXONOMIC_GROUPS") 
+  locations = c(target_tables, "METADATA_COLUMN") 
 )
 ```
 
