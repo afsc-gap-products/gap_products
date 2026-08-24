@@ -16,7 +16,7 @@ library(DiagrammeR)
 library(here)
 
 # 1. Establish Oracle Connection
-# con <- gapindex::get_connected(conn_type = "DBI", check_access = FALSE)
+con <- con_products
 
 # 2. Target Schema Tables (18 tables)
 target_tables <- c(
@@ -137,7 +137,7 @@ writeLines(svg_diagram, here::here("content/gap_products_erd.svg"))
 ```
 
 
-```{r erg-simple}
+```{r erg-keys_only}
 
 draw_obj <- dm_draw(
   gap_products_erd, 
@@ -173,7 +173,50 @@ draw_obj$val$graph$s <- dot_str
 # 9. Export to SVG
 svg_diagram <- DiagrammeRsvg::export_svg(draw_obj)
 
-writeLines(svg_diagram, here::here("content/gap_products_erd_keys.svg"))
+writeLines(svg_diagram, here::here("content/gap_products_erd_keys_only.svg"))
+# Open 'environmental_erd.svg' directly in your browser!
+
+svg_diagram
+
+```
+
+```{r erg-title_only}
+
+draw_obj <- dm_draw(
+  gap_products_erd, 
+  view_type = "title_only"
+)
+
+# 8. Post-Process DOT String
+dot_str <- draw_obj$val$graph$s
+
+# A. Force Horizontal Layout (rankdir="LR"), set node/rank spacing, and global font
+dot_str <- gsub(
+  'graph \\[', 
+  'graph [ rankdir="LR", fontname="Arial", nodesep="0.8", ranksep="2.0", node [fontname="Arial"], edge [fontname="Arial"], ', 
+  dot_str
+)
+
+# B. Override hardcoded HTML node fonts to Arial
+dot_str <- gsub('face="[^"]*"', 'face="Arial"', dot_str)
+dot_str <- gsub('FONT FACE="[^"]*"', 'FONT FACE="Arial"', dot_str)
+
+# C. Global Underline Injection for Key Attributes
+keys_to_underline <- c("SURVEY_DEFINITION_ID", "CRUISEJOIN", "HAULJOIN", "SPECIES_CODE", "AREA_ID", "STRATUM")
+
+for (key in keys_to_underline) {
+  pattern <- paste0('(?<!<U>)', key, '(?!</U>)')
+  replacement <- paste0('<U>', key, '</U>')
+  dot_str <- gsub(pattern, replacement, dot_str, perl = TRUE)
+}
+
+# Assign updated DOT string back
+draw_obj$val$graph$s <- dot_str
+
+# 9. Export to SVG
+svg_diagram <- DiagrammeRsvg::export_svg(draw_obj)
+
+writeLines(svg_diagram, here::here("content/gap_products_erd_title_only.svg"))
 # Open 'environmental_erd.svg' directly in your browser!
 
 ```
