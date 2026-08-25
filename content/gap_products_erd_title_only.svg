@@ -15,22 +15,22 @@
 <!-- AGECOMP -->
 <g id="AGECOMP" class="node">
 <title>AGECOMP</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="31.5,-494 31.5,-514 103.5,-514 103.5,-494 31.5,-494"/>
+<polygon fill="#fcd4ac" stroke="transparent" points="31.5,-494 31.5,-514 103.5,-514 103.5,-494 31.5,-494"/>
 <text text-anchor="start" x="33.2819" y="-499.4" font-family="Times,serif" font-size="14.00" fill="#000000">AGECOMP</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="30.5,-493 30.5,-515 104.5,-515 104.5,-493 30.5,-493"/>
+<polygon fill="none" stroke="#a88d72" stroke-opacity="0.666667" points="30.5,-493 30.5,-515 104.5,-515 104.5,-493 30.5,-493"/>
 </g>
 <!-- AREA -->
 <g id="AREA" class="node">
 <title>AREA</title>
-<polygon fill="#fce4d6" stroke="transparent" points="256,-467 256,-487 298,-487 298,-467 256,-467"/>
-<text text-anchor="start" x="257.9488" y="-472.4" font-family="Times,serif" font-size="14.00" fill="#000000">AREA</text>
-<polygon fill="none" stroke="#a8988e" stroke-opacity="0.666667" points="255,-466 255,-488 299,-488 299,-466 255,-466"/>
+<polygon fill="#fcacac" stroke="transparent" points="256,-440 256,-460 298,-460 298,-440 256,-440"/>
+<text text-anchor="start" x="257.9488" y="-445.4" font-family="Times,serif" font-size="14.00" fill="#000000">AREA</text>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="255,-439 255,-461 299,-461 299,-439 255,-439"/>
 </g>
 <!-- AGECOMP&#45;&gt;AREA -->
 <g id="AGECOMP_1" class="edge">
 <title>AGECOMP:AREA_ID&#45;&gt;AREA:AREA_ID</title>
-<path fill="none" stroke="#555555" d="M104.9544,-499.1729C143.0378,-494.2648 201.7013,-486.7044 239.7213,-481.8044"/>
-<polygon fill="#555555" stroke="#555555" points="240.3926,-485.2469 249.8632,-480.4973 239.4978,-478.3044 240.3926,-485.2469"/>
+<path fill="none" stroke="#555555" d="M104.9544,-494.3459C143.0378,-484.5296 201.7013,-469.4087 239.7213,-459.6088"/>
+<polygon fill="#555555" stroke="#555555" points="241.0533,-462.88 249.8632,-456.9947 239.306,-456.1015 241.0533,-462.88"/>
 </g>
 <!-- TAXONOMIC_CLASSIFICATION -->
 <g id="TAXONOMIC_CLASSIFICATION" class="node">
@@ -42,34 +42,34 @@
 <!-- AGECOMP&#45;&gt;TAXONOMIC_CLASSIFICATION -->
 <g id="AGECOMP_2" class="edge">
 <title>AGECOMP:SPECIES_CODE&#45;&gt;TAXONOMIC_CLASSIFICATION:SPECIES_CODE</title>
-<path fill="none" stroke="#555555" d="M104.8412,-492.6666C115.1239,-488.6107 125.9333,-483.4155 135,-477 188.757,-438.9622 235.7421,-376.6113 259.8397,-341.3874"/>
-<polygon fill="#555555" stroke="#555555" points="262.7741,-343.2959 265.4632,-333.048 256.9704,-339.3822 262.7741,-343.2959"/>
+<path fill="none" stroke="#555555" d="M104.7109,-493.6931C115.2176,-489.6191 126.1791,-484.1572 135,-477 157.3987,-458.8259 152.8174,-445.3918 171,-423 195.592,-392.7151 227.3192,-361.2264 249.63,-340.1199"/>
+<polygon fill="#555555" stroke="#555555" points="252.206,-342.5022 257.1017,-333.1063 247.4152,-337.3985 252.206,-342.5022"/>
 </g>
 <!-- SURVEY_DESIGN -->
 <g id="SURVEY_DESIGN" class="node">
 <title>SURVEY_DESIGN</title>
-<polygon fill="#fce4d6" stroke="transparent" points="511,-318 511,-338 629,-338 629,-318 511,-318"/>
-<text text-anchor="start" x="512.8464" y="-323.4" font-family="Times,serif" font-size="14.00" fill="#000000">SURVEY_DESIGN</text>
-<polygon fill="none" stroke="#a8988e" stroke-opacity="0.666667" points="510,-317 510,-339 630,-339 630,-317 510,-317"/>
+<polygon fill="#fcacac" stroke="transparent" points="511,-305 511,-325 629,-325 629,-305 511,-305"/>
+<text text-anchor="start" x="512.8464" y="-310.4" font-family="Times,serif" font-size="14.00" fill="#000000">SURVEY_DESIGN</text>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="510,-304 510,-326 630,-326 630,-304 510,-304"/>
 </g>
 <!-- AREA&#45;&gt;SURVEY_DESIGN -->
 <g id="AREA_1" class="edge">
 <title>AREA:SURVEY_DEFINITION_ID&#45;&gt;SURVEY_DESIGN:SURVEY_DEFINITION_ID</title>
-<path fill="none" stroke="#555555" d="M304.0396,-463.2495C354.5715,-437.5524 463.776,-382.0184 525.3786,-350.6914"/>
-<polygon fill="#555555" stroke="#555555" points="527.1478,-353.7183 534.475,-346.0656 523.9748,-347.4788 527.1478,-353.7183"/>
+<path fill="none" stroke="#555555" d="M304.0396,-437.5415C353.4935,-414.7556 459.1433,-366.0773 521.3721,-337.4053"/>
+<polygon fill="#555555" stroke="#555555" points="522.9812,-340.5177 530.5988,-333.1541 520.0519,-334.16 522.9812,-340.5177"/>
 </g>
 <!-- BIOMASS -->
 <g id="BIOMASS" class="node">
 <title>BIOMASS</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="34.5,-440 34.5,-460 100.5,-460 100.5,-440 34.5,-440"/>
+<polygon fill="#fcd4ac" stroke="transparent" points="34.5,-440 34.5,-460 100.5,-460 100.5,-440 34.5,-440"/>
 <text text-anchor="start" x="36.3899" y="-445.4" font-family="Times,serif" font-size="14.00" fill="#000000">BIOMASS</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="33.5,-439 33.5,-461 101.5,-461 101.5,-439 33.5,-439"/>
+<polygon fill="none" stroke="#a88d72" stroke-opacity="0.666667" points="33.5,-439 33.5,-461 101.5,-461 101.5,-439 33.5,-439"/>
 </g>
 <!-- BIOMASS&#45;&gt;AREA -->
 <g id="BIOMASS_1" class="edge">
 <title>BIOMASS:AREA_ID&#45;&gt;AREA:AREA_ID</title>
-<path fill="none" stroke="#555555" d="M101.6261,-454.3981C139.6233,-459.2951 200.8273,-467.183 239.9633,-472.2268"/>
-<polygon fill="#555555" stroke="#555555" points="239.5288,-475.6996 249.8941,-473.5066 240.4236,-468.7571 239.5288,-475.6996"/>
+<path fill="none" stroke="#555555" d="M101.6261,-450C139.5424,-450 200.567,-450 239.7132,-450"/>
+<polygon fill="#555555" stroke="#555555" points="239.8942,-453.5001 249.8941,-450 239.8941,-446.5001 239.8942,-453.5001"/>
 </g>
 <!-- BIOMASS&#45;&gt;TAXONOMIC_CLASSIFICATION -->
 <g id="BIOMASS_2" class="edge">
@@ -80,16 +80,16 @@
 <!-- CPUE -->
 <g id="CPUE" class="node">
 <title>CPUE</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="48.5,-224 48.5,-244 87.5,-244 87.5,-224 48.5,-224"/>
+<polygon fill="#fcacf9" stroke="transparent" points="48.5,-224 48.5,-244 87.5,-244 87.5,-224 48.5,-224"/>
 <text text-anchor="start" x="50.1108" y="-229.4" font-family="Times,serif" font-size="14.00" fill="#000000">CPUE</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="47,-223 47,-245 88,-245 88,-223 47,-223"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="47,-223 47,-245 88,-245 88,-223 47,-223"/>
 </g>
 <!-- HAUL -->
 <g id="HAUL" class="node">
 <title>HAUL</title>
-<polygon fill="#e8eef5" stroke="transparent" points="256,-170 256,-190 298,-190 298,-170 256,-170"/>
+<polygon fill="#fcacf9" stroke="transparent" points="256,-170 256,-190 298,-190 298,-170 256,-170"/>
 <text text-anchor="start" x="257.5638" y="-175.4" font-family="Times,serif" font-size="14.00" fill="#000000">HAUL</text>
-<polygon fill="none" stroke="#9a9ea3" stroke-opacity="0.666667" points="255,-169 255,-191 299,-191 299,-169 255,-169"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="255,-169 255,-191 299,-191 299,-169 255,-169"/>
 </g>
 <!-- CPUE&#45;&gt;HAUL -->
 <g id="CPUE_1" class="edge">
@@ -106,29 +106,29 @@
 <!-- CRUISE -->
 <g id="CRUISE" class="node">
 <title>CRUISE</title>
-<polygon fill="#e8eef5" stroke="transparent" points="420.5,-295 420.5,-315 473.5,-315 473.5,-295 420.5,-295"/>
-<text text-anchor="start" x="422.1122" y="-300.4" font-family="Times,serif" font-size="14.00" fill="#000000">CRUISE</text>
-<polygon fill="none" stroke="#9a9ea3" stroke-opacity="0.666667" points="419,-294 419,-316 474,-316 474,-294 419,-294"/>
+<polygon fill="#fcacac" stroke="transparent" points="420.5,-282 420.5,-302 473.5,-302 473.5,-282 420.5,-282"/>
+<text text-anchor="start" x="422.1122" y="-287.4" font-family="Times,serif" font-size="14.00" fill="#000000">CRUISE</text>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="419,-281 419,-303 474,-303 474,-281 419,-281"/>
 </g>
 <!-- CRUISE&#45;&gt;SURVEY_DESIGN -->
 <g id="CRUISE_1" class="edge">
 <title>CRUISE:SURVEY_DEFINITION_ID&#45;&gt;SURVEY_DESIGN:SURVEY_DEFINITION_ID</title>
-<path fill="none" stroke="#555555" d="M474.2158,-310.1616C481.9976,-311.6109 490.828,-313.2554 499.9035,-314.9456"/>
-<polygon fill="#555555" stroke="#555555" points="499.3377,-318.4003 509.8095,-316.7904 500.6193,-311.5186 499.3377,-318.4003"/>
+<path fill="none" stroke="#555555" d="M474.2158,-297.1616C481.9976,-298.6109 490.828,-300.2554 499.9035,-301.9456"/>
+<polygon fill="#555555" stroke="#555555" points="499.3377,-305.4003 509.8095,-303.7904 500.6193,-298.5186 499.3377,-305.4003"/>
 </g>
 <!-- DIRECTION_CODES -->
 <g id="DIRECTION_CODES" class="node">
 <title>DIRECTION_CODES</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="211,-116 211,-136 343,-136 343,-116 211,-116"/>
+<polygon fill="#acc3fc" stroke="transparent" points="211,-116 211,-136 343,-136 343,-116 211,-116"/>
 <text text-anchor="start" x="212.8478" y="-121.4" font-family="Times,serif" font-size="14.00" fill="#000000">DIRECTION_CODES</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="210,-115 210,-137 344,-137 344,-115 210,-115"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="210,-115 210,-137 344,-137 344,-115 210,-115"/>
 </g>
 <!-- ENVIRONMENTAL -->
 <g id="ENVIRONMENTAL" class="node">
 <title>ENVIRONMENTAL</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="5.5,-62 5.5,-82 130.5,-82 130.5,-62 5.5,-62"/>
+<polygon fill="#acc3fc" stroke="transparent" points="5.5,-62 5.5,-82 130.5,-82 130.5,-62 5.5,-62"/>
 <text text-anchor="start" x="7.3541" y="-67.4" font-family="Times,serif" font-size="14.00" fill="#000000">ENVIRONMENTAL</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="4,-61 4,-83 131,-83 131,-61 4,-61"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="4,-61 4,-83 131,-83 131,-61 4,-61"/>
 </g>
 <!-- ENVIRONMENTAL&#45;&gt;DIRECTION_CODES -->
 <g id="ENVIRONMENTAL_1" class="edge">
@@ -145,9 +145,9 @@
 <!-- INSTRUMENT_CODES -->
 <g id="INSTRUMENT_CODES" class="node">
 <title>INSTRUMENT_CODES</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="204,-62 204,-82 351,-82 351,-62 204,-62"/>
+<polygon fill="#acc3fc" stroke="transparent" points="204,-62 204,-82 351,-82 351,-62 204,-62"/>
 <text text-anchor="start" x="205.9565" y="-67.4" font-family="Times,serif" font-size="14.00" fill="#000000">INSTRUMENT_CODES</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="202.5,-61 202.5,-83 351.5,-83 351.5,-61 202.5,-61"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="202.5,-61 202.5,-83 351.5,-83 351.5,-61 202.5,-61"/>
 </g>
 <!-- ENVIRONMENTAL&#45;&gt;INSTRUMENT_CODES -->
 <g id="ENVIRONMENTAL_2" class="edge">
@@ -158,9 +158,9 @@
 <!-- VARIABLE_CODES -->
 <g id="VARIABLE_CODES" class="node">
 <title>VARIABLE_CODES</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="214,-8 214,-28 341,-28 341,-8 214,-8"/>
+<polygon fill="#acc3fc" stroke="transparent" points="214,-8 214,-28 341,-28 341,-8 214,-8"/>
 <text text-anchor="start" x="215.6781" y="-13.4" font-family="Times,serif" font-size="14.00" fill="#000000">VARIABLE_CODES</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="212.5,-7 212.5,-29 341.5,-29 341.5,-7 212.5,-7"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="212.5,-7 212.5,-29 341.5,-29 341.5,-7 212.5,-7"/>
 </g>
 <!-- ENVIRONMENTAL&#45;&gt;VARIABLE_CODES -->
 <g id="ENVIRONMENTAL_3" class="edge">
@@ -171,15 +171,15 @@
 <!-- HAUL&#45;&gt;CRUISE -->
 <g id="HAUL_1" class="edge">
 <title>HAUL:CRUISEJOIN&#45;&gt;CRUISE:CRUISEJOIN</title>
-<path fill="none" stroke="#555555" d="M301.6468,-198.1761C331.1466,-219.9311 380.6632,-256.4478 413.4584,-280.633"/>
-<polygon fill="#555555" stroke="#555555" points="411.698,-283.6836 421.8235,-286.802 415.8527,-278.0499 411.698,-283.6836"/>
+<path fill="none" stroke="#555555" d="M304.2331,-197.9947C333.0599,-217.0425 378.6963,-247.1975 410.4812,-268.2"/>
+<polygon fill="#555555" stroke="#555555" points="408.7808,-271.2714 419.0535,-273.8642 412.6398,-265.4312 408.7808,-271.2714"/>
 </g>
 <!-- LENGTH -->
 <g id="LENGTH" class="node">
 <title>LENGTH</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="38.5,-170 38.5,-190 97.5,-190 97.5,-170 38.5,-170"/>
+<polygon fill="#fcacf9" stroke="transparent" points="38.5,-170 38.5,-190 97.5,-190 97.5,-170 38.5,-170"/>
 <text text-anchor="start" x="40.0112" y="-175.4" font-family="Times,serif" font-size="14.00" fill="#000000">LENGTH</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="37,-169 37,-191 98,-191 98,-169 37,-169"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="37,-169 37,-191 98,-191 98,-169 37,-169"/>
 </g>
 <!-- LENGTH&#45;&gt;HAUL -->
 <g id="LENGTH_1" class="edge">
@@ -196,12 +196,18 @@
 <!-- SIZECOMP -->
 <g id="SIZECOMP" class="node">
 <title>SIZECOMP</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="31.5,-386 31.5,-406 104.5,-406 104.5,-386 31.5,-386"/>
+<polygon fill="#fcd4ac" stroke="transparent" points="31.5,-386 31.5,-406 104.5,-406 104.5,-386 31.5,-386"/>
 <text text-anchor="start" x="33.3906" y="-391.4" font-family="Times,serif" font-size="14.00" fill="#000000">SIZECOMP</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="30,-385 30,-407 105,-407 105,-385 30,-385"/>
+<polygon fill="none" stroke="#a88d72" stroke-opacity="0.666667" points="30,-385 30,-407 105,-407 105,-385 30,-385"/>
+</g>
+<!-- SIZECOMP&#45;&gt;AREA -->
+<g id="SIZECOMP_1" class="edge">
+<title>SIZECOMP:AREA_ID&#45;&gt;AREA:AREA_ID</title>
+<path fill="none" stroke="#555555" d="M105.4389,-405.779C143.5934,-415.6136 202.0446,-430.6798 239.8987,-440.4369"/>
+<polygon fill="#555555" stroke="#555555" points="239.4382,-443.9325 249.9953,-443.0394 241.1854,-437.1541 239.4382,-443.9325"/>
 </g>
 <!-- SIZECOMP&#45;&gt;TAXONOMIC_CLASSIFICATION -->
-<g id="SIZECOMP_1" class="edge">
+<g id="SIZECOMP_2" class="edge">
 <title>SIZECOMP:SPECIES_CODE&#45;&gt;TAXONOMIC_CLASSIFICATION:SPECIES_CODE</title>
 <path fill="none" stroke="#555555" d="M105.4389,-381.3315C137.5866,-368.9021 184.1435,-350.9016 220.6485,-336.7875"/>
 <polygon fill="#555555" stroke="#555555" points="222.1117,-339.9743 230.1767,-333.1035 219.5873,-333.4453 222.1117,-339.9743"/>
@@ -222,9 +228,9 @@
 <!-- SPECIMEN -->
 <g id="SPECIMEN" class="node">
 <title>SPECIMEN</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="31.5,-116 31.5,-136 104.5,-136 104.5,-116 31.5,-116"/>
+<polygon fill="#fcacf9" stroke="transparent" points="31.5,-116 31.5,-136 104.5,-136 104.5,-116 31.5,-116"/>
 <text text-anchor="start" x="33.3906" y="-121.4" font-family="Times,serif" font-size="14.00" fill="#000000">SPECIMEN</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="30,-115 30,-137 105,-137 105,-115 30,-115"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="30,-115 30,-137 105,-137 105,-115 30,-115"/>
 </g>
 <!-- SPECIMEN&#45;&gt;HAUL -->
 <g id="SPECIMEN_1" class="edge">
@@ -241,15 +247,15 @@
 <!-- STRATUM_GROUPS -->
 <g id="STRATUM_GROUPS" class="node">
 <title>STRATUM_GROUPS</title>
-<polygon fill="#fce4d6" stroke="transparent" points="1.5,-548 1.5,-568 134.5,-568 134.5,-548 1.5,-548"/>
+<polygon fill="#fcacac" stroke="transparent" points="1.5,-548 1.5,-568 134.5,-568 134.5,-548 1.5,-548"/>
 <text text-anchor="start" x="3.4481" y="-553.4" font-family="Times,serif" font-size="14.00" fill="#000000">STRATUM_GROUPS</text>
-<polygon fill="none" stroke="#a8988e" stroke-opacity="0.666667" points="0,-547 0,-569 135,-569 135,-547 0,-547"/>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="0,-547 0,-569 135,-569 135,-547 0,-547"/>
 </g>
 <!-- STRATUM_GROUPS&#45;&gt;AREA -->
 <g id="STRATUM_GROUPS_1" class="edge">
 <title>STRATUM_GROUPS:AREA_ID&#45;&gt;AREA:AREA_ID</title>
-<path fill="none" stroke="#555555" d="M114.2551,-539.9228C152.395,-525.1766 205.5135,-504.6392 240.5532,-491.0916"/>
-<polygon fill="#555555" stroke="#555555" points="241.8643,-494.3372 249.9293,-487.4665 239.3399,-487.8082 241.8643,-494.3372"/>
+<path fill="none" stroke="#555555" d="M115.0665,-539.9336C121.823,-537.0902 128.6339,-534.0708 135,-531 172.1371,-513.086 212.8547,-489.4185 241.1292,-472.2966"/>
+<polygon fill="#555555" stroke="#555555" points="243.1323,-475.1746 249.8517,-466.9831 239.4906,-469.1965 243.1323,-475.1746"/>
 </g>
 <!-- TAXON_GROUPS -->
 <g id="TAXON_GROUPS" class="node">

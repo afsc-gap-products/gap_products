@@ -80,6 +80,7 @@ gap_products_erd <- gap_products_erd |>
   
   # Geographic Links -> AREA
   dm_add_fk(table = STRATUM_GROUPS, columns = AREA_ID, ref_table = AREA) |>
+  dm_add_fk(table = SIZECOMP, columns = AREA_ID, ref_table = AREA) |>
   dm_add_fk(table = AGECOMP, columns = AREA_ID, ref_table = AREA) |>
   dm_add_fk(table = BIOMASS, columns = AREA_ID, ref_table = AREA) |>
   
@@ -90,10 +91,11 @@ gap_products_erd <- gap_products_erd |>
 # 6. Apply Thematic Domain Colors
 gap_products_erd <- gap_products_erd |>
   dm_set_colors(
-    "#E8EEF5" = c(CRUISE, HAUL),
-    "#E2F0D9" = c(TAXONOMIC_CLASSIFICATION, TAXON_GROUPS, SPECIES_YEAR, SPECIMEN, LENGTH, AGECOMP, SIZECOMP, BIOMASS, CPUE),
-    "#FCE4D6" = c(SURVEY_DESIGN, AREA, STRATUM_GROUPS),
-    "#E0F2F1" = c(ENVIRONMENTAL, DIRECTION_CODES, INSTRUMENT_CODES, VARIABLE_CODES)
+    "#fcacf9" = c(HAUL, CPUE, SPECIMEN, LENGTH),
+    "#E2F0D9" = c(TAXONOMIC_CLASSIFICATION, TAXON_GROUPS, SPECIES_YEAR),
+    "#fcd4ac" = c(AGECOMP, SIZECOMP, BIOMASS),
+    "#fcacac" = c(CRUISE, SURVEY_DESIGN, AREA, STRATUM_GROUPS),
+    "#acc3fc" = c(ENVIRONMENTAL, DIRECTION_CODES, INSTRUMENT_CODES, VARIABLE_CODES)
   )
 
 # 7. Render Base Diagram with All Columns

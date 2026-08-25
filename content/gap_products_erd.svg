@@ -15,60 +15,60 @@
 <!-- AGECOMP -->
 <g id="AGECOMP" class="node">
 <title>AGECOMP</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="31.5,-2266 31.5,-2286 199.5,-2286 199.5,-2266 31.5,-2266"/>
+<polygon fill="#fcd4ac" stroke="transparent" points="31.5,-2266 31.5,-2286 199.5,-2286 199.5,-2266 31.5,-2266"/>
 <text text-anchor="start" x="81.2819" y="-2271.4" font-family="Times,serif" font-size="14.00" fill="#000000">AGECOMP</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2246 31.5,-2266 199.5,-2266 199.5,-2246 31.5,-2246"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2246 31.5,-2266 199.5,-2266 199.5,-2246 31.5,-2246"/>
 <text text-anchor="start" x="33.4726" y="-2251.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2226 31.5,-2246 199.5,-2246 199.5,-2226 31.5,-2226"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2226 31.5,-2246 199.5,-2246 199.5,-2226 31.5,-2226"/>
 <text text-anchor="start" x="33.5" y="-2231.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2206 31.5,-2226 199.5,-2226 199.5,-2206 31.5,-2206"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2206 31.5,-2226 199.5,-2226 199.5,-2206 31.5,-2206"/>
 <text text-anchor="start" x="33.5" y="-2211.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2186 31.5,-2206 199.5,-2206 199.5,-2186 31.5,-2186"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2186 31.5,-2206 199.5,-2206 199.5,-2186 31.5,-2186"/>
 <text text-anchor="start" x="33.5" y="-2191.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIES_CODE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2166 31.5,-2186 199.5,-2186 199.5,-2166 31.5,-2166"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2166 31.5,-2186 199.5,-2186 199.5,-2166 31.5,-2166"/>
 <text text-anchor="start" x="33.5" y="-2171.4" font-family="Times,serif" font-size="14.00" fill="#444444">SEX</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2146 31.5,-2166 199.5,-2166 199.5,-2146 31.5,-2146"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2146 31.5,-2166 199.5,-2166 199.5,-2146 31.5,-2146"/>
 <text text-anchor="start" x="33.5" y="-2151.4" font-family="Times,serif" font-size="14.00" fill="#444444">AGE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2126 31.5,-2146 199.5,-2146 199.5,-2126 31.5,-2126"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2126 31.5,-2146 199.5,-2146 199.5,-2126 31.5,-2126"/>
 <text text-anchor="start" x="33.5" y="-2131.4" font-family="Times,serif" font-size="14.00" fill="#444444">POPULATION_COUNT</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2106 31.5,-2126 199.5,-2126 199.5,-2106 31.5,-2106"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2106 31.5,-2126 199.5,-2126 199.5,-2106 31.5,-2106"/>
 <text text-anchor="start" x="33.5" y="-2111.4" font-family="Times,serif" font-size="14.00" fill="#444444">LENGTH_MM_MEAN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2086 31.5,-2106 199.5,-2106 199.5,-2086 31.5,-2086"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2086 31.5,-2106 199.5,-2106 199.5,-2086 31.5,-2086"/>
 <text text-anchor="start" x="33.5" y="-2091.4" font-family="Times,serif" font-size="14.00" fill="#444444">LENGTH_MM_SD</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2066 31.5,-2086 199.5,-2086 199.5,-2066 31.5,-2066"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2066 31.5,-2086 199.5,-2086 199.5,-2066 31.5,-2066"/>
 <text text-anchor="start" x="33.5" y="-2071.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_ID_FOOTPRINT</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="30.5,-2065 30.5,-2287 200.5,-2287 200.5,-2065 30.5,-2065"/>
+<polygon fill="none" stroke="#a88d72" stroke-opacity="0.666667" points="30.5,-2065 30.5,-2287 200.5,-2287 200.5,-2065 30.5,-2065"/>
 </g>
 <!-- AREA -->
 <g id="AREA" class="node">
 <title>AREA</title>
-<polygon fill="#fce4d6" stroke="transparent" points="289,-2136 289,-2156 457,-2156 457,-2136 289,-2136"/>
-<text text-anchor="start" x="353.9488" y="-2141.4" font-family="Times,serif" font-size="14.00" fill="#000000">AREA</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-2116 289,-2136 457,-2136 457,-2116 289,-2116"/>
-<text text-anchor="start" x="291" y="-2121.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESIGN_YEAR</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-2096 289,-2116 457,-2116 457,-2096 289,-2096"/>
-<text text-anchor="start" x="290.9726" y="-2101.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-2076 289,-2096 457,-2096 457,-2076 289,-2076"/>
-<text text-anchor="start" x="291" y="-2082.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">AREA_ID</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-2056 289,-2076 457,-2076 457,-2056 289,-2056"/>
-<text text-anchor="start" x="291" y="-2061.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_TYPE</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-2036 289,-2056 457,-2056 457,-2036 289,-2036"/>
-<text text-anchor="start" x="291" y="-2041.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_NAME</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-2016 289,-2036 457,-2036 457,-2016 289,-2016"/>
-<text text-anchor="start" x="291" y="-2021.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESCRIPTION</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-1996 289,-2016 457,-2016 457,-1996 289,-1996"/>
-<text text-anchor="start" x="291" y="-2001.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_KM2</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-1976 289,-1996 457,-1996 457,-1976 289,-1976"/>
-<text text-anchor="start" x="291" y="-1981.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_MIN_M</text>
-<polygon fill="#fef9f6" stroke="transparent" points="289,-1956 289,-1976 457,-1976 457,-1956 289,-1956"/>
-<text text-anchor="start" x="291" y="-1961.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_MAX_M</text>
-<polygon fill="none" stroke="#a8988e" stroke-opacity="0.666667" points="288,-1955 288,-2157 458,-2157 458,-1955 288,-1955"/>
+<polygon fill="#fcacac" stroke="transparent" points="289,-2006 289,-2026 457,-2026 457,-2006 289,-2006"/>
+<text text-anchor="start" x="353.9488" y="-2011.4" font-family="Times,serif" font-size="14.00" fill="#000000">AREA</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1986 289,-2006 457,-2006 457,-1986 289,-1986"/>
+<text text-anchor="start" x="291" y="-1991.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESIGN_YEAR</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1966 289,-1986 457,-1986 457,-1966 289,-1966"/>
+<text text-anchor="start" x="290.9726" y="-1971.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1946 289,-1966 457,-1966 457,-1946 289,-1946"/>
+<text text-anchor="start" x="291" y="-1952.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">AREA_ID</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1926 289,-1946 457,-1946 457,-1926 289,-1926"/>
+<text text-anchor="start" x="291" y="-1931.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_TYPE</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1906 289,-1926 457,-1926 457,-1906 289,-1906"/>
+<text text-anchor="start" x="291" y="-1911.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_NAME</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1886 289,-1906 457,-1906 457,-1886 289,-1886"/>
+<text text-anchor="start" x="291" y="-1891.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESCRIPTION</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1866 289,-1886 457,-1886 457,-1866 289,-1866"/>
+<text text-anchor="start" x="291" y="-1871.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_KM2</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1846 289,-1866 457,-1866 457,-1846 289,-1846"/>
+<text text-anchor="start" x="291" y="-1851.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_MIN_M</text>
+<polygon fill="#feeeee" stroke="transparent" points="289,-1826 289,-1846 457,-1846 457,-1826 289,-1826"/>
+<text text-anchor="start" x="291" y="-1831.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_MAX_M</text>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="288,-1825 288,-2027 458,-2027 458,-1825 288,-1825"/>
 </g>
 <!-- AGECOMP&#45;&gt;AREA -->
 <g id="AGECOMP_1" class="edge">
 <title>AGECOMP:AREA_ID&#45;&gt;AREA:AREA_ID</title>
-<path fill="none" stroke="#555555" d="M199.5,-2216C265.9474,-2216 223.8742,-2099.3494 278.8761,-2087.0464"/>
-<polygon fill="#555555" stroke="#555555" points="279.4129,-2090.5097 289,-2086 278.6931,-2083.5468 279.4129,-2090.5097"/>
+<path fill="none" stroke="#555555" d="M199.5,-2216C318.1299,-2216 175.6292,-1971.0112 278.9585,-1956.6564"/>
+<polygon fill="#555555" stroke="#555555" points="279.2496,-1960.1449 289,-1956 278.793,-1953.1598 279.2496,-1960.1449"/>
 </g>
 <!-- TAXONOMIC_CLASSIFICATION -->
 <g id="TAXONOMIC_CLASSIFICATION" class="node">
@@ -130,66 +130,66 @@
 <!-- SURVEY_DESIGN -->
 <g id="SURVEY_DESIGN" class="node">
 <title>SURVEY_DESIGN</title>
-<polygon fill="#fce4d6" stroke="transparent" points="722,-1578 722,-1598 890,-1598 890,-1578 722,-1578"/>
-<text text-anchor="start" x="748.8464" y="-1583.4" font-family="Times,serif" font-size="14.00" fill="#000000">SURVEY_DESIGN</text>
-<polygon fill="#fef9f6" stroke="transparent" points="722,-1558 722,-1578 890,-1578 890,-1558 722,-1558"/>
-<text text-anchor="start" x="723.9726" y="-1564.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#fef9f6" stroke="transparent" points="722,-1538 722,-1558 890,-1558 890,-1538 722,-1538"/>
-<text text-anchor="start" x="724" y="-1543.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
-<polygon fill="#fef9f6" stroke="transparent" points="722,-1518 722,-1538 890,-1538 890,-1518 722,-1518"/>
-<text text-anchor="start" x="724" y="-1523.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESIGN_YEAR</text>
-<polygon fill="none" stroke="#a8988e" stroke-opacity="0.666667" points="721,-1517 721,-1599 891,-1599 891,-1517 721,-1517"/>
+<polygon fill="#fcacac" stroke="transparent" points="722,-1496 722,-1516 890,-1516 890,-1496 722,-1496"/>
+<text text-anchor="start" x="748.8464" y="-1501.4" font-family="Times,serif" font-size="14.00" fill="#000000">SURVEY_DESIGN</text>
+<polygon fill="#feeeee" stroke="transparent" points="722,-1476 722,-1496 890,-1496 890,-1476 722,-1476"/>
+<text text-anchor="start" x="723.9726" y="-1482.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
+<polygon fill="#feeeee" stroke="transparent" points="722,-1456 722,-1476 890,-1476 890,-1456 722,-1456"/>
+<text text-anchor="start" x="724" y="-1461.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
+<polygon fill="#feeeee" stroke="transparent" points="722,-1436 722,-1456 890,-1456 890,-1436 722,-1436"/>
+<text text-anchor="start" x="724" y="-1441.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESIGN_YEAR</text>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="721,-1435 721,-1517 891,-1517 891,-1435 721,-1435"/>
 </g>
 <!-- AREA&#45;&gt;SURVEY_DESIGN -->
 <g id="AREA_1" class="edge">
 <title>AREA:SURVEY_DEFINITION_ID&#45;&gt;SURVEY_DESIGN:SURVEY_DEFINITION_ID</title>
-<path fill="none" stroke="#555555" d="M457,-2106C720.03,-2106 462.4318,-1582.092 711.7343,-1568.2781"/>
-<polygon fill="#555555" stroke="#555555" points="712.0985,-1571.7696 722,-1568 711.9089,-1564.7721 712.0985,-1571.7696"/>
+<path fill="none" stroke="#555555" d="M457,-1976C701.08,-1976 480.8369,-1499.7787 711.7671,-1486.292"/>
+<polygon fill="#555555" stroke="#555555" points="712.1039,-1489.7839 722,-1486 711.9042,-1482.7867 712.1039,-1489.7839"/>
 </g>
 <!-- BIOMASS -->
 <g id="BIOMASS" class="node">
 <title>BIOMASS</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="31.5,-2026 31.5,-2046 199.5,-2046 199.5,-2026 31.5,-2026"/>
+<polygon fill="#fcd4ac" stroke="transparent" points="31.5,-2026 31.5,-2046 199.5,-2046 199.5,-2026 31.5,-2026"/>
 <text text-anchor="start" x="84.3899" y="-2031.4" font-family="Times,serif" font-size="14.00" fill="#000000">BIOMASS</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-2006 31.5,-2026 199.5,-2026 199.5,-2006 31.5,-2006"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-2006 31.5,-2026 199.5,-2026 199.5,-2006 31.5,-2006"/>
 <text text-anchor="start" x="33.4726" y="-2011.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1986 31.5,-2006 199.5,-2006 199.5,-1986 31.5,-1986"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1986 31.5,-2006 199.5,-2006 199.5,-1986 31.5,-1986"/>
 <text text-anchor="start" x="33.5" y="-1991.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1966 31.5,-1986 199.5,-1986 199.5,-1966 31.5,-1966"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1966 31.5,-1986 199.5,-1986 199.5,-1966 31.5,-1966"/>
 <text text-anchor="start" x="33.5" y="-1971.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIES_CODE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1946 31.5,-1966 199.5,-1966 199.5,-1946 31.5,-1946"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1946 31.5,-1966 199.5,-1966 199.5,-1946 31.5,-1946"/>
 <text text-anchor="start" x="33.5" y="-1951.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1926 31.5,-1946 199.5,-1946 199.5,-1926 31.5,-1926"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1926 31.5,-1946 199.5,-1946 199.5,-1926 31.5,-1926"/>
 <text text-anchor="start" x="33.5" y="-1931.4" font-family="Times,serif" font-size="14.00" fill="#444444">CPUE_KGKM2_MEAN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1906 31.5,-1926 199.5,-1926 199.5,-1906 31.5,-1906"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1906 31.5,-1926 199.5,-1926 199.5,-1906 31.5,-1906"/>
 <text text-anchor="start" x="33.5" y="-1911.4" font-family="Times,serif" font-size="14.00" fill="#444444">CPUE_NOKM2_MEAN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1886 31.5,-1906 199.5,-1906 199.5,-1886 31.5,-1886"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1886 31.5,-1906 199.5,-1906 199.5,-1886 31.5,-1886"/>
 <text text-anchor="start" x="33.5" y="-1891.4" font-family="Times,serif" font-size="14.00" fill="#444444">N_HAUL</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1866 31.5,-1886 199.5,-1886 199.5,-1866 31.5,-1866"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1866 31.5,-1886 199.5,-1886 199.5,-1866 31.5,-1866"/>
 <text text-anchor="start" x="33.5" y="-1871.4" font-family="Times,serif" font-size="14.00" fill="#444444">N_WEIGHT</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1846 31.5,-1866 199.5,-1866 199.5,-1846 31.5,-1846"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1846 31.5,-1866 199.5,-1866 199.5,-1846 31.5,-1846"/>
 <text text-anchor="start" x="33.5" y="-1851.4" font-family="Times,serif" font-size="14.00" fill="#444444">N_COUNT</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1826 31.5,-1846 199.5,-1846 199.5,-1826 31.5,-1826"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1826 31.5,-1846 199.5,-1846 199.5,-1826 31.5,-1826"/>
 <text text-anchor="start" x="33.5" y="-1831.4" font-family="Times,serif" font-size="14.00" fill="#444444">N_LENGTH</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1806 31.5,-1826 199.5,-1826 199.5,-1806 31.5,-1806"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1806 31.5,-1826 199.5,-1826 199.5,-1806 31.5,-1806"/>
 <text text-anchor="start" x="33.5" y="-1811.4" font-family="Times,serif" font-size="14.00" fill="#444444">BIOMASS_MT</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1786 31.5,-1806 199.5,-1806 199.5,-1786 31.5,-1786"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1786 31.5,-1806 199.5,-1806 199.5,-1786 31.5,-1786"/>
 <text text-anchor="start" x="33.5" y="-1791.4" font-family="Times,serif" font-size="14.00" fill="#444444">BIOMASS_VAR</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1766 31.5,-1786 199.5,-1786 199.5,-1766 31.5,-1766"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1766 31.5,-1786 199.5,-1786 199.5,-1766 31.5,-1766"/>
 <text text-anchor="start" x="33.5" y="-1771.4" font-family="Times,serif" font-size="14.00" fill="#444444">POPULATION_COUNT</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1746 31.5,-1766 199.5,-1766 199.5,-1746 31.5,-1746"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1746 31.5,-1766 199.5,-1766 199.5,-1746 31.5,-1746"/>
 <text text-anchor="start" x="33.5" y="-1751.4" font-family="Times,serif" font-size="14.00" fill="#444444">POPULATION_VAR</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1726 31.5,-1746 199.5,-1746 199.5,-1726 31.5,-1726"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1726 31.5,-1746 199.5,-1746 199.5,-1726 31.5,-1726"/>
 <text text-anchor="start" x="33.5" y="-1731.4" font-family="Times,serif" font-size="14.00" fill="#444444">CPUE_KGKM2_VAR</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1706 31.5,-1726 199.5,-1726 199.5,-1706 31.5,-1706"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1706 31.5,-1726 199.5,-1726 199.5,-1706 31.5,-1706"/>
 <text text-anchor="start" x="33.5" y="-1711.4" font-family="Times,serif" font-size="14.00" fill="#444444">CPUE_NOKM2_VAR</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="30.5,-1705 30.5,-2047 200.5,-2047 200.5,-1705 30.5,-1705"/>
+<polygon fill="none" stroke="#a88d72" stroke-opacity="0.666667" points="30.5,-1705 30.5,-2047 200.5,-2047 200.5,-1705 30.5,-1705"/>
 </g>
 <!-- BIOMASS&#45;&gt;AREA -->
 <g id="BIOMASS_1" class="edge">
 <title>BIOMASS:AREA_ID&#45;&gt;AREA:AREA_ID</title>
-<path fill="none" stroke="#555555" d="M199.5,-1956C265.9474,-1956 223.8742,-2072.6506 278.8761,-2084.9536"/>
-<polygon fill="#555555" stroke="#555555" points="278.6931,-2088.4532 289,-2086 279.4129,-2081.4903 278.6931,-2088.4532"/>
+<path fill="none" stroke="#555555" d="M199.5,-1956C235.704,-1956 247.1945,-1956 278.9578,-1956"/>
+<polygon fill="#555555" stroke="#555555" points="279,-1959.5001 289,-1956 279,-1952.5001 279,-1959.5001"/>
 </g>
 <!-- BIOMASS&#45;&gt;TAXONOMIC_CLASSIFICATION -->
 <g id="BIOMASS_2" class="edge">
@@ -200,80 +200,80 @@
 <!-- CPUE -->
 <g id="CPUE" class="node">
 <title>CPUE</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="50.5,-906 50.5,-926 181.5,-926 181.5,-906 50.5,-906"/>
+<polygon fill="#fcacf9" stroke="transparent" points="50.5,-906 50.5,-926 181.5,-926 181.5,-906 50.5,-906"/>
 <text text-anchor="start" x="98.1108" y="-911.4" font-family="Times,serif" font-size="14.00" fill="#000000">CPUE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-886 50.5,-906 181.5,-906 181.5,-886 50.5,-886"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-886 50.5,-906 181.5,-906 181.5,-886 50.5,-886"/>
 <text text-anchor="start" x="52.5" y="-891.4" font-family="Times,serif" font-size="14.00" fill="#444444">HAULJOIN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-866 50.5,-886 181.5,-886 181.5,-866 50.5,-866"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-866 50.5,-886 181.5,-886 181.5,-866 50.5,-866"/>
 <text text-anchor="start" x="52.5" y="-871.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIES_CODE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-846 50.5,-866 181.5,-866 181.5,-846 50.5,-846"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-846 50.5,-866 181.5,-866 181.5,-846 50.5,-846"/>
 <text text-anchor="start" x="52.5" y="-851.4" font-family="Times,serif" font-size="14.00" fill="#444444">WEIGHT_KG</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-826 50.5,-846 181.5,-846 181.5,-826 50.5,-826"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-826 50.5,-846 181.5,-846 181.5,-826 50.5,-826"/>
 <text text-anchor="start" x="52.5" y="-831.4" font-family="Times,serif" font-size="14.00" fill="#444444">COUNT</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-806 50.5,-826 181.5,-826 181.5,-806 50.5,-806"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-806 50.5,-826 181.5,-826 181.5,-806 50.5,-806"/>
 <text text-anchor="start" x="52.2307" y="-811.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_SWEPT_KM2</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-786 50.5,-806 181.5,-806 181.5,-786 50.5,-786"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-786 50.5,-806 181.5,-806 181.5,-786 50.5,-786"/>
 <text text-anchor="start" x="52.5" y="-791.4" font-family="Times,serif" font-size="14.00" fill="#444444">CPUE_KGKM2</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="50.5,-766 50.5,-786 181.5,-786 181.5,-766 50.5,-766"/>
+<polygon fill="#feeefd" stroke="transparent" points="50.5,-766 50.5,-786 181.5,-786 181.5,-766 50.5,-766"/>
 <text text-anchor="start" x="52.5" y="-771.4" font-family="Times,serif" font-size="14.00" fill="#444444">CPUE_NOKM2</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="49,-765 49,-927 182,-927 182,-765 49,-765"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="49,-765 49,-927 182,-927 182,-765 49,-765"/>
 </g>
 <!-- HAUL -->
 <g id="HAUL" class="node">
 <title>HAUL</title>
-<polygon fill="#e8eef5" stroke="transparent" points="277,-781 277,-801 469,-801 469,-781 277,-781"/>
+<polygon fill="#fcacf9" stroke="transparent" points="277,-781 277,-801 469,-801 469,-781 277,-781"/>
 <text text-anchor="start" x="353.5638" y="-786.4" font-family="Times,serif" font-size="14.00" fill="#000000">HAUL</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-761 277,-781 469,-781 469,-761 277,-761"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-761 277,-781 469,-781 469,-761 277,-761"/>
 <text text-anchor="start" x="279" y="-766.4" font-family="Times,serif" font-size="14.00" fill="#444444">CRUISEJOIN</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-741 277,-761 469,-761 469,-741 277,-741"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-741 277,-761 469,-761 469,-741 277,-741"/>
 <text text-anchor="start" x="279" y="-747.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">HAULJOIN</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-721 277,-741 469,-741 469,-721 277,-721"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-721 277,-741 469,-741 469,-721 277,-721"/>
 <text text-anchor="start" x="279" y="-726.4" font-family="Times,serif" font-size="14.00" fill="#444444">HAUL</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-701 277,-721 469,-721 469,-701 277,-701"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-701 277,-721 469,-721 469,-701 277,-701"/>
 <text text-anchor="start" x="279" y="-706.4" font-family="Times,serif" font-size="14.00" fill="#444444">HAUL_TYPE</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-681 277,-701 469,-701 469,-681 277,-681"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-681 277,-701 469,-701 469,-681 277,-681"/>
 <text text-anchor="start" x="279" y="-686.4" font-family="Times,serif" font-size="14.00" fill="#444444">PERFORMANCE</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-661 277,-681 469,-681 469,-661 277,-661"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-661 277,-681 469,-681 469,-661 277,-661"/>
 <text text-anchor="start" x="279" y="-666.4" font-family="Times,serif" font-size="14.00" fill="#444444">DATE_TIME_START</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-641 277,-661 469,-661 469,-641 277,-641"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-641 277,-661 469,-661 469,-641 277,-641"/>
 <text text-anchor="start" x="279" y="-646.4" font-family="Times,serif" font-size="14.00" fill="#444444">DURATION_HR</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-621 277,-641 469,-641 469,-621 277,-621"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-621 277,-641 469,-641 469,-621 277,-621"/>
 <text text-anchor="start" x="279" y="-626.4" font-family="Times,serif" font-size="14.00" fill="#444444">DISTANCE_FISHED_KM</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-601 277,-621 469,-621 469,-601 277,-601"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-601 277,-621 469,-621 469,-601 277,-601"/>
 <text text-anchor="start" x="279" y="-606.4" font-family="Times,serif" font-size="14.00" fill="#444444">NET_WIDTH_M</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-581 277,-601 469,-601 469,-581 277,-581"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-581 277,-601 469,-601 469,-581 277,-581"/>
 <text text-anchor="start" x="279" y="-586.4" font-family="Times,serif" font-size="14.00" fill="#444444">NET_MEASURED</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-561 277,-581 469,-581 469,-561 277,-561"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-561 277,-581 469,-581 469,-561 277,-561"/>
 <text text-anchor="start" x="279" y="-566.4" font-family="Times,serif" font-size="14.00" fill="#444444">NET_HEIGHT_M</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-541 277,-561 469,-561 469,-541 277,-541"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-541 277,-561 469,-561 469,-541 277,-541"/>
 <text text-anchor="start" x="279" y="-546.4" font-family="Times,serif" font-size="14.00" fill="#444444">STRATUM</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-521 277,-541 469,-541 469,-521 277,-521"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-521 277,-541 469,-541 469,-521 277,-521"/>
 <text text-anchor="start" x="279" y="-526.4" font-family="Times,serif" font-size="14.00" fill="#444444">LATITUDE_DD_START</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-501 277,-521 469,-521 469,-501 277,-501"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-501 277,-521 469,-521 469,-501 277,-501"/>
 <text text-anchor="start" x="279" y="-506.4" font-family="Times,serif" font-size="14.00" fill="#444444">LATITUDE_DD_END</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-481 277,-501 469,-501 469,-481 277,-481"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-481 277,-501 469,-501 469,-481 277,-481"/>
 <text text-anchor="start" x="279" y="-486.4" font-family="Times,serif" font-size="14.00" fill="#444444">LONGITUDE_DD_START</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-461 277,-481 469,-481 469,-461 277,-461"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-461 277,-481 469,-481 469,-461 277,-461"/>
 <text text-anchor="start" x="279" y="-466.4" font-family="Times,serif" font-size="14.00" fill="#444444">LONGITUDE_DD_END</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-441 277,-461 469,-461 469,-441 277,-441"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-441 277,-461 469,-461 469,-441 277,-441"/>
 <text text-anchor="start" x="279" y="-446.4" font-family="Times,serif" font-size="14.00" fill="#444444">STATION</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-421 277,-441 469,-441 469,-421 277,-421"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-421 277,-441 469,-441 469,-421 277,-421"/>
 <text text-anchor="start" x="279" y="-426.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_GEAR_M</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-401 277,-421 469,-421 469,-401 277,-401"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-401 277,-421 469,-421 469,-401 277,-401"/>
 <text text-anchor="start" x="279" y="-406.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_M</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-381 277,-401 469,-401 469,-381 277,-381"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-381 277,-401 469,-401 469,-381 277,-381"/>
 <text text-anchor="start" x="279" y="-386.4" font-family="Times,serif" font-size="14.00" fill="#444444">BOTTOM_TYPE</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-361 277,-381 469,-381 469,-361 277,-361"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-361 277,-381 469,-381 469,-361 277,-361"/>
 <text text-anchor="start" x="278.8913" y="-366.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURFACE_TEMPERATURE_C</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-341 277,-361 469,-361 469,-341 277,-341"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-341 277,-361 469,-361 469,-341 277,-341"/>
 <text text-anchor="start" x="279" y="-346.4" font-family="Times,serif" font-size="14.00" fill="#444444">GEAR_TEMPERATURE_C</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-321 277,-341 469,-341 469,-321 277,-321"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-321 277,-341 469,-341 469,-321 277,-321"/>
 <text text-anchor="start" x="279" y="-326.4" font-family="Times,serif" font-size="14.00" fill="#444444">WIRE_LENGTH_M</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-301 277,-321 469,-321 469,-301 277,-301"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-301 277,-321 469,-321 469,-301 277,-301"/>
 <text text-anchor="start" x="279" y="-306.4" font-family="Times,serif" font-size="14.00" fill="#444444">GEAR</text>
-<polygon fill="#fafbfd" stroke="transparent" points="277,-281 277,-301 469,-301 469,-281 277,-281"/>
+<polygon fill="#feeefd" stroke="transparent" points="277,-281 277,-301 469,-301 469,-281 277,-281"/>
 <text text-anchor="start" x="279" y="-286.4" font-family="Times,serif" font-size="14.00" fill="#444444">ACCESSORIES</text>
-<polygon fill="none" stroke="#9a9ea3" stroke-opacity="0.666667" points="276,-280 276,-802 470,-802 470,-280 276,-280"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="276,-280 276,-802 470,-802 470,-280 276,-280"/>
 </g>
 <!-- CPUE&#45;&gt;HAUL -->
 <g id="CPUE_1" class="edge">
@@ -290,65 +290,65 @@
 <!-- CRUISE -->
 <g id="CRUISE" class="node">
 <title>CRUISE</title>
-<polygon fill="#e8eef5" stroke="transparent" points="516,-1419 516,-1439 684,-1439 684,-1419 516,-1419"/>
-<text text-anchor="start" x="575.1122" y="-1424.4" font-family="Times,serif" font-size="14.00" fill="#000000">CRUISE</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1399 516,-1419 684,-1419 684,-1399 516,-1399"/>
-<text text-anchor="start" x="518" y="-1405.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">CRUISEJOIN</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1379 516,-1399 684,-1399 684,-1379 516,-1379"/>
-<text text-anchor="start" x="518" y="-1384.4" font-family="Times,serif" font-size="14.00" fill="#444444">CRUISE</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1359 516,-1379 684,-1379 684,-1359 516,-1359"/>
-<text text-anchor="start" x="518" y="-1364.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1339 516,-1359 684,-1359 684,-1339 516,-1339"/>
-<text text-anchor="start" x="517.9726" y="-1344.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1319 516,-1339 684,-1339 684,-1319 516,-1319"/>
-<text text-anchor="start" x="518" y="-1324.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_NAME</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1299 516,-1319 684,-1319 684,-1299 516,-1299"/>
-<text text-anchor="start" x="518" y="-1304.4" font-family="Times,serif" font-size="14.00" fill="#444444">VESSEL_ID</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1279 516,-1299 684,-1299 684,-1279 516,-1279"/>
-<text text-anchor="start" x="518" y="-1284.4" font-family="Times,serif" font-size="14.00" fill="#444444">VESSEL_NAME</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1259 516,-1279 684,-1279 684,-1259 516,-1259"/>
-<text text-anchor="start" x="518" y="-1264.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPONSOR_ACRONYM</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1239 516,-1259 684,-1259 684,-1239 516,-1239"/>
-<text text-anchor="start" x="518" y="-1244.4" font-family="Times,serif" font-size="14.00" fill="#444444">DATE_START</text>
-<polygon fill="#fafbfd" stroke="transparent" points="516,-1219 516,-1239 684,-1239 684,-1219 516,-1219"/>
-<text text-anchor="start" x="518" y="-1224.4" font-family="Times,serif" font-size="14.00" fill="#444444">DATE_END</text>
-<polygon fill="none" stroke="#9a9ea3" stroke-opacity="0.666667" points="515,-1218 515,-1440 685,-1440 685,-1218 515,-1218"/>
+<polygon fill="#fcacac" stroke="transparent" points="516,-1354 516,-1374 684,-1374 684,-1354 516,-1354"/>
+<text text-anchor="start" x="575.1122" y="-1359.4" font-family="Times,serif" font-size="14.00" fill="#000000">CRUISE</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1334 516,-1354 684,-1354 684,-1334 516,-1334"/>
+<text text-anchor="start" x="518" y="-1340.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">CRUISEJOIN</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1314 516,-1334 684,-1334 684,-1314 516,-1314"/>
+<text text-anchor="start" x="518" y="-1319.4" font-family="Times,serif" font-size="14.00" fill="#444444">CRUISE</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1294 516,-1314 684,-1314 684,-1294 516,-1294"/>
+<text text-anchor="start" x="518" y="-1299.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1274 516,-1294 684,-1294 684,-1274 516,-1274"/>
+<text text-anchor="start" x="517.9726" y="-1279.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1254 516,-1274 684,-1274 684,-1254 516,-1254"/>
+<text text-anchor="start" x="518" y="-1259.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_NAME</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1234 516,-1254 684,-1254 684,-1234 516,-1234"/>
+<text text-anchor="start" x="518" y="-1239.4" font-family="Times,serif" font-size="14.00" fill="#444444">VESSEL_ID</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1214 516,-1234 684,-1234 684,-1214 516,-1214"/>
+<text text-anchor="start" x="518" y="-1219.4" font-family="Times,serif" font-size="14.00" fill="#444444">VESSEL_NAME</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1194 516,-1214 684,-1214 684,-1194 516,-1194"/>
+<text text-anchor="start" x="518" y="-1199.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPONSOR_ACRONYM</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1174 516,-1194 684,-1194 684,-1174 516,-1174"/>
+<text text-anchor="start" x="518" y="-1179.4" font-family="Times,serif" font-size="14.00" fill="#444444">DATE_START</text>
+<polygon fill="#feeeee" stroke="transparent" points="516,-1154 516,-1174 684,-1174 684,-1154 516,-1154"/>
+<text text-anchor="start" x="518" y="-1159.4" font-family="Times,serif" font-size="14.00" fill="#444444">DATE_END</text>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="515,-1153 515,-1375 685,-1375 685,-1153 515,-1153"/>
 </g>
 <!-- CRUISE&#45;&gt;SURVEY_DESIGN -->
 <g id="CRUISE_1" class="edge">
 <title>CRUISE:SURVEY_DEFINITION_ID&#45;&gt;SURVEY_DESIGN:SURVEY_DEFINITION_ID</title>
-<path fill="none" stroke="#555555" d="M684,-1349C778.9288,-1349 635.2849,-1551.2248 711.5752,-1567.0236"/>
-<polygon fill="#555555" stroke="#555555" points="711.7172,-1570.5521 722,-1568 712.37,-1563.5826 711.7172,-1570.5521"/>
+<path fill="none" stroke="#555555" d="M684,-1284C771.6056,-1284 642.1207,-1469.7695 711.9181,-1485.0084"/>
+<polygon fill="#555555" stroke="#555555" points="711.7054,-1488.5043 722,-1486 712.3906,-1481.5379 711.7054,-1488.5043"/>
 </g>
 <!-- DIRECTION_CODES -->
 <g id="DIRECTION_CODES" class="node">
 <title>DIRECTION_CODES</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="307,-161 307,-181 439,-181 439,-161 307,-161"/>
+<polygon fill="#acc3fc" stroke="transparent" points="307,-161 307,-181 439,-181 439,-161 307,-161"/>
 <text text-anchor="start" x="308.8478" y="-166.4" font-family="Times,serif" font-size="14.00" fill="#000000">DIRECTION_CODES</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="307,-141 307,-161 439,-161 439,-141 307,-141"/>
+<polygon fill="#eef3fe" stroke="transparent" points="307,-141 307,-161 439,-161 439,-141 307,-141"/>
 <text text-anchor="start" x="309" y="-147.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">DIRECTION</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="307,-121 307,-141 439,-141 439,-121 307,-121"/>
+<polygon fill="#eef3fe" stroke="transparent" points="307,-121 307,-141 439,-141 439,-121 307,-121"/>
 <text text-anchor="start" x="309" y="-126.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESCRIPTION</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="306,-120 306,-182 440,-182 440,-120 306,-120"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="306,-120 306,-182 440,-182 440,-120 306,-120"/>
 </g>
 <!-- ENVIRONMENTAL -->
 <g id="ENVIRONMENTAL" class="node">
 <title>ENVIRONMENTAL</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="53.5,-231 53.5,-251 178.5,-251 178.5,-231 53.5,-231"/>
+<polygon fill="#acc3fc" stroke="transparent" points="53.5,-231 53.5,-251 178.5,-251 178.5,-231 53.5,-231"/>
 <text text-anchor="start" x="55.3541" y="-236.4" font-family="Times,serif" font-size="14.00" fill="#000000">ENVIRONMENTAL</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="53.5,-211 53.5,-231 178.5,-231 178.5,-211 53.5,-211"/>
+<polygon fill="#eef3fe" stroke="transparent" points="53.5,-211 53.5,-231 178.5,-231 178.5,-211 53.5,-211"/>
 <text text-anchor="start" x="55.5" y="-216.4" font-family="Times,serif" font-size="14.00" fill="#444444">HAULJOIN</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="53.5,-191 53.5,-211 178.5,-211 178.5,-191 53.5,-191"/>
+<polygon fill="#eef3fe" stroke="transparent" points="53.5,-191 53.5,-211 178.5,-211 178.5,-191 53.5,-191"/>
 <text text-anchor="start" x="55.5" y="-196.4" font-family="Times,serif" font-size="14.00" fill="#444444">INSTRUMENT</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="53.5,-171 53.5,-191 178.5,-191 178.5,-171 53.5,-171"/>
+<polygon fill="#eef3fe" stroke="transparent" points="53.5,-171 53.5,-191 178.5,-191 178.5,-171 53.5,-171"/>
 <text text-anchor="start" x="55.5" y="-176.4" font-family="Times,serif" font-size="14.00" fill="#444444">DIRECTION</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="53.5,-151 53.5,-171 178.5,-171 178.5,-151 53.5,-151"/>
+<polygon fill="#eef3fe" stroke="transparent" points="53.5,-151 53.5,-171 178.5,-171 178.5,-151 53.5,-151"/>
 <text text-anchor="start" x="55.5" y="-156.4" font-family="Times,serif" font-size="14.00" fill="#444444">DEPTH_M</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="53.5,-131 53.5,-151 178.5,-151 178.5,-131 53.5,-131"/>
+<polygon fill="#eef3fe" stroke="transparent" points="53.5,-131 53.5,-151 178.5,-151 178.5,-131 53.5,-131"/>
 <text text-anchor="start" x="55.5" y="-136.4" font-family="Times,serif" font-size="14.00" fill="#444444">VARIABLE</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="53.5,-111 53.5,-131 178.5,-131 178.5,-111 53.5,-111"/>
+<polygon fill="#eef3fe" stroke="transparent" points="53.5,-111 53.5,-131 178.5,-131 178.5,-111 53.5,-111"/>
 <text text-anchor="start" x="55.5" y="-116.4" font-family="Times,serif" font-size="14.00" fill="#444444">VALUE</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="52,-110 52,-252 179,-252 179,-110 52,-110"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="52,-110 52,-252 179,-252 179,-110 52,-110"/>
 </g>
 <!-- ENVIRONMENTAL&#45;&gt;DIRECTION_CODES -->
 <g id="ENVIRONMENTAL_1" class="edge">
@@ -365,13 +365,13 @@
 <!-- INSTRUMENT_CODES -->
 <g id="INSTRUMENT_CODES" class="node">
 <title>INSTRUMENT_CODES</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="300,-241 300,-261 447,-261 447,-241 300,-241"/>
+<polygon fill="#acc3fc" stroke="transparent" points="300,-241 300,-261 447,-261 447,-241 300,-241"/>
 <text text-anchor="start" x="301.9565" y="-246.4" font-family="Times,serif" font-size="14.00" fill="#000000">INSTRUMENT_CODES</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="300,-221 300,-241 447,-241 447,-221 300,-221"/>
+<polygon fill="#eef3fe" stroke="transparent" points="300,-221 300,-241 447,-241 447,-221 300,-221"/>
 <text text-anchor="start" x="302" y="-227.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">INSTRUMENT</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="300,-201 300,-221 447,-221 447,-201 300,-201"/>
+<polygon fill="#eef3fe" stroke="transparent" points="300,-201 300,-221 447,-221 447,-201 300,-201"/>
 <text text-anchor="start" x="302" y="-206.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESCRIPTION</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="298.5,-200 298.5,-262 447.5,-262 447.5,-200 298.5,-200"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="298.5,-200 298.5,-262 447.5,-262 447.5,-200 298.5,-200"/>
 </g>
 <!-- ENVIRONMENTAL&#45;&gt;INSTRUMENT_CODES -->
 <g id="ENVIRONMENTAL_2" class="edge">
@@ -382,17 +382,17 @@
 <!-- VARIABLE_CODES -->
 <g id="VARIABLE_CODES" class="node">
 <title>VARIABLE_CODES</title>
-<polygon fill="#e0f2f1" stroke="transparent" points="310,-81 310,-101 437,-101 437,-81 310,-81"/>
+<polygon fill="#acc3fc" stroke="transparent" points="310,-81 310,-101 437,-101 437,-81 310,-81"/>
 <text text-anchor="start" x="311.6781" y="-86.4" font-family="Times,serif" font-size="14.00" fill="#000000">VARIABLE_CODES</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="310,-61 310,-81 437,-81 437,-61 310,-61"/>
+<polygon fill="#eef3fe" stroke="transparent" points="310,-61 310,-81 437,-81 437,-61 310,-61"/>
 <text text-anchor="start" x="312" y="-67.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">VARIABLE</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="310,-41 310,-61 437,-61 437,-41 310,-41"/>
+<polygon fill="#eef3fe" stroke="transparent" points="310,-41 310,-61 437,-61 437,-41 310,-41"/>
 <text text-anchor="start" x="312" y="-46.4" font-family="Times,serif" font-size="14.00" fill="#444444">NAME</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="310,-21 310,-41 437,-41 437,-21 310,-21"/>
+<polygon fill="#eef3fe" stroke="transparent" points="310,-21 310,-41 437,-41 437,-21 310,-21"/>
 <text text-anchor="start" x="312" y="-26.4" font-family="Times,serif" font-size="14.00" fill="#444444">UNITS</text>
-<polygon fill="#f8fcfc" stroke="transparent" points="310,-1 310,-21 437,-21 437,-1 310,-1"/>
+<polygon fill="#eef3fe" stroke="transparent" points="310,-1 310,-21 437,-21 437,-1 310,-1"/>
 <text text-anchor="start" x="312" y="-6.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESCRIPTION</text>
-<polygon fill="none" stroke="#95a1a0" stroke-opacity="0.666667" points="308.5,0 308.5,-102 437.5,-102 437.5,0 308.5,0"/>
+<polygon fill="none" stroke="#7282a8" stroke-opacity="0.666667" points="308.5,0 308.5,-102 437.5,-102 437.5,0 308.5,0"/>
 </g>
 <!-- ENVIRONMENTAL&#45;&gt;VARIABLE_CODES -->
 <g id="ENVIRONMENTAL_3" class="edge">
@@ -403,29 +403,29 @@
 <!-- HAUL&#45;&gt;CRUISE -->
 <g id="HAUL_1" class="edge">
 <title>HAUL:CRUISEJOIN&#45;&gt;CRUISE:CRUISEJOIN</title>
-<path fill="none" stroke="#555555" d="M469,-771C536.6102,-771 453.8158,-1348.2164 506.7381,-1404.5852"/>
-<polygon fill="#555555" stroke="#555555" points="505.467,-1407.8566 516,-1409 508.479,-1401.5377 505.467,-1407.8566"/>
+<path fill="none" stroke="#555555" d="M469,-771C529.5118,-771 460.235,-1285.1599 507.0582,-1339.3877"/>
+<polygon fill="#555555" stroke="#555555" points="505.5081,-1342.5263 516,-1344 508.7172,-1336.3051 505.5081,-1342.5263"/>
 </g>
 <!-- LENGTH -->
 <g id="LENGTH" class="node">
 <title>LENGTH</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="64.5,-726 64.5,-746 167.5,-746 167.5,-726 64.5,-726"/>
+<polygon fill="#fcacf9" stroke="transparent" points="64.5,-726 64.5,-746 167.5,-746 167.5,-726 64.5,-726"/>
 <text text-anchor="start" x="88.0112" y="-731.4" font-family="Times,serif" font-size="14.00" fill="#000000">LENGTH</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-706 64.5,-726 167.5,-726 167.5,-706 64.5,-706"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-706 64.5,-726 167.5,-726 167.5,-706 64.5,-706"/>
 <text text-anchor="start" x="66.5" y="-711.4" font-family="Times,serif" font-size="14.00" fill="#444444">HAULJOIN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-686 64.5,-706 167.5,-706 167.5,-686 64.5,-686"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-686 64.5,-706 167.5,-706 167.5,-686 64.5,-686"/>
 <text text-anchor="start" x="66.2237" y="-691.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIES_CODE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-666 64.5,-686 167.5,-686 167.5,-666 64.5,-666"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-666 64.5,-686 167.5,-686 167.5,-666 64.5,-666"/>
 <text text-anchor="start" x="66.5" y="-671.4" font-family="Times,serif" font-size="14.00" fill="#444444">SEX</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-646 64.5,-666 167.5,-666 167.5,-646 64.5,-646"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-646 64.5,-666 167.5,-666 167.5,-646 64.5,-646"/>
 <text text-anchor="start" x="66.5" y="-651.4" font-family="Times,serif" font-size="14.00" fill="#444444">FREQUENCY</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-626 64.5,-646 167.5,-646 167.5,-626 64.5,-626"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-626 64.5,-646 167.5,-646 167.5,-626 64.5,-626"/>
 <text text-anchor="start" x="66.5" y="-631.4" font-family="Times,serif" font-size="14.00" fill="#444444">LENGTH_MM</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-606 64.5,-626 167.5,-626 167.5,-606 64.5,-606"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-606 64.5,-626 167.5,-626 167.5,-606 64.5,-606"/>
 <text text-anchor="start" x="66.5" y="-611.4" font-family="Times,serif" font-size="14.00" fill="#444444">LENGTH_TYPE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="64.5,-586 64.5,-606 167.5,-606 167.5,-586 64.5,-586"/>
+<polygon fill="#feeefd" stroke="transparent" points="64.5,-586 64.5,-606 167.5,-606 167.5,-586 64.5,-586"/>
 <text text-anchor="start" x="66.5" y="-591.4" font-family="Times,serif" font-size="14.00" fill="#444444">SAMPLE_TYPE</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="63,-585 63,-747 168,-747 168,-585 63,-585"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="63,-585 63,-747 168,-747 168,-585 63,-585"/>
 </g>
 <!-- LENGTH&#45;&gt;HAUL -->
 <g id="LENGTH_1" class="edge">
@@ -442,26 +442,32 @@
 <!-- SIZECOMP -->
 <g id="SIZECOMP" class="node">
 <title>SIZECOMP</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="31.5,-1666 31.5,-1686 199.5,-1686 199.5,-1666 31.5,-1666"/>
+<polygon fill="#fcd4ac" stroke="transparent" points="31.5,-1666 31.5,-1686 199.5,-1686 199.5,-1666 31.5,-1666"/>
 <text text-anchor="start" x="80.8906" y="-1671.4" font-family="Times,serif" font-size="14.00" fill="#000000">SIZECOMP</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1646 31.5,-1666 199.5,-1666 199.5,-1646 31.5,-1646"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1646 31.5,-1666 199.5,-1666 199.5,-1646 31.5,-1646"/>
 <text text-anchor="start" x="33.4726" y="-1651.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1626 31.5,-1646 199.5,-1646 199.5,-1626 31.5,-1626"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1626 31.5,-1646 199.5,-1646 199.5,-1626 31.5,-1626"/>
 <text text-anchor="start" x="33.5" y="-1631.4" font-family="Times,serif" font-size="14.00" fill="#444444">YEAR</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1606 31.5,-1626 199.5,-1626 199.5,-1606 31.5,-1606"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1606 31.5,-1626 199.5,-1626 199.5,-1606 31.5,-1606"/>
 <text text-anchor="start" x="33.5" y="-1611.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1586 31.5,-1606 199.5,-1606 199.5,-1586 31.5,-1586"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1586 31.5,-1606 199.5,-1606 199.5,-1586 31.5,-1586"/>
 <text text-anchor="start" x="33.5" y="-1591.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIES_CODE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1566 31.5,-1586 199.5,-1586 199.5,-1566 31.5,-1566"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1566 31.5,-1586 199.5,-1586 199.5,-1566 31.5,-1566"/>
 <text text-anchor="start" x="33.5" y="-1571.4" font-family="Times,serif" font-size="14.00" fill="#444444">LENGTH_MM</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1546 31.5,-1566 199.5,-1566 199.5,-1546 31.5,-1546"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1546 31.5,-1566 199.5,-1566 199.5,-1546 31.5,-1546"/>
 <text text-anchor="start" x="33.5" y="-1551.4" font-family="Times,serif" font-size="14.00" fill="#444444">SEX</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="31.5,-1526 31.5,-1546 199.5,-1546 199.5,-1526 31.5,-1526"/>
+<polygon fill="#fef6ee" stroke="transparent" points="31.5,-1526 31.5,-1546 199.5,-1546 199.5,-1526 31.5,-1526"/>
 <text text-anchor="start" x="33.5" y="-1531.4" font-family="Times,serif" font-size="14.00" fill="#444444">POPULATION_COUNT</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="30.5,-1525 30.5,-1687 200.5,-1687 200.5,-1525 30.5,-1525"/>
+<polygon fill="none" stroke="#a88d72" stroke-opacity="0.666667" points="30.5,-1525 30.5,-1687 200.5,-1687 200.5,-1525 30.5,-1525"/>
+</g>
+<!-- SIZECOMP&#45;&gt;AREA -->
+<g id="SIZECOMP_1" class="edge">
+<title>SIZECOMP:AREA_ID&#45;&gt;AREA:AREA_ID</title>
+<path fill="none" stroke="#555555" d="M199.5,-1616C273.9671,-1616 216.8108,-1924.8721 278.9383,-1953.8288"/>
+<polygon fill="#555555" stroke="#555555" points="278.4867,-1957.3119 289,-1956 279.9633,-1950.4694 278.4867,-1957.3119"/>
 </g>
 <!-- SIZECOMP&#45;&gt;TAXONOMIC_CLASSIFICATION -->
-<g id="SIZECOMP_1" class="edge">
+<g id="SIZECOMP_2" class="edge">
 <title>SIZECOMP:SPECIES_CODE&#45;&gt;TAXONOMIC_CLASSIFICATION:SPECIES_CODE</title>
 <path fill="none" stroke="#555555" d="M199.5,-1596C277.1402,-1596 195.0066,-1441.564 257.668,-1427.0856"/>
 <polygon fill="#555555" stroke="#555555" points="258.4205,-1430.5259 268,-1426 257.689,-1423.5642 258.4205,-1430.5259"/>
@@ -488,33 +494,33 @@
 <!-- SPECIMEN -->
 <g id="SPECIMEN" class="node">
 <title>SPECIMEN</title>
-<polygon fill="#e2f0d9" stroke="transparent" points="1.5,-546 1.5,-566 230.5,-566 230.5,-546 1.5,-546"/>
+<polygon fill="#fcacf9" stroke="transparent" points="1.5,-546 1.5,-566 230.5,-566 230.5,-546 1.5,-546"/>
 <text text-anchor="start" x="81.3906" y="-551.4" font-family="Times,serif" font-size="14.00" fill="#000000">SPECIMEN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-526 1.5,-546 230.5,-546 230.5,-526 1.5,-526"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-526 1.5,-546 230.5,-546 230.5,-526 1.5,-526"/>
 <text text-anchor="start" x="3.5" y="-531.4" font-family="Times,serif" font-size="14.00" fill="#444444">HAULJOIN</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-506 1.5,-526 230.5,-526 230.5,-506 1.5,-506"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-506 1.5,-526 230.5,-526 230.5,-506 1.5,-506"/>
 <text text-anchor="start" x="3.5" y="-511.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIMEN_ID</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-486 1.5,-506 230.5,-506 230.5,-486 1.5,-486"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-486 1.5,-506 230.5,-506 230.5,-486 1.5,-486"/>
 <text text-anchor="start" x="3.5" y="-491.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIES_CODE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-466 1.5,-486 230.5,-486 230.5,-466 1.5,-466"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-466 1.5,-486 230.5,-486 230.5,-466 1.5,-466"/>
 <text text-anchor="start" x="3.5" y="-471.4" font-family="Times,serif" font-size="14.00" fill="#444444">LENGTH_MM</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-446 1.5,-466 230.5,-466 230.5,-446 1.5,-446"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-446 1.5,-466 230.5,-466 230.5,-446 1.5,-446"/>
 <text text-anchor="start" x="3.5" y="-451.4" font-family="Times,serif" font-size="14.00" fill="#444444">SEX</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-426 1.5,-446 230.5,-446 230.5,-426 1.5,-426"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-426 1.5,-446 230.5,-446 230.5,-426 1.5,-426"/>
 <text text-anchor="start" x="3.5" y="-431.4" font-family="Times,serif" font-size="14.00" fill="#444444">WEIGHT_G</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-406 1.5,-426 230.5,-426 230.5,-406 1.5,-406"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-406 1.5,-426 230.5,-426 230.5,-406 1.5,-406"/>
 <text text-anchor="start" x="3.5" y="-411.4" font-family="Times,serif" font-size="14.00" fill="#444444">AGE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-386 1.5,-406 230.5,-406 230.5,-386 1.5,-386"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-386 1.5,-406 230.5,-406 230.5,-386 1.5,-386"/>
 <text text-anchor="start" x="3.5" y="-391.4" font-family="Times,serif" font-size="14.00" fill="#444444">MATURITY</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-366 1.5,-386 230.5,-386 230.5,-366 1.5,-366"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-366 1.5,-386 230.5,-386 230.5,-366 1.5,-366"/>
 <text text-anchor="start" x="3.5" y="-371.4" font-family="Times,serif" font-size="14.00" fill="#444444">GONAD_G</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-346 1.5,-366 230.5,-366 230.5,-346 1.5,-346"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-346 1.5,-366 230.5,-366 230.5,-346 1.5,-346"/>
 <text text-anchor="start" x="3.2321" y="-351.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIMEN_SUBSAMPLE_METHOD</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-326 1.5,-346 230.5,-346 230.5,-326 1.5,-326"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-326 1.5,-346 230.5,-346 230.5,-326 1.5,-326"/>
 <text text-anchor="start" x="3.5" y="-331.4" font-family="Times,serif" font-size="14.00" fill="#444444">SPECIMEN_SAMPLE_TYPE</text>
-<polygon fill="#f9fcf7" stroke="transparent" points="1.5,-306 1.5,-326 230.5,-326 230.5,-306 1.5,-306"/>
+<polygon fill="#feeefd" stroke="transparent" points="1.5,-306 1.5,-326 230.5,-326 230.5,-306 1.5,-306"/>
 <text text-anchor="start" x="3.5" y="-311.4" font-family="Times,serif" font-size="14.00" fill="#444444">AGE_DETERMINATION_METHOD</text>
-<polygon fill="none" stroke="#96a090" stroke-opacity="0.666667" points="0,-305 0,-567 231,-567 231,-305 0,-305"/>
+<polygon fill="none" stroke="#a872a6" stroke-opacity="0.666667" points="0,-305 0,-567 231,-567 231,-305 0,-305"/>
 </g>
 <!-- SPECIMEN&#45;&gt;HAUL -->
 <g id="SPECIMEN_1" class="edge">
@@ -531,23 +537,23 @@
 <!-- STRATUM_GROUPS -->
 <g id="STRATUM_GROUPS" class="node">
 <title>STRATUM_GROUPS</title>
-<polygon fill="#fce4d6" stroke="transparent" points="31.5,-2386 31.5,-2406 199.5,-2406 199.5,-2386 31.5,-2386"/>
+<polygon fill="#fcacac" stroke="transparent" points="31.5,-2386 31.5,-2406 199.5,-2406 199.5,-2386 31.5,-2386"/>
 <text text-anchor="start" x="50.9481" y="-2391.4" font-family="Times,serif" font-size="14.00" fill="#000000">STRATUM_GROUPS</text>
-<polygon fill="#fef9f6" stroke="transparent" points="31.5,-2366 31.5,-2386 199.5,-2386 199.5,-2366 31.5,-2366"/>
+<polygon fill="#feeeee" stroke="transparent" points="31.5,-2366 31.5,-2386 199.5,-2386 199.5,-2366 31.5,-2366"/>
 <text text-anchor="start" x="33.5" y="-2371.4" font-family="Times,serif" font-size="14.00" fill="#444444">AREA_ID</text>
-<polygon fill="#fef9f6" stroke="transparent" points="31.5,-2346 31.5,-2366 199.5,-2366 199.5,-2346 31.5,-2346"/>
+<polygon fill="#feeeee" stroke="transparent" points="31.5,-2346 31.5,-2366 199.5,-2366 199.5,-2346 31.5,-2346"/>
 <text text-anchor="start" x="33.4726" y="-2351.4" font-family="Times,serif" font-size="14.00" fill="#444444">SURVEY_DEFINITION_ID</text>
-<polygon fill="#fef9f6" stroke="transparent" points="31.5,-2326 31.5,-2346 199.5,-2346 199.5,-2326 31.5,-2326"/>
+<polygon fill="#feeeee" stroke="transparent" points="31.5,-2326 31.5,-2346 199.5,-2346 199.5,-2326 31.5,-2326"/>
 <text text-anchor="start" x="33.5" y="-2331.4" font-family="Times,serif" font-size="14.00" fill="#444444">DESIGN_YEAR</text>
-<polygon fill="#fef9f6" stroke="transparent" points="31.5,-2306 31.5,-2326 199.5,-2326 199.5,-2306 31.5,-2306"/>
+<polygon fill="#feeeee" stroke="transparent" points="31.5,-2306 31.5,-2326 199.5,-2326 199.5,-2306 31.5,-2306"/>
 <text text-anchor="start" x="33.5" y="-2312.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#444444">STRATUM</text>
-<polygon fill="none" stroke="#a8988e" stroke-opacity="0.666667" points="30.5,-2305 30.5,-2407 200.5,-2407 200.5,-2305 30.5,-2305"/>
+<polygon fill="none" stroke="#a87272" stroke-opacity="0.666667" points="30.5,-2305 30.5,-2407 200.5,-2407 200.5,-2305 30.5,-2305"/>
 </g>
 <!-- STRATUM_GROUPS&#45;&gt;AREA -->
 <g id="STRATUM_GROUPS_1" class="edge">
 <title>STRATUM_GROUPS:AREA_ID&#45;&gt;AREA:AREA_ID</title>
-<path fill="none" stroke="#555555" d="M199.5,-2376C330.8308,-2376 163.4001,-2101.0914 278.976,-2086.5942"/>
-<polygon fill="#555555" stroke="#555555" points="279.2247,-2090.0857 289,-2086 278.8104,-2083.098 279.2247,-2090.0857"/>
+<path fill="none" stroke="#555555" d="M199.5,-2376C291.2012,-2376 201.1894,-1988.1716 278.6943,-1957.8725"/>
+<polygon fill="#555555" stroke="#555555" points="279.7868,-1961.2314 289,-1956 278.5354,-1954.3442 279.7868,-1961.2314"/>
 </g>
 <!-- TAXON_GROUPS -->
 <g id="TAXON_GROUPS" class="node">
