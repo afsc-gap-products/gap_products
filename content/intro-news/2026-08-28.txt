@@ -1,0 +1,91 @@
+GAP_PRODUCTS ChangeLog (last produced on 2026-08-28) using gapindex v3.0.3
+Run completed by: Duane Stevenson
+ 
+-- This run was conducted to update all GAP_PRODUCTS tables with data from the 2026 EBS and Aleutians bottom 
+trawl surveys. In addition, CPUE and biomass indices for the 2024 and 2025 EBS/NBS surveys were recalculated
+without the Marport-Netmind correction. This change resulted in a ~4% decline in the 2024 and 2025 biomass
+indices for all species.
+
+
+
+ AI Region: 
+
+ cpue : 
+ 266508 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 57064 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 46679 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 869 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ 198617 new cpue records, 0 cpue removed records, and  20877 modified cpue records.
+
+ biomass : 
+ 15777 new biomass records, 0 biomass removed records, and  6488 modified biomass records.
+
+ sizecomp : 
+ 30913 new sizecomp records, 0 sizecomp removed records, and  62385 modified sizecomp records.
+
+ agecomp : 
+ 853 new agecomp records, 0 agecomp removed records, and  5948 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  4128 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  488 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  3721 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  113 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+

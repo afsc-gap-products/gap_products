@@ -41,11 +41,14 @@ stage_tables <- readRDS(file = "temp/stage_tables.RDS")
 ##   vouchered data, ad hoc decisions about taxon aggregations, updated stratum
 ##   areas, updated gapindex package, etc.) 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-detailed_notes <-
-  "Run completed by: Zack Oyafuso
 
--- Updating age composition for recently age reads for Aleutian Islands 2024 blackspotted rockfish and Atka mackerel; Gulf of Alaska 2025 Pacific cod, northern rockfish, and rex sole; Eastern Bering Sea 2025 Pacific cod; Northern Bering Sea 2025 Pacific cod
-
+detailed_notes <- 
+  "Run completed by: Duane Stevenson
+ 
+-- This run was conducted to update all GAP_PRODUCTS tables with data from the 2026 EBS and Aleutians bottom 
+trawl surveys. In addition, CPUE and biomass indices for the 2024 and 2025 EBS/NBS surveys were recalculated
+without the Marport-Netmind correction. This change resulted in a ~4% decline in the 2024 and 2025 biomass
+indices for all species.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,5 +116,5 @@ for (itable in c("cpue", "biomass", "sizecomp", "agecomp")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "18-AUG-26 11.00.00 AM",
-                     time_end = "18-AUG-26 11.59.00 PM")
+                     time_start = "31-AUG-26 08.00.00 AM",
+                     time_end = "31-AUG-26 11.59.00 AM")
