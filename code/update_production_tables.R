@@ -43,12 +43,9 @@ stage_tables <- readRDS(file = "temp/stage_tables.RDS")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 detailed_notes <- 
-  "Run completed by: Duane Stevenson
+  "Run completed by: Zack
  
--- This run was conducted to update all GAP_PRODUCTS tables with data from the 2026 EBS and Aleutians bottom 
-trawl surveys. In addition, CPUE and biomass indices for the 2024 and 2025 EBS/NBS surveys were recalculated
-without the Marport-Netmind correction. This change resulted in a ~4% decline in the 2024 and 2025 biomass
-indices for all species.
+-- This run updates age compositions that incorporate new read otolith data for Aleutian Island and Eastern Bering Sea Greenland turbot (2024) and Gulf of Alaska pollock (2025).
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -116,5 +113,5 @@ for (itable in c("cpue", "biomass", "sizecomp", "agecomp")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "31-AUG-26 08.00.00 AM",
-                     time_end = "31-AUG-26 11.59.00 AM")
+                     time_start = "10-SEP-26 08.00.00 AM",
+                     time_end = "10-SEP-26 11.59.00 PM")
