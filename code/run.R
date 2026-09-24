@@ -41,8 +41,14 @@ library(gapindex) # devtools::install_github("afsc-gap-products/gapindex")
 source("functions/output_r_session.R")
 output_r_session(path = "temp/") ## sets up temp/ folder
 
+## check whether you are a proxy user to the GAP_PRODUCTS schema. If you do not
+## see GAP_PRODUCTS in the CLIENT field of this result, request to be added as
+## as GAP_PRODUCTS proxy user to our DBAs Sarah Friedman or Chris Anderson
+gapindex::sql_query(channel = gapindex::get_connected(check_access = FALSE), 
+                    query = "SELECT * FROM user_proxies;")
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##   GCS Bucekt Setup ----
+##   GCS Bucket Setup ----
 ##   A Google Cloud Storage (GCS) bucket caled afs_race_gap_products has been 
 ##   created to archive each production run and the end of this process. 
 ##   Here is general info on GCB buckets from the NOAA AFSC Intranet:
