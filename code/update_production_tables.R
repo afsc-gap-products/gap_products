@@ -43,9 +43,9 @@ stage_tables <- readRDS(file = "temp/stage_tables.RDS")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 detailed_notes <- 
-  "Run completed by: Zack
+  "Run completed by: Zack Oyafuso
  
--- This run updates age compositions that incorporate new read otolith data for Aleutian Island and Eastern Bering Sea Greenland turbot (2024) and Gulf of Alaska pollock (2025).
+-- This run updates the AGECOMP table, incorporating new read otolith data for Eastern Bering Sea pollock (2026).
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
