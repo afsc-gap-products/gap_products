@@ -548,7 +548,7 @@ Team~nmfs.afsc.gap.metadata@noaa.gov
 \part{Welcome}
 
 \begin{quote}
-Report run date: Wednesday, September 02, 2026
+Report run date: Monday, October 05, 2026
 \end{quote}
 
 \section*{AFSC Bottom Trawl Surveys}\label{afsc-bottom-trawl-surveys}
@@ -930,7 +930,7 @@ research is conducted on fishing industry contract vessels.
 \subsection{\texorpdfstring{\textbf{Aleutian
 Islands}}{Aleutian Islands}}\label{aleutian-islands}
 
-Most recent data report: (Von Szalay et al., 2026)
+Most recent data report: (Dowlin et al., 2026)
 
 \begin{itemize}
 \tightlist
@@ -966,7 +966,7 @@ Most recent data report: (Von Szalay et al., 2026)
 \subsection{\texorpdfstring{\textbf{Gulf of
 Alaska}}{Gulf of Alaska}}\label{gulf-of-alaska}
 
-Most recent data report: (Siple et al., 2024)
+Most recent data report: (Siple et al., 2026)
 
 \begin{itemize}
 \tightlist
@@ -1470,6 +1470,16 @@ Rohan's October 2022 SCRUGS presentation} on the topic.
 \chapter{News}\label{news}
 
 \section{News/change logs}\label{newschange-logs}
+
+--
+\href{https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/2026-10-02.txt}{GAP\_PRODUCTS
+ChangeLog (last produced on 2026-10-02) using gapindex v3.1.0}: Run
+completed by: Zack Oyafuso
+
+--
+\href{https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/2026-09-10.txt}{GAP\_PRODUCTS
+ChangeLog (last produced on 2026-09-10) using gapindex v3.1.0}: Run
+completed by: Zack
 
 --
 \href{https://raw.githubusercontent.com/afsc-gap-products/gap_products/main/content/intro-news/2026-08-28.txt}{GAP\_PRODUCTS
@@ -2536,7 +2546,7 @@ scripts that created this code can be found at
 (https://github.com/afsc-gap-products/gap\_products). There are no legal
 restrictions on access to the data. Last updated on 14 March 2026.
 
-Number of rows: 21,915,584
+Number of rows: 22,214,294
 
 Number of columns: 7
 
@@ -2626,6 +2636,101 @@ NUMBER(38,6)
 
 Numerical catch per unit effort (area swept by the net, units square
 kilometers).
+
+\subsection{DIRECTION\_CODES}\label{direction_codes}
+
+NA
+
+Number of rows: 3
+
+Number of columns: 2
+
+Column name from data
+
+Descriptive column Name
+
+Units
+
+Oracle data type
+
+Column description
+
+DESCRIPTION
+
+Description
+
+text
+
+VARCHAR2(4000 BYTE)
+
+Description of row observation.
+
+\subsection{ENVIRONMENTAL}\label{environmental}
+
+NA
+
+Number of rows: 1,583,587
+
+Number of columns: 6
+
+Column name from data
+
+Descriptive column Name
+
+Units
+
+Oracle data type
+
+Column description
+
+HAULJOIN
+
+Haul ID
+
+ID key code
+
+NUMBER(38,0)
+
+This is a unique numeric identifier assigned to each (vessel, cruise,
+and haul) combination.
+
+DEPTH\_M
+
+Depth (m)
+
+meters
+
+NUMBER(38,1)
+
+Bottom depth (meters).
+
+\subsection{INSTRUMENT\_CODES}\label{instrument_codes}
+
+NA
+
+Number of rows: 5
+
+Number of columns: 2
+
+Column name from data
+
+Descriptive column Name
+
+Units
+
+Oracle data type
+
+Column description
+
+DESCRIPTION
+
+Description
+
+text
+
+VARCHAR2(4000 BYTE)
+
+Description of row observation.
 
 \subsection{METADATA\_COLUMN}\label{metadata_column}
 
@@ -3491,6 +3596,44 @@ Equivalent to the SPECIES\_CODE if the taxon is reported as a single
 taxon in GAP\_PRODUCTS, otherwise denotes a SPECIES\_CODE of a higher
 taxonomic group to which the taxon is aggregated in the GAP\_PRODUCTS
 CPUE and BIOMASS tables.
+
+\subsection{VARIABLE\_CODES}\label{variable_codes}
+
+NA
+
+Number of rows: 12
+
+Number of columns: 4
+
+Column name from data
+
+Descriptive column Name
+
+Units
+
+Oracle data type
+
+Column description
+
+NAME
+
+Name
+
+text
+
+VARCHAR2(4000 BYTE)
+
+Name of ID key code.
+
+DESCRIPTION
+
+Description
+
+text
+
+VARCHAR2(4000 BYTE)
+
+Description of row observation.
 
 \subsection{CRUISE}\label{cruise}
 
@@ -5868,7 +6011,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 200,501}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 2,005}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 98}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 89}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} ALDEBARAN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} -13,481}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 198,203}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 1,982}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 98}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 1}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} CHAPMAN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 877}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5876,7 +6019,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 200,501}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 2,005}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 98}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 89}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} ALDEBARAN}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} -13,481}}}} \\
+\multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 198,203}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 1,982}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 98}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 1}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} CHAPMAN}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 877}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -5884,7 +6027,7 @@ species information.}\tabularnewline
 
 
 
-\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 200,501}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 2,005}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 98}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 89}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} ALDEBARAN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} -13,481}}}} \\
+\multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 198,203}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 1,982}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 98}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} Eastern\ Bering\ Sea\ Crab/Groundfish\ Bottom\ Trawl\ Survey}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 1}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} CHAPMAN}}}} & \multicolumn{1}{>{\cellcolor[HTML]{EFEFEF}\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\advance\leftskip by 5.0pt\relax \advance\rightskip by 5.0pt\relax \textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{{\fontspec{Arial} 877}}}} \\
 
 \noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
 
@@ -9326,7 +9469,7 @@ For questions, comments, and concerns specifically about the
 \chapter{Production run notes}\label{production-run-notes}
 
 \begin{quote}
-Report run date: Wednesday, September 02, 2026
+Report run date: Monday, October 05, 2026
 \end{quote}
 
 \chapter{R Version Metadata}\label{r-version-metadata}
@@ -9334,7 +9477,7 @@ Report run date: Wednesday, September 02, 2026
 \begin{verbatim}
 R version 4.6.1 (2026-06-24 ucrt)
 Platform: x86_64-w64-mingw32/x64
-Running under: Windows 11 x64 (build 22631)
+Running under: Windows 11 x64 (build 26100)
 
 Matrix products: default
   LAPACK version 3.12.1
@@ -9355,8 +9498,8 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] compiler_4.6.1    fastmap_1.2.0     cli_3.6.6         tools_4.6.1      
  [5] htmltools_0.5.9   otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12      
- [9] tinytex_0.60      rmarkdown_2.31    knitr_1.51        jsonlite_2.0.0   
-[13] xfun_0.60         digest_0.6.39     rlang_1.3.0       evaluate_1.0.5   
+ [9] tinytex_0.61      rmarkdown_2.32    knitr_1.52        jsonlite_2.0.0   
+[13] xfun_0.61         digest_0.6.39     rlang_1.3.0       evaluate_1.0.5   
 \end{verbatim}
 
 \subsection{NOAA README}\label{noaa-readme-1}
@@ -9498,6 +9641,12 @@ Fisheries Alaska Fisheries Science Center, Groundfish Assessment
 Program}; https://akfinbi.psmfc.org/analytics/; {U.S. Dep. Commer.}
 \url{https://www.psmfc.org/program/alaska-fisheries-information-network-akfin}
 
+\bibitem[\citeproctext]{ref-AI2024}
+Dowlin, A. N., Siple, M. C., and Szalay, P. G. von. (2026). \emph{Data
+report: 2024 {Aleutian Islands} bottom trawl survey} (AFSC Processed
+Rep. 2026-03; p. 190). {U.S. Dep. Commer.}
+\url{https://doi.org/10.25923/090j-8132}
+
 \bibitem[\citeproctext]{ref-RN979}
 Hoff, G. R. (2016). \emph{Results of the 2016 eastern {Bering Sea} upper
 continental slope survey of groundfishes and invertebrate resources}
@@ -9523,17 +9672,11 @@ production data}.
 https://www.fisheries.noaa.gov/alaska/science-data/groundfish-assessment-program-bottom-trawl-surveys;
 {U.S. Dep. Commer.}
 
-\bibitem[\citeproctext]{ref-GOA2023}
-Siple, M. C., Szalay, P. G. von, Raring, N. W., Dowlin, A. N., and
-Riggle, B. C. (2024). \emph{Data report: 2023 gulf of alaska bottom
-trawl survey} (NOAA Tech. Memo. AFSC processed report; 2024-09). {U.S.
-Dep. Commer.} \url{https://doi.org/10.25923/gbb1-x748}
-
-\bibitem[\citeproctext]{ref-AI2024}
-Von Szalay, P. G., Raring, N. W., Siple, M. C., Dowlin, A. N., Riggle,
-B. C., and Laman, E. A. and. (2026). \emph{Data report: 2024 {Aleutian
-Islands} bottom trawl survey} (AFSC Processed Rep. 2026-03; p. 190).
-{U.S. Dep. Commer.} \url{https://doi.org/10.25923/090j-8132}
+\bibitem[\citeproctext]{ref-GOA2025}
+Siple, M. C., Oyafuso, Z. O., and Dowlin, A. N. (2026). \emph{Data
+report: 2025 gulf of alaska bottom trawl survey} (NOAA Tech. Memo. NOAA
+technical memorandum NMFS-AFSC; 519). {U.S. Dep. Commer.}
+\url{https://doi.org/10.25923/z4ta-p697}
 
 \end{CSLReferences}
 

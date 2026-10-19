@@ -268,6 +268,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#area" id="toc-area" class="nav-link" data-scroll-target="#area">AREA</a></li>
   <li><a href="#biomass" id="toc-biomass" class="nav-link" data-scroll-target="#biomass">BIOMASS</a></li>
   <li><a href="#cpue" id="toc-cpue" class="nav-link" data-scroll-target="#cpue">CPUE</a></li>
+  <li><a href="#direction_codes" id="toc-direction_codes" class="nav-link" data-scroll-target="#direction_codes">DIRECTION_CODES</a></li>
+  <li><a href="#environmental" id="toc-environmental" class="nav-link" data-scroll-target="#environmental">ENVIRONMENTAL</a></li>
+  <li><a href="#instrument_codes" id="toc-instrument_codes" class="nav-link" data-scroll-target="#instrument_codes">INSTRUMENT_CODES</a></li>
   <li><a href="#metadata_column" id="toc-metadata_column" class="nav-link" data-scroll-target="#metadata_column">METADATA_COLUMN</a></li>
   <li><a href="#sizecomp" id="toc-sizecomp" class="nav-link" data-scroll-target="#sizecomp">SIZECOMP</a></li>
   <li><a href="#species_year" id="toc-species_year" class="nav-link" data-scroll-target="#species_year">SPECIES_YEAR</a></li>
@@ -275,6 +278,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#survey_design" id="toc-survey_design" class="nav-link" data-scroll-target="#survey_design">SURVEY_DESIGN</a></li>
   <li><a href="#taxonomic_classification" id="toc-taxonomic_classification" class="nav-link" data-scroll-target="#taxonomic_classification">TAXONOMIC_CLASSIFICATION</a></li>
   <li><a href="#taxon_groups" id="toc-taxon_groups" class="nav-link" data-scroll-target="#taxon_groups">TAXON_GROUPS</a></li>
+  <li><a href="#variable_codes" id="toc-variable_codes" class="nav-link" data-scroll-target="#variable_codes">VARIABLE_CODES</a></li>
   <li><a href="#cruise" id="toc-cruise" class="nav-link" data-scroll-target="#cruise">CRUISE</a></li>
   <li><a href="#haul" id="toc-haul" class="nav-link" data-scroll-target="#haul">HAUL</a></li>
   <li><a href="#length" id="toc-length" class="nav-link" data-scroll-target="#length">LENGTH</a></li>
@@ -1011,7 +1015,7 @@ The variance of mean numerical catch per unit effort (area swept by the net, uni
 <section id="cpue" class="level3">
 <h3 class="anchored" data-anchor-id="cpue">CPUE</h3>
 <p>Haul-level zero-filled weight and numerical catch-per-unit-effort. This table was created by the Resource Assessment and Conservation Engineering Division (RACE) Groundfish Assessment Program (GAP) of the Alaska Fisheries Science Center (AFSC). The GitHub repository for the scripts that created this code can be found at (https://github.com/afsc-gap-products/gap_products). There are no legal restrictions on access to the data. Last updated on 14 March 2026.</p>
-<p>Number of rows: 21,915,584</p>
+<p>Number of rows: 22,214,294</p>
 <p>Number of columns: 7</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -1151,6 +1155,161 @@ NUMBER(38,6)
 </td>
 <td style="text-align:left;">
 Numerical catch per unit effort (area swept by the net, units square kilometers).
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="direction_codes" class="level3">
+<h3 class="anchored" data-anchor-id="direction_codes">DIRECTION_CODES</h3>
+<p>NA</p>
+<p>Number of rows: 3</p>
+<p>Number of columns: 2</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DESCRIPTION
+</td>
+<td style="text-align:left;">
+Description
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(4000 BYTE)
+</td>
+<td style="text-align:left;">
+Description of row observation.
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="environmental" class="level3">
+<h3 class="anchored" data-anchor-id="environmental">ENVIRONMENTAL</h3>
+<p>NA</p>
+<p>Number of rows: 1,583,587</p>
+<p>Number of columns: 6</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+HAULJOIN
+</td>
+<td style="text-align:left;">
+Haul ID
+</td>
+<td style="text-align:left;">
+ID key code
+</td>
+<td style="text-align:left;">
+NUMBER(38,0)
+</td>
+<td style="text-align:left;">
+This is a unique numeric identifier assigned to each (vessel, cruise, and haul) combination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPTH_M
+</td>
+<td style="text-align:left;">
+Depth (m)
+</td>
+<td style="text-align:left;">
+meters
+</td>
+<td style="text-align:left;">
+NUMBER(38,1)
+</td>
+<td style="text-align:left;">
+Bottom depth (meters).
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="instrument_codes" class="level3">
+<h3 class="anchored" data-anchor-id="instrument_codes">INSTRUMENT_CODES</h3>
+<p>NA</p>
+<p>Number of rows: 5</p>
+<p>Number of columns: 2</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DESCRIPTION
+</td>
+<td style="text-align:left;">
+Description
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(4000 BYTE)
+</td>
+<td style="text-align:left;">
+Description of row observation.
 </td>
 </tr>
 </tbody>
@@ -2442,6 +2601,69 @@ NUMBER(38,0)
 </td>
 <td style="text-align:left;">
 Equivalent to the SPECIES_CODE if the taxon is reported as a single taxon in GAP_PRODUCTS, otherwise denotes a SPECIES_CODE of a higher taxonomic group to which the taxon is aggregated in the GAP_PRODUCTS CPUE and BIOMASS tables.
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="variable_codes" class="level3">
+<h3 class="anchored" data-anchor-id="variable_codes">VARIABLE_CODES</h3>
+<p>NA</p>
+<p>Number of rows: 12</p>
+<p>Number of columns: 4</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name from data
+</th>
+<th style="text-align:left;">
+Descriptive column Name
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Oracle data type
+</th>
+<th style="text-align:left;">
+Column description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+NAME
+</td>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(4000 BYTE)
+</td>
+<td style="text-align:left;">
+Name of ID key code.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DESCRIPTION
+</td>
+<td style="text-align:left;">
+Description
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+VARCHAR2(4000 BYTE)
+</td>
+<td style="text-align:left;">
+Description of row observation.
 </td>
 </tr>
 </tbody>
