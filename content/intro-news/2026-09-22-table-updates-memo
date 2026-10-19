@@ -1,0 +1,130 @@
+GAP_PRODUCTS Schema Table Changes/Updates Memo
+Prepared by: Em, Zack, Ned
+ 
+-- This run updates age compositions that incorporate new read otolith data for Aleutian Island and Eastern Bering Sea Greenland turbot (2024) and Gulf of Alaska pollock (2025).
+
+Overview
+
+As part of our ongoing effort to modernize the AFSC bottom trawl survey data workflow in the GAP_PRODUCTS schema, we are moving toward a more consolidated, public-facing core dataset. Our goal is to minimize table redundancy and maintain one definitive version of each table to ensure consistency for internal Groundfish Assessment Program (GAP) staff and external stock assessment authors. 
+
+
+Request:
+
+Please begin transitioning your workflow before December 1, 2026 when the below changes, unless stated otherwise at some later date, will be implemented. If you can foresee that these changes will negatively impact your work, or this timeline conflicts with critical assessment deadlines, please contact the GAP_PRODUCTS team (Ned, Zack, or Em) immediately.
+
+
+1. Removal of the AKFIN_ Prefix in Table Names
+
+Tables named with an “AKFIN_” prefix in GAP_PRODUCTS will be renamed without the “AKFIN_” prefix. For example, GAP_PRODUCTS.AKFIN_AREA will simply be renamed as GAP_PRODUCTS.AREA.
+
+
+2. Sunsetting AKFIN_CATCH
+
+We have determined that AKFIN_CATCH is redundant to the CPUE (and the soon to be the removed AKFIN_CPUE) table. AKFIN_CATCH is not summarized at the same taxonomic minimum ID granularity and to the same taxonomic confidence temporal stanzas as the CPUE table, potentially leading to mismatches when comparing to other tables in GAP_PRODUCTS. Additionally, the CPUE table is zero-filled, such that positive-only catch records (as currently available in AKFIN_CATCH) can be obtained by filtering the CPUE table by WEIGHT_KG > 0.
+
+
+3. Removal of the FOSS_Tables
+
+To reduce confusion and duplicate tables, we will remove the FOSS_CATCH, FOSS_HAUL, FOSS_SPECIES, FOSS_SURVEY_SPECIES, and FOSS_TAXON_GROUP tables. All of these tables can be created from the other standard GAP_PRODUCTS schema tables. Scripts to recreate these tables are available on the GAP_PRODUCTS GitHub repository.
+
+
+4. AdditionalFiltering of the HAUL (and Soon to be Removed AKFIN_HAUL) Table
+
+Northern Bering sea hauls conducted using standardized protocol from 1985, 1988, and 1991 have been removed to be consistent with the start of the NBS design-based time series in 2010. Associated data from these hauls in related GAP_PRODUCTS tables (e.g., LENGTH and SPECIMEN) have also been removed.
+
+
+5. Additional Filtering of the GAP_PRODUCTS.SPECIMEN Table
+
+The SPECIES_CODES do not include taxa before respective SPECIES_YEAR temporal cut offs related to identification confidence. Specimen records will be filtered to match the timeframes established by GAP that ensure high taxonomic identification confidence e.g., excluding pre-1992 ATF records and pre-1999 records for various skate species.
+
+
+6. Creation of the SAMPLE_COUNT Materialized View
+
+A new materialized view has been created summarizing all of the core collection data that are collected on the surveys, including the number of otoliths that were collected, the number of ages that were read, and the number of lengths (2005-on) that were collected.
+
+
+7. AREA_ID_FOOTPRINT Data Type Changed to Numeric
+
+The values for the AREA_ID_FOOTPRINT field in the AGECOMP table will be consistent with the regional AREA_ID values as specified in the GAP_PRODUCTS.AREA table. Encoding values for EBS STANDARD PLUS NW, EBS STANDARD, NBS, GOA, AI, and BSS will now be 99900, 99901, 99902, 99903, 99904, and 99905, respectively.
+
+
+8. Removal of Crab CPUE Estimates from the CPUE Table
+
+Catch per unit effort data for red king, blue king, Tanner, snow, hybrid Tanner, and horsehair crab (species codes 69323, 69322, 68580, 68560, and 68590) will be removed from the CPUE table. See https://github.com/AFSC-Shellfish-Assessment-Program/crabpack for more information.
+
+
+9. Addition of Environmental Cast Data Tables
+
+Data from the vessel’s conductivity, temperature, depth sensor (CTD) has been added to the GAP_PRODUCTS.ENVIRONMENTAL table. This table identifies which haul (HAULJOIN), the cast direction (DIRECTION codes are described in the DIRECTION_CODES table), depth (DEPTH_M; in meters), sensor (INSTRUMENT, defined in the INSTRUMENT_CODES table), sensor collection type (VARIABLE; defined in the VARIABLE_CODES table), and observation value from the sensor (VALUE). These tables are in development and currently only include CTD data from 2021-2024, but provide a structure that can store other data streams in the future.
+
+
+10. Net Spread Sensor Calibration and Biomass Index Adjustments
+
+The Groundfish Assessment Program’s (GAP) transition from Netmind to Marport net spread sensors in the Bering Sea (2009–2012) included the development and application of a Marport-to-Netmind (M2N) correction factor (Lauth and Kotwicki, 2014), applied in 2013 and to all subsequent Bering Sea surveys to maintain consistency with historical survey data. GAP subsequently upgraded to new-generation digital Marport sensors in 2024. Since 2024, comparative data and field experiments have demonstrated that the new digital sensors align more closely with legacy Netmind data, rendering the M2N correction factor unnecessary. Applying it in 2024–2025 results in an underestimation of net spread relative to historical data. Consequently, the M2N correction factor was discontinued for datasets from 2024 onward, prompting the recalculation of uncorrected net spread values for all hauls from the 2024–2026 EBS and 2025 NBS surveys. This methodological adjustment resulted in ~4% higher calculated effort and a corresponding ~3–4% downward adjustment in previously released biomass and abundance indices for all species. The discontinuation of the M2N correction factor aligns recent survey data more closely with historical data, so the correction will not be applied to future Bering surveys. 
+
+
+It is worth noting that the Gulf of Alaska and Aleutian Islands surveys transitioned from Scanmar to Marport sensors during the same time frame as the Netmind to Marport transition in the Bering Sea, but did not detect a similar need for a correction factor for either era of Marport sensors.
+
+
+In Summary:
+
+
+AGECOMP ← AKFIN_AGECOMP; AREA_ID_FOOTPRINT data type changed to numeric
+
+AREA ← AKFIN_AREA
+
+BIOMASS ← AKFIN_BIOMASS
+
+CPUE ← AKFIN_CPUE and AKFIN_CATCH; Bering Sea crab data removed
+
+CRUISE ← AKFIN_CRUISE
+
+HAUL ← AKFIN_HAUL
+
+LENGTH ← AKFIN_LENGTH
+
+METADATA_COLUMN ← AKFIN_METADATA_COLUMN
+
+SIZECOMP ← AKFIN_SIZECOMP
+
+SPECIMEN ← AKFIN_SPECIMEN; SPECIES_CODES do not include taxa that before respective SPECIES_YEAR temporal cut offs related to identification confidence
+
+STRATUM_GROUPS ← AKFIN_STRATUM_GROUPS
+
+SURVEY_DESIGN ← AKFIN_SURVEY_DESIGN
+
+TAXONOMIC_CLASSIFICATION ← AKFIN_TAXONOMIC_CLASSIFICATION
+
+TAXONOMIC_GROUPS ← AKFIN_TAXONOMIC_GROUPS
+
+[DELETE, duplicated by CPUE] ← AKFIN_CATCH
+
+[DELETE, duplicated by CPUE] ← FOSS_CATCH
+
+[DELETE, duplicated by HAUL] ← FOSS_HAUL
+
+[DELETE, duplicated by TAXONOMIC_CLASSIFICATIONS] ← FOSS_SPECIES
+
+[DELETE] ← FOSS_SURVEY_SPECIES
+
+[DELETE, duplicated by TAXONOMIC_CLASSIFICATIONS] ← FOSS_TAXON_GROUP
+
+[CREATED] ← SAMPLE_COUNT
+
+[CREATED] ← ENVIRONMENTAL
+
+[CREATED] ← DIRECTION_CODES
+
+[CREATED] ← INSTRUMENT_CODES
+
+[CREATED] ← VARIABLE_CODES
+
+Additionally, users are strongly advised to always pull the complete time series for their analyses. Due to ongoing data improvements, taxonomic updates, and other reasons, historical records and indices may undergo updates that affect long-term trend calculations.
+
+Thank you, and please reach out if you have any questions.
+
+GAP_PRODUCTS development team.
+Ned, Zack, and Em
+
+EDIT provided by duane.stevenson@noaa.gov: 
+Item #10 (discontinuation of the M2N correction) has already been completed. When we released the 2026 data, the recalculation of the 2024, 2025, and 2026 indices had already been done. The current GAP_PRODUCTS tables reflect 2024-2026 data WITHOUT the M2N correction. We expect no further changes to those indices going forward, as those indices should now be maximally consisten with historical data. The remainder of the changes on Ned's [above] list will be effected on December 1. Sorry for the confusion here.
