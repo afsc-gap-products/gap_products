@@ -1,0 +1,368 @@
+---
+title: "Check bibliography output"
+subtitle: "`r paste0(format(Sys.time(), '%B %d, %Y'))`"
+# output: 
+#   pdf_document
+#   word_document
+format: 
+  pdf: 
+    geometry:
+      - top=0.75in
+      - right=0.75in
+      - bottom=0.75in
+      - left=0.75in
+      - heightrounded
+    number-sections: true
+    toc: false
+  # docx:
+  #   reference-doc: "../testing/styles_reference.docx"
+execute:
+  warning: false
+  echo: false
+  message: false
+  error: false
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
+bibliography: "../content/references.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, error = FALSE, message = FALSE, warning = FALSE, comment = FALSE, eval = TRUE)
+```
+
+```{r load_libraries}
+PKG <- c(
+  "tidyr",
+  "dplyr",
+  "here"
+  )
+
+PKG <- unique(PKG)
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+```
+
+```{r output_citations_fn}
+bibfiletext <- readLines(con = here::here("content/references.bib"))#[1:1669] #1669 #1719
+
+output_citations <- function(bibfiletext, 
+                             year = NULL, 
+                             author_last = NULL) {
+  
+  bibfiletext0 <- bibfiletext00 <- bibfiletext
+  cite_start <- grep(pattern = "@", x = bibfiletext0, fixed = TRUE)
+  
+  # # pull out data for speific years
+  # cite_start0 <- c()
+  # if (!is.null(year)) {
+  #   for (i in 1:length(year)){
+  #     cite_year <- grep(pattern = paste0("year = {",year[i],"}"), 
+  #                       x = bibfiletext0, fixed = TRUE)
+  #     cite_year0 <- c()
+  #     for (ii in 1:length(cite_year)) {
+  #       temp <- which(cite_start<cite_year[ii])
+  #       cite_year0 <- c(cite_year0, 
+  #                       cite_start[length(temp)])
+  #     }
+  #     cite_start0 <- c(cite_start0, cite_year0)
+  #   }
+  #  cite_start <- cite_start0
+  # }
+  # 
+  
+  # # pull out data for speific authors
+  # cite_start0 <- c()
+  # if (!is.null(author_last)) {
+  #   for (i in 1:length(year)){
+  #     cite_author <- grep(pattern = paste0("author = {",author_last[i],"}"), 
+  #                       x = bibfiletext0, fixed = TRUE)
+  #     cite_author0 <- c()
+  #     for (ii in 1:length(cite_author)) {
+  #       temp <- which(cite_start<cite_author[ii])
+  #       cite_author0 <- c(cite_author0, 
+  #                       cite_start[length(temp)])
+  #     }
+  #     cite_start0 <- c(cite_start0, cite_author0)
+  #   }
+  #  cite_start <- cite_start0
+  # }
+  
+  # cite_start <- unique(cite_start)
+  
+  bibfiletext0 <- bibfiletext0[cite_start]
+  bibfiletext0 <- unlist(lapply(X = strsplit(split = "{", x = bibfiletext0, fixed = TRUE), "[[", 2))
+  bibfiletext0 <- gsub(pattern = ",", replacement = "", x = bibfiletext0, fixed = TRUE)
+  bibfiletext0 <- trimws(bibfiletext0)
+  
+  # find author and year order
+  cite_auth <- bibfiletext00[grep(pattern = "author = {", x = bibfiletext00, fixed = TRUE)]
+  cite_auth <- gsub(pattern = " = {{", replacement = " = {", x = cite_auth, fixed = TRUE)
+  cite_auth <- unlist(lapply(X = strsplit(split = "{", x = cite_auth, fixed = TRUE), "[[", 2))
+  
+  cite_yr <- bibfiletext00[grep(pattern = "year = {", x = bibfiletext00, fixed = TRUE)]
+  cite_yr <- unlist(lapply(X = strsplit(split = "{", x = cite_yr, fixed = TRUE), "[[", 2))
+  
+  bibfiletext1 <- data.frame(
+    rn = bibfiletext0, 
+    auth = cite_auth, 
+    year = cite_yr) |> 
+    dplyr::arrange(auth, year)
+  
+  b <- unlist(paste0(
+    "@", unlist(bibfiletext1$rn), 
+    "
+
+", 
+collapse = ""))
+  return(b)
+}
+
+b <- output_citations(bibfiletext = bibfiletext)
+```
+
+## All in-line text citations
+
+`r b`
+
+## Works cited
+
+::: {#refs}
+:::
+
+```{r output_citations_of_specific_year, eval=FALSE}
+## All in-line text citations from 2022
+# Test
+# b <- output_citations(bibfiletext = bibfiletext, year = 2021:2022)
+# `r b`
+```
+
+# Check elements of the citations:
+
+```{r find_refnum}
+bibfiletext0 <- stringr::str_to_lower(bibfiletext)
+bibfiletext0 <- trimws(bibfiletext0)
+cite_start <- grep(pattern = "@", x = bibfiletext0, fixed = TRUE)
+cite_end <- which("}" == trimws(bibfiletext0))
+
+refnum <- bibfiletext0[cite_start]
+refnum <- unlist(lapply(X = strsplit(split = "{", x = refnum, fixed = TRUE), "[[", 2))
+refnum <- gsub(pattern = ",", replacement = "", x = refnum, fixed = TRUE)
+refnum <- trimws(refnum)
+
+```
+
+```{r functions}
+
+#' Check that your links work
+#'
+#' @param URLs A vector of strings with website URLs, local directories, and/or local files.
+#' @param quiet default = FALSE. Will not return messages if = TRUE.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' # Use test page URL:
+#'   URLs <- c(
+#'     "https://github.com",
+#'     "http://steipe.biochemistry.utoronto.ca/abc/assets/testCheckLinks.html",
+#'     "./",
+#'     "./ex.txt",
+#'     "./aa/")
+#'  checkLinks(URLs)
+checkLinks <- function(URLs,
+                       quiet = FALSE) {
+  
+  # https://stackoverflow.com/questions/31214361/what-is-the-r-equivalent-for-excel-iferror
+  
+  URLs <- URLs[!is.na(URLs)] # remove empty rows
+  
+  notworking <- c()
+  
+  for (i in 1:length(URLs)){
+    
+    # Fix URLs if local directories
+    URL <- URLs[i]
+    
+    if (substr(x = URL, start = 1, stop = 2) == "./") {
+      # if (substr(x = URL, start = 1, stop = 2) == "./") {
+      if (URL == "./") {
+        URL <- gsub(replacement = getwd(), pattern = "./",
+                    x = URL, fixed = TRUE, useBytes = TRUE)
+      } else {
+        URL <- gsub(replacement = paste0(getwd(), "/"), pattern = "./",
+                    x = URL, fixed = TRUE, useBytes = TRUE)
+      }
+      
+    }
+    
+    # fix for for a directory
+    if (substr(x = URL, start = nchar(URL), stop = nchar(URL)) == "/") {
+      URL <- substr(x = URL, start = 1, stop = (nchar(URL)-1))
+    }
+    
+    # download page and access URLs. If does not exist, collect it in "badurl"
+    myPage <- try(expr = xml2::read_html(URL), silent = T)
+    if (grepl(pattern = "Error", x = myPage[1],
+              fixed = TRUE, useBytes = TRUE) &
+        isFALSE(file.exists(URL))) {
+      
+      notworking <- c(notworking, URL)
+    }
+  }
+  
+  if (quiet == FALSE){
+    if (length(notworking) == 0) {
+      print("All links are good!")
+    } else {
+      print(paste0("There ",
+                   ifelse(length(notworking)>1, "are ", "is "),
+                   length(notworking),
+                   " bad link",
+                   ifelse(length(notworking)>1, "s", ""),
+                   "."))
+    }
+  }
+  
+  return(sort(unique(notworking)))
+}
+
+```
+
+Are there duplicated reference numbers?
+
+```{r refnum_dups}
+refnum <- unlist(lapply(X = strsplit(x = bibfiletext0[cite_start], split = "{", fixed = TRUE), "[[", 2))
+temp <- refnum[which(duplicated(refnum))]
+ifelse(length(temp) == 0, "There are no citation reference number duplicates", paste0("check reference number  ", temp))
+```
+
+Are all of the DOIs properly recorded?
+
+```{r doi_issues}
+term0 <- "doi.org/"
+temp <- grep(pattern = term0, x = bibfiletext0, fixed = TRUE)
+ifelse(length(temp) == 0, paste0('There are no citations with the "', term0, '"'), paste0("check line(s) ", temp))
+```
+
+Do the doi links work?
+
+```{r doi_link_check}
+term0 <- "doi ="
+temp <- bibfiletext0[grep(pattern = term0, x = bibfiletext0, ignore.case = TRUE)]
+temp <- unlist(lapply(X = strsplit(x = temp, split = "{", fixed = TRUE), "[[", 2))
+temp <- unlist(lapply(X = strsplit(x = temp, split = "}", fixed = TRUE), "[[", 1))
+
+checkLinks(URLs = paste0("https://doi.org/", temp))
+```
+
+Do the url links work?
+
+```{r url_link_check}
+term0 <- "url ="
+temp <- bibfiletext0[grep(pattern = term0, x = bibfiletext0, ignore.case = TRUE)]
+temp <- unlist(lapply(X = strsplit(x = temp, split = "{", fixed = TRUE), "[[", 2))
+temp <- unlist(lapply(X = strsplit(x = temp, split = "}", fixed = TRUE), "[[", 1))
+
+checkLinks(URLs = temp)
+```
+
+## are author, year, and title listed for each listing?
+
+```{r search_dups_fn}
+
+search0 <- function(pattern, bibfiletext00){
+  cite_ <- bibfiletext00[grep(pattern = paste0(pattern, " = {"), x = bibfiletext00, fixed = TRUE)]
+  cite_ <- gsub(pattern = " = {{", replacement = " = {", x = cite_, fixed = TRUE)
+  if (length(cite_) == 0) {
+    cite_ <- (NA)
+  } else {
+    cite_ <- unlist(lapply(X = strsplit(split = "{", x = cite_, fixed = TRUE), "[[", 2))
+    cite_ <- unlist(lapply(X = strsplit(split = "}", x = cite_, fixed = TRUE), "[[", 1))
+    if (length(cite_)>1) {
+      cite_ <- (">1")
+    } else if (length(cite_) == 1) {
+      cite_ <- (cite_)
+    }
+  }
+  return(cite_)
+}
+
+bibfiletext_flag <- data.frame()
+
+for (i in 1:length(cite_start)) { # length(cite_start)
+  
+  bibfiletext00 <- bibfiletext0[cite_start[i]:cite_end[i]]
+  
+  cite_title <- unique(c(search0(pattern = c("title"), bibfiletext00 = bibfiletext00), 
+                         search0(pattern = c("chapter"), bibfiletext00 = bibfiletext00)), 
+                       search0(pattern = c("booktitle"), bibfiletext00 = bibfiletext00))
+  
+  if (length(cite_title)>1) {
+    cite_title <- cite_title[!is.na(cite_title)]
+  }
+  
+  bibfiletext_flag <- 
+    dplyr::bind_rows(bibfiletext_flag, 
+                     data.frame(
+                       "row" = cite_start[i], 
+                       "rn" = refnum[i], 
+                       "auth" = gsub(pattern = ",", replace = "", 
+                                     x = search0(pattern = "author", bibfiletext00 = bibfiletext00)), 
+                       "year" = search0(pattern = "year", bibfiletext00 = bibfiletext00), 
+                       "title" = cite_title))
+  
+  remove("cite_title")
+}
+```
+
+citations a missing entry for title, author, or year:
+
+```{r search_dups_missing_flag}
+bibfiletext_flag |> 
+  dplyr::filter(is.na(auth) | is.na(year) | is.na(title))
+```
+
+citations with more than one entry in title, author, or year:
+
+```{r search_dups_mult_flag}
+bibfiletext_flag |> 
+  dplyr::filter(auth == ">1" | year == ">1" | title == ">1")
+```
+
+Test citing a report (@2022NEBS2023).
+
+```{r publishers-wrangle, eval = FALSE}
+# Here are all of the publishers represented in our .bib data file (\@fig-publishers; \@tbl-publishers): 
+  
+cite_pub <- grep(pattern = "publisher = ", x = bibfiletext0, fixed = TRUE)
+cite_pub <- gsub(pattern = "}", replacement = "", 
+               x = gsub(pattern = "{", replacement = "", x = bibfiletext0[cite_pub], 
+                        fixed = TRUE), fixed = TRUE)
+cite_pub <- gsub(pattern = "publisher = ", replacement = "", x = cite_pub, fixed = TRUE)
+cite_pub <- tolower(cite_pub)
+cite_pub <- ifelse(substr(x = cite_pub, start = nchar(cite_pub), stop = nchar(cite_pub)) == ",", 
+                   substr(x = cite_pub, start = 1, stop = (nchar(cite_pub)-1)), 
+                   cite_pub)
+dat <- data.frame(table(cite_pub))
+```
+
+```{r, results='asis', eval = FALSE}
+#| label: fig-publishers
+#| fig-cap: "Publishers in our citation bib data file."
+#| fig-height: 4
+library(ggplot2)
+ggplot(data = dat, mapping = aes(x = Freq, y = cite_pub)) +
+    geom_bar(stat="identity") +
+    ggplot2::theme_bw()
+```
+
+```{r, results='asis', eval = FALSE}
+#| label: tbl-publishers
+#| tbl-cap: "Publishers in our citation bib data file."
+
+library(gt)
+gt(dat)
+```

@@ -89,12 +89,6 @@ write.table(x = readLines(con = "https://raw.githubusercontent.com/citation-styl
             col.names = FALSE,
             quote = FALSE)
 
-write.table(x = readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"),
-            file = here::here("content/references.bib"),
-            row.names = FALSE,
-            col.names = FALSE,
-            quote = FALSE)
-
 # Write README -----------------------------------------------------------------
 
 # rmarkdown::render(paste0(here::here("content","README.Rmd")),

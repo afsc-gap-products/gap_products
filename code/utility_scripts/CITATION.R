@@ -10,7 +10,7 @@ rm(list = ls())
 # Create CITIATION.bib file for repo -------------------------------------------
 
 a <- ""
-bibfiletext <- readLines(con = "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib")
+bibfiletext <- readLines(con = here::here("content/references.bib"))
 for (ii in c("GAPProducts", "FOSSAFSCData", "GAPakfin")) {
   find_start <- grep(pattern = ii, x = bibfiletext, fixed = TRUE)
   find_end <- which(bibfiletext == "}")
@@ -38,15 +38,15 @@ readr::write_file(x = paste0(a, collapse = "\n"), file = "CITATION.bib")
 library(RCurl)
 # library(XML)
 
-utils::write.table(
-  x = getURL("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"),
-                   file = here::here("content","references.bib"),
-                   row.names = FALSE,
-                   col.names = FALSE,
-                   quote = FALSE)
+# utils::write.table(
+#   x = "../content/references.bib",
+#                    file = here::here("content","references.bib"),
+#                    row.names = FALSE,
+#                    col.names = FALSE,
+#                    quote = FALSE)
 
 utils::write.table(
-  x = getURL("https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"),
+  x = RCurl::getURL("https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"),
   file = here::here("content","references.csl"),
   row.names = FALSE,
   col.names = FALSE,

@@ -1,0 +1,63 @@
+---
+title: All Publsihed Data Reports
+---
+
+
+
+```{r all-data-reports}
+#| results: 'asis'
+#| echo: false
+
+# Stick entirely to RefManageR for reading and printing
+library("RefManageR")
+
+# Read the file text to parse out your sections manually
+bibfiletext0 <- readLines(con = here::here("content/references.bib"))
+
+# Read the actual bibliography objects using RefManageR
+bib <- RefManageR::ReadBib(here::here("content/references.bib"))
+
+# 1. Parse out the specific section of the .bib file
+sect_start <- grep(pattern = "%  * Survey Data Reports", x = bibfiletext0, fixed = TRUE)
+sect_end <- grep(pattern = "% * Code books *****************************************************************", x = bibfiletext0, fixed = TRUE)
+bibfiletext0 <- bibfiletext0[sect_start:sect_end]
+
+# 2. Extract the citation keys (@...)
+cite_start <- grep(pattern = "@", x = bibfiletext0, fixed = TRUE)
+
+bibfiletext0 <- unlist(lapply(X = strsplit(split = "{", x = bibfiletext0[cite_start], fixed = TRUE), "[[", 2))
+bibfiletext0 <- gsub(pattern = ",", replacement = "", x = bibfiletext0, fixed = TRUE)
+bibfiletext0 <- trimws(bibfiletext0)
+
+names0 <- c("AI" = "Aleutian Islands", 
+            "GOA" = "Gulf of Alaska", 
+            "EBS" = "Eastern and Northern Bering Sea", 
+            "BSS" = "Bering Sea Slope", 
+            "SAPcrab" = "Bering Sea Crab")
+
+# 3. Loop through regions and print sequentially
+for (i in seq_along(names0)) {
+  
+  # Find the keys that match the region code (e.g., "AI", "GOA")
+  # Fixed names(names0[i]) to names(names0)[i]
+  cite_idx <- grep(pattern = names(names0)[i], x = bibfiletext0, fixed = TRUE)
+  
+  # Skip if no citations are found for this region to avoid errors
+  if(length(cite_idx) == 0) next
+  
+  # Subset the RefManageR object using the found keys
+  region_keys <- bibfiletext0[cite_idx]
+  cite0 <- bib[region_keys]
+
+  # Print headers
+  cat(paste0('\n### ', unlist(names0[i]), '\n\n'))
+  
+  # Print cleanly formatted markdown citations directly
+  print(cite0, .opts = list(style = "markdown"))
+  
+  # Print the markdown separator to close the section (Removed the :::)
+  cat('\n\n---\n\n')
+}
+```
+
+
