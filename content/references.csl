@@ -89,8 +89,8 @@
   <locale xml:lang="fr">
     <terms>
       <term form="short" name="editor">
-        <single>Ã©d.</single>
-        <multiple>Ã©ds.</multiple>
+        <single>éd.</single>
+        <multiple>éds.</multiple>
       </term>
     </terms>
   </locale>
@@ -2284,4 +2284,3 @@
     </layout>
   </bibliography>
 </style>
-

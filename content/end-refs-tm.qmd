@@ -1,6 +1,5 @@
 ---
 title: All Publsihed Data Reports
-bibliography: "./content/references.bib"
 ---
 
 
