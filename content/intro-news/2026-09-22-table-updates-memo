@@ -1,12 +1,9 @@
 GAP_PRODUCTS Schema Table Changes/Updates Memo
 Prepared by: Em, Zack, Ned
  
--- This run updates age compositions that incorporate new read otolith data for Aleutian Island and Eastern Bering Sea Greenland turbot (2024) and Gulf of Alaska pollock (2025).
-
 Overview
 
 As part of our ongoing effort to modernize the AFSC bottom trawl survey data workflow in the GAP_PRODUCTS schema, we are moving toward a more consolidated, public-facing core dataset. Our goal is to minimize table redundancy and maintain one definitive version of each table to ensure consistency for internal Groundfish Assessment Program (GAP) staff and external stock assessment authors. 
-
 
 Request:
 
