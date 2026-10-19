@@ -10,6 +10,7 @@ PKG <- c(
   
   "dplyr",
   "googledrive",
+  "RefManageR",
   # "magrittr",
   "readr",
   "tidyr",
