@@ -2,19 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/index.html</loc>
-<<<<<<< HEAD
-    <lastmod>2026-10-18T21:19:00.518Z</lastmod>
+    <lastmod>2026-10-21T17:23:02.953Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/intro-survey-background.html</loc>
-    <lastmod>2026-10-18T21:36:51.020Z</lastmod>
-=======
-    <lastmod>2026-10-05T17:37:46.668Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/intro-survey-background.html</loc>
-    <lastmod>2026-10-05T17:37:44.794Z</lastmod>
->>>>>>> df9ac6b5ec10bb0dc6616b0857a87732710f8349
+    <lastmod>2026-10-21T17:23:02.855Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/intro-workflow.html</loc>
@@ -30,19 +22,11 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-intro.html</loc>
-<<<<<<< HEAD
-    <lastmod>2026-10-18T21:18:12.137Z</lastmod>
+    <lastmod>2026-10-21T17:23:02.857Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata.html</loc>
     <lastmod>2026-10-18T20:17:20.016Z</lastmod>
-=======
-    <lastmod>2026-10-05T17:37:44.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata.html</loc>
-    <lastmod>2026-10-05T17:37:44.811Z</lastmod>
->>>>>>> df9ac6b5ec10bb0dc6616b0857a87732710f8349
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata-column.html</loc>
@@ -90,30 +74,18 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/end-refs.html</loc>
-<<<<<<< HEAD
-    <lastmod>2026-10-18T21:21:40.458Z</lastmod>
+    <lastmod>2026-10-21T17:23:02.851Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/end-refs-tm.html</loc>
-    <lastmod>2026-10-19T05:47:58.345Z</lastmod>
+    <lastmod>2026-10-21T17:23:02.850Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.pdf</loc>
-    <lastmod>2026-10-19T06:07:34.505Z</lastmod>
+    <lastmod>2026-10-21T17:41:26.469Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.docx</loc>
-    <lastmod>2026-10-19T06:07:41.418Z</lastmod>
-=======
-    <lastmod>2026-10-05T17:37:44.669Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.pdf</loc>
-    <lastmod>2026-10-05T20:59:05.131Z</lastmod>
-  </url>
-  <url>
-    <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.docx</loc>
-    <lastmod>2026-10-05T20:59:12.814Z</lastmod>
->>>>>>> df9ac6b5ec10bb0dc6616b0857a87732710f8349
+    <lastmod>2026-10-21T17:41:36.011Z</lastmod>
   </url>
 </urlset>
