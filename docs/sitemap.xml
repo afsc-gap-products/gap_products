@@ -2,11 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-18T21:19:00.518Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/intro-survey-background.html</loc>
     <lastmod>2026-10-18T21:36:51.020Z</lastmod>
+=======
+    <lastmod>2026-10-05T17:37:46.668Z</lastmod>
+  </url>
+  <url>
+    <loc>https://afsc-gap-products.github.io/gap_products/content/intro-survey-background.html</loc>
+    <lastmod>2026-10-05T17:37:44.794Z</lastmod>
+>>>>>>> df9ac6b5ec10bb0dc6616b0857a87732710f8349
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/intro-workflow.html</loc>
@@ -22,11 +30,19 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-intro.html</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-18T21:18:12.137Z</lastmod>
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata.html</loc>
     <lastmod>2026-10-18T20:17:20.016Z</lastmod>
+=======
+    <lastmod>2026-10-05T17:37:44.810Z</lastmod>
+  </url>
+  <url>
+    <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata.html</loc>
+    <lastmod>2026-10-05T17:37:44.811Z</lastmod>
+>>>>>>> df9ac6b5ec10bb0dc6616b0857a87732710f8349
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/product-metadata-column.html</loc>
@@ -74,6 +90,7 @@
   </url>
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/content/end-refs.html</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-18T21:21:40.458Z</lastmod>
   </url>
   <url>
@@ -87,5 +104,16 @@
   <url>
     <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.docx</loc>
     <lastmod>2026-10-19T06:07:41.418Z</lastmod>
+=======
+    <lastmod>2026-10-05T17:37:44.669Z</lastmod>
+  </url>
+  <url>
+    <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.pdf</loc>
+    <lastmod>2026-10-05T20:59:05.131Z</lastmod>
+  </url>
+  <url>
+    <loc>https://afsc-gap-products.github.io/gap_products/GAP-Production-Data-Documentation.docx</loc>
+    <lastmod>2026-10-05T20:59:12.814Z</lastmod>
+>>>>>>> df9ac6b5ec10bb0dc6616b0857a87732710f8349
   </url>
 </urlset>
