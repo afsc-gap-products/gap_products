@@ -29,6 +29,8 @@ Seattle, WA 98195
 > - [*Cite this data*](#cite-this-data)
 >   - [*Access Constraints*](#access-constraints)
 > - [*Relevant publications*](#relevant-publications)
+>   - [*Building the Documentation
+>     Webpages*](#building-the-documentation-webpages)
 > - [*Suggestions and Comments*](#suggestions-and-comments)
 >   - [*Run notes*](#run-notes)
 >   - [*R Version Metadata*](#r-version-metadata)
@@ -109,9 +111,9 @@ source(here::here("content/references_current_tm.R")) # srvy_cite
 ```
 
 **Learn more about these surveys** ([Dowlin et al., 2026](#ref-AI2024);
-[Hoff, 2016](#ref-BSS2016); [Siple et al., 2026](#ref-GOA2025); [Zacher
-et al., In review](#ref-SAPcrab2026); [**EBS2025?**](#ref-EBS2025);
-[**EBS2025?**](#ref-EBS2025)).
+[Hoff, 2016](#ref-BSS2016); [Markowitz et al., 2026](#ref-EBS2025),
+[2026](#ref-EBS2025); [Siple et al., 2026](#ref-GOA2025); [Zacher et
+al., In review](#ref-SAPcrab2026)).
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0" line-spacing="2">
@@ -134,12 +136,24 @@ Center; U.S. Dep. Commer. <https://doi.org/10.7289/V5/TM-AFSC-339>
 
 </div>
 
+<div id="ref-EBS2025" class="csl-entry">
+
+Markowitz, E. H., Charriere, N. E., Wassermann, S. N., Rohan, S. K., and
+Stevenson, D. E. (2026). *Results of the 2025 eastern and northern
+Bering Sea continental shelf bottom trawl survey of groundfish and
+invertebrate fauna* (NOAA Tech. Memo. NMFS-AFSC-517; p. 203). NOAA
+Alaska Fisheries Science Center; U.S. Dep. Commer.
+<https://doi.org/10.25923/eam4-gp93>
+
+</div>
+
 <div id="ref-GOA2025" class="csl-entry">
 
 Siple, M. C., Oyafuso, Z. O., and Dowlin, A. N. (2026). *Data report:
 2025 <span class="nocase">Gulf of Alaska</span> bottom trawl survey*
-(NOAA Tech. Memo. NMFS-AFSC-519). NOAA Alaska Fisheries Science Center;
-U.S. Dep. Commer. <https://doi.org/10.25923/z4ta-p697>
+(NOAA Tech. Memo. NOAA technical memorandum NMFS-AFSC; 519). NOAA Alaska
+Fisheries Science Center; U.S. Dep. Commer.
+<https://doi.org/10.25923/z4ta-p697>
 
 </div>
 
@@ -155,6 +169,33 @@ Commer.
 </div>
 
 </div>
+
+## Building the Documentation Webpages
+
+This project uses Quarto to generate the documentation site. You can
+build the docs locally using the command line or your IDE terminal.
+
+To render the entire site, make sure you are in the project’s root
+directory and run:
+
+``` bash
+quarto render
+```
+
+To save time during the rendering process, this project utilizes
+Quarto’s freeze feature. In the
+[\_quarto.yml](https://github.com/afsc-gap-products/gap_products/blob/main/_quarto.yml)
+file, you will see a line under the execute options that says
+`freeze: auto`.
+
+Keep `freeze: auto` active and it will only run pages that have actively
+changed. Quarto will use the cached results for any unmodified pages,
+making the build process much faster.
+
+Hash the `freeze: auto` line out to re-run EVERYTHING. If underlying
+data has changed and you need to force Quarto to execute the code for
+all pages from scratch, simply comment out (hash out) the line in
+\_quarto.yml so it looks like this:
 
 # Suggestions and Comments
 
@@ -195,7 +236,7 @@ sessionInfo()
 
     ## R version 4.6.1 (2026-06-24 ucrt)
     ## Platform: x86_64-w64-mingw32/x64
-    ## Running under: Windows 11 x64 (build 26100)
+    ## Running under: Windows 11 x64 (build 26200)
     ## 
     ## Matrix products: default
     ##   LAPACK version 3.12.1

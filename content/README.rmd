@@ -133,6 +133,23 @@ source(here::here("content/references_current_tm.R")) # srvy_cite
 
 <div id="refs"></div>
 
+
+## Building the Documentation Webpages
+
+This project uses Quarto to generate the documentation site. You can build the docs locally using the command line or your IDE terminal.
+
+To render the entire site, make sure you are in the project's root directory and run:
+
+```bash
+quarto render
+```
+
+To save time during the rendering process, this project utilizes Quarto's freeze feature. In the [_quarto.yml](https://github.com/afsc-gap-products/gap_products/blob/main/_quarto.yml) file, you will see a line under the execute options that says `freeze: auto`.
+
+Keep `freeze: auto` active and it will only run pages that have actively changed. Quarto will use the cached results for any unmodified pages, making the build process much faster.
+
+Hash the `freeze: auto` line out to re-run EVERYTHING. If underlying data has changed and you need to force Quarto to execute the code for all pages from scratch, simply comment out (hash out) the line in _quarto.yml so it looks like this:
+
 # Suggestions and Comments
 
 If you see that the data, product, or metadata can be improved, you are invited to create a 
