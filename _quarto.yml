@@ -60,6 +60,7 @@ book:
         # - content/end-data-constraints.qmd
         - content/end-acknowledgements.qmd
         - content/end-refs.qmd
+        - content/end-refs-tm.qmd
         
   page-footer:
     right: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)" 
@@ -81,8 +82,6 @@ book:
 
 bibliography: [content/references.bib]
 csl: content/references.csl
-# csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl
-# bibliography: https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib
 
 execute:
   echo: false
@@ -92,7 +91,7 @@ execute:
   comment: false
   warning: false
   code-overflow: wrap
-  # freeze: auto
+  freeze: auto
 
 format:
   titlepage-pdf:

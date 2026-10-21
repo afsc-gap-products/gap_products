@@ -23,7 +23,7 @@ execute:
   message: false
   error: false
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
-bibliography: "https://raw.githubusercontent.com/EmilyMarkowitz-NOAA/gap_bs_data_report/main/cite/bibliography.bib"
+bibliography: "../content/references.bib"
 ---
 
 ```{r setup, include=FALSE}

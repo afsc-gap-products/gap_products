@@ -63,7 +63,7 @@ Seattle, WA 98195
 Use the below [bibtext
 citations](https://github.com/afsc-gap-products/gap_products/blob/main/CITATION.bib),
 as cited in our group’s [citation
-repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib)
+repository](https://github.com/afsc-gap-products/gap_products/blob/main/content/references.bib)
 for citing the data created and maintained in this repo. Add “note =
 {Accessed: mm/dd/yyyy}” to append the day this data was accessed.
 Included here are AFSC RACE Groundfish and Shellfish Assessment
@@ -105,61 +105,63 @@ please contact us using the Comments page on the
 # Relevant publications
 
 ``` r
-source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r") # srvy_cite 
+source(here::here("content/references_current_tm.R")) # srvy_cite 
 ```
 
-**Learn more about these surveys** ([Hoff, 2016](#ref-RN979); [Markowitz
-et al., 2026](#ref-2025NEBS), [2026](#ref-2025NEBS); [Siple et al.,
-2024](#ref-GOA2023); [Von Szalay et al., 2026](#ref-AI2024); [Zacher et
-al., 2026](#ref-SAPcrab2025)).
+**Learn more about these surveys** ([Dowlin et al., 2026](#ref-AI2024);
+[Hoff, 2016](#ref-BSS2016); [Markowitz et al., 2026](#ref-EBS2025),
+[2026](#ref-EBS2025); [Siple et al., 2026](#ref-GOA2025); [Zacher et
+al., In review](#ref-SAPcrab2026)).
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0" line-spacing="2">
 
-<div id="ref-RN979" class="csl-entry">
-
-Hoff, G. R. (2016). *Results of the 2016 eastern Bering Sea upper
-continental slope survey of groundfishes and invertebrate resources*
-(NOAA Tech. Memo. NOAA-AFSC-339). U.S. Dep. Commer.
-<https://doi.org/10.7289/V5/TM-AFSC-339>
-
-</div>
-
-<div id="ref-2025NEBS" class="csl-entry">
-
-Markowitz, E. H., Charriere, N. E., Wassermann, S. N., Rohan, S. K., and
-Stevenson, D. E. (2026). *Results of the 2025 eastern and northern
-Bering Sea continental shelf bottom trawl survey of groundfish and
-invertebrate fauna* (NOAA Tech. Memo. NMFS-AFSC-517; p. 203). U.S. Dep.
-Commer. <https://doi.org/10.25923/eam4-gp93>
-
-</div>
-
-<div id="ref-GOA2023" class="csl-entry">
-
-Siple, M. C., Szalay, P. G. von, Raring, N. W., Dowlin, A. N., and
-Riggle, B. C. (2024). *Data report: 2023 gulf of alaska bottom trawl
-survey* (NOAA Tech. Memo. AFSC processed report; 2024-09). U.S. Dep.
-Commer. <https://doi.org/10.25923/gbb1-x748>
-
-</div>
-
 <div id="ref-AI2024" class="csl-entry">
 
-Von Szalay, P. G., Raring, N. W., Siple, M. C., Dowlin, A. N., Riggle,
-B. C., and Laman, E. A. and. (2026). *Data report: 2024 Aleutian Islands
-bottom trawl survey* (AFSC Processed Rep. 2026-03; p. 190). U.S. Dep.
+Dowlin, A. N., Siple, M. C., and Szalay, P. G. von. (2026). *Data
+report: 2024 Aleutian Islands bottom trawl survey* (AFSC Processed Rep.
+2026-03; p. 190). NOAA Alaska Fisheries Science Center; U.S. Dep.
 Commer. <https://doi.org/10.25923/090j-8132>
 
 </div>
 
-<div id="ref-SAPcrab2025" class="csl-entry">
+<div id="ref-BSS2016" class="csl-entry">
 
-Zacher, L. S., Hennessey, J. I., Richar, J. I., Fedewa, E. J., Ryznar,
-E. R., and Litzow, M. A. (2026). *The 2025 eastern and northern Bering
-Sea continental shelf trawl surveys: Results for commercial crab
-species* \[NOAA Tech. Memo.\]. (NMFS-AFSC-513), 299.
-<https://doi.org/10.25923/a99f-9g50>
+Hoff, G. R. (2016). *Results of the 2016 eastern Bering Sea upper
+continental slope survey of groundfishes and invertebrate resources*
+(NOAA Tech. Memo. NOAA-AFSC-339; p. 288). NOAA Alaska Fisheries Science
+Center; U.S. Dep. Commer. <https://doi.org/10.7289/V5/TM-AFSC-339>
+
+</div>
+
+<div id="ref-EBS2025" class="csl-entry">
+
+Markowitz, E. H., Charriere, N. E., Wassermann, S. N., Rohan, S. K., and
+Stevenson, D. E. (2026). *Results of the 2025 eastern and northern
+Bering Sea continental shelf bottom trawl survey of groundfish and
+invertebrate fauna* (NOAA Tech. Memo. NMFS-AFSC-517; p. 203). NOAA
+Alaska Fisheries Science Center; U.S. Dep. Commer.
+<https://doi.org/10.25923/eam4-gp93>
+
+</div>
+
+<div id="ref-GOA2025" class="csl-entry">
+
+Siple, M. C., Oyafuso, Z. O., and Dowlin, A. N. (2026). *Data report:
+2025 <span class="nocase">Gulf of Alaska</span> bottom trawl survey*
+(NOAA Tech. Memo. NMFS-AFSC-519). NOAA Alaska Fisheries Science Center;
+U.S. Dep. Commer. <https://doi.org/10.25923/z4ta-p697>
+
+</div>
+
+<div id="ref-SAPcrab2026" class="csl-entry">
+
+Zacher, L. S., Hennessey, J. I., Richar, J. I., Fedewa, E. J., and
+Ryznar, E. R. (In review). *The 2026 eastern and northern Bering Sea
+continental shelf trawl surveys: Results for commercial crab species*
+\[NOAA Tech. Memo.\]. NOAA Alaska Fisheries Science Center; U.S. Dep.
+Commer.
+<https://meetings.npfmc.org/CommentReview/DownloadFile?p=499f3d7e-daf1-40a4-b5b0-94e8d44d5f03.pdf&fileName=2026%20EBS%20Crab%20Tech%20Memo%20DRAFT.pdf>
 
 </div>
 
@@ -202,30 +204,39 @@ xelatex('Report.tex')
 sessionInfo()
 ```
 
-    ## R version 4.5.3 (2026-03-11 ucrt)
-    ## Platform: x86_64-w64-mingw32/x64
-    ## Running under: Windows 11 x64 (build 22631)
-    ## 
-    ## Matrix products: default
-    ##   LAPACK version 3.12.1
-    ## 
-    ## locale:
-    ## [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8   
-    ## [3] LC_MONETARY=English_United States.utf8 LC_NUMERIC=C                          
-    ## [5] LC_TIME=English_United States.utf8    
-    ## 
-    ## time zone: America/Los_Angeles
-    ## tzcode source: internal
-    ## 
-    ## attached base packages:
-    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
-    ## 
-    ## loaded via a namespace (and not attached):
-    ##  [1] digest_0.6.39     R6_2.6.1          fastmap_1.2.0     xfun_0.57         glue_1.8.1        knitr_1.51       
-    ##  [7] htmltools_0.5.9   rmarkdown_2.31    lifecycle_1.0.5   cli_3.6.6         readtext_0.92.1   vctrs_0.7.3      
-    ## [13] data.table_1.18.4 compiler_4.5.3    httr_1.4.8        rprojroot_2.1.1   here_1.0.2        rstudioapi_0.19.0
-    ## [19] tools_4.5.3       pillar_1.11.1     evaluate_1.0.5    yaml_2.3.12       otel_0.2.0        rlang_1.2.0      
-    ## [25] stringi_1.8.7
+    FALSE R version 4.6.1 (2026-06-24 ucrt)
+    FALSE Platform: x86_64-w64-mingw32/x64
+    FALSE Running under: Windows 11 x64 (build 26100)
+    FALSE 
+    FALSE Matrix products: default
+    FALSE   LAPACK version 3.12.1
+    FALSE 
+    FALSE locale:
+    FALSE [1] LC_COLLATE=English_United States.utf8  LC_CTYPE=English_United States.utf8    LC_MONETARY=English_United States.utf8 LC_NUMERIC=C                           LC_TIME=English_United States.utf8    
+    FALSE 
+    FALSE time zone: America/Los_Angeles
+    FALSE tzcode source: internal
+    FALSE 
+    FALSE attached base packages:
+    FALSE [1] stats     graphics  grDevices utils     datasets  methods   base     
+    FALSE 
+    FALSE other attached packages:
+    FALSE  [1] RefManageR_1.4.0     knitr_1.52           knitcitations_1.0.12 RCurl_1.98-1.20      odbc_1.7.2           DBI_1.3.0            RODBC_1.3-26.3       ftExtra_0.6.5        scales_1.4.0         stringr_1.6.0       
+    FALSE [11] flextable_0.10.3     kableExtra_1.4.1     janitor_2.2.1        readxl_1.6.0         readr_2.2.0          googledrive_2.1.2    akfingapdata_0.1.0   akgfmaps_4.2.2       terra_1.9-50         stars_0.7-3         
+    FALSE [21] abind_1.4-8          sf_1.1-3             ggplot2_4.0.3.9000   gapindex_3.1.0       devtools_2.5.2       usethis_3.2.2        here_1.0.2           dplyr_1.2.1          tidyr_1.3.2         
+    FALSE 
+    FALSE loaded via a namespace (and not attached):
+    FALSE  [1] bitops_1.1-0            rlang_1.3.0             magrittr_2.0.5          snakecase_0.11.1        otel_0.2.0              e1071_1.7-17            compiler_4.6.1          systemfonts_1.3.2       vctrs_0.7.3            
+    FALSE [10] pkgconfig_2.0.3         fastmap_1.2.0           ellipsis_0.3.3          rmarkdown_2.32          sessioninfo_1.2.4       tzdb_0.5.0              ragg_1.5.2              purrr_1.2.2             bit_4.6.0              
+    FALSE [19] xfun_0.61               cachem_1.1.0            litedown_0.11           jsonlite_2.0.0          pak_0.11.1              blob_1.3.0              uuid_1.2-2              parallel_4.6.1          R6_2.6.1               
+    FALSE [28] stringi_1.8.9           RColorBrewer_1.1-3      pkgload_1.5.3           lubridate_1.9.5         cellranger_1.1.0        Rcpp_1.1.2              zoo_1.9-1               readtext_0.92.1         FNN_1.1.4.1            
+    FALSE [37] timechange_0.4.0        tidyselect_1.2.1        yaml_2.3.12             rstudioapi_0.19.0       codetools_0.2-20        curl_8.1.0              pkgbuild_1.4.8          plyr_1.8.9              lattice_0.23-1         
+    FALSE [46] tibble_3.3.1            intervals_0.15.5        withr_3.0.3             S7_0.2.2                askpass_1.2.1           evaluate_1.0.5          units_1.0-1             proxy_0.4-29            zip_3.0.2              
+    FALSE [55] xts_0.14.3              xml2_1.6.0              lpSolve_5.6.23          pillar_1.11.1           KernSmooth_2.23-27      generics_0.1.4          rprojroot_2.1.1         sp_2.2-4                spacetime_1.3-4        
+    FALSE [64] hms_1.1.4               commonmark_2.0.0        sampling_2.11           class_7.3-24            glue_1.8.1              gdtools_0.5.2           tools_4.6.1             data.table_1.18.6.1     fs_2.1.0               
+    FALSE [73] grid_4.6.1              bibtex_0.5.3            cli_3.6.6               gstat_2.1-6             textshaping_1.0.5       officer_0.7.7           fontBitstreamVera_0.1.1 gargle_1.6.1            viridisLite_0.4.3      
+    FALSE [82] svglite_2.2.2           gtable_0.3.6            digest_0.6.39           fontquiver_0.2.1        classInt_0.4-11         farver_2.1.2            memoise_2.0.1           htmltools_0.5.9         lifecycle_1.0.5        
+    FALSE [91] httr_1.4.9              mime_0.13               fontLiberation_0.1.0    openssl_2.4.2           bit64_4.8.6             MASS_7.3-66
 
 ## NOAA README
 

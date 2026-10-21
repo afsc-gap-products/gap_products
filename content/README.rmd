@@ -3,7 +3,7 @@ output:
   md_document: 
     variant: gfm
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa-no-ampersand.csl"
-bibliography: "https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/bibliography.bib"
+bibliography: "../content/references.bib"
 link-citations: true
 ---
 
@@ -85,7 +85,7 @@ toc <- paste0(toc_list, "*](#", toc_link, ")", collapse = "\n")
 Use the below [bibtext
 citations](https://github.com/afsc-gap-products/gap_products/blob/main/CITATION.bib),
 as cited in our group’s [citation
-repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib)
+repository](https://github.com/afsc-gap-products/gap_products/blob/main/content/references.bib)
 for citing the data created and maintained in this repo. Add “note =
 {Accessed: mm/dd/yyyy}” to append the day this data was accessed.
 Included here are AFSC RACE Groundfish and Shellfish Assessment
@@ -126,7 +126,7 @@ please contact us using the Comments page on the
 # Relevant publications
 
 ```{r source-current-tm}
-source("https://raw.githubusercontent.com/afsc-gap-products/citations/main/cite/current_data_tm.r") # srvy_cite 
+source(here::here("content/references_current_tm.R")) # srvy_cite 
 ```
 
 **Learn more about these surveys** [`r paste0("@", srvy_cite$CITE, collapse = "; ")`]. 

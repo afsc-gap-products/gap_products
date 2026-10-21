@@ -26,7 +26,7 @@ library(gapindex)
 
 ## Cite this data
 
-Use the below bibtext citation, as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repository. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+Use the below [bibtext citation](https://github.com/afsc-gap-products/gap_products/blob/main/content/references.bib) for citing the data created and maintained in this repository. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
 
 ```{r load-citation-products, echo = FALSE}
 find_citation_for(bib_ref = "GAPProducts")
@@ -68,7 +68,7 @@ If you’re using R to pull data through web services you might find the [akfing
 
 ### Cite this data
 
-Use the below bibtext citation, as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+Use the below [bibtext citation](https://github.com/afsc-gap-products/gap_products/blob/main/content/references.bib) for citing the data created and maintained in this repo [@GAPakfin]. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
 
 ```{r load-citation-akfin, echo = FALSE}
 find_citation_for(bib_ref = "GAPakfin")
@@ -134,7 +134,7 @@ For questions, comments, and concerns specifically about the [Fisheries One Stop
 
 ### Cite this data
 
-Use the below bibtext citation, as cited in our group's [citation repository](https://github.com/afsc-gap-products/citations/blob/main/cite/bibliography.bib) for citing the data created and maintained in this repository. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
+Use the below [bibtext citation](https://github.com/afsc-gap-products/gap_products/blob/main/content/references.bib) for citing the data created and maintained in this repository. Add "note = {Accessed: mm/dd/yyyy}" to append the day this data was accessed. 
 
 ```{r load-citation-foss, echo = FALSE}
 find_citation_for(bib_ref = "FOSSAFSCData")

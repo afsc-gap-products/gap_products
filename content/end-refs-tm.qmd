@@ -1,0 +1,68 @@
+---
+title: All Publsihed Data Reports
+---
+
+
+```{r all-data-reports}
+#| results: 'asis'
+#| echo: false
+#| warning: false
+#| message: false
+
+library("RefManageR")
+
+# 1. Read the file text and the bib object
+bibfiletext0 <- readLines(con = here::here("content/references.bib"))
+bib <- RefManageR::ReadBib(here::here("content/references.bib"))
+
+# 2. Parse out the specific section
+sect_start <- grep(pattern = "%  * Survey Data Reports", x = bibfiletext0, fixed = TRUE)+2
+sect_end <- grep(pattern = "% * Code books", x = bibfiletext0, fixed = TRUE)-1
+
+sect_text <- bibfiletext0[sect_start:sect_end]
+
+# 3. Extract the citation keys with safe regex
+cite_lines <- grep(pattern = "@", x = sect_text, fixed = TRUE, value = TRUE)
+sect_keys <- sub(".*\\{(.*?),.*", "\\1", cite_lines)
+sect_keys <- trimws(sect_keys)
+
+names0 <- c("AI" = "Aleutian Islands", 
+            "GOA" = "Gulf of Alaska", 
+            "EBS" = "Eastern and Northern Bering Sea", 
+            "BSS" = "Bering Sea Slope", 
+            "SAPcrab" = "Bering Sea Crab")
+
+# 4. Loop through regions
+for (i in seq_along(names0)) {
+  
+  region_code <- names(names0)[i]
+  
+  region_keys <- grep(pattern = region_code, x = sect_keys, fixed = TRUE, value = TRUE)
+  # final_keys <- names(bib)[tolower(names(bib)) %in% tolower(region_keys)]
+  
+  # THE ULTIMATE FIX: Sort the text keys BEFORE subsetting the final object
+  temp_bib <- bib[region_keys]
+  years <- suppressWarnings(as.numeric(temp_bib$year))
+  years[is.na(years)] <- 9999  # Put "In prep" / missing years at top
+  
+  # Sort the text keys
+  sorted_keys <- region_keys[order(years, decreasing = TRUE)]
+  
+  # Subset the object using the sorted text keys to preserve its R class
+  cite0_sorted <- bib[sorted_keys]
+  
+  # Print region header
+  cat(paste0('\n### ', unlist(names0[i]), '\n\n'))
+  
+  # Print directly with APA options (sorting = "none" ensures it doesn't try to resort and crash)
+  print(cite0_sorted, .opts = list(style = "markdown", 
+                                   bib.style = "authoryear", 
+                                   sorting = "none",
+                                   max.names = 99, 
+                                   dashed = FALSE))
+  
+  # Print section separator
+  cat('\n\n---\n\n')
+}
+```
+
