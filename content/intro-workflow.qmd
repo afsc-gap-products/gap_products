@@ -67,22 +67,22 @@ Organisms first need to be collected aboard the vessel before data can be entere
 %%| fig-cap: "Simplified boat deck processing workflow."
 
 flowchart 
-A1[Net and catch\ntotal weight/volume] --> A2
+A1[Net and catch total weight/volume] --> A2
 A1 --> |Catch tablet|BB
-A2[Fish are collected and\ndumped on the table] --> A3[Initial on deck\nsampling decisions\n and sort by\nspecies and mix]
+A2[Fish are collected and dumped on the table] --> A3[Initial on deck sampling decisions  and sort by species and mix]
 P1[Specimen bag and tag] --> P5[Observer collections]
 P1 --> P6[Museum collections]
 P1 --> P7[Research samples]
 P2[SAT/PAT fish and crab tagging]
 P3[Species condition]
 P4[Genetics]
-A3 --> C1[Crab:\nSex, weight]
-A3 --> C2[Fish, size varying:\nWeight, sex, length]
-A3 --> |Catch tablet|C3[Fish, small:\nWeight, sex]
-A3 --> C4[Invertebrates, colonial:\nWeight]
-A3 --> C5[Invertebrates, other:\nWeight, count]
-C1 --> |Crab tablet|S1[Length, width, weight, \nshell condition]
-C2 --> |Specimen tablet|S2[Otolith, length, width, \nweight, sex]
+A3 --> C1[Crab: Sex, weight]
+A3 --> C2[Fish, size varying: Weight, sex, length]
+A3 --> |Catch tablet|C3[Fish, small: Weight, sex]
+A3 --> C4[Invertebrates, colonial: Weight]
+A3 --> C5[Invertebrates, other: Weight, count]
+C1 --> |Crab tablet|S1[Length, width, weight,  shell condition]
+C2 --> |Specimen tablet|S2[Otolith, length, width,  weight, sex]
 C2 --> |Length tablet|S3[Length, sex]
 C2 --> |Stomach tablet|S4[Diet/stomach samples]
 V1[Fish collections in formalin 10%]
@@ -92,7 +92,7 @@ A1
 A2
 A3
 subgraph BB[Benthic bag]
-B[Identify,\npresence/absence]
+B[Identify, presence/absence]
 end
 end
 subgraph CC[Bag composition data]
@@ -140,19 +140,19 @@ The objective of this process is to take raw data, QA/QC and clean these data, c
 %%| fig-cap: "Simplified data workflow from boat to production."
 
 flowchart LR
-A([Catch data\ndeck tablet]) --> B1[METIS Biological\ndata editing\nsoftware]
-A1([Length data\ndeck tablets]) --> B1
-A2([Specimen data\ndeck tablet]) --> B1
-A3([Haul performance w/ Marport sensors]) --> B2[Wheelhouse &\nCalyposo \nhaul data] 
+A([Catch data deck tablet]) --> B1[METIS Biological data editing software]
+A1([Length data deck tablets]) --> B1
+A2([Specimen data deck tablet]) --> B1
+A3([Haul performance w/ Marport sensors]) --> B2[Poseidon haul data] 
 A4([CTD]) --> B2
-A5([sea state\nobersvations]) --> B2
-A6([HOBO bottom\ncontact sensor]) --> B2
-A7{{navmaps\nR package\nfor navigation}} --> B2
-B1 --> C[GIDES &\nRACE_EDIT\nOracle schema\n& whole-survey\nreview &\ndata checking]
+A5([sea state obersvations]) --> B2
+A6([HOBO bottom contact sensor]) --> B2
+A7{{navmaps R package for navigation}} --> B2
+B1 --> C[GIDES & RACE_EDIT Oracle schema & whole-survey review & data checking]
 B2 --> C
-C --> D[RACEBASE\nand RACE_DATA\nOracle schemata]
-D1{{gapindex R package}} --> F[Public Data Product:\ntables in\nGAP_PRODUCTS\nOracle schema]
-D2{{gap_products\nR scripts}} --> F
+C --> D[RACEBASE and RACE_DATA Oracle schemata]
+D1{{gapindex R package}} --> F[Public Data Product: tables in GAP_PRODUCTS Oracle schema]
+D2{{gap_products R scripts}} --> F
 D --> D1
 D1 --> D2
 D --> F
@@ -166,15 +166,15 @@ A5
 A6
 A7
 end
-subgraph BB[Data Level 1:\nQA/QC'ed data]
+subgraph BB[Data Level 1: QA/QC'ed data]
 B1
 B2
 end
-subgraph CC[Data Level 2:\nAnalysis ready product for internal use]
+subgraph CC[Data Level 2: Analysis ready product for internal use]
 C
 D
 end
-subgraph FF[Data Level 3:\nAnalysis ready product\nfor external/public use]
+subgraph FF[Data Level 3: Analysis ready product for external/public use]
 F
 end
 style AA fill:beige,::
@@ -227,24 +227,24 @@ t0
 
 flowchart
 subgraph AA[Data Level 4]
-A[GAP_PRODUCTS\nOracle data\nproduct tables] --> C[Data process\nreports &\npresentations]
+A[GAP_PRODUCTS Oracle data product tables] --> C[Data process reports & presentations]
 A --> G3{{esrindex R package}}
-G3 --> G1[ESP: Ecosystem\nStatus Reports]
-G3 --> G2[ESR: Ecosystem\nand Socioeconomic\nProfiles]
+G3 --> G1[ESP: Ecosystem Status Reports]
+G3 --> G2[ESR: Ecosystem and Socioeconomic Profiles]
 G3 --> C
-G3 --> G4[Stock assessment\nrisk assessment\ntables]
+G3 --> G4[Stock assessment risk assessment tables]
 A --> D[Outreach]
-D --> E[Plan Team\nPresentations]
-D --> F[Community\nHighlight\nDocuments]
-D --> H[Survey progress\n& temperature maps]
+D --> E[Plan Team Presentations]
+D --> F[Community Highlight Documents]
+D --> H[Survey progress & temperature maps]
 A --> I[Data Platforms]
-I --> J[AKFIN: Alaska\nFisheries\nInformation\nNetwork]
-I --> K[FOSS: Fisheries One\nStop Shop]
-I --> L{{afscgap\nPython package}}
-A --> M[Model-Based\nIndices]
+I --> J[AKFIN: Alaska Fisheries Information Network]
+I --> K[FOSS: Fisheries One Stop Shop]
+I --> L{{afscgap Python package}}
+A --> M[Model-Based Indices]
 M --> N{{VAST/tinyVAST}}
 M --> O{{sdmTMB}}
-M --> P[EFH: Essential\nFish Habitat]
+M --> P[EFH: Essential Fish Habitat]
 F
 end
 style AA fill:beige,::
