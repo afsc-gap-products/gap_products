@@ -1,0 +1,90 @@
+GAP_PRODUCTS ChangeLog (last produced on 2026-10-27) using gapindex v3.1.0
+Run completed by: Zack Oyafuso
+ 
+--Area-swept values for a handful of AI hauls in 2026 were adjusted due to an errant inclusion of one haul (HAULJOIN -24988) used in the imputation of estimated net spread for hauls without consistent net spread data. This resulted in < 0.35% difference in area-swept for ~ 50 affected hauls. Changes in area-swept affects values in the CPUE table are propogated through the age composition table.
+
+--The precision level to compare area-swept values for the CPUE table was increased. As a result, there were some minor changes to various hauls that were not previously detected. These particular discrepancies do not affect CPUE values.
+
+
+
+ AI Region: 
+
+ cpue : 
+ 0 new cpue records, 672 cpue removed records, and  32256 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  6161 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  15095 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  193 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  344773 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  33958 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ 0 new cpue records, 0 cpue removed records, and  0 modified cpue records.
+
+ biomass : 
+ 0 new biomass records, 0 biomass removed records, and  0 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 0 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+

@@ -45,7 +45,9 @@ stage_tables <- readRDS(file = "temp/stage_tables.RDS")
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
  
--- This run updates the AGECOMP table, incorporating new read otolith data for Eastern Bering Sea pollock (2026).
+--Area-swept values for a handful of AI hauls in 2026 were adjusted due to an errant inclusion of one haul (HAULJOIN -24988) used in the imputation of estimated net spread for hauls without consistent net spread data. This resulted in < 0.35% difference in area-swept for ~ 50 affected hauls. Changes in area-swept affects values in the CPUE table are propogated through the age composition table.
+
+--The precision level to compare area-swept values for the CPUE table was increased. As a result, there were some minor changes to various hauls that were not previously detected. These particular discrepancies do not affect CPUE values.
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,5 +115,5 @@ for (itable in c("cpue", "biomass", "sizecomp", "agecomp")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "10-SEP-26 08.00.00 AM",
-                     time_end = "10-SEP-26 11.59.00 PM")
+                     time_start = "28-OCT-26 08.00.00 AM",
+                     time_end = "28-OCT-26 11.59.00 PM")
