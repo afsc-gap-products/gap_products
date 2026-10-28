@@ -41,9 +41,9 @@ library(gapindex) # devtools::install_github("afsc-gap-products/gapindex")
 source("functions/output_r_session.R")
 output_r_session(path = "temp/") ## sets up temp/ folder
 
-## check whether you are a proxy user to the GAP_PRODUCTS schema. If you do not
-## see GAP_PRODUCTS in the CLIENT field of this result, request to be added as
-## as GAP_PRODUCTS proxy user to our DBAs Sarah Friedman or Chris Anderson
+## Check whether you are a proxy user to the GAP_PRODUCTS schema. If you do not
+## see GAP_PRODUCTS in the CLIENT field of this result, request to our DBAs
+## Sarah Friedman or Chris Anderson to be added as a GAP_PRODUCTS proxy user 
 gapindex::sql_query(channel = gapindex::get_connected(check_access = FALSE), 
                     query = "SELECT * FROM user_proxies;")
 
@@ -58,7 +58,7 @@ gapindex::sql_query(channel = gapindex::get_connected(check_access = FALSE),
 ##   and Susanne McDermott. If you do not have read and write access to the GCS 
 ##   bucket, contact one of the data owners to have your account added.
 ##  
-##   Here are instructions for data owners on how to update privileges to users: 
+##   Instructions for data owners on how to update privileges to users: 
 ##   https://docs.google.com/document/d/1Dlsnh62ORyZ86GrFadE89Dy7i_lAFSwL_2r8Scbi5Pc/edit?tab=t.0#heading=h.grqang12lyra
 ##  
 ##   Once you confirm read and write access to the GCS bucket, read these 
