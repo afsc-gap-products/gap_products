@@ -8,7 +8,7 @@
 
 ## Restart R Session before running
 rm(list = ls())
-options(scipen = 999999)
+options(scipen = 9999)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Import Libraries
@@ -18,7 +18,7 @@ library(gapindex); library(data.table)
 source(file = "functions/calc_diff.R")
 source(file = "functions/compare_tables.R")
 source(file = "functions/compile_stage_tables.R")
-channel <- gapindex::get_connected(check_access = F)
+channel <- gapindex::get_connected(check_access = F, conn_type = "DBI")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Specify the range of years to calculate indices
@@ -28,9 +28,22 @@ start_year <-
   c("AI" = 1991, "GOA" = 1990, "EBS" = 1982, "BSS" = 2002, "NBS" = 2010)
 regions <- c("AI" = 52, "GOA" = 47, "EBS" = 98, "BSS" = 78, "NBS" = 143)
 
-spp_start_year <-
-  RODBC::sqlQuery(channel = channel, 
-                  query = "SELECT * FROM GAP_PRODUCTS.SPECIES_YEAR")
+taxon_stanzas <-  
+  gapindex::sql_query(channel = channel,
+                      query = "select * from GAP_TAXONOMY.taxon_group_stanzas") |>
+  as.data.table()
+
+taxon_groups <-
+  gapindex::sql_query(channel = channel,
+                      query = "
+SELECT 
+    *
+FROM 
+    GAP_TAXONOMY.TAXON_GROUP_COMPOSITION COMPS
+JOIN 
+    GAP_TAXONOMY.TAXON_GROUP_STANZAS STANZAS 
+        ON COMPS.GROUP_STANZA_ID = STANZAS.GROUP_STANZA_ID
+                  ")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Create temporary folder to put downloaded metadata files. Double-check 
@@ -42,36 +55,125 @@ if (!dir.exists(paths = "temp/production/"))
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Loop over regions
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# for (iregion in 1 ) { ## Loop over regions -- start
 for (iregion in 1:length(x = regions) ) { ## Loop over regions -- start
-  
   ## Pull data for all years and species from Oracle
   start_time <- Sys.time()
   production_data <- gapindex::get_data(
     year_set = start_year[iregion]:current_year,
     survey_set = names(regions)[iregion],
-    spp_codes = NULL,
+    spp_codes = data.frame(GROUP_CODE = taxon_groups$GROUP_STANZA_ID,
+                           SPECIES_CODE = taxon_groups$SPECIES_CODE),
+    taxonomic_source = "GAP_TAXONOMY.TAXONOMIC_CLASSIFICATION",
     pull_lengths = TRUE,
-    haul_type = 3,
-    abundance_haul = "Y",
     channel = channel)
   end_time <- Sys.time()
   print(round(end_time - start_time, 2))
   
+  ## Filter years based on taxon_stanzas for the size data  
+  matching_rows <- !is.na(
+    taxon_stanzas[
+      copy(production_data$size)[production_data$cruise, YEAR := i.YEAR, on = "CRUISEJOIN"],
+      on = .(GROUP_STANZA_ID == SPECIES_CODE, 
+             YEAR_START <= YEAR, 
+             YEAR_END >= YEAR),
+      mult = "first",
+      which = TRUE
+    ]
+  )
+  
+  production_data$size <- production_data$size[matching_rows, ] 
+  
+  ## Filter years based on taxon_stanzas for the age data
+  matching_rows <- !is.na(
+    taxon_stanzas[
+      copy(production_data$specimen)[production_data$cruise, YEAR := i.YEAR, on = "CRUISEJOIN"],
+      on = .(GROUP_STANZA_ID == SPECIES_CODE, 
+             YEAR_START <= YEAR, 
+             YEAR_END >= YEAR),
+      mult = "first",
+      which = TRUE
+    ]
+  )
+  
+  production_data$specimen <- production_data$specimen[matching_rows, ] 
+  
+  ## To filter species-level lengths and specimen values, first query 
+  ## GROUP_STANZA_ID values that only code for one taxon code
+  single_taxon_stanza_ids <- 
+    taxon_groups |>
+    subset(subset = GROUP_STANZA_ID %in% production_data$species$GROUP_CODE,
+           select = GROUP_STANZA_ID) |>
+    table() |>
+    (\(tab) names(tab[tab == 1]))() |>
+    as.numeric()
+  
+  ## Some of the values in single_taxon_stanza_ids still code for complex-level
+  ## aggregations (e.g., 405, Bathyraja sp.), so further filter for 
+  ## species-level ID ranks
+  species_stanza_ids <-  
+    subset(x = production_data$species,
+           subset = GROUP_CODE %in% single_taxon_stanza_ids 
+           & ID_RANK == "species")$GROUP_CODE    
+
+  ## Remove complex data from the size and age data
+  production_data$size <- 
+    subset(x = production_data$size,
+           subset = SPECIES_CODE %in% species_stanza_ids)
+  
+  production_data$specimen <-
+    subset(x = production_data$specimen,
+           subset = SPECIES_CODE %in% species_stanza_ids)
+  
+  
+  ## Replace GROUP_STANZA_ID with actual SPECIES_CODE
+  production_data$size <- merge(x = production_data$size, 
+                                y = taxon_stanzas[, c("GROUP_STANZA_ID", 
+                                                      "GROUP_CODE")],
+                                by.x = "SPECIES_CODE", 
+                                by.y = "GROUP_STANZA_ID") |>
+    transform(SPECIES_CODE = GROUP_CODE) |>
+    subset(select = -GROUP_CODE)
+  
+  production_data$specimen <- merge(x = production_data$specimen, 
+                                    y = taxon_stanzas[, c("GROUP_STANZA_ID", 
+                                                          "GROUP_CODE")],
+                                    by.x = "SPECIES_CODE", 
+                                    by.y = "GROUP_STANZA_ID") |>
+    transform(SPECIES_CODE = GROUP_CODE) |>
+    subset(select = -GROUP_CODE)
   
   ## Save production data object
   saveRDS(object = production_data,
           file = paste0("temp/production/production_data_",
                         names(regions)[iregion], ".RDS"))
   
-  ## Extract stratum and subarea information to be saved later
-  production_strata <- production_data$strata
-  production_subarea <- production_data$subarea
-  
   ## Calculate and zero-fill CPUE
   cat("\nCalculating and zero-filling CPUE...")
   start_time <- Sys.time()
   production_cpue <-
     gapindex::calc_cpue(gapdata = production_data)
+  
+  ## Filter years based on taxon_stanzas for the cpue data
+  matching_rows <-
+    production_cpue[taxon_stanzas,
+                    on = .(SPECIES_CODE = GROUP_STANZA_ID,
+                           YEAR >= YEAR_START,
+                           YEAR <= YEAR_END),
+                    nomatch = NULL,
+                    which = TRUE
+    ]
+  
+  production_cpue <- production_cpue[matching_rows]
+  
+  ## Replace GROUP_STANZA_ID with actual SPECIES_CODE
+  production_cpue <- merge(x = production_cpue, 
+                           y = taxon_stanzas[, c("GROUP_STANZA_ID", 
+                                                 "GROUP_CODE")] ,
+                           by.x = "SPECIES_CODE", 
+                           by.y = "GROUP_STANZA_ID")|>
+    transform(SPECIES_CODE = GROUP_CODE) |>
+    subset(select = -GROUP_CODE)
   end_time <- Sys.time()
   print(round(end_time - start_time, 2))
   
@@ -239,6 +341,27 @@ EBS Standard Area.\n\n")
     end_time <- Sys.time()
     print(round(end_time - start_time, 2))
     
+    ## Filter years based on taxon_stanzas for the cpue data
+    matching_rows <-
+      production_cpue_ebsstand[taxon_stanzas,
+                               on = .(SPECIES_CODE = GROUP_STANZA_ID,
+                                      YEAR >= YEAR_START,
+                                      YEAR <= YEAR_END),
+                               nomatch = NULL,
+                               which = TRUE
+      ]
+    
+    production_cpue_ebsstand <- production_cpue_ebsstand[matching_rows]
+    
+    ## Replace GROUP_STANZA_ID with actual SPECIES_CODE
+    production_cpue_ebsstand <- merge(x = production_cpue_ebsstand, 
+                                      y = taxon_stanzas[, c("GROUP_STANZA_ID", 
+                                                            "GROUP_CODE")] ,
+                                      by.x = "SPECIES_CODE", 
+                                      by.y = "GROUP_STANZA_ID")|>
+      transform(SPECIES_CODE = GROUP_CODE) |>
+      subset(select = -GROUP_CODE)
+    
     ## Calculate stratum biomass/abundance (w/var), mean, and var of wt/no.-CPUE
     cat("\nRecalculating stratum-level Biomass for the EBS Standard Area...")
     start_time <- Sys.time()
@@ -316,21 +439,21 @@ EBS Standard Area.\n\n")
     
   }
   
-  ## For certain SPECIES_CODEs, constrain all of the data tables to only the
-  ## years when we feel confident about their taxonomic accuracy, e.g., remove
-  ## northern rock sole values prior to 1996.
-  for (irow in 1:nrow(x = spp_start_year)) { ## Loop over species -- start
-    for (idata in paste0("production_", ## Loop over data table -- start
-                         c("cpue", "biomass", "sizecomp", "agecomp"))) { 
-      assign(x = idata,
-             value = subset(
-               x = get(idata),
-               subset = !(SPECIES_CODE == spp_start_year$SPECIES_CODE[irow] & 
-                            YEAR < spp_start_year$YEAR_STARTED[irow])
-             )
-      )
-    } ## Loop over data table -- end
-  } ## Loop over species -- end
+  # ## For certain SPECIES_CODEs, constrain all of the data tables to only the
+  # ## years when we feel confident about their taxonomic accuracy, e.g., remove
+  # ## northern rock sole values prior to 1996.
+  # for (irow in 1:nrow(x = spp_start_year)) { ## Loop over species -- start
+  #   for (idata in paste0("production_", ## Loop over data table -- start
+  #                        c("cpue", "biomass", "sizecomp", "agecomp"))) { 
+  #     assign(x = idata,
+  #            value = subset(
+  #              x = get(idata),
+  #              subset = !(SPECIES_CODE == spp_start_year$SPECIES_CODE[irow] & 
+  #                           YEAR < spp_start_year$YEAR_STARTED[irow])
+  #            )
+  #     )
+  #   } ## Loop over data table -- end
+  # } ## Loop over species -- end
   
   ## Remove commercial crab data from cpue and biomass tables
   production_cpue <- 
@@ -354,90 +477,10 @@ EBS Standard Area.\n\n")
                           AREA_ID_FOOTPRINT == "EBS STANDARD PLUS NW"))
   }
   
-  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ##   
-  ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  historical_taxonomic_groups <- 
-    read.csv(file = "data/historical_group_ids.csv")
-  historical_taxonomic_species <- 
-    read.csv(file = "data/historical_group_id_composition.csv")
-  
-  all_groups_cpue <- all_groups_biomass <- data.frame()
-  
-  for (igroup in 1:nrow(x = historical_taxonomic_groups)) {
-    years_to_pull <- 
-      with(historical_taxonomic_groups, YEAR_START[igroup]:YEAR_END[igroup])
-    
-    if (all(start_year[iregion] > years_to_pull)) next
-    
-    species_in_group_code <- 
-      data.frame(GROUP_CODE = historical_taxonomic_groups$GROUP_CODE[igroup],
-                 subset(historical_taxonomic_species,
-                        subset = GROUP_CODE_ID == igroup,
-                        select = SPECIES_CODE))
-    
-    ## Pull data for all years and species from Oracle
-    group_data <- gapindex::get_data(
-      year_set = years_to_pull,
-      survey_set = names(regions)[iregion],
-      spp_codes = species_in_group_code,
-      pull_lengths = T,
-      haul_type = 3,
-      abundance_haul = "Y",
-      channel = channel)
-    
-    ## Calculate and zero-fill CPUE
-    group_cpue <- gapindex::calc_cpue(gapdata = group_data)
-    
-    ## Calculate biomass/abundance (w/variance), mean/variance CPUE across strata
-    group_biomass_stratum <- 
-      gapindex::calc_biomass_stratum(
-        gapdata = group_data,
-        cpue = group_cpue)
-    
-    ## Aggregate `group_biomass_stratum` to subareas and regions
-    group_biomass_subarea <-
-      gapindex::calc_biomass_subarea(
-        gapdata = group_data,
-        biomass_stratum = group_biomass_stratum)
-    
-    all_groups_cpue <- rbind(all_groups_cpue,
-                             group_cpue)
-    
-    names(x = group_biomass_stratum)[
-      names(x = group_biomass_stratum) == "STRATUM"
-    ] <- "AREA_ID"
-    all_groups_biomass <- rbind(all_groups_biomass,
-                                group_biomass_stratum,
-                                group_biomass_subarea)
-    
-    ## Removed these new grouped_taxa data from the production cpue and
-    ## biomass tables so that when they are all appended outside the loop
-    ## in the next step, there are no duplications.
-    
-    production_cpue <- production_cpue[
-      !(production_cpue$HAULJOIN %in% group_cpue$HAULJOIN &
-          production_cpue$SPECIES_CODE == 
-          historical_taxonomic_groups$GROUP_CODE[igroup])
-    ]
-    
-    production_biomass <- production_biomass[
-      !(production_biomass$SPECIES_CODE == 
-          historical_taxonomic_groups$GROUP_CODE[igroup] &
-          production_biomass$YEAR %in% years_to_pull), 
-    ]
-    
-  }
-  
-  ## Append to cpue and biomass
-  production_cpue <- rbind(production_cpue, all_groups_cpue)
-  production_biomass <- rbind(production_biomass, all_groups_biomass)
-  
   ## Save to the temp/ folder 
   cat("\nSaving output to temp/production/...")
   start_time <- Sys.time()
-  for (idata in c("cpue", "biomass", "sizecomp", "agecomp", "alk", 
-                  "strata", "subarea")) 
+  for (idata in c("cpue", "biomass", "sizecomp", "agecomp")) 
     write.csv(x = get(paste0("production_", idata)),
               file = paste0("temp/production/production_", idata, "_", 
                             names(regions)[iregion], ".csv"),
@@ -446,7 +489,6 @@ EBS Standard Area.\n\n")
   print(round(end_time - start_time, 2))
   cat("\n")
 }
-
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##   Compare the production tables just created and outputted to 
