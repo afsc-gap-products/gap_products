@@ -1,18 +1,23 @@
--- SQL Command to Create Materilized View GAP_PRODUCTS.FOSS_SURVEY_SPECIES
+-- Create View GAP_PRODUCTS.FOSS_SURVEY_SPECIES
 --
--- Created by querying records from GAP_PRODUCTS.FOSS_CATCH and 
--- GAP_PRODUCTS.FOSS_HAUL to obtain the full list of species to zero-fill by 
--- for each survey
+-- Query to pull unique species_codes in GAP_PRODUCTS.CPUE for each 
+-- survey region
 --
 -- Contributors: Ned Laman (ned.laman@noaa.gov), 
 --               Zack Oyafuso (zack.oyafuso@noaa.gov), 
 --               Emily Markowitz (emily.markowitz@noaa.gov)
 --
 
-CREATE MATERIALIZED VIEW GAP_PRODUCTS.FOSS_SURVEY_SPECIES AS
+CREATE VIEW GAP_PRODUCTS.FOSS_SURVEY_SPECIES AS
 SELECT DISTINCT 
-fc.SPECIES_CODE, 
-fh.SURVEY_DEFINITION_ID
-FROM GAP_PRODUCTS.FOSS_CATCH fc
-LEFT JOIN GAP_PRODUCTS.FOSS_HAUL fh
-ON fc.HAULJOIN = fh.HAULJOIN
+  CRUISE.SURVEY_DEFINITION_ID,
+  CPUE.SPECIES_CODE
+FROM 
+  GAP_PRODUCTS.CPUE CPUE
+LEFT JOIN 
+  GAP_PRODUCTS.HAUL HAUL ON HAUL.HAULJOIN = CPUE.HAULJOIN
+LEFT JOIN
+  GAP_PRODUCTS.CRUISE CRUISE ON CRUISE.CRUISEJOIN = HAUL.CRUISEJOIN
+ORDER BY 
+  SPECIES_CODE, SURVEY_DEFINITION_ID
+;
