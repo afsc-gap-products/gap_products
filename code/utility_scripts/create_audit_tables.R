@@ -21,9 +21,8 @@ gaparchive_channel <- gapindex::get_connected(db = "AFSC", check_access = F)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 for (itable in c("AGECOMP", "AREA", "BIOMASS", "CPUE", "SIZECOMP",
-                 "SPECIES_YEAR", "SURVEY_DESIGN", "STRATUM_GROUPS",
-                 "METADATA_COLUMN"
-                 )) { ## Loop over table -- start
+                 "SURVEY_DESIGN", "STRATUM_GROUPS", "METADATA_COLUMN")
+) { ## Loop over table -- start
   
   ## Retrieve the primary key columns that make up the itable.
   key_columns <- RODBC::sqlQuery(channel = gaparchive_channel,
@@ -155,7 +154,7 @@ ORDER BY COLUMN_NAME;"))
       paste0(c(key_columns$COLUMN_NAME, 
                response_columns$COLUMN_NAME[
                  response_columns$COLUMN_TYPE == "_CURRENT"
-                 ]), 
+               ]), 
              collapse = ", "), ")\n",
       "    VALUES (", "'DELETE', SYSTIMESTAMP, USER, ", 
       
@@ -175,9 +174,9 @@ ORDER BY COLUMN_NAME;"))
              yes = paste0(
                ", ", 
                paste0(as.vector(sapply(X = response_column_names$COLUMN_NAME, 
-                                             FUN = function(x) 
-                                               paste0(c(":OLD.", ":NEW."), x))), 
-                            collapse = ", "), ");\n")),
+                                       FUN = function(x) 
+                                         paste0(c(":OLD.", ":NEW."), x))), 
+                      collapse = ", "), ");\n")),
       
       "\n  END IF;\nEND;\n")
   
