@@ -10,11 +10,10 @@ title: Data Description
 ```{r table-locations, eval = TRUE, echo = FALSE}
 str00 <- print_table_metadata(
   channel, 
-  locations = c("CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", 
-                "SURVEY_DESIGN", "STRATUM_GROUPS", "SPECIES_YEAR",
-                "TAXON_GROUPS", "CRUISE", "HAUL", "LENGTH", "METADATA_COLUMN", 
-                "SPECIMEN", "TAXONOMIC_CLASSIFICATION", "TAXONOMIC_GROUPS", 
-                "ENVIRONMENTAL", "VARIABLE_CODES", "INSTRUMENT_CODES", "DIRECTION_CODES") 
+  locations = 
+    c("HAUL", "CPUE", "BIOMASS", "SIZECOMP", "AGECOMP", "AREA", "SURVEY_DESIGN", 
+      "STRATUM_GROUPS", "CRUISE", "LENGTH", "METADATA_COLUMN", "SPECIMEN", 
+      "ENVIRONMENTAL", "VARIABLE_CODES", "INSTRUMENT_CODES", "DIRECTION_CODES") 
 )
 ```
 

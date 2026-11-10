@@ -185,26 +185,37 @@ style FF fill:white,::
 
 ### During each data product run cycle:
 
-1.  Versions of the tables in GAP_PRODUCTS are locally imported within the gap_products repository to compare with the updated production tables. Any changes to a production table will be compared and checked to make sure those changes are intentional and documented.
+1.  The `gapindex` R package is used to calculate the four major standard GAP_PRODUCTS data tables: CPUE, BIOMASS, SIZECOMP, AGECOMP across regions, year, and taxa. 
 
-2.  Use the `gapindex` R package to calculate the four major standard data products: CPUE, BIOMASS, SIZECOMP, AGECOMP. These tables are compared and checked to their respective locally saved copies and any changes to the tables are vetted and documented. These tables are then uploaded to the GAP_PRODUCTS Oracle schema.
+2.  Each updated data table is compared to what is currently on GAP_PRODUCTS. Any new/removed/modified records are documented and checked to make sure the changes are intentional and pushed to a stage table in GAP_PRODUCTS. 
 
-3.  Calculate the various materialized views for AKFIN and FOSS purposes. Since these are derivative of the tables in GAP_PRODUCTS as well as other base tables in RACEBASE and RACE_DATA, it is not necessary to check these views in addition to the data checks done in the previous steps.
+3.  GAP_PRODUCTS tables are then updated to reflect the new changes in the data table.
+
+4.  GAP_PRODUCTS tables from the AFSC Oracle server are then transferred to the AKFIN Oracle server in the GAP_PRODUCTS_STAGE schema. 
+
+5.  A changelog that summarizes data table changes are uploaded to the News section of the gap_products website. 
 
 ```{r}
 dat <- data.frame(matrix(data = c(
   "TABLE NAMES" ,"TABLE TYPE","REFRESH FREQUENCY",
+  
   "AGECOMP\nBIOMASS\nCPUE\nSIZECOMP",
   "TABLE",
-  "Quarterly: manually updated according to the following schedule\nLate Summer: after survey data are finalized for each region surveyed\nEarly Fall: after Bering Sea pollock otoliths are read\nWinter: If there are changes to the taxonomic tables\nLate Spring: after Spring ages are updated","CRUISE","HAUL","LENGTH","SPECIMEN",
+  "Quarterly: manually updated according to the following schedule\nLate Summer: after survey data are finalized for each region surveyed\nEarly Fall: after Bering Sea pollock otoliths are read\nWinter: If there are changes to the taxonomic tables\nLate Spring: after Spring ages are updated",
+  
+  "CRUISE\nHAUL\nLENGTH\nSPECIMEN", 
   "MATERIALIZED VIEW",
-  "As needed: Refreshes any time the underlying tables for these queries change",
-  "SURVEY_DESIGN\nTAXONOMIC_CLASSIFICATION\nTAXONOMIC_GROUPS\nTAXONOMIC_CHANGES\nTAXON_GROUPS",
-  "TABLE",
+  "As needed: Refreshes any time the underlying tables for these queries change.",
+  
+  "SURVEY_DESIGN", 
+  "TABLE", 
   "Annually (beginning of year): manually updated.",
-  "AREA\nSTRATUM_GROUPS\nMETADATA_COLUMN\nMETADATA_TABLE\nSPECIES_YEAR",
-  "TABLE","As needed: manually updated.",
-  "SAMPLE_COUNT",
+  
+  "AREA\nSTRATUM_GROUPS\nMETADATA_COLUMN\nMETADATA_TABLE",
+  "TABLE",
+  "As needed: manually updated.",
+  
+  "SPECIMEN_COUNT",
   "VIEW",
   "When queried."), ncol = 3, byrow = TRUE)
 )
