@@ -44,10 +44,19 @@ stage_tables <- readRDS(file = "temp/stage_tables.RDS")
 
 detailed_notes <- 
   "Run completed by: Zack Oyafuso
- 
---Area-swept values for a handful of AI hauls in 2026 were adjusted due to an errant inclusion of one haul (HAULJOIN -24988) used in the imputation of estimated net spread for hauls without consistent net spread data. This resulted in < 0.35% difference in area-swept for ~ 50 affected hauls. Changes in area-swept affects values in the CPUE table are propogated through the age composition table.
 
---The precision level to compare area-swept values for the CPUE table was increased. As a result, there were some minor changes to various hauls that were not previously detected. These particular discrepancies do not affect CPUE values.
+-- New records for Allinectes ectenes, which used to be in the Careproctus Genus. 
+
+-- Sea cucumbers and basket stars are not aggregated anymore and are now shown for each SPECIES_CODE value, which adjusts values for higher taxonomic aggregations.
+
+-- Misc. SPECIES_CODE values in subphylum Anthozoa are now aggregated to SPECIES_CODE 41000 Anthozoa.
+
+-- Mysid shrimps are now aggregated to the Order Mysida (64000) instead of Family Mysidae (64100).
+
+-- Removal of complex-level data, species codes that are aggregated to higher taxonomic levels from sizecomp and agecomp tables. N_LENGTHS adjusted for removal of complex-level length data. 
+
+-- Correction of catch extrapolation process that affects the species catch weight and numbers for one EBS haul in 2025 (HAULJOIN -24238). This change impacts downstream biomass, sizecomp, and agecomp values. 
+
 "
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -115,5 +124,5 @@ for (itable in c("cpue", "biomass", "sizecomp", "agecomp")) {
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source("functions/summarize_gp_updates.R")
 summarize_gp_updates(channel = gapproducts_channel,
-                     time_start = "28-OCT-26 08.00.00 AM",
-                     time_end = "28-OCT-26 11.59.00 PM")
+                     time_start = "17-NOV-26 08.00.00 AM",
+                     time_end = "17-NOV-26 11.59.00 PM")

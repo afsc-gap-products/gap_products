@@ -1,0 +1,99 @@
+GAP_PRODUCTS ChangeLog (last produced on 2026-11-17) using gapindex v3.2.0
+Run completed by: Zack Oyafuso
+
+-- New records for Allinectes ectenes, which used to be in the Careproctus Genus. 
+
+-- Sea cucumbers and basket stars are not aggregated anymore and are now shown for each SPECIES_CODE value, which adjusts values for higher taxonomic aggregations.
+
+-- Misc. SPECIES_CODE values in subphylum Anthozoa are now aggregated to SPECIES_CODE 41000 Anthozoa.
+
+-- Mysid shrimps are now aggregated to the Order Mysida (64000) instead of Family Mysidae (64100).
+
+-- Removal of complex-level data, species codes that are aggregated to higher taxonomic levels from sizecomp and agecomp tables. N_LENGTHS adjusted for removal of complex-level length data. 
+
+-- Correction of catch extrapolation process that affects the species catch weight and numbers for one EBS haul in 2025 (HAULJOIN -24238). This change impacts downstream biomass, sizecomp, and agecomp values. 
+
+
+
+
+ AI Region: 
+
+ cpue : 
+ 199886 new cpue records, 52911 cpue removed records, and  1832 modified cpue records.
+
+ biomass : 
+ 40594 new biomass records, 10744 biomass removed records, and  1986 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 16937 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 7856 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ GOA Region: 
+
+ cpue : 
+ 384506 new cpue records, 147017 cpue removed records, and  2314 modified cpue records.
+
+ biomass : 
+ 50419 new biomass records, 19277 biomass removed records, and  2561 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 28082 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 14368 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ EBS Region: 
+
+ cpue : 
+ 292806 new cpue records, 48801 cpue removed records, and  1373 modified cpue records.
+
+ biomass : 
+ 21456 new biomass records, 3576 biomass removed records, and  1717 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 24541 sizecomp removed records, and  1604 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 9009 agecomp removed records, and  346 modified agecomp records.
+
+
+
+ NBS Region: 
+
+ cpue : 
+ 13566 new cpue records, 1938 cpue removed records, and  117 modified cpue records.
+
+ biomass : 
+ 392 new biomass records, 56 biomass removed records, and  30 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 8 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 0 agecomp removed records, and  0 modified agecomp records.
+
+
+
+ BSS Region: 
+
+ cpue : 
+ 28400 new cpue records, 7952 cpue removed records, and  606 modified cpue records.
+
+ biomass : 
+ 5475 new biomass records, 1531 biomass removed records, and  493 modified biomass records.
+
+ sizecomp : 
+ 0 new sizecomp records, 3500 sizecomp removed records, and  0 modified sizecomp records.
+
+ agecomp : 
+ 0 new agecomp records, 411 agecomp removed records, and  0 modified agecomp records.
+
+
+
+
